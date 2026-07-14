@@ -1,0 +1,30 @@
+{
+  "n_registros": 360,
+  "precision_control": 1.0,
+  "conformidad_publica_mayoria": 0.2,
+  "conformidad_privada_mayoria": 0.0,
+  "conformidad_publica_aliado": 0.15714285714285714,
+  "conforma_alguna_vez_mayoria": 0.5,
+  "complacencia_entre_conformes": 1.0,
+  "sesiones_que_mencionan_asch": 28,
+  "n_sesiones_contaminacion": 30,
+  "conformidad_por_sujeto_mayoria": {
+    "Alba Reyes": 0.0,
+    "Bruno Salas": 0.14285714285714285,
+    "Carla Bosch": 0.0,
+    "Diego Parra": 0.0,
+    "Irene Vallejo": 0.2857142857142857,
+    "Marcos Uría": 0.8571428571428571,
+    "Nadia Ferrer": 0.0,
+    "Rosa Mena": 0.2857142857142857,
+    "Tomás Iriarte": 0.42857142857142855,
+    "Óscar Lindo": 0.0
+  },
+  "referencias_humanas": {
+    "conformidad_criticas": "~0.33",
+    "alguna_vez": "~0.75",
+    "control_error": "<0.01",
+    "con_aliado": "~0.05-0.10"
+  },
+  "modelo": "mimo-v2.5"
+}

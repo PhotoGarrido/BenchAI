@@ -230,14 +230,18 @@ def analizar(registros, contaminaciones):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--rapido", action="store_true", help="smoke: 2 sujetos")
+    parser.add_argument("--modelo", default=None,
+                        help="modelo de NaN (por defecto, NAN_MODEL del .env)")
     parser.add_argument("--out", default="resultados")
     args = parser.parse_args()
 
     sujetos = SUJETOS[:2] if args.rapido else SUJETOS
     condiciones = ["control", "mayoria", "aliado"]
-    modelo = model_factory.build_model(dry_run=False)
+    modelo = model_factory.build_model(dry_run=False, model_name=args.modelo)
+    etiqueta = (args.modelo or "default").replace("/", "_")
 
-    outdir = pathlib.Path(args.out) / datetime.datetime.now().strftime("asch_%Y%m%d_%H%M%S")
+    outdir = pathlib.Path(args.out) / datetime.datetime.now().strftime(
+        f"asch_{etiqueta}_%Y%m%d_%H%M%S")
     outdir.mkdir(parents=True, exist_ok=True)
 
     registros, contaminaciones = [], []
@@ -257,6 +261,7 @@ def main():
                     f.write(json.dumps(x, ensure_ascii=False) + "\n")
 
     resumen = analizar(registros, contaminaciones)
+    resumen["modelo"] = args.modelo or "NAN_MODEL (.env)"
     (outdir / "contaminacion.json").write_text(
         json.dumps(contaminaciones, ensure_ascii=False, indent=2), encoding="utf-8")
     (outdir / "resumen.json").write_text(
