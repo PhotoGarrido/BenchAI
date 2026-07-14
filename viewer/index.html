@@ -38,9 +38,13 @@
     padding:14px; min-width:0; position:relative;
   }
   canvas{
-    background:#0e1015; border-radius:10px; border:1px solid var(--border);
+    background:#0e1015; border-radius:14px; border:1px solid var(--border);
     max-width:100%; max-height:100%; image-rendering:pixelated;
+    box-shadow:0 24px 70px -24px rgba(0,0,0,.8), 0 0 0 1px rgba(255,255,255,.04) inset;
   }
+  .agenteChip img{width:20px; height:20px; image-rendering:pixelated; border-radius:5px; background:var(--panel3); flex:0 0 auto}
+  .ev.activo{background:var(--panel2); border-color:var(--accent); box-shadow:-3px 0 0 0 var(--accent)}
+  .btn:active{transform:translateY(1px)}
   aside{
     width:330px; flex:0 0 330px; background:var(--panel);
     border-left:1px solid var(--border); display:flex; flex-direction:column; min-height:0;
@@ -169,9 +173,38 @@ function toast(msg){
 }
 function oscurecer(hex, f){
   const n = parseInt(hex.slice(1), 16);
-  const c = v => Math.max(0, Math.round(v * f));
+  const c = v => Math.max(0, Math.min(255, Math.round(v * f)));
   return `rgb(${c(n>>16)},${c((n>>8)&255)},${c(n&255)})`;
 }
+function easeOutBack(t){ const c = 1.70158; return 1 + (c+1)*Math.pow(t-1,3) + c*Math.pow(t-1,2); }
+
+/* Variación determinista de sprite por nombre (piel, pelo, estilo) */
+function variante(nombre){
+  let h = 0;
+  for(const c of nombre) h = (h*31 + c.charCodeAt(0)) >>> 0;
+  const PIELES = ["#f2c79b","#e8b48a","#dba473","#c98f5f","#a06a44","#f4d3ae"];
+  const PELOS  = ["#2e2a28","#4a3423","#6e4a2a","#8a6337","#3a3a44","#77392a","#b5b0a6","#57302f"];
+  return {piel:PIELES[h % 6], pelo:PELOS[(h>>3) % 8], estilo:(h>>6) % 5, pantalon:["#4d4a5a","#5a4a3e","#3f4a55","#54405c"][(h>>9) % 4]};
+}
+
+/* Retrato en miniatura (cabeza) para la leyenda */
+function retrato(a){
+  const c = document.createElement("canvas"); c.width = 14; c.height = 14;
+  const g = c.getContext("2d");
+  g.fillStyle = "#242837"; g.fillRect(0,0,14,14);
+  g.fillStyle = a.v.piel; g.fillRect(3,4,8,8);
+  g.fillStyle = a.v.pelo; g.fillRect(2,2,10,4);
+  if(a.v.estilo===1){ g.fillRect(2,2,2,9); g.fillRect(10,2,2,9); }
+  g.fillStyle = "#26262e"; g.fillRect(5,8,1,2); g.fillRect(9,8,1,2);
+  g.fillStyle = a.color; g.fillRect(0,12,14,2);
+  return c.toDataURL();
+}
+
+/* Partículas de polvo en el haz de luz de la ventana */
+const PARTICULAS = Array.from({length: 16}, (_, i) => ({
+  x: 520 + (i*53 % 230), y: 110 + (i*97 % 260), v: 0.12 + (i%5)*0.05, f: i*0.7,
+}));
+let TOTAL_PASOS = 1;
 
 /* ---------- Duración de cada evento (ms, a velocidad 1×) ---------- */
 function duracion(ev){
@@ -195,17 +228,22 @@ function cargarReplay(data){
   replay = data;
   agentes = data.agentes.map((a, i) => {
     const spot = SPOTS[a.spot] || SPOTS[SPOTS_DEFECTO[i % SPOTS_DEFECTO.length]];
+    const color = a.color || ["#e4572e","#4d9de0","#3bb273","#b86fc6","#f2a65a","#e26d8f"][i % 6];
     return {
-      ...a,
-      color: a.color || ["#e4572e","#4d9de0","#3bb273","#b86fc6","#f2a65a","#e26d8f"][i % 6],
-      pos: {x: spot.x + (i%2 ? 14 : -14), y: spot.y},
-      destino: null, cara: 1, blink: Math.random()*4000, andando: false,
+      ...a, color,
+      // segunda vuelta de spots desplazada para que los sprites no se apilen
+      pos: {x: spot.x + (i%2 ? 16 : -16) + (i >= 6 ? 10 : 0),
+            y: spot.y + (i >= 6 ? 28 : 0)},
+      destino: null, cara: 1, dir: "down", walk: 0, emote: null,
+      v: variante(a.nombre || String(i)),
+      blink: Math.random()*4000, andando: false,
     };
   });
+  TOTAL_PASOS = Math.max(1, ...data.eventos.filter(e => e.tipo === "paso").map(e => e.n || 1));
   $("tituloSesion").textContent = data.meta?.titulo || "Sesión sin título";
   $("descripcion").textContent = data.meta?.descripcion || "";
   $("leyenda").innerHTML = agentes.map(a =>
-    `<div class="agenteChip"><span class="punto" style="background:${a.color}"></span>
+    `<div class="agenteChip"><img src="${retrato(a)}" alt="">
      <span>${a.nombre}</span>${a.rol ? `<span class="rol">· ${a.rol}</span>` : ""}</div>`).join("");
   construirFeed();
   $("barra").max = Math.max(0, data.eventos.length - 1);
@@ -259,14 +297,19 @@ function aplicarEvento(ev, instantaneo){
     if(ev.hacia){
       const dest = agentes.find(a => a.id === ev.hacia);
       if(dest){
-        ag.cara = dest.pos.x >= ag.pos.x ? 1 : -1;
-        dest.cara = ag.pos.x >= dest.pos.x ? 1 : -1;
+        ag.dir = Math.abs(dest.pos.x - ag.pos.x) >= Math.abs(dest.pos.y - ag.pos.y)
+          ? (dest.pos.x >= ag.pos.x ? "right" : "left")
+          : (dest.pos.y >= ag.pos.y ? "down" : "up");
+        dest.dir = Math.abs(ag.pos.x - dest.pos.x) >= Math.abs(ag.pos.y - dest.pos.y)
+          ? (ag.pos.x >= dest.pos.x ? "right" : "left")
+          : (ag.pos.y >= dest.pos.y ? "down" : "up");
       }
     }
+    if(ev.tipo === "accion") ag.emote = {t: 0, char: "✦"};
     burbuja = {
       agenteId: ag.id, texto: ev.texto || "",
       pensamiento: ev.tipo === "pensamiento",
-      accion: ev.tipo === "accion", progreso: 0,
+      accion: ev.tipo === "accion", progreso: 0, pop: 0,
     };
     narrador = null;
   }
@@ -296,8 +339,9 @@ function buscar(i){
   // Reconstruye el estado del mundo desde cero hasta i (posiciones y paso).
   agentes.forEach((a, j) => {
     const spot = SPOTS[a.spot] || SPOTS[SPOTS_DEFECTO[j % SPOTS_DEFECTO.length]];
-    a.pos = {x: spot.x + (j%2 ? 14 : -14), y: spot.y};
-    a.destino = null; a.cara = 1;
+    a.pos = {x: spot.x + (j%2 ? 16 : -16) + (j >= 6 ? 10 : 0),
+             y: spot.y + (j >= 6 ? 28 : 0)};
+    a.destino = null; a.dir = "down"; a.walk = 0; a.emote = null;
   });
   pasoActual = 0; burbuja = null; narrador = null;
   for(let k = 0; k < i; k++) aplicarEvento(replay.eventos[k], true);
@@ -333,18 +377,22 @@ function tick(ts){
   for(const a of agentes){
     a.blink -= dt;
     if(a.blink < -150) a.blink = 2500 + Math.random()*3500;
+    if(a.emote){ a.emote.t += dt; if(a.emote.t > 900) a.emote = null; }
     if(a.destino){
       const dx = a.destino.x - a.pos.x, dy = a.destino.y - a.pos.y;
       const dist = Math.hypot(dx, dy);
       const pasoPx = 0.11 * dt * velocidad;
       if(dist < pasoPx){ a.pos = {...a.destino}; a.destino = null; a.andando = false; }
       else {
-        a.cara = dx >= 0 ? 1 : -1; a.andando = true;
+        a.dir = Math.abs(dx) >= Math.abs(dy) ? (dx >= 0 ? "right" : "left")
+                                             : (dy >= 0 ? "down" : "up");
+        a.andando = true; a.walk += dt * velocidad;
         a.pos.x += dx / dist * pasoPx; a.pos.y += dy / dist * pasoPx;
       }
     } else a.andando = false;
   }
 
+  if(burbuja) burbuja.pop = Math.min(1, (burbuja.pop || 0) + dt / 200);
   if(replay && reproduciendo){
     if(burbuja) burbuja.progreso = Math.min(1, burbuja.progreso + dt * velocidad / (duracion(replay.eventos[idx]) * 0.6));
     if(narrador) narrador.alpha = Math.min(1, narrador.alpha + dt / 300);
@@ -361,133 +409,253 @@ function tick(ts){
 function dibujar(ts){
   ctx.clearRect(0, 0, W, H);
 
-  // Suelo ajedrezado
-  for(let ty = 3; ty < H/TILE; ty++){
-    for(let tx = 0; tx < W/TILE; tx++){
-      ctx.fillStyle = (tx + ty) % 2 ? "#d5c3a0" : "#cdba95";
-      ctx.fillRect(tx*TILE, ty*TILE, TILE, TILE);
+  // ── Suelo: tarima de madera ──
+  for(let ty = 96, fila = 0; ty < H; ty += 22, fila++){
+    ctx.fillStyle = fila % 2 ? "#d8c093" : "#cfb789";
+    ctx.fillRect(0, ty, W, 22);
+    ctx.fillStyle = "rgba(120,90,55,.22)";
+    ctx.fillRect(0, ty + 20, W, 2);
+    const off = (fila % 3) * 110;
+    for(let sx = off; sx < W; sx += 320){
+      ctx.fillRect(sx, ty, 2, 20);
+      ctx.fillStyle = "rgba(120,90,55,.10)";
+      ctx.fillRect(sx + 40, ty + 6, 14, 2);
+      ctx.fillStyle = "rgba(120,90,55,.22)";
     }
   }
-  // Pared superior
-  ctx.fillStyle = "#7d6d59"; ctx.fillRect(0, 0, W, 3*TILE);
-  ctx.fillStyle = "#6e5f4e"; ctx.fillRect(0, 3*TILE - 10, W, 10);
-  // Zócalo de la pared
-  ctx.fillStyle = "#8a7a66";
-  for(let tx = 0; tx < W/TILE; tx++) ctx.fillRect(tx*TILE + 2, 6, TILE - 4, 2);
 
-  // Ventana
-  ctx.fillStyle = "#54483a"; ctx.fillRect(608, 18, 128, 62);
-  ctx.fillStyle = "#a8d0e0"; ctx.fillRect(614, 24, 55, 50); ctx.fillRect(675, 24, 55, 50);
-  ctx.fillStyle = "#c3e2ee"; ctx.fillRect(618, 28, 20, 18);
+  // ── Alfombra grande bajo la mesa ──
+  const rx = 336, ry = 280, rw = 290, rh = 200;
+  ctx.fillStyle = "#a8503c"; ctx.fillRect(rx, ry, rw, rh);
+  ctx.fillStyle = "#b95f45"; ctx.fillRect(rx+8, ry+8, rw-16, rh-16);
+  ctx.fillStyle = "#cd7454"; ctx.fillRect(rx+20, ry+20, rw-40, rh-40);
+  ctx.fillStyle = "rgba(255,235,200,.25)";
+  for(let i = 0; i < 5; i++){ ctx.fillRect(rx+34+i*48, ry+34, 20, 3); ctx.fillRect(rx+34+i*48, ry+rh-37, 20, 3); }
+  ctx.fillStyle = "rgba(90,40,25,.30)";
+  ctx.fillRect(rx+8, ry+8, rw-16, 3); ctx.fillRect(rx+8, ry+rh-11, rw-16, 3);
 
-  // Tablón de anuncios
-  ctx.fillStyle = "#54483a"; ctx.fillRect(140, 16, 110, 66);
-  ctx.fillStyle = "#caa96e"; ctx.fillRect(146, 22, 98, 54);
-  ctx.fillStyle = "#f4efe2"; ctx.fillRect(154, 30, 30, 38); ctx.fillRect(196, 34, 34, 26);
-  ctx.fillStyle = "#b8452f"; ctx.fillRect(154, 30, 30, 6);
+  // ── Pared superior ──
+  const grad = ctx.createLinearGradient(0, 0, 0, 96);
+  grad.addColorStop(0, "#93816c"); grad.addColorStop(1, "#84735f");
+  ctx.fillStyle = grad; ctx.fillRect(0, 0, W, 96);
+  ctx.fillStyle = "rgba(255,245,220,.06)";
+  for(let sx = 0; sx < W; sx += 64) ctx.fillRect(sx, 0, 1, 88);
+  ctx.fillStyle = "#6b5b49"; ctx.fillRect(0, 86, W, 10);   // zócalo
+  ctx.fillStyle = "#7d6c58"; ctx.fillRect(0, 84, W, 2);
 
-  // Reloj de pared
-  ctx.fillStyle = "#54483a"; ctx.beginPath(); ctx.arc(480, 46, 20, 0, 7); ctx.fill();
-  ctx.fillStyle = "#f4efe2"; ctx.beginPath(); ctx.arc(480, 46, 16, 0, 7); ctx.fill();
-  ctx.strokeStyle = "#333"; ctx.beginPath(); ctx.moveTo(480, 46); ctx.lineTo(480, 35);
-  ctx.moveTo(480, 46); ctx.lineTo(489, 48); ctx.stroke();
+  // Tablón de anuncios (con papeles y chinchetas)
+  ctx.fillStyle = "rgba(0,0,0,.25)"; ctx.fillRect(136, 20, 118, 70);
+  ctx.fillStyle = "#5a4c3c"; ctx.fillRect(132, 16, 118, 70);
+  ctx.fillStyle = "#c8a66c"; ctx.fillRect(138, 22, 106, 58);
+  ctx.fillStyle = "#f7f2e4"; ctx.fillRect(146, 30, 32, 40);
+  ctx.fillStyle = "#efe7d2"; ctx.fillRect(186, 34, 28, 24); ctx.fillRect(220, 30, 18, 34);
+  ctx.fillStyle = "#c25038"; ctx.fillRect(146, 30, 32, 7);
+  ctx.fillStyle = "rgba(60,40,20,.5)";
+  ctx.fillRect(150, 40, 24, 2); ctx.fillRect(150, 46, 24, 2); ctx.fillRect(150, 52, 18, 2);
+  ctx.fillStyle = "#d8433f"; ctx.fillRect(160, 28, 3, 3); ctx.fillRect(198, 32, 3, 3); ctx.fillRect(227, 28, 3, 3);
 
-  // Puerta (abajo-izquierda, en el suelo como felpudo + hoja en pared lateral)
-  ctx.fillStyle = "#8a5a35"; ctx.fillRect(96, 556, 96, 48);
-  ctx.fillStyle = "#a06a40"; ctx.fillRect(102, 562, 84, 36);
+  // Cuadros
+  ctx.fillStyle = "#5a4c3c"; ctx.fillRect(330, 26, 44, 34); ctx.fillRect(394, 32, 30, 24);
+  ctx.fillStyle = "#8fae94"; ctx.fillRect(334, 30, 36, 26);
+  ctx.fillStyle = "#b7c9e0"; ctx.fillRect(398, 36, 22, 16);
+  ctx.fillStyle = "rgba(255,255,255,.25)"; ctx.fillRect(336, 32, 10, 6);
 
-  // Alfombra central
-  ctx.fillStyle = "#b5563f"; ctx.fillRect(352, 288, 256, 176);
-  ctx.fillStyle = "#a34c38"; ctx.fillRect(364, 300, 232, 152);
-  ctx.fillStyle = "#c96a4e"; ctx.fillRect(376, 312, 208, 128);
+  // Reloj (la aguja avanza con el paso)
+  ctx.fillStyle = "rgba(0,0,0,.2)"; ctx.beginPath(); ctx.arc(492, 50, 21, 0, 7); ctx.fill();
+  ctx.fillStyle = "#5a4c3c"; ctx.beginPath(); ctx.arc(490, 48, 21, 0, 7); ctx.fill();
+  ctx.fillStyle = "#f6f0df"; ctx.beginPath(); ctx.arc(490, 48, 17, 0, 7); ctx.fill();
+  const angulo = -Math.PI/2 + (pasoActual / TOTAL_PASOS) * Math.PI * 1.6;
+  ctx.strokeStyle = "#3a352e"; ctx.lineWidth = 2; ctx.beginPath();
+  ctx.moveTo(490, 48); ctx.lineTo(490 + Math.cos(angulo)*12, 48 + Math.sin(angulo)*12);
+  ctx.moveTo(490, 48); ctx.lineTo(490 + Math.cos(angulo*1.7)*7, 48 + Math.sin(angulo*1.7)*7);
+  ctx.stroke(); ctx.lineWidth = 1;
 
-  // Mesa con sillas
-  ctx.fillStyle = "rgba(0,0,0,.18)"; ctx.fillRect(420, 330, 124, 62);
-  ctx.fillStyle = "#8a6a44"; ctx.fillRect(416, 322, 128, 62);
-  ctx.fillStyle = "#9d7b50"; ctx.fillRect(422, 328, 116, 50);
+  // Ventana (4 hojas + cielo)
+  ctx.fillStyle = "rgba(0,0,0,.25)"; ctx.fillRect(596, 16, 168, 74);
+  ctx.fillStyle = "#5a4c3c"; ctx.fillRect(592, 12, 168, 74);
+  const cielo = ctx.createLinearGradient(0, 16, 0, 82);
+  cielo.addColorStop(0, "#bfe0ec"); cielo.addColorStop(1, "#9cc7da");
+  ctx.fillStyle = cielo;
+  ctx.fillRect(598, 18, 75, 29); ctx.fillRect(679, 18, 75, 29);
+  ctx.fillRect(598, 53, 75, 27); ctx.fillRect(679, 53, 75, 27);
+  ctx.fillStyle = "rgba(255,255,255,.5)"; ctx.fillRect(604, 22, 26, 10); ctx.fillRect(700, 40, 34, 6);
+  ctx.fillStyle = "#efe7d2"; ctx.fillRect(592, 86, 168, 6);   // repisa
+
+  // ── Haz de luz de la ventana + polvo ──
+  const luz = ctx.createLinearGradient(670, 96, 590, 400);
+  luz.addColorStop(0, "rgba(255,244,200,.14)"); luz.addColorStop(1, "rgba(255,244,200,0)");
+  ctx.fillStyle = luz;
+  ctx.beginPath(); ctx.moveTo(600, 96); ctx.lineTo(756, 96); ctx.lineTo(680, 410); ctx.lineTo(470, 410); ctx.closePath(); ctx.fill();
+  ctx.fillStyle = "rgba(255,250,225,.55)";
+  for(const p of PARTICULAS){
+    const py = 110 + ((p.y - 110 + ts * p.v * 0.03) % 270);
+    const px = p.x + Math.sin(ts/1400 + p.f) * 9;
+    ctx.globalAlpha = 0.25 + 0.3 * Math.sin(ts/900 + p.f);
+    ctx.fillRect(px, py, 2, 2);
+  }
+  ctx.globalAlpha = 1;
+
+  // ── Muebles ──
+  // Mesa con vetas, tazas y papeles + sillas
   ctx.fillStyle = "#6e5436";
-  [[398,338],[550,338],[470,296]].forEach(([x,y]) => ctx.fillRect(x, y, 16, 16));
+  [[396,336],[550,336],[468,294]].forEach(([x,y]) => { ctx.fillRect(x, y, 18, 18); ctx.fillStyle="#7d6140"; ctx.fillRect(x+2, y+2, 14, 5); ctx.fillStyle="#6e5436"; });
+  ctx.fillStyle = "rgba(0,0,0,.22)"; ctx.fillRect(422, 332, 126, 60);
+  ctx.fillStyle = "#8a6a44"; ctx.fillRect(416, 322, 128, 64);
+  ctx.fillStyle = "#a07c4e"; ctx.fillRect(421, 327, 118, 54);
+  ctx.fillStyle = "rgba(120,85,45,.45)";
+  ctx.fillRect(428, 338, 104, 2); ctx.fillRect(428, 352, 104, 2); ctx.fillRect(428, 366, 104, 2);
+  ctx.fillStyle = "#f2ece0"; ctx.fillRect(448, 342, 16, 12);          // papel
+  ctx.fillStyle = "#e8e0d0"; ctx.fillRect(452, 346, 16, 12);
+  ctx.fillStyle = "#7a4a3a"; ctx.beginPath(); ctx.arc(510, 350, 6, 0, 7); ctx.fill();  // taza
+  ctx.fillStyle = "#5f382c"; ctx.beginPath(); ctx.arc(510, 350, 4, 0, 7); ctx.fill();
 
-  // Sofá
-  ctx.fillStyle = "#b0713f"; ctx.fillRect(724, 428, 130, 54);
-  ctx.fillStyle = "#d9a05b"; ctx.fillRect(730, 434, 56, 40); ctx.fillRect(792, 434, 56, 40);
-  ctx.fillStyle = "#9a6136"; ctx.fillRect(724, 420, 130, 12);
+  // Sofá con cojines y manta
+  ctx.fillStyle = "rgba(0,0,0,.22)"; ctx.fillRect(722, 432, 138, 56);
+  ctx.fillStyle = "#96552f"; ctx.fillRect(716, 414, 142, 16);          // respaldo
+  ctx.fillStyle = "#b0713f"; ctx.fillRect(716, 428, 142, 52);
+  ctx.fillStyle = "#d9a05b"; ctx.fillRect(724, 434, 58, 40); ctx.fillRect(790, 434, 58, 40);
+  ctx.fillStyle = "rgba(255,235,200,.35)"; ctx.fillRect(724, 434, 58, 6); ctx.fillRect(790, 434, 58, 6);
+  ctx.fillStyle = "#8fae94"; ctx.fillRect(716, 452, 30, 28);           // manta
+  ctx.fillStyle = "rgba(60,90,70,.5)"; ctx.fillRect(716, 460, 30, 3); ctx.fillRect(716, 470, 30, 3);
+  ctx.fillStyle = "#96552f"; ctx.fillRect(710, 428, 8, 52); ctx.fillRect(856, 428, 8, 52);  // reposabrazos
 
-  // Plantas
-  for(const [px, py] of [[880, 120], [60, 120], [880, 560]]){
-    ctx.fillStyle = "#8a5a35"; ctx.fillRect(px, py + 22, 24, 18);
-    ctx.fillStyle = "#4e7a3f";
-    ctx.beginPath(); ctx.arc(px + 12, py + 12, 16, 0, 7); ctx.fill();
-    ctx.fillStyle = "#5f9350";
-    ctx.beginPath(); ctx.arc(px + 5, py + 6, 9, 0, 7); ctx.fill();
+  // Lámpara de pie junto al sofá (halo cálido)
+  const halo = ctx.createRadialGradient(700, 420, 4, 700, 420, 60);
+  halo.addColorStop(0, "rgba(255,214,140,.30)"); halo.addColorStop(1, "rgba(255,214,140,0)");
+  ctx.fillStyle = halo; ctx.beginPath(); ctx.arc(700, 420, 60, 0, 7); ctx.fill();
+  ctx.fillStyle = "#4c4038"; ctx.fillRect(697, 408, 5, 60); ctx.fillRect(688, 466, 24, 5);
+  ctx.fillStyle = "#e8c07a"; ctx.beginPath(); ctx.moveTo(686, 408); ctx.lineTo(713, 408); ctx.lineTo(707, 388); ctx.lineTo(692, 388); ctx.closePath(); ctx.fill();
+
+  // Puerta / felpudo (sur-oeste)
+  ctx.fillStyle = "#6b4a2c"; ctx.fillRect(92, 552, 104, 56);
+  ctx.fillStyle = "#8a5f37"; ctx.fillRect(98, 558, 92, 44);
+  ctx.fillStyle = "rgba(60,35,15,.4)";
+  ctx.fillRect(104, 564, 80, 2); ctx.fillRect(104, 572, 80, 2); ctx.fillRect(104, 580, 80, 2); ctx.fillRect(104, 588, 80, 2);
+
+  // Plantas (maceta con brillo + follaje en capas)
+  for(const [px, py] of [[876, 116], [56, 116], [876, 556]]){
+    ctx.fillStyle = "rgba(0,0,0,.2)"; ctx.beginPath(); ctx.ellipse(px+14, py+42, 14, 4, 0, 0, 7); ctx.fill();
+    ctx.fillStyle = "#96552f"; ctx.fillRect(px+2, py+24, 24, 18);
+    ctx.fillStyle = "#b0713f"; ctx.fillRect(px+2, py+24, 24, 5);
+    ctx.fillStyle = "#3f6a34"; ctx.beginPath(); ctx.arc(px+14, py+12, 17, 0, 7); ctx.fill();
+    ctx.fillStyle = "#548a44"; ctx.beginPath(); ctx.arc(px+8, py+8, 11, 0, 7); ctx.fill();
+    ctx.fillStyle = "#6aa456"; ctx.beginPath(); ctx.arc(px+19, py+5, 7, 0, 7); ctx.fill();
   }
 
-  // Agentes (ordenados por Y para solaparse bien)
+  // ── Personajes (ordenados por Y) ──
   [...agentes].sort((a, b) => a.pos.y - b.pos.y).forEach(a => dibujarAgente(a, ts));
+
+  // Emotes flotantes (chispas de acción)
+  for(const a of agentes){
+    if(!a.emote) continue;
+    const t = a.emote.t / 900;
+    ctx.globalAlpha = 1 - t;
+    ctx.font = "14px sans-serif"; ctx.textAlign = "center";
+    ctx.fillStyle = "#ffd77a";
+    ctx.fillText(a.emote.char, a.pos.x + 16, a.pos.y - 44 - t * 14);
+    ctx.globalAlpha = 1;
+  }
 
   // Bocadillo del evento actual
   if(burbuja){
     const ag = agentes.find(x => x.id === burbuja.agenteId);
-    if(ag) dibujarBurbuja(ag);
+    if(ag) dibujarBurbuja(ag, ts);
   }
 
   // Banda del narrador
-  if(narrador) dibujarNarrador();
+  if(narrador) dibujarNarrador(ts);
+
+  // ── Luz según la hora del día (mañana → tarde) ──
+  const t = Math.min(1, pasoActual / TOTAL_PASOS);
+  const manana = 0.06 * Math.max(0, 1 - t * 2);
+  const tarde = 0.11 * Math.max(0, (t - 0.5) * 2);
+  if(manana > 0){ ctx.fillStyle = `rgba(200,225,255,${manana})`; ctx.fillRect(0, 0, W, H); }
+  if(tarde > 0){ ctx.fillStyle = `rgba(255,150,70,${tarde})`; ctx.fillRect(0, 0, W, H); }
+
+  // Viñeta
+  const vin = ctx.createRadialGradient(W/2, H/2, H/3, W/2, H/2, H*0.85);
+  vin.addColorStop(0, "rgba(0,0,0,0)"); vin.addColorStop(1, "rgba(15,10,5,.30)");
+  ctx.fillStyle = vin; ctx.fillRect(0, 0, W, H);
 
   // Indicador de paso
   if(replay){
-    ctx.fillStyle = "rgba(14,16,21,.72)";
-    ctx.fillRect(12, H - 40, 118, 28);
+    ctx.fillStyle = "rgba(14,16,21,.78)";
+    ctx.beginPath(); ctx.roundRect(12, H - 42, 122, 30, 8); ctx.fill();
     ctx.fillStyle = "#f2a65a"; ctx.font = "bold 13px ui-monospace,monospace";
     ctx.textAlign = "left";
-    ctx.fillText(`PASO ${pasoActual}`, 24, H - 21);
+    ctx.fillText(`PASO ${pasoActual}`, 26, H - 22);
   }
 }
 
 function dibujarAgente(a, ts){
   const {x, y} = a.pos;
-  const bob = a.andando ? Math.sin(ts / 90) * 2.5 : Math.sin(ts / 600 + x) * 1.2;
+  const S = 2;                              // px físicos por "píxel" lógico
+  const frame = a.andando ? Math.floor(a.walk / 130) % 2 : 0;
+  const bob = a.andando ? (frame ? -1 : 0) : Math.round(Math.sin(ts/750 + x) * 0.9);
   const hablando = burbuja && burbuja.agenteId === a.id && !burbuja.pensamiento;
-  const salto = hablando ? Math.abs(Math.sin(ts / 220)) * 2 : 0;
+  const salto = hablando ? Math.round(Math.abs(Math.sin(ts / 240)) * 2) : 0;
+  const dir = a.dir || "down";
+  const v = a.v;
+  const sombra = oscurecer(a.color, 0.72);
 
-  // sombra
-  ctx.fillStyle = "rgba(0,0,0,.25)";
-  ctx.beginPath(); ctx.ellipse(x, y + 21, 13, 5, 0, 0, 7); ctx.fill();
+  // sombra en el suelo
+  ctx.fillStyle = "rgba(30,15,5,.28)";
+  ctx.beginPath(); ctx.ellipse(x, y + 22, 13, 5, 0, 0, 7); ctx.fill();
 
   ctx.save();
-  ctx.translate(x, y + bob - salto);
-  ctx.scale(a.cara, 1);
+  ctx.translate(Math.round(x), Math.round(y + bob - salto));
+  if(dir === "left") ctx.scale(-1, 1);
+  const P = (px, py, w, h, c) => { ctx.fillStyle = c; ctx.fillRect(px*S, py*S, w*S, h*S); };
 
-  // piernas
-  ctx.fillStyle = "#3a3a48";
-  ctx.fillRect(-7, 10, 6, 10); ctx.fillRect(1, 10, 6, 10);
-  // cuerpo
-  ctx.fillStyle = a.color;
-  ctx.fillRect(-10, -6, 20, 18);
-  ctx.fillStyle = oscurecer(a.color, 0.8);
-  ctx.fillRect(-10, 8, 20, 4);
-  // brazos
-  ctx.fillStyle = oscurecer(a.color, 0.85);
-  ctx.fillRect(-13, -4, 4, 12); ctx.fillRect(9, -4, 4, 12);
+  // piernas y zapatos (el ciclo de andar alterna)
+  const l1 = a.andando ? (frame ? -1 : 0) : 0;   // pierna izquierda levantada
+  const l2 = a.andando ? (frame ? 0 : -1) : 0;
+  P(-4, 6 + l1, 3, 4, v.pantalon); P(1, 6 + l2, 3, 4, v.pantalon);
+  P(-4, 9 + l1, 3, 2, "#33291f");  P(1, 9 + l2, 3, 2, "#33291f");
+
+  // torso (camisa del color del agente, con sombreado lateral)
+  P(-5, -4, 10, 10, a.color);
+  P(3, -4, 2, 10, sombra);
+  P(-5, 4, 10, 2, sombra);                        // cinturón
+  if(dir === "up") P(-5, -4, 10, 10, sombra);     // de espaldas, más oscuro
+
+  // brazos (balanceo al andar)
+  const b1 = a.andando ? (frame ? 1 : -1) : 0;
+  P(-7, -3 + b1, 2, 6, sombra); P(5, -3 - b1, 2, 6, sombra);
+  P(-7, 3 + b1, 2, 2, v.piel);  P(5, 3 - b1, 2, 2, v.piel);
+
   // cabeza
-  ctx.fillStyle = "#f0c8a0"; ctx.fillRect(-8, -22, 16, 15);
-  // pelo (variante por agente)
-  ctx.fillStyle = oscurecer(a.color, 0.45);
-  ctx.fillRect(-8, -24, 16, 6);
-  ctx.fillRect(-8, -22, 3, 10);
-  // ojos (con parpadeo)
-  if(a.blink > 0){
-    ctx.fillStyle = "#26262e";
-    ctx.fillRect(1, -16, 2.5, 3); ctx.fillRect(6, -16, 2.5, 3);
+  P(-4, -12, 8, 8, v.piel);
+  P(2, -12, 2, 8, oscurecer(v.piel, 0.88));
+
+  // pelo según estilo y dirección
+  const pelo = v.pelo;
+  if(dir === "up"){
+    P(-4, -13, 8, 8, pelo);                       // nuca
+  } else {
+    if(v.estilo === 0){ P(-4, -13, 8, 3, pelo); }                              // corto
+    else if(v.estilo === 1){ P(-4, -13, 8, 3, pelo); P(-5, -12, 1, 6, pelo); P(4, -12, 1, 6, pelo); }  // media melena
+    else if(v.estilo === 2){ P(-4, -13, 8, 3, pelo); P(-1, -15, 3, 2, pelo); }  // moño
+    else if(v.estilo === 3){ P(-4, -13, 8, 2, pelo); P(-4, -5, 8, 2, pelo); }   // calvicie + barba
+    else { P(-4, -13, 8, 2, pelo); P(-4, -13, 3, 5, pelo); }                    // flequillo lateral
+  }
+
+  // cara (no visible de espaldas)
+  if(dir !== "up" && a.blink > 0){
+    ctx.fillStyle = "#241f1d";
+    if(dir === "down"){ ctx.fillRect(-3*S, -9*S, S, S+1); ctx.fillRect(1*S, -9*S, S, S+1); }
+    else { ctx.fillRect(0, -9*S, S, S+1); ctx.fillRect(3*S, -9*S, S, S+1); }    // perfil
   }
   ctx.restore();
 
-  // nombre
-  ctx.font = "bold 11px -apple-system,sans-serif"; ctx.textAlign = "center";
+  // etiqueta de nombre (píldora)
   const nombre = a.nombre.split(" ")[0];
-  ctx.lineWidth = 3; ctx.strokeStyle = "rgba(14,16,21,.75)";
-  ctx.strokeText(nombre, x, y - 30);
-  ctx.fillStyle = a.color; ctx.fillText(nombre, x, y - 30);
+  ctx.font = "bold 10.5px -apple-system,sans-serif"; ctx.textAlign = "center";
+  const w = ctx.measureText(nombre).width + 14;
+  ctx.fillStyle = "rgba(12,12,18,.68)";
+  ctx.beginPath(); ctx.roundRect(x - w/2, y - 41, w, 14, 7); ctx.fill();
+  ctx.fillStyle = a.color; ctx.fillRect(x - w/2 + 5, y - 36, 4, 4);
+  ctx.fillStyle = "#f2efe8"; ctx.fillText(nombre, x + 3, y - 30.5);
 }
 
 function ajustarLineas(texto, maxAncho, fuente){
@@ -502,7 +670,7 @@ function ajustarLineas(texto, maxAncho, fuente){
   return lineas;
 }
 
-function dibujarBurbuja(ag){
+function dibujarBurbuja(ag, ts){
   const fuente = "13px -apple-system,sans-serif";
   const visible = Math.max(1, Math.floor(burbuja.texto.length * Math.min(1, burbuja.progreso * 1.15)));
   const texto = burbuja.texto.slice(0, visible);
@@ -513,11 +681,18 @@ function dibujarBurbuja(ag){
 
   let bx = ag.pos.x - anchoMax / 2;
   bx = Math.max(10, Math.min(bx, W - anchoMax - 10));
-  let by = ag.pos.y - 44 - alto;
+  let by = ag.pos.y - 48 - alto;
   const debajo = by < 100 && narrador === null ? false : by < 12;
   if(by < 12) by = ag.pos.y + 34;
+  if(burbuja.pensamiento) by += Math.sin((ts || 0) / 850) * 3;   // flotación suave
 
   ctx.save();
+  // pop-in: escala con rebote alrededor del ancla
+  const pop = easeOutBack(Math.min(1, burbuja.pop ?? 1));
+  ctx.translate(ag.pos.x, by + alto);
+  ctx.scale(Math.max(0.01, pop), Math.max(0.01, pop));
+  ctx.translate(-ag.pos.x, -(by + alto));
+  ctx.shadowColor = "rgba(20,10,0,.35)"; ctx.shadowBlur = 12; ctx.shadowOffsetY = 4;
   if(burbuja.pensamiento){
     ctx.fillStyle = "rgba(233,228,248,.94)";
     ctx.strokeStyle = "#9a8fc9"; ctx.setLineDash([5, 4]);
@@ -531,7 +706,9 @@ function dibujarBurbuja(ag){
   ctx.lineWidth = 1.5;
   ctx.beginPath();
   ctx.roundRect(bx, by, anchoMax, alto, 10);
-  ctx.fill(); ctx.stroke();
+  ctx.fill();
+  ctx.shadowColor = "transparent";
+  ctx.stroke();
   ctx.setLineDash([]);
 
   // cola del bocadillo
@@ -554,18 +731,20 @@ function dibujarBurbuja(ag){
   ctx.restore();
 }
 
-function dibujarNarrador(){
-  const fuente = "italic 14px Georgia,serif";
-  const lineas = ajustarLineas(narrador.texto, W - 200, fuente);
-  const alto = lineas.length * 19 + 22;
+function dibujarNarrador(ts){
+  const fuente = "italic 15px Georgia,serif";
+  const lineas = ajustarLineas(narrador.texto, W - 220, fuente);
+  const alto = lineas.length * 20 + 26;
   ctx.save();
   ctx.globalAlpha = narrador.alpha;
-  ctx.fillStyle = "rgba(14,16,21,.86)";
-  ctx.fillRect(0, 0, W, alto + 8);
-  ctx.fillStyle = "#e8dcc2"; ctx.font = fuente; ctx.textAlign = "center";
-  lineas.forEach((l, i) => ctx.fillText(l, W / 2, 26 + i * 19));
-  ctx.fillStyle = "#f2a65a"; ctx.font = "11px ui-monospace,monospace";
-  ctx.fillText("· NARRADOR ·", W / 2, alto + 2);
+  // barras de cine arriba y abajo
+  const g = ctx.createLinearGradient(0, 0, 0, alto + 14);
+  g.addColorStop(0, "rgba(8,9,13,.94)"); g.addColorStop(1, "rgba(8,9,13,.78)");
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, alto + 14);
+  ctx.fillStyle = "rgba(8,9,13,.6)"; ctx.fillRect(0, H - 22, W, 22);
+  ctx.fillStyle = "#f2a65a"; ctx.fillRect(W/2 - 26, alto + 6, 52, 2);
+  ctx.fillStyle = "#ece1c8"; ctx.font = fuente; ctx.textAlign = "center";
+  lineas.forEach((l, i) => ctx.fillText(l, W / 2, 30 + i * 20));
   ctx.restore();
 }
 
