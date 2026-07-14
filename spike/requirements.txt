@@ -1,0 +1,7 @@
+# Concordia exige Python >= 3.12
+gdm-concordia==2.4.0
+openai>=1.40
+python-dotenv>=1.0
+# Embedder local (trae torch; si no quieres instalarlo aún, el spike
+# funciona con --dry-run o con el fallback hash, ver model_factory.py)
+sentence-transformers>=3.0

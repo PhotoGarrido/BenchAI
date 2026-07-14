@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+runs/
+runs_dry/
+spike/runs/
+viewer/ultima_sesion.json
+*.log
+.DS_Store

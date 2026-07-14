@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PsicoAI · Visor de replays</title>
+<style>
+  :root{
+    --bg:#14161d; --panel:#1c202a; --panel2:#232837; --border:#2b3040;
+    --text:#e9e7e2; --dim:#9aa0ae; --accent:#f2a65a; --accent2:#4d9de0;
+  }
+  *{box-sizing:border-box; margin:0; padding:0}
+  html,body{height:100%}
+  body{
+    background:var(--bg); color:var(--text);
+    font:14px/1.45 -apple-system,"Segoe UI",Roboto,sans-serif;
+    display:flex; flex-direction:column; overflow:hidden;
+  }
+  header{
+    display:flex; align-items:center; gap:14px; padding:10px 16px;
+    background:var(--panel); border-bottom:1px solid var(--border); flex:0 0 auto;
+  }
+  header .logo{
+    font-weight:800; letter-spacing:2.5px; font-size:15px; text-transform:uppercase;
+    color:var(--accent); white-space:nowrap;
+  }
+  header .logo span{color:var(--text)}
+  #tituloSesion{color:var(--dim); font-size:13px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; flex:1}
+  .btn{
+    background:var(--panel2); color:var(--text); border:1px solid var(--border);
+    border-radius:8px; padding:6px 12px; cursor:pointer; font-size:13px; white-space:nowrap;
+  }
+  .btn:hover{border-color:var(--accent); color:var(--accent)}
+  .btn.activo{border-color:var(--accent); color:var(--accent)}
+  main{flex:1; display:flex; min-height:0}
+  #escenarioWrap{
+    flex:1; display:flex; align-items:center; justify-content:center;
+    padding:14px; min-width:0; position:relative;
+  }
+  canvas{
+    background:#0e1015; border-radius:10px; border:1px solid var(--border);
+    max-width:100%; max-height:100%; image-rendering:pixelated;
+  }
+  aside{
+    width:330px; flex:0 0 330px; background:var(--panel);
+    border-left:1px solid var(--border); display:flex; flex-direction:column; min-height:0;
+  }
+  aside .caja{padding:12px 14px; border-bottom:1px solid var(--border)}
+  aside h2{font-size:11px; text-transform:uppercase; letter-spacing:1.5px; color:var(--dim); margin-bottom:8px}
+  #descripcion{font-size:12.5px; color:var(--dim); max-height:110px; overflow-y:auto}
+  #leyenda{display:flex; flex-direction:column; gap:5px}
+  .agenteChip{display:flex; align-items:center; gap:8px; font-size:12.5px}
+  .agenteChip .punto{width:10px; height:10px; border-radius:3px; flex:0 0 auto}
+  .agenteChip .rol{color:var(--dim)}
+  #feed{flex:1; overflow-y:auto; padding:8px 10px; display:flex; flex-direction:column; gap:4px}
+  .ev{
+    padding:6px 9px; border-radius:8px; cursor:pointer; font-size:12.5px;
+    border:1px solid transparent; background:transparent;
+  }
+  .ev:hover{background:var(--panel2)}
+  .ev.activo{background:var(--panel2); border-color:var(--accent)}
+  .ev .quien{font-weight:700; margin-right:4px}
+  .ev.narrador{font-style:italic; color:var(--dim)}
+  .ev.pensamiento{opacity:.75}
+  .ev.pensamiento .texto::before{content:"💭 "}
+  .divisorPaso{
+    text-align:center; color:var(--dim); font-size:10.5px; letter-spacing:2px;
+    text-transform:uppercase; padding:7px 0 3px;
+  }
+  footer{
+    flex:0 0 auto; display:flex; align-items:center; gap:10px;
+    padding:10px 16px; background:var(--panel); border-top:1px solid var(--border);
+  }
+  footer .transporte{display:flex; gap:6px}
+  footer .btn{padding:6px 10px; font-size:15px; line-height:1}
+  #barra{flex:1; accent-color:var(--accent); cursor:pointer}
+  #contador{color:var(--dim); font-size:12px; white-space:nowrap; font-variant-numeric:tabular-nums}
+  #toast{
+    position:absolute; left:50%; top:18px; transform:translateX(-50%);
+    background:#3a2430; border:1px solid #a5566e; color:#f0d5dd;
+    padding:8px 16px; border-radius:8px; display:none; z-index:9;
+  }
+  #dropzone{
+    position:absolute; inset:0; display:none; align-items:center; justify-content:center;
+    background:rgba(20,22,29,.85); border:3px dashed var(--accent); border-radius:10px;
+    font-size:18px; color:var(--accent); z-index:8; pointer-events:none;
+  }
+  body.arrastrando #dropzone{display:flex}
+  input[type=file]{display:none}
+  @media (max-width:900px){ aside{display:none} }
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">🧠 Psico<span>AI</span> · Visor</div>
+  <div id="tituloSesion"></div>
+  <button class="btn" id="btnPensamientos" title="Mostrar/ocultar pensamientos privados">💭 Pensamientos</button>
+  <button class="btn" id="btnCargar">📂 Cargar replay.json</button>
+  <input type="file" id="ficheroInput" accept=".json,application/json">
+</header>
+
+<main>
+  <div id="escenarioWrap">
+    <canvas id="lienzo" width="960" height="640"></canvas>
+    <div id="toast"></div>
+    <div id="dropzone">Suelta aquí tu replay.json</div>
+  </div>
+  <aside>
+    <div class="caja"><h2>¿Qué estás viendo?</h2><div id="descripcion"></div></div>
+    <div class="caja"><h2>Personajes</h2><div id="leyenda"></div></div>
+    <div class="caja" style="border-bottom:none; padding-bottom:6px"><h2>Eventos</h2></div>
+    <div id="feed"></div>
+  </aside>
+</main>
+
+<footer>
+  <div class="transporte">
+    <button class="btn" id="btnInicio" title="Al principio">⏮</button>
+    <button class="btn" id="btnAtras" title="Evento anterior (←)">◀</button>
+    <button class="btn" id="btnPlay" title="Reproducir/pausar (espacio)">▶</button>
+    <button class="btn" id="btnAdelante" title="Evento siguiente (→)">▶▶</button>
+  </div>
+  <button class="btn" id="btnVelocidad" title="Velocidad de reproducción">1×</button>
+  <input type="range" id="barra" min="0" max="0" value="0" step="1">
+  <div id="contador">—</div>
+</footer>
+
+<script>
+"use strict";
+/* ============================================================
+   PsicoAI · Visor de replays — autocontenido, sin dependencias.
+   Lee un replay.json (ver esquema en PROPUESTA.md) y lo reproduce
+   en una sala 2D estilo AI Town con bocadillos y narrador.
+   ============================================================ */
+
+const W = 960, H = 640, TILE = 32;
+const lienzo = document.getElementById("lienzo");
+const ctx = lienzo.getContext("2d");
+
+/* ---------- Puntos de anclaje de la sala ---------- */
+const SPOTS = {
+  tablon:  {x:190, y:200}, ventana: {x:672, y:190},
+  mesa_o:  {x:390, y:352}, mesa_e:  {x:576, y:352},
+  mesa_s:  {x:480, y:420}, sofa:    {x:770, y:492},
+  puerta:  {x:150, y:520}, centro:  {x:480, y:470},
+  planta:  {x:836, y:210},
+};
+const SPOTS_DEFECTO = ["tablon", "mesa_o", "mesa_e", "ventana", "sofa", "puerta"];
+
+/* ---------- Estado global ---------- */
+let replay = null;          // JSON cargado
+let agentes = [];           // [{id,nombre,rol,color,pos,destino,cara,blink,...}]
+let idx = 0;                // evento actual
+let reproduciendo = false;
+let velocidad = 1;
+const VELOCIDADES = [0.5, 1, 1.5, 2, 4];
+let mostrarPensamientos = true;
+let tRestante = 0;          // ms que quedan al evento actual
+let ultimoTs = null;
+let pasoActual = 0;
+let burbuja = null;         // {agenteId, texto, pensamiento, progreso}
+let narrador = null;        // {texto, alpha}
+
+/* ---------- Utilidades ---------- */
+const $ = id => document.getElementById(id);
+function toast(msg){
+  const t = $("toast"); t.textContent = msg; t.style.display = "block";
+  clearTimeout(toast._t); toast._t = setTimeout(() => t.style.display = "none", 4000);
+}
+function oscurecer(hex, f){
+  const n = parseInt(hex.slice(1), 16);
+  const c = v => Math.max(0, Math.round(v * f));
+  return `rgb(${c(n>>16)},${c((n>>8)&255)},${c(n&255)})`;
+}
+
+/* ---------- Duración de cada evento (ms, a velocidad 1×) ---------- */
+function duracion(ev){
+  const n = (ev.texto || "").length;
+  switch(ev.tipo){
+    case "dialogo":     return Math.min(1600 + n * 52, 12000);
+    case "pensamiento": return Math.min(1500 + n * 48, 10000);
+    case "accion":      return Math.min(2000 + n * 30, 8000);
+    case "narrador":    return Math.min(2600 + n * 30, 10000);
+    case "movimiento":  return 1300;
+    case "paso":        return 700;
+    default:            return 1200;
+  }
+}
+
+/* ---------- Carga de replays ---------- */
+function cargarReplay(data){
+  if(!data || !Array.isArray(data.agentes) || !Array.isArray(data.eventos)){
+    toast("Ese JSON no parece un replay de PsicoAI (faltan agentes/eventos)."); return;
+  }
+  replay = data;
+  agentes = data.agentes.map((a, i) => {
+    const spot = SPOTS[a.spot] || SPOTS[SPOTS_DEFECTO[i % SPOTS_DEFECTO.length]];
+    return {
+      ...a,
+      color: a.color || ["#e4572e","#4d9de0","#3bb273","#b86fc6","#f2a65a","#e26d8f"][i % 6],
+      pos: {x: spot.x + (i%2 ? 14 : -14), y: spot.y},
+      destino: null, cara: 1, blink: Math.random()*4000, andando: false,
+    };
+  });
+  $("tituloSesion").textContent = data.meta?.titulo || "Sesión sin título";
+  $("descripcion").textContent = data.meta?.descripcion || "";
+  $("leyenda").innerHTML = agentes.map(a =>
+    `<div class="agenteChip"><span class="punto" style="background:${a.color}"></span>
+     <span>${a.nombre}</span>${a.rol ? `<span class="rol">· ${a.rol}</span>` : ""}</div>`).join("");
+  construirFeed();
+  $("barra").max = Math.max(0, data.eventos.length - 1);
+  buscar(0);
+  reproducir(true);
+}
+
+function construirFeed(){
+  const feed = $("feed"); feed.innerHTML = "";
+  replay.eventos.forEach((ev, i) => {
+    if(ev.tipo === "paso"){
+      const d = document.createElement("div");
+      d.className = "divisorPaso"; d.dataset.i = i;
+      d.textContent = `— paso ${ev.n} —`;
+      feed.appendChild(d); return;
+    }
+    const d = document.createElement("div");
+    d.className = "ev " + ev.tipo; d.dataset.i = i;
+    const ag = agentes.find(a => a.id === ev.agente);
+    let quien = "";
+    if(ev.tipo === "narrador") quien = `<span class="quien">📜</span>`;
+    else if(ag) quien = `<span class="quien" style="color:${ag.color}">${ag.nombre.split(" ")[0]}</span>`;
+    d.innerHTML = `${quien}<span class="texto">${ev.texto || ""}</span>`;
+    d.onclick = () => { buscar(i); reproducir(false); };
+    feed.appendChild(d);
+  });
+}
+
+/* ---------- Motor de reproducción ---------- */
+function aplicarEvento(ev, instantaneo){
+  if(ev.tipo === "paso"){ pasoActual = ev.n; return; }
+  if(ev.tipo === "movimiento"){
+    const ag = agentes.find(a => a.id === ev.agente);
+    let dest = null;
+    if(ev.spot && SPOTS[ev.spot]) dest = {x:SPOTS[ev.spot].x, y:SPOTS[ev.spot].y};
+    else if(ev.haciaAgente){
+      const otro = agentes.find(a => a.id === ev.haciaAgente);
+      if(otro && ag) dest = {x: otro.pos.x + (ag.pos.x >= otro.pos.x ? 36 : -36), y: otro.pos.y};
+    }
+    if(ag && dest){
+      if(instantaneo){ ag.pos = {...dest}; ag.destino = null; }
+      else ag.destino = dest;
+    }
+    return;
+  }
+  if(instantaneo) return; // burbujas y narrador solo en reproducción real
+  if(ev.tipo === "narrador"){ narrador = {texto: ev.texto, alpha: 0}; burbuja = null; return; }
+  if(ev.tipo === "dialogo" || ev.tipo === "pensamiento" || ev.tipo === "accion"){
+    const ag = agentes.find(a => a.id === ev.agente);
+    if(!ag){ narrador = {texto: ev.texto, alpha: 0}; return; }
+    if(ev.hacia){
+      const dest = agentes.find(a => a.id === ev.hacia);
+      if(dest){
+        ag.cara = dest.pos.x >= ag.pos.x ? 1 : -1;
+        dest.cara = ag.pos.x >= dest.pos.x ? 1 : -1;
+      }
+    }
+    burbuja = {
+      agenteId: ag.id, texto: ev.texto || "",
+      pensamiento: ev.tipo === "pensamiento",
+      accion: ev.tipo === "accion", progreso: 0,
+    };
+    narrador = null;
+  }
+}
+
+function eventoVisible(ev){
+  return mostrarPensamientos || ev.tipo !== "pensamiento";
+}
+
+function avanzar(){
+  let siguiente = idx + 1;
+  while(siguiente < replay.eventos.length && !eventoVisible(replay.eventos[siguiente])) siguiente++;
+  if(siguiente >= replay.eventos.length){ reproducir(false); return; }
+  idx = siguiente;
+  entrarEvento();
+}
+
+function entrarEvento(){
+  const ev = replay.eventos[idx];
+  tRestante = duracion(ev);
+  aplicarEvento(ev, false);
+  actualizarUI();
+}
+
+function buscar(i){
+  i = Math.max(0, Math.min(i, replay.eventos.length - 1));
+  // Reconstruye el estado del mundo desde cero hasta i (posiciones y paso).
+  agentes.forEach((a, j) => {
+    const spot = SPOTS[a.spot] || SPOTS[SPOTS_DEFECTO[j % SPOTS_DEFECTO.length]];
+    a.pos = {x: spot.x + (j%2 ? 14 : -14), y: spot.y};
+    a.destino = null; a.cara = 1;
+  });
+  pasoActual = 0; burbuja = null; narrador = null;
+  for(let k = 0; k < i; k++) aplicarEvento(replay.eventos[k], true);
+  idx = i;
+  entrarEvento();
+}
+
+function reproducir(si){
+  reproduciendo = si;
+  $("btnPlay").textContent = si ? "⏸" : "▶";
+  ultimoTs = null;
+}
+
+function actualizarUI(){
+  $("barra").value = idx;
+  $("contador").textContent = `evento ${idx + 1}/${replay.eventos.length} · paso ${pasoActual}`;
+  document.querySelectorAll("#feed .ev.activo").forEach(e => e.classList.remove("activo"));
+  const el = document.querySelector(`#feed [data-i="${idx}"]`);
+  if(el && el.classList.contains("ev")){
+    el.classList.add("activo");
+    el.scrollIntoView({block:"nearest", behavior:"smooth"});
+  }
+}
+
+/* ---------- Bucle de animación ---------- */
+function tick(ts){
+  requestAnimationFrame(tick);
+  if(ultimoTs === null) ultimoTs = ts;
+  const dt = Math.min(ts - ultimoTs, 100);
+  ultimoTs = ts;
+
+  // Movimiento de agentes hacia su destino
+  for(const a of agentes){
+    a.blink -= dt;
+    if(a.blink < -150) a.blink = 2500 + Math.random()*3500;
+    if(a.destino){
+      const dx = a.destino.x - a.pos.x, dy = a.destino.y - a.pos.y;
+      const dist = Math.hypot(dx, dy);
+      const pasoPx = 0.11 * dt * velocidad;
+      if(dist < pasoPx){ a.pos = {...a.destino}; a.destino = null; a.andando = false; }
+      else {
+        a.cara = dx >= 0 ? 1 : -1; a.andando = true;
+        a.pos.x += dx / dist * pasoPx; a.pos.y += dy / dist * pasoPx;
+      }
+    } else a.andando = false;
+  }
+
+  if(replay && reproduciendo){
+    if(burbuja) burbuja.progreso = Math.min(1, burbuja.progreso + dt * velocidad / (duracion(replay.eventos[idx]) * 0.6));
+    if(narrador) narrador.alpha = Math.min(1, narrador.alpha + dt / 300);
+    tRestante -= dt * velocidad;
+    if(tRestante <= 0) avanzar();
+  } else if(burbuja) burbuja.progreso = 1;
+
+  dibujar(ts);
+}
+
+/* ============================================================
+   DIBUJO DE LA SALA (estilo pixel, todo procedural)
+   ============================================================ */
+function dibujar(ts){
+  ctx.clearRect(0, 0, W, H);
+
+  // Suelo ajedrezado
+  for(let ty = 3; ty < H/TILE; ty++){
+    for(let tx = 0; tx < W/TILE; tx++){
+      ctx.fillStyle = (tx + ty) % 2 ? "#d5c3a0" : "#cdba95";
+      ctx.fillRect(tx*TILE, ty*TILE, TILE, TILE);
+    }
+  }
+  // Pared superior
+  ctx.fillStyle = "#7d6d59"; ctx.fillRect(0, 0, W, 3*TILE);
+  ctx.fillStyle = "#6e5f4e"; ctx.fillRect(0, 3*TILE - 10, W, 10);
+  // Zócalo de la pared
+  ctx.fillStyle = "#8a7a66";
+  for(let tx = 0; tx < W/TILE; tx++) ctx.fillRect(tx*TILE + 2, 6, TILE - 4, 2);
+
+  // Ventana
+  ctx.fillStyle = "#54483a"; ctx.fillRect(608, 18, 128, 62);
+  ctx.fillStyle = "#a8d0e0"; ctx.fillRect(614, 24, 55, 50); ctx.fillRect(675, 24, 55, 50);
+  ctx.fillStyle = "#c3e2ee"; ctx.fillRect(618, 28, 20, 18);
+
+  // Tablón de anuncios
+  ctx.fillStyle = "#54483a"; ctx.fillRect(140, 16, 110, 66);
+  ctx.fillStyle = "#caa96e"; ctx.fillRect(146, 22, 98, 54);
+  ctx.fillStyle = "#f4efe2"; ctx.fillRect(154, 30, 30, 38); ctx.fillRect(196, 34, 34, 26);
+  ctx.fillStyle = "#b8452f"; ctx.fillRect(154, 30, 30, 6);
+
+  // Reloj de pared
+  ctx.fillStyle = "#54483a"; ctx.beginPath(); ctx.arc(480, 46, 20, 0, 7); ctx.fill();
+  ctx.fillStyle = "#f4efe2"; ctx.beginPath(); ctx.arc(480, 46, 16, 0, 7); ctx.fill();
+  ctx.strokeStyle = "#333"; ctx.beginPath(); ctx.moveTo(480, 46); ctx.lineTo(480, 35);
+  ctx.moveTo(480, 46); ctx.lineTo(489, 48); ctx.stroke();
+
+  // Puerta (abajo-izquierda, en el suelo como felpudo + hoja en pared lateral)
+  ctx.fillStyle = "#8a5a35"; ctx.fillRect(96, 556, 96, 48);
+  ctx.fillStyle = "#a06a40"; ctx.fillRect(102, 562, 84, 36);
+
+  // Alfombra central
+  ctx.fillStyle = "#b5563f"; ctx.fillRect(352, 288, 256, 176);
+  ctx.fillStyle = "#a34c38"; ctx.fillRect(364, 300, 232, 152);
+  ctx.fillStyle = "#c96a4e"; ctx.fillRect(376, 312, 208, 128);
+
+  // Mesa con sillas
+  ctx.fillStyle = "rgba(0,0,0,.18)"; ctx.fillRect(420, 330, 124, 62);
+  ctx.fillStyle = "#8a6a44"; ctx.fillRect(416, 322, 128, 62);
+  ctx.fillStyle = "#9d7b50"; ctx.fillRect(422, 328, 116, 50);
+  ctx.fillStyle = "#6e5436";
+  [[398,338],[550,338],[470,296]].forEach(([x,y]) => ctx.fillRect(x, y, 16, 16));
+
+  // Sofá
+  ctx.fillStyle = "#b0713f"; ctx.fillRect(724, 428, 130, 54);
+  ctx.fillStyle = "#d9a05b"; ctx.fillRect(730, 434, 56, 40); ctx.fillRect(792, 434, 56, 40);
+  ctx.fillStyle = "#9a6136"; ctx.fillRect(724, 420, 130, 12);
+
+  // Plantas
+  for(const [px, py] of [[880, 120], [60, 120], [880, 560]]){
+    ctx.fillStyle = "#8a5a35"; ctx.fillRect(px, py + 22, 24, 18);
+    ctx.fillStyle = "#4e7a3f";
+    ctx.beginPath(); ctx.arc(px + 12, py + 12, 16, 0, 7); ctx.fill();
+    ctx.fillStyle = "#5f9350";
+    ctx.beginPath(); ctx.arc(px + 5, py + 6, 9, 0, 7); ctx.fill();
+  }
+
+  // Agentes (ordenados por Y para solaparse bien)
+  [...agentes].sort((a, b) => a.pos.y - b.pos.y).forEach(a => dibujarAgente(a, ts));
+
+  // Bocadillo del evento actual
+  if(burbuja){
+    const ag = agentes.find(x => x.id === burbuja.agenteId);
+    if(ag) dibujarBurbuja(ag);
+  }
+
+  // Banda del narrador
+  if(narrador) dibujarNarrador();
+
+  // Indicador de paso
+  if(replay){
+    ctx.fillStyle = "rgba(14,16,21,.72)";
+    ctx.fillRect(12, H - 40, 118, 28);
+    ctx.fillStyle = "#f2a65a"; ctx.font = "bold 13px ui-monospace,monospace";
+    ctx.textAlign = "left";
+    ctx.fillText(`PASO ${pasoActual}`, 24, H - 21);
+  }
+}
+
+function dibujarAgente(a, ts){
+  const {x, y} = a.pos;
+  const bob = a.andando ? Math.sin(ts / 90) * 2.5 : Math.sin(ts / 600 + x) * 1.2;
+  const hablando = burbuja && burbuja.agenteId === a.id && !burbuja.pensamiento;
+  const salto = hablando ? Math.abs(Math.sin(ts / 220)) * 2 : 0;
+
+  // sombra
+  ctx.fillStyle = "rgba(0,0,0,.25)";
+  ctx.beginPath(); ctx.ellipse(x, y + 21, 13, 5, 0, 0, 7); ctx.fill();
+
+  ctx.save();
+  ctx.translate(x, y + bob - salto);
+  ctx.scale(a.cara, 1);
+
+  // piernas
+  ctx.fillStyle = "#3a3a48";
+  ctx.fillRect(-7, 10, 6, 10); ctx.fillRect(1, 10, 6, 10);
+  // cuerpo
+  ctx.fillStyle = a.color;
+  ctx.fillRect(-10, -6, 20, 18);
+  ctx.fillStyle = oscurecer(a.color, 0.8);
+  ctx.fillRect(-10, 8, 20, 4);
+  // brazos
+  ctx.fillStyle = oscurecer(a.color, 0.85);
+  ctx.fillRect(-13, -4, 4, 12); ctx.fillRect(9, -4, 4, 12);
+  // cabeza
+  ctx.fillStyle = "#f0c8a0"; ctx.fillRect(-8, -22, 16, 15);
+  // pelo (variante por agente)
+  ctx.fillStyle = oscurecer(a.color, 0.45);
+  ctx.fillRect(-8, -24, 16, 6);
+  ctx.fillRect(-8, -22, 3, 10);
+  // ojos (con parpadeo)
+  if(a.blink > 0){
+    ctx.fillStyle = "#26262e";
+    ctx.fillRect(1, -16, 2.5, 3); ctx.fillRect(6, -16, 2.5, 3);
+  }
+  ctx.restore();
+
+  // nombre
+  ctx.font = "bold 11px -apple-system,sans-serif"; ctx.textAlign = "center";
+  const nombre = a.nombre.split(" ")[0];
+  ctx.lineWidth = 3; ctx.strokeStyle = "rgba(14,16,21,.75)";
+  ctx.strokeText(nombre, x, y - 30);
+  ctx.fillStyle = a.color; ctx.fillText(nombre, x, y - 30);
+}
+
+function ajustarLineas(texto, maxAncho, fuente){
+  ctx.font = fuente;
+  const palabras = texto.split(/\s+/); const lineas = []; let linea = "";
+  for(const p of palabras){
+    const prueba = linea ? linea + " " + p : p;
+    if(ctx.measureText(prueba).width > maxAncho && linea){ lineas.push(linea); linea = p; }
+    else linea = prueba;
+  }
+  if(linea) lineas.push(linea);
+  return lineas;
+}
+
+function dibujarBurbuja(ag){
+  const fuente = "13px -apple-system,sans-serif";
+  const visible = Math.max(1, Math.floor(burbuja.texto.length * Math.min(1, burbuja.progreso * 1.15)));
+  const texto = burbuja.texto.slice(0, visible);
+  const prefijo = burbuja.accion ? "✳︎ " : "";
+  const lineas = ajustarLineas(prefijo + texto, 220, fuente);
+  const anchoMax = Math.min(236, Math.max(...lineas.map(l => ctx.measureText(l).width)) + 22);
+  const alto = lineas.length * 17 + 16;
+
+  let bx = ag.pos.x - anchoMax / 2;
+  bx = Math.max(10, Math.min(bx, W - anchoMax - 10));
+  let by = ag.pos.y - 44 - alto;
+  const debajo = by < 100 && narrador === null ? false : by < 12;
+  if(by < 12) by = ag.pos.y + 34;
+
+  ctx.save();
+  if(burbuja.pensamiento){
+    ctx.fillStyle = "rgba(233,228,248,.94)";
+    ctx.strokeStyle = "#9a8fc9"; ctx.setLineDash([5, 4]);
+  } else if(burbuja.accion){
+    ctx.fillStyle = "rgba(250,242,225,.94)";
+    ctx.strokeStyle = "#c9a05a";
+  } else {
+    ctx.fillStyle = "rgba(255,255,255,.96)";
+    ctx.strokeStyle = "#8b8b96";
+  }
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.roundRect(bx, by, anchoMax, alto, 10);
+  ctx.fill(); ctx.stroke();
+  ctx.setLineDash([]);
+
+  // cola del bocadillo
+  if(!debajo){
+    if(burbuja.pensamiento){
+      ctx.beginPath(); ctx.arc(ag.pos.x, by + alto + 8, 4, 0, 7); ctx.fill();
+      ctx.beginPath(); ctx.arc(ag.pos.x - 4, by + alto + 16, 2.5, 0, 7); ctx.fill();
+    } else {
+      ctx.beginPath();
+      ctx.moveTo(ag.pos.x - 6, by + alto);
+      ctx.lineTo(ag.pos.x + 6, by + alto);
+      ctx.lineTo(ag.pos.x, by + alto + 10);
+      ctx.closePath(); ctx.fill();
+    }
+  }
+
+  ctx.fillStyle = burbuja.pensamiento ? "#4a4066" : "#26262e";
+  ctx.font = fuente; ctx.textAlign = "left";
+  lineas.forEach((l, i) => ctx.fillText(l, bx + 11, by + 20 + i * 17));
+  ctx.restore();
+}
+
+function dibujarNarrador(){
+  const fuente = "italic 14px Georgia,serif";
+  const lineas = ajustarLineas(narrador.texto, W - 200, fuente);
+  const alto = lineas.length * 19 + 22;
+  ctx.save();
+  ctx.globalAlpha = narrador.alpha;
+  ctx.fillStyle = "rgba(14,16,21,.86)";
+  ctx.fillRect(0, 0, W, alto + 8);
+  ctx.fillStyle = "#e8dcc2"; ctx.font = fuente; ctx.textAlign = "center";
+  lineas.forEach((l, i) => ctx.fillText(l, W / 2, 26 + i * 19));
+  ctx.fillStyle = "#f2a65a"; ctx.font = "11px ui-monospace,monospace";
+  ctx.fillText("· NARRADOR ·", W / 2, alto + 2);
+  ctx.restore();
+}
+
+/* ============================================================
+   CONTROLES
+   ============================================================ */
+$("btnPlay").onclick = () => reproducir(!reproduciendo);
+$("btnInicio").onclick = () => { buscar(0); };
+$("btnAtras").onclick = () => { buscar(idx - 1); reproducir(false); };
+$("btnAdelante").onclick = () => { buscar(idx + 1); reproducir(false); };
+$("btnVelocidad").onclick = () => {
+  velocidad = VELOCIDADES[(VELOCIDADES.indexOf(velocidad) + 1) % VELOCIDADES.length];
+  $("btnVelocidad").textContent = velocidad + "×";
+};
+$("btnPensamientos").onclick = () => {
+  mostrarPensamientos = !mostrarPensamientos;
+  $("btnPensamientos").classList.toggle("activo", mostrarPensamientos);
+  if(!mostrarPensamientos && replay?.eventos[idx]?.tipo === "pensamiento") avanzar();
+};
+$("btnPensamientos").classList.add("activo");
+$("barra").oninput = e => { buscar(+e.target.value); reproducir(false); };
+document.addEventListener("keydown", e => {
+  if(e.target.tagName === "INPUT" && e.target.type !== "range") return;
+  if(e.code === "Space"){ e.preventDefault(); reproducir(!reproduciendo); }
+  if(e.code === "ArrowRight"){ buscar(idx + 1); reproducir(false); }
+  if(e.code === "ArrowLeft"){ buscar(idx - 1); reproducir(false); }
+});
+
+/* Carga de ficheros */
+$("btnCargar").onclick = () => $("ficheroInput").click();
+$("ficheroInput").onchange = e => leerFichero(e.target.files[0]);
+window.addEventListener("dragover", e => { e.preventDefault(); document.body.classList.add("arrastrando"); });
+window.addEventListener("dragleave", e => { if(!e.relatedTarget) document.body.classList.remove("arrastrando"); });
+window.addEventListener("drop", e => {
+  e.preventDefault(); document.body.classList.remove("arrastrando");
+  if(e.dataTransfer.files[0]) leerFichero(e.dataTransfer.files[0]);
+});
+function leerFichero(f){
+  if(!f) return;
+  f.text().then(t => {
+    try { cargarReplay(JSON.parse(t)); }
+    catch { toast("No he podido leer ese fichero como JSON."); }
+  });
+}
+
+/* ============================================================
+   DEMO EMBEBIDA — "El Centro Aldaba, día 1"
+   Ilustra lo que produce una sesión real de Concordia una vez
+   exportada con export_replay.py. Guion de muestra, en español.
+   ============================================================ */
+const DEMO_REPLAY = {
+  version: 1,
+  meta: {
+    titulo: "El Centro Aldaba — Día 1: la norma nueva (demo)",
+    descripcion: "Sesión de demostración del visor. Una residencia de evaluación anuncia una norma que restringe las llamadas al exterior. Fíjate en la diferencia entre lo que Lucía piensa (💭) y lo que dice en voz alta: esa distancia es la presión de grupo, el fenómeno que PsicoAI estudia. Puedes ocultar los pensamientos con el botón 💭 y ver la escena como la vería un observador externo.",
+    fecha: "2026-07-13", fuente: "demo",
+  },
+  agentes: [
+    {id: "marta",  nombre: "Marta Ibáñez", rol: "Directora",           color: "#e4572e", spot: "tablon"},
+    {id: "julio",  nombre: "Julio Serrano", rol: "Supervisor",         color: "#4d9de0", spot: "puerta"},
+    {id: "andres", nombre: "Andrés Vidal", rol: "Residente veterano",  color: "#3bb273", spot: "mesa_e"},
+    {id: "lucia",  nombre: "Lucía Prado",  rol: "Residente nueva",     color: "#b86fc6", spot: "ventana"},
+  ],
+  eventos: [
+    {tipo: "narrador", texto: "El Centro Aldaba, 9:12 de la mañana. En el tablón de la sala común ha aparecido un aviso: a partir de hoy, una sola llamada semanal al exterior, y supervisada."},
+    {tipo: "paso", n: 1},
+    {tipo: "dialogo", agente: "marta", texto: "Buenos días. Ya habréis visto el aviso. La medida viene de dirección y no es negociable: una llamada por semana, con supervisión."},
+    {tipo: "accion", agente: "andres", texto: "deja el café a medias y cruza los brazos sin apartar la vista del tablón."},
+    {tipo: "pensamiento", agente: "lucia", texto: "¿Una a la semana? Llamo a mi hija todas las noches. Vera tiene seis años, no va a entender que no la llame."},
+    {tipo: "paso", n: 2},
+    {tipo: "dialogo", agente: "andres", hacia: "marta", texto: "¿Y desde cuándo se decide algo así sin consultarnos? El reglamento que firmamos decía llamadas diarias."},
+    {tipo: "dialogo", agente: "marta", hacia: "andres", texto: "El reglamento contempla ajustes por necesidades del programa, Andrés. Esto es un ajuste."},
+    {tipo: "pensamiento", agente: "julio", texto: "Si le doy la razón a Andrés delante de Marta, mañana me toca a mí explicárselo a dirección. Mejor no significarme."},
+    {tipo: "dialogo", agente: "julio", texto: "A ver, seguro que hay un término medio... La norma es la norma, pero se puede aplicar con mano izquierda, ¿no?"},
+    {tipo: "paso", n: 3},
+    {tipo: "movimiento", agente: "andres", spot: "ventana"},
+    {tipo: "dialogo", agente: "andres", hacia: "lucia", texto: "Lucía, tú llamas cada noche, te he visto. Esto te afecta más que a nadie. Si lo decimos juntos, tendrán que escucharnos."},
+    {tipo: "pensamiento", agente: "lucia", texto: "Tiene razón. Pero llevo aquí cuatro días. Si me señalo la primera semana, me lo apuntan. Mejor que hable él."},
+    {tipo: "dialogo", agente: "lucia", hacia: "andres", texto: "No sé, Andrés... Yo me adapto. Seguro que la dirección tiene sus motivos."},
+    {tipo: "accion", agente: "marta", texto: "observa la conversación desde el tablón y anota algo en su carpeta."},
+    {tipo: "paso", n: 4},
+    {tipo: "narrador", texto: "Media tarde. En el tablón aparece un segundo aviso: los residentes que colaboren con el nuevo régimen de comunicaciones optarán a privilegios de visita."},
+    {tipo: "dialogo", agente: "marta", texto: "Como veis, quien lo ponga fácil, lo tendrá fácil. Es lo justo."},
+    {tipo: "dialogo", agente: "andres", texto: "Claro, y quien no, a la lista negra. Muy elegante: ahora el problema no es la norma, es quejarse de la norma."},
+    {tipo: "pensamiento", agente: "marta", texto: "Vidal busca público. Si el resto no le sigue, esto muere solo en dos días."},
+    {tipo: "paso", n: 5},
+    {tipo: "movimiento", agente: "julio", spot: "ventana"},
+    {tipo: "dialogo", agente: "julio", hacia: "lucia", texto: "¿Todo bien, Lucía? Te veo callada desde el anuncio."},
+    {tipo: "dialogo", agente: "lucia", hacia: "julio", texto: "Sí, sí. Todo bien. De verdad."},
+    {tipo: "pensamiento", agente: "lucia", texto: "No, no está todo bien. Pero tú repartes los privilegios de visita, así que sonrío y digo que sí."},
+    {tipo: "paso", n: 6},
+    {tipo: "narrador", texto: "Día siguiente, primera hora. Andrés ha pasado la noche escribiendo."},
+    {tipo: "movimiento", agente: "andres", spot: "tablon"},
+    {tipo: "accion", agente: "andres", texto: "clava en el tablón una hoja titulada «Solicitud de revisión de la norma de llamadas», con una sola firma: la suya."},
+    {tipo: "movimiento", agente: "marta", spot: "tablon"},
+    {tipo: "accion", agente: "marta", texto: "arranca la hoja del tablón, la dobla en cuatro y se la guarda en la carpeta."},
+    {tipo: "dialogo", agente: "marta", hacia: "andres", texto: "El tablón es para comunicaciones del centro. Si tienes una queja, hay un cauce: se presenta por escrito, a mí."},
+    {tipo: "dialogo", agente: "andres", hacia: "marta", texto: "Al cauce que tú custodias, qué casualidad. ¿Y si la firmáramos todos, también la doblarías en cuatro?"},
+    {tipo: "movimiento", agente: "julio", spot: "centro"},
+    {tipo: "dialogo", agente: "julio", texto: "Vale, vale. Bajemos todos un punto, ¿sí? Andrés, así no. Marta... quizá tampoco así."},
+    {tipo: "paso", n: 7},
+    {tipo: "pensamiento", agente: "lucia", texto: "Le ha arrancado la hoja delante de todos. Hoy ha sido su papel; mañana puede ser mi llamada. Si nadie más firma, esto se acaba aquí."},
+    {tipo: "movimiento", agente: "lucia", spot: "tablon"},
+    {tipo: "dialogo", agente: "lucia", hacia: "marta", texto: "Marta... yo también quiero presentar esa solicitud. Por el cauce que sea. Pero la firmo."},
+    {tipo: "accion", agente: "andres", texto: "se queda un segundo sin saber qué decir y luego asiente despacio."},
+    {tipo: "pensamiento", agente: "marta", texto: "La nueva. Precisamente la nueva. Esto ya no muere solo: o cedo algo, o mañana tengo cuatro firmas."},
+    {tipo: "paso", n: 8},
+    {tipo: "narrador", texto: "Fin del primer día. Una norma, una autoridad, un disidente… y el momento exacto en que un aliado convierte la obediencia en negociación. Esto es lo que PsicoAI observa: no el guion, sino dónde se rompe."},
+  ],
+};
+
+/* ---------- Arranque ---------- */
+requestAnimationFrame(tick);
+cargarReplay(DEMO_REPLAY);
+</script>
+</body>
+</html>

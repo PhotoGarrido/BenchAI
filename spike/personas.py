@@ -1,0 +1,257 @@
+"""Personas ricas para PsicoAI: del esquema del diseñador a agentes Concordia.
+
+Dos piezas:
+  - texto_persona(perfil): convierte un protagonista del diseñador (demografía,
+    Big Five, atributos avanzados, trasfondo) en un bloque de identidad en texto.
+  - PersonaEntity: prefab tipo `basic__Entity` con un componente Constant extra
+    («Identity and character») justo tras las instrucciones, de modo que cada
+    decisión del agente esté condicionada por su identidad — no inventada al
+    vuelo desde una memoria vacía, que era la causa de la deriva de rol.
+"""
+
+from collections.abc import Mapping
+import dataclasses
+
+from concordia.agents import entity_agent_with_logging
+from concordia.associative_memory import basic_associative_memory
+from concordia.components import agent as agent_components
+from concordia.language_model import language_model
+from concordia.typing import prefab as prefab_lib
+
+_GENERO = {
+    "mujer": "una mujer",
+    "hombre": "un hombre",
+    "no binario": "una persona no binaria",
+}
+_EDU = {"básica": "básicos", "media": "medios", "superior": "superiores"}
+
+
+def _nivel(v, bajo, alto):
+    """Verbaliza un rasgo 0-100; devuelve None en la franja neutra (36-64)."""
+    if v is None:
+        return None
+    v = float(v)
+    if v <= 35:
+        return bajo
+    if v >= 65:
+        return alto
+    return None
+
+
+def texto_persona(p: dict) -> str:
+    """Bloque de identidad a partir del esquema de protagonista del diseñador."""
+    nombre = p.get("nombre", "Alguien")
+    d = p.get("demografia", {}) or {}
+    b5 = p.get("big5", {}) or {}
+    av = p.get("avanzados", {}) or {}
+
+    frases = []
+    quien = f"{nombre} es {_GENERO.get(d.get('genero'), 'una persona')}"
+    if d.get("edad"):
+        quien += f" de {d['edad']} años"
+    detalles = []
+    if d.get("origen_cultural"):
+        detalles.append(f"de origen {d['origen_cultural']}")
+    if d.get("nse"):
+        detalles.append(f"nivel socioeconómico {d['nse']}")
+    if d.get("educacion"):
+        detalles.append(f"estudios {_EDU.get(d['educacion'], d['educacion'])}")
+    if detalles:
+        quien += ", " + ", ".join(detalles)
+    frases.append(quien + ".")
+    if p.get("rol"):
+        frases.append(f"Su papel aquí: {p['rol']}.")
+    if av.get("idioma"):
+        frases.append(f"Habla {av['idioma']}.")
+
+    rasgos = [r for r in (
+        _nivel(b5.get("o"), "prefiere lo conocido y desconfía de las novedades",
+               "con mucha curiosidad y apertura a ideas nuevas"),
+        _nivel(b5.get("c"), "con tendencia a la espontaneidad y el desorden",
+               "con mucha disciplina y método"),
+        _nivel(b5.get("e"), "de pocas palabras, tirando a la reserva",
+               "de trato expansivo, habla mucho"),
+        _nivel(b5.get("a"), "de trato duro y competitivo, sin interés por agradar",
+               "de trato cooperador, busca agradar y evitar el conflicto"),
+        _nivel(b5.get("n"), "de ánimo sereno, difícil de alterar",
+               "de ánimo reactivo, se altera con facilidad"),
+        _nivel(av.get("ideologia"), "de ideas progresistas",
+               "de ideas conservadoras"),
+        _nivel(av.get("religiosidad"), "sin ninguna religiosidad",
+               "de fuerte religiosidad"),
+        _nivel(av.get("antiguedad"), "con muy poca antigüedad en el grupo",
+               "con mucha antigüedad y veteranía en el grupo"),
+        _nivel(av.get("salud"), "de salud frágil", "de salud robusta"),
+        _nivel(av.get("atractivo"), "de aspecto poco agraciado",
+               "de aspecto muy atractivo"),
+    ) if r]
+    if rasgos:
+        frases.append("Carácter: " + "; ".join(rasgos) + ".")
+    if p.get("trasfondo"):
+        frases.append(f"Trasfondo: {p['trasfondo']}")
+    frases.append(
+        f"Todo lo que {nombre} dice y hace debe ser coherente con esta"
+        " identidad, carácter y trasfondo."
+    )
+    return "\n".join(frases)
+
+
+def persona_de_poblacion(a: dict) -> dict:
+    """Adapta un agente de población del diseñador (nom/gen/ori/b/b2...)
+    al esquema de protagonista que consumen texto_persona() y el runner."""
+    b2 = a.get("b2") or {}
+    rol = a.get("rol", "")
+    if a.get("sub") and a["sub"] != "—":
+        rol = f"{rol} ({a['sub']})".strip()
+    return {
+        "nombre": a.get("nom", "Alguien"),
+        "rol": rol,
+        "objetivo": ("hacer su vida en el lugar: hablar con quien tenga"
+                     " cerca, comentar lo que pasa, y tomar partido cuando"
+                     " algo le afecte — nunca quedarse como una estatua"),
+        "demografia": {"edad": a.get("edad"), "genero": a.get("gen"),
+                       "origen_cultural": a.get("ori"), "nse": a.get("nse"),
+                       "educacion": a.get("edu")},
+        "big5": a.get("b") or {},
+        "avanzados": {"ideologia": b2.get("ideo"),
+                      "religiosidad": b2.get("reli"),
+                      "antiguedad": b2.get("anti"), "salud": b2.get("salud"),
+                      "atractivo": b2.get("atr"),
+                      "idioma": ("" if a.get("idi") in (None, "", "castellano")
+                                 else a.get("idi"))},
+    }
+
+
+@dataclasses.dataclass
+class PersonaEntity(prefab_lib.Prefab):
+    """`basic__Entity` + componente constante de identidad («persona»)."""
+
+    description: str = (
+        "An entity like basic__Entity but with a permanent identity block "
+        "(demographics, personality traits, backstory) visible on every "
+        "decision, so the character does not drift."
+    )
+    params: Mapping[str, str] = dataclasses.field(
+        default_factory=lambda: {
+            "name": "Alice",
+            "goal": "",
+            "persona": "",
+            # Canal privado: genera monólogo interno por turno. Nunca es
+            # visible para otros agentes ni para el GM (vive dentro del
+            # agente); va al log para el visor, y los análisis lo excluyen
+            # por defecto (regla de los dos canales, PROPUESTA §8).
+            "pensamientos": True,
+        }
+    )
+
+    def build(
+        self,
+        model: language_model.LanguageModel,
+        memory_bank: basic_associative_memory.AssociativeMemoryBank,
+    ) -> entity_agent_with_logging.EntityAgentWithLogging:
+        entity_name = self.params.get("name", "Alice")
+        entity_goal = self.params.get("goal", "")
+        persona = self.params.get("persona", "")
+        # Enrutado por rol: la población puede usar un modelo más ligero.
+        model = self.params.get("modelo") or model
+
+        memory_key = agent_components.memory.DEFAULT_MEMORY_COMPONENT_KEY
+        memory = agent_components.memory.AssociativeMemory(
+            memory_bank=memory_bank)
+
+        instructions = agent_components.instructions.Instructions(
+            agent_name=entity_name, pre_act_label="\nInstructions")
+
+        observation_to_memory = (
+            agent_components.observation.ObservationToMemory())
+        observation_key = (
+            agent_components.observation.DEFAULT_OBSERVATION_COMPONENT_KEY)
+        observation = agent_components.observation.LastNObservations(
+            history_length=1_000_000,
+            pre_act_label=(
+                "\nEvents so far (ordered from least recent to most recent)"),
+        )
+
+        situation_perception_key = "SituationPerception"
+        situation_perception = (
+            agent_components.question_of_recent_memories.SituationPerception(
+                model=model,
+                num_memories_to_retrieve=25,
+                pre_act_label=(
+                    f"\nQuestion: What situation is {entity_name} in right"
+                    " now?\nAnswer"),
+            )
+        )
+        person_by_situation_key = "PersonBySituation"
+        person_by_situation = (
+            agent_components.question_of_recent_memories.PersonBySituation(
+                model=model,
+                num_memories_to_retrieve=5,
+                components=[situation_perception_key],
+                pre_act_label=(
+                    f"\nQuestion: What would a person like {entity_name} do"
+                    " in a situation like this?\nAnswer"),
+            )
+        )
+
+        components_of_agent = {
+            "Instructions": instructions,
+            "Observation": observation_to_memory,
+            situation_perception_key: situation_perception,
+            person_by_situation_key: person_by_situation,
+            observation_key: observation,
+            memory_key: memory,
+        }
+        component_order = list(components_of_agent.keys())
+
+        # Identidad tras las instrucciones: la ve en cada decisión.
+        if persona:
+            components_of_agent["Persona"] = agent_components.constant.Constant(
+                state=persona, pre_act_label="\nIdentity and character")
+            component_order.insert(1, "Persona")
+        if entity_goal:
+            components_of_agent["Goal"] = agent_components.constant.Constant(
+                state=entity_goal, pre_act_label="\nGoal")
+            component_order.insert(2 if persona else 1, "Goal")
+
+        # Canal privado: se monta al final para poder condicionarlo a la
+        # identidad (Persona) — sin ella, los pensamientos salían genéricos.
+        if self.params.get("pensamientos", True):
+            base = [k for k in ("Persona", "Goal") if k in components_of_agent]
+            pensamiento = (
+                agent_components.question_of_recent_memories
+                .QuestionOfRecentMemories(
+                    model=model,
+                    pre_act_label=(
+                        f"\n{entity_name}'s private inner monologue (never"
+                        " spoken aloud, invisible to everyone else)"),
+                    question=(
+                        f"What is {entity_name} privately thinking and"
+                        " feeling right now, in their inner voice? Stay true"
+                        " to their identity and character. Include feelings"
+                        " or opinions they would NOT say out loud. Answer in"
+                        " Spanish, in first person, in 1-3 short sentences."),
+                    answer_prefix=f"{entity_name} piensa: ",
+                    add_to_memory=False,
+                    components=base + [situation_perception_key],
+                    num_memories_to_retrieve=10,
+                )
+            )
+            components_of_agent["PensamientoPrivado"] = pensamiento
+            component_order.insert(
+                component_order.index(person_by_situation_key),
+                "PensamientoPrivado")
+
+        act_component = (
+            agent_components.concat_act_component.ConcatActComponent(
+                model=model,
+                component_order=component_order,
+                randomize_choices=True,
+                prefix_entity_name=True,
+            )
+        )
+        return entity_agent_with_logging.EntityAgentWithLogging(
+            agent_name=entity_name,
+            act_component=act_component,
+            context_components=components_of_agent,
+        )

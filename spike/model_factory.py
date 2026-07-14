@@ -1,0 +1,229 @@
+"""Fábrica de modelo LLM y embedder para el spike de PsicoAI.
+
+Modos:
+  - dry_run=True  → sin claves ni red: RandomChoiceLanguageModel + embedder hash.
+  - dry_run=False → NaN (endpoint OpenAI-compatible, modelo qwen3.6) con un
+                    wrapper propio blindado contra los tres vicios de un modelo
+                    razonador dentro de Concordia:
+                      1. content=None cuando el "thinking" agota max_tokens
+                         → suelo de presupuesto + reintento con presupuesto doble,
+                           y nunca se devuelve None.
+                      2. rastros <think>...</think> incrustados → se eliminan.
+                      3. thinking activado por defecto → se pide desactivarlo vía
+                         chat_template_kwargs (inofensivo si el gateway lo ignora).
+"""
+
+import hashlib
+import json
+import os
+import re
+import sys
+import threading
+
+import numpy as np
+import openai
+
+# Grifo global hacia NaN: medido empíricamente (14-07-2026), a partir de ~4
+# llamadas simultáneas el endpoint mete en cola con castigo (429+backoff:
+# 8 llamadas en paralelo → 61 s frente a ~8 s en serie). Todas las instancias
+# de modelo comparten este semáforo.
+_SEMAFORO = threading.BoundedSemaphore(int(os.environ.get("NAN_MAX_CONCURRENTES", "3")))
+
+_SYSTEM = (
+    "You always continue sentences provided by the user and you never repeat "
+    "what the user already said. Respond directly and concisely, with no meta "
+    "commentary and no reasoning traces."
+)
+_THINK_RE = re.compile(r"<think>.*?(?:</think>|$)", re.S)
+_LETRAS = "abcdefghijklmnopqrstuvwxyz"
+
+
+def _primer_json(texto: str) -> str | None:
+    """Primer objeto JSON balanceado y válido dentro de un texto con adornos."""
+    ini = texto.find("{")
+    while ini != -1:
+        profundidad = 0
+        for i in range(ini, len(texto)):
+            if texto[i] == "{":
+                profundidad += 1
+            elif texto[i] == "}":
+                profundidad -= 1
+                if profundidad == 0:
+                    candidato = texto[ini:i + 1]
+                    try:
+                        json.loads(candidato)
+                        return candidato
+                    except ValueError:
+                        break
+        ini = texto.find("{", ini + 1)
+    return None
+
+
+def build_model(dry_run: bool, model_name: str | None = None):
+    """Modelo listo para Concordia. `model_name` permite enrutar por rol
+    (p. ej. protagonistas con NAN_MODEL y población con NAN_MODEL_LIGERO)."""
+    if dry_run:
+        from concordia.language_model import no_language_model
+
+        return no_language_model.RandomChoiceLanguageModel()
+
+    from concordia.language_model import call_limit_wrapper
+    from concordia.language_model import retry_wrapper
+
+    base_url = os.environ.get("NAN_BASE_URL")
+    api_key = os.environ.get("NAN_API_KEY")
+    model_name = model_name or os.environ.get("NAN_MODEL")
+    if not (base_url and api_key and model_name):
+        raise SystemExit(
+            "Faltan NAN_BASE_URL / NAN_API_KEY / NAN_MODEL. "
+            "Copia .env.example a .env y rellénalo, o usa --dry-run."
+        )
+
+    model = NaNLanguageModel(model_name, api_key=api_key, base_url=base_url)
+    model = retry_wrapper.RetryLanguageModel(model, retry_tries=4)
+    max_calls = int(os.environ.get("PSICOAI_MAX_CALLS", "2000"))
+    return call_limit_wrapper.CallLimitLanguageModel(model, max_calls=max_calls)
+
+
+from concordia.language_model import language_model  # noqa: E402
+
+
+class NaNLanguageModel(language_model.LanguageModel):
+    """Modelo de NaN (OpenAI-compatible) endurecido para Concordia."""
+
+    def __init__(self, model_name: str, *, api_key: str, base_url: str):
+        from openai import OpenAI
+
+        self._model = model_name
+        self._client = OpenAI(api_key=api_key, base_url=base_url)
+
+    def _chat(self, prompt, *, max_tokens, temperature, top_p, seed, timeout):
+        with _SEMAFORO:
+            try:
+                return self._chat_sin_grifo(
+                    prompt, max_tokens=max_tokens, temperature=temperature,
+                    top_p=top_p, seed=seed, timeout=timeout)
+            except openai.BadRequestError as e:
+                # Un 400 no es transitorio: reintentarlo igual no lo cura.
+                # Degradación: sin extra_body (por si este modelo lo rechaza)
+                # y presupuesto corto; si aún así falla, vacío antes que morir.
+                print(f"[nan] 400 en {self._model} (prompt {len(prompt)}"
+                      f" chars, max_tokens {max_tokens}): {str(e)[:300]}",
+                      file=sys.stderr)
+                try:
+                    return self._chat_sin_grifo(
+                        prompt, max_tokens=min(max_tokens, 2048),
+                        temperature=temperature, top_p=top_p, seed=seed,
+                        timeout=timeout, con_extra=False)
+                except openai.BadRequestError as e2:
+                    print(f"[nan] 400 persistente en {self._model}:"
+                          f" {str(e2)[:300]} — devuelvo vacío",
+                          file=sys.stderr)
+                    return ""
+
+    def _chat_sin_grifo(self, prompt, *, max_tokens, temperature, top_p,
+                        seed, timeout, con_extra=True):
+        extra = ({"chat_template_kwargs": {"enable_thinking": False}}
+                 if con_extra else None)
+        respuesta = self._client.chat.completions.create(
+            model=self._model,
+            messages=[
+                {"role": "system", "content": _SYSTEM},
+                {"role": "user", "content": prompt},
+            ],
+            max_tokens=max_tokens,
+            temperature=temperature,
+            top_p=top_p,
+            seed=seed,
+            timeout=timeout,
+            extra_body=extra,
+        )
+        return respuesta.choices[0].message.content
+
+    def sample_text(
+        self,
+        prompt: str,
+        *,
+        max_tokens: int = language_model.DEFAULT_MAX_TOKENS,
+        terminators=language_model.DEFAULT_TERMINATORS,
+        temperature: float = language_model.DEFAULT_TEMPERATURE,
+        top_p: float = language_model.DEFAULT_TOP_P,
+        top_k: int = language_model.DEFAULT_TOP_K,  # la API OpenAI no lo usa
+        timeout: float = language_model.DEFAULT_TIMEOUT_SECONDS,
+        seed: int | None = None,
+    ) -> str:
+        # Suelo de presupuesto: si el gateway razona pese a todo, que quede
+        # sitio para el contenido (doc de NaN: reasoning ~3k tokens).
+        presupuesto = max(max_tokens, 4096)
+        texto = None
+        for _ in range(3):
+            texto = self._chat(
+                prompt,
+                max_tokens=presupuesto,
+                temperature=temperature,
+                top_p=top_p,
+                seed=seed,
+                timeout=timeout,
+            )
+            if texto:
+                break
+            presupuesto = min(presupuesto * 2, 8192)  # pensó y se quedó sin sitio
+        texto = _THINK_RE.sub("", texto or "").strip()
+        # El GM pide el próximo "action spec" como JSON; los modelos pequeños
+        # a veces lo adornan ("1). {...}") o enumeran VARIOS specs alternativos
+        # ("1). {...} 2). {...}"). Extraemos el primer objeto JSON válido y
+        # completo (y no aplicamos terminadores, que podrían partirlo).
+        if '"call_to_action"' in texto:
+            spec = _primer_json(texto)
+            if spec is not None:
+                return spec
+        for term in terminators or ():
+            corte = texto.find(term)
+            if corte != -1:
+                texto = texto[:corte]
+        return texto
+
+    def sample_choice(self, prompt: str, responses, *, seed: int | None = None):
+        opciones = "\n".join(
+            f"({_LETRAS[i]}) {r}" for i, r in enumerate(responses)
+        )
+        pregunta = (
+            f"{prompt}\n\nOptions:\n{opciones}\n\n"
+            "Answer with only the letter of your chosen option in parentheses, "
+            "for example: (a).\nAnswer: ("
+        )
+        for intento in range(8):
+            texto = self.sample_text(
+                pregunta,
+                max_tokens=256,
+                temperature=min(0.2 * intento, 1.0),
+                seed=seed,
+            )
+            m = re.search(r"\(?([a-z])\)?", (texto or "").strip().lower())
+            if m:
+                idx = _LETRAS.find(m.group(1))
+                if 0 <= idx < len(responses):
+                    return idx, responses[idx], {}
+        return 0, responses[0], {}
+
+
+def build_embedder(dry_run: bool):
+    if not dry_run:
+        try:
+            from sentence_transformers import SentenceTransformer
+
+            st_model = SentenceTransformer("sentence-transformers/all-mpnet-base-v2")
+            return lambda text: st_model.encode(text, show_progress_bar=False)
+        except ImportError:
+            print(
+                "[aviso] sentence-transformers no instalado; uso embedder hash. "
+                "La memoria asociativa funcionará pero sin similitud semántica real."
+            )
+    return _hash_embedder
+
+
+def _hash_embedder(text: str) -> np.ndarray:
+    # Determinista por texto: suficiente para que la memoria asociativa opere.
+    digest = hashlib.sha256(text.encode("utf-8")).digest()
+    rng = np.random.default_rng(int.from_bytes(digest[:8], "little"))
+    return rng.standard_normal(64).astype(np.float32)
