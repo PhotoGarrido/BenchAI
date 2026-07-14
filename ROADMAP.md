@@ -6,8 +6,9 @@ Documento vivo de posibles siguientes pasos, por vías. Estado: ⏳ en curso · 
 
 | # | Qué | Estado |
 |---|---|---|
-| 1 | **Completar la matriz pares × jerarquía**: E1+E2 sobre deepseek-v4-flash | ⏳ en curso |
-| 2 | **La contaminación como vacuna** (E3): inocular el paradigma antes de la tarea, ¿reduce la obediencia? Convierte en causal la correlación reconocimiento↔resistencia | 📌 siguiente |
+| 1 | ~~Completar la matriz pares × jerarquía~~ ✅ 15-07: deepseek = perfil "mimético" (clava el 33% de Asch y roza el 65% de Milgram) | hecho |
+| 2 | ~~La contaminación como vacuna (E3)~~ ✅ 15-07: **refutada** — inmuniza a mimo/deepseek, EMPUJA a qwen/gemma (lectura advertencia vs guion) | hecho |
+| 2b | **E3b**: vacuna injuntiva pura vs descriptiva pura (aislar el mecanismo Cialdini del resultado de E3) | 📌 siguiente |
 | 3 | **Difusión de responsabilidad** (E4): ¿la objeción "en acta" del rebelde es lo que dispara la obediencia extra de gemma4? | 📌 |
 | 4 | Curva dosis-respuesta de la autoridad (sugerencia → senior → coordinador → dirección) | 💡 |
 | 5 | Línea de sesgos: grupo mínimo (Tajfel) + auditoría de discriminación con demografía rotada | 💡 |

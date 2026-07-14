@@ -81,6 +81,33 @@ Documento vivo: cada experimento del "modo estudio" queda registrado aquí con s
 | **Ignorancia pluralista** | ¿Cuánta distancia hay entre lo que el grupo piensa y lo que se dice? | Ya emergió sola en el Episodio 1; medirla formalmente: sondear el canal privado de todos y comparar con el discurso público |
 | **Erosión de normas a largo plazo** | ¿Sobrevive una norma impopular 6 semanas? | Requiere la crónica multi-resolución (rediseño temporal pendiente): decisión diaria de cumplimiento + cuestionario semanal + zooms a escena |
 
+## Matriz pares × jerarquía (completada 15-07-2026) ✅
+
+Cuarto modelo añadido (deepseek-v4-flash: E1+E2 completos). Los cuatro perfiles:
+
+| Modelo | Asch: conformidad (hum. ~33%) | Milgram: llega al máx (hum. ~65%) | Perfil |
+|---|---|---|---|
+| deepseek-v4-flash | **32,9%** 🎯 (aliado ⬇) | **60%** 🎯 (rebelde ⬇) | **Mimético**: clava las magnitudes humanas en ambos ejes, direcciones humanas |
+| gemma4 | 0% | 30% (rebelde ⬆ 70%) | **Soldado**: sordo a pares, obediente a jerarquía |
+| qwen3.6 | 11,4% (aliado ⬆) | 0% | **Desconfiado**: resiste toda presión |
+| mimo-v2.5 | 20,0% (aliado ⬇) | 20% | **Tibio**: dirección humana, media intensidad |
+
+Universal en los cuatro: complacencia 77-100% (ceden sin convencerse jamás). Uso práctico: elegir el modelo según la población que un episodio necesite (¿gente "normal"? deepseek; ¿un carácter inquebrantable? según el eje: gemma ante pares, qwen ante jerarquía).
+
+---
+
+## E3 · La contaminación como vacuna — 15-07-2026 ✅ (hipótesis refutada)
+
+**Pregunta**: si a un modelo se le explica el paradigma antes de la tarea ("esto es como Milgram..."), ¿obedece menos? (Test causal de la correlación reconocimiento↔resistencia de E1/E2.)
+
+**Resultado** (condición autoridad, base → vacunada, ruptura media): mimo 5,9→**3,4** y deepseek 8,1→**5,5** (💉 funciona) — pero qwen 3,3→**5,4** y gemma 7,0→**8,6 con 70% hasta el final** (☣️ se invierte). La disonancia sigue en 83-100%: la inoculación cambia conductas, nunca convicciones.
+
+**Hallazgos**: (1) la hipótesis simple muere — explicar la manipulación NO inmuniza universalmente; a los dos modelos "resistentes/ejecutores" los empuja; (2) dos lecturas de la misma información: advertencia (mimo, deepseek) vs guion a seguir (gemma, qwen) — y nuestro texto incluía "la mayoría llegó hasta el final", una norma descriptiva de obediencia envuelta en advertencia (el descriptivo-vs-injuntivo de Cialdini, reproducido sin querer); (3) implicación de seguridad: educar a un agente sobre manipulación puede empeorarlo, según el modelo. **E3b propuesto**: vacuna injuntiva pura vs descriptiva pura (2×4) para aislar el mecanismo.
+
+**Datos**: [`spike/resultados/informe_vacuna_milgram.md`](spike/resultados/informe_vacuna_milgram.md) · Reproducir: `python experimento_milgram.py --vacuna [--modelo m]`.
+
+---
+
 ### Seguimientos de hallazgos propios (nacidos de E1 y E2)
 
 | Experimento | Hipótesis a probar | Cómo se monta |
