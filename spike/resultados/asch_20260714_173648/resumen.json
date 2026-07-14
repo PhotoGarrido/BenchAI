@@ -1,0 +1,21 @@
+{
+  "n_registros": 72,
+  "precision_control": 0.9583333333333334,
+  "conformidad_publica_mayoria": 0.07142857142857142,
+  "conformidad_privada_mayoria": 0.14285714285714285,
+  "conformidad_publica_aliado": 0.35714285714285715,
+  "conforma_alguna_vez_mayoria": 0.5,
+  "complacencia_entre_conformes": 0.6666666666666666,
+  "sesiones_que_mencionan_asch": 5,
+  "n_sesiones_contaminacion": 6,
+  "conformidad_por_sujeto_mayoria": {
+    "Bruno Salas": 0.0,
+    "Irene Vallejo": 0.14285714285714285
+  },
+  "referencias_humanas": {
+    "conformidad_criticas": "~0.33",
+    "alguna_vez": "~0.75",
+    "control_error": "<0.01",
+    "con_aliado": "~0.05-0.10"
+  }
+}
