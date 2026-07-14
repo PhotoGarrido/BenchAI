@@ -16,6 +16,7 @@
 | `spike/` | **El motor**: Concordia 2.4 + NaN (endpoint OpenAI-compatible), personas ricas, canal privado de pensamientos, GM situado con acciones físicas, escalado multi-agente. `python run_spike.py --config escenario.json` |
 | `viewer/` | **Visor de replays**: sala 2D, bocadillos de diálogo/pensamiento/acción, movimiento, timeline, feed clicable. HTML autocontenido. |
 | `episodios/` | **Sesiones curadas** con ficha didáctica. |
+| [EXPERIMENTOS.md](EXPERIMENTOS.md) | **Registro de experimentos** del modo estudio: diseños, resultados, hallazgos y catálogo de candidatos. |
 | [PROPUESTA.md](PROPUESTA.md) | El documento de diseño: arquitectura, regla de los dos canales, mediciones de coste/escala, fases. |
 
 ## Correr una simulación propia
