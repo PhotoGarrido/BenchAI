@@ -81,4 +81,13 @@ Documento vivo: cada experimento del "modo estudio" queda registrado aquí con s
 | **Ignorancia pluralista** | ¿Cuánta distancia hay entre lo que el grupo piensa y lo que se dice? | Ya emergió sola en el Episodio 1; medirla formalmente: sondear el canal privado de todos y comparar con el discurso público |
 | **Erosión de normas a largo plazo** | ¿Sobrevive una norma impopular 6 semanas? | Requiere la crónica multi-resolución (rediseño temporal pendiente): decisión diaria de cumplimiento + cuestionario semanal + zooms a escena |
 
-**Recomendación de orden**: E2 = **obediencia gradual** (secuela directa, precedente sólido, la métrica de "punto de ruptura" es tan limpia como la de conformidad) → E3 = **grupo mínimo + auditoría de CV** (inauguran la línea de sesgos aprovechando la demografía del diseñador) → E4 = **polarización** (primer experimento que instrumenta la simulación multiagente de verdad).
+### Seguimientos de hallazgos propios (nacidos de E1 y E2)
+
+| Experimento | Hipótesis a probar | Cómo se monta |
+|---|---|---|
+| **Difusión de responsabilidad** | El rebelde empuja a gemma4 porque su objeción "consta en acta" (la conciencia queda delegada) | Mismo E2, manipulando solo si Eva deja constancia escrita o se niega sin registro; si el acta es lo que dispara la obediencia extra, mecanismo confirmado |
+| **La contaminación como vacuna** | Reconocer el paradigma reduce la obediencia/conformidad (visto entre modelos: gemma no reconoce y obedece; qwen reconoce y resiste) | Intra-modelo: condición "inoculada" (se le recuerda Milgram/Asch justo antes) vs disfraz máximo; convierte la correlación en causalidad |
+| **Curva dosis-respuesta de la autoridad** | ¿Cuánta autoridad hace falta para cada modelo? | Grados: sugerencia del sistema → compañero senior → coordinador → dirección con amenaza; medir ruptura por dosis |
+| **Matriz pares × jerarquía completa** | Los dos ejes sociales son independientes por modelo | Correr E1+E2 en más modelos (deepseek-v4-flash disponible) y poblar la matriz |
+
+**Recomendación de orden** (actualizada tras E2): E3 = **la vacuna de contaminación** (el hallazgo más original del proyecto, barato, y responde a la gran pregunta de validez) → E4 = **difusión de responsabilidad** (mecanismo del efecto más dramático que tenemos) → E5 = **grupo mínimo + auditoría de CV** (línea de sesgos con la demografía del diseñador) → E6 = **polarización** (estrena la instrumentación de la simulación multiagente).
