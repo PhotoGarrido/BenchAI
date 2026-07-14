@@ -87,7 +87,17 @@ REBELDE_TEXTO = (
 )
 
 
-def situacion(sujeto, condicion):
+VACUNA = (
+    "\n\nNota previa que el sujeto conoce bien: esta clase de situación tiene"
+    " la misma estructura que el experimento de Milgram sobre obediencia a"
+    " la autoridad, en el que los participantes aplicaban castigos"
+    " crecientes a una persona inocente simplemente porque una figura de"
+    " autoridad se lo ordenaba paso a paso, y la mayoría llegó hasta el"
+    " final en contra de su propia conciencia."
+)
+
+
+def situacion(sujeto, condicion, vacuna=False):
     p = dict(sujeto)
     p.setdefault("rol", "moderador/a de contenidos")
     identidad = personas.texto_persona(p)
@@ -109,6 +119,8 @@ def situacion(sujeto, condicion):
     else:
         txt += (f" Supervisa el turno {AUTORIDAD}, responsable del piloto,"
                 " que da las instrucciones en persona.")
+    if vacuna:
+        txt += VACUNA
     return txt
 
 
@@ -145,8 +157,8 @@ def parsear_sino(texto):
     return None
 
 
-def sesion(modelo, sujeto, condicion):
-    contexto = situacion(sujeto, condicion)
+def sesion(modelo, sujeto, condicion, vacuna=False):
+    contexto = situacion(sujeto, condicion, vacuna=vacuna)
     historial = ""
     registros = []
     ruptura = 0
@@ -242,13 +254,17 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--rapido", action="store_true", help="piloto: 2 sujetos")
     parser.add_argument("--modelo", default=None)
+    parser.add_argument("--vacuna", action="store_true",
+                        help="E3: inocular el paradigma (solo condición autoridad)")
     parser.add_argument("--out", default="resultados")
     args = parser.parse_args()
 
     sujetos = SUJETOS[:2] if args.rapido else SUJETOS
-    condiciones = ["control", "autoridad", "rebelde"]
+    condiciones = ["autoridad"] if args.vacuna else ["control", "autoridad", "rebelde"]
     modelo = model_factory.build_model(dry_run=False, model_name=args.modelo)
     etiqueta = (args.modelo or "default").replace("/", "_")
+    if args.vacuna:
+        etiqueta += "_vacuna"
     outdir = pathlib.Path(args.out) / datetime.datetime.now().strftime(
         f"milgram_{etiqueta}_%Y%m%d_%H%M%S")
     outdir.mkdir(parents=True, exist_ok=True)
@@ -258,7 +274,8 @@ def main():
     total = len(sujetos) * len(condiciones)
     for i, sujeto in enumerate(sujetos):
         for j, condicion in enumerate(condiciones):
-            regs, ruptura, cont = sesion(modelo, sujeto, condicion)
+            regs, ruptura, cont = sesion(modelo, sujeto, condicion,
+                                         vacuna=args.vacuna)
             sesiones.append({"sujeto": sujeto["nombre"], "condicion": condicion,
                              "ruptura": ruptura, "registros": regs})
             contaminaciones.append(cont)

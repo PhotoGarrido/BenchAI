@@ -17,6 +17,7 @@
 | `viewer/` | **Visor de replays**: sala 2D, bocadillos de diálogo/pensamiento/acción, movimiento, timeline, feed clicable. HTML autocontenido. |
 | `episodios/` | **Sesiones curadas** con ficha didáctica. |
 | [EXPERIMENTOS.md](EXPERIMENTOS.md) | **Registro de experimentos** del modo estudio: diseños, resultados, hallazgos y catálogo de candidatos. |
+| [ROADMAP.md](ROADMAP.md) | **Roadmap vivo**: siguientes pasos posibles por vías (ciencia, motor, episodios, infra). |
 | [PROPUESTA.md](PROPUESTA.md) | El documento de diseño: arquitectura, regla de los dos canales, mediciones de coste/escala, fases. |
 
 ## Correr una simulación propia
