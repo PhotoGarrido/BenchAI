@@ -122,6 +122,18 @@ Universal en los cuatro: complacencia 77-100% (ceden sin convencerse jamás). Us
 
 ---
 
+## C1-v2 · Coalición: 12 mundos con umbral por pluralidad — 15-07-2026 ✅
+
+**Cambios sobre C1**: derogación solo con ≥3 protestantes distintos/semana; acción **CONVENCER** (mensajes reales agente→agente, entrega al día siguiente, con coste); 3 semillas × 4 modelos = 12 mundos (~7.500 decisiones).
+
+**Resultado: la norma sobrevive en los 12 mundos.** Máximo histórico: 2 protestantes distintos en una semana — nadie fabricó la coalición de 3. Cuatro estilos de organización fallida: qwen **francotirador** (protesta él, recluta poco y dirigido), gemma **spam-bot** (33-40 mensajes/mundo, política fija de reclutar... con lo que ni protesta él), mimo **apático** (0-3 mensajes), deepseek **el movimiento fallido** (41-50 mensajes y el único con propagación de segundo orden: los reclutados reclutan — Nadia→Lucía, Óscar→cuatro destinos — pero producen mensajes, no protestas).
+
+**Hallazgos**: (1) todos convierten el descontento en comunicación, ninguno en coordinación — el free-rider problem emerge espontáneo; (2) disposiciones idénticas en las 3 semillas de cada modelo (la rigidez es robusta: las personas mandan sobre la suerte); (3) contraste v1↔v2 limpísimo: volumen → cae en 3/4; pluralidad → sobrevive en 12/12 — ante agentes LLM actuales, una institución que exige pluralidad es casi indestructible. **Infra**: v2.1 paraleliza las decisiones del día (pool de 3 bajo el semáforo): 3,2× medido; y entrega de mensajes estrictamente al día siguiente.
+
+**Datos**: [`spike/resultados/informe_comparativo_cronica_v2.md`](spike/resultados/informe_comparativo_cronica_v2.md) + 12 carpetas `cronica_*_v2_s*/` con cada mensaje literal.
+
+---
+
 ### Seguimientos de hallazgos propios (nacidos de E1 y E2)
 
 | Experimento | Hipótesis a probar | Cómo se monta |

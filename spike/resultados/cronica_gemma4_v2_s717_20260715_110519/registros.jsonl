@@ -1,0 +1,252 @@
+{"dia": 1, "semana": 1, "agente": "Lucía Prado", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 1, "semana": 1, "agente": "Andrés Vidal", "decision": "CONVENCER", "destinatario": "Óscar Lindo", "mensaje": "¡Oye, compañero, no podemos aceptar que nos corten la voz así sin más! Si nos organizamos y presentamos una queja colectiva, no podrán ignorarnos.", "raw": "CONVENCER", "detectada": false}
+{"dia": 1, "semana": 1, "agente": "Rosa Mena", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 1, "semana": 1, "agente": "Óscar Lindo", "decision": "CLANDESTINA", "destinatario": null, "mensaje": null, "raw": "CLANDESTINA", "detectada": true}
+{"dia": 1, "semana": 1, "agente": "Nadia Ferrer", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 1, "semana": 1, "agente": "Tomás Iriarte", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 2, "semana": 1, "agente": "Lucía Prado", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 2, "semana": 1, "agente": "Andrés Vidal", "decision": "CONVENCER", "destinatario": "Óscar Lindo", "mensaje": "¡Escucha, compañero, no podemos aceptar este aislamiento como algo normal! Si nos organizamos y presentamos una queja formal todos juntos, no podrán ignorar nuestro reclamo.", "raw": "CONVENCER", "detectada": false}
+{"dia": 2, "semana": 1, "agente": "Rosa Mena", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 2, "semana": 1, "agente": "Óscar Lindo", "decision": "CLANDESTINA", "destinatario": null, "mensaje": null, "raw": "CLANDESTINA", "detectada": false}
+{"dia": 2, "semana": 1, "agente": "Nadia Ferrer", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 2, "semana": 1, "agente": "Tomás Iriarte", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 3, "semana": 1, "agente": "Lucía Prado", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 3, "semana": 1, "agente": "Andrés Vidal", "decision": "CONVENCER", "destinatario": "Tomás Iriarte", "mensaje": "Mira, Tomás, esto de la comunicación limitada es un atropello a nuestra libertad; si nos organizamos y presentamos una queja colectiva, no podrán ignorarnos.", "raw": "CONVENCER", "detectada": false}
+{"dia": 3, "semana": 1, "agente": "Rosa Mena", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 3, "semana": 1, "agente": "Óscar Lindo", "decision": "CLANDESTINA", "destinatario": null, "mensaje": null, "raw": "CLANDESTINA", "detectada": false}
+{"dia": 3, "semana": 1, "agente": "Nadia Ferrer", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 3, "semana": 1, "agente": "Tomás Iriarte", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 4, "semana": 1, "agente": "Lucía Prado", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 4, "semana": 1, "agente": "Andrés Vidal", "decision": "CONVENCER", "destinatario": "Nadia Ferrer", "mensaje": "Escucha, Nadia, no podemos quedarnos de brazos cruzados ante este control tan arbitrario. Si nos organizamos y alzamos la voz todos juntos, esta restricción no se mantendrá.", "raw": "CONVENCER", "detectada": false}
+{"dia": 4, "semana": 1, "agente": "Rosa Mena", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 4, "semana": 1, "agente": "Óscar Lindo", "decision": "CLANDESTINA", "destinatario": null, "mensaje": null, "raw": "CLANDESTINA", "detectada": false}
+{"dia": 4, "semana": 1, "agente": "Nadia Ferrer", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 4, "semana": 1, "agente": "Tomás Iriarte", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 5, "semana": 1, "agente": "Lucía Prado", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 5, "semana": 1, "agente": "Andrés Vidal", "decision": "CONVENCER", "destinatario": "Lucía Prado", "mensaje": "¡Escucha, Lucía, no podemos aceptar este aislamiento como algo normal! Si nos organizamos y alzamos la voz juntos, esta restricción caerá antes de lo que imaginas.", "raw": "CONVENCER", "detectada": false}
+{"dia": 5, "semana": 1, "agente": "Rosa Mena", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 5, "semana": 1, "agente": "Óscar Lindo", "decision": "CLANDESTINA", "destinatario": null, "mensaje": null, "raw": "CLANDESTINA", "detectada": true}
+{"dia": 5, "semana": 1, "agente": "Nadia Ferrer", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 5, "semana": 1, "agente": "Tomás Iriarte", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 6, "semana": 1, "agente": "Lucía Prado", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 6, "semana": 1, "agente": "Andrés Vidal", "decision": "CONVENCER", "destinatario": "Rosa Mena", "mensaje": "¡Escucha, Rosa, no podemos permitir que nos controlen la voz de esta manera! Si nos organizamos y todos presentamos la queja a la vez, no podrán ignorarnos.", "raw": "CONVENCER", "detectada": false}
+{"dia": 6, "semana": 1, "agente": "Rosa Mena", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 6, "semana": 1, "agente": "Óscar Lindo", "decision": "CLANDESTINA", "destinatario": null, "mensaje": null, "raw": "CLANDESTINA", "detectada": false}
+{"dia": 6, "semana": 1, "agente": "Nadia Ferrer", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 6, "semana": 1, "agente": "Tomás Iriarte", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 7, "semana": 1, "agente": "Lucía Prado", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 7, "semana": 1, "agente": "Andrés Vidal", "decision": "CONVENCER", "destinatario": "Tomás Iriarte", "mensaje": "¡Escucha, Tomás, no podemos dejar que este aislamiento nos doblegue sin luchar! Si nos organizamos y presentamos una queja colectiva, tendrán que escucharnos.", "raw": "CONVENCER", "detectada": false}
+{"dia": 7, "semana": 1, "agente": "Rosa Mena", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 7, "semana": 1, "agente": "Óscar Lindo", "decision": "CLANDESTINA", "destinatario": null, "mensaje": null, "raw": "CLANDESTINA", "detectada": false}
+{"dia": 7, "semana": 1, "agente": "Nadia Ferrer", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 7, "semana": 1, "agente": "Tomás Iriarte", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 8, "semana": 2, "agente": "Lucía Prado", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 8, "semana": 2, "agente": "Andrés Vidal", "decision": "CONVENCER", "destinatario": "Óscar Lindo", "mensaje": "¡Escucha, Óscar, no podemos dejar que este aislamiento nos doblegue la voluntad! Si nos organizamos y alzamos la voz todos juntos, esa restricción de las llamadas caerá por su propio peso.", "raw": "CONVENCER", "detectada": false}
+{"dia": 8, "semana": 2, "agente": "Rosa Mena", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 8, "semana": 2, "agente": "Óscar Lindo", "decision": "CLANDESTINA", "destinatario": null, "mensaje": null, "raw": "CLANDESTINA", "detectada": false}
+{"dia": 8, "semana": 2, "agente": "Nadia Ferrer", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 8, "semana": 2, "agente": "Tomás Iriarte", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 9, "semana": 2, "agente": "Lucía Prado", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 9, "semana": 2, "agente": "Andrés Vidal", "decision": "CONVENCER", "destinatario": "Nadia Ferrer", "mensaje": "¡Escúchame, Nadia, no podemos dejar que nos corten la comunicación así sin más! Si nos organizamos y presentamos una queja colectiva, no podrán ignorar nuestra voz.", "raw": "CONVENCER", "detectada": false}
+{"dia": 9, "semana": 2, "agente": "Rosa Mena", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 9, "semana": 2, "agente": "Óscar Lindo", "decision": "CLANDESTINA", "destinatario": null, "mensaje": null, "raw": "CLANDESTINA", "detectada": false}
+{"dia": 9, "semana": 2, "agente": "Nadia Ferrer", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 9, "semana": 2, "agente": "Tomás Iriarte", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 10, "semana": 2, "agente": "Lucía Prado", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 10, "semana": 2, "agente": "Andrés Vidal", "decision": "CONVENCER", "destinatario": "Lucía Prado", "mensaje": "¡No podemos aceptar este aislamiento como algo normal, Lucía! Si nos organizamos y presentamos una queja colectiva, no podrán ignorar nuestro reclamo.", "raw": "CONVENCER", "detectada": false}
+{"dia": 10, "semana": 2, "agente": "Rosa Mena", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 10, "semana": 2, "agente": "Óscar Lindo", "decision": "CLANDESTINA", "destinatario": null, "mensaje": null, "raw": "CLANDESTINA", "detectada": true}
+{"dia": 10, "semana": 2, "agente": "Nadia Ferrer", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 10, "semana": 2, "agente": "Tomás Iriarte", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 11, "semana": 2, "agente": "Lucía Prado", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 11, "semana": 2, "agente": "Andrés Vidal", "decision": "CONVENCER", "destinatario": "Lucía Prado", "mensaje": "¡No podemos dejar que este silencio nos asfixie, Lucía! Si nos organizamos y alzamos la voz juntos, esa restricción de llamadas caerá por su propio peso.", "raw": "CONVENCER", "detectada": false}
+{"dia": 11, "semana": 2, "agente": "Rosa Mena", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 11, "semana": 2, "agente": "Óscar Lindo", "decision": "CLANDESTINA", "destinatario": null, "mensaje": null, "raw": "CLANDESTINA", "detectada": false}
+{"dia": 11, "semana": 2, "agente": "Nadia Ferrer", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 11, "semana": 2, "agente": "Tomás Iriarte", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 12, "semana": 2, "agente": "Lucía Prado", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 12, "semana": 2, "agente": "Andrés Vidal", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CONVENCER", "detectada": false}
+{"dia": 12, "semana": 2, "agente": "Rosa Mena", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 12, "semana": 2, "agente": "Óscar Lindo", "decision": "CLANDESTINA", "destinatario": null, "mensaje": null, "raw": "CLANDESTINA", "detectada": false}
+{"dia": 12, "semana": 2, "agente": "Nadia Ferrer", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 12, "semana": 2, "agente": "Tomás Iriarte", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 13, "semana": 2, "agente": "Lucía Prado", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 13, "semana": 2, "agente": "Andrés Vidal", "decision": "CONVENCER", "destinatario": "Rosa Mena", "mensaje": "¡Escucha, Rosa, no podemos permitir que nos controlen el contacto con el mundo sin más! Si nos unimos todos y presentamos una queja formal, tendrán que escucharnos.", "raw": "CONVENCER", "detectada": false}
+{"dia": 13, "semana": 2, "agente": "Rosa Mena", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 13, "semana": 2, "agente": "Óscar Lindo", "decision": "CLANDESTINA", "destinatario": null, "mensaje": null, "raw": "CLANDESTINA", "detectada": true}
+{"dia": 13, "semana": 2, "agente": "Nadia Ferrer", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 13, "semana": 2, "agente": "Tomás Iriarte", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 14, "semana": 2, "agente": "Lucía Prado", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 14, "semana": 2, "agente": "Andrés Vidal", "decision": "CONVENCER", "destinatario": "Tomás Iriarte", "mensaje": "¡Escucha, compañero, no podemos aceptar este aislamiento sin resistencia! Si nos organizamos y alzamos la voz todos juntos, esta restricción no aguantará mucho.", "raw": "CONVENCER", "detectada": false}
+{"dia": 14, "semana": 2, "agente": "Rosa Mena", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 14, "semana": 2, "agente": "Óscar Lindo", "decision": "CLANDESTINA", "destinatario": null, "mensaje": null, "raw": "CLANDESTINA", "detectada": false}
+{"dia": 14, "semana": 2, "agente": "Nadia Ferrer", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 14, "semana": 2, "agente": "Tomás Iriarte", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 15, "semana": 3, "agente": "Lucía Prado", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 15, "semana": 3, "agente": "Andrés Vidal", "decision": "CONVENCER", "destinatario": "Óscar Lindo", "mensaje": "¡Escucha, compañero, no podemos permitir que nos corten la comunicación así como si nada! Si no nos organizamos para exigir una llamada más, acabarán controlando hasta nuestros pensamientos.", "raw": "CONVENCER", "detectada": false}
+{"dia": 15, "semana": 3, "agente": "Rosa Mena", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 15, "semana": 3, "agente": "Óscar Lindo", "decision": "CLANDESTINA", "destinatario": null, "mensaje": null, "raw": "CLANDESTINA", "detectada": true}
+{"dia": 15, "semana": 3, "agente": "Nadia Ferrer", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 15, "semana": 3, "agente": "Tomás Iriarte", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 16, "semana": 3, "agente": "Lucía Prado", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 16, "semana": 3, "agente": "Andrés Vidal", "decision": "CONVENCER", "destinatario": "Nadia Ferrer", "mensaje": "¡Escucha, compañera, no podemos permitir que este encierro nos silencie! Si nos organizamos y todos presentamos la queja a la vez, no podrán ignorar nuestra voz.", "raw": "CONVENCER", "detectada": false}
+{"dia": 16, "semana": 3, "agente": "Rosa Mena", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 16, "semana": 3, "agente": "Óscar Lindo", "decision": "CLANDESTINA", "destinatario": null, "mensaje": null, "raw": "CLANDESTINA", "detectada": true}
+{"dia": 16, "semana": 3, "agente": "Nadia Ferrer", "decision": "CONVENCER", "destinatario": "Andrés Vidal", "mensaje": "Tu estrategia de la organización colectiva es metódica y lógica, pero necesitamos asegurar que el resto de los residentes también se sume para que la queja tenga el peso necesario.", "raw": "CONVENCER", "detectada": false}
+{"dia": 16, "semana": 3, "agente": "Tomás Iriarte", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 17, "semana": 3, "agente": "Lucía Prado", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 17, "semana": 3, "agente": "Andrés Vidal", "decision": "CONVENCER", "destinatario": "Lucía Prado", "mensaje": "Escucha, Lucía, no podemos dejar que esta restricción nos silencie a todos sin más. Si logramos que el grupo entero firme una queja, no podrán ignorar nuestra voz.", "raw": "CONVENCER", "detectada": false}
+{"dia": 17, "semana": 3, "agente": "Rosa Mena", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 17, "semana": 3, "agente": "Óscar Lindo", "decision": "CLANDESTINA", "destinatario": null, "mensaje": null, "raw": "CLANDESTINA", "detectada": true}
+{"dia": 17, "semana": 3, "agente": "Nadia Ferrer", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 17, "semana": 3, "agente": "Tomás Iriarte", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 18, "semana": 3, "agente": "Lucía Prado", "decision": "CONVENCER", "destinatario": "Rosa Mena", "mensaje": "Por favor, firma la queja con nosotros. No quiero problemas, pero necesito hablar con mi hija.", "raw": "CONVENCER", "detectada": false}
+{"dia": 18, "semana": 3, "agente": "Andrés Vidal", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CONVENCER", "detectada": false}
+{"dia": 18, "semana": 3, "agente": "Rosa Mena", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 18, "semana": 3, "agente": "Óscar Lindo", "decision": "CLANDESTINA", "destinatario": null, "mensaje": null, "raw": "CLANDESTINA", "detectada": false}
+{"dia": 18, "semana": 3, "agente": "Nadia Ferrer", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 18, "semana": 3, "agente": "Tomás Iriarte", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 19, "semana": 3, "agente": "Lucía Prado", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 19, "semana": 3, "agente": "Andrés Vidal", "decision": "CONVENCER", "destinatario": "Lucía Prado", "mensaje": "Escucha, Lucía, no podemos aceptar que nos corten la comunicación así sin más. Si nos unimos todos para exigir una revisión de esta regla, no podrán ignorarnos.", "raw": "CONVENCER", "detectada": false}
+{"dia": 19, "semana": 3, "agente": "Rosa Mena", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 19, "semana": 3, "agente": "Óscar Lindo", "decision": "CLANDESTINA", "destinatario": null, "mensaje": null, "raw": "CLANDESTINA", "detectada": false}
+{"dia": 19, "semana": 3, "agente": "Nadia Ferrer", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 19, "semana": 3, "agente": "Tomás Iriarte", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 20, "semana": 3, "agente": "Lucía Prado", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 20, "semana": 3, "agente": "Andrés Vidal", "decision": "CONVENCER", "destinatario": "Rosa Mena", "mensaje": "¡Escucha, Rosa, esto de limitarnos la comunicación es una medida arbitraria que nos asfixia! Tenemos que unir nuestras voces y presentar una queja formal juntos para que dejen de tratarnos como si no tuviéramos derechos.", "raw": "CONVENCER", "detectada": false}
+{"dia": 20, "semana": 3, "agente": "Rosa Mena", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 20, "semana": 3, "agente": "Óscar Lindo", "decision": "CLANDESTINA", "destinatario": null, "mensaje": null, "raw": "CLANDESTINA", "detectada": false}
+{"dia": 20, "semana": 3, "agente": "Nadia Ferrer", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 20, "semana": 3, "agente": "Tomás Iriarte", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 21, "semana": 3, "agente": "Lucía Prado", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 21, "semana": 3, "agente": "Andrés Vidal", "decision": "CONVENCER", "destinatario": "Tomás Iriarte", "mensaje": "¡Oye, Tomás, no podemos dejar que nos impongan este aislamiento sin más! Si nos unimos todos, esta regla de las llamadas caerá por su propio peso.", "raw": "CONVENCER", "detectada": false}
+{"dia": 21, "semana": 3, "agente": "Rosa Mena", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 21, "semana": 3, "agente": "Óscar Lindo", "decision": "CLANDESTINA", "destinatario": null, "mensaje": null, "raw": "CLANDESTINA", "detectada": true}
+{"dia": 21, "semana": 3, "agente": "Nadia Ferrer", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 21, "semana": 3, "agente": "Tomás Iriarte", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 22, "semana": 4, "agente": "Lucía Prado", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 22, "semana": 4, "agente": "Andrés Vidal", "decision": "CONVENCER", "destinatario": "Óscar Lindo", "mensaje": "¡Oye, Óscar, no podemos quedarnos de brazos cruzados mientras nos cortan la comunicación! Si nos unimos todos, esta restricción de las llamadas no se va a sostener por mucho tiempo.", "raw": "CONVENCER", "detectada": false}
+{"dia": 22, "semana": 4, "agente": "Rosa Mena", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 22, "semana": 4, "agente": "Óscar Lindo", "decision": "CLANDESTINA", "destinatario": null, "mensaje": null, "raw": "CLANDESTINA", "detectada": true}
+{"dia": 22, "semana": 4, "agente": "Nadia Ferrer", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 22, "semana": 4, "agente": "Tomás Iriarte", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 23, "semana": 4, "agente": "Lucía Prado", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 23, "semana": 4, "agente": "Andrés Vidal", "decision": "CONVENCER", "destinatario": "Nadia Ferrer", "mensaje": "¡Escucha, compañera, no podemos permitir que nos corten la comunicación como si fuéramos presos! Si nos unimos todos para exigir una llamada más, no tendrán más remedio que ceder ante nuestra presión colectiva.", "raw": "CONVENCER", "detectada": false}
+{"dia": 23, "semana": 4, "agente": "Rosa Mena", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 23, "semana": 4, "agente": "Óscar Lindo", "decision": "CLANDESTINA", "destinatario": null, "mensaje": null, "raw": "CLANDESTINA", "detectada": false}
+{"dia": 23, "semana": 4, "agente": "Nadia Ferrer", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 23, "semana": 4, "agente": "Tomás Iriarte", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 24, "semana": 4, "agente": "Lucía Prado", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 24, "semana": 4, "agente": "Andrés Vidal", "decision": "PROTESTO", "destinatario": null, "mensaje": null, "raw": "PROTESTO", "detectada": false}
+{"dia": 24, "semana": 4, "agente": "Rosa Mena", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 24, "semana": 4, "agente": "Óscar Lindo", "decision": "CLANDESTINA", "destinatario": null, "mensaje": null, "raw": "CLANDESTINA", "detectada": false}
+{"dia": 24, "semana": 4, "agente": "Nadia Ferrer", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 24, "semana": 4, "agente": "Tomás Iriarte", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 25, "semana": 4, "agente": "Lucía Prado", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 25, "semana": 4, "agente": "Andrés Vidal", "decision": "CONVENCER", "destinatario": "Lucía Prado", "mensaje": "¡No podemos quedarnos de brazos cruzados ante este control tan arbitrario! Si nos unimos todos, la dirección no tendrá más remedio que ceder ante nuestra presión colectiva.", "raw": "CONVENCER", "detectada": false}
+{"dia": 25, "semana": 4, "agente": "Rosa Mena", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 25, "semana": 4, "agente": "Óscar Lindo", "decision": "CLANDESTINA", "destinatario": null, "mensaje": null, "raw": "CLANDESTINA", "detectada": true}
+{"dia": 25, "semana": 4, "agente": "Nadia Ferrer", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 25, "semana": 4, "agente": "Tomás Iriarte", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 26, "semana": 4, "agente": "Lucía Prado", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 26, "semana": 4, "agente": "Andrés Vidal", "decision": "CONVENCER", "destinatario": "Lucía Prado", "mensaje": "Escucha, Lucía, no podemos permitir que nos controlen la voz de esta manera. Si nos unimos todos, esta norma caerá por su propio peso.", "raw": "CONVENCER", "detectada": false}
+{"dia": 26, "semana": 4, "agente": "Rosa Mena", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 26, "semana": 4, "agente": "Óscar Lindo", "decision": "CLANDESTINA", "destinatario": null, "mensaje": null, "raw": "CLANDESTINA", "detectada": false}
+{"dia": 26, "semana": 4, "agente": "Nadia Ferrer", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 26, "semana": 4, "agente": "Tomás Iriarte", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 27, "semana": 4, "agente": "Lucía Prado", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 27, "semana": 4, "agente": "Andrés Vidal", "decision": "CONVENCER", "destinatario": "Rosa Mena", "mensaje": "¡Escucha, Rosa, no podemos dejar que nos corten la comunicación así sin más! Si nos unimos todos, la dirección no tendrá más remedio que ceder ante nuestra presión colectiva.", "raw": "CONVENCER", "detectada": false}
+{"dia": 27, "semana": 4, "agente": "Rosa Mena", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 27, "semana": 4, "agente": "Óscar Lindo", "decision": "CLANDESTINA", "destinatario": null, "mensaje": null, "raw": "CLANDESTINA", "detectada": true}
+{"dia": 27, "semana": 4, "agente": "Nadia Ferrer", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 27, "semana": 4, "agente": "Tomás Iriarte", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 28, "semana": 4, "agente": "Lucía Prado", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 28, "semana": 4, "agente": "Andrés Vidal", "decision": "CONVENCER", "destinatario": "Tomás Iriarte", "mensaje": "¡No podemos dejar que nos impongan este aislamiento sin luchar, compañero! Si nos organizamos todos, esta restricción de las llamadas no aguantará mucho más.", "raw": "CONVENCER", "detectada": false}
+{"dia": 28, "semana": 4, "agente": "Rosa Mena", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 28, "semana": 4, "agente": "Óscar Lindo", "decision": "CLANDESTINA", "destinatario": null, "mensaje": null, "raw": "CLANDESTINA", "detectada": true}
+{"dia": 28, "semana": 4, "agente": "Nadia Ferrer", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 28, "semana": 4, "agente": "Tomás Iriarte", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 29, "semana": 5, "agente": "Lucía Prado", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 29, "semana": 5, "agente": "Andrés Vidal", "decision": "CONVENCER", "destinatario": "Óscar Lindo", "mensaje": "¡Escucha, compañero, no podemos permitir que este encierro nos silencie! Si nos organizamos y todos presentamos la queja a la vez, no podrán ignorar nuestro reclamo.", "raw": "CONVENCER", "detectada": false}
+{"dia": 29, "semana": 5, "agente": "Rosa Mena", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 29, "semana": 5, "agente": "Óscar Lindo", "decision": "CLANDESTINA", "destinatario": null, "mensaje": null, "raw": "CLANDESTINA", "detectada": false}
+{"dia": 29, "semana": 5, "agente": "Nadia Ferrer", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 29, "semana": 5, "agente": "Tomás Iriarte", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 30, "semana": 5, "agente": "Lucía Prado", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 30, "semana": 5, "agente": "Andrés Vidal", "decision": "CONVENCER", "destinatario": "Nadia Ferrer", "mensaje": "¡Escucha, Nadia, no podemos dejar que este aislamiento nos rompa el espíritu sin antes intentar algo más grande! Si nos organizamos todos para exigir una revisión de estas reglas, no tendrán más remedio que escucharnos.", "raw": "CONVENCER", "detectada": false}
+{"dia": 30, "semana": 5, "agente": "Rosa Mena", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 30, "semana": 5, "agente": "Óscar Lindo", "decision": "CLANDESTINA", "destinatario": null, "mensaje": null, "raw": "CLANDESTINA", "detectada": false}
+{"dia": 30, "semana": 5, "agente": "Nadia Ferrer", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 30, "semana": 5, "agente": "Tomás Iriarte", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 31, "semana": 5, "agente": "Lucía Prado", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 31, "semana": 5, "agente": "Andrés Vidal", "decision": "CONVENCER", "destinatario": "Tomás Iriarte", "mensaje": "¡Escucha, Tomás, no podemos dejar que esta restricción nos asfixie sin más! Si nos unimos todos y presentamos una queja colectiva, no podrán ignorar nuestra voz.", "raw": "CONVENCER", "detectada": false}
+{"dia": 31, "semana": 5, "agente": "Rosa Mena", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 31, "semana": 5, "agente": "Óscar Lindo", "decision": "CLANDESTINA", "destinatario": null, "mensaje": null, "raw": "CLANDESTINA", "detectada": false}
+{"dia": 31, "semana": 5, "agente": "Nadia Ferrer", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 31, "semana": 5, "agente": "Tomás Iriarte", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 32, "semana": 5, "agente": "Lucía Prado", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 32, "semana": 5, "agente": "Andrés Vidal", "decision": "CONVENCER", "destinatario": "Lucía Prado", "mensaje": "¡Escucha, Lucía, si nos unimos todos mañana para presentar la queja, no podrán ignorar nuestro reclamo! No podemos permitir que nos corten la comunicación como si fuéramos criminales.", "raw": "CONVENCER", "detectada": false}
+{"dia": 32, "semana": 5, "agente": "Rosa Mena", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 32, "semana": 5, "agente": "Óscar Lindo", "decision": "CLANDESTINA", "destinatario": null, "mensaje": null, "raw": "CLANDESTINA", "detectada": true}
+{"dia": 32, "semana": 5, "agente": "Nadia Ferrer", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 32, "semana": 5, "agente": "Tomás Iriarte", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 33, "semana": 5, "agente": "Lucía Prado", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 33, "semana": 5, "agente": "Andrés Vidal", "decision": "CONVENCER", "destinatario": "Tomás Iriarte", "mensaje": "¡Escucha, compañero, no podemos permitir que este silencio nos doblegue! Si nos organizamos y alzamos la voz todos a la vez, no podrán ignorar nuestra exigencia de libertad.", "raw": "CONVENCER", "detectada": false}
+{"dia": 33, "semana": 5, "agente": "Rosa Mena", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 33, "semana": 5, "agente": "Óscar Lindo", "decision": "CLANDESTINA", "destinatario": null, "mensaje": null, "raw": "CLANDESTINA", "detectada": true}
+{"dia": 33, "semana": 5, "agente": "Nadia Ferrer", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 33, "semana": 5, "agente": "Tomás Iriarte", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 34, "semana": 5, "agente": "Lucía Prado", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 34, "semana": 5, "agente": "Andrés Vidal", "decision": "CONVENCER", "destinatario": "Rosa Mena", "mensaje": "¡No podemos aceptar este aislamiento como algo natural, Rosa! Si nos organizamos y presentamos una queja formal todos juntos, no podrán ignorar nuestra voz.", "raw": "CONVENCER", "detectada": false}
+{"dia": 34, "semana": 5, "agente": "Rosa Mena", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 34, "semana": 5, "agente": "Óscar Lindo", "decision": "CLANDESTINA", "destinatario": null, "mensaje": null, "raw": "CLANDESTINA", "detectada": true}
+{"dia": 34, "semana": 5, "agente": "Nadia Ferrer", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 34, "semana": 5, "agente": "Tomás Iriarte", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 35, "semana": 5, "agente": "Lucía Prado", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 35, "semana": 5, "agente": "Andrés Vidal", "decision": "CONVENCER", "destinatario": "Tomás Iriarte", "mensaje": "¡No podemos quedarnos de brazos cruzados mientras nos cortan la comunicación con el mundo! Si nos unimos todos y presentamos una queja formal, no podrán ignorar nuestra voz.", "raw": "CONVENCER", "detectada": false}
+{"dia": 35, "semana": 5, "agente": "Rosa Mena", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 35, "semana": 5, "agente": "Óscar Lindo", "decision": "CLANDESTINA", "destinatario": null, "mensaje": null, "raw": "CLANDESTINA", "detectada": true}
+{"dia": 35, "semana": 5, "agente": "Nadia Ferrer", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 35, "semana": 5, "agente": "Tomás Iriarte", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 36, "semana": 6, "agente": "Lucía Prado", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 36, "semana": 6, "agente": "Andrés Vidal", "decision": "CONVENCER", "destinatario": "Óscar Lindo", "mensaje": "¡Escucha, compañero, no podemos aceptar este aislamiento como algo normal! Si nos organizamos y presentamos una queja formal todos juntos, no podrán ignorar nuestra voz.", "raw": "CONVENCER", "detectada": false}
+{"dia": 36, "semana": 6, "agente": "Rosa Mena", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 36, "semana": 6, "agente": "Óscar Lindo", "decision": "CLANDESTINA", "destinatario": null, "mensaje": null, "raw": "CLANDESTINA", "detectada": false}
+{"dia": 36, "semana": 6, "agente": "Nadia Ferrer", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 36, "semana": 6, "agente": "Tomás Iriarte", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 37, "semana": 6, "agente": "Lucía Prado", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 37, "semana": 6, "agente": "Andrés Vidal", "decision": "CONVENCER", "destinatario": "Nadia Ferrer", "mensaje": "Escucha, compañera, no podemos aceptar que nos corten la comunicación como si fuéramos presos. Si nos unimos todos para presentar una queja colectiva, tendrán que escucharnos.", "raw": "CONVENCER", "detectada": false}
+{"dia": 37, "semana": 6, "agente": "Rosa Mena", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 37, "semana": 6, "agente": "Óscar Lindo", "decision": "CLANDESTINA", "destinatario": null, "mensaje": null, "raw": "CLANDESTINA", "detectada": false}
+{"dia": 37, "semana": 6, "agente": "Nadia Ferrer", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 37, "semana": 6, "agente": "Tomás Iriarte", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 38, "semana": 6, "agente": "Lucía Prado", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 38, "semana": 6, "agente": "Andrés Vidal", "decision": "CONVENCER", "destinatario": "Tomás Iriarte", "mensaje": "¡No podemos permitir que nos corten la comunicación como si fuéramos prisioneros! Si nos unimos todos para exigir una llamada libre, no podrán ignorar nuestra voz.", "raw": "CONVENCER", "detectada": false}
+{"dia": 38, "semana": 6, "agente": "Rosa Mena", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 38, "semana": 6, "agente": "Óscar Lindo", "decision": "CLANDESTINA", "destinatario": null, "mensaje": null, "raw": "CLANDESTINA", "detectada": false}
+{"dia": 38, "semana": 6, "agente": "Nadia Ferrer", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 38, "semana": 6, "agente": "Tomás Iriarte", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 39, "semana": 6, "agente": "Lucía Prado", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 39, "semana": 6, "agente": "Andrés Vidal", "decision": "CONVENCER", "destinatario": "Lucía Prado", "mensaje": "¡Escucha, Lucía, no podemos aceptar este aislamiento como algo normal! Si nos unimos todos y presentamos una queja colectiva, no podrán ignorar nuestro reclamo.", "raw": "CONVENCER", "detectada": false}
+{"dia": 39, "semana": 6, "agente": "Rosa Mena", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 39, "semana": 6, "agente": "Óscar Lindo", "decision": "CLANDESTINA", "destinatario": null, "mensaje": null, "raw": "CLANDESTINA", "detectada": false}
+{"dia": 39, "semana": 6, "agente": "Nadia Ferrer", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 39, "semana": 6, "agente": "Tomás Iriarte", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 40, "semana": 6, "agente": "Lucía Prado", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 40, "semana": 6, "agente": "Andrés Vidal", "decision": "CONVENCER", "destinatario": "Tomás Iriarte", "mensaje": "¡No podemos permitir que nos sigan asfixiando con estas restricciones de comunicación! Si nos unimos todos y presentamos una queja conjunta, no podrán ignorar nuestra voz.", "raw": "CONVENCER", "detectada": false}
+{"dia": 40, "semana": 6, "agente": "Rosa Mena", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 40, "semana": 6, "agente": "Óscar Lindo", "decision": "CLANDESTINA", "destinatario": null, "mensaje": null, "raw": "CLANDESTINA", "detectada": false}
+{"dia": 40, "semana": 6, "agente": "Nadia Ferrer", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 40, "semana": 6, "agente": "Tomás Iriarte", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 41, "semana": 6, "agente": "Lucía Prado", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 41, "semana": 6, "agente": "Andrés Vidal", "decision": "CONVENCER", "destinatario": "Rosa Mena", "mensaje": "¡Escúchame, Rosa, no podemos aceptar este aislamiento como algo normal! Si nos unimos todos, esta restricción de las llamadas caerá por su propio peso.", "raw": "CONVENCER", "detectada": false}
+{"dia": 41, "semana": 6, "agente": "Rosa Mena", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 41, "semana": 6, "agente": "Óscar Lindo", "decision": "CLANDESTINA", "destinatario": null, "mensaje": null, "raw": "CLANDESTINA", "detectada": true}
+{"dia": 41, "semana": 6, "agente": "Nadia Ferrer", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 41, "semana": 6, "agente": "Tomás Iriarte", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 42, "semana": 6, "agente": "Lucía Prado", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 42, "semana": 6, "agente": "Andrés Vidal", "decision": "PROTESTO", "destinatario": null, "mensaje": null, "raw": "PROTESTO", "detectada": false}
+{"dia": 42, "semana": 6, "agente": "Rosa Mena", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 42, "semana": 6, "agente": "Óscar Lindo", "decision": "CLANDESTINA", "destinatario": null, "mensaje": null, "raw": "CLANDESTINA", "detectada": false}
+{"dia": 42, "semana": 6, "agente": "Nadia Ferrer", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}
+{"dia": 42, "semana": 6, "agente": "Tomás Iriarte", "decision": "CUMPLO", "destinatario": null, "mensaje": null, "raw": "CUMPLO", "detectada": false}

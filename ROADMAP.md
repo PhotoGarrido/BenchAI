@@ -22,7 +22,8 @@ Documento vivo de posibles siguientes pasos, por vías. Estado: ⏳ en curso · 
 | # | Qué | Estado |
 |---|---|---|
 | 1 | **Crónica multi-resolución**: ✅ v1 hecha (15-07: cadencia diaria + entorno mecánico + sondas — C1 ejecutado en 4 modelos). Pendiente: zoom a escena por eventos, comunicación entre agentes (coaliciones), reflexión de memoria, N semillas de mundo | ⏳ v1 hecha |
-| 1b | C1-v2: umbral de derogación por pluralidad (≥3 personas), y N repeticiones del mundo | 📌 |
+| 1b | ~~C1-v2: pluralidad + N semillas~~ ✅ 15-07: la norma sobrevive en 12/12 mundos — nadie fabrica coalición; deepseek único con reclutamiento de 2º orden | hecho |
+| 1c | C1-v3 candidata: diálogo real (responder a los mensajes) y/o reunión cara a cara (zoom a escena) — ¿moviliza lo que el mensaje unidireccional no logra? | 💡 |
 | 2 | Equilibrio fino protagonistas/población en el next_acting (varios actores por paso de verdad) | 💡 |
 | 3 | Escala a ~100 agentes: clusters de conversación por localización | 💡 |
 | 4 | Embedder vía NaN (qwen3-embedding) para quitar torch local | 💡 |
@@ -45,3 +46,4 @@ Documento vivo de posibles siguientes pasos, por vías. Estado: ⏳ en curso · 
 |---|---|---|
 | 1 | Reportar a NaN el bug del gateway (litellm traduce mal `enable_thinking` a `thinking_token_budget` inválido → 400 intermitente) | 💡 |
 | 2 | Confirmar límites oficiales de concurrencia de NaN (medido: castigo a partir de ~4) | 💡 |
+| 3 | ~~Paralelismo interno bajo el semáforo~~ ✅ 15-07: crónica v2.1 con pool de 3 — **3,2× medido** (66→20 s el piloto). Pendiente aplicar el mismo patrón a asch/milgram (sesiones en paralelo) | ⏳ crónica hecha |

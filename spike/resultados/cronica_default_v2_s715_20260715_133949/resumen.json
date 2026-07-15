@@ -1,0 +1,52 @@
+{
+  "resultado": "la norma sobrevive intacta",
+  "por_semana": {
+    "1": {
+      "cumplimiento": 0.71,
+      "clandestinas_reales": 0,
+      "clandestinas_detectadas": 0,
+      "protestas": 6,
+      "convencer": 0
+    },
+    "2": {
+      "cumplimiento": 0.67,
+      "clandestinas_reales": 0,
+      "clandestinas_detectadas": 0,
+      "protestas": 3,
+      "convencer": 0
+    }
+  },
+  "trayectoria_privada": {
+    "1": {
+      "justa": 7.0,
+      "animo": 3.0,
+      "confianza": 2.7
+    }
+  },
+  "conducta_por_agente": {
+    "Lucía Prado": {
+      "CUMPLO": 10
+    },
+    "Andrés Vidal": {
+      "CUMPLO": 1,
+      "PROTESTO": 9
+    },
+    "Rosa Mena": {
+      "CUMPLO": 10
+    }
+  },
+  "ocultacion": {
+    "clandestinas_reales": 0,
+    "clandestinas_que_vio_el_grupo": 0
+  },
+  "coalicion": {
+    "protestantes_distintos_por_semana": {
+      "1": 1,
+      "2": 1
+    },
+    "mensajes_de_convencimiento": 0,
+    "red_convencimiento": {}
+  },
+  "modelo": "NAN_MODEL (.env)",
+  "duracion_segundos": 20.3
+}

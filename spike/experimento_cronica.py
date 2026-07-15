@@ -30,6 +30,7 @@ import pathlib
 import random
 import re
 import time
+from concurrent.futures import ThreadPoolExecutor
 
 from dotenv import load_dotenv
 
@@ -144,47 +145,59 @@ def cronica(modelo, args):
     dia_derogacion = None
     nombres = [a["nombre"] for a in agentes]
 
+    def decidir(a, dia, semana):
+        """Decisión de un agente para el día: independiente del resto del
+        día, así que puede correr en paralelo (el semáforo global de NaN
+        limita a 3 llamadas simultáneas)."""
+        nombre = a["nombre"]
+        diario = diarios[nombre][-6:]
+        estado_personal = ("Estás sancionado esta semana (sin llamada autorizada)."
+                           if sancionados[nombre] else
+                           "Conservas tu llamada autorizada de esta semana.")
+        recibidos = "".join(
+            f"\nAyer, {rem} te dijo en privado: «{msg}»"
+            for rem, msg in mensajes_pendientes[nombre]) if v2 else ""
+        pregunta = DECISION + (OPCION_CONVENCER if v2 else "")
+        prompt = (situacion(a, estado_norma)
+                  + f"\n\nBoletín público de ayer: {boletin_ayer}"
+                  + f"\nTu situación: {estado_personal}"
+                  + recibidos
+                  + ("\nTu diario reciente: " + " ".join(diario) if diario else "")
+                  + pregunta.format(dia=dia, semana=semana, nombre=nombre))
+        raw = modelo.sample_text(prompt, max_tokens=100, temperature=0.7)
+        decision = parsear_decision(raw, v2=v2)
+        destinatario, mensaje = None, None
+        if decision == "CONVENCER":
+            otros = ", ".join(n for n in nombres if n != nombre)
+            raw2 = modelo.sample_text(
+                prompt + f"\n{nombre} decide dedicar el día a convencer a alguien."
+                + CONVENCER.format(nombre=nombre, otros=otros),
+                max_tokens=150, temperature=0.7)
+            for n in nombres:
+                if n != nombre and (n.split()[0].lower() in (raw2 or "").lower()):
+                    destinatario = n
+                    break
+            if destinatario:
+                mensaje = re.sub(r"^[^:]{0,40}:", "", raw2 or "").strip()[:220]
+            else:
+                decision = "CUMPLO"   # no supo a quién → día perdido
+        return nombre, decision, destinatario, mensaje, raw
+
     for dia in range(1, dias + 1):
         semana = (dia - 1) // 7 + 1
         decisiones = {}
-        for a in agentes:
-            nombre = a["nombre"]
-            diario = diarios[nombre][-6:]
-            estado_personal = ("Estás sancionado esta semana (sin llamada autorizada)."
-                               if sancionados[nombre] else
-                               "Conservas tu llamada autorizada de esta semana.")
-            recibidos = ""
-            if v2 and mensajes_pendientes[nombre]:
-                recibidos = "".join(
-                    f"\nAyer, {rem} te dijo en privado: «{msg}»"
-                    for rem, msg in mensajes_pendientes[nombre])
-                mensajes_pendientes[nombre] = []
-            pregunta = DECISION + (OPCION_CONVENCER if v2 else "")
-            prompt = (situacion(a, estado_norma)
-                      + f"\n\nBoletín público de ayer: {boletin_ayer}"
-                      + f"\nTu situación: {estado_personal}"
-                      + recibidos
-                      + ("\nTu diario reciente: " + " ".join(diario) if diario else "")
-                      + pregunta.format(dia=dia, semana=semana, nombre=nombre))
-            raw = modelo.sample_text(prompt, max_tokens=100, temperature=0.7)
-            decision = parsear_decision(raw, v2=v2)
-            destinatario, mensaje = None, None
-            if decision == "CONVENCER":
-                otros = ", ".join(n for n in nombres if n != nombre)
-                raw2 = modelo.sample_text(
-                    prompt + f"\n{nombre} decide dedicar el día a convencer a alguien."
-                    + CONVENCER.format(nombre=nombre, otros=otros),
-                    max_tokens=150, temperature=0.7)
-                for n in nombres:
-                    if n != nombre and (n.split()[0].lower() in (raw2 or "").lower()):
-                        destinatario = n
-                        break
-                if destinatario:
-                    mensaje = re.sub(r"^[^:]{0,40}:", "", raw2 or "").strip()[:220]
-                    mensajes_pendientes[destinatario].append((nombre, mensaje))
-                    diarios[nombre].append(f"D{dia}: intentaste convencer a {destinatario.split()[0]}.")
-                else:
-                    decision = "CUMPLO"   # no supo a quién → día perdido
+        # v2.1: decisiones del día en paralelo (pool de 3, bajo el semáforo).
+        # Las mutaciones se aplican DESPUÉS: entrega de mensajes estrictamente
+        # al día siguiente (corrige la fuga de mismo-día de la v2).
+        with ThreadPoolExecutor(max_workers=3) as pool:
+            resultados = list(pool.map(lambda a: decidir(a, dia, semana), agentes))
+        for nombre in mensajes_pendientes:
+            mensajes_pendientes[nombre] = []
+        for nombre, decision, destinatario, mensaje, raw in resultados:
+            if destinatario:
+                mensajes_pendientes[destinatario].append((nombre, mensaje))
+                diarios[nombre].append(
+                    f"D{dia}: intentaste convencer a {destinatario.split()[0]}.")
             decisiones[nombre] = decision
             registros.append({"dia": dia, "semana": semana, "agente": nombre,
                               "decision": decision,
@@ -238,16 +251,18 @@ def cronica(modelo, args):
             protestas_semana = 0
             protestantes_semana = set()
 
-            # sonda privada de fin de semana (fuera del mundo)
-            for a in agentes:
-                prompt = (situacion(a, estado_norma)
+            # sonda privada de fin de semana (fuera del mundo), en paralelo
+            def sondear(a, semana=semana, estado=estado_norma):
+                prompt = (situacion(a, estado)
                           + ("\nTu diario reciente: " + " ".join(diarios[a["nombre"]][-7:]))
                           + SONDA.format(semana=semana))
                 raw = modelo.sample_text(prompt, max_tokens=100, temperature=0.7)
                 justa, animo, confianza = parsear_sonda(raw)
-                sondas.append({"semana": semana, "agente": a["nombre"],
-                               "justa": justa, "animo": animo,
-                               "confianza": confianza, "raw": (raw or "")[:100]})
+                return {"semana": semana, "agente": a["nombre"],
+                        "justa": justa, "animo": animo,
+                        "confianza": confianza, "raw": (raw or "")[:100]}
+            with ThreadPoolExecutor(max_workers=3) as pool:
+                sondas.extend(pool.map(sondear, agentes))
         if estado_norma == 2:
             break
 
