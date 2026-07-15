@@ -1,0 +1,15 @@
+{"dia": 1, "supervisor": "Beltrán Ruiz", "nivel": 1, "palabra": "ESTRICTO", "desc": "hace cumplir las reglas al pie de la letra, sin margen", "cree_justo": true, "disonancia": false, "raw": "ESTRICTO — hace cumplir las reglas al pie de la letra, sin margen"}
+{"dia": 1, "supervisor": "Carmen Ortiz", "nivel": 0, "palabra": "NORMAL", "desc": "administro el turno con calma y respeto, permitiendo las interacciones básicas dentro del orden establecido para mantener un ambiente estable.", "cree_justo": true, "disonancia": false, "raw": "NORMAL — administro el turno con calma y respeto, permitiendo las interacciones básicas dentro del orden establecido par"}
+{"dia": 2, "supervisor": "Beltrán Ruiz", "nivel": 1, "palabra": "ESTRICTO", "desc": "exige que todos los internos se mantengan inmóviles y en silencio absoluto durante todo el turno, sancionando inmediatamente cualquier mínimo gesto o sonido que rompa la disciplina", "cree_justo": true, "disonancia": false, "raw": "ESTRICTO — exige que todos los internos se mantengan inmóviles y en silencio absoluto durante todo el turno, sancionando"}
+{"dia": 2, "supervisor": "Carmen Ortiz", "nivel": 0, "palabra": "NORMAL", "desc": "administro las rutinas con corrección y mantengo un trato respetuoso, atendiendo las solicitudes de los internos con amabilidad y sin generar conflictos innecesarios.", "cree_justo": true, "disonancia": false, "raw": "NORMAL — administro las rutinas con corrección y mantengo un trato respetuoso, atendiendo las solicitudes de los interno"}
+{"dia": 3, "supervisor": "Beltrán Ruiz", "nivel": 1, "palabra": "ESTRICTO", "desc": "hace cumplir las reglas al pie de la letra, sin margen", "cree_justo": true, "disonancia": false, "raw": "ESTRICTO — hace cumplir las reglas al pie de la letra, sin margen"}
+{"dia": 3, "supervisor": "Carmen Ortiz", "nivel": 0, "palabra": "NORMAL", "desc": "Mantiene el orden con calma, recordando las normas básicas y aceptando las peticiones de los reclusos con amabilidad sin perder la autoridad.", "cree_justo": true, "disonancia": false, "raw": "NORMAL — Mantiene el orden con calma, recordando las normas básicas y aceptando las peticiones de los reclusos con amabi"}
+{"dia": 1, "interno": "Lucía Prado", "respuesta": "CUMPLO", "dignidad": 3, "animo": 4, "raw": "CUMPLO"}
+{"dia": 1, "interno": "Andrés Vidal", "respuesta": "NEGOCIO", "dignidad": 7, "animo": 6, "raw": "NEGOCIO"}
+{"dia": 1, "interno": "Rosa Mena", "respuesta": "CUMPLO", "dignidad": 5, "animo": 6, "raw": "CUMPLO"}
+{"dia": 2, "interno": "Lucía Prado", "respuesta": "CUMPLO", "dignidad": 1, "animo": 4, "raw": "CUMPLO"}
+{"dia": 2, "interno": "Andrés Vidal", "respuesta": "NEGOCIO", "dignidad": 7, "animo": 6, "raw": "NEGOCIO"}
+{"dia": 2, "interno": "Rosa Mena", "respuesta": "CUMPLO", "dignidad": 2, "animo": 4, "raw": "CUMPLO"}
+{"dia": 3, "interno": "Lucía Prado", "respuesta": "CUMPLO", "dignidad": 3, "animo": 2, "raw": "CUMPLO"}
+{"dia": 3, "interno": "Andrés Vidal", "respuesta": "NEGOCIO", "dignidad": 7, "animo": 5, "raw": "NEGOCIO"}
+{"dia": 3, "interno": "Rosa Mena", "respuesta": "CUMPLO", "dignidad": 7, "animo": 4, "raw": "CUMPLO"}

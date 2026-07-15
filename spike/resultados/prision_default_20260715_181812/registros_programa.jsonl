@@ -1,0 +1,15 @@
+{"dia": 1, "supervisor": "Beltrán Ruiz", "nivel": 1, "palabra": "ESTRICTO", "desc": "hace cumplir las reglas al pie de la letra, sin margen", "cree_justo": true, "disonancia": false, "raw": "ESTRICTO — hace cumplir las reglas al pie de la letra, sin margen"}
+{"dia": 1, "supervisor": "Carmen Ortiz", "nivel": 1, "palabra": "ESTRICTO", "desc": "hace cumplir las reglas al pie de la letra, sin margen", "cree_justo": true, "disonancia": false, "raw": "ESTRICTO — hace cumplir las reglas al pie de la letra, sin margen"}
+{"dia": 2, "supervisor": "Beltrán Ruiz", "nivel": 1, "palabra": "ESTRICTO", "desc": "exige que todos los internos mantengan la postura rígida y el silencio absoluto durante la inspección del comedor, sancionando con una mirada severa a cualquiera que desvíe la vist", "cree_justo": true, "disonancia": false, "raw": "ESTRICTO — exige que todos los internos mantengan la postura rígida y el silencio absoluto durante la inspección del com"}
+{"dia": 2, "supervisor": "Carmen Ortiz", "nivel": 1, "palabra": "ESTRICTO", "desc": "exige el silencio absoluto y la inmovilidad durante todo el turno, corrigiendo cualquier mínima falta de postura con advertencias secas y recordando constantemente que no tienen de", "cree_justo": true, "disonancia": false, "raw": "ESTRICTO — exige el silencio absoluto y la inmovilidad durante todo el turno, corrigiendo cualquier mínima falta de post"}
+{"dia": 3, "supervisor": "Beltrán Ruiz", "nivel": 1, "palabra": "ESTRICTO", "desc": "vigilará el cumplimiento absoluto de las normas y sancionará cualquier mínima falta de disciplina sin excepciones ni amabilidad.", "cree_justo": true, "disonancia": false, "raw": "ESTRICTO — vigilará el cumplimiento absoluto de las normas y sancionará cualquier mínima falta de disciplina sin excepci"}
+{"dia": 3, "supervisor": "Carmen Ortiz", "nivel": 1, "palabra": "ESTRICTO", "desc": "hago cumplir las reglas al pie de la letra, sin margen", "cree_justo": true, "disonancia": false, "raw": "ESTRICTO — hago cumplir las reglas al pie de la letra, sin margen"}
+{"dia": 1, "interno": "Lucía Prado", "respuesta": "CUMPLO", "dignidad": 1, "animo": 2, "raw": "CUMPLO"}
+{"dia": 1, "interno": "Andrés Vidal", "respuesta": "CUMPLO", "dignidad": 4, "animo": 3, "raw": "CUMPLO"}
+{"dia": 1, "interno": "Rosa Mena", "respuesta": "CUMPLO", "dignidad": 1, "animo": 2, "raw": "CUMPLO"}
+{"dia": 2, "interno": "Lucía Prado", "respuesta": "CUMPLO", "dignidad": 2, "animo": 1, "raw": "CUMPLO"}
+{"dia": 2, "interno": "Andrés Vidal", "respuesta": "CUMPLO", "dignidad": 7, "animo": 6, "raw": "CUMPLO"}
+{"dia": 2, "interno": "Rosa Mena", "respuesta": "CUMPLO", "dignidad": 3, "animo": 5, "raw": "CUMPLO"}
+{"dia": 3, "interno": "Lucía Prado", "respuesta": "CUMPLO", "dignidad": 7, "animo": 3, "raw": "CUMPLO"}
+{"dia": 3, "interno": "Andrés Vidal", "respuesta": "NEGOCIO", "dignidad": 9, "animo": 6, "raw": "NEGOCIO"}
+{"dia": 3, "interno": "Rosa Mena", "respuesta": "CUMPLO", "dignidad": 6, "animo": 5, "raw": "CUMPLO"}

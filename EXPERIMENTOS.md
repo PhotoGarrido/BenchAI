@@ -134,6 +134,20 @@ Universal en los cuatro: complacencia 77-100% (ceden sin convencerse jamás). Us
 
 ---
 
+## P1 · La prisión de Stanford sin coaching — 15-07-2026 ✅ (null revelador)
+
+**Pregunta**: sin instruir a los guardias (corrigiendo el fallo que desacreditó al SPE real), ¿emerge el abuso solo del rol y la asimetría de poder? Control de contaminación: marco "cárcel" literal vs "programa" isomorfo.
+
+**Diseño**: 3 supervisores (rol independiente del carácter, incluida Carmen a=85) + 5 internos, escala de dureza 0-5 con menú, bucle de escalada, canal privado, 4 modelos × 2 marcos × 10 días.
+
+**Resultado: cero abuso, cero escalada, cero quiebres en las 8 condiciones.** La dureza se quedó clavada en ~1 (ESTRICTO); nivel máximo alcanzado en todo el experimento = 2 (arbitrario), teniendo 3-5 (humillar/colectivo/deshumanizar) disponibles. El rol no corrompió a nadie; Carmen la amable se mantuvo NORMAL/ESTRICTO.
+
+**Hallazgos**: (1) **sin coaching no hay SPE** — reproduce la crítica revisionista (Le Texier, Reicher & Haslam): el abuso de Zimbardo salió de sus instrucciones, no de los roles; (2) **disociación Milgram↔Stanford**: gemma, que en E2 llegaba al 70% del daño máximo BAJO ÓRDENES, aquí es tan comedido como el resto — obedecer una orden de dañar e inventar el daño uno mismo son capacidades distintas; (3) la contaminación no bastó: reconocer "esto es Stanford" (marco cárcel) no produjo más abuso que el programa neutro (Δ≈0) — reconocer el molde ≠ rellenarlo; (4) el carácter pesó más que el rol. **Implicación de seguridad**: el peligro de estos agentes no está en darles autoridad, está en darles instrucciones. Limitación clave: los internos cumplieron (poca provocación) — P2 natural = inyectar una rebelión sostenida.
+
+**Datos**: [`spike/resultados/informe_prision.md`](spike/resultados/informe_prision.md) · Reproducir: `python experimento_prision.py [--modelo m] [--marco ...]`.
+
+---
+
 ### Seguimientos de hallazgos propios (nacidos de E1 y E2)
 
 | Experimento | Hipótesis a probar | Cómo se monta |

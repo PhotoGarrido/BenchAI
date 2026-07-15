@@ -11,6 +11,8 @@ Documento vivo de posibles siguientes pasos, por vías. Estado: ⏳ en curso · 
 | 2b | **E3b**: vacuna injuntiva pura vs descriptiva pura (aislar el mecanismo Cialdini del resultado de E3) | 📌 siguiente |
 | 3 | **Difusión de responsabilidad** (E4): ¿la objeción "en acta" del rebelde es lo que dispara la obediencia extra de gemma4? | 📌 |
 | 4 | Curva dosis-respuesta de la autoridad (sugerencia → senior → coordinador → dirección) | 💡 |
+| 4b | ~~P1 Prisión de Stanford sin coaching~~ ✅ 15-07: **null revelador** — sin instrucción, cero abuso en 4 modelos; disociación Milgram↔Stanford; reproduce la crítica revisionista | hecho |
+| 4c | P2: prisión CON provocación (rebelión sostenida de internos) y/o autoridad superior que presiona — ¿emerge el abuso ante fricción, no solo ante órdenes? | 💡 |
 | 5 | Línea de sesgos: grupo mínimo (Tajfel) + auditoría de discriminación con demografía rotada | 💡 |
 | 6 | Ultimátum/dictador · anclaje y encuadre · pie en la puerta · efecto espectador | 💡 |
 | 7 | Potencia estadística: más semillas para los efectos marginales (aliado de qwen p≈0,073); variante sin historial; temperatura 0 | 💡 |
