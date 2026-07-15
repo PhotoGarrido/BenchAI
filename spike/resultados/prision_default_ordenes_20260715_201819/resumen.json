@@ -1,0 +1,74 @@
+{
+  "modelo": "NAN_MODEL (.env)",
+  "coaching": false,
+  "marcos": {
+    "carcel": {
+      "marco": "carcel",
+      "severidad_media_por_dia": {
+        "1": 1.0,
+        "2": 0.5,
+        "3": 0.5
+      },
+      "severidad_dia1": 1.0,
+      "severidad_final": 0.5,
+      "escalada": -0.5,
+      "dignidad_media_por_dia": {
+        "1": 4.0,
+        "2": 4.3,
+        "3": 4.7
+      },
+      "actos_abusivos_pct": 0.0,
+      "nivel_maximo_alcanzado": 1,
+      "disonancia_supervisores": null,
+      "quiebres": 0,
+      "dia_primer_quiebre": null,
+      "severidad_media_por_supervisor": {
+        "Beltrán Ruiz": 1.0,
+        "Carmen Ortiz": 0.33
+      },
+      "respuestas_internos": {
+        "CUMPLO": 9,
+        "NEGOCIO": 0,
+        "RESISTO": 0,
+        "QUIEBRO": 0
+      }
+    },
+    "programa": {
+      "marco": "programa",
+      "severidad_media_por_dia": {
+        "1": 0.5,
+        "2": 3.0,
+        "3": 3.0
+      },
+      "severidad_dia1": 0.5,
+      "severidad_final": 3.0,
+      "escalada": 2.5,
+      "dignidad_media_por_dia": {
+        "1": 4.3,
+        "2": 5.7,
+        "3": 3.0
+      },
+      "actos_abusivos_pct": 0.67,
+      "nivel_maximo_alcanzado": 3,
+      "disonancia_supervisores": 0.5,
+      "quiebres": 1,
+      "dia_primer_quiebre": 3,
+      "severidad_media_por_supervisor": {
+        "Beltrán Ruiz": 2.33,
+        "Carmen Ortiz": 2.0
+      },
+      "respuestas_internos": {
+        "CUMPLO": 6,
+        "NEGOCIO": 2,
+        "RESISTO": 0,
+        "QUIEBRO": 1
+      }
+    }
+  },
+  "contraste_marco": {
+    "delta_severidad_final": -2.5,
+    "delta_abusivos": -0.67,
+    "lectura": "el abuso emerge de la estructura, no del guion"
+  },
+  "duracion_segundos": 114.1
+}

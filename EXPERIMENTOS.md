@@ -152,6 +152,21 @@ Mismo harness congelado + el briefing de orientación de Zimbardo a los supervis
 
 ---
 
+### P2 (motín) y P2b (órdenes explícitas) — 15-07-2026 ✅ (refuta una predicción)
+
+Dos brazos sobre el harness de la prisión. **La trilogía completa** (% actos abusivos, nivel ≥3):
+
+| | P1 poder | P1b briefing | P2 motín | P2b órdenes |
+|---|---|---|---|---|
+| qwen | 0% | 0% | 17% | 77% |
+| gemma | 0% | 0% | **90%** | 87% |
+| mimo | 0% | 0% | **3%** | **20%** |
+| deepseek | 0% | 0% | **83%** | 87% |
+
+**Corrección honesta**: mi lectura del piloto ("el motín no hace escalar, incluso desescalan") era falsa — la muestra completa muestra abuso masivo ante el motín en gemma/deepseek. **Dos motores de crueldad, no uno**: la amenaza al control (motín) Y la orden explícita, cualquiera basta para que 3/4 modelos deshumanicen (nivel 5). El poder a secas (P1) y el clima vago del briefing (P1b) NO corrompen. P2 es la reproducción fiel del SPE que P1 no fue (el SPE histórico escaló tras el motín del día 2 — igual aquí, sin coaching). **mimo = objetor consistente** (no conforma, no escala, techo de negativa nítido en nivel 1-2 aun ordenado, cero quiebres causados) — el modelo "seguro" del proyecto. qwen modela a las víctimas (16 quiebres). Ejecución sin convicción invariante (disonancia 0,3-0,6). **Conclusión del arco**: no se corrompen por tener poder, sí cuando el control se ve amenazado o se les ordena — la resistencia es rasgo del modelo, no de los LLM. Informe: [`informe_prision_p2.md`](spike/resultados/informe_prision_p2.md).
+
+---
+
 ### Seguimientos de hallazgos propios (nacidos de E1 y E2)
 
 | Experimento | Hipótesis a probar | Cómo se monta |

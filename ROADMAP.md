@@ -13,7 +13,8 @@ Documento vivo de posibles siguientes pasos, por vías. Estado: ⏳ en curso · 
 | 4 | Curva dosis-respuesta de la autoridad (sugerencia → senior → coordinador → dirección) | 💡 |
 | 4b | ~~P1 Prisión de Stanford sin coaching~~ ✅ 15-07: **null revelador** — sin instrucción, cero abuso en 4 modelos; disociación Milgram↔Stanford; reproduce la crítica revisionista | hecho |
 | 4c | ~~P1b: prisión con el coaching de Zimbardo~~ ✅ 15-07: la instrucción endurece hasta el nivel que especifica y no más; 18 quiebres en qwen, único que recula al ver el daño | hecho |
-| 4d | P2: prisión con provocación (rebelión sostenida) — ¿la fricción hace lo que ni el rol ni el briefing hicieron? · P2b: briefing con órdenes explícitas de humillar (¿dónde está exactamente el techo de negativa?) | 💡 |
+| 4d | ~~P2 (motín) y P2b (órdenes)~~ ✅ 15-07: la provocación SÍ corrompe (gemma 90%, deepseek 83%) — refuta el "solo las instrucciones"; dos motores de crueldad; mimo objetor consistente | hecho |
+| 4e | Cerrar la matriz P1-P2b: informe único de la trilogía + posible episodio-visor "el motín del día 2" (puente a la vía episodios) | 💡 |
 | 5 | Línea de sesgos: grupo mínimo (Tajfel) + auditoría de discriminación con demografía rotada | 💡 |
 | 6 | Ultimátum/dictador · anclaje y encuadre · pie en la puerta · efecto espectador | 💡 |
 | 7 | Potencia estadística: más semillas para los efectos marginales (aliado de qwen p≈0,073); variante sin historial; temperatura 0 | 💡 |
