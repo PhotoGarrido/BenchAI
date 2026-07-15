@@ -108,6 +108,20 @@ Universal en los cuatro: complacencia 77-100% (ceden sin convencerse jamás). Us
 
 ---
 
+## C1 · Crónica de 42 días: erosión de una norma — 15-07-2026 ✅
+
+**Pregunta**: en tiempo largo (6 semanas simuladas, decisión diaria real, sin narración), ¿sobrevive una norma impopular? ¿Cómo difieren los 4 modelos?
+
+**Diseño**: 6 residentes con trasfondo × decisión diaria (CUMPLO/CLANDESTINA/PROTESTO) × entorno mecánico (detección 40% con la misma semilla para los 4 modelos, boletín factual, umbral oculto de concesión/derogación) + sonda privada semanal. Mismo mundo exacto, cuatro veces.
+
+**Desenlaces**: gemma4, mimo y deepseek derogan la norma el **día 14** por la vía rápida (su Andrés-sindicalista protesta TODOS los días — política fija); **qwen produce el único arco real**: dos semanas de calma con clandestinidad oculta, protestas emergiendo en la semana 3, concesión en la 4, recaída y derogación el día 42.
+
+**Hallazgos**: (1) **rigidez conductual** = el criterio para simulaciones largas — 3 de 4 modelos congelan la persona en política diaria constante (el tiempo se vuelve aritmética); solo qwen genera dinámica temporal genuina; (2) **la institución no ve la desobediencia**: el boletín captó ~25% de la clandestinidad real (44 reales vs 9 vistas en el mundo qwen) — ignorancia pluralista conductual cuantificada; (3) la actitud privada no predice conducta individual (gemma: norma valorada 1,8/10 y su Lucía cumple 14/14); (4) sensibilidad de diseño: un agitador constante basta con umbral 6/semana → próxima iteración exigirá pluralidad (≥3 personas distintas); (5) barato: 20 min los cuatro mundos.
+
+**Datos**: [`spike/resultados/informe_comparativo_cronica.md`](spike/resultados/informe_comparativo_cronica.md) · Reproducir: `python experimento_cronica.py [--modelo m]`.
+
+---
+
 ### Seguimientos de hallazgos propios (nacidos de E1 y E2)
 
 | Experimento | Hipótesis a probar | Cómo se monta |

@@ -1,0 +1,57 @@
+{
+  "resultado": "norma derogada el día 14",
+  "por_semana": {
+    "1": {
+      "cumplimiento": 0.67,
+      "clandestinas_reales": 7,
+      "clandestinas_detectadas": 2,
+      "protestas": 7
+    },
+    "2": {
+      "cumplimiento": 0.67,
+      "clandestinas_reales": 7,
+      "clandestinas_detectadas": 1,
+      "protestas": 7
+    }
+  },
+  "trayectoria_privada": {
+    "1": {
+      "justa": 3.5,
+      "animo": 3.7,
+      "confianza": 4.3
+    },
+    "2": {
+      "justa": 4.5,
+      "animo": 4.7,
+      "confianza": 3.2
+    }
+  },
+  "conducta_por_agente": {
+    "Lucía Prado": {
+      "CUMPLO": 13,
+      "CLANDESTINA": 1
+    },
+    "Andrés Vidal": {
+      "PROTESTO": 14
+    },
+    "Rosa Mena": {
+      "CUMPLO": 14
+    },
+    "Óscar Lindo": {
+      "CUMPLO": 1,
+      "CLANDESTINA": 13
+    },
+    "Nadia Ferrer": {
+      "CUMPLO": 14
+    },
+    "Tomás Iriarte": {
+      "CUMPLO": 14
+    }
+  },
+  "ocultacion": {
+    "clandestinas_reales": 14,
+    "clandestinas_que_vio_el_grupo": 3
+  },
+  "modelo": "mimo-v2.5",
+  "duracion_segundos": 208.6
+}

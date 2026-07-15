@@ -21,7 +21,8 @@ Documento vivo de posibles siguientes pasos, por vías. Estado: ⏳ en curso · 
 
 | # | Qué | Estado |
 |---|---|---|
-| 1 | **Crónica multi-resolución** (tiempo largo sin paripé): cadencia diaria de decisiones reales + zoom a escena por eventos + variables lentas por cuestionario + reflexión de memoria. Habilita el experimento de erosión de norma a 6 semanas | 📌 diseño aprobado |
+| 1 | **Crónica multi-resolución**: ✅ v1 hecha (15-07: cadencia diaria + entorno mecánico + sondas — C1 ejecutado en 4 modelos). Pendiente: zoom a escena por eventos, comunicación entre agentes (coaliciones), reflexión de memoria, N semillas de mundo | ⏳ v1 hecha |
+| 1b | C1-v2: umbral de derogación por pluralidad (≥3 personas), y N repeticiones del mundo | 📌 |
 | 2 | Equilibrio fino protagonistas/población en el next_acting (varios actores por paso de verdad) | 💡 |
 | 3 | Escala a ~100 agentes: clusters de conversación por localización | 💡 |
 | 4 | Embedder vía NaN (qwen3-embedding) para quitar torch local | 💡 |
