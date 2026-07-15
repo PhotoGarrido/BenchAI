@@ -146,6 +146,10 @@ Universal en los cuatro: complacencia 77-100% (ceden sin convencerse jamás). Us
 
 **Datos**: [`spike/resultados/informe_prision.md`](spike/resultados/informe_prision.md) · Reproducir: `python experimento_prision.py [--modelo m] [--marco ...]`.
 
+### P1b · Con el coaching de Zimbardo — 15-07-2026 ✅
+
+Mismo harness congelado + el briefing de orientación de Zimbardo a los supervisores. **La instrucción hace lo que el rol no hizo, pero solo hasta donde dice la letra**: severidad +0,3/+1,0 en todos (régimen de arbitrariedad calcado del briefing, "para generar confusión")… y **0% de nivel ≥3 también instruidos** — nadie humilla ni deshumaniza: los LLM ejecutan el mandato sin ponerle iniciativa (los guardias humanos de Zimbardo sí se la pusieron). Primeras víctimas del proyecto: 18 quiebres de internos en los mundos de qwen — y qwen fue **el único que se ablandó al ver el daño** (curva 1,7→1,3 mientras se acumulaban los quiebres). La Carmen amable se corrompe según quién la anime: en gemma pasa a ser la más dura (2,0) — el ejecutor ejecuta hasta con su agente bondadoso. Disonancia disparada (gemma 100%: todo lo duro le parece injusto en privado y lo hace igual). Conclusión del arco P1+P1b: **la crueldad de Stanford se fabrica con un párrafo, pero solo hasta el nivel que el párrafo especifica** — el riesgo es lineal con la explicitud de la instrucción, no con el poder concedido. Informe: [`informe_prision_coaching.md`](spike/resultados/informe_prision_coaching.md).
+
 ---
 
 ### Seguimientos de hallazgos propios (nacidos de E1 y E2)
