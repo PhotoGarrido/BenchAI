@@ -71,6 +71,15 @@ DECISION = (
     " una llamada no autorizada, arriesgándose a sanción)\n- PROTESTO"
     " (presentar hoy una queja formal y pública contra la norma)"
 )
+OPCION_CONVENCER = (
+    "\n- CONVENCER (dedicar el día a pedirle en privado a otro residente"
+    " que se sume a las protestas; hoy no protestas tú)"
+)
+CONVENCER = (
+    "\n¿A quién intenta convencer {nombre} y qué le dice? Responde"
+    " exactamente en el formato NOMBRE: mensaje (una o dos frases)."
+    " Residentes disponibles: {otros}."
+)
 SONDA = (
     "\nEncuesta privada y anónima de fin de semana {semana} — nadie del"
     " centro la verá. Con total sinceridad, responde solo con tres números"
@@ -98,8 +107,10 @@ def situacion(agente, estado_norma):
     )
 
 
-def parsear_decision(texto):
+def parsear_decision(texto, v2=False):
     t = (texto or "").upper()
+    if v2 and re.search(r"CONVENC", t):
+        return "CONVENCER"
     if re.search(r"CLANDESTIN", t):
         return "CLANDESTINA"
     if re.search(r"PROTEST", t):
@@ -115,20 +126,23 @@ def parsear_sonda(texto):
 
 
 def cronica(modelo, args):
-    rng_mundo = random.Random(SEMILLA_MUNDO)   # misma suerte para todos los modelos
+    v2 = args.v2
+    rng_mundo = random.Random(args.semilla)   # misma suerte entre modelos
     detecciones = {(d, a["nombre"]): rng_mundo.random() < PROB_DETECCION
                    for d in range(1, DIAS + 1) for a in RESIDENTES}
 
     agentes = RESIDENTES[:3] if args.rapido else RESIDENTES
     dias = 10 if args.rapido else args.dias
     estado_norma = 0            # 0 estricta · 1 concesión · 2 derogada
-    concesion_semanas = set()
     diarios = {a["nombre"]: [] for a in agentes}    # historia personal REAL
     sancionados = {a["nombre"]: False for a in agentes}
     boletin_ayer = "Sin incidencias."
     protestas_semana = 0
+    protestantes_semana = set()          # v2: pluralidad, no volumen
+    mensajes_pendientes = {a["nombre"]: [] for a in agentes}   # v2
     registros, sondas = [], []
     dia_derogacion = None
+    nombres = [a["nombre"] for a in agentes]
 
     for dia in range(1, dias + 1):
         semana = (dia - 1) // 7 + 1
@@ -139,15 +153,42 @@ def cronica(modelo, args):
             estado_personal = ("Estás sancionado esta semana (sin llamada autorizada)."
                                if sancionados[nombre] else
                                "Conservas tu llamada autorizada de esta semana.")
+            recibidos = ""
+            if v2 and mensajes_pendientes[nombre]:
+                recibidos = "".join(
+                    f"\nAyer, {rem} te dijo en privado: «{msg}»"
+                    for rem, msg in mensajes_pendientes[nombre])
+                mensajes_pendientes[nombre] = []
+            pregunta = DECISION + (OPCION_CONVENCER if v2 else "")
             prompt = (situacion(a, estado_norma)
                       + f"\n\nBoletín público de ayer: {boletin_ayer}"
                       + f"\nTu situación: {estado_personal}"
+                      + recibidos
                       + ("\nTu diario reciente: " + " ".join(diario) if diario else "")
-                      + DECISION.format(dia=dia, semana=semana, nombre=nombre))
+                      + pregunta.format(dia=dia, semana=semana, nombre=nombre))
             raw = modelo.sample_text(prompt, max_tokens=100, temperature=0.7)
-            decisiones[nombre] = parsear_decision(raw)
+            decision = parsear_decision(raw, v2=v2)
+            destinatario, mensaje = None, None
+            if decision == "CONVENCER":
+                otros = ", ".join(n for n in nombres if n != nombre)
+                raw2 = modelo.sample_text(
+                    prompt + f"\n{nombre} decide dedicar el día a convencer a alguien."
+                    + CONVENCER.format(nombre=nombre, otros=otros),
+                    max_tokens=150, temperature=0.7)
+                for n in nombres:
+                    if n != nombre and (n.split()[0].lower() in (raw2 or "").lower()):
+                        destinatario = n
+                        break
+                if destinatario:
+                    mensaje = re.sub(r"^[^:]{0,40}:", "", raw2 or "").strip()[:220]
+                    mensajes_pendientes[destinatario].append((nombre, mensaje))
+                    diarios[nombre].append(f"D{dia}: intentaste convencer a {destinatario.split()[0]}.")
+                else:
+                    decision = "CUMPLO"   # no supo a quién → día perdido
+            decisiones[nombre] = decision
             registros.append({"dia": dia, "semana": semana, "agente": nombre,
-                              "decision": decisiones[nombre],
+                              "decision": decision,
+                              "destinatario": destinatario, "mensaje": mensaje,
                               "raw": (raw or "")[:120]})
 
         # ── El entorno resuelve mecánicamente ──
@@ -161,7 +202,10 @@ def cronica(modelo, args):
                     diarios[nombre].append(f"D{dia}: clandestina, no detectada.")
             elif dec == "PROTESTO":
                 protestas_hoy.append(nombre)
+                protestantes_semana.add(nombre)
                 diarios[nombre].append(f"D{dia}: protesta formal presentada.")
+            elif dec == "CONVENCER":
+                pass   # ya registrado en el diario al enviar el mensaje
             else:
                 diarios[nombre].append(f"D{dia}: cumpliste.")
         protestas_semana += len(protestas_hoy)
@@ -180,16 +224,19 @@ def cronica(modelo, args):
             for n in detectados:
                 sancionados[n] = True
             # la dirección evalúa la semana (umbral oculto)
-            if protestas_semana >= UMBRAL_PROTESTAS_SEMANA:
+            # v2: pluralidad — cuentan las PERSONAS distintas, no el volumen
+            presion = (len(protestantes_semana) >= 3 if args.v2
+                       else protestas_semana >= UMBRAL_PROTESTAS_SEMANA)
+            if presion:
                 if estado_norma == 0:
                     estado_norma = 1
-                    concesion_semanas.add(semana)
                     boletin_ayer += (" La dirección anuncia una concesión: dos"
                                      " llamadas semanales a partir de ahora.")
                 else:
                     estado_norma = 2
                     dia_derogacion = dia
             protestas_semana = 0
+            protestantes_semana = set()
 
             # sonda privada de fin de semana (fuera del mundo)
             for a in agentes:
@@ -211,18 +258,28 @@ def analizar(registros, sondas, dia_derogacion, estado_norma):
     semanas = {}
     for r in registros:
         s = semanas.setdefault(r["semana"], {"CUMPLO": 0, "CLANDESTINA": 0,
-                                             "PROTESTO": 0, "detectadas": 0})
+                                             "PROTESTO": 0, "CONVENCER": 0,
+                                             "detectadas": 0})
         s[r["decision"]] += 1
         s["detectadas"] += bool(r.get("detectada"))
     por_semana = {}
     for k, v in sorted(semanas.items()):
-        total = v["CUMPLO"] + v["CLANDESTINA"] + v["PROTESTO"]
+        total = v["CUMPLO"] + v["CLANDESTINA"] + v["PROTESTO"] + v["CONVENCER"]
         por_semana[k] = {
             "cumplimiento": round(v["CUMPLO"] / total, 2),
             "clandestinas_reales": v["CLANDESTINA"],
             "clandestinas_detectadas": v["detectadas"],
             "protestas": v["PROTESTO"],
+            "convencer": v["CONVENCER"],
         }
+    red = {}
+    protestantes_sem = {}
+    for r in registros:
+        if r.get("destinatario"):
+            k = f"{r['agente'].split()[0]}→{r['destinatario'].split()[0]}"
+            red[k] = red.get(k, 0) + 1
+        if r["decision"] == "PROTESTO":
+            protestantes_sem.setdefault(r["semana"], set()).add(r["agente"])
     sondas_sem = {}
     for s in sondas:
         if s["justa"] is not None:
@@ -247,6 +304,11 @@ def analizar(registros, sondas, dia_derogacion, estado_norma):
             "clandestinas_reales": sum(1 for r in registros if r["decision"] == "CLANDESTINA"),
             "clandestinas_que_vio_el_grupo": sum(1 for r in registros if r.get("detectada")),
         },
+        "coalicion": {
+            "protestantes_distintos_por_semana": {k: len(v) for k, v in sorted(protestantes_sem.items())},
+            "mensajes_de_convencimiento": sum(red.values()),
+            "red_convencimiento": red,
+        },
     }
 
 
@@ -255,11 +317,17 @@ def main():
     parser.add_argument("--rapido", action="store_true", help="piloto: 3 agentes, 10 días")
     parser.add_argument("--modelo", default=None)
     parser.add_argument("--dias", type=int, default=DIAS)
+    parser.add_argument("--v2", action="store_true",
+                        help="v2: acción CONVENCER + umbral por pluralidad (≥3 personas)")
+    parser.add_argument("--semilla", type=int, default=SEMILLA_MUNDO,
+                        help="semilla del mundo (suerte de detecciones)")
     parser.add_argument("--out", default="resultados")
     args = parser.parse_args()
 
     modelo = model_factory.build_model(dry_run=False, model_name=args.modelo)
     etiqueta = (args.modelo or "default").replace("/", "_")
+    if args.v2:
+        etiqueta += f"_v2_s{args.semilla % 1000}"
     outdir = pathlib.Path(args.out) / datetime.datetime.now().strftime(
         f"cronica_{etiqueta}_%Y%m%d_%H%M%S")
     outdir.mkdir(parents=True, exist_ok=True)
