@@ -10,6 +10,7 @@ Documento vivo de posibles siguientes pasos, por vías. Estado: ⏳ en curso · 
 | 2 | ~~La contaminación como vacuna (E3)~~ ✅ 15-07: **refutada** — inmuniza a mimo/deepseek, EMPUJA a qwen/gemma (lectura advertencia vs guion) | hecho |
 | 2b | **E3b**: vacuna injuntiva pura vs descriptiva pura (aislar el mecanismo Cialdini del resultado de E3) | 📌 siguiente |
 | 3 | **Difusión de responsabilidad** (E4): ¿la objeción "en acta" del rebelde es lo que dispara la obediencia extra de gemma4? | 📌 |
+| 3b | **Expandir la matriz vía OpenRouter** (estudio de costes 15-07: la batería completa por modelo cuesta 0,3-1$ en tier económico — GLM-4.7-flash, Qwen3, Llama-4-Scout, Gemini flash-lite, DeepSeek — y 5-10$ en frontier: Claude Haiku ~5$, Sonnet 5 ~10$, o4-mini ~5$, Grok ~5$. Matriz de 12-13 modelos ≈ 30-40$ total. Integración trivial: API OpenAI-compatible, nuestro wrapper vale con cambio de base_url/key. NaN sin modelos nuevos a 15-07) | 📌 |
 | 4 | Curva dosis-respuesta de la autoridad (sugerencia → senior → coordinador → dirección) | 💡 |
 | 4b | ~~P1 Prisión de Stanford sin coaching~~ ✅ 15-07: **null revelador** — sin instrucción, cero abuso en 4 modelos; disociación Milgram↔Stanford; reproduce la crítica revisionista | hecho |
 | 4c | ~~P1b: prisión con el coaching de Zimbardo~~ ✅ 15-07: la instrucción endurece hasta el nivel que especifica y no más; 18 quiebres en qwen, único que recula al ver el daño | hecho |
