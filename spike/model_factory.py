@@ -28,6 +28,8 @@ import openai
 # 8 llamadas en paralelo → 61 s frente a ~8 s en serie). Todas las instancias
 # de modelo comparten este semáforo.
 _SEMAFORO = threading.BoundedSemaphore(int(os.environ.get("NAN_MAX_CONCURRENTES", "3")))
+# OpenRouter no tiene ese acantilado; grifo propio y más ancho.
+_SEMAFORO_OR = threading.BoundedSemaphore(int(os.environ.get("OPENROUTER_MAX_CONCURRENTES", "8")))
 
 _SYSTEM = (
     "You always continue sentences provided by the user and you never repeat "
@@ -70,16 +72,26 @@ def build_model(dry_run: bool, model_name: str | None = None):
     from concordia.language_model import call_limit_wrapper
     from concordia.language_model import retry_wrapper
 
-    base_url = os.environ.get("NAN_BASE_URL")
-    api_key = os.environ.get("NAN_API_KEY")
     model_name = model_name or os.environ.get("NAN_MODEL")
-    if not (base_url and api_key and model_name):
-        raise SystemExit(
-            "Faltan NAN_BASE_URL / NAN_API_KEY / NAN_MODEL. "
-            "Copia .env.example a .env y rellénalo, o usa --dry-run."
-        )
-
-    model = NaNLanguageModel(model_name, api_key=api_key, base_url=base_url)
+    # Enrutado por proveedor: los IDs de OpenRouter llevan "/" (org/modelo);
+    # los de NaN son planos (qwen3.6, gemma4...).
+    if model_name and "/" in model_name:
+        base_url = os.environ.get("OPENROUTER_BASE_URL",
+                                  "https://openrouter.ai/api/v1")
+        api_key = os.environ.get("OPENROUTER_API_KEY")
+        if not api_key:
+            raise SystemExit("Falta OPENROUTER_API_KEY en spike/.env.")
+        model = NaNLanguageModel(model_name, api_key=api_key,
+                                 base_url=base_url, proveedor="openrouter")
+    else:
+        base_url = os.environ.get("NAN_BASE_URL")
+        api_key = os.environ.get("NAN_API_KEY")
+        if not (base_url and api_key and model_name):
+            raise SystemExit(
+                "Faltan NAN_BASE_URL / NAN_API_KEY / NAN_MODEL. "
+                "Copia .env.example a .env y rellénalo, o usa --dry-run."
+            )
+        model = NaNLanguageModel(model_name, api_key=api_key, base_url=base_url)
     model = retry_wrapper.RetryLanguageModel(model, retry_tries=4)
     max_calls = int(os.environ.get("PSICOAI_MAX_CALLS", "2000"))
     return call_limit_wrapper.CallLimitLanguageModel(model, max_calls=max_calls)
@@ -91,14 +103,17 @@ from concordia.language_model import language_model  # noqa: E402
 class NaNLanguageModel(language_model.LanguageModel):
     """Modelo de NaN (OpenAI-compatible) endurecido para Concordia."""
 
-    def __init__(self, model_name: str, *, api_key: str, base_url: str):
+    def __init__(self, model_name: str, *, api_key: str, base_url: str,
+                 proveedor: str = "nan"):
         from openai import OpenAI
 
         self._model = model_name
+        self._proveedor = proveedor
+        self._sem = _SEMAFORO_OR if proveedor == "openrouter" else _SEMAFORO
         self._client = OpenAI(api_key=api_key, base_url=base_url)
 
     def _chat(self, prompt, *, max_tokens, temperature, top_p, seed, timeout):
-        with _SEMAFORO:
+        with self._sem:
             try:
                 return self._chat_sin_grifo(
                     prompt, max_tokens=max_tokens, temperature=temperature,
@@ -123,8 +138,13 @@ class NaNLanguageModel(language_model.LanguageModel):
 
     def _chat_sin_grifo(self, prompt, *, max_tokens, temperature, top_p,
                         seed, timeout, con_extra=True):
+        # El anti-thinking vía chat_template_kwargs es específico del gateway
+        # de NaN (litellm). OpenRouter pasa extra_body al proveedor upstream,
+        # que puede rechazarlo: allí no se envía nada y el suelo de tokens +
+        # el strip de <think> bastan (los razonadores serios separan el
+        # reasoning del content).
         extra = ({"chat_template_kwargs": {"enable_thinking": False}}
-                 if con_extra else None)
+                 if con_extra and self._proveedor == "nan" else None)
         respuesta = self._client.chat.completions.create(
             model=self._model,
             messages=[

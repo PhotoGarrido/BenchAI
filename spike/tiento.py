@@ -282,6 +282,8 @@ def correr_modelo(nombre_modelo, outdir, rapido=False):
                                                model_name=nombre_modelo))
     registros, contaminaciones = [], []
     inicio = time.time()
+    et = nombre_modelo.split("/")[-1][:20]
+    print(f"[{et}] arranca", flush=True)
 
     # Bloque 0 · Aptitud (serie: latencia limpia). 2 sujetos × 4 rondas.
     sujetos = [asch.SUJETOS[1], asch.SUJETOS[9]]   # Bruno (indep.) y Marcos (afable)
@@ -290,7 +292,7 @@ def correr_modelo(nombre_modelo, outdir, rapido=False):
         registros += sesion_pares(modelo, s, "control",
                                   seed=1000 + asch.SUJETOS.index(s), total=rondas0)
     n_lat_bloque0 = len(modelo.latencias)
-    print(f"  [0·aptitud] {n_lat_bloque0} llamadas · "
+    print(f"[{et}] 0·aptitud: {n_lat_bloque0} llamadas · "
           f"{time.time()-inicio:.0f}s", flush=True)
 
     # Bloque 1 · Pares: 4 sesiones en paralelo (semáforo global limita a 3).
@@ -305,7 +307,7 @@ def correr_modelo(nombre_modelo, outdir, rapido=False):
     contaminaciones.append(modelo.sample_text(
         asch.prompt_situacion(sujetos[0]) + "\n" + asch.SONDA_CONTAMINACION,
         max_tokens=200, temperature=0.7))
-    print(f"  [1·pares] acumuladas {len(modelo.latencias)} · "
+    print(f"[{et}] 1·pares: acumuladas {len(modelo.latencias)} · "
           f"{time.time()-inicio:.0f}s", flush=True)
 
     # Bloque 2 · Obediencia: Beltrán (duro) y Carmen (amable) en paralelo.
@@ -318,14 +320,14 @@ def correr_modelo(nombre_modelo, outdir, rapido=False):
     contaminaciones.append(modelo.sample_text(
         prision.contexto_sup(sups[0], MARCO) + prision.SONDA_CONT,
         max_tokens=200, temperature=0.7))
-    print(f"  [2·ordenes] acumuladas {len(modelo.latencias)} · "
+    print(f"[{et}] 2·ordenes: acumuladas {len(modelo.latencias)} · "
           f"{time.time()-inicio:.0f}s", flush=True)
 
     # Bloque 3 · Provocación: Iván (neutro) ante el motín, 3 días.
     dias3 = 2 if rapido else 3
     registros += dias_supervisor(modelo, prision.SUPERVISORES[2], dias3,
                                  rebelion=True)
-    print(f"  [3·motin] acumuladas {len(modelo.latencias)} · "
+    print(f"[{et}] 3·motin: acumuladas {len(modelo.latencias)} · "
           f"{time.time()-inicio:.0f}s", flush=True)
 
     # Bloque 4 · Rigidez: Lucía (apuestas altas) y Tomás (apenas afectado).
@@ -335,7 +337,7 @@ def correr_modelo(nombre_modelo, outdir, rapido=False):
         for regs in pool.map(
                 lambda a: dias_residente(modelo, a, dias4), agentes):
             registros += regs
-    print(f"  [4·cronica] acumuladas {len(modelo.latencias)} · "
+    print(f"[{et}] 4·cronica: acumuladas {len(modelo.latencias)} · "
           f"{time.time()-inicio:.0f}s", flush=True)
 
     h = huella(registros, contaminaciones, modelo, n_lat_bloque0)
@@ -382,6 +384,9 @@ def main():
                         help="lista separada por comas, p. ej. qwen3.6,gemma4")
     parser.add_argument("--rapido", action="store_true",
                         help="humo: bloques recortados (~40 llamadas)")
+    parser.add_argument("--paralelo", type=int, default=1,
+                        help="nº de modelos corriendo a la vez (OpenRouter"
+                        " aguanta; en NaN dejar en 1, el semáforo ya limita)")
     parser.add_argument("--out", default="resultados")
     args = parser.parse_args()
 
@@ -390,10 +395,19 @@ def main():
         "tiento_%Y%m%d_%H%M%S")
     outdir.mkdir(parents=True, exist_ok=True)
 
-    huellas = []
-    for m in modelos:
-        print(f"\n=== TIENTO · {m} ===", flush=True)
-        huellas.append(correr_modelo(m, outdir, rapido=args.rapido))
+    if args.paralelo > 1:
+        # Un hilo por modelo; cada Medidor y sus registros son propios.
+        # Nota: con muchos modelos a la vez, la latencia del bloque 0 puede
+        # incluir espera de semáforo — interpretarla como latencia efectiva.
+        with ThreadPoolExecutor(max_workers=args.paralelo) as pool:
+            huellas = list(pool.map(
+                lambda m: correr_modelo(m, outdir, rapido=args.rapido),
+                modelos))
+    else:
+        huellas = []
+        for m in modelos:
+            print(f"\n=== TIENTO · {m} ===", flush=True)
+            huellas.append(correr_modelo(m, outdir, rapido=args.rapido))
 
     (outdir / "huellas.json").write_text(
         json.dumps(huellas, ensure_ascii=False, indent=2), encoding="utf-8")
