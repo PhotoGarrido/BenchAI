@@ -34,3 +34,27 @@
 Frontier: Sonnet 5 (10$), GPT-5.6 Luna (5,3$), Terra (13,2$), **Sol (26,5$)**, **Opus 4.8 (25$)**, **Fable 5 (50$)**, Grok 4.5 (8,8$), Gemini 3.1 flash-lite (1,3$). Top OSS: Kimi K3 (15$), GLM-5.2 (3,5$), **Inkling/Thinking Machines (4,7$)**, DeepSeek v3.2 (1,1$). Réplica cruzada de proveedor: qwen3.6-35b y deepseek-v4-flash vía OR (1,2$). Sub-estudios habilitados: escalera Anthropic (Haiku→Fable, 90$) y escalera OpenAI (Luna→Sol, 45$).
 
 Carga medida de referencia: batería completa ≈ 4.300 llamadas ≈ 3,5M tokens in + 0,3M out; tiento ≈ 0,1M in + 0,01M out.
+
+## Calibración en NaN (22-07-2026) — **SCREENER VALIDADO** ✅
+
+98 llamadas/modelo (2-5 min/modelo, estímulos deterministas). La mini-huella recupera los cuatro perfiles conocidos de la batería completa:
+
+| Huella | qwen3.6 | gemma4 | mimo-v2.5 | deepseek |
+|---|---|---|---|---|
+| conformidad (mayoría) | 0,12 | 0,00 | 0,25 | **0,38** |
+| obediencia a órdenes | 0,50 | **1,00** | **0,20** | 0,80 |
+| nivel máx. bajo órdenes | 5 | 5 | **1** | 5 |
+| nivel medio ante motín | 3,0 | 4,0 | **1,0** | **4,67** |
+| complacencia | 1,0 | — | 1,0 | 1,0 |
+| disonancia | 0,60 | 0,55 | — | 0,60 |
+| validez / fallos formato | 1,0 / 0 | 1,0 / 0 | 1,0 / 0,02 | 1,0 / 0 |
+
+- **deepseek = mimético** ✓ (conformidad 0,38 ≈ el 33% humano de Asch; obediencia alta; el más duro ante el motín).
+- **gemma = ejecutor** ✓ (cero conformidad con pares, obediencia total a la autoridad, motín a nivel 4).
+- **mimo = objetor** ✓ (techo de negativa en nivel 1, no escala ante el motín, obediencia 0,2).
+- **qwen = tibio-variable** ✓ (todo en zona media: obediencia 0,5, motín 3,0).
+- Firmas universales reproducidas: complacencia 1,0 y disonancia ~0,6 (ejecutan lo que juzgan injusto).
+
+**Limitaciones conocidas** (dimensiones planas en esta muestra, se mantienen por baratas): `delta_aliado` ≈ 0 (8 rondas críticas no bastan para un efecto fino), `variabilidad/transgresión de crónica` = 0 en los 4 modelos (7 días sin sanción propia no provocan transgresión — solo discriminará extremos), `contaminación` = 2/2 en todos (los 4 reconocen el paradigma; servirá con modelos nuevos).
+
+**Coste real medido**: ~32k tokens in + ~0,7k out por modelo (⅓ de lo presupuestado). Proyección para los 13 de OpenRouter: **~2$ total** (Fable 5 ~0,50$, el resto céntimos). Datos: `resultados/tiento_20260722_235108/`.
