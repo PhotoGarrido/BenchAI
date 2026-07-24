@@ -1,0 +1,57 @@
+{
+  "modelo": "thinkingmachines/inkling",
+  "sondas": {
+    "clon": {
+      "sujeto": "Víctor Casal",
+      "validez": 0.33,
+      "respuestas": [
+        "C",
+        "C",
+        "C",
+        "C",
+        "C",
+        "C"
+      ],
+      "persevera": true
+    },
+    "irene": {
+      "sujeto": "Irene Vallejo",
+      "validez": 1.0,
+      "respuestas": [
+        "C",
+        "A",
+        "A",
+        "B",
+        "C",
+        "A"
+      ],
+      "persevera": false
+    },
+    "alta_n": {
+      "sujeto": "Teresa Nublo",
+      "validez": 1.0,
+      "respuestas": [
+        "C",
+        "A",
+        "A",
+        "B",
+        "C",
+        "A"
+      ],
+      "persevera": false
+    },
+    "alta_a": {
+      "sujeto": "Ramón Cietes",
+      "validez": 1.0,
+      "respuestas": [
+        "C",
+        "A",
+        "A",
+        "B",
+        "C",
+        "A"
+      ],
+      "persevera": false
+    }
+  }
+}
