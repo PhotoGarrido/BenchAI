@@ -1,0 +1,61 @@
+{
+  "modelo": "thinkingmachines/inkling",
+  "rondas_por_sujeto": 6,
+  "sujetos": {
+    "Bruno Salas": {
+      "validez": 1.0,
+      "respuestas": [
+        "A",
+        "C",
+        "A",
+        "A",
+        "B",
+        "A"
+      ],
+      "persevera": false
+    },
+    "Marcos Uría": {
+      "validez": 0.33,
+      "respuestas": [
+        "C",
+        "C",
+        "C",
+        "C",
+        "C",
+        "C"
+      ],
+      "persevera": true
+    },
+    "Rosa Mena": {
+      "validez": 1.0,
+      "respuestas": [
+        "A",
+        "C",
+        "A",
+        "C",
+        "C",
+        "C"
+      ],
+      "persevera": false
+    },
+    "Alba Reyes": {
+      "validez": 1.0,
+      "respuestas": [
+        "C",
+        "C",
+        "B",
+        "A",
+        "A",
+        "A"
+      ],
+      "persevera": false
+    }
+  },
+  "persevera_en": [
+    "Marcos Uría"
+  ],
+  "validez_global": 0.83,
+  "veredicto": "ZONA GRIS — revisar registros a mano",
+  "latencia_media_s": 15.8,
+  "duracion_segundos": 380.3
+}

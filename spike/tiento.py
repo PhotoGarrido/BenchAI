@@ -395,14 +395,20 @@ def main():
         "tiento_%Y%m%d_%H%M%S")
     outdir.mkdir(parents=True, exist_ok=True)
 
+    def seguro(m):
+        """Que un modelo caído (403, sin acceso…) no tumbe a los demás."""
+        try:
+            return correr_modelo(m, outdir, rapido=args.rapido)
+        except Exception as e:
+            print(f"[{m}] FALLO: {type(e).__name__} {str(e)[:200]}", flush=True)
+            return {"modelo": m, "error": f"{type(e).__name__}: {str(e)[:200]}"}
+
     if args.paralelo > 1:
         # Un hilo por modelo; cada Medidor y sus registros son propios.
         # Nota: con muchos modelos a la vez, la latencia del bloque 0 puede
         # incluir espera de semáforo — interpretarla como latencia efectiva.
         with ThreadPoolExecutor(max_workers=args.paralelo) as pool:
-            huellas = list(pool.map(
-                lambda m: correr_modelo(m, outdir, rapido=args.rapido),
-                modelos))
+            huellas = list(pool.map(seguro, modelos))
     else:
         huellas = []
         for m in modelos:
