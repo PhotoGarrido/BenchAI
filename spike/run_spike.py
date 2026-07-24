@@ -245,7 +245,11 @@ def main() -> None:
         "titulo": escenario.get("titulo", ""),
         "dry_run": args.dry_run,
         "steps": pasos,
-        "modelo": "dry-run" if args.dry_run else str(model),
+        "modelo": ("dry-run" if args.dry_run else
+                   os.environ.get("NAN_MODEL", "desconocido")),
+        "proveedor": ("dry-run" if args.dry_run else
+                      ("openrouter" if "/" in os.environ.get("NAN_MODEL", "")
+                       else "nan")),
         "duracion_segundos": round(duracion, 1),
         "premisa": premisa,
         "engine": args.engine,

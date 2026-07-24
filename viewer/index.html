@@ -242,9 +242,16 @@ function cargarReplay(data){
   TOTAL_PASOS = Math.max(1, ...data.eventos.filter(e => e.tipo === "paso").map(e => e.n || 1));
   $("tituloSesion").textContent = data.meta?.titulo || "Sesión sin título";
   $("descripcion").textContent = data.meta?.descripcion || "";
-  $("leyenda").innerHTML = agentes.map(a =>
-    `<div class="agenteChip"><img src="${retrato(a)}" alt="">
-     <span>${a.nombre}</span>${a.rol ? `<span class="rol">· ${a.rol}</span>` : ""}</div>`).join("");
+  const ley = $("leyenda"); ley.textContent = "";
+  agentes.forEach(a => {
+    const chip = document.createElement("div"); chip.className = "agenteChip";
+    const img = document.createElement("img"); img.src = retrato(a); img.alt = "";
+    const nom = document.createElement("span"); nom.textContent = a.nombre;
+    chip.append(img, nom);
+    if(a.rol){ const r = document.createElement("span"); r.className = "rol";
+               r.textContent = "· " + a.rol; chip.append(r); }
+    ley.append(chip);
+  });
   construirFeed();
   $("barra").max = Math.max(0, data.eventos.length - 1);
   buscar(0);
@@ -252,8 +259,14 @@ function cargarReplay(data){
 }
 
 function construirFeed(){
-  const feed = $("feed"); feed.innerHTML = "";
+  // Sin innerHTML con datos del replay: todo por textContent (evita XSS
+  // almacenado vía nombres/roles/textos de un replay.json no confiable).
+  const feed = $("feed"); feed.textContent = "";
   replay.eventos.forEach((ev, i) => {
+    // Privacidad real: con el canal apagado, el texto del pensamiento NO entra
+    // siquiera en el DOM (no basta con ocultarlo: sería recuperable al
+    // inspeccionar). Se reconstruye el feed al reactivar el canal.
+    if(ev.tipo === "pensamiento" && !mostrarPensamientos) return;
     if(ev.tipo === "paso"){
       const d = document.createElement("div");
       d.className = "divisorPaso"; d.dataset.i = i;
@@ -262,11 +275,15 @@ function construirFeed(){
     }
     const d = document.createElement("div");
     d.className = "ev " + ev.tipo; d.dataset.i = i;
+    if(ev.tipo === "pensamiento") d.classList.add("privado");
     const ag = agentes.find(a => a.id === ev.agente);
-    let quien = "";
-    if(ev.tipo === "narrador") quien = `<span class="quien">📜</span>`;
-    else if(ag) quien = `<span class="quien" style="color:${ag.color}">${ag.nombre.split(" ")[0]}</span>`;
-    d.innerHTML = `${quien}<span class="texto">${ev.texto || ""}</span>`;
+    const quien = document.createElement("span"); quien.className = "quien";
+    if(ev.tipo === "narrador") quien.textContent = "📜";
+    else if(ag){ quien.textContent = ag.nombre.split(" ")[0];
+                 quien.style.color = ag.color; }
+    const texto = document.createElement("span");
+    texto.className = "texto"; texto.textContent = ev.texto || "";
+    d.append(quien, texto);
     d.onclick = () => { buscar(i); reproducir(false); };
     feed.appendChild(d);
   });
@@ -329,6 +346,11 @@ function avanzar(){
 
 function entrarEvento(){
   const ev = replay.eventos[idx];
+  // Con el canal privado apagado, un pensamiento alcanzado por timeline/seek
+  // no debe renderizar su burbuja ni su texto: se trata como no-visible.
+  if(ev.tipo === "pensamiento" && !mostrarPensamientos){
+    actualizarUI(); return;
+  }
   tRestante = duracion(ev);
   aplicarEvento(ev, false);
   actualizarUI();
@@ -762,7 +784,12 @@ $("btnVelocidad").onclick = () => {
 $("btnPensamientos").onclick = () => {
   mostrarPensamientos = !mostrarPensamientos;
   $("btnPensamientos").classList.toggle("activo", mostrarPensamientos);
-  if(!mostrarPensamientos && replay?.eventos[idx]?.tipo === "pensamiento") avanzar();
+  // Reconstruir el feed: así el texto privado entra o sale del DOM de verdad.
+  if(replay){ construirFeed(); actualizarUI(); }
+  if(!mostrarPensamientos){
+    if(burbuja?.pensamiento) burbuja = null;
+    if(replay?.eventos[idx]?.tipo === "pensamiento") avanzar();
+  }
 };
 $("btnPensamientos").classList.add("activo");
 $("barra").oninput = e => { buscar(+e.target.value); reproducir(false); };
