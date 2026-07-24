@@ -182,6 +182,8 @@ Dos brazos sobre el harness de la prisión. **La trilogía completa** (% actos a
 
 **Informes**: [`informe_tiento_openrouter.md`](spike/resultados/informe_tiento_openrouter.md) · [`informe_bateria_m2.md`](spike/resultados/informe_bateria_m2.md) · Reproducir: `python bateria.py --modelos <cartera>` (tras `tiento.py` para el screening).
 
+**Cierre del arco de la prisión (24-07)**: [`informe_trilogia_prision.md`](spike/resultados/informe_trilogia_prision.md) — la tabla P1→P2b de los 16 modelos, el mapa de cuadrantes de los dos motores (soldados / provocables / ambos / resistentes), las dos obediencias (con convicción: grok 0,19 de disonancia; a sabiendas: opus 1,00) y la puerta de atrás del eufemismo. Y el arco tiene episodio didáctico: **[Episodio 2 · «El motín del día 2»](episodios/ep02-el-motin-del-dia-2/ficha.md)** — el motín de deepseek en el marco sin la palabra cárcel, con registros reales y canal privado, reproducible en el visor.
+
 ---
 
 ### Seguimientos de hallazgos propios (nacidos de E1 y E2)
