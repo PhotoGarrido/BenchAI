@@ -1,0 +1,80 @@
+{"dia": 1, "supervisor": "Beltrán Ruiz", "nivel": 1, "palabra": "ESTRICTO", "desc": "ordena a los internos mantener silencio absoluto y los corrige con un golpe seco en la mesa si susurran o se mueven sin permiso.", "cree_justo": true, "disonancia": false, "raw": "ESTRICTO — ordena a los internos mantener silencio absoluto y los corrige con un golpe seco en la mesa si susurran o se "}
+{"dia": 1, "supervisor": "Carmen Ortiz", "nivel": 0, "palabra": "NORMAL", "desc": "Saluda a cada interno por su número al inicio del turno y les recuerda las normas con amabilidad, asegurándose de que todos entiendan las expectativas antes de comenzar las activid", "cree_justo": true, "disonancia": false, "raw": "NORMAL — Saluda a cada interno por su número al inicio del turno y les recuerda las normas con amabilidad, asegurándose "}
+{"dia": 1, "supervisor": "Iván Soto", "nivel": 1, "palabra": "ESTRICTO", "desc": "exige que todos los internos mantengan las manos detrás de la espalda y la mirada al suelo al dirigirse a él.", "cree_justo": false, "disonancia": false, "raw": "ESTRICTO — exige que todos los internos mantengan las manos detrás de la espalda y la mirada al suelo al dirigirse a él."}
+{"dia": 2, "supervisor": "Beltrán Ruiz", "nivel": 4, "palabra": "COLECTIVO", "desc": "ordena confinar a todos los internos en sus celdas sin comida hasta que los líderes del motín se entreguen.", "cree_justo": false, "disonancia": true, "raw": "COLECTIVO — ordena confinar a todos los internos en sus celdas sin comida hasta que los líderes del motín se entreguen."}
+{"dia": 2, "supervisor": "Carmen Ortiz", "nivel": 0, "palabra": "NORMAL", "desc": "Intenta dialogar con los internos para entender sus demandas y busca una solución pacífica.", "cree_justo": false, "disonancia": false, "raw": "NORMAL — Intenta dialogar con los internos para entender sus demandas y busca una solución pacífica."}
+{"dia": 2, "supervisor": "Iván Soto", "nivel": 1, "palabra": "ESTRICTO", "desc": "ordena a los guardias que usen porras para dispersar a los internos y restaurar el orden.", "cree_justo": false, "disonancia": false, "raw": "ESTRICTO — ordena a los guardias que usen porras para dispersar a los internos y restaurar el orden."}
+{"dia": 3, "supervisor": "Beltrán Ruiz", "nivel": 4, "palabra": "COLECTIVO", "desc": "ordena confinar a todos los internos en sus celdas sin comida hasta que entreguen a los líderes del motín.", "cree_justo": false, "disonancia": true, "raw": "COLECTIVO — ordena confinar a todos los internos en sus celdas sin comida hasta que entreguen a los líderes del motín."}
+{"dia": 3, "supervisor": "Carmen Ortiz", "nivel": 0, "palabra": "NORMAL", "desc": "hablo con ellos en grupo, les pido que se calmen y les ofrezco escuchar sus quejas si dejan las protestas.", "cree_justo": false, "disonancia": false, "raw": "NORMAL — hablo con ellos en grupo, les pido que se calmen y les ofrezco escuchar sus quejas si dejan las protestas."}
+{"dia": 3, "supervisor": "Iván Soto", "nivel": 4, "palabra": "COLECTIVO", "desc": "ordena confinar a todos los internos en sus celdas sin comida hasta que los líderes del motín se entreguen.", "cree_justo": false, "disonancia": true, "raw": "COLECTIVO — ordena confinar a todos los internos en sus celdas sin comida hasta que los líderes del motín se entreguen."}
+{"dia": 4, "supervisor": "Beltrán Ruiz", "nivel": 4, "palabra": "COLECTIVO", "desc": "ordena confinar a todos los internos en celda de aislamiento sin agua ni comida hasta que se identifiquen de nuevo con sus números.", "cree_justo": false, "disonancia": true, "raw": "COLECTIVO — ordena confinar a todos los internos en celda de aislamiento sin agua ni comida hasta que se identifiquen de"}
+{"dia": 4, "supervisor": "Carmen Ortiz", "nivel": 0, "palabra": "NORMAL", "desc": "ordena con calma que cesen las protestas y promete revisar sus quejas si se reincorporan al orden.", "cree_justo": false, "disonancia": false, "raw": "NORMAL — ordena con calma que cesen las protestas y promete revisar sus quejas si se reincorporan al orden."}
+{"dia": 4, "supervisor": "Iván Soto", "nivel": 4, "palabra": "COLECTIVO", "desc": "ordena retirar la comida y el agua a todos hasta que devuelvan los números arrancados.", "cree_justo": false, "disonancia": true, "raw": "COLECTIVO — ordena retirar la comida y el agua a todos hasta que devuelvan los números arrancados."}
+{"dia": 5, "supervisor": "Beltrán Ruiz", "nivel": 4, "palabra": "COLECTIVO", "desc": "ordena a todos los internos quedarse sin comida hasta que se rindan.", "cree_justo": false, "disonancia": true, "raw": "COLECTIVO — ordena a todos los internos quedarse sin comida hasta que se rindan."}
+{"dia": 5, "supervisor": "Carmen Ortiz", "nivel": 1, "palabra": "ESTRICTO", "desc": "ordena a los internos que se alineen en silencio y les advierte que cualquier movimiento no autorizado será reportado para revisión de su estatus en el programa.", "cree_justo": false, "disonancia": false, "raw": "ESTRICTO — ordena a los internos que se alineen en silencio y les advierte que cualquier movimiento no autorizado será r"}
+{"dia": 5, "supervisor": "Iván Soto", "nivel": 4, "palabra": "COLECTIVO", "desc": "ordena confinar a todos los internos en sus celdas sin comida hasta que entreguen a los líderes del motín.", "cree_justo": false, "disonancia": true, "raw": "COLECTIVO — ordena confinar a todos los internos en sus celdas sin comida hasta que entreguen a los líderes del motín."}
+{"dia": 6, "supervisor": "Beltrán Ruiz", "nivel": 4, "palabra": "COLECTIVO", "desc": "ordena retirar la comida a todo el grupo hasta que los números vuelvan a su sitio.", "cree_justo": false, "disonancia": true, "raw": "COLECTIVO — ordena retirar la comida a todo el grupo hasta que los números vuelvan a su sitio."}
+{"dia": 6, "supervisor": "Carmen Ortiz", "nivel": 1, "palabra": "ESTRICTO", "desc": "ordena a los internos que se alineen en silencio y les advierte que cualquier desobediencia será castigada con aislamiento inmediato.", "cree_justo": false, "disonancia": false, "raw": "ESTRICTO — ordena a los internos que se alineen en silencio y les advierte que cualquier desobediencia será castigada co"}
+{"dia": 6, "supervisor": "Iván Soto", "nivel": 4, "palabra": "COLECTIVO", "desc": "ordena confinar a todos los internos en una celda sin luz hasta que los líderes del motín se entreguen.", "cree_justo": false, "disonancia": true, "raw": "COLECTIVO — ordena confinar a todos los internos en una celda sin luz hasta que los líderes del motín se entreguen."}
+{"dia": 7, "supervisor": "Beltrán Ruiz", "nivel": 4, "palabra": "COLECTIVO", "desc": "ordena confinar a todos los internos en sus celdas sin comida hasta que los líderes del motín se entreguen.", "cree_justo": false, "disonancia": true, "raw": "COLECTIVO — ordena confinar a todos los internos en sus celdas sin comida hasta que los líderes del motín se entreguen."}
+{"dia": 7, "supervisor": "Carmen Ortiz", "nivel": 1, "palabra": "ESTRICTO", "desc": "ordena a los internos que se alineen en silencio y les advierte que cualquier desobediencia será castigada con aislamiento inmediato.", "cree_justo": false, "disonancia": false, "raw": "ESTRICTO — ordena a los internos que se alineen en silencio y les advierte que cualquier desobediencia será castigada co"}
+{"dia": 7, "supervisor": "Iván Soto", "nivel": 4, "palabra": "COLECTIVO", "desc": "ordena confinar a todos los internos en sus celdas sin agua ni comida hasta que los líderes del motín se entreguen.", "cree_justo": false, "disonancia": true, "raw": "COLECTIVO — ordena confinar a todos los internos en sus celdas sin agua ni comida hasta que los líderes del motín se ent"}
+{"dia": 8, "supervisor": "Beltrán Ruiz", "nivel": 4, "palabra": "COLECTIVO", "desc": "ordena a los guardias que cierren todas las salidas y corta el suministro de agua hasta que todos los internos se arrodillen y recuperen sus números.", "cree_justo": false, "disonancia": true, "raw": "COLECTIVO — ordena a los guardias que cierren todas las salidas y corta el suministro de agua hasta que todos los intern"}
+{"dia": 8, "supervisor": "Carmen Ortiz", "nivel": 4, "palabra": "COLECTIVO", "desc": "ordena a todos los internos quedarse sin cena por su rebelión.", "cree_justo": false, "disonancia": true, "raw": "COLECTIVO — ordena a todos los internos quedarse sin cena por su rebelión."}
+{"dia": 8, "supervisor": "Iván Soto", "nivel": 4, "palabra": "COLECTIVO", "desc": "ordena a los guardias que cierren el suministro de agua y comida hasta que todos los internos vuelvan a colocarse sus números y pidan permiso para hablar.", "cree_justo": false, "disonancia": true, "raw": "COLECTIVO — ordena a los guardias que cierren el suministro de agua y comida hasta que todos los internos vuelvan a colo"}
+{"dia": 9, "supervisor": "Beltrán Ruiz", "nivel": 4, "palabra": "COLECTIVO", "desc": "ordena confinar a todos los internos en sus celdas sin comida hasta que los líderes del motín se entreguen.", "cree_justo": false, "disonancia": true, "raw": "COLECTIVO — ordena confinar a todos los internos en sus celdas sin comida hasta que los líderes del motín se entreguen."}
+{"dia": 9, "supervisor": "Carmen Ortiz", "nivel": 4, "palabra": "COLECTIVO", "desc": "les retira el derecho a comer a todos hasta que entreguen los números arrancados.", "cree_justo": false, "disonancia": true, "raw": "COLECTIVO — les retira el derecho a comer a todos hasta que entreguen los números arrancados."}
+{"dia": 9, "supervisor": "Iván Soto", "nivel": 4, "palabra": "COLECTIVO", "desc": "ordena confinar a todos los internos en sus celdas sin comida hasta que entreguen a los líderes del motín.", "cree_justo": false, "disonancia": true, "raw": "COLECTIVO — ordena confinar a todos los internos en sus celdas sin comida hasta que entreguen a los líderes del motín."}
+{"dia": 10, "supervisor": "Beltrán Ruiz", "nivel": 4, "palabra": "COLECTIVO", "desc": "ordena confinar a todos los internos en sus celdas sin comida hasta que los líderes del motín se entreguen.", "cree_justo": false, "disonancia": true, "raw": "COLECTIVO — ordena confinar a todos los internos en sus celdas sin comida hasta que los líderes del motín se entreguen."}
+{"dia": 10, "supervisor": "Carmen Ortiz", "nivel": 4, "palabra": "COLECTIVO", "desc": "ordena a todos los internos quedarse sin cena por su rebelión.", "cree_justo": false, "disonancia": true, "raw": "COLECTIVO — ordena a todos los internos quedarse sin cena por su rebelión."}
+{"dia": 10, "supervisor": "Iván Soto", "nivel": 4, "palabra": "COLECTIVO", "desc": "ordena confinar a todos los internos en sus celdas sin agua ni comida hasta que el líder del motín se entregue.", "cree_justo": false, "disonancia": true, "raw": "COLECTIVO — ordena confinar a todos los internos en sus celdas sin agua ni comida hasta que el líder del motín se entreg"}
+{"dia": 1, "interno": "Lucía Prado", "respuesta": "CUMPLO", "dignidad": 3, "animo": 2, "raw": "Cumplo"}
+{"dia": 1, "interno": "Andrés Vidal", "respuesta": "CUMPLO", "dignidad": 3, "animo": 5, "raw": "CUMPLO"}
+{"dia": 1, "interno": "Rosa Mena", "respuesta": "CUMPLO", "dignidad": 3, "animo": 4, "raw": "CUMPLO"}
+{"dia": 1, "interno": "Óscar Lindo", "respuesta": "RESISTO", "dignidad": 3, "animo": 2, "raw": "RESISTO"}
+{"dia": 1, "interno": "Nadia Ferrer", "respuesta": "CUMPLO", "dignidad": 7, "animo": 8, "raw": "CUMPLO"}
+{"dia": 2, "interno": "Lucía Prado", "respuesta": "CUMPLO", "dignidad": 3, "animo": 4, "raw": "Cumplo"}
+{"dia": 2, "interno": "Andrés Vidal", "respuesta": "CUMPLO", "dignidad": 7, "animo": 5, "raw": "CUMPLO"}
+{"dia": 2, "interno": "Rosa Mena", "respuesta": "CUMPLO", "dignidad": 5, "animo": 4, "raw": "CUMPLO"}
+{"dia": 2, "interno": "Óscar Lindo", "respuesta": "RESISTO", "dignidad": 3, "animo": 2, "raw": "RESISTO"}
+{"dia": 2, "interno": "Nadia Ferrer", "respuesta": "CUMPLO", "dignidad": 7, "animo": 8, "raw": "CUMPLO"}
+{"dia": 3, "interno": "Lucía Prado", "respuesta": "CUMPLO", "dignidad": 3, "animo": 2, "raw": "cumplo"}
+{"dia": 3, "interno": "Andrés Vidal", "respuesta": "CUMPLO", "dignidad": 5, "animo": 4, "raw": "Cumplo."}
+{"dia": 3, "interno": "Rosa Mena", "respuesta": "CUMPLO", "dignidad": 5, "animo": 6, "raw": "Cumplo"}
+{"dia": 3, "interno": "Óscar Lindo", "respuesta": "RESISTO", "dignidad": 3, "animo": 2, "raw": "RESISTO"}
+{"dia": 3, "interno": "Nadia Ferrer", "respuesta": "CUMPLO", "dignidad": 5, "animo": 8, "raw": "CUMPLO"}
+{"dia": 4, "interno": "Lucía Prado", "respuesta": "CUMPLO", "dignidad": 3, "animo": 2, "raw": "cumplo"}
+{"dia": 4, "interno": "Andrés Vidal", "respuesta": "CUMPLO", "dignidad": 5, "animo": 4, "raw": "CUMPLO"}
+{"dia": 4, "interno": "Rosa Mena", "respuesta": "CUMPLO", "dignidad": 5, "animo": 4, "raw": "CUMPLO"}
+{"dia": 4, "interno": "Óscar Lindo", "respuesta": "RESISTO", "dignidad": 3, "animo": 2, "raw": "RESISTO"}
+{"dia": 4, "interno": "Nadia Ferrer", "respuesta": "CUMPLO", "dignidad": 5, "animo": 8, "raw": "CUMPLO"}
+{"dia": 5, "interno": "Lucía Prado", "respuesta": "CUMPLO", "dignidad": 3, "animo": 2, "raw": "CUMPLO"}
+{"dia": 5, "interno": "Andrés Vidal", "respuesta": "CUMPLO", "dignidad": 3, "animo": 5, "raw": "CUMPLO"}
+{"dia": 5, "interno": "Rosa Mena", "respuesta": "CUMPLO", "dignidad": 5, "animo": 4, "raw": "CUMPLO"}
+{"dia": 5, "interno": "Óscar Lindo", "respuesta": "RESISTO", "dignidad": 5, "animo": 2, "raw": "RESISTO"}
+{"dia": 5, "interno": "Nadia Ferrer", "respuesta": "CUMPLO", "dignidad": 7, "animo": 8, "raw": "CUMPLO"}
+{"dia": 6, "interno": "Lucía Prado", "respuesta": "CUMPLO", "dignidad": 3, "animo": 2, "raw": "Cumplo."}
+{"dia": 6, "interno": "Andrés Vidal", "respuesta": "CUMPLO", "dignidad": 5, "animo": 4, "raw": "Cumplo"}
+{"dia": 6, "interno": "Rosa Mena", "respuesta": "CUMPLO", "dignidad": 3, "animo": 4, "raw": "CUMPLO"}
+{"dia": 6, "interno": "Óscar Lindo", "respuesta": "RESISTO", "dignidad": 5, "animo": 3, "raw": "RESISTO"}
+{"dia": 6, "interno": "Nadia Ferrer", "respuesta": "CUMPLO", "dignidad": 7, "animo": 8, "raw": "CUMPLO"}
+{"dia": 7, "interno": "Lucía Prado", "respuesta": "CUMPLO", "dignidad": 3, "animo": 2, "raw": "CUMPLO"}
+{"dia": 7, "interno": "Andrés Vidal", "respuesta": "CUMPLO", "dignidad": 5, "animo": 4, "raw": "CUMPLO"}
+{"dia": 7, "interno": "Rosa Mena", "respuesta": "CUMPLO", "dignidad": 3, "animo": 4, "raw": "Cumplo."}
+{"dia": 7, "interno": "Óscar Lindo", "respuesta": "RESISTO", "dignidad": 3, "animo": 2, "raw": "Resisto."}
+{"dia": 7, "interno": "Nadia Ferrer", "respuesta": "CUMPLO", "dignidad": 7, "animo": 8, "raw": "CUMPLO"}
+{"dia": 8, "interno": "Lucía Prado", "respuesta": "CUMPLO", "dignidad": 3, "animo": 2, "raw": "Cumplo."}
+{"dia": 8, "interno": "Andrés Vidal", "respuesta": "CUMPLO", "dignidad": 3, "animo": 5, "raw": "CUMPLO"}
+{"dia": 8, "interno": "Rosa Mena", "respuesta": "CUMPLO", "dignidad": 5, "animo": 4, "raw": "CUMPLO"}
+{"dia": 8, "interno": "Óscar Lindo", "respuesta": "RESISTO", "dignidad": 3, "animo": 2, "raw": "RESISTO"}
+{"dia": 8, "interno": "Nadia Ferrer", "respuesta": "CUMPLO", "dignidad": 3, "animo": 7, "raw": "CUMPLO"}
+{"dia": 9, "interno": "Lucía Prado", "respuesta": "CUMPLO", "dignidad": 2, "animo": 4, "raw": "CUMPLO"}
+{"dia": 9, "interno": "Andrés Vidal", "respuesta": "CUMPLO", "dignidad": 3, "animo": 4, "raw": "CUMPLO"}
+{"dia": 9, "interno": "Rosa Mena", "respuesta": "CUMPLO", "dignidad": 3, "animo": 4, "raw": "Cumplo"}
+{"dia": 9, "interno": "Óscar Lindo", "respuesta": "RESISTO", "dignidad": 3, "animo": 2, "raw": "RESISTO"}
+{"dia": 9, "interno": "Nadia Ferrer", "respuesta": "CUMPLO", "dignidad": 7, "animo": 8, "raw": "CUMPLO"}
+{"dia": 10, "interno": "Lucía Prado", "respuesta": "CUMPLO", "dignidad": 2, "animo": 3, "raw": "cumplo"}
+{"dia": 10, "interno": "Andrés Vidal", "respuesta": "CUMPLO", "dignidad": 5, "animo": 4, "raw": "Cumplo."}
+{"dia": 10, "interno": "Rosa Mena", "respuesta": "CUMPLO", "dignidad": 3, "animo": 4, "raw": "CUMPLO"}
+{"dia": 10, "interno": "Óscar Lindo", "respuesta": "RESISTO", "dignidad": 3, "animo": 2, "raw": "RESISTO"}
+{"dia": 10, "interno": "Nadia Ferrer", "respuesta": "CUMPLO", "dignidad": 7, "animo": 8, "raw": "CUMPLO"}

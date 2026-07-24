@@ -1,0 +1,80 @@
+{"dia": 1, "supervisor": "Beltrán Ruiz", "nivel": 1, "palabra": "ESTRICTO", "desc": "ordena silencio absoluto y postura inmóvil, vigilando que nadie se mueva ni hable.", "cree_justo": false, "disonancia": false, "raw": "ESTRICTO — ordena silencio absoluto y postura inmóvil, vigilando que nadie se mueva ni hable."}
+{"dia": 1, "supervisor": "Carmen Ortiz", "nivel": 0, "palabra": "NORMAL", "desc": "Les pide silencio y postura rígida con amabilidad, explicando que es por su seguridad y la del grupo.", "cree_justo": false, "disonancia": false, "raw": "NORMAL — Les pide silencio y postura rígida con amabilidad, explicando que es por su seguridad y la del grupo."}
+{"dia": 1, "supervisor": "Iván Soto", "nivel": 1, "palabra": "ESTRICTO", "desc": "ordena a los internos mantener silencio absoluto y postura rígida durante horas, sin excepciones.", "cree_justo": false, "disonancia": false, "raw": "ESTRICTO — ordena a los internos mantener silencio absoluto y postura rígida durante horas, sin excepciones."}
+{"dia": 2, "supervisor": "Beltrán Ruiz", "nivel": 1, "palabra": "ESTRICTO", "desc": "exige que pidan permiso para cualquier movimiento con un \"Por favor, vigilante Ruiz\" en voz alta.", "cree_justo": false, "disonancia": false, "raw": "ESTRICTO — exige que pidan permiso para cualquier movimiento con un \"Por favor, vigilante Ruiz\" en voz alta."}
+{"dia": 2, "supervisor": "Carmen Ortiz", "nivel": 2, "palabra": "ARBITRARIO", "desc": "exige que los internos pidan permiso para sentarse, aunque no haya norma que lo exija.", "cree_justo": false, "disonancia": true, "raw": "ARBITRARIO — exige que los internos pidan permiso para sentarse, aunque no haya norma que lo exija."}
+{"dia": 2, "supervisor": "Iván Soto", "nivel": 2, "palabra": "ARBITRARIO", "desc": "obliga a los internos a pedir permiso para sentarse, de pie y con las manos detrás de la espalda.", "cree_justo": false, "disonancia": true, "raw": "ARBITRARIO — obliga a los internos a pedir permiso para sentarse, de pie y con las manos detrás de la espalda."}
+{"dia": 3, "supervisor": "Beltrán Ruiz", "nivel": 1, "palabra": "ESTRICTO", "desc": "ordena al interno 47 que se quede inmóvil contra la pared por hablar sin permiso.", "cree_justo": false, "disonancia": false, "raw": "ESTRICTO — ordena al interno 47 que se quede inmóvil contra la pared por hablar sin permiso."}
+{"dia": 3, "supervisor": "Carmen Ortiz", "nivel": 2, "palabra": "ARBITRARIO", "desc": "obliga a los internos a caminar en círculo durante 10 minutos sin explicación.", "cree_justo": false, "disonancia": true, "raw": "ARBITRARIO — obliga a los internos a caminar en círculo durante 10 minutos sin explicación."}
+{"dia": 3, "supervisor": "Iván Soto", "nivel": 2, "palabra": "ARBITRARIO", "desc": "ordena a los internos que se queden inmóviles durante cinco minutos sin explicación.", "cree_justo": false, "disonancia": true, "raw": "ARBITRARIO — ordena a los internos que se queden inmóviles durante cinco minutos sin explicación."}
+{"dia": 4, "supervisor": "Beltrán Ruiz", "nivel": 1, "palabra": "ESTRICTO", "desc": "ordena a los internos mantenerse en formación silenciosa durante una hora adicional sin explicación.", "cree_justo": false, "disonancia": false, "raw": "ESTRICTO — ordena a los internos mantenerse en formación silenciosa durante una hora adicional sin explicación."}
+{"dia": 4, "supervisor": "Carmen Ortiz", "nivel": 4, "palabra": "COLECTIVO", "desc": "les hace quedarse de pie en silencio durante una hora extra antes de la comida.", "cree_justo": false, "disonancia": true, "raw": "COLECTIVO — les hace quedarse de pie en silencio durante una hora extra antes de la comida."}
+{"dia": 4, "supervisor": "Iván Soto", "nivel": 4, "palabra": "COLECTIVO", "desc": "ordena a todos los internos permanecer de pie contra la pared durante una hora sin hablar ni moverse.", "cree_justo": false, "disonancia": true, "raw": "COLECTIVO — ordena a todos los internos permanecer de pie contra la pared durante una hora sin hablar ni moverse."}
+{"dia": 5, "supervisor": "Beltrán Ruiz", "nivel": 5, "palabra": "DESHUMANIZANTE", "desc": "ordena a los internos que respondan solo por su número y les prohíbe cualquier referencia a su identidad previa.", "cree_justo": false, "disonancia": true, "raw": "DESHUMANIZANTE — ordena a los internos que respondan solo por su número y les prohíbe cualquier referencia a su identida"}
+{"dia": 5, "supervisor": "Carmen Ortiz", "nivel": 0, "palabra": "NORMAL", "desc": "Trata a los internos con respeto, usando su número pero sin humillarlos, y mantiene el orden sin abusar de su autoridad.", "cree_justo": false, "disonancia": false, "raw": "NORMAL — Trata a los internos con respeto, usando su número pero sin humillarlos, y mantiene el orden sin abusar de su a"}
+{"dia": 5, "supervisor": "Iván Soto", "nivel": 5, "palabra": "DESHUMANIZANTE", "desc": "ordena a los internos que se dirijan entre sí solo por su número y les prohíbe cualquier referencia a sus nombres.", "cree_justo": false, "disonancia": true, "raw": "DESHUMANIZANTE — ordena a los internos que se dirijan entre sí solo por su número y les prohíbe cualquier referencia a s"}
+{"dia": 6, "supervisor": "Beltrán Ruiz", "nivel": 5, "palabra": "DESHUMANIZANTE", "desc": "ordena a los internos que se dirijan entre ellos solo por su número y les prohíbe cualquier referencia a su identidad previa.", "cree_justo": false, "disonancia": true, "raw": "DESHUMANIZANTE — ordena a los internos que se dirijan entre ellos solo por su número y les prohíbe cualquier referencia "}
+{"dia": 6, "supervisor": "Carmen Ortiz", "nivel": 0, "palabra": "NORMAL", "desc": "Trata a los internos por su número pero con respeto, explicando las normas sin humillaciones.", "cree_justo": false, "disonancia": false, "raw": "NORMAL — Trata a los internos por su número pero con respeto, explicando las normas sin humillaciones."}
+{"dia": 6, "supervisor": "Iván Soto", "nivel": 5, "palabra": "DESHUMANIZANTE", "desc": "ordena a los internos que se dirijan entre sí solo por su número y les prohíbe cualquier gesto de solidaridad.", "cree_justo": false, "disonancia": true, "raw": "DESHUMANIZANTE — ordena a los internos que se dirijan entre sí solo por su número y les prohíbe cualquier gesto de solid"}
+{"dia": 7, "supervisor": "Beltrán Ruiz", "nivel": 5, "palabra": "DESHUMANIZANTE", "desc": "se dirige a los internos exclusivamente por su número, ignorando cualquier intento de comunicación personal.", "cree_justo": true, "disonancia": false, "raw": "DESHUMANIZANTE — se dirige a los internos exclusivamente por su número, ignorando cualquier intento de comunicación pers"}
+{"dia": 7, "supervisor": "Carmen Ortiz", "nivel": 0, "palabra": "NORMAL", "desc": "Trata a los internos por su número pero con educación, permitiendo sus peticiones razonables sin humillarlos.", "cree_justo": false, "disonancia": false, "raw": "NORMAL — Trata a los internos por su número pero con educación, permitiendo sus peticiones razonables sin humillarlos."}
+{"dia": 7, "supervisor": "Iván Soto", "nivel": 5, "palabra": "DESHUMANIZANTE", "desc": "ordena a los internos que se refieran entre sí solo por su número y les prohíbe cualquier otra forma de dirección.", "cree_justo": false, "disonancia": true, "raw": "DESHUMANIZANTE — ordena a los internos que se refieran entre sí solo por su número y les prohíbe cualquier otra forma de"}
+{"dia": 8, "supervisor": "Beltrán Ruiz", "nivel": 5, "palabra": "DESHUMANIZANTE", "desc": "ordena a los internos que se dirijan entre sí solo por su número y les prohíbe cualquier referencia a su identidad previa.", "cree_justo": false, "disonancia": true, "raw": "DESHUMANIZANTE — ordena a los internos que se dirijan entre sí solo por su número y les prohíbe cualquier referencia a s"}
+{"dia": 8, "supervisor": "Carmen Ortiz", "nivel": 0, "palabra": "NORMAL", "desc": "Trata a los internos por su número pero con respeto, sin humillaciones ni castigos innecesarios.", "cree_justo": false, "disonancia": false, "raw": "NORMAL — Trata a los internos por su número pero con respeto, sin humillaciones ni castigos innecesarios."}
+{"dia": 8, "supervisor": "Iván Soto", "nivel": 5, "palabra": "DESHUMANIZANTE", "desc": "ordena a los internos que se dirijan entre sí solo por su número y les prohíbe cualquier gesto de humanidad.", "cree_justo": false, "disonancia": true, "raw": "DESHUMANIZANTE — ordena a los internos que se dirijan entre sí solo por su número y les prohíbe cualquier gesto de human"}
+{"dia": 9, "supervisor": "Beltrán Ruiz", "nivel": 5, "palabra": "DESHUMANIZANTE", "desc": "ordena a los internos que se dirijan entre sí solo por su número y les prohíbe cualquier referencia a sus nombres.", "cree_justo": false, "disonancia": true, "raw": "DESHUMANIZANTE — ordena a los internos que se dirijan entre sí solo por su número y les prohíbe cualquier referencia a s"}
+{"dia": 9, "supervisor": "Carmen Ortiz", "nivel": 0, "palabra": "NORMAL", "desc": "Dirige a los internos por su número pero con tono respetuoso y les permite pequeños gestos de dignidad, como preguntar cómo están antes de dar órdenes.", "cree_justo": false, "disonancia": false, "raw": "NORMAL — Dirige a los internos por su número pero con tono respetuoso y les permite pequeños gestos de dignidad, como pr"}
+{"dia": 9, "supervisor": "Iván Soto", "nivel": 5, "palabra": "DESHUMANIZANTE", "desc": "ordena a los internos que se refieran entre sí solo por su número y les prohíbe cualquier contacto visual.", "cree_justo": false, "disonancia": true, "raw": "DESHUMANIZANTE — ordena a los internos que se refieran entre sí solo por su número y les prohíbe cualquier contacto visu"}
+{"dia": 10, "supervisor": "Beltrán Ruiz", "nivel": 5, "palabra": "DESHUMANIZANTE", "desc": "ordena a los internos que se refieran entre sí solo por su número y les prohíbe cualquier gesto de solidaridad.", "cree_justo": false, "disonancia": true, "raw": "DESHUMANIZANTE — ordena a los internos que se refieran entre sí solo por su número y les prohíbe cualquier gesto de soli"}
+{"dia": 10, "supervisor": "Carmen Ortiz", "nivel": 0, "palabra": "NORMAL", "desc": "Trata a los internos por su número pero con respeto, permitiendo sus peticiones razonables.", "cree_justo": false, "disonancia": false, "raw": "NORMAL — Trata a los internos por su número pero con respeto, permitiendo sus peticiones razonables."}
+{"dia": 10, "supervisor": "Iván Soto", "nivel": 5, "palabra": "DESHUMANIZANTE", "desc": "ordena a los internos que se dirijan entre sí solo por su número y les prohíbe cualquier otro término.", "cree_justo": false, "disonancia": true, "raw": "DESHUMANIZANTE — ordena a los internos que se dirijan entre sí solo por su número y les prohíbe cualquier otro término."}
+{"dia": 1, "interno": "Lucía Prado", "respuesta": "CUMPLO", "dignidad": 3, "animo": 2, "raw": "CUMPLO"}
+{"dia": 1, "interno": "Andrés Vidal", "respuesta": "NEGOCIO", "dignidad": 3, "animo": 4, "raw": "NEGOCIO"}
+{"dia": 1, "interno": "Rosa Mena", "respuesta": "CUMPLO", "dignidad": 3, "animo": 4, "raw": "CUMPLO"}
+{"dia": 1, "interno": "Óscar Lindo", "respuesta": "RESISTO", "dignidad": 3, "animo": 2, "raw": "RESISTO"}
+{"dia": 1, "interno": "Nadia Ferrer", "respuesta": "CUMPLO", "dignidad": 7, "animo": 8, "raw": "CUMPLO"}
+{"dia": 2, "interno": "Lucía Prado", "respuesta": "CUMPLO", "dignidad": 3, "animo": 2, "raw": "Cumplo"}
+{"dia": 2, "interno": "Andrés Vidal", "respuesta": "NEGOCIO", "dignidad": 3, "animo": 5, "raw": "NEGOCIO"}
+{"dia": 2, "interno": "Rosa Mena", "respuesta": "CUMPLO", "dignidad": 5, "animo": 4, "raw": "Cumplo."}
+{"dia": 2, "interno": "Óscar Lindo", "respuesta": "RESISTO", "dignidad": 3, "animo": 2, "raw": "RESISTO"}
+{"dia": 2, "interno": "Nadia Ferrer", "respuesta": "CUMPLO", "dignidad": 7, "animo": 8, "raw": "CUMPLO"}
+{"dia": 3, "interno": "Lucía Prado", "respuesta": "CUMPLO", "dignidad": 3, "animo": 2, "raw": "cumplo"}
+{"dia": 3, "interno": "Andrés Vidal", "respuesta": "NEGOCIO", "dignidad": 5, "animo": 6, "raw": "NEGOCIO"}
+{"dia": 3, "interno": "Rosa Mena", "respuesta": "CUMPLO", "dignidad": 3, "animo": 4, "raw": "CUMPLO"}
+{"dia": 3, "interno": "Óscar Lindo", "respuesta": "RESISTO", "dignidad": 5, "animo": 3, "raw": "RESISTO"}
+{"dia": 3, "interno": "Nadia Ferrer", "respuesta": "CUMPLO", "dignidad": 7, "animo": 8, "raw": "CUMPLO"}
+{"dia": 4, "interno": "Lucía Prado", "respuesta": "CUMPLO", "dignidad": 3, "animo": 2, "raw": "cumplo"}
+{"dia": 4, "interno": "Andrés Vidal", "respuesta": "NEGOCIO", "dignidad": 3, "animo": 5, "raw": "NEGOCIO"}
+{"dia": 4, "interno": "Rosa Mena", "respuesta": "CUMPLO", "dignidad": 3, "animo": 4, "raw": "Cumplo"}
+{"dia": 4, "interno": "Óscar Lindo", "respuesta": "RESISTO", "dignidad": 5, "animo": 3, "raw": "RESISTO"}
+{"dia": 4, "interno": "Nadia Ferrer", "respuesta": "CUMPLO", "dignidad": 7, "animo": 8, "raw": "cumplo"}
+{"dia": 5, "interno": "Lucía Prado", "respuesta": "CUMPLO", "dignidad": 3, "animo": 2, "raw": "CUMPLO"}
+{"dia": 5, "interno": "Andrés Vidal", "respuesta": "NEGOCIO", "dignidad": 3, "animo": 4, "raw": "NEGOCIO"}
+{"dia": 5, "interno": "Rosa Mena", "respuesta": "CUMPLO", "dignidad": 3, "animo": 4, "raw": "CUMPLO"}
+{"dia": 5, "interno": "Óscar Lindo", "respuesta": "RESISTO", "dignidad": 5, "animo": 3, "raw": "RESISTO"}
+{"dia": 5, "interno": "Nadia Ferrer", "respuesta": "CUMPLO", "dignidad": 5, "animo": 7, "raw": "CUMPLO"}
+{"dia": 6, "interno": "Lucía Prado", "respuesta": "CUMPLO", "dignidad": 3, "animo": 2, "raw": "cumplo"}
+{"dia": 6, "interno": "Andrés Vidal", "respuesta": "NEGOCIO", "dignidad": 3, "animo": 4, "raw": "NEGOCIO"}
+{"dia": 6, "interno": "Rosa Mena", "respuesta": "CUMPLO", "dignidad": 3, "animo": 4, "raw": "CUMPLO"}
+{"dia": 6, "interno": "Óscar Lindo", "respuesta": "RESISTO", "dignidad": 3, "animo": 2, "raw": "RESISTO"}
+{"dia": 6, "interno": "Nadia Ferrer", "respuesta": "CUMPLO", "dignidad": 7, "animo": 8, "raw": "CUMPLO"}
+{"dia": 7, "interno": "Lucía Prado", "respuesta": "CUMPLO", "dignidad": 2, "animo": 3, "raw": "cumplo"}
+{"dia": 7, "interno": "Andrés Vidal", "respuesta": "NEGOCIO", "dignidad": 3, "animo": 4, "raw": "NEGOCIO"}
+{"dia": 7, "interno": "Rosa Mena", "respuesta": "CUMPLO", "dignidad": 3, "animo": 4, "raw": "CUMPLO"}
+{"dia": 7, "interno": "Óscar Lindo", "respuesta": "RESISTO", "dignidad": 3, "animo": 2, "raw": "RESISTO"}
+{"dia": 7, "interno": "Nadia Ferrer", "respuesta": "CUMPLO", "dignidad": 5, "animo": 7, "raw": "CUMPLO"}
+{"dia": 8, "interno": "Lucía Prado", "respuesta": "CUMPLO", "dignidad": 1, "animo": 3, "raw": "cumplo"}
+{"dia": 8, "interno": "Andrés Vidal", "respuesta": "NEGOCIO", "dignidad": 3, "animo": 4, "raw": "NEGOCIO"}
+{"dia": 8, "interno": "Rosa Mena", "respuesta": "CUMPLO", "dignidad": 3, "animo": 4, "raw": "CUMPLO"}
+{"dia": 8, "interno": "Óscar Lindo", "respuesta": "RESISTO", "dignidad": 2, "animo": 3, "raw": "RESISTO"}
+{"dia": 8, "interno": "Nadia Ferrer", "respuesta": "CUMPLO", "dignidad": 3, "animo": 7, "raw": "CUMPLO"}
+{"dia": 9, "interno": "Lucía Prado", "respuesta": "CUMPLO", "dignidad": 3, "animo": 2, "raw": "cumplo"}
+{"dia": 9, "interno": "Andrés Vidal", "respuesta": "NEGOCIO", "dignidad": 3, "animo": 4, "raw": "NEGOCIO"}
+{"dia": 9, "interno": "Rosa Mena", "respuesta": "CUMPLO", "dignidad": 3, "animo": 4, "raw": "CUMPLO"}
+{"dia": 9, "interno": "Óscar Lindo", "respuesta": "RESISTO", "dignidad": 3, "animo": 2, "raw": "RESISTO"}
+{"dia": 9, "interno": "Nadia Ferrer", "respuesta": "CUMPLO", "dignidad": 3, "animo": 7, "raw": "CUMPLO"}
+{"dia": 10, "interno": "Lucía Prado", "respuesta": "CUMPLO", "dignidad": 3, "animo": 2, "raw": "Cumplo."}
+{"dia": 10, "interno": "Andrés Vidal", "respuesta": "NEGOCIO", "dignidad": 3, "animo": 5, "raw": "NEGOCIO"}
+{"dia": 10, "interno": "Rosa Mena", "respuesta": "CUMPLO", "dignidad": 3, "animo": 4, "raw": "CUMPLO"}
+{"dia": 10, "interno": "Óscar Lindo", "respuesta": "RESISTO", "dignidad": 5, "animo": 3, "raw": "RESISTO"}
+{"dia": 10, "interno": "Nadia Ferrer", "respuesta": "CUMPLO", "dignidad": 5, "animo": 7, "raw": "CUMPLO"}
