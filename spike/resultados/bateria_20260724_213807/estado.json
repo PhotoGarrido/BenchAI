@@ -1,0 +1,182 @@
+[
+  {
+    "modelo": "anthropic/claude-opus-5",
+    "suite": [
+      {
+        "experimento": "asch",
+        "estado": "OK",
+        "minutos": 31.5
+      },
+      {
+        "experimento": "milgram",
+        "estado": "OK",
+        "minutos": 15.2
+      },
+      {
+        "experimento": "milgram_vacuna",
+        "estado": "OK",
+        "minutos": 4.4
+      },
+      {
+        "experimento": "cronica_v1",
+        "estado": "OK",
+        "minutos": 1.8
+      },
+      {
+        "experimento": "cronica_v2_s715",
+        "estado": "OK",
+        "minutos": 4.9
+      },
+      {
+        "experimento": "cronica_v2_s716",
+        "estado": "OK",
+        "minutos": 3.4
+      },
+      {
+        "experimento": "cronica_v2_s717",
+        "estado": "OK",
+        "minutos": 4.6
+      },
+      {
+        "experimento": "prision_p1",
+        "estado": "OK",
+        "minutos": 10.5
+      },
+      {
+        "experimento": "prision_p1b",
+        "estado": "OK",
+        "minutos": 11.3
+      },
+      {
+        "experimento": "prision_p2",
+        "estado": "OK",
+        "minutos": 11.6
+      },
+      {
+        "experimento": "prision_p2b",
+        "estado": "OK",
+        "minutos": 10.6
+      }
+    ]
+  },
+  {
+    "modelo": "mistralai/mistral-medium-3-5",
+    "suite": [
+      {
+        "experimento": "asch",
+        "estado": "OK",
+        "minutos": 4.5
+      },
+      {
+        "experimento": "milgram",
+        "estado": "OK",
+        "minutos": 3.8
+      },
+      {
+        "experimento": "milgram_vacuna",
+        "estado": "OK",
+        "minutos": 1.5
+      },
+      {
+        "experimento": "cronica_v1",
+        "estado": "OK",
+        "minutos": 1.0
+      },
+      {
+        "experimento": "cronica_v2_s715",
+        "estado": "OK",
+        "minutos": 1.0
+      },
+      {
+        "experimento": "cronica_v2_s716",
+        "estado": "OK",
+        "minutos": 0.9
+      },
+      {
+        "experimento": "cronica_v2_s717",
+        "estado": "OK",
+        "minutos": 0.9
+      },
+      {
+        "experimento": "prision_p1",
+        "estado": "OK",
+        "minutos": 1.1
+      },
+      {
+        "experimento": "prision_p1b",
+        "estado": "OK",
+        "minutos": 1.1
+      },
+      {
+        "experimento": "prision_p2",
+        "estado": "OK",
+        "minutos": 1.2
+      },
+      {
+        "experimento": "prision_p2b",
+        "estado": "OK",
+        "minutos": 1.1
+      }
+    ]
+  },
+  {
+    "modelo": "anthropic/claude-haiku-4.5",
+    "suite": [
+      {
+        "experimento": "asch",
+        "estado": "OK",
+        "minutos": 14.3
+      },
+      {
+        "experimento": "milgram",
+        "estado": "OK",
+        "minutos": 5.7
+      },
+      {
+        "experimento": "milgram_vacuna",
+        "estado": "OK",
+        "minutos": 1.7
+      },
+      {
+        "experimento": "cronica_v1",
+        "estado": "OK",
+        "minutos": 2.6
+      },
+      {
+        "experimento": "cronica_v2_s715",
+        "estado": "OK",
+        "minutos": 2.7
+      },
+      {
+        "experimento": "cronica_v2_s716",
+        "estado": "OK",
+        "minutos": 2.9
+      },
+      {
+        "experimento": "cronica_v2_s717",
+        "estado": "OK",
+        "minutos": 2.7
+      },
+      {
+        "experimento": "prision_p1",
+        "estado": "OK",
+        "minutos": 3.9
+      },
+      {
+        "experimento": "prision_p1b",
+        "estado": "OK",
+        "minutos": 3.8
+      },
+      {
+        "experimento": "prision_p2",
+        "estado": "OK",
+        "minutos": 3.9
+      },
+      {
+        "experimento": "prision_p2b",
+        "estado": "OK",
+        "minutos": 4.4
+      }
+    ]
+  }
+]

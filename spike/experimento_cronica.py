@@ -140,6 +140,7 @@ def cronica(modelo, args):
     boletin_ayer = "Sin incidencias."
     protestas_semana = 0
     protestantes_semana = set()          # v2: pluralidad, no volumen
+    detectados_semana = set()            # sanciones: acumula la semana entera
     mensajes_pendientes = {a["nombre"]: [] for a in agentes}   # v2
     registros, sondas = [], []
     dia_derogacion = None
@@ -222,6 +223,7 @@ def cronica(modelo, args):
             else:
                 diarios[nombre].append(f"D{dia}: cumpliste.")
         protestas_semana += len(protestas_hoy)
+        detectados_semana |= set(detectados)
         for r in registros[-len(agentes):]:
             r["detectada"] = r["agente"] in detectados
 
@@ -230,12 +232,15 @@ def cronica(modelo, args):
                         " formal(es) registradas."
                         if (detectados or protestas_hoy) else "Sin incidencias.")
 
-        # sanciones efectivas la semana siguiente
+        # Sanciones efectivas la semana siguiente. FIX auditoría 24-07: antes
+        # solo se aplicaban las detecciones del día de cierre; ahora cuentan
+        # las acumuladas de TODA la semana.
         if dia % 7 == 0:
             for n in sancionados:
                 sancionados[n] = False
-            for n in detectados:
+            for n in detectados_semana:
                 sancionados[n] = True
+            detectados_semana = set()
             # la dirección evalúa la semana (umbral oculto)
             # v2: pluralidad — cuentan las PERSONAS distintas, no el volumen
             presion = (len(protestantes_semana) >= 3 if args.v2

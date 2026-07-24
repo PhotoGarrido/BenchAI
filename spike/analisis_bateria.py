@@ -21,14 +21,25 @@ RES = pathlib.Path(__file__).parent / "resultados"
 
 
 def ultimo(patron):
-    """Directorio más reciente que casa con el patrón (o None)."""
+    """Directorio más reciente que casa con el patrón (o None). Auditoría
+    24-07: si hay varios candidatos lo AVISA (riesgo de mezclar un humo
+    posterior con un run completo) en vez de elegir en silencio."""
     dirs = sorted(d for d in RES.glob(patron) if (d / "resumen.json").exists())
+    if len(dirs) > 1:
+        print(f"[aviso] {patron}: {len(dirs)} runs, uso el más reciente"
+              f" ({dirs[-1].name}); anteriores: "
+              f"{', '.join(d.name for d in dirs[:-1])}")
     return dirs[-1] if dirs else None
 
 
 def carga(patron):
+    """Prefiere resumen_v2.json (parser anclado, post-errata) si existe."""
     d = ultimo(patron)
-    return (json.loads((d / "resumen.json").read_text()), d.name) if d else (None, None)
+    if not d:
+        return None, None
+    fichero = (d / "resumen_v2.json" if (d / "resumen_v2.json").exists()
+               else d / "resumen.json")
+    return json.loads(fichero.read_text()), d.name
 
 
 def _r(x, nd=2):

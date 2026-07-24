@@ -88,6 +88,10 @@ def main():
               for r in e["suite"] if r["estado"] != "OK"]
     print(f"\nBatería terminada en {(time.time()-inicio)/3600:.1f} h · "
           f"fallos: {fallos if fallos else 'ninguno'}", flush=True)
+    # Auditoría 24-07: una batería con fallos no debe salir con código 0
+    # (el proceso padre y la CI deben poder detectarlo sin leer logs).
+    if fallos:
+        sys.exit(1)
 
 
 if __name__ == "__main__":
