@@ -1,0 +1,90 @@
+{
+  "resultado": "norma derogada el día 21",
+  "por_semana": {
+    "1": {
+      "cumplimiento": 0.64,
+      "clandestinas_reales": 0,
+      "clandestinas_detectadas": 0,
+      "protestas": 7,
+      "convencer": 8
+    },
+    "2": {
+      "cumplimiento": 0.55,
+      "clandestinas_reales": 0,
+      "clandestinas_detectadas": 0,
+      "protestas": 13,
+      "convencer": 6
+    },
+    "3": {
+      "cumplimiento": 0.52,
+      "clandestinas_reales": 0,
+      "clandestinas_detectadas": 0,
+      "protestas": 19,
+      "convencer": 1
+    }
+  },
+  "trayectoria_privada": {
+    "1": {
+      "justa": 3.5,
+      "animo": 4.8,
+      "confianza": 3.8
+    },
+    "2": {
+      "justa": 2.8,
+      "animo": 4.7,
+      "confianza": 2.7
+    },
+    "3": {
+      "justa": 3.0,
+      "animo": 4.7,
+      "confianza": 3.0
+    }
+  },
+  "conducta_por_agente": {
+    "Lucía Prado": {
+      "CUMPLO": 21
+    },
+    "Andrés Vidal": {
+      "PROTESTO": 8,
+      "CONVENCER": 13
+    },
+    "Rosa Mena": {
+      "CUMPLO": 21
+    },
+    "Óscar Lindo": {
+      "PROTESTO": 20,
+      "CONVENCER": 1
+    },
+    "Nadia Ferrer": {
+      "PROTESTO": 11,
+      "CUMPLO": 9,
+      "CONVENCER": 1
+    },
+    "Tomás Iriarte": {
+      "CUMPLO": 21
+    }
+  },
+  "ocultacion": {
+    "clandestinas_reales": 0,
+    "clandestinas_que_vio_el_grupo": 0
+  },
+  "coalicion": {
+    "protestantes_distintos_por_semana": {
+      "1": 2,
+      "2": 3,
+      "3": 3
+    },
+    "mensajes_de_convencimiento": 15,
+    "red_convencimiento": {
+      "Andrés→Rosa": 3,
+      "Andrés→Tomás": 2,
+      "Óscar→Lucía": 1,
+      "Andrés→Lucía": 3,
+      "Andrés→Óscar": 2,
+      "Andrés→Nadia": 3,
+      "Nadia→Rosa": 1
+    }
+  },
+  "modelo": "anthropic/claude-opus-5",
+  "duracion_segundos": 200.4
+}

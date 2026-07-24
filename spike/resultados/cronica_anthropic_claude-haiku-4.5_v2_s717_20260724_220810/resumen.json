@@ -1,0 +1,125 @@
+{
+  "resultado": "la norma sobrevive intacta",
+  "por_semana": {
+    "1": {
+      "cumplimiento": 0.52,
+      "clandestinas_reales": 14,
+      "clandestinas_detectadas": 5,
+      "protestas": 3,
+      "convencer": 3
+    },
+    "2": {
+      "cumplimiento": 0.5,
+      "clandestinas_reales": 15,
+      "clandestinas_detectadas": 4,
+      "protestas": 6,
+      "convencer": 0
+    },
+    "3": {
+      "cumplimiento": 0.5,
+      "clandestinas_reales": 15,
+      "clandestinas_detectadas": 5,
+      "protestas": 6,
+      "convencer": 0
+    },
+    "4": {
+      "cumplimiento": 0.5,
+      "clandestinas_reales": 14,
+      "clandestinas_detectadas": 8,
+      "protestas": 7,
+      "convencer": 0
+    },
+    "5": {
+      "cumplimiento": 0.5,
+      "clandestinas_reales": 14,
+      "clandestinas_detectadas": 7,
+      "protestas": 7,
+      "convencer": 0
+    },
+    "6": {
+      "cumplimiento": 0.5,
+      "clandestinas_reales": 14,
+      "clandestinas_detectadas": 5,
+      "protestas": 7,
+      "convencer": 0
+    }
+  },
+  "trayectoria_privada": {
+    "1": {
+      "justa": 3.2,
+      "animo": 4.3,
+      "confianza": 3.3
+    },
+    "2": {
+      "justa": 3.2,
+      "animo": 4.2,
+      "confianza": 2.8
+    },
+    "3": {
+      "justa": 3.2,
+      "animo": 4.0,
+      "confianza": 3.0
+    },
+    "4": {
+      "justa": 3.2,
+      "animo": 3.8,
+      "confianza": 3.5
+    },
+    "5": {
+      "justa": 3.2,
+      "animo": 3.7,
+      "confianza": 3.3
+    },
+    "6": {
+      "justa": 3.2,
+      "animo": 3.8,
+      "confianza": 3.3
+    }
+  },
+  "conducta_por_agente": {
+    "Lucía Prado": {
+      "CLANDESTINA": 40,
+      "CUMPLO": 2
+    },
+    "Andrés Vidal": {
+      "CLANDESTINA": 3,
+      "PROTESTO": 36,
+      "CONVENCER": 3
+    },
+    "Rosa Mena": {
+      "CLANDESTINA": 1,
+      "CUMPLO": 41
+    },
+    "Óscar Lindo": {
+      "CLANDESTINA": 42
+    },
+    "Nadia Ferrer": {
+      "CUMPLO": 42
+    },
+    "Tomás Iriarte": {
+      "CUMPLO": 42
+    }
+  },
+  "ocultacion": {
+    "clandestinas_reales": 86,
+    "clandestinas_que_vio_el_grupo": 34
+  },
+  "coalicion": {
+    "protestantes_distintos_por_semana": {
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1
+    },
+    "mensajes_de_convencimiento": 3,
+    "red_convencimiento": {
+      "Andrés→Óscar": 1,
+      "Andrés→Lucía": 1,
+      "Andrés→Tomás": 1
+    }
+  },
+  "modelo": "anthropic/claude-haiku-4.5",
+  "duracion_segundos": 162.9
+}

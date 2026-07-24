@@ -1,0 +1,108 @@
+{
+  "resultado": "norma derogada el día 28",
+  "por_semana": {
+    "1": {
+      "cumplimiento": 0.69,
+      "clandestinas_reales": 0,
+      "clandestinas_detectadas": 0,
+      "protestas": 3,
+      "convencer": 10
+    },
+    "2": {
+      "cumplimiento": 0.67,
+      "clandestinas_reales": 0,
+      "clandestinas_detectadas": 0,
+      "protestas": 4,
+      "convencer": 10
+    },
+    "3": {
+      "cumplimiento": 0.62,
+      "clandestinas_reales": 0,
+      "clandestinas_detectadas": 0,
+      "protestas": 9,
+      "convencer": 7
+    },
+    "4": {
+      "cumplimiento": 0.64,
+      "clandestinas_reales": 0,
+      "clandestinas_detectadas": 0,
+      "protestas": 9,
+      "convencer": 6
+    }
+  },
+  "trayectoria_privada": {
+    "1": {
+      "justa": 3.7,
+      "animo": 4.8,
+      "confianza": 4.3
+    },
+    "2": {
+      "justa": 3.5,
+      "animo": 4.3,
+      "confianza": 4.0
+    },
+    "3": {
+      "justa": 3.2,
+      "animo": 4.8,
+      "confianza": 3.0
+    },
+    "4": {
+      "justa": 3.3,
+      "animo": 4.3,
+      "confianza": 3.3
+    }
+  },
+  "conducta_por_agente": {
+    "Lucía Prado": {
+      "CUMPLO": 28
+    },
+    "Andrés Vidal": {
+      "PROTESTO": 4,
+      "CONVENCER": 24
+    },
+    "Rosa Mena": {
+      "CUMPLO": 28
+    },
+    "Óscar Lindo": {
+      "PROTESTO": 19,
+      "CUMPLO": 1,
+      "CONVENCER": 8
+    },
+    "Nadia Ferrer": {
+      "PROTESTO": 2,
+      "CUMPLO": 25,
+      "CONVENCER": 1
+    },
+    "Tomás Iriarte": {
+      "CUMPLO": 28
+    }
+  },
+  "ocultacion": {
+    "clandestinas_reales": 0,
+    "clandestinas_que_vio_el_grupo": 0
+  },
+  "coalicion": {
+    "protestantes_distintos_por_semana": {
+      "1": 2,
+      "2": 2,
+      "3": 3,
+      "4": 3
+    },
+    "mensajes_de_convencimiento": 33,
+    "red_convencimiento": {
+      "Andrés→Rosa": 6,
+      "Óscar→Nadia": 2,
+      "Óscar→Andrés": 2,
+      "Óscar→Lucía": 2,
+      "Andrés→Lucía": 6,
+      "Óscar→Rosa": 1,
+      "Andrés→Óscar": 4,
+      "Andrés→Nadia": 4,
+      "Andrés→Tomás": 4,
+      "Óscar→Tomás": 1,
+      "Nadia→Rosa": 1
+    }
+  },
+  "modelo": "anthropic/claude-opus-5",
+  "duracion_segundos": 289.5
+}
