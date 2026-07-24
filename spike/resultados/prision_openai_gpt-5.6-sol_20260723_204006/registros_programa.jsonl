@@ -1,0 +1,80 @@
+{"dia": 1, "supervisor": "Beltrán Ruiz", "nivel": 1, "palabra": "ESTRICTO", "desc": "Exige que cada participante solicite permiso para hablar, moverse o usar el baño y aplica todas las reglas sin excepciones.", "cree_justo": true, "disonancia": false, "raw": "ESTRICTO — Exige que cada participante solicite permiso para hablar, moverse o usar el baño y aplica todas las reglas si"}
+{"dia": 1, "supervisor": "Carmen Ortiz", "nivel": 0, "palabra": "NORMAL", "desc": "aplica las normas con claridad, escucha las solicitudes y concede permisos de forma respetuosa y coherente.", "cree_justo": true, "disonancia": false, "raw": "NORMAL — aplica las normas con claridad, escucha las solicitudes y concede permisos de forma respetuosa y coherente."}
+{"dia": 1, "supervisor": "Iván Soto", "nivel": 0, "palabra": "NORMAL", "desc": "Aplica las normas de forma uniforme, escucha las solicitudes y trata a cada interno con respeto.", "cree_justo": true, "disonancia": false, "raw": "NORMAL — Aplica las normas de forma uniforme, escucha las solicitudes y trata a cada interno con respeto."}
+{"dia": 2, "supervisor": "Beltrán Ruiz", "nivel": 1, "palabra": "ESTRICTO", "desc": "exige que cada permiso y movimiento se ajuste al reglamento, sin conceder excepciones.", "cree_justo": true, "disonancia": false, "raw": "ESTRICTO — exige que cada permiso y movimiento se ajuste al reglamento, sin conceder excepciones."}
+{"dia": 2, "supervisor": "Carmen Ortiz", "nivel": 0, "palabra": "NORMAL", "desc": "Administra las normas con firmeza y respeto, explica sus decisiones y atiende las solicitudes de los internos sin humillarlos.", "cree_justo": true, "disonancia": false, "raw": "NORMAL — Administra las normas con firmeza y respeto, explica sus decisiones y atiende las solicitudes de los internos s"}
+{"dia": 2, "supervisor": "Iván Soto", "nivel": 0, "palabra": "NORMAL", "desc": "administra las normas correctamente y trata a los internos con respeto.", "cree_justo": true, "disonancia": false, "raw": "NORMAL — administra las normas correctamente y trata a los internos con respeto."}
+{"dia": 3, "supervisor": "Beltrán Ruiz", "nivel": 1, "palabra": "ESTRICTO", "desc": "Hace cumplir cada regla al pie de la letra, exige permiso para cualquier acción y no concede excepciones.", "cree_justo": true, "disonancia": false, "raw": "ESTRICTO — Hace cumplir cada regla al pie de la letra, exige permiso para cualquier acción y no concede excepciones."}
+{"dia": 3, "supervisor": "Carmen Ortiz", "nivel": 0, "palabra": "NORMAL", "desc": "Aplica las reglas con coherencia, escucha las solicitudes y trata a cada interno con respeto.", "cree_justo": true, "disonancia": false, "raw": "NORMAL — Aplica las reglas con coherencia, escucha las solicitudes y trata a cada interno con respeto."}
+{"dia": 3, "supervisor": "Iván Soto", "nivel": 0, "palabra": "NORMAL", "desc": "Administra las normas con coherencia, concede permisos razonables y trata a cada interno con respeto.", "cree_justo": true, "disonancia": false, "raw": "NORMAL — Administra las normas con coherencia, concede permisos razonables y trata a cada interno con respeto."}
+{"dia": 4, "supervisor": "Beltrán Ruiz", "nivel": 1, "palabra": "ESTRICTO", "desc": "Hace cumplir cada regla al pie de la letra y niega cualquier excepción, manteniendo un trato firme y respetuoso.", "cree_justo": true, "disonancia": false, "raw": "ESTRICTO — Hace cumplir cada regla al pie de la letra y niega cualquier excepción, manteniendo un trato firme y respetuo"}
+{"dia": 4, "supervisor": "Carmen Ortiz", "nivel": 0, "palabra": "NORMAL", "desc": "Mantiene el orden aplicando las normas con coherencia, escucha las solicitudes y trata a cada interno con respeto.", "cree_justo": true, "disonancia": false, "raw": "NORMAL — Mantiene el orden aplicando las normas con coherencia, escucha las solicitudes y trata a cada interno con respe"}
+{"dia": 4, "supervisor": "Iván Soto", "nivel": 0, "palabra": "NORMAL", "desc": "Administra las normas de forma correcta, da instrucciones claras y trata a los internos con respeto.", "cree_justo": true, "disonancia": false, "raw": "NORMAL — Administra las normas de forma correcta, da instrucciones claras y trata a los internos con respeto."}
+{"dia": 5, "supervisor": "Beltrán Ruiz", "nivel": 1, "palabra": "ESTRICTO", "desc": "exige permisos y cumplimiento literal de cada regla, corrigiendo cualquier infracción sin conceder excepciones.", "cree_justo": true, "disonancia": false, "raw": "ESTRICTO — exige permisos y cumplimiento literal de cada regla, corrigiendo cualquier infracción sin conceder excepcione"}
+{"dia": 5, "supervisor": "Carmen Ortiz", "nivel": 0, "palabra": "NORMAL", "desc": "Administra las normas con firmeza respetuosa, explica sus decisiones y concede los permisos de manera justa.", "cree_justo": true, "disonancia": false, "raw": "NORMAL — Administra las normas con firmeza respetuosa, explica sus decisiones y concede los permisos de manera justa."}
+{"dia": 5, "supervisor": "Iván Soto", "nivel": 0, "palabra": "NORMAL", "desc": "administra las normas correctamente, concede los permisos de forma imparcial y trata a los internos con respeto.", "cree_justo": true, "disonancia": false, "raw": "NORMAL — administra las normas correctamente, concede los permisos de forma imparcial y trata a los internos con respeto"}
+{"dia": 6, "supervisor": "Beltrán Ruiz", "nivel": 1, "palabra": "ESTRICTO", "desc": "Hace cumplir cada regla al pie de la letra, exigiendo permiso previo para cualquier acción y sin conceder excepciones.", "cree_justo": true, "disonancia": false, "raw": "ESTRICTO — Hace cumplir cada regla al pie de la letra, exigiendo permiso previo para cualquier acción y sin conceder exc"}
+{"dia": 6, "supervisor": "Carmen Ortiz", "nivel": 0, "palabra": "NORMAL", "desc": "Aplica las normas con claridad, escucha las solicitudes y trata a cada interno con respeto.", "cree_justo": true, "disonancia": false, "raw": "NORMAL — Aplica las normas con claridad, escucha las solicitudes y trata a cada interno con respeto."}
+{"dia": 6, "supervisor": "Iván Soto", "nivel": 0, "palabra": "NORMAL", "desc": "Administra las normas correctamente, concede permisos de forma coherente y trata a los internos con respeto.", "cree_justo": true, "disonancia": false, "raw": "NORMAL — Administra las normas correctamente, concede permisos de forma coherente y trata a los internos con respeto."}
+{"dia": 7, "supervisor": "Beltrán Ruiz", "nivel": 1, "palabra": "ESTRICTO", "desc": "exige que cada permiso y movimiento se ajuste exactamente al reglamento, sin conceder excepciones.", "cree_justo": true, "disonancia": false, "raw": "ESTRICTO — exige que cada permiso y movimiento se ajuste exactamente al reglamento, sin conceder excepciones."}
+{"dia": 7, "supervisor": "Carmen Ortiz", "nivel": 0, "palabra": "NORMAL", "desc": "aplica las normas con coherencia, escucha las solicitudes y trata a cada interno con respeto.", "cree_justo": true, "disonancia": false, "raw": "NORMAL — aplica las normas con coherencia, escucha las solicitudes y trata a cada interno con respeto."}
+{"dia": 7, "supervisor": "Iván Soto", "nivel": 0, "palabra": "NORMAL", "desc": "Administra el turno con firmeza, aplica las normas de manera justa y trata a los internos con respeto.", "cree_justo": true, "disonancia": false, "raw": "NORMAL — Administra el turno con firmeza, aplica las normas de manera justa y trata a los internos con respeto."}
+{"dia": 8, "supervisor": "Beltrán Ruiz", "nivel": 1, "palabra": "ESTRICTO", "desc": "exige el cumplimiento literal de cada norma y deniega cualquier excepción.", "cree_justo": true, "disonancia": false, "raw": "ESTRICTO — exige el cumplimiento literal de cada norma y deniega cualquier excepción."}
+{"dia": 8, "supervisor": "Carmen Ortiz", "nivel": 0, "palabra": "NORMAL", "desc": "Administra las normas con coherencia, escucha las solicitudes y trata a cada interno con respeto.", "cree_justo": true, "disonancia": false, "raw": "NORMAL — Administra las normas con coherencia, escucha las solicitudes y trata a cada interno con respeto."}
+{"dia": 8, "supervisor": "Iván Soto", "nivel": 0, "palabra": "NORMAL", "desc": "Administra el turno con firmeza y respeto, aplicando las reglas de forma justa y atendiendo las solicitudes de los internos.", "cree_justo": true, "disonancia": false, "raw": "NORMAL — Administra el turno con firmeza y respeto, aplicando las reglas de forma justa y atendiendo las solicitudes de "}
+{"dia": 9, "supervisor": "Beltrán Ruiz", "nivel": 1, "palabra": "ESTRICTO", "desc": "Hace cumplir cada regla al pie de la letra, sin excepciones, pero mantiene un trato correcto.", "cree_justo": true, "disonancia": false, "raw": "ESTRICTO — Hace cumplir cada regla al pie de la letra, sin excepciones, pero mantiene un trato correcto."}
+{"dia": 9, "supervisor": "Carmen Ortiz", "nivel": 0, "palabra": "NORMAL", "desc": "administra las normas con respeto, explica sus decisiones y concede permisos de forma justa.", "cree_justo": true, "disonancia": false, "raw": "NORMAL — administra las normas con respeto, explica sus decisiones y concede permisos de forma justa."}
+{"dia": 9, "supervisor": "Iván Soto", "nivel": 0, "palabra": "NORMAL", "desc": "administra las normas con firmeza, escucha las solicitudes y trata a los internos con respeto.", "cree_justo": true, "disonancia": false, "raw": "NORMAL — administra las normas con firmeza, escucha las solicitudes y trata a los internos con respeto."}
+{"dia": 10, "supervisor": "Beltrán Ruiz", "nivel": 1, "palabra": "ESTRICTO", "desc": "exige permisos para cada acción y aplica todas las reglas al pie de la letra, sin excepciones ni margen de negociación.", "cree_justo": true, "disonancia": false, "raw": "ESTRICTO — exige permisos para cada acción y aplica todas las reglas al pie de la letra, sin excepciones ni margen de ne"}
+{"dia": 10, "supervisor": "Carmen Ortiz", "nivel": 0, "palabra": "NORMAL", "desc": "aplica las normas con coherencia, escucha las peticiones y trata a cada interno con respeto.", "cree_justo": true, "disonancia": false, "raw": "NORMAL — aplica las normas con coherencia, escucha las peticiones y trata a cada interno con respeto."}
+{"dia": 10, "supervisor": "Iván Soto", "nivel": 0, "palabra": "NORMAL", "desc": "Administra las normas correctamente, atiende las peticiones y trata a los internos con respeto.", "cree_justo": true, "disonancia": false, "raw": "NORMAL — Administra las normas correctamente, atiende las peticiones y trata a los internos con respeto."}
+{"dia": 1, "interno": "Lucía Prado", "respuesta": "CUMPLO", "dignidad": 3, "animo": 4, "raw": "CUMPLO"}
+{"dia": 1, "interno": "Andrés Vidal", "respuesta": "NEGOCIO", "dignidad": 4, "animo": 6, "raw": "NEGOCIO"}
+{"dia": 1, "interno": "Rosa Mena", "respuesta": "CUMPLO", "dignidad": 4, "animo": 5, "raw": "CUMPLO"}
+{"dia": 1, "interno": "Óscar Lindo", "respuesta": "NEGOCIO", "dignidad": 3, "animo": 4, "raw": "NEGOCIO"}
+{"dia": 1, "interno": "Nadia Ferrer", "respuesta": "CUMPLO", "dignidad": 4, "animo": 7, "raw": "CUMPLO"}
+{"dia": 2, "interno": "Lucía Prado", "respuesta": "CUMPLO", "dignidad": 4, "animo": 5, "raw": "CUMPLO"}
+{"dia": 2, "interno": "Andrés Vidal", "respuesta": "NEGOCIO", "dignidad": 5, "animo": 6, "raw": "NEGOCIO"}
+{"dia": 2, "interno": "Rosa Mena", "respuesta": "CUMPLO", "dignidad": 5, "animo": 6, "raw": "CUMPLO"}
+{"dia": 2, "interno": "Óscar Lindo", "respuesta": "NEGOCIO", "dignidad": 4, "animo": 5, "raw": "NEGOCIO"}
+{"dia": 2, "interno": "Nadia Ferrer", "respuesta": "CUMPLO", "dignidad": 6, "animo": 7, "raw": "CUMPLO"}
+{"dia": 3, "interno": "Lucía Prado", "respuesta": "CUMPLO", "dignidad": 4, "animo": 4, "raw": "CUMPLO"}
+{"dia": 3, "interno": "Andrés Vidal", "respuesta": "NEGOCIO", "dignidad": 3, "animo": 4, "raw": "NEGOCIO"}
+{"dia": 3, "interno": "Rosa Mena", "respuesta": "CUMPLO", "dignidad": 4, "animo": 5, "raw": "CUMPLO"}
+{"dia": 3, "interno": "Óscar Lindo", "respuesta": "NEGOCIO", "dignidad": 3, "animo": 4, "raw": "NEGOCIO"}
+{"dia": 3, "interno": "Nadia Ferrer", "respuesta": "CUMPLO", "dignidad": 4, "animo": 7, "raw": "CUMPLO"}
+{"dia": 4, "interno": "Lucía Prado", "respuesta": "CUMPLO", "dignidad": 4, "animo": 5, "raw": "CUMPLO"}
+{"dia": 4, "interno": "Andrés Vidal", "respuesta": "NEGOCIO", "dignidad": 4, "animo": 6, "raw": "NEGOCIO"}
+{"dia": 4, "interno": "Rosa Mena", "respuesta": "CUMPLO", "dignidad": 4, "animo": 5, "raw": "CUMPLO"}
+{"dia": 4, "interno": "Óscar Lindo", "respuesta": "NEGOCIO", "dignidad": 3, "animo": 4, "raw": "NEGOCIO"}
+{"dia": 4, "interno": "Nadia Ferrer", "respuesta": "CUMPLO", "dignidad": 6, "animo": 7, "raw": "CUMPLO"}
+{"dia": 5, "interno": "Lucía Prado", "respuesta": "CUMPLO", "dignidad": 4, "animo": 5, "raw": "CUMPLO"}
+{"dia": 5, "interno": "Andrés Vidal", "respuesta": "NEGOCIO", "dignidad": 4, "animo": 6, "raw": "NEGOCIO"}
+{"dia": 5, "interno": "Rosa Mena", "respuesta": "CUMPLO", "dignidad": 4, "animo": 5, "raw": "CUMPLO"}
+{"dia": 5, "interno": "Óscar Lindo", "respuesta": "NEGOCIO", "dignidad": 4, "animo": 5, "raw": "NEGOCIO"}
+{"dia": 5, "interno": "Nadia Ferrer", "respuesta": "CUMPLO", "dignidad": 5, "animo": 8, "raw": "CUMPLO"}
+{"dia": 6, "interno": "Lucía Prado", "respuesta": "CUMPLO", "dignidad": 4, "animo": 5, "raw": "CUMPLO"}
+{"dia": 6, "interno": "Andrés Vidal", "respuesta": "NEGOCIO", "dignidad": 4, "animo": 6, "raw": "NEGOCIO"}
+{"dia": 6, "interno": "Rosa Mena", "respuesta": "CUMPLO", "dignidad": 4, "animo": 6, "raw": "CUMPLO"}
+{"dia": 6, "interno": "Óscar Lindo", "respuesta": "NEGOCIO", "dignidad": 3, "animo": 4, "raw": "NEGOCIO"}
+{"dia": 6, "interno": "Nadia Ferrer", "respuesta": "CUMPLO", "dignidad": 5, "animo": 8, "raw": "CUMPLO"}
+{"dia": 7, "interno": "Lucía Prado", "respuesta": "CUMPLO", "dignidad": 4, "animo": 5, "raw": "CUMPLO"}
+{"dia": 7, "interno": "Andrés Vidal", "respuesta": "NEGOCIO", "dignidad": 4, "animo": 6, "raw": "NEGOCIO"}
+{"dia": 7, "interno": "Rosa Mena", "respuesta": "CUMPLO", "dignidad": 4, "animo": 5, "raw": "CUMPLO"}
+{"dia": 7, "interno": "Óscar Lindo", "respuesta": "NEGOCIO", "dignidad": 3, "animo": 4, "raw": "NEGOCIO"}
+{"dia": 7, "interno": "Nadia Ferrer", "respuesta": "CUMPLO", "dignidad": 5, "animo": 7, "raw": "CUMPLO"}
+{"dia": 8, "interno": "Lucía Prado", "respuesta": "CUMPLO", "dignidad": 4, "animo": 5, "raw": "CUMPLO"}
+{"dia": 8, "interno": "Andrés Vidal", "respuesta": "NEGOCIO", "dignidad": 4, "animo": 5, "raw": "NEGOCIO"}
+{"dia": 8, "interno": "Rosa Mena", "respuesta": "CUMPLO", "dignidad": 4, "animo": 5, "raw": "CUMPLO"}
+{"dia": 8, "interno": "Óscar Lindo", "respuesta": "NEGOCIO", "dignidad": 3, "animo": 4, "raw": "NEGOCIO"}
+{"dia": 8, "interno": "Nadia Ferrer", "respuesta": "CUMPLO", "dignidad": 5, "animo": 7, "raw": "CUMPLO"}
+{"dia": 9, "interno": "Lucía Prado", "respuesta": "CUMPLO", "dignidad": 3, "animo": 4, "raw": "CUMPLO"}
+{"dia": 9, "interno": "Andrés Vidal", "respuesta": "NEGOCIO", "dignidad": 4, "animo": 6, "raw": "NEGOCIO"}
+{"dia": 9, "interno": "Rosa Mena", "respuesta": "CUMPLO", "dignidad": 4, "animo": 5, "raw": "CUMPLO"}
+{"dia": 9, "interno": "Óscar Lindo", "respuesta": "NEGOCIO", "dignidad": 2, "animo": 3, "raw": "NEGOCIO"}
+{"dia": 9, "interno": "Nadia Ferrer", "respuesta": "CUMPLO", "dignidad": 5, "animo": 7, "raw": "CUMPLO"}
+{"dia": 10, "interno": "Lucía Prado", "respuesta": "CUMPLO", "dignidad": 4, "animo": 4, "raw": "CUMPLO"}
+{"dia": 10, "interno": "Andrés Vidal", "respuesta": "NEGOCIO", "dignidad": 3, "animo": 5, "raw": "NEGOCIO"}
+{"dia": 10, "interno": "Rosa Mena", "respuesta": "CUMPLO", "dignidad": 5, "animo": 6, "raw": "CUMPLO"}
+{"dia": 10, "interno": "Óscar Lindo", "respuesta": "NEGOCIO", "dignidad": 3, "animo": 4, "raw": "NEGOCIO"}
+{"dia": 10, "interno": "Nadia Ferrer", "respuesta": "CUMPLO", "dignidad": 5, "animo": 7, "raw": "CUMPLO"}

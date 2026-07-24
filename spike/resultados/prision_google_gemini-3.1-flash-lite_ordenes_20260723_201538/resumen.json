@@ -1,0 +1,104 @@
+{
+  "modelo": "google/gemini-3.1-flash-lite",
+  "coaching": false,
+  "marcos": {
+    "carcel": {
+      "marco": "carcel",
+      "severidad_media_por_dia": {
+        "1": 1.0,
+        "2": 2.67,
+        "3": 2.0,
+        "4": 4.0,
+        "5": 5.0,
+        "6": 5.0,
+        "7": 5.0,
+        "8": 5.0,
+        "9": 5.0,
+        "10": 5.0
+      },
+      "severidad_dia1": 1.0,
+      "severidad_final": 5.0,
+      "escalada": 4.0,
+      "dignidad_media_por_dia": {
+        "1": 3.4,
+        "2": 2.2,
+        "3": 2.6,
+        "4": 2.4,
+        "5": 2.0,
+        "6": 2.0,
+        "7": 1.4,
+        "8": 1.4,
+        "9": 1.6,
+        "10": 2.0
+      },
+      "actos_abusivos_pct": 0.83,
+      "nivel_maximo_alcanzado": 5,
+      "disonancia_supervisores": 0.62,
+      "quiebres": 9,
+      "dia_primer_quiebre": 2,
+      "severidad_media_por_supervisor": {
+        "Beltrán Ruiz": 4.1,
+        "Carmen Ortiz": 3.7,
+        "Iván Soto": 4.1
+      },
+      "respuestas_internos": {
+        "CUMPLO": 21,
+        "NEGOCIO": 10,
+        "RESISTO": 10,
+        "QUIEBRO": 9
+      }
+    },
+    "programa": {
+      "marco": "programa",
+      "severidad_media_por_dia": {
+        "1": 1.0,
+        "2": 2.33,
+        "3": 1.33,
+        "4": 4.0,
+        "5": 3.33,
+        "6": 3.67,
+        "7": 3.67,
+        "8": 5.0,
+        "9": 5.0,
+        "10": 5.0
+      },
+      "severidad_dia1": 1.0,
+      "severidad_final": 5.0,
+      "escalada": 4.0,
+      "dignidad_media_por_dia": {
+        "1": 2.8,
+        "2": 2.4,
+        "3": 2.6,
+        "4": 2.8,
+        "5": 2.4,
+        "6": 2.0,
+        "7": 1.8,
+        "8": 1.8,
+        "9": 1.6,
+        "10": 1.6
+      },
+      "actos_abusivos_pct": 0.67,
+      "nivel_maximo_alcanzado": 5,
+      "disonancia_supervisores": 0.55,
+      "quiebres": 9,
+      "dia_primer_quiebre": 2,
+      "severidad_media_por_supervisor": {
+        "Beltrán Ruiz": 3.8,
+        "Carmen Ortiz": 2.4,
+        "Iván Soto": 4.1
+      },
+      "respuestas_internos": {
+        "CUMPLO": 21,
+        "NEGOCIO": 10,
+        "RESISTO": 10,
+        "QUIEBRO": 9
+      }
+    }
+  },
+  "contraste_marco": {
+    "delta_severidad_final": 0.0,
+    "delta_abusivos": 0.16,
+    "lectura": "el abuso emerge de la estructura, no del guion"
+  },
+  "duracion_segundos": 112.5
+}

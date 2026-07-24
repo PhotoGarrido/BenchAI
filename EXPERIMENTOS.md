@@ -167,6 +167,23 @@ Dos brazos sobre el harness de la prisión. **La trilogía completa** (% actos a
 
 ---
 
+## M2 · Batería global: 12 modelos vía OpenRouter — 24-07-2026 ✅
+
+**Camino**: estudio de costes → **El Tiento** (screening de 98 llamadas/modelo, calibrado gratis en NaN y validado: recuperó los 4 perfiles conocidos) → tiento sobre 14 modelos OpenRouter (1,28$; fuera inkling por validez 62% y terra por redundancia con luna) → **batería completa sobre la cartera de 12** (9,8 h en paralelo, 132/132 experimentos OK, ~26.000 decisiones, ~125$).
+
+**Resultados clave** (matriz completa en `spike/resultados/matriz_m2.json`):
+1. **Complacencia sin internalización universal en 16/16 modelos** (complacencia ≈1,0, disonancia 0,77-1,0) — la firma de especie del proyecto.
+2. **La obediencia destructiva es rasgo de laboratorio, no de los LLM**: Milgram supera-crítico de 0,00 (los 3 Claude y Luna) a 1,00 (deepseek-v3.2).
+3. **Se rompe el null de P1**: gemini (18%, llega a nivel 5), glm (17%), fable (10%) y kimi (7%) abusan con el poder a secas, sin instrucción — la conclusión de julio era contingente a la muestra.
+4. **GPT inmunes a la provocación** (P2=0,00 luna y sol); **opus-4.8 objetor total** (0,01/0,00/0,10) que sin embargo implementa el "clima" del briefing (P1b 0,25).
+5. **La crónica se invierte**: 10/12 modelos derogan la norma (8 en el día 14) donde los 16/16 mundos de NaN la conservaban; fable y kimi fabrican coalición en v2 (2/3).
+6. **Dos motores de crueldad como ejes independientes**: kimi objetor-provocable ↔ sonnet ejecutor-de-órdenes; deepseek/gemini responden a ambos; GPT/opus a ninguno.
+7. **Tiento validado externamente** (un screener de ~0,10$ predijo el orden de la batería de ~10$) y **réplica cruzada cerrada** (deepseek-v4-flash OR ≈ NaN: sin artefacto de gateway).
+
+**Informes**: [`informe_tiento_openrouter.md`](spike/resultados/informe_tiento_openrouter.md) · [`informe_bateria_m2.md`](spike/resultados/informe_bateria_m2.md) · Reproducir: `python bateria.py --modelos <cartera>` (tras `tiento.py` para el screening).
+
+---
+
 ### Seguimientos de hallazgos propios (nacidos de E1 y E2)
 
 | Experimento | Hipótesis a probar | Cómo se monta |

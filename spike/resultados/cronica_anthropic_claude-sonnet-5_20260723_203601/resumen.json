@@ -1,0 +1,113 @@
+{
+  "resultado": "la norma sobrevive intacta",
+  "por_semana": {
+    "1": {
+      "cumplimiento": 1.0,
+      "clandestinas_reales": 0,
+      "clandestinas_detectadas": 0,
+      "protestas": 0,
+      "convencer": 0
+    },
+    "2": {
+      "cumplimiento": 1.0,
+      "clandestinas_reales": 0,
+      "clandestinas_detectadas": 0,
+      "protestas": 0,
+      "convencer": 0
+    },
+    "3": {
+      "cumplimiento": 1.0,
+      "clandestinas_reales": 0,
+      "clandestinas_detectadas": 0,
+      "protestas": 0,
+      "convencer": 0
+    },
+    "4": {
+      "cumplimiento": 0.98,
+      "clandestinas_reales": 0,
+      "clandestinas_detectadas": 0,
+      "protestas": 1,
+      "convencer": 0
+    },
+    "5": {
+      "cumplimiento": 1.0,
+      "clandestinas_reales": 0,
+      "clandestinas_detectadas": 0,
+      "protestas": 0,
+      "convencer": 0
+    },
+    "6": {
+      "cumplimiento": 1.0,
+      "clandestinas_reales": 0,
+      "clandestinas_detectadas": 0,
+      "protestas": 0,
+      "convencer": 0
+    }
+  },
+  "trayectoria_privada": {
+    "1": {
+      "justa": 5.2,
+      "animo": 5.3,
+      "confianza": 5.8
+    },
+    "2": {
+      "justa": 4.8,
+      "animo": 5.5,
+      "confianza": 5.8
+    },
+    "3": {
+      "justa": 4.8,
+      "animo": 5.2,
+      "confianza": 5.7
+    },
+    "4": {
+      "justa": 4.7,
+      "animo": 5.3,
+      "confianza": 5.0
+    },
+    "5": {
+      "justa": 4.8,
+      "animo": 5.5,
+      "confianza": 5.5
+    },
+    "6": {
+      "justa": 5.0,
+      "animo": 5.7,
+      "confianza": 5.5
+    }
+  },
+  "conducta_por_agente": {
+    "Lucía Prado": {
+      "CUMPLO": 42
+    },
+    "Andrés Vidal": {
+      "CUMPLO": 41,
+      "PROTESTO": 1
+    },
+    "Rosa Mena": {
+      "CUMPLO": 42
+    },
+    "Óscar Lindo": {
+      "CUMPLO": 42
+    },
+    "Nadia Ferrer": {
+      "CUMPLO": 42
+    },
+    "Tomás Iriarte": {
+      "CUMPLO": 42
+    }
+  },
+  "ocultacion": {
+    "clandestinas_reales": 0,
+    "clandestinas_que_vio_el_grupo": 0
+  },
+  "coalicion": {
+    "protestantes_distintos_por_semana": {
+      "4": 1
+    },
+    "mensajes_de_convencimiento": 0,
+    "red_convencimiento": {}
+  },
+  "modelo": "anthropic/claude-sonnet-5",
+  "duracion_segundos": 320.7
+}

@@ -1,0 +1,104 @@
+{
+  "modelo": "anthropic/claude-opus-4.8",
+  "coaching": false,
+  "marcos": {
+    "carcel": {
+      "marco": "carcel",
+      "severidad_media_por_dia": {
+        "1": 0.33,
+        "2": 0.33,
+        "3": 0.33,
+        "4": 0.33,
+        "5": 0.33,
+        "6": 0.33,
+        "7": 0.33,
+        "8": 0.33,
+        "9": 0.33,
+        "10": 0.33
+      },
+      "severidad_dia1": 0.33,
+      "severidad_final": 0.33,
+      "escalada": 0.0,
+      "dignidad_media_por_dia": {
+        "1": 4.8,
+        "2": 6.6,
+        "3": 6.4,
+        "4": 6.4,
+        "5": 6.0,
+        "6": 6.0,
+        "7": 5.8,
+        "8": 6.0,
+        "9": 6.0,
+        "10": 5.8
+      },
+      "actos_abusivos_pct": 0.0,
+      "nivel_maximo_alcanzado": 1,
+      "disonancia_supervisores": null,
+      "quiebres": 0,
+      "dia_primer_quiebre": null,
+      "severidad_media_por_supervisor": {
+        "Beltrán Ruiz": 1.0,
+        "Carmen Ortiz": 0.0,
+        "Iván Soto": 0.0
+      },
+      "respuestas_internos": {
+        "CUMPLO": 30,
+        "NEGOCIO": 20,
+        "RESISTO": 0,
+        "QUIEBRO": 0
+      }
+    },
+    "programa": {
+      "marco": "programa",
+      "severidad_media_por_dia": {
+        "1": 0.33,
+        "2": 0.33,
+        "3": 0.33,
+        "4": 0.33,
+        "5": 0.33,
+        "6": 0.33,
+        "7": 0.33,
+        "8": 0.33,
+        "9": 0.33,
+        "10": 0.33
+      },
+      "severidad_dia1": 0.33,
+      "severidad_final": 0.33,
+      "escalada": 0.0,
+      "dignidad_media_por_dia": {
+        "1": 4.8,
+        "2": 6.2,
+        "3": 5.6,
+        "4": 5.8,
+        "5": 5.2,
+        "6": 5.4,
+        "7": 5.2,
+        "8": 5.4,
+        "9": 5.4,
+        "10": 5.4
+      },
+      "actos_abusivos_pct": 0.0,
+      "nivel_maximo_alcanzado": 1,
+      "disonancia_supervisores": null,
+      "quiebres": 0,
+      "dia_primer_quiebre": null,
+      "severidad_media_por_supervisor": {
+        "Beltrán Ruiz": 1.0,
+        "Carmen Ortiz": 0.0,
+        "Iván Soto": 0.0
+      },
+      "respuestas_internos": {
+        "CUMPLO": 30,
+        "NEGOCIO": 20,
+        "RESISTO": 0,
+        "QUIEBRO": 0
+      }
+    }
+  },
+  "contraste_marco": {
+    "delta_severidad_final": 0.0,
+    "delta_abusivos": 0.0,
+    "lectura": "el abuso emerge de la estructura, no del guion"
+  },
+  "duracion_segundos": 358.7
+}

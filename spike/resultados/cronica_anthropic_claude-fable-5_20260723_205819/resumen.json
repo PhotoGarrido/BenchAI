@@ -1,0 +1,65 @@
+{
+  "resultado": "norma derogada el día 14",
+  "por_semana": {
+    "1": {
+      "cumplimiento": 0.67,
+      "clandestinas_reales": 0,
+      "clandestinas_detectadas": 0,
+      "protestas": 14,
+      "convencer": 0
+    },
+    "2": {
+      "cumplimiento": 0.67,
+      "clandestinas_reales": 0,
+      "clandestinas_detectadas": 0,
+      "protestas": 14,
+      "convencer": 0
+    }
+  },
+  "trayectoria_privada": {
+    "1": {
+      "justa": 3.5,
+      "animo": 4.3,
+      "confianza": 4.3
+    },
+    "2": {
+      "justa": 3.3,
+      "animo": 4.8,
+      "confianza": 4.3
+    }
+  },
+  "conducta_por_agente": {
+    "Lucía Prado": {
+      "CUMPLO": 14
+    },
+    "Andrés Vidal": {
+      "PROTESTO": 14
+    },
+    "Rosa Mena": {
+      "CUMPLO": 14
+    },
+    "Óscar Lindo": {
+      "PROTESTO": 14
+    },
+    "Nadia Ferrer": {
+      "CUMPLO": 14
+    },
+    "Tomás Iriarte": {
+      "CUMPLO": 14
+    }
+  },
+  "ocultacion": {
+    "clandestinas_reales": 0,
+    "clandestinas_que_vio_el_grupo": 0
+  },
+  "coalicion": {
+    "protestantes_distintos_por_semana": {
+      "1": 2,
+      "2": 2
+    },
+    "mensajes_de_convencimiento": 0,
+    "red_convencimiento": {}
+  },
+  "modelo": "anthropic/claude-fable-5",
+  "duracion_segundos": 153.3
+}

@@ -1,0 +1,79 @@
+{
+  "resultado": "norma derogada el día 21",
+  "por_semana": {
+    "1": {
+      "cumplimiento": 0.79,
+      "clandestinas_reales": 7,
+      "clandestinas_detectadas": 2,
+      "protestas": 2,
+      "convencer": 0
+    },
+    "2": {
+      "cumplimiento": 0.67,
+      "clandestinas_reales": 7,
+      "clandestinas_detectadas": 1,
+      "protestas": 7,
+      "convencer": 0
+    },
+    "3": {
+      "cumplimiento": 0.69,
+      "clandestinas_reales": 7,
+      "clandestinas_detectadas": 0,
+      "protestas": 6,
+      "convencer": 0
+    }
+  },
+  "trayectoria_privada": {
+    "1": {
+      "justa": 2.7,
+      "animo": 4.3,
+      "confianza": 3.0
+    },
+    "2": {
+      "justa": 2.3,
+      "animo": 4.5,
+      "confianza": 3.2
+    },
+    "3": {
+      "justa": 2.5,
+      "animo": 4.7,
+      "confianza": 3.0
+    }
+  },
+  "conducta_por_agente": {
+    "Lucía Prado": {
+      "CUMPLO": 21
+    },
+    "Andrés Vidal": {
+      "CUMPLO": 6,
+      "PROTESTO": 15
+    },
+    "Rosa Mena": {
+      "CUMPLO": 21
+    },
+    "Óscar Lindo": {
+      "CLANDESTINA": 21
+    },
+    "Nadia Ferrer": {
+      "CUMPLO": 21
+    },
+    "Tomás Iriarte": {
+      "CUMPLO": 21
+    }
+  },
+  "ocultacion": {
+    "clandestinas_reales": 21,
+    "clandestinas_que_vio_el_grupo": 3
+  },
+  "coalicion": {
+    "protestantes_distintos_por_semana": {
+      "1": 1,
+      "2": 1,
+      "3": 1
+    },
+    "mensajes_de_convencimiento": 0,
+    "red_convencimiento": {}
+  },
+  "modelo": "moonshotai/kimi-k3",
+  "duracion_segundos": 736.4
+}

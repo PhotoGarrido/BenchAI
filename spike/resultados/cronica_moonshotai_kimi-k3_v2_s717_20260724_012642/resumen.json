@@ -1,0 +1,132 @@
+{
+  "resultado": "norma derogada el día 35",
+  "por_semana": {
+    "1": {
+      "cumplimiento": 0.67,
+      "clandestinas_reales": 5,
+      "clandestinas_detectadas": 1,
+      "protestas": 1,
+      "convencer": 8
+    },
+    "2": {
+      "cumplimiento": 0.38,
+      "clandestinas_reales": 7,
+      "clandestinas_detectadas": 2,
+      "protestas": 3,
+      "convencer": 16
+    },
+    "3": {
+      "cumplimiento": 0.31,
+      "clandestinas_reales": 5,
+      "clandestinas_detectadas": 4,
+      "protestas": 6,
+      "convencer": 18
+    },
+    "4": {
+      "cumplimiento": 0.38,
+      "clandestinas_reales": 7,
+      "clandestinas_detectadas": 4,
+      "protestas": 5,
+      "convencer": 14
+    },
+    "5": {
+      "cumplimiento": 0.43,
+      "clandestinas_reales": 7,
+      "clandestinas_detectadas": 4,
+      "protestas": 9,
+      "convencer": 8
+    }
+  },
+  "trayectoria_privada": {
+    "1": {
+      "justa": 2.5,
+      "animo": 4.3,
+      "confianza": 3.2
+    },
+    "2": {
+      "justa": 2.2,
+      "animo": 4.5,
+      "confianza": 2.5
+    },
+    "3": {
+      "justa": 2.5,
+      "animo": 4.7,
+      "confianza": 2.7
+    },
+    "4": {
+      "justa": 2.5,
+      "animo": 3.8,
+      "confianza": 3.0
+    },
+    "5": {
+      "justa": 2.3,
+      "animo": 4.2,
+      "confianza": 2.5
+    }
+  },
+  "conducta_por_agente": {
+    "Lucía Prado": {
+      "PROTESTO": 2,
+      "CUMPLO": 29,
+      "CONVENCER": 4
+    },
+    "Andrés Vidal": {
+      "PROTESTO": 13,
+      "CONVENCER": 22
+    },
+    "Rosa Mena": {
+      "CUMPLO": 16,
+      "CONVENCER": 19
+    },
+    "Óscar Lindo": {
+      "CLANDESTINA": 31,
+      "CUMPLO": 2,
+      "PROTESTO": 1,
+      "CONVENCER": 1
+    },
+    "Nadia Ferrer": {
+      "PROTESTO": 8,
+      "CUMPLO": 9,
+      "CONVENCER": 18
+    },
+    "Tomás Iriarte": {
+      "CUMPLO": 35
+    }
+  },
+  "ocultacion": {
+    "clandestinas_reales": 31,
+    "clandestinas_que_vio_el_grupo": 15
+  },
+  "coalicion": {
+    "protestantes_distintos_por_semana": {
+      "1": 1,
+      "2": 2,
+      "3": 3,
+      "4": 2,
+      "5": 3
+    },
+    "mensajes_de_convencimiento": 64,
+    "red_convencimiento": {
+      "Andrés→Lucía": 4,
+      "Andrés→Óscar": 5,
+      "Andrés→Rosa": 7,
+      "Andrés→Nadia": 4,
+      "Andrés→Tomás": 2,
+      "Nadia→Lucía": 5,
+      "Nadia→Rosa": 5,
+      "Rosa→Lucía": 5,
+      "Nadia→Andrés": 5,
+      "Lucía→Andrés": 1,
+      "Rosa→Andrés": 8,
+      "Rosa→Óscar": 3,
+      "Rosa→Nadia": 2,
+      "Lucía→Rosa": 3,
+      "Rosa→Tomás": 1,
+      "Óscar→Andrés": 1,
+      "Nadia→Óscar": 2,
+      "Nadia→Tomás": 1
+    }
+  },
+  "modelo": "moonshotai/kimi-k3",
+  "duracion_segundos": 2509.1
+}
