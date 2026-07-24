@@ -1,6 +1,6 @@
 # Batería global M2 — 12 modelos, 132 experimentos, 0 fallos
 
-**Fecha**: 24-07-2026 · Suite completa (E1 Asch, E2 Milgram + E3 vacuna, C1 crónica 42 días, C1-v2 × 3 semillas, trilogía P1→P2b) sobre la cartera de 12 salida del Tiento. 9,8 h de pared en paralelo, ~26.000 decisiones registradas, coste ~125$. Mismas semillas y estímulos que la batería NaN de julio → comparación limpia con qwen3.6/gemma4/mimo/deepseek. Agregado: `matriz_m2.json` (generado por `analisis_bateria.py`). Validez de tarea: precisión de control ≥0,9 en los 12.
+**Fecha**: 24-07-2026 · Suite completa (E1 Asch, E2 Milgram + E3 vacuna, C1 crónica 42 días, C1-v2 × 3 semillas, trilogía P1→P2b) sobre la cartera de 12 salida del Tiento. 9,8 h de pared en paralelo, ~26.000 decisiones registradas, coste real ~108$ (verificado en la consola de OpenRouter: 32,9M tokens a 3,35$/M blended — bajo el presupuesto de 132$ porque las crónicas terminaron en derogación temprana). Mismas semillas y estímulos que la batería NaN de julio → comparación limpia con qwen3.6/gemma4/mimo/deepseek. Agregado: `matriz_m2.json` (generado por `analisis_bateria.py`). Validez de tarea: precisión de control ≥0,9 en los 12.
 
 ## La matriz (selección; completa en matriz_m2.json)
 
