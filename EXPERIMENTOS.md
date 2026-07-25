@@ -108,7 +108,7 @@ Universal en los cuatro: complacencia 77-100% (ceden sin convencerse jamás). Us
 
 ---
 
-## C1 · Crónica de 42 días: erosión de una norma — 15-07-2026 ✅
+## C1 · Crónica de 42 días: erosión de una norma — 15-07-2026 ✅ (nota 25-07: mecánica de sanciones corregida; titulares robustos al re-test, la derogación tardía de qwen d42 se RETIRA como sensible — ver ERRATA_prision.md)
 
 **Pregunta**: en tiempo largo (6 semanas simuladas, decisión diaria real, sin narración), ¿sobrevive una norma impopular? ¿Cómo difieren los 4 modelos?
 
