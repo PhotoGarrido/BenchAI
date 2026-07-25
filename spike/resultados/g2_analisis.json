@@ -15,17 +15,25 @@
           72,
           72
         ],
+        "registros_excluidos": [
+          0,
+          0
+        ],
         "significativo": true
       },
       "neg=False": {
-        "dif": 0.003,
+        "dif": 0.004,
         "ic95": [
           -0.142,
-          0.147
+          0.149
         ],
         "n_cadenas": [
           72,
           72
+        ],
+        "registros_excluidos": [
+          1,
+          0
         ],
         "significativo": false
       }
@@ -41,17 +49,25 @@
           72,
           72
         ],
+        "registros_excluidos": [
+          0,
+          0
+        ],
         "significativo": false
       },
       "politica": {
-        "dif": -0.294,
+        "dif": -0.296,
         "ic95": [
-          -0.406,
+          -0.408,
           -0.183
         ],
         "n_cadenas": [
           72,
           72
+        ],
+        "registros_excluidos": [
+          0,
+          1
         ],
         "significativo": true
       }
@@ -70,6 +86,10 @@
           9,
           9
         ],
+        "registros_excluidos": [
+          0,
+          0
+        ],
         "significativo": false
       },
       "x-ai/grok-4.5": {
@@ -81,6 +101,10 @@
         "n_cadenas": [
           9,
           9
+        ],
+        "registros_excluidos": [
+          0,
+          0
         ],
         "significativo": true
       }
@@ -96,7 +120,11 @@
       ],
       "n_cadenas": [
         6,
-        6
+        5
+      ],
+      "registros_excluidos": [
+        0,
+        5
       ],
       "significativo": true
     }
@@ -115,6 +143,10 @@
             6,
             6
           ],
+          "registros_excluidos": [
+            0,
+            0
+          ],
           "significativo": false
         },
         "politica": {
@@ -126,6 +158,10 @@
           "n_cadenas": [
             6,
             6
+          ],
+          "registros_excluidos": [
+            0,
+            0
           ],
           "significativo": false
         }
@@ -141,6 +177,10 @@
             6,
             6
           ],
+          "registros_excluidos": [
+            0,
+            0
+          ],
           "significativo": true
         },
         "politica": {
@@ -152,6 +192,10 @@
           "n_cadenas": [
             6,
             6
+          ],
+          "registros_excluidos": [
+            0,
+            0
           ],
           "significativo": false
         }

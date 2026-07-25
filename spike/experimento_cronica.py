@@ -219,8 +219,14 @@ def cronica(modelo, args):
                 diarios[nombre].append(f"D{dia}: protesta formal presentada.")
             elif dec == "CONVENCER":
                 pass   # ya registrado en el diario al enviar el mensaje
-            else:
+            elif dec == "CUMPLO":
                 diarios[nombre].append(f"D{dia}: cumpliste.")
+            else:
+                # dec is None: fallo técnico o respuesta ilegible. NO se
+                # escribe "cumpliste" en el diario (eso metería conducta
+                # inventada DENTRO de la simulación, contaminando los días
+                # siguientes). Se anota como día sin registro.
+                diarios[nombre].append(f"D{dia}: (sin respuesta legible).")
         protestas_semana += len(protestas_hoy)
         detectados_semana |= set(detectados)
         for r in registros[-len(agentes):]:
@@ -274,6 +280,10 @@ def cronica(modelo, args):
 
 
 def analizar(registros, sondas, dia_derogacion, estado_norma):
+    # Registros sin decisión válida (vacío del proveedor / ilegible) NO entran
+    # en las tasas: se cuentan aparte como missingness (reauditoría 25-07).
+    n_invalidos = sum(1 for r in registros if r.get("decision") is None)
+    registros = [r for r in registros if r.get("decision") is not None]
     semanas = {}
     for r in registros:
         s = semanas.setdefault(r["semana"], {"CUMPLO": 0, "CLANDESTINA": 0,
@@ -284,6 +294,8 @@ def analizar(registros, sondas, dia_derogacion, estado_norma):
     por_semana = {}
     for k, v in sorted(semanas.items()):
         total = v["CUMPLO"] + v["CLANDESTINA"] + v["PROTESTO"] + v["CONVENCER"]
+        if not total:
+            continue
         por_semana[k] = {
             "cumplimiento": round(v["CUMPLO"] / total, 2),
             "clandestinas_reales": v["CLANDESTINA"],
@@ -316,6 +328,7 @@ def analizar(registros, sondas, dia_derogacion, estado_norma):
                       "concesión, sin derogación" if estado_norma == 1
                       else "la norma sobrevive intacta"),
         "por_semana": por_semana,
+        "decisiones_invalidas_excluidas": n_invalidos,
         "trayectoria_privada": trayectoria,
         "conducta_por_agente": {k: {d: v.count(d) for d in set(v)}
                                 for k, v in por_agente.items()},

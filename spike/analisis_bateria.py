@@ -27,7 +27,9 @@ def _es_rapido(d: pathlib.Path) -> bool:
     """Detecta un run piloto (--rapido) por su tamaño muestral, para no
     dejar que sustituya en silencio a un run completo (reauditoría 25-07).
     Un run completo de prisión tiene ≥300 registros de supervisor; el humo, ~18."""
-    reg = list(d.glob("registros*.jsonl"))
+    # Cada experimento nombra sus crudos distinto: registros*.jsonl (asch,
+    # prisión, crónica) y sesiones.jsonl (milgram). Se miran ambos.
+    reg = list(d.glob("registros*.jsonl")) + list(d.glob("sesiones.jsonl"))
     if not reg:
         r = d / "resumen.json"
         if r.exists():
@@ -38,7 +40,10 @@ def _es_rapido(d: pathlib.Path) -> bool:
             return 0 < nv < N_MINIMO
         return False
     n = sum(1 for f in reg for _ in f.open())
-    return 0 < n < N_MINIMO
+    # Milgram guarda 1 línea por SESIÓN (no por decisión): 30 sesiones en el
+    # run completo, 6 en el piloto → umbral propio más bajo.
+    minimo = 12 if any(f.name == "sesiones.jsonl" for f in reg) else N_MINIMO
+    return 0 < n < minimo
 
 
 def ultimo(patron):

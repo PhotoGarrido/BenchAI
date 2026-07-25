@@ -23,6 +23,10 @@ Todo esto ya está en `EXPERIMENTOS.md` y los informes, con IC donde aplica.
 | «Nadie es engañado» | validada sensibilidad, no especificidad; codificador = LLM | muestra balanceada con casos neutros + codificador humano |
 | Cualquier número absoluto por celda | n≈6-9 cadenas/celda; potencia baja | más repeticiones/semillas (≥20 cadenas/celda) |
 
+## 2-bis · Tercera revisión (Opus 5) — 11 bugs de parser corregidos, datos intactos
+
+Una tercera revisión adversarial sobre el propio fix encontró 11 bugs reales (verificados uno a uno), incluidos dos graves: `«Me niego a aplicar la sanción»` se leía como **APLICO** en Milgram, y el análisis por cadenas imputaba `None → 0 = "no abusó"`. **Reproceso de los crudos: 3.634/3.634 decisiones de Milgram idénticas y 6.835/6.840 de Asch** — los bugs eran latentes, no activos; ningún resultado publicado cambia. Detalle: [`revision_opus5_parsers.md`](spike/resultados/revision_opus5_parsers.md). Lección para el preprint: **todo parser debe someterse a un adversario que aporte inputs**, no solo a tests escritos por quien lo programó.
+
 ## 3 · El G-final — diseño del experimento consolidado
 
 Un único experimento que arregla todos los confundidos de golpe, pre-registrado antes de correr:
