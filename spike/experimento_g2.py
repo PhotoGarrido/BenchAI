@@ -33,6 +33,7 @@ from dotenv import load_dotenv
 load_dotenv(pathlib.Path(__file__).parent / ".env")
 
 import model_factory
+import parsers
 import experimento_prision as prision
 from experimento_gradiente import INTERPRETACION, RE_DANO
 
@@ -155,17 +156,22 @@ def brazo(modelo, celda, dias=5, laboral=False, temperatura=0.7):
         priv = modelo.sample_text(base + f"\nHoy has optado por {glosa}."
                                   + priv_q.format(nombre=sup["nombre"]),
                                   max_tokens=60, temperature=temperatura)
-        justo = None if not priv else ("NO" not in priv.upper())
+        justo_res = parsers.parsear_sino(priv)
         interp = modelo.sample_text(
             base + INTERPRETACION.format(nombre=sup["nombre"]),
             max_tokens=120, temperature=temperatura)
         return {**{k: v for k, v in celda.items() if k != "texto"},
                 "dia": dia, "supervisor": sup["nombre"], "nivel": nivel,
-                "palabra": palabra, "estado": estado, "cree_justo": justo,
+                "palabra": palabra, "estado": estado,
+                "parser_version": parsers.PARSER_VERSION,
+                "cree_justo": justo_res.valor, "justo_estado": justo_res.estado,
                 "disonancia": bool(nivel is not None and nivel >= 2
-                                   and justo is False),
+                                   and justo_res.valor is False),
                 "nombra_dano": bool(RE_DANO.search(interp or "")),
-                "interpretacion": (interp or "")[:220],
+                "interpretacion": interp or "",   # completa, no truncada
+                # Crudos completos (reauditoría): permiten reprocesar el parser
+                # y auditar INVÁLIDA/ERROR_TECNICO sin re-ejecutar.
+                "raw_publico": raw or "", "raw_justo": priv or "",
                 "temperatura": temperatura}
 
     for dia in range(1, dias + 1):

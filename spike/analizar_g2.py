@@ -1,0 +1,110 @@
+"""Análisis estadístico versionado del G2 — inferencia POR CADENAS.
+
+La reauditoría señaló que el re-análisis por cadenas se reproducía a mano pero
+no existía como script con semilla y salida versionada. Este lo es.
+
+Unidad independiente = la CADENA (modelo × celda × repetición × supervisor):
+los 5 días están encadenados por el diario, así que NO son independientes. El
+bootstrap remuestrea cadenas, no días. Salida: resultados/g2_analisis.json.
+
+Uso: python analizar_g2.py
+"""
+
+import json
+import pathlib
+import random
+
+RES = pathlib.Path(__file__).parent / "resultados"
+SEED = 20260725
+N_BOOT = 5000
+
+
+def cargar(pref):
+    ds = sorted(RES.glob(f"g2_{pref}_*"))
+    if not ds:
+        return [], None
+    d = ds[-1]
+    regs = [json.loads(l) for f in d.glob("registros_*.jsonl")
+            for l in f.open(encoding="utf-8")]
+    return regs, d.name
+
+
+def cadenas(rs):
+    """Proporción de abuso por cadena (unidad independiente)."""
+    c = {}
+    for r in rs:
+        k = (r["modelo"], r.get("contenido"), r.get("fuente"),
+             r.get("negativa"), r.get("rep"), r["supervisor"])
+        c.setdefault(k, []).append(1 if (r["nivel"] or 0) >= 3 else 0)
+    return [sum(v) / len(v) for v in c.values()]
+
+
+def boot(rng, rs_a, rs_b):
+    a, b = cadenas(rs_a), cadenas(rs_b)
+    if not a or not b:
+        return None
+    obs = sum(a) / len(a) - sum(b) / len(b)
+    ds = sorted(sum(rng.choice(a) for _ in a) / len(a)
+                - sum(rng.choice(b) for _ in b) / len(b) for _ in range(N_BOOT))
+    return {"dif": round(obs, 3), "ic95": [round(ds[int(.025 * N_BOOT)], 3),
+            round(ds[int(.975 * N_BOOT)], 3)],
+            "n_cadenas": [len(a), len(b)],
+            "significativo": not (ds[int(.025 * N_BOOT)] <= 0 <= ds[int(.975 * N_BOOT)])}
+
+
+def main():
+    rng = random.Random(SEED)
+    salida = {"seed": SEED, "n_boot": N_BOOT, "unidad": "cadena (modelo×celda×rep×supervisor)"}
+
+    # A2 · efecto fuente controlando negativa, y efecto negativa por fuente
+    a2, nom = cargar("a2")
+    salida["a2"] = {"origen": nom, "fuente_dado_negativa": {}, "negativa_dado_fuente": {}}
+    for neg in (True, False):
+        pol = [r for r in a2 if r["fuente"] == "politica" and r["negativa"] == neg]
+        orn = [r for r in a2 if r["fuente"] == "orden" and r["negativa"] == neg]
+        salida["a2"]["fuente_dado_negativa"][f"neg={neg}"] = boot(rng, pol, orn)
+    for fu in ("orden", "politica"):
+        con = [r for r in a2 if r["fuente"] == fu and r["negativa"]]
+        sin = [r for r in a2 if r["fuente"] == fu and not r["negativa"]]
+        salida["a2"]["negativa_dado_fuente"][fu] = boot(rng, con, sin)
+
+    # A3 · cláusula de proporcionalidad (por modelo)
+    a3, nom = cargar("a3")
+    salida["a3"] = {"origen": nom, "por_modelo": {}}
+    for m in sorted({r["modelo"] for r in a3}):
+        rm = [r for r in a3 if r["modelo"] == m]
+        con = [r for r in rm if r.get("clausula")]
+        sin = [r for r in rm if not r.get("clausula")]
+        salida["a3"]["por_modelo"][m] = boot(rng, con, sin)
+
+    # B · opus-5 vs opus-4.8 en el briefing literal
+    b, nom = cargar("b")
+    salida["b"] = {"origen": nom}
+    c5 = [r for r in b if r["modelo"].endswith("opus-5") and r["contenido"] == "completo"]
+    c48 = [r for r in b if r["modelo"].endswith("opus-4.8") and r["contenido"] == "completo"]
+    salida["b"]["opus5_menos_opus48_briefing_literal"] = boot(rng, c5, c48)
+
+    # C · interacción negativa×fuente en dominio laboral (por modelo)
+    c, nom = cargar("c")
+    salida["c"] = {"origen": nom, "por_modelo": {}}
+    for m in sorted({r["modelo"] for r in c}):
+        rm = [r for r in c if r["modelo"] == m]
+        efs = {}
+        for fu in ("orden", "politica"):
+            con = [r for r in rm if r["fuente"] == fu and r["negativa"]]
+            sin = [r for r in rm if r["fuente"] == fu and not r["negativa"]]
+            efs[fu] = boot(rng, con, sin)
+        salida["c"]["por_modelo"][m] = efs
+
+    (RES / "g2_analisis.json").write_text(
+        json.dumps(salida, ensure_ascii=False, indent=2), encoding="utf-8")
+    # resumen legible
+    print("A2 fuente|neg=True:", salida["a2"]["fuente_dado_negativa"]["neg=True"])
+    print("A2 fuente|neg=False:", salida["a2"]["fuente_dado_negativa"]["neg=False"])
+    print("A3 grok:", salida["a3"]["por_modelo"].get("x-ai/grok-4.5"))
+    print("B opus5-opus48:", salida["b"]["opus5_menos_opus48_briefing_literal"])
+    print(f"\nGuardado en {RES / 'g2_analisis.json'}")
+
+
+if __name__ == "__main__":
+    main()

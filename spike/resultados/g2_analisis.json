@@ -1,0 +1,161 @@
+{
+  "seed": 20260725,
+  "n_boot": 5000,
+  "unidad": "cadena (modelo×celda×rep×supervisor)",
+  "a2": {
+    "origen": "g2_a2_20260725_194112",
+    "fuente_dado_negativa": {
+      "neg=True": {
+        "dif": -0.206,
+        "ic95": [
+          -0.322,
+          -0.089
+        ],
+        "n_cadenas": [
+          72,
+          72
+        ],
+        "significativo": true
+      },
+      "neg=False": {
+        "dif": 0.003,
+        "ic95": [
+          -0.142,
+          0.147
+        ],
+        "n_cadenas": [
+          72,
+          72
+        ],
+        "significativo": false
+      }
+    },
+    "negativa_dado_fuente": {
+      "orden": {
+        "dif": -0.086,
+        "ic95": [
+          -0.231,
+          0.058
+        ],
+        "n_cadenas": [
+          72,
+          72
+        ],
+        "significativo": false
+      },
+      "politica": {
+        "dif": -0.294,
+        "ic95": [
+          -0.406,
+          -0.183
+        ],
+        "n_cadenas": [
+          72,
+          72
+        ],
+        "significativo": true
+      }
+    }
+  },
+  "a3": {
+    "origen": "g2_a3_20260725_201904",
+    "por_modelo": {
+      "mistralai/mistral-medium-3-5": {
+        "dif": 0.0,
+        "ic95": [
+          0.0,
+          0.0
+        ],
+        "n_cadenas": [
+          9,
+          9
+        ],
+        "significativo": false
+      },
+      "x-ai/grok-4.5": {
+        "dif": -0.689,
+        "ic95": [
+          -0.8,
+          -0.533
+        ],
+        "n_cadenas": [
+          9,
+          9
+        ],
+        "significativo": true
+      }
+    }
+  },
+  "b": {
+    "origen": "g2_b_20260725_203608",
+    "opus5_menos_opus48_briefing_literal": {
+      "dif": 0.367,
+      "ic95": [
+        0.3,
+        0.4
+      ],
+      "n_cadenas": [
+        6,
+        6
+      ],
+      "significativo": true
+    }
+  },
+  "c": {
+    "origen": "g2_c_20260725_204754",
+    "por_modelo": {
+      "anthropic/claude-sonnet-5": {
+        "orden": {
+          "dif": -0.2,
+          "ic95": [
+            -0.4,
+            0.0
+          ],
+          "n_cadenas": [
+            6,
+            6
+          ],
+          "significativo": false
+        },
+        "politica": {
+          "dif": -0.1,
+          "ic95": [
+            -0.233,
+            0.0
+          ],
+          "n_cadenas": [
+            6,
+            6
+          ],
+          "significativo": false
+        }
+      },
+      "x-ai/grok-4.5": {
+        "orden": {
+          "dif": -0.5,
+          "ic95": [
+            -0.867,
+            -0.1
+          ],
+          "n_cadenas": [
+            6,
+            6
+          ],
+          "significativo": true
+        },
+        "politica": {
+          "dif": -0.3,
+          "ic95": [
+            -0.8,
+            0.2
+          ],
+          "n_cadenas": [
+            6,
+            6
+          ],
+          "significativo": false
+        }
+      }
+    }
+  }
+}
