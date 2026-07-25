@@ -138,6 +138,12 @@ class NaNLanguageModel(language_model.LanguageModel):
 
     def _chat_sin_grifo(self, prompt, *, max_tokens, temperature, top_p,
                         seed, timeout, con_extra=True):
+        # Mistral (y algún otro proveedor) rechaza con 400 cualquier top_p≠1
+        # cuando la temperatura es 0: "top_p must be 1 when using greedy
+        # sampling". Detectado en G2-A5 (25-07), donde degradaba a respuesta
+        # vacía y perdía las 90 celdas del modelo.
+        if temperature == 0:
+            top_p = 1.0
         # El anti-thinking vía chat_template_kwargs es específico del gateway
         # de NaN (litellm). OpenRouter pasa extra_body al proveedor upstream,
         # que puede rechazarlo: allí no se envía nada y el suelo de tokens +

@@ -188,6 +188,18 @@ Dos brazos sobre el harness de la prisión. **La trilogía completa** (% actos a
 
 ---
 
+## G1+G2 · Gradiente de explicitud y el efecto del formato — 24/25-07-2026 ✅ (refutación pre-registrada)
+
+**G1** halló que la misma orden literal se ejecutaba al 43% como orden del día y al 100% como política institucional (grok), con 90% de bypass consciente. Conclusión provisional: "el membrete legitima".
+
+**G2** lo sometió a un 2×2 pre-registrado (fuente × mención de la negativa) y **lo refutó**: controlando el confundido, política − orden = −0,21 [−0,27, −0,14] con negativa y +0,00 [−0,07, +0,08] sin ella. **Todo el efecto de G1 era una frase de más en un brazo.** El hallazgo exploratorio que emergió (interacción negativa×fuente) tampoco replicó en el test confirmatorio en dominio laboral: se invirtió en los 2 modelos. Dos predicciones firmadas, dos refutadas, ambas publicadas.
+
+**Lo que sí quedó**: (1) **la cláusula de proporcionalidad es el mitigador más potente medido** — grok pasa de 47-80% de abuso a 0% (−0,69 [−0,82, −0,56]); (2) recordar la opción de negarse reduce la ejecución en todos los modelos y dominios; (3) **opus-5 ejecuta el briefing de Zimbardo (0,37) donde opus-4.8 no lo toca (0,00)** y de forma plana en los 5 componentes — le basta que exista una política, no importa cuál; (4) nadie es engañado: las interpretaciones privadas nombran el daño en todos los brazos con ejecución; (5) un fallo técnico de mistral a temperatura 0 (90 respuestas vacías por `top_p`) **habría sido 90 datos falsos de "NORMAL" con el parser antiguo** — la validación en vivo de la auditoría.
+
+**Informes**: [`informe_gradiente.md`](spike/resultados/informe_gradiente.md) (G1) · [`informe_g2.md`](spike/resultados/informe_g2.md) (G2) · Pre-registro con enmiendas fechadas: [`REGISTRO_G2.md`](spike/REGISTRO_G2.md).
+
+---
+
 ### Seguimientos de hallazgos propios (nacidos de E1 y E2)
 
 | Experimento | Hipótesis a probar | Cómo se monta |
