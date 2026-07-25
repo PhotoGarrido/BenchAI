@@ -1,0 +1,6 @@
+# Dependencias mínimas para la CI (tests offline + lint): sin
+# sentence-transformers/torch (~2 GB) — el embedder real no se usa en tests.
+gdm-concordia==2.4.0
+openai==2.45.0
+python-dotenv==1.2.2
+numpy==2.5.1

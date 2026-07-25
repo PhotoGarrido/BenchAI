@@ -47,7 +47,11 @@ def correr_suite(modelo, logdir, rapido=False):
     log = logdir / (modelo.replace("/", "_") + ".log")
     resultados = []
     for nombre, script, extra in SUITE:
-        cmd = [sys.executable, str(AQUI / script), "--modelo", modelo] + extra
+        # Aislamiento por batch (auditoría): cada run escribe DENTRO del
+        # directorio de esta batería — un humo posterior ya no puede pisar ni
+        # mezclarse con un run completo en resultados/ raíz.
+        cmd = [sys.executable, str(AQUI / script), "--modelo", modelo,
+               "--out", str(logdir)] + extra
         if rapido:
             cmd.append("--rapido")
         t0 = time.time()
@@ -77,6 +81,24 @@ def main():
     logdir.mkdir(parents=True, exist_ok=True)
     print(f"Batería de {len(modelos)} modelos · logs en {logdir}", flush=True)
 
+    # Manifiesto de procedencia (auditoría): commit, argumentos, entorno.
+    try:
+        commit = subprocess.run(["git", "rev-parse", "HEAD"], cwd=AQUI,
+                                capture_output=True, text=True).stdout.strip()
+    except OSError:
+        commit = "desconocido"
+    manifiesto = {
+        "batch_id": logdir.name,
+        "commit": commit,
+        "python": sys.version.split()[0],
+        "modelos": modelos,
+        "rapido": args.rapido,
+        "suite": [n for n, _, _ in SUITE],
+        "inicio": datetime.datetime.now().isoformat(timespec="seconds"),
+    }
+    (logdir / "manifest.json").write_text(
+        json.dumps(manifiesto, ensure_ascii=False, indent=2), encoding="utf-8")
+
     inicio = time.time()
     with ThreadPoolExecutor(max_workers=len(modelos)) as pool:
         estados = list(pool.map(
@@ -86,6 +108,11 @@ def main():
         json.dumps(estados, ensure_ascii=False, indent=2), encoding="utf-8")
     fallos = [(e["modelo"], r["experimento"]) for e in estados
               for r in e["suite"] if r["estado"] != "OK"]
+    manifiesto["fin"] = datetime.datetime.now().isoformat(timespec="seconds")
+    manifiesto["fallos"] = [list(f) for f in fallos]
+    manifiesto["completo"] = not fallos
+    (logdir / "manifest.json").write_text(
+        json.dumps(manifiesto, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"\nBatería terminada en {(time.time()-inicio)/3600:.1f} h · "
           f"fallos: {fallos if fallos else 'ninguno'}", flush=True)
     # Auditoría 24-07: una batería con fallos no debe salir con código 0

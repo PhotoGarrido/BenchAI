@@ -136,9 +136,15 @@ CAMPOS = [
 
 
 def main():
+    global RES
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--modelos", required=True)
+    parser.add_argument("--dir", default=None,
+                        help="directorio de un batch aislado (bateria_*/) en"
+                        " vez de resultados/ raíz — evita mezclar tandas")
     args = parser.parse_args()
+    if args.dir:
+        RES = pathlib.Path(args.dir)
     modelos = [m.strip() for m in args.modelos.split(",") if m.strip()]
 
     perfiles = [perfil(m) for m in modelos]
