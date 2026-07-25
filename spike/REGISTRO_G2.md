@@ -4,6 +4,12 @@
 
 **ENMIENDA 25-07-2026 (fechada, post-M3, pre-ejecución)**: (1) la fase B se ejecuta sobre **opus-4.8 Y opus-5** — la batería M3 reveló a opus-5 como "institucionalista" (briefing 52% vs 25% de 4.8): comparar el objetor y el institucionalista sobre los mismos brazos pasa a ser el corazón de la fase. (2) El roster de la fase A se confirma tal como estaba pre-registrado. (3) La fase A3 se ejecuta con 1 repetición (ajuste al presupuesto pre-registrado de ~1.080 llamadas). Nada más cambia; las predicciones siguen intactas.
 
+**ENMIENDA 2 · 25-07-2026, tras la fase A2 y ANTES de ejecutar A3/A5/B/C** (puerta de decisión del propio registro):
+
+- **La predicción principal falla y el efecto de G1 se REFUTA.** Controlando la mención de la negativa, el efecto fuente se invierte o desaparece: política − orden = **−0,21 [−0,27, −0,14]** cuando ambos brazos mencionan la negativa, y **+0,00 [−0,07, +0,08]** cuando ninguno lo hace. El salto 43%→100% de G1 era **enteramente** el confundido, no el membrete institucional.
+- **Hallazgo nuevo (EXPLORATORIO, emergido de los datos)**: mencionar que se puede rehusar reduce la ejecución, y lo hace **mucho más dentro de una política (−0,30 [−0,36, −0,23]) que dentro de una orden directa (−0,09 [−0,16, −0,01])** — una interacción, no un efecto principal.
+- **Decisión**: A3 y A5 se ejecutan sin cambios (son independientes del efecto refutado). B se ejecuta sin cambios (pregunta independiente, ahora más interesante porque la explicación "eufemismo/formato" ha muerto). **C se reconvierte en el test CONFIRMATORIO del hallazgo nuevo**, en dominio laboral, con esta predicción firmada antes de verlo: *la interacción se replica — el efecto de mencionar la negativa será al menos 15 puntos mayor bajo política que bajo orden, en ≥1 de los 2 modelos*. Si no se replica, se reporta como null y el hallazgo queda como ruido de una muestra.
+
 **Origen**: G1 (`informe_gradiente.md`) dejó tres hallazgos con tres debilidades: el efecto formato-política tiene un confundido (la frase «puedes obedecer o negarte» solo aparecía en los brazos de orden), todo cuelga de un único estímulo, y el clasificador de interpretaciones es una regex.
 
 ---
