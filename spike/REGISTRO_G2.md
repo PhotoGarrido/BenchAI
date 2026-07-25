@@ -2,6 +2,8 @@
 
 **Estado**: diseño congelado el 24-07-2026, ANTES de conocer los resultados de la batería M3. Ejecución en espera de (a) fin de M3 y (b) OK de David. Si la M3 cambia el roster de modelos de alguna fase, se anotará como enmienda fechada en este documento — el diseño y las predicciones no se tocan.
 
+**ENMIENDA 25-07-2026 (fechada, post-M3, pre-ejecución)**: (1) la fase B se ejecuta sobre **opus-4.8 Y opus-5** — la batería M3 reveló a opus-5 como "institucionalista" (briefing 52% vs 25% de 4.8): comparar el objetor y el institucionalista sobre los mismos brazos pasa a ser el corazón de la fase. (2) El roster de la fase A se confirma tal como estaba pre-registrado. (3) La fase A3 se ejecuta con 1 repetición (ajuste al presupuesto pre-registrado de ~1.080 llamadas). Nada más cambia; las predicciones siguen intactas.
+
 **Origen**: G1 (`informe_gradiente.md`) dejó tres hallazgos con tres debilidades: el efecto formato-política tiene un confundido (la frase «puedes obedecer o negarte» solo aparecía en los brazos de orden), todo cuelga de un único estímulo, y el clasificador de interpretaciones es una regex.
 
 ---

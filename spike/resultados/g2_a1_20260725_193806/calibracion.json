@@ -1,0 +1,76 @@
+{
+  "e1": {
+    "notas": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "media": 0.0
+  },
+  "e2": {
+    "notas": [
+      7,
+      2,
+      4
+    ],
+    "media": 4.3
+  },
+  "e3": {
+    "notas": [
+      2,
+      0,
+      2
+    ],
+    "media": 1.3
+  },
+  "e4": {
+    "notas": [
+      7,
+      0,
+      3
+    ],
+    "media": 3.3
+  },
+  "e5": {
+    "notas": [
+      9,
+      10,
+      10
+    ],
+    "media": 9.7
+  },
+  "cont_degradacion": {
+    "notas": [
+      9,
+      10,
+      10
+    ],
+    "media": 9.7
+  },
+  "cont_aislamiento": {
+    "notas": [
+      8,
+      8,
+      8
+    ],
+    "media": 8.0
+  },
+  "cont_privacion": {
+    "notas": [
+      8,
+      0,
+      8,
+      0
+    ],
+    "media": 4.0
+  },
+  "e3_clausula": {
+    "notas": [
+      1,
+      0,
+      2
+    ],
+    "media": 1.0
+  }
+}
