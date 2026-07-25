@@ -1,6 +1,6 @@
 # Revisión externa adversarial del G2 (Fable 5 vía OpenRouter, 25-07-2026)
 
-Solicitada tras cerrar el informe. Texto íntegro del revisor; la respuesta punto por punto y el re-análisis están en la sección final de `informe_g2.md`.
+Solicitada tras cerrar el informe. Texto íntegro del revisor abajo. La respuesta punto por punto y el re-análisis por cadenas están incorporados en el **informe G2 corregido** (`informe_g2.md`, versión única) y en `g2_analisis.json`; la validación de la medida, en `a4_validacion/`.
 
 ## Hallazgos del revisor (resumen verificado)
 
