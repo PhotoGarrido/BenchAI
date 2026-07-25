@@ -1,5 +1,7 @@
 # G2 · La refutación del hallazgo estrella (y lo que quedó en pie)
 
+> **⚠️ LEER CON LA REVISIÓN EXTERNA (misma noche)**: una revisión adversarial independiente ([`revision_externa_g2.md`](revision_externa_g2.md)) detectó fallos reales en este informe tal como se escribió: el control de la negativa no era simétrico entre brazos, el brazo "singular" de la fase B quedó neutralizado por el harness, A3 son tres réplicas del mismo texto (no "tres materializaciones"), la fase A4 no se había ejecutado, y los IC trataban como independientes días encadenados. **Tras el re-análisis por cadenas y la A4 con juez**: la refutación de G1 y la cláusula de proporcionalidad SOBREVIVEN; la interacción negativa×fuente y la "inversión" de C se RETIRAN; el mecanismo de opus-5 queda sin testar (su diferencia con 4.8, +0,37 [+0,30, +0,40], sí es real); y «nadie es engañado» sale reforzado con la medida válida (juez: 99,3% de 549 actos abusivos reconocen el daño en privado). Los números de este informe se conservan por trazabilidad; la versión con autoridad es la de la revisión.
+
 **25-07-2026** · Pre-registro y enmiendas fechadas: [`REGISTRO_G2.md`](../REGISTRO_G2.md). 5 fases, ~3.400 decisiones, ~20$. Todas las predicciones firmadas **antes** de ver datos; las dos principales fallaron y así se reporta.
 
 ## Resumen en una línea

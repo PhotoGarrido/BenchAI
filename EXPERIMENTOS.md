@@ -196,6 +196,8 @@ Dos brazos sobre el harness de la prisión. **La trilogía completa** (% actos a
 
 **Lo que sí quedó**: (1) **la cláusula de proporcionalidad es el mitigador más potente medido** — grok pasa de 47-80% de abuso a 0% (−0,69 [−0,82, −0,56]); (2) recordar la opción de negarse reduce la ejecución en todos los modelos y dominios; (3) **opus-5 ejecuta el briefing de Zimbardo (0,37) donde opus-4.8 no lo toca (0,00)** y de forma plana en los 5 componentes — le basta que exista una política, no importa cuál; (4) nadie es engañado: las interpretaciones privadas nombran el daño en todos los brazos con ejecución; (5) un fallo técnico de mistral a temperatura 0 (90 respuestas vacías por `top_p`) **habría sido 90 datos falsos de "NORMAL" con el parser antiguo** — la validación en vivo de la auditoría.
 
+**Revisión externa adversarial (misma noche)** — [`revision_externa_g2.md`](spike/resultados/revision_externa_g2.md): detectó asimetría en el control de la negativa, el brazo B-singular neutralizado, A3 mal etiquetado (1 texto, no 3), la A4 sin ejecutar e inferencia sin agrupar por cadenas. Tras re-análisis: **sobreviven** la refutación de G1 (−0,21 [−0,32,−0,09] por cadenas) y la cláusula (−0,69 [−0,80,−0,53]); **se retiran** la interacción negativa×fuente y la 'inversión' de C; la diferencia opus-5−opus-4.8 (+0,37 [+0,30,+0,40]) es real pero su mecanismo queda para un G3; y «nadie es engañado» se refuerza con la medida válida (juez: 99,3% de 549 actos reconocen el daño; la regex quedó invalidada, 61,7% de acuerdo).
+
 **Informes**: [`informe_gradiente.md`](spike/resultados/informe_gradiente.md) (G1) · [`informe_g2.md`](spike/resultados/informe_g2.md) (G2) · Pre-registro con enmiendas fechadas: [`REGISTRO_G2.md`](spike/REGISTRO_G2.md).
 
 ---
