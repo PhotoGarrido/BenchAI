@@ -2,9 +2,9 @@
 
 Auditoría externa detectó que negativas se clasificaban como abuso. La verificación propia halló además typos de niveles altos leídos como NORMAL. Reproceso de los crudos con `parsear_nivel_estricto` (ancla al inicio, tolera typos, distingue REHUSA e INVÁLIDA). Los `.jsonl` originales no se tocan.
 
-**prisión: 4578 registros de supervisor · sin cambio 4548 (99.3%) · corregidos ARRIBA (typo→nivel alto) 11 · ABAJO 0 · REHUSA 19 · INVÁLIDA 0**
+**prisión: 5434 registros de supervisor · sin cambio 5404 (99.4%) · corregidos ARRIBA (typo→nivel alto) 11 · ABAJO 0 · REHUSA 19 · INVÁLIDA 0**
 
-Total afectado: 30/4578 = 0.66% de los registros. Ningún efecto entre modelos (rangos de 20-80 pts) se invierte, pero los valores finos se ajustan; REHUSA pasa a ser una categoría de conducta propia (objeción moral), no NORMAL ni abuso.
+Total afectado: 30/5434 = 0.55% de los registros. Ningún efecto entre modelos (rangos de 20-80 pts) se invierte, pero los valores finos se ajustan; REHUSA pasa a ser una categoría de conducta propia (objeción moral), no NORMAL ni abuso.
 
 | Modelo·variante | n | ↑typo | ↓ | REHUSA | INVÁL | abusivos viejo→nuevo |
 |---|---|---|---|---|---|---|

@@ -1,5 +1,7 @@
 # La trilogía de la prisión, cerrada: 16 modelos ante el poder, el clima, el motín y la orden
 
+> **ACTUALIZACIÓN 25-07-2026 (post-auditoría)**: tras la auditoría externa y la revisión de Fable 5, el parser se reancló (negativas ya no cuentan como abuso; typos de niveles altos ya no caen a NORMAL; REHUSA es categoría propia) y **las 14 celdas con contaminación de trayectoria se re-ejecutaron** (14/14 OK). Cambios materiales: fable P2 32%→50%, qwen3.6-35b P2 18%→3%, haiku-coaching 0% ahora con 9-11 REHUSA explícitos registrados. Ningún cuadrante del mapa de motores cambia. Detalle en `ERRATA_prision.md` y datos corregidos en `matriz_m2.json`; la tabla de abajo refleja la versión pre-errata para trazabilidad histórica — para citar números usar la matriz.
+
 **Fecha**: 24-07-2026 · Consolida P1 (poder solo), P1b (briefing de Zimbardo), P2 (motín) y P2b (órdenes explícitas) sobre los 16 modelos medidos: 4 vía NaN (15-07) + 12 vía OpenRouter (batería M2, 24-07). Mismo harness congelado, mismos supervisores (Beltrán duro, Carmen amable, Iván neutro), ambos marcos (cárcel/programa). Las celdas son % de actos abusivos (nivel ≥3), **media de los dos marcos** — por eso algún número difiere en ±5 pts de informes anteriores que citaban un marco.
 
 ## La tabla completa

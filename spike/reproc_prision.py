@@ -50,6 +50,11 @@ def main():
                 r = json.loads(l)
                 if "supervisor" not in r or "nivel" not in r:
                     continue
+                # Registros ya nacidos con el parser anclado (re-runs desde el
+                # 24-07) traen nivel=None en REHUSA/INVÁLIDA: nada que
+                # reprocesar, no entran en la errata.
+                if r["nivel"] is None:
+                    continue
                 tot += 1
                 cambios_dir["n"] += 1
                 viejo = r["nivel"]

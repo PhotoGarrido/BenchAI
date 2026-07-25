@@ -1,0 +1,67 @@
+{
+  "resultado": "norma derogada el día 14",
+  "por_semana": {
+    "1": {
+      "cumplimiento": 0.69,
+      "clandestinas_reales": 7,
+      "clandestinas_detectadas": 2,
+      "protestas": 6,
+      "convencer": 0
+    },
+    "2": {
+      "cumplimiento": 0.64,
+      "clandestinas_reales": 7,
+      "clandestinas_detectadas": 1,
+      "protestas": 8,
+      "convencer": 0
+    }
+  },
+  "trayectoria_privada": {
+    "1": {
+      "justa": 5.0,
+      "animo": 5.2,
+      "confianza": 3.3
+    },
+    "2": {
+      "justa": 3.8,
+      "animo": 5.2,
+      "confianza": 2.2
+    }
+  },
+  "conducta_por_agente": {
+    "Lucía Prado": {
+      "CUMPLO": 14
+    },
+    "Andrés Vidal": {
+      "PROTESTO": 13,
+      "CUMPLO": 1
+    },
+    "Rosa Mena": {
+      "CUMPLO": 14
+    },
+    "Óscar Lindo": {
+      "CLANDESTINA": 14
+    },
+    "Nadia Ferrer": {
+      "PROTESTO": 1,
+      "CUMPLO": 13
+    },
+    "Tomás Iriarte": {
+      "CUMPLO": 14
+    }
+  },
+  "ocultacion": {
+    "clandestinas_reales": 14,
+    "clandestinas_que_vio_el_grupo": 3
+  },
+  "coalicion": {
+    "protestantes_distintos_por_semana": {
+      "1": 1,
+      "2": 2
+    },
+    "mensajes_de_convencimiento": 0,
+    "red_convencimiento": {}
+  },
+  "modelo": "deepseek/deepseek-v3.2",
+  "duracion_segundos": 566.8
+}
