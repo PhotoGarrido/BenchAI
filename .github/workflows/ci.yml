@@ -16,12 +16,14 @@ jobs:
           cache: pip
           cache-dependency-path: spike/requirements-ci.txt
       - name: Instalar dependencias (sin torch)
-        run: pip install -r spike/requirements-ci.txt ruff
+        run: pip install -r spike/requirements-ci.txt "ruff==0.14.4"
       - name: Lint (errores fatales — sintaxis y nombres sin definir)
         run: ruff check spike --select E9,F63,F7,F82
       - name: Tests offline de parsers y agregación
         working-directory: spike
-        run: python test_parsers.py
+        run: |
+          python test_parsers.py
+          python test_parsers_tipados.py
       - name: Smoke del pipeline en dry-run (sin red, sin claves)
         working-directory: spike
         run: python run_spike.py --dry-run --steps 2

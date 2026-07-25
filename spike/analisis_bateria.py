@@ -20,15 +20,40 @@ import pathlib
 RES = pathlib.Path(__file__).parent / "resultados"
 
 
+N_MINIMO = 30   # decisiones mínimas por celda para no confundir un humo
+
+
+def _es_rapido(d: pathlib.Path) -> bool:
+    """Detecta un run piloto (--rapido) por su tamaño muestral, para no
+    dejar que sustituya en silencio a un run completo (reauditoría 25-07).
+    Un run completo de prisión tiene ≥300 registros de supervisor; el humo, ~18."""
+    reg = list(d.glob("registros*.jsonl"))
+    if not reg:
+        r = d / "resumen.json"
+        if r.exists():
+            j = json.loads(r.read_text())
+            # n_validos por marco es una señal barata del tamaño
+            ms = j.get("marcos", {})
+            nv = sum(m.get("n_validos", 0) for m in ms.values())
+            return 0 < nv < N_MINIMO
+        return False
+    n = sum(1 for f in reg for _ in f.open())
+    return 0 < n < N_MINIMO
+
+
 def ultimo(patron):
-    """Directorio más reciente que casa con el patrón (o None). Auditoría
-    24-07: si hay varios candidatos lo AVISA (riesgo de mezclar un humo
-    posterior con un run completo) en vez de elegir en silencio."""
-    dirs = sorted(d for d in RES.glob(patron) if (d / "resumen.json").exists())
+    """Directorio COMPLETO más reciente que casa con el patrón (o None).
+    Descarta runs piloto (--rapido) por tamaño muestral y avisa si hay varios
+    candidatos completos (riesgo de mezclar tandas)."""
+    todos = sorted(d for d in RES.glob(patron) if (d / "resumen.json").exists())
+    rapidos = [d for d in todos if _es_rapido(d)]
+    dirs = [d for d in todos if d not in rapidos]
+    if rapidos:
+        print(f"[aviso] {patron}: descarto {len(rapidos)} run(s) piloto/--rapido"
+              f" (muestra < {N_MINIMO}): {', '.join(d.name for d in rapidos)}")
     if len(dirs) > 1:
-        print(f"[aviso] {patron}: {len(dirs)} runs, uso el más reciente"
-              f" ({dirs[-1].name}); anteriores: "
-              f"{', '.join(d.name for d in dirs[:-1])}")
+        print(f"[aviso] {patron}: {len(dirs)} runs completos, uso el más"
+              f" reciente ({dirs[-1].name})")
     return dirs[-1] if dirs else None
 
 

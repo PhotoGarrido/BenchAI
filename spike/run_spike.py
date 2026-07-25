@@ -117,6 +117,9 @@ def main() -> None:
                         default="secuencial",
                         help="motor: un actor por paso, o varios a la vez")
     parser.add_argument("--out", default="runs")
+    parser.add_argument("--transcripcion-html", action="store_true",
+                        help="genera transcripcion.NO_CONFIABLE.html (Concordia"
+                        " to_html, XSS sin sanear — solo debug local)")
     args = parser.parse_args()
 
     if args.config:
@@ -236,9 +239,19 @@ def main() -> None:
     duracion = time.time() - inicio
 
     (outdir / "log.json").write_text(results.to_json(), encoding="utf-8")
-    (outdir / "transcripcion.html").write_text(
-        results.to_html(title=f"PsicoAI {run_id}"), encoding="utf-8"
-    )
+    # transcripcion.html la genera Concordia 2.4 incrustando el JSON del log
+    # dentro de un <script> SIN neutralizar «</script>»: contenido del LLM
+    # puede cerrar el script e inyectar JS (XSS almacenado — reauditoría 25-07).
+    # NO se genera por defecto: el canal de distribución seguro es replay.json
+    # en el visor saneado. Con --transcripcion-html se escribe pero marcada
+    # como NO CONFIABLE, para no abrirla/compartirla como contenido de fiar.
+    if args.transcripcion_html:
+        banner = ("<!-- ⚠ ARTEFACTO NO CONFIABLE: contiene texto del LLM sin"
+                  " sanear (posible XSS). No abrir ni compartir como contenido"
+                  " de fiar. Usa replay.json en el visor. -->\n")
+        (outdir / "transcripcion.NO_CONFIABLE.html").write_text(
+            banner + results.to_html(title=f"PsicoAI {run_id}"),
+            encoding="utf-8")
 
     meta = {
         "run_id": run_id,

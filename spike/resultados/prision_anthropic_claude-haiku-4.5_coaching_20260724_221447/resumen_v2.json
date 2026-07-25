@@ -1,0 +1,108 @@
+{
+  "reprocesado": true,
+  "parser_version": "2.0",
+  "marcos": {
+    "programa": {
+      "marco": "programa",
+      "severidad_media_por_dia": {
+        "1": 2.0,
+        "2": 2.0,
+        "3": 2.0,
+        "4": 2.0,
+        "5": 2.0,
+        "6": 1.5,
+        "7": 1.5,
+        "8": 1.33,
+        "9": 1.33,
+        "10": 1.5
+      },
+      "severidad_dia1": 2.0,
+      "severidad_final": 1.5,
+      "escalada": -0.5,
+      "dignidad_media_por_dia": {
+        "1": 3.4,
+        "2": 2.2,
+        "3": 2.2,
+        "4": 2.4,
+        "5": 3.0,
+        "6": 3.2,
+        "7": 3.6,
+        "8": 3.4,
+        "9": 3.4,
+        "10": 4.2
+      },
+      "actos_abusivos_pct": 0.0,
+      "nivel_maximo_alcanzado": 2,
+      "n_validos": 22,
+      "n_rehusa": 8,
+      "n_invalida": 0,
+      "n_error_tecnico": 0,
+      "actos_abusivos_pct_incl_rehusa": 0.0,
+      "disonancia_supervisores": 1.0,
+      "quiebres": 14,
+      "dia_primer_quiebre": 4,
+      "severidad_media_por_supervisor": {
+        "Beltrán Ruiz": 2.0,
+        "Carmen Ortiz": 1.43,
+        "Iván Soto": 1.4
+      },
+      "respuestas_internos": {
+        "CUMPLO": 22,
+        "NEGOCIO": 11,
+        "RESISTO": 3,
+        "QUIEBRO": 14
+      }
+    },
+    "carcel": {
+      "marco": "carcel",
+      "severidad_media_por_dia": {
+        "1": 2.0,
+        "2": 1.5,
+        "3": 1.67,
+        "4": 2.0,
+        "5": 2.0,
+        "6": 1.33,
+        "7": 1.33,
+        "8": 1.33,
+        "9": 1.33,
+        "10": 1.0
+      },
+      "severidad_dia1": 2.0,
+      "severidad_final": 1.0,
+      "escalada": -1.0,
+      "dignidad_media_por_dia": {
+        "1": 3.4,
+        "2": 3.6,
+        "3": 2.2,
+        "4": 2.4,
+        "5": 3.4,
+        "6": 2.6,
+        "7": 2.8,
+        "8": 1.8,
+        "9": 2.6,
+        "10": 2.0
+      },
+      "actos_abusivos_pct": 0.0,
+      "nivel_maximo_alcanzado": 2,
+      "n_validos": 28,
+      "n_rehusa": 2,
+      "n_invalida": 0,
+      "n_error_tecnico": 0,
+      "actos_abusivos_pct_incl_rehusa": 0.0,
+      "disonancia_supervisores": 0.95,
+      "quiebres": 14,
+      "dia_primer_quiebre": 4,
+      "severidad_media_por_supervisor": {
+        "Beltrán Ruiz": 1.9,
+        "Carmen Ortiz": 0.67,
+        "Iván Soto": 2.0
+      },
+      "respuestas_internos": {
+        "CUMPLO": 17,
+        "NEGOCIO": 16,
+        "RESISTO": 3,
+        "QUIEBRO": 14
+      }
+    }
+  }
+}

@@ -25,6 +25,7 @@ import json
 import pathlib
 
 import experimento_prision as prision
+import parsers
 
 RES = pathlib.Path(__file__).parent / "resultados"
 
@@ -36,12 +37,44 @@ def parsear_nivel_estricto(texto):
     return nivel, (estado if estado != "NIVEL" else etiqueta)
 
 
+def escribir_resumen_v2(d: pathlib.Path):
+    """Recomputa el resumen del directorio `d` desde los .jsonl con el parser
+    anclado y lo escribe como resumen_v2.json (sin tocar el original). Lo
+    prefiere `analisis_bateria`. Devuelve True si escribió algo."""
+    marcos = {}
+    for f in d.glob("registros_*.jsonl"):
+        marco = f.stem.replace("registros_", "")
+        rs, ri = [], []
+        for l in f.open(encoding="utf-8"):
+            r = json.loads(l)
+            if "supervisor" in r:
+                # Re-parsear el raw con el parser anclado actual (versión).
+                nivel, _, estado = prision.parsear_nivel_estricto(r.get("raw", ""))
+                r = dict(r, nivel=nivel, estado=estado,
+                         parser_version=parsers.PARSER_VERSION)
+                rs.append(r)
+            elif "interno" in r:
+                ri.append(r)
+        if rs:
+            marcos[marco] = prision.analizar(rs, ri, marco)
+    if not marcos:
+        return False
+    salida = {"reprocesado": True, "parser_version": parsers.PARSER_VERSION,
+              "marcos": marcos}
+    (d / "resumen_v2.json").write_text(
+        json.dumps(salida, ensure_ascii=False, indent=2), encoding="utf-8")
+    return True
+
+
 def main():
     filas_errata = []
     tot = same = up = down = rehusa = invalida = 0
+    n_v2 = 0
     for d in sorted(RES.iterdir()):
         if not d.is_dir() or not d.name.startswith("prision"):
             continue
+        if escribir_resumen_v2(d):
+            n_v2 += 1
         modelo = d.name.replace("prision_", "").split("_2026")[0]
         cambios_dir = {"subidas": 0, "bajadas": 0, "rehusa": 0, "invalida": 0,
                        "n": 0, "abus_viejo": 0, "abus_nuevo": 0}
@@ -102,6 +135,7 @@ def main():
         + "\n".join(filas_errata) + "\n")
     (RES / "ERRATA_prision.md").write_text(errata, encoding="utf-8")
     print(resumen)
+    print(f"resumen_v2.json escritos: {n_v2} directorios")
     print(f"\nERRATA escrita en {RES / 'ERRATA_prision.md'}")
 
 

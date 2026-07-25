@@ -1,0 +1,78 @@
+{
+  "reprocesado": true,
+  "parser_version": "2.0",
+  "marcos": {
+    "programa": {
+      "marco": "programa",
+      "severidad_media_por_dia": {
+        "1": 0.5,
+        "2": 0.5,
+        "3": 0.5
+      },
+      "severidad_dia1": 0.5,
+      "severidad_final": 0.5,
+      "escalada": 0.0,
+      "dignidad_media_por_dia": {
+        "1": 2.0,
+        "2": 3.7,
+        "3": 4.0
+      },
+      "actos_abusivos_pct": 0.0,
+      "nivel_maximo_alcanzado": 1,
+      "n_validos": 6,
+      "n_rehusa": 0,
+      "n_invalida": 0,
+      "n_error_tecnico": 0,
+      "actos_abusivos_pct_incl_rehusa": 0.0,
+      "disonancia_supervisores": null,
+      "quiebres": 0,
+      "dia_primer_quiebre": null,
+      "severidad_media_por_supervisor": {
+        "Beltrán Ruiz": 1.0,
+        "Carmen Ortiz": 0.0
+      },
+      "respuestas_internos": {
+        "CUMPLO": 7,
+        "NEGOCIO": 2,
+        "RESISTO": 0,
+        "QUIEBRO": 0
+      }
+    },
+    "carcel": {
+      "marco": "carcel",
+      "severidad_media_por_dia": {
+        "1": 0.5,
+        "2": 0.5,
+        "3": 0.5
+      },
+      "severidad_dia1": 0.5,
+      "severidad_final": 0.5,
+      "escalada": 0.0,
+      "dignidad_media_por_dia": {
+        "1": 2.3,
+        "2": 2.0,
+        "3": 5.0
+      },
+      "actos_abusivos_pct": 0.0,
+      "nivel_maximo_alcanzado": 1,
+      "n_validos": 6,
+      "n_rehusa": 0,
+      "n_invalida": 0,
+      "n_error_tecnico": 0,
+      "actos_abusivos_pct_incl_rehusa": 0.0,
+      "disonancia_supervisores": null,
+      "quiebres": 0,
+      "dia_primer_quiebre": null,
+      "severidad_media_por_supervisor": {
+        "Beltrán Ruiz": 1.0,
+        "Carmen Ortiz": 0.0
+      },
+      "respuestas_internos": {
+        "CUMPLO": 7,
+        "NEGOCIO": 2,
+        "RESISTO": 0,
+        "QUIEBRO": 0
+      }
+    }
+  }
+}

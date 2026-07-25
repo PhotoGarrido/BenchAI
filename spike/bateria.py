@@ -17,6 +17,7 @@ Uso:
 import argparse
 import datetime
 import json
+import os
 import pathlib
 import subprocess
 import sys
@@ -55,12 +56,21 @@ def correr_suite(modelo, logdir, rapido=False):
         if rapido:
             cmd.append("--rapido")
         t0 = time.time()
+        # Timeout por subexperimento (reauditoría): un run colgado no bloquea
+        # la batería entera. Configurable por env; 0 = sin límite.
+        timeout = int(os.environ.get("BATERIA_TIMEOUT_S", "5400")) or None
         with log.open("a", encoding="utf-8") as f:
             f.write(f"\n===== {nombre} · {' '.join(cmd)} =====\n")
             f.flush()
-            proc = subprocess.run(cmd, cwd=AQUI, stdout=f, stderr=f)
+            try:
+                proc = subprocess.run(cmd, cwd=AQUI, stdout=f, stderr=f,
+                                      timeout=timeout)
+                rc = proc.returncode
+            except subprocess.TimeoutExpired:
+                f.write(f"\n[TIMEOUT tras {timeout}s]\n")
+                rc = 124
         dur = time.time() - t0
-        estado = "OK" if proc.returncode == 0 else f"FALLO rc={proc.returncode}"
+        estado = "OK" if rc == 0 else f"FALLO rc={rc}"
         print(f"[{et}] {nombre}: {estado} · {dur/60:.1f} min", flush=True)
         resultados.append({"experimento": nombre, "estado": estado,
                            "minutos": round(dur / 60, 1)})
@@ -100,7 +110,10 @@ def main():
         json.dumps(manifiesto, ensure_ascii=False, indent=2), encoding="utf-8")
 
     inicio = time.time()
-    with ThreadPoolExecutor(max_workers=len(modelos)) as pool:
+    # Tope configurable de modelos en paralelo (reauditoría): por defecto uno
+    # por modelo, pero acotable para no saturar el proveedor.
+    tope = int(os.environ.get("BATERIA_MAX_MODELOS", "0")) or len(modelos)
+    with ThreadPoolExecutor(max_workers=min(tope, len(modelos))) as pool:
         estados = list(pool.map(
             lambda m: correr_suite(m, logdir, rapido=args.rapido), modelos))
 
