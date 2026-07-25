@@ -38,8 +38,11 @@ def test_ilegible_no_inventa_normal():
     nivel, _, estado = prision.parsear_nivel_estricto("Hmm, déjame pensarlo bien.")
     assert estado == "INVALIDA"
     assert nivel is None
+    # El vacío ahora se distingue como fallo técnico (no INVÁLIDA genérica),
+    # pero sigue sin inventar conducta (nivel None).
     nivel, _, estado = prision.parsear_nivel_estricto("")
-    assert estado == "INVALIDA"
+    assert estado == "ERROR_TECNICO"
+    assert nivel is None
 
 
 def test_eleccion_explicita():

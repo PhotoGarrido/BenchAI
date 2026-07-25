@@ -108,17 +108,14 @@ def situacion(agente, estado_norma):
     )
 
 
+import parsers
+
+
 def parsear_decision(texto, v2=False):
-    t = (texto or "").upper()
-    if v2 and re.search(r"CONVENC", t):
-        return "CONVENCER"
-    if re.search(r"CLANDESTIN", t):
-        return "CLANDESTINA"
-    if re.search(r"PROTEST", t):
-        return "PROTESTO"
-    if re.search(r"CUMPL", t):
-        return "CUMPLO"
-    return "CUMPLO"   # ilegible → conservador
+    """Compat: devuelve la decisión o None (ilegible/vacío). Antes imputaba
+    CUMPLO ante cualquier fallo — convertía un 400 del proveedor en
+    cumplimiento (reauditoría 25-07). Ahora usa el parser tipado anclado."""
+    return parsers.parsear_cronica(texto, v2=v2).valor
 
 
 def parsear_sonda(texto):
@@ -166,7 +163,8 @@ def cronica(modelo, args):
                   + ("\nTu diario reciente: " + " ".join(diario) if diario else "")
                   + pregunta.format(dia=dia, semana=semana, nombre=nombre))
         raw = modelo.sample_text(prompt, max_tokens=100, temperature=0.7)
-        decision = parsear_decision(raw, v2=v2)
+        res = parsers.parsear_cronica(raw, v2=v2)
+        decision, estado = res.valor, res.estado
         destinatario, mensaje = None, None
         if decision == "CONVENCER":
             otros = ", ".join(n for n in nombres if n != nombre)
@@ -181,8 +179,8 @@ def cronica(modelo, args):
             if destinatario:
                 mensaje = re.sub(r"^[^:]{0,40}:", "", raw2 or "").strip()[:220]
             else:
-                decision = "CUMPLO"   # no supo a quién → día perdido
-        return nombre, decision, destinatario, mensaje, raw
+                decision = "CUMPLO"   # no supo a quién → día perdido (conducta real)
+        return nombre, decision, estado, destinatario, mensaje, raw
 
     for dia in range(1, dias + 1):
         semana = (dia - 1) // 7 + 1
@@ -194,14 +192,15 @@ def cronica(modelo, args):
             resultados = list(pool.map(lambda a: decidir(a, dia, semana), agentes))
         for nombre in mensajes_pendientes:
             mensajes_pendientes[nombre] = []
-        for nombre, decision, destinatario, mensaje, raw in resultados:
+        for nombre, decision, estado, destinatario, mensaje, raw in resultados:
             if destinatario:
                 mensajes_pendientes[destinatario].append((nombre, mensaje))
                 diarios[nombre].append(
                     f"D{dia}: intentaste convencer a {destinatario.split()[0]}.")
-            decisiones[nombre] = decision
+            decisiones[nombre] = decision   # None si ilegible → inerte, NO CUMPLO
             registros.append({"dia": dia, "semana": semana, "agente": nombre,
-                              "decision": decision,
+                              "decision": decision, "estado": estado,
+                              "valida": decision is not None,
                               "destinatario": destinatario, "mensaje": mensaje,
                               "raw": (raw or "")[:120]})
 

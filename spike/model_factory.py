@@ -218,6 +218,7 @@ class NaNLanguageModel(language_model.LanguageModel):
             "Answer with only the letter of your chosen option in parentheses, "
             "for example: (a).\nAnswer: ("
         )
+        import parsers
         for intento in range(8):
             texto = self.sample_text(
                 pregunta,
@@ -225,11 +226,13 @@ class NaNLanguageModel(language_model.LanguageModel):
                 temperature=min(0.2 * intento, 1.0),
                 seed=seed,
             )
-            m = re.search(r"\(?([a-z])\)?", (texto or "").strip().lower())
-            if m:
-                idx = _LETRAS.find(m.group(1))
-                if 0 <= idx < len(responses):
-                    return idx, responses[idx], {}
+            res = parsers.parsear_choice(texto, len(responses))
+            if res.ok:
+                return res.valor, responses[res.valor], {}
+        # 8 intentos ilegibles: la interfaz de Concordia exige un índice, pero
+        # lo avisamos en vez de fingir en silencio que eligió la primera.
+        print("[nan] sample_choice ilegible tras 8 intentos → opción 0 (avisado)",
+              file=sys.stderr)
         return 0, responses[0], {}
 
 

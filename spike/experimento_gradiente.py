@@ -38,6 +38,7 @@ from dotenv import load_dotenv
 load_dotenv(pathlib.Path(__file__).parent / ".env")
 
 import model_factory
+import parsers
 import experimento_prision as prision
 
 DIAS = 5
@@ -97,12 +98,12 @@ def brazo(modelo, brazo_id, fuente, escalon, rep, dias, sups):
         raw = modelo.sample_text(
             base + prision.PREGUNTA_SUP.format(nombre=sup["nombre"]),
             max_tokens=120, temperature=0.7)
-        nivel, palabra = prision.parsear_nivel(raw)
+        nivel, palabra, estado = prision.parsear_nivel_estricto(raw)
         priv = modelo.sample_text(
             base + f"\nHoy has actuado de forma {palabra}."
             + prision.PRIV_SUP.format(nombre=sup["nombre"]),
             max_tokens=60, temperature=0.7)
-        justo = None if not priv else ("NO" not in priv.upper())
+        justo = parsers.parsear_sino(priv).valor
         # Bifurcación: la interpretación jamás entra en la sesión.
         interp = modelo.sample_text(
             base + INTERPRETACION.format(nombre=sup["nombre"]),
@@ -111,8 +112,9 @@ def brazo(modelo, brazo_id, fuente, escalon, rep, dias, sups):
             "modelo": None, "brazo": brazo_id, "fuente": fuente,
             "escalon": escalon, "etiqueta": etiqueta, "rep": rep, "dia": dia,
             "supervisor": sup["nombre"], "nivel": nivel, "palabra": palabra,
-            "cree_justo": justo,
-            "disonancia": bool(nivel >= 2 and justo is False),
+            "estado": estado, "cree_justo": justo,
+            "disonancia": bool(nivel is not None and nivel >= 2
+                               and justo is False),
             "nombra_dano": bool(RE_DANO.search(interp or "")),
             "interpretacion": (interp or "")[:220],
             "desc": re.sub(r"^[^—\-:]{0,30}[—\-:]", "", raw or "").strip()[:160],

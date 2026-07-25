@@ -139,9 +139,13 @@ SONDA_CONTAMINACION = (
 )
 
 
+import parsers
+
+
 def parsear_letra(texto):
-    m = re.search(r"\b([ABC])\b", (texto or "").strip().upper())
-    return m.group(1) if m else None
+    """Anclado (reauditoría 25-07): «Voy a elegir B» ya no se lee como A por
+    tomar la primera letra suelta; vacío → None (error técnico), no una letra."""
+    return parsers.parsear_letra(texto).valor
 
 
 def sesion(modelo, sujeto, condicion, seed):
