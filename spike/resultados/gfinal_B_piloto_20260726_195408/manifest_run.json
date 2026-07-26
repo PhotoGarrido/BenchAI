@@ -1,0 +1,23 @@
+{
+  "commit": "960d00a3140dd73c8f96c2a958dcece9f13bb6ef",
+  "python": "3.12.11",
+  "parser_version": "2.2",
+  "argv": [
+    "experimento_gfinal.py",
+    "--fase",
+    "B",
+    "--piloto",
+    "--modelos",
+    "anthropic/claude-opus-5"
+  ],
+  "args": {
+    "linter": false,
+    "fase": "B",
+    "modelos": "anthropic/claude-opus-5",
+    "reps": null,
+    "dias": 3,
+    "piloto": true,
+    "out": "resultados"
+  },
+  "inicio": "2026-07-26T19:54:08"
+}

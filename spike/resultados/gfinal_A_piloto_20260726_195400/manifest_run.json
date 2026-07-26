@@ -1,0 +1,23 @@
+{
+  "commit": "960d00a3140dd73c8f96c2a958dcece9f13bb6ef",
+  "python": "3.12.11",
+  "parser_version": "2.2",
+  "argv": [
+    "experimento_gfinal.py",
+    "--fase",
+    "A",
+    "--piloto",
+    "--modelos",
+    "x-ai/grok-4.5,anthropic/claude-sonnet-5,deepseek/deepseek-v3.2,z-ai/glm-5.2"
+  ],
+  "args": {
+    "linter": false,
+    "fase": "A",
+    "modelos": "x-ai/grok-4.5,anthropic/claude-sonnet-5,deepseek/deepseek-v3.2,z-ai/glm-5.2",
+    "reps": null,
+    "dias": 3,
+    "piloto": true,
+    "out": "resultados"
+  },
+  "inicio": "2026-07-26T19:54:00"
+}

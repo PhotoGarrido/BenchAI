@@ -16,12 +16,12 @@ Todo esto ya está en `EXPERIMENTOS.md` y los informes, con IC donde aplica.
 
 ## 2 · Qué NO es publicable como ciencia todavía (y por qué)
 
-| Afirmación | Bloqueo | Qué la desbloquea |
+| Afirmación | Estado tras el G-final (26-07) | Qué queda |
 |---|---|---|
-| Cláusula de proporcionalidad como mitigador | 1 modelo × 1 texto (el otro en suelo) | G-final: 4-6 modelos × 3 textos × 2 dominios |
-| Mecanismo de opus-5 ("le basta una política") | brazo de aislamiento neutralizado por el harness | G-final: brazo de orden + brazo sin-marco, negativa simétrica |
-| «Nadie es engañado» | validada sensibilidad, no especificidad; codificador = LLM | muestra balanceada con casos neutros + codificador humano |
-| Cualquier número absoluto por celda | n≈6-9 cadenas/celda; potencia baja | más repeticiones/semillas (≥20 cadenas/celda) |
+| Cláusula de proporcionalidad como mitigador | **DESBLOQUEADA**: sostenida en 3/4 modelos × 2 dominios × 3 contenidos (grok −0,28, glm −0,27, sonnet −0,19; deepseek direccional n.s.) | nada bloqueante; deepseek pide más n |
+| Mecanismo de opus-5 ("le basta una política") | **TESTADO Y NO CONFIRMADO** (+0,11 [−0,07, +0,33]; orden ≥ política > nota) — se publica como refutación del mecanismo fuerte | «marco institucional genérico» queda como hipótesis para ampliación |
+| «Nadie es engañado» | sensibilidad 42/42; **especificidad por fin medible** (10/12 en sondas neutras, E3) | κ humana: hoja ciega de 92 ítems lista (`gfinal_juez/hoja_ciega.md`) |
+| Cualquier número absoluto por celda | G-final a 9 cadenas/celda (pre-declarado por presupuesto) | ampliación a ≥20 cadenas + opus-4.8 + O3 (2×2 limpio): ~15-20 $ |
 
 ## 2-bis · Tercera revisión (Opus 5) — 11 bugs de parser corregidos, datos intactos
 
@@ -53,7 +53,10 @@ Pendiente (P2 del roadmap, para un release, no para el preprint):
 - Privacidad de datos real (no solo de presentación): los pensamientos siguen en logs/replays; para distribuir sin ellos hay que filtrarlos del JSON, no ocultarlos en el visor.
 - Accesibilidad y responsive del panel/visor.
 
-## 5 · Recomendación
+## 5 · Recomendación (actualizada 26-07 tras el G-final)
 
-Para **redes/divulgación**: publicable ya, con el marco honesto de "refutaciones incluidas".
-Para **preprint académico**: hace falta el **G-final** (1 día + ~20-30$) y **un codificador humano** para la medida de interpretación. Con esas dos piezas, el paquete (19 modelos, dos ejes de corrupción, la refutación pre-registrada, la cláusula como mitigador validado) es un preprint honesto y defendible de psicología social computacional / seguridad de agentes LLM. Sin el codificador humano, la parte de "interpretación privada" se reporta como sensibilidad, no como medida validada.
+**El G-final está ejecutado** (recortado por presupuesto de forma pre-registrada: 9 cadenas/celda, sin opus-4.8, sin O3 — [`informe_gfinal.md`](spike/resultados/informe_gfinal.md)). El paquete del preprint queda: 19 modelos, dos ejes de corrupción, DOS refutaciones pre-registradas (formato-política en G2 y mecanismo-institucionalista en G-final), y la cláusula de proporcionalidad como **mitigador replicado en 3/4 modelos y 2 dominios**.
+
+**Lo único que falta de verdad**: la tarde de David con la hoja ciega (92 ítems, `spike/resultados/gfinal_juez/hoja_ciega.md`; luego `python juez_gfinal.py --kappa …`). Con κ ≥ 0,8 el «nadie es engañado» entra como medida validada; si no, se reporta sensibilidad + especificidad aparente.
+
+**Ampliación opcional** (~15-20 $ cuando haya crédito): subir a ≥20 cadenas/celda (resuelve deepseek), opus-4.8 en el módulo B, y el O3 (2×2 fuente×negativa limpio).

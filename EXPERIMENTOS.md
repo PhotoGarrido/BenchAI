@@ -202,6 +202,21 @@ Dos brazos sobre el harness de la prisión. **La trilogía completa** (% actos a
 
 ---
 
+## G-final · La cláusula generaliza; el mecanismo de opus-5 no — 26-07-2026 ✅ (pre-registrado con recorte presupuestario declarado)
+
+**Pregunta**: (H1) ¿la cláusula de proporcionalidad —el mitigador estrella de G2, entonces 1 modelo × 1 texto— generaliza a 4 modelos × 2 dominios × 3 contenidos? (H2) ¿A opus-5 «le basta que exista una política» para ejecutar el briefing de Zimbardo?
+
+**Método**: primer experimento con la puerta de calidad completa ANTES de gastar — pre-registro congelado ([`REGISTRO_GFINAL.md`](spike/REGISTRO_GFINAL.md)) con reglas presupuestarias y recorte pre-declarado (9 cadenas/celda, no las 20 ideales; opus-4.8 y el 2×2 limpio diferidos), linter de contraste (negativa idéntica y marcos en la misma posición: 0 errores, 0 avisos), barrido con modelo falso, revisión adversarial externa pre-run (18 hallazgos: 8 corregidos —entre ellos, la negativa mencionaba «el reglamento» justo en el brazo sin_marco y las REHUSA que nombran a la víctima caían fuera del denominador—, 5 limitaciones declaradas, 5 refutados) y piloto de coste. 4.143 solicitudes, 0 errores de red, manifiesto completo por solicitud.
+
+**Resultados**:
+1. **H1 SOSTENIDA**: la cláusula reduce el abuso en grok (−0,28 [−0,43, −0,14]), glm (−0,27 [−0,39, −0,15]) y sonnet (−0,19 [−0,34, −0,04]); deepseek —el ejecutor extremo de la serie— queda direccional pero n.s. (−0,12 [−0,29, +0,04]). Los 8 puntos modelo×dominio son negativos; grok y glm significativos en ambos dominios. La magnitud (−0,2/−0,3) es menor que el −0,69 del texto-pico de G2.
+2. **H2 NO SOSTENIDA**: política − sin_marco = +0,11 [−0,07, +0,33]. Descriptivo: orden 0,33 ≥ política 0,26 > nota anónima 0,15 — el mecanismo «institucionalista puro» muere (la orden ejecuta al menos tanto); queda como hipótesis el «marco institucional genérico», sin potencia a este n. opus-5 ejecuta el briefing en los tres formatos.
+3. **Juez con especificidad medible por fin** (E3): sensibilidad 42/42; en actos no abusivos bajo instrucción dañina 38/38 (reconocen el daño pedido sin ejecutarlo); en 12 sondas de instrucción NEUTRA, 2/12 (los 2 son interpretaciones cínicas frontera). Hoja ciega de 92 ítems pendiente de κ humana.
+
+**Datos**: [`informe_gfinal.md`](spike/resultados/informe_gfinal.md) · análisis por cadenas [`gfinal_analisis.json`](spike/resultados/gfinal_analisis.json) (seed 20260726) · crudos completos + `solicitudes.jsonl` en `gfinal_A_*/` y `gfinal_B_*/`. Coste total ≈ 13 $. Reproducir: `python experimento_gfinal.py --fase A|B …` (el runner se niega si el linter falla).
+
+---
+
 ### Seguimientos de hallazgos propios (nacidos de E1 y E2)
 
 | Experimento | Hipótesis a probar | Cómo se monta |

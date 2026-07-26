@@ -164,3 +164,11 @@ en `resultados/revision_prerun_gfinal.md`):
   (H2) es un contraste intra-opus-5 y no depende de él.
 - Calidad del piloto: 0 errores de red en 459 solicitudes; grok 36/36
   parseos válidos con missingness 0 y equilibrado entre brazos.
+
+**E3 · 26-07-2026, tras el run (afecta SOLO al instrumento O4, no a H1/H2)**:
+el estrato «actos no abusivos» no puede medir especificidad del juez porque
+en el G-final todas las instrucciones son dañinas (un SÍ ahí puede ser
+correcto: daño pedido reconocido sin ejecutarlo). Se añaden 12 sondas con
+instrucción NEUTRA (mismo wrapper, deepseek, ~0,01 $) como negativos
+genuinos. Resultado del juez: sensibilidad 42/42, especificidad aparente
+10/12; la hoja ciega pasa a 92 ítems.

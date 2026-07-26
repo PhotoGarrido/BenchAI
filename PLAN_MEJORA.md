@@ -26,7 +26,9 @@ Hacer permanente lo que en la ronda del 25-07 funcionó una vez de forma artesan
 
 **Puerta de salida**: CI en verde con barrido y reproceso incluidos; linter de contraste funcionando sobre G2 retrospectivamente (debe detectar la asimetría conocida).
 
-## Fase 1 · G-final + codificador humano (15-25 $ · ~2 días)
+## Fase 1 · G-final + codificador humano (15-25 $ · ~2 días) — ✅ EJECUTADA 26-07 (recorte pre-registrado)
+
+> Ejecutada el 26-07 con 13 $ de crédito real: pre-registro con reglas presupuestarias (`spike/REGISTRO_GFINAL.md`), revisión adversarial ANTES de gastar (18 hallazgos, 0,81 $), piloto de coste, y run a 9 cadenas/celda. **H1 sostenida** (cláusula: 3/4 modelos, 2 dominios), **H2 no sostenida** (mecanismo opus-5 refutado en su forma fuerte), juez con especificidad medible (E3). Diferido por presupuesto y declarado: ≥20 cadenas, opus-4.8, O3. **Pendiente de David: la hoja ciega de 92 ítems** (1.5). Informe: `spike/resultados/informe_gfinal.md`.
 
 El único bloqueo real del preprint (diseño completo en `CAMINO_PREPRINT.md` §3).
 
