@@ -172,8 +172,13 @@ def barrido_gfinal(payload, nombre):
              f"gfinal/{nombre}: sin nivel, sin justo, sin disonancia")
     ok &= _c(sin_frase(m.prompts, "actuaste de forma"),
              f"gfinal/{nombre}: el diario no inventa conducta")
+    ok &= _c(all(r["justo_estado"] == "NO_PREGUNTADA" for r in regs),
+             f"gfinal/{nombre}: la sonda privada no se pregunta tras fallo")
+    ok &= _c(sin_frase(m.prompts, "poco clara")
+             and sin_frase(m.prompts, "Hoy has optado"),
+             f"gfinal/{nombre}: sin glosas agramaticales inyectadas")
     res = gfinal.resumir(regs)
-    ok &= _c(all(v["abusivos_pct"] is None and v["missing_pct"] == 1.0
+    ok &= _c(all(v["abuso_conductual"] is None and v["n_missing"] == v["n"]
                  for v in res.values()),
              f"gfinal/{nombre}: resumen excluye y reporta missingness")
     return ok

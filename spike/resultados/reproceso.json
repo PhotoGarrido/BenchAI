@@ -1,6 +1,6 @@
 {
-  "parser_version": "2.1",
-  "nota_raws": "raws históricos truncados a 120-200 chars según experimento (g2 completos); suficiente para respuestas de una palabra",
+  "parser_version": "2.2",
+  "nota_raws": "raws históricos truncados a 120-200 chars según experimento; los runs g2 de 25-07 no guardaron raw_publico/raw_justo (el código actual sí lo hace)",
   "por_campo": {
     "asch·privada": {
       "identica": 6840
