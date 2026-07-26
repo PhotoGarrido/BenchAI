@@ -32,6 +32,7 @@ from dotenv import load_dotenv
 
 load_dotenv(pathlib.Path(__file__).parent / ".env")
 
+import manifiesto
 import model_factory
 import parsers
 import experimento_prision as prision
@@ -251,6 +252,7 @@ def main():
     outdir = pathlib.Path(args.out) / datetime.datetime.now().strftime(
         f"g2_{args.fase}_%Y%m%d_%H%M%S")
     outdir.mkdir(parents=True, exist_ok=True)
+    manifiesto.activar(outdir, vars(args))
     inicio = time.time()
     salida = {}
 

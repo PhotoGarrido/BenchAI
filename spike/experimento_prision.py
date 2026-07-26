@@ -36,6 +36,7 @@ from dotenv import load_dotenv
 
 load_dotenv(pathlib.Path(__file__).parent / ".env")
 
+import manifiesto
 import model_factory
 import personas
 
@@ -406,6 +407,7 @@ def main():
     outdir = pathlib.Path(args.out) / datetime.datetime.now().strftime(
         f"prision_{etiqueta}_%Y%m%d_%H%M%S")
     outdir.mkdir(parents=True, exist_ok=True)
+    manifiesto.activar(outdir, vars(args))
 
     inicio = time.time()
     salida = {"modelo": args.modelo or "NAN_MODEL (.env)",

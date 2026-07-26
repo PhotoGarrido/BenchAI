@@ -19,9 +19,12 @@ import os
 import re
 import sys
 import threading
+import time
 
 import numpy as np
 import openai
+
+import manifiesto
 
 # Grifo global hacia NaN: medido empíricamente (14-07-2026), a partir de ~4
 # llamadas simultáneas el endpoint mete en cola con castigo (429+backoff:
@@ -151,19 +154,40 @@ class NaNLanguageModel(language_model.LanguageModel):
         # reasoning del content).
         extra = ({"chat_template_kwargs": {"enable_thinking": False}}
                  if con_extra and self._proveedor == "nan" else None)
-        respuesta = self._client.chat.completions.create(
-            model=self._model,
-            messages=[
-                {"role": "system", "content": _SYSTEM},
-                {"role": "user", "content": prompt},
-            ],
-            max_tokens=max_tokens,
-            temperature=temperature,
-            top_p=top_p,
-            seed=seed,
-            timeout=timeout,
-            extra_body=extra,
-        )
+        # RunManifest (Fase 0.4): cada solicitud FÍSICA queda registrada —
+        # también las que acaban en excepción; los reintentos del wrapper
+        # aparecen como líneas separadas.
+        base_evento = {"modelo": self._model, "proveedor": self._proveedor,
+                       "max_tokens": max_tokens, "temperature": temperature,
+                       "top_p": top_p, "seed": seed, "prompt": prompt}
+        t0 = time.monotonic()
+        try:
+            respuesta = self._client.chat.completions.create(
+                model=self._model,
+                messages=[
+                    {"role": "system", "content": _SYSTEM},
+                    {"role": "user", "content": prompt},
+                ],
+                max_tokens=max_tokens,
+                temperature=temperature,
+                top_p=top_p,
+                seed=seed,
+                timeout=timeout,
+                extra_body=extra,
+            )
+        except Exception as e:
+            manifiesto.registrar(dict(
+                base_evento, latencia_s=round(time.monotonic() - t0, 3),
+                error=f"{type(e).__name__}: {str(e)[:500]}"))
+            raise
+        uso = getattr(respuesta, "usage", None)
+        manifiesto.registrar(dict(
+            base_evento, latencia_s=round(time.monotonic() - t0, 3),
+            request_id=getattr(respuesta, "id", None),
+            respuesta=respuesta.choices[0].message.content,
+            tokens={"prompt": getattr(uso, "prompt_tokens", None),
+                    "completion": getattr(uso, "completion_tokens", None),
+                    "total": getattr(uso, "total_tokens", None)}))
         return respuesta.choices[0].message.content
 
     def sample_text(
