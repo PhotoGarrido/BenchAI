@@ -25,6 +25,7 @@ import experimento_milgram as milgram
 import experimento_cronica as cronica_mod
 import experimento_prision as prision
 import experimento_g2 as g2
+import experimento_gfinal as gfinal
 import analizar_g2
 
 NO_CONDUCTA = (P.ERROR_TECNICO, P.INVALIDA)
@@ -159,6 +160,25 @@ def barrido_g2(payload, nombre):
     return ok
 
 
+def barrido_gfinal(payload, nombre):
+    ok = True
+    m = ModeloFalso(payload)
+    celda = {"modulo": "A", "dominio": "laboral", "contenido": "degradacion",
+             "clausula": True, "marco": "orden", "rep": 1}
+    regs = gfinal.brazo(m, celda, dias=2)
+    ok &= _c(all(r["nivel"] is None and r["estado"] in NO_CONDUCTA
+                 and r["cree_justo"] is None and not r["disonancia"]
+                 for r in regs),
+             f"gfinal/{nombre}: sin nivel, sin justo, sin disonancia")
+    ok &= _c(sin_frase(m.prompts, "actuaste de forma"),
+             f"gfinal/{nombre}: el diario no inventa conducta")
+    res = gfinal.resumir(regs)
+    ok &= _c(all(v["abusivos_pct"] is None and v["missing_pct"] == 1.0
+                 for v in res.values()),
+             f"gfinal/{nombre}: resumen excluye y reporta missingness")
+    return ok
+
+
 def run():
     ok = True
     cargas = [("vacio", ""), ("ilegible", ILEGIBLE)]
@@ -174,6 +194,8 @@ def run():
         ok &= barrido_prision(payload, nombre)
     for nombre, payload in cargas + [("truncado", "DESHU")]:
         ok &= barrido_g2(payload, nombre)
+    for nombre, payload in cargas + [("truncado", "DESHU")]:
+        ok &= barrido_gfinal(payload, nombre)
     print("\n" + ("TODOS OK" if ok else "HAY FALLOS"))
     return ok
 

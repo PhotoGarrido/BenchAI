@@ -27,7 +27,7 @@ from typing import Callable
 
 import parsers
 
-TIPOS = ("asch", "milgram", "cronica", "prision", "g2")
+TIPOS = ("asch", "milgram", "cronica", "prision", "g2", "gfinal")
 
 
 @dataclass
@@ -88,7 +88,7 @@ def _crudos_de_fila(tipo: str, fila: dict, nombre_dir: str) -> list[Crudo]:
             return [Crudo("raw", "respuesta",
                           lambda r: parsers.parsear_interno(r), "interno")]
         return []
-    if tipo == "g2":
+    if tipo in ("g2", "gfinal"):
         return [Crudo("raw_publico", "nivel",
                       lambda r: parsers.parsear_nivel(r), "nivel"),
                 Crudo("raw_justo", "cree_justo",
@@ -116,7 +116,7 @@ def ficheros_crudos(directorio: pathlib.Path, tipo: str) -> list[pathlib.Path]:
     incluye sesiones.jsonl (el punto ciego del detector de pilotos)."""
     if tipo == "milgram":
         return sorted(directorio.glob("sesiones.jsonl"))
-    if tipo in ("prision", "g2"):
+    if tipo in ("prision", "g2", "gfinal"):
         return sorted(directorio.glob("registros_*.jsonl"))
     return sorted(directorio.glob("registros.jsonl"))
 
