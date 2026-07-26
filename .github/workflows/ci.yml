@@ -24,6 +24,16 @@ jobs:
         run: |
           python test_parsers.py
           python test_parsers_tipados.py
+          python test_manifiesto.py
+      - name: Barrido con modelo falso (nada ilegible se vuelve conducta)
+        working-directory: spike
+        run: python test_barrido_falso.py
+      - name: Linter de contraste (incluye validación retro-G2)
+        working-directory: spike
+        run: python test_linter_contraste.py
+      - name: Reproceso de crudos contra baseline (integridad de lo publicado)
+        working-directory: spike
+        run: python reprocesar.py --check
       - name: Smoke del pipeline en dry-run (sin red, sin claves)
         working-directory: spike
         run: python run_spike.py --dry-run --steps 2

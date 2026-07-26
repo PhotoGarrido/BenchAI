@@ -8,7 +8,9 @@
 
 ---
 
-## Fase 0 · Consolidar el instrumento (0 $ API · 1-2 días)
+## Fase 0 · Consolidar el instrumento (0 $ API · 1-2 días) — ✅ COMPLETADA 26-07
+
+> Ejecutada el 26-07: barrido, reproceso (52.410 decisiones verificadas, golden-file en CI), linter (detecta retro el confundido de G2), manifiesto, contrato de artefactos y `METODO.md`. Bonus del reproceso: parser v2.1 (`parsear_sino` robusto a eco de consigna y «si» condicional) y dos fixes de flujo en prisión (difflib de internos, sonda justa). Gap documentado: los runs G2 del 25-07 no guardaron crudos completos — el G-final debe correr con el código actual.
 
 Hacer permanente lo que en la ronda del 25-07 funcionó una vez de forma artesanal. Verificado en el repo: el barrido con modelo falso **no está versionado** y del reproceso de crudos solo existe `reproc_prision.py`.
 
