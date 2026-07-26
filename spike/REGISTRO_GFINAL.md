@@ -142,9 +142,25 @@ en `resultados/revision_prerun_gfinal.md`):
    daño lo emite el juez de O4; los niveles no se comparan entre contenidos
    (COLECTIVO es esperable en aislamiento/privación por construcción);
    marco×dominio no está cruzado (H2 es solo dominio programa, por diseño).
+6bis. *(ver E2 al final para el recorte presupuestario post-piloto)*
 6. **Refutados tras verificación** (documentado): truncamiento a 120 tokens
    (el wrapper impone suelo de 4096); difflib NORMALMENTE→NORMAL (ratio
    0,706 < 0,8 → INVALIDA); parser_version mal atribuida (delegación al
    parser transversal); prompts no persistidos (solicitudes.jsonl guarda
    cada solicitud física completa; además cada fila guarda resumen_ayer,
    que junto a celda+supervisor reconstruye el prompt determinísticamente).
+
+**E2 · 26-07-2026, tras el PILOTO DE COSTE y antes de ver ningún resultado**
+(piloto: 1 rep × 1 día × todas las celdas; coste medido desde solicitudes.jsonl):
+
+- Proyección a 15 cadenas/celda del módulo A: 14,64 $ (grok 7,75 — muy
+  verboso: 587 tokens de salida/llamada —, sonnet 5,00, deepseek 0,25,
+  glm 1,64) sobre 13,1 $ disponibles → **se aplica la regla 2**: reps al
+  mínimo publicable, **9 cadenas/celda (3 sup × 3 reps)** en los 4 modelos.
+- Módulo B: **opus-5 a 9 cadenas/celda** (2,49 $ proyectados).
+- **opus-4.8 (P3) queda SIN ejecutar**: su mínimo (6 cadenas, 1,66 $)
+  dejaría la reserva por debajo de 1 $ (regla 4). El control generacional
+  del briefing queda cubierto por G2-b (+0,37 ya replicado); el mecanismo
+  (H2) es un contraste intra-opus-5 y no depende de él.
+- Calidad del piloto: 0 errores de red en 459 solicitudes; grok 36/36
+  parseos válidos con missingness 0 y equilibrado entre brazos.

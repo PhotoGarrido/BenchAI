@@ -315,9 +315,9 @@ def main():
         print(f"[{et}] {len(regs)} registros · {time.time()-inicio:.0f}s",
               flush=True)
         for k, v in salida[nombre_modelo].items():
-            print(f"   {k:<44} abus={v['abusivos_pct']}"
-                  f" rehusa={v['rehusa_pct']} miss={v['missing_pct']}",
-                  flush=True)
+            print(f"   {k:<44} abuso={v['abuso_conductual']}"
+                  f" (cond={v['abuso_condicionado']}) rehusa={v['n_rehusa']}"
+                  f" miss={v['n_missing']}/{v['n']}", flush=True)
 
     (outdir / "resumen.json").write_text(
         json.dumps(salida, ensure_ascii=False, indent=2), encoding="utf-8")
