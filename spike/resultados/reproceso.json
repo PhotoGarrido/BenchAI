@@ -1,0 +1,51 @@
+{
+  "parser_version": "2.1",
+  "nota_raws": "raws históricos truncados a 120-200 chars según experimento (g2 completos); suficiente para respuestas de una palabra",
+  "por_campo": {
+    "asch·privada": {
+      "identica": 6840
+    },
+    "asch·pública": {
+      "sin_raw": 72,
+      "identica": 6835,
+      "conducta_a_invalida": 5
+    },
+    "cronica·decisión": {
+      "identica": 16949,
+      "conducta_a_invalida": 2,
+      "fallback_convencer": 11
+    },
+    "g2·nivel": {
+      "sin_raw": 2700
+    },
+    "g2·sonda justa": {
+      "sin_raw": 2700
+    },
+    "milgram·decisión": {
+      "identica": 3637,
+      "invalida_a_conducta": 2
+    },
+    "milgram·sonda justa": {
+      "identica": 3615,
+      "conducta_cambia": 8,
+      "conducta_a_invalida": 16
+    },
+    "prision·interno": {
+      "identica": 9098,
+      "conducta_a_invalida": 1
+    },
+    "prision·nivel": {
+      "identica": 5436,
+      "conducta_cambia": 11,
+      "conducta_a_invalida": 19
+    }
+  },
+  "total": {
+    "identica": 52410,
+    "sin_raw": 5472,
+    "conducta_a_invalida": 43,
+    "fallback_convencer": 11,
+    "invalida_a_conducta": 2,
+    "conducta_cambia": 19
+  }
+}

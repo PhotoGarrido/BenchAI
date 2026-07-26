@@ -195,20 +195,12 @@ def parsear_nivel(texto):
 
 
 def parsear_int(texto):
-    """Anclado al arranque, como el de supervisores: 'No me QUIEBRO, resisto'
-    ya no cuenta como QUIEBRO. Devuelve la respuesta o None si es ilegible
-    (antes inventaba CUMPLO)."""
-    t = (texto or "").strip().upper()
-    if not t:
-        return None
-    primera = re.split(r"[\s—\-:.,\n]+", t, maxsplit=1)[0]
-    for r in ("QUIEBRO", "RESISTO", "NEGOCIO", "CUMPLO"):
-        if primera == r or primera.startswith(r[:5]) and len(primera) <= len(r) + 3:
-            return r
-    import difflib
-    cand = difflib.get_close_matches(
-        primera, ["QUIEBRO", "RESISTO", "NEGOCIO", "CUMPLO"], n=1, cutoff=0.8)
-    return cand[0] if cand else None
+    """Delegado al parser tipado transversal (barrido 26-07): la copia local
+    conservaba el fallback difflib que la revisión Opus 5 eliminó de
+    `parsers.parsear_interno` — «Quiero hablar con el director» (ratio 0,92
+    con QUIEBRO) seguía clasificándose como el peor desenlace en el flujo de
+    internos. Devuelve la respuesta o None si es ilegible."""
+    return parsers.parsear_interno(texto).valor
 
 
 def parsear_nums(texto, n=2):
@@ -261,7 +253,9 @@ def cronica(modelo, marco, dias, sups, ints, coaching=False,
         priv = modelo.sample_text(base + f"\nHoy has optado por {glosa}."
                                   + PRIV_SUP.format(nombre=sup["nombre"]),
                                   max_tokens=60, temperature=0.7)
-        justo = None if not priv else ("NO" not in priv.upper())
+        # Barrido 26-07: `"NO" not in priv` convertía cualquier texto sin un
+        # NO literal (incluido un error del proveedor) en «lo cree justo».
+        justo = parsers.parsear_sino(priv).valor
         desc = re.sub(r"^[^—\-:]{0,30}[—\-:]", "", raw or "").strip()[:180]
         return sup["nombre"], nivel, palabra, estado, desc, justo, raw
 
