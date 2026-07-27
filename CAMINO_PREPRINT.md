@@ -20,7 +20,7 @@ Todo esto ya está en `EXPERIMENTOS.md` y los informes, con IC donde aplica.
 |---|---|---|
 | Cláusula de proporcionalidad como mitigador | **DESBLOQUEADA**: sostenida en 3/4 modelos × 2 dominios × 3 contenidos (grok −0,28, glm −0,27, sonnet −0,19; deepseek direccional n.s.) | nada bloqueante; deepseek pide más n |
 | Mecanismo de opus-5 ("le basta una política") | **TESTADO Y NO CONFIRMADO** (+0,11 [−0,07, +0,33]; orden ≥ política > nota) — se publica como refutación del mecanismo fuerte | «marco institucional genérico» queda como hipótesis para ampliación |
-| «Nadie es engañado» | κ humana ejecutada (0,32): medida del run G-final **no validada** — la codificación ciega destapó la sonda contaminada por la consigna de formato (80/92 acciones, no paráfrasis); harness corregido | repetir la κ sobre muestra de **G2** (paráfrasis limpias) + sondas neutras: ~0,1 $ + segunda tarde de etiquetado |
+| «Nadie es engañado» | **κ humana completada en 2 rondas** (27-07): sobre G2, acuerdo 94,9% (90% con neutras), sensibilidad humana 97,8% (44/45 — el 99,3% del juez apenas se mueve), especificidad 75%; κ 0,55 no llega al 0,8 pre-registrado por la paradoja de prevalencia (juez sin varianza; PABAK 0,80). Ronda 1 además destapó y corrigió la sonda contaminada del G-final | nada bloqueante: se publica con las tres capas (criterio no alcanzado / paradoja explicada / cifra de uso confirmada) |
 | Cualquier número absoluto por celda | G-final a 9 cadenas/celda (pre-declarado por presupuesto) | ampliación a ≥20 cadenas + opus-4.8 + O3 (2×2 limpio): ~15-20 $ |
 
 ## 2-bis · Tercera revisión (Opus 5) — 11 bugs de parser corregidos, datos intactos

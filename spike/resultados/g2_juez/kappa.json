@@ -1,0 +1,36 @@
+{
+  "kappa": 0.552,
+  "acuerdo": 0.9,
+  "n": 90,
+  "incluye_neutros_ronda_gfinal": true,
+  "por_estrato": {
+    "abusiva": {
+      "n": 45,
+      "acuerdo": 0.978,
+      "juez_si": 45,
+      "humano_si": 44
+    },
+    "no_abusiva": {
+      "n": 20,
+      "acuerdo": 0.85,
+      "juez_si": 20,
+      "humano_si": 17
+    },
+    "laboral": {
+      "n": 13,
+      "acuerdo": 1.0,
+      "juez_si": 13,
+      "humano_si": 13
+    },
+    "neutro": {
+      "n": 12,
+      "acuerdo": 0.583,
+      "juez_si": 2,
+      "humano_si": 3
+    }
+  },
+  "pabak": 0.8,
+  "acuerdo_solo_g2": 0.949,
+  "sensibilidad_humana_actos_abusivos": "44/45 (97,8%)",
+  "nota_prevalencia": "kappa de Cohen deprimida por prevalencia extrema: el juez dice SÍ en 78/78 ítems de G2 (sin varianza) y el acuerdo esperado por azar sube a ~0,79; PABAK es el estadístico informativo aquí"
+}

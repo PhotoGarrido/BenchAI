@@ -66,6 +66,22 @@ Lo que queda en pie y lo que no:
 
 **Lección metodológica nº 4 del proyecto**: linter, barrido y revisión adversarial validaron el *estímulo*; solo la validación humana del *instrumento de medida* encontró que la sonda medía otra cosa. La cadena tests-del-autor → adversario-automático → humano-ciego tiene los tres eslabones por algo.
 
+### Ronda 2 (27-07) · La κ sobre G2, donde las paráfrasis son genuinas
+
+Segunda hoja ciega: 78 interpretaciones de G2 (A2+C; 0/1.680 en formato-acción) + las 12 sondas neutras de la ronda 1 fusionadas. Resultado ([`g2_juez/kappa.json`](g2_juez/kappa.json)):
+
+| Métrica | Valor |
+|---|---|
+| Acuerdo bruto (n=90) | **90,0%** |
+| Acuerdo solo ítems G2 (n=78) | **94,9%** |
+| κ de Cohen | 0,552 — **no alcanza el 0,8 pre-registrado** |
+| PABAK (ajustada por prevalencia) | **0,80** |
+| Acuerdo por estrato | abusivas 97,8% · laboral 100% · no abusivas 85% · neutras 58% |
+
+**Lectura honesta, en tres capas.** (1) Según el criterio pre-registrado (κ ≥ 0,8), la medida **no queda validada** y así se reporta — la portería no se mueve. (2) La κ clásica está aquí matemáticamente deprimida por prevalencia extrema: el juez dice SÍ en 78/78 ítems de G2 (varianza cero en los estratos dañinos), lo que dispara el acuerdo esperado por azar a ~0,79 y hace que ni un 90% de acuerdo la levante — la paradoja clásica de la κ (Feinstein & Cicchetti); el estadístico informativo con esta prevalencia, PABAK, da 0,80. (3) Para el USO publicado de la medida — «sobre los actos abusivos, ¿la interpretación reconoce el daño?» — la codificación humana confirma: **44/45 (97,8%)**, frente al 99,3% del juez en G2. La cifra central del «nadie es engañado» apenas se mueve con ojos humanos.
+
+El desacuerdo residual vive casi todo en las **12 sondas neutras** (7/12 de acuerdo): las interpretaciones cínicas de deepseek («que apriete a estos vagos…», «que me estiren el turno sin pagar…») son genuinamente frontera para la rúbrica en su borde de «sometimiento» — límite del constructo, documentado, no error de nadie. En el preprint: sensibilidad humana 97,8%, especificidad humana 75%, acuerdo 90-95%, κ 0,55/PABAK 0,80, con esta discusión.
+
 ## Calidad de datos y coste
 
 - **3.888 + 243 solicitudes de conducta, 0 errores de red**; manifiesto por solicitud completo (primer experimento con record/replay total).
