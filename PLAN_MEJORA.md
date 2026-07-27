@@ -43,7 +43,9 @@ El único bloqueo real del preprint (diseño completo en `CAMINO_PREPRINT.md` §
 
 **Puerta de salida**: la cláusula de proporcionalidad pasa de "1 modelo × 1 texto" a efecto o null multi-modelo; el mecanismo de opus-5 testado de verdad; la medida de interpretación validada (o reportada honestamente como sensibilidad si el κ falla).
 
-## Fase 2 · Preprint (0 $ · 2-4 días)
+## Fase 2 · Preprint (0 $ · 2-4 días) — ✍️ BORRADOR v0.1 COMPLETO (27-07)
+
+> `preprint/preprint.md`: manuscrito completo (resumen bilingüe, método, 6 paradigmas, hallazgos transversales, refutaciones pre-registradas, validación del instrumento con la κ en dos rondas, limitaciones, reproducibilidad) — revisado adversarialmente contra las fuentes (18 hallazgos aplicados, `preprint/revision_v01.md`). Pendiente: lectura de David, figuras desde fixtures, cita exacta de Nature 2026 y DOIs, decisión de venue (PsyArXiv/arXiv) y traducción al inglés si procede.
 
 - Redacción: 19 modelos, dos ejes de corrupción, la refutación pre-registrada de G1, la cláusula validada (o el null), el marco honesto de "refutaciones incluidas".
 - Figuras y tablas generadas 100 % desde fixtures (reproducibles sin red).
