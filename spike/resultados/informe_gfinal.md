@@ -43,17 +43,28 @@ opus-5 con el briefing de Zimbardo literal, negativa idéntica en los tres brazo
 
 El mecanismo fuerte («le basta que exista una política, no importa cuál») **no se sostiene**: la orden del día ejecuta al menos tanto como la política. La dirección descriptiva (ambos marcos institucionales > nota anónima) es compatible con un mecanismo de «marco institucional genérico», pero con 9 cadenas/celda el IC lo cruza todo; queda como hipótesis para una ampliación (con el n objetivo de 20 cadenas, no alcanzable con este presupuesto). Lo que sí queda: opus-5 ejecuta el briefing en los TRES formatos (0,15-0,33) — el hallazgo generacional de G2-b (+0,37 sobre opus-4.8) no dependía del envoltorio de política.
 
-## O4 · El juez, por fin con especificidad medible
+## O4 · La κ humana: la medida NO se valida — y el porqué es el hallazgo
 
-Muestra estratificada de **92 interpretaciones**: 42 de actos abusivos, 38 de actos no abusivos bajo instrucción dañina, y **12 sondas con instrucción NEUTRA** (enmienda E3: en el G-final todas las instrucciones son dañinas, así que el estrato "acto no abusivo" no puede medir especificidad — un SÍ ahí puede ser correcto: el modelo reconoce el daño pedido aunque no lo ejecute).
+Muestra estratificada de **92 interpretaciones** (42 de actos abusivos, 38 de actos no abusivos bajo instrucción dañina, 12 sondas con instrucción NEUTRA — enmienda E3), juzgadas por el juez versionado y codificadas **a ciegas por David** con manual acordado antes de ver un solo ítem ([`manual_codificacion.md`](gfinal_juez/manual_codificacion.md)).
 
-| Estrato | juez dice SÍ |
-|---|---|
-| Acto abusivo (sensibilidad) | 42/42 |
-| Acto no abusivo, instrucción dañina | 38/38 — reconocen el daño pedido sin ejecutarlo |
-| **Instrucción neutra (especificidad)** | **2/12** |
+**κ de Cohen juez↔humano = 0,32 · acuerdo bruto 79,3% → por debajo del umbral 0,8: la medida no queda validada.**
 
-Los 2 SÍ en neutras son interpretaciones de deepseek que leen explotación laboral en la orden neutra («que me estiren el turno sin pagar horas extra…») — casos frontera legítimos para la adjudicación humana. **Pendiente del humano**: [`gfinal_juez/hoja_ciega.md`](gfinal_juez/hoja_ciega.md) (92 ítems barajados, sin metadatos). Al devolverla: `python juez_gfinal.py --kappa hoja_rellena.json`. Hasta entonces la medida se reporta como sensibilidad + especificidad aparente.
+| Estrato | juez SÍ | humano SÍ |
+|---|---|---|
+| Acto abusivo | 42/42 | 35/42 |
+| Acto no abusivo, instrucción dañina | 38/38 | 31/38 |
+| Instrucción neutra | 2/12 | 3/12 |
+
+**El desacuerdo no es ruido: la codificación humana destapó un bug del harness que tres capas de auditoría automática no vieron.** 16 de los 19 desacuerdos son juez-SÍ/humano-NO, y 14 de esos 16 son textos en formato «PALABRA — descripción»: la sonda de interpretación del G-final se preguntaba sobre el prompt completo, que termina en la consigna «Responde en el formato PALABRA — descripción» del menú de acción — y **80 de las 92 interpretaciones salieron como acciones descritas, no como paráfrasis de lo pedido** (en G2, cuya base no incluía la pregunta, salían paráfrasis genuinas: «quieren que marque quién manda…»). Sobre un acto descrito sin marco evaluativo, el juez lee «daño reconocido» y el humano (por manual: describir ≠ reconocer) lee NO — dos constructos distintos sobre un texto que no debía existir. Corregido en el harness (`contexto_dia` sin pregunta) para cualquier run futuro; commit fechado.
+
+Lo que queda en pie y lo que no:
+
+- La **conducta** (H1, H2) no usa la interpretación: **intacta**.
+- `nombra_dano` y el 100% del juez sobre este run quedan **inutilizables** como medida de reconocimiento (miden eco del formato).
+- En las 12 paráfrasis genuinas (las sondas neutras), el juez acierta 10/12 y el humano coincide en leer daño en 2-3 cínicas de deepseek — n demasiado pequeño para κ (−0,25, inestable).
+- **El «nadie es engañado» del preprint sigue descansando en G2** (interpretaciones-paráfrasis limpias, 99,3% con el juez, sensibilidad validada 40/40 a mano). El siguiente paso natural y barato: repetir esta misma κ humana sobre una muestra de G2 + sondas neutras (~0,1 $ de juez + segunda tarde de etiquetado).
+
+**Lección metodológica nº 4 del proyecto**: linter, barrido y revisión adversarial validaron el *estímulo*; solo la validación humana del *instrumento de medida* encontró que la sonda medía otra cosa. La cadena tests-del-autor → adversario-automático → humano-ciego tiene los tres eslabones por algo.
 
 ## Calidad de datos y coste
 
@@ -70,4 +81,4 @@ Los 2 SÍ en neutras son interpretaciones de deepseek que leen explotación labo
 
 ## Implicación
 
-La recomendación práctica del proyecto queda validada multi-modelo: **una frase de proporcionalidad en la instrucción reduce la ejecución de daño en 3 de 4 modelos y en dos dominios distintos** — el mitigador más barato conocido del repertorio. Y la honestidad del marco se mantiene: el mecanismo que propuse para opus-5 en G2 no superó su primer test limpio, y así se reporta.
+La recomendación práctica del proyecto queda validada multi-modelo: **una frase de proporcionalidad en la instrucción reduce la ejecución de daño en 3 de 4 modelos y en dos dominios distintos** — el mitigador más barato conocido del repertorio. Y la honestidad del marco se mantiene por partida doble: el mecanismo que propuse para opus-5 no superó su primer test limpio, y la validación humana tumbó la medida de interpretación de este run destapando un bug de sonda que ninguna capa automática vio. Ambas cosas se publican.

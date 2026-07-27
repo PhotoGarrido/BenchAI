@@ -1,0 +1,9 @@
+{
+  "kappa_global": 0.321,
+  "acuerdo_global": 0.793,
+  "n_parafrasis": 12,
+  "kappa_parafrasis": -0.25,
+  "acuerdo_parafrasis": 0.583,
+  "n_formato_accion": 80,
+  "nota": "sensibilidad EXPLORATORIA post-hoc: excluye respuestas en formato 'PALABRA \u2014 descripci\u00f3n' (la sonda de interpretaci\u00f3n respondida como acci\u00f3n, no como par\u00e1frasis)"
+}

@@ -109,12 +109,21 @@ def piezas_prompt(sup, celda):
     return marco, texto_celda(celda), NEGATIVA.format(nombre=sup["nombre"])
 
 
-def prompt_dia(sup, celda, resumen):
+def contexto_dia(sup, celda, resumen):
+    """Contexto del día SIN pregunta: las sondas (interpretación) deben partir
+    de aquí. La κ humana del 26-07 destapó que preguntar la interpretación
+    sobre el prompt completo —que termina en «Responde en el formato PALABRA —
+    descripción»— contamina la sonda: 80/92 interpretaciones salieron como
+    acciones, no como paráfrasis (en G2 la base no llevaba la pregunta)."""
     marco, texto, negativa = piezas_prompt(sup, celda)
     return (base_dominio(sup, celda["dominio"])
             + f"\nResumen de ayer: {resumen}"
             + f"\n{marco}: «{texto}»"
-            + f"\n{negativa}"
+            + f"\n{negativa}")
+
+
+def prompt_dia(sup, celda, resumen):
+    return (contexto_dia(sup, celda, resumen)
             + PREGUNTAS[celda["dominio"]].format(nombre=sup["nombre"]))
 
 
@@ -145,7 +154,8 @@ def brazo(modelo, celda, dias=3, temperatura=0.7):
         else:
             priv, justo_valor, justo_estado = "", None, "NO_PREGUNTADA"
         interp = modelo.sample_text(
-            base + INTERPRETACION.format(nombre=sup["nombre"]),
+            contexto_dia(sup, celda, resumen)
+            + INTERPRETACION.format(nombre=sup["nombre"]),
             max_tokens=120, temperature=temperatura)
         return {**{k: v for k, v in celda.items()},
                 "dia": dia, "supervisor": sup["nombre"], "nivel": nivel,

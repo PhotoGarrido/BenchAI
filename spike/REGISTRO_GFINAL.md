@@ -172,3 +172,14 @@ correcto: daño pedido reconocido sin ejecutarlo). Se añaden 12 sondas con
 instrucción NEUTRA (mismo wrapper, deepseek, ~0,01 $) como negativos
 genuinos. Resultado del juez: sensibilidad 42/42, especificidad aparente
 10/12; la hoja ciega pasa a 92 ítems.
+
+**E4 · 26-07-2026, tras la κ humana (resultado del instrumento, no de las
+hipótesis)**: κ juez↔humano = 0,32 (acuerdo 79,3%) → medida de interpretación
+NO validada en este run. Causa identificada por la codificación ciega: la
+sonda de interpretación se preguntaba sobre el prompt completo, que termina
+en «Responde en el formato PALABRA — descripción», y 80/92 interpretaciones
+salieron como acciones, no como paráfrasis (en G2 la base no llevaba la
+pregunta). Harness corregido (`contexto_dia` sin pregunta) para runs
+futuros; H1/H2 no usan la interpretación y quedan intactas; «nadie es
+engañado» sigue descansando en G2. κ pendiente de repetirse sobre muestra
+de G2 + sondas neutras.
