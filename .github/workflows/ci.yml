@@ -19,6 +19,12 @@ jobs:
         run: pip install -r spike/requirements-ci.txt "ruff==0.14.4"
       - name: Lint (errores fatales — sintaxis y nombres sin definir)
         run: ruff check spike --select E9,F63,F7,F82
+      - name: Type check (módulos núcleo del instrumento)
+        working-directory: spike
+        run: python -m mypy --ignore-missing-imports --follow-imports=skip parsers.py artefactos.py manifiesto.py linter_contraste.py release_manifest.py
+      - name: Auditoría de dependencias (pip-audit)
+        working-directory: spike
+        run: python -m pip_audit -r requirements-ci.txt
       - name: Tests offline de parsers y agregación
         working-directory: spike
         run: |
@@ -31,9 +37,37 @@ jobs:
       - name: Linter de contraste (incluye validación retro-G2)
         working-directory: spike
         run: python test_linter_contraste.py
-      - name: Reproceso de crudos contra baseline (integridad de lo publicado)
+      - name: Reproceso de crudos contra baseline (regresión)
         working-directory: spike
         run: python reprocesar.py --check
+      - name: Puerta de publicación (erratas + raws confirmatorios)
+        working-directory: spike
+        run: python reprocesar.py --check-publication
+      - name: Release manifest (datasets del preprint intactos)
+        working-directory: spike
+        run: python release_manifest.py --verificar
+      - name: XSS estático (panel/visor sin innerHTML dinámico + CSP)
+        working-directory: spike
+        run: python test_xss_estatico.py
+      - name: Schemas (replays de episodios válidos contra el contrato)
+        working-directory: spike
+        run: python test_schemas.py
       - name: Smoke del pipeline en dry-run (sin red, sin claves)
         working-directory: spike
         run: python run_spike.py --dry-run --steps 2
+      - name: Cobertura del instrumento (informativa)
+        working-directory: spike
+        run: |
+          coverage erase
+          for t in test_parsers.py test_parsers_tipados.py test_manifiesto.py test_linter_contraste.py; do coverage run -a "$t" > /dev/null; done
+          coverage report -i --include="parsers.py,artefactos.py,manifiesto.py,linter_contraste.py"
+  secretos:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Gitleaks (escaneo de secretos en todo el historial)
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

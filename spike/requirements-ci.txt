@@ -4,3 +4,7 @@ gdm-concordia==2.4.0
 openai==2.45.0
 python-dotenv==1.2.2
 numpy==2.5.1
+mypy>=1.0
+pip-audit
+jsonschema
+coverage

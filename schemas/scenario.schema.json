@@ -1,0 +1,218 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/PhotoGarrido/PsicoAI/schemas/scenario.schema.json",
+  "title": "Escenario PsicoAI (escenario.json)",
+  "description": "Contrato del escenario que exporta el diseñador (panel/) y consume spike/run_spike.py --config. Derivado de artefactos reales: construirConfig() de panel/app.js y ESCENARIO_DEFECTO de spike/run_spike.py. El panel valida un subconjunto documentado de este esquema (validarEscenario en panel/app.js) antes de permitir la descarga.",
+  "type": "object",
+  "required": ["titulo", "premisa", "pasos", "protagonistas", "poblacion"],
+  "additionalProperties": true,
+  "properties": {
+    "titulo": {"type": "string", "minLength": 1, "maxLength": 200},
+    "premisa": {"type": "string", "minLength": 1, "maxLength": 4000},
+    "entorno": {"type": "string", "maxLength": 60},
+    "reglas": {"type": "string", "maxLength": 4000},
+    "pasos": {"type": "integer", "minimum": 1, "maximum": 500},
+    "agentes_total": {"type": "integer", "minimum": 1, "maximum": 200},
+    "pensamientos": {
+      "type": "boolean",
+      "description": "Si run_spike.py añade el canal de monólogo privado a los protagonistas (por defecto true)."
+    },
+    "variables_sensibles": {
+      "type": "boolean",
+      "description": "Hallazgo 24: false (por defecto en el panel) significa que ideología, religiosidad, salud, atractivo, origen cultural y lengua materna se han exportado neutras; true significa que el usuario las activó conscientemente."
+    },
+    "lugares": {"type": "string", "maxLength": 4000},
+    "protagonistas": {
+      "type": "array",
+      "maxItems": 20,
+      "items": {"$ref": "#/definitions/protagonista"}
+    },
+    "poblacion": {
+      "type": "object",
+      "required": ["n"],
+      "properties": {
+        "n": {"type": "integer", "minimum": 0, "maximum": 200},
+        "modo": {"enum": ["reglas", "azar", "ia"]},
+        "semilla": {"type": "string", "maxLength": 120},
+        "demografia": {
+          "type": "object",
+          "properties": {
+            "edad": {
+              "type": "array",
+              "items": {"type": "integer", "minimum": 16, "maximum": 99},
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "pct_mujeres": {"$ref": "#/definitions/pct"},
+            "incluir_no_binarias": {"type": "boolean"},
+            "origenes_culturales": {
+              "type": "array",
+              "maxItems": 30,
+              "items": {
+                "type": "object",
+                "required": ["nombre", "pct"],
+                "properties": {
+                  "nombre": {"type": "string", "maxLength": 80},
+                  "pct": {"$ref": "#/definitions/pct"}
+                }
+              }
+            },
+            "nse_media": {"$ref": "#/definitions/pct"},
+            "educacion_media": {"$ref": "#/definitions/pct"}
+          }
+        },
+        "big5_media": {"$ref": "#/definitions/big5"},
+        "variedad": {"$ref": "#/definitions/pct"},
+        "cuotas_rol": {
+          "type": "array",
+          "maxItems": 30,
+          "items": {
+            "type": "object",
+            "required": ["rol", "pct"],
+            "properties": {
+              "rol": {"type": "string", "maxLength": 80},
+              "pct": {"$ref": "#/definitions/pct"}
+            }
+          }
+        },
+        "subgrupos": {
+          "type": "array",
+          "maxItems": 30,
+          "items": {
+            "type": "object",
+            "required": ["nombre", "pct", "rasgo", "sentido"],
+            "properties": {
+              "nombre": {"type": "string", "maxLength": 80},
+              "pct": {"$ref": "#/definitions/pct"},
+              "rasgo": {"enum": ["o", "c", "e", "a", "n"]},
+              "sentido": {"enum": ["+", "-"]}
+            }
+          }
+        },
+        "correlaciones": {
+          "type": "object",
+          "properties": {
+            "amabilidad_extraversion": {"type": "number", "minimum": -100, "maximum": 100},
+            "apertura_responsabilidad": {"type": "number", "minimum": -100, "maximum": 100}
+          }
+        },
+        "mas_atributos": {
+          "type": "object",
+          "properties": {
+            "ideologia_media": {"$ref": "#/definitions/pct"},
+            "religiosidad_media": {"$ref": "#/definitions/pct"},
+            "antiguedad_media": {"$ref": "#/definitions/pct"},
+            "salud_media": {"$ref": "#/definitions/pct"},
+            "atractivo_media": {"$ref": "#/definitions/pct"},
+            "pct_otra_lengua": {"$ref": "#/definitions/pct"}
+          }
+        },
+        "descripcion_ia": {"type": "string", "maxLength": 2000},
+        "agentes_generados": {
+          "type": "array",
+          "maxItems": 200,
+          "description": "Población ya generada (determinista por semilla) que viaja con el escenario para que el runner no reimplemente el generador.",
+          "items": {"$ref": "#/definitions/agente_generado"}
+        }
+      }
+    },
+    "variantes": {
+      "type": "array",
+      "maxItems": 50,
+      "items": {
+        "type": "object",
+        "required": ["nombre", "cambios"],
+        "properties": {
+          "nombre": {"type": "string", "maxLength": 200},
+          "cambios": {
+            "type": "array",
+            "maxItems": 30,
+            "items": {
+              "type": "object",
+              "required": ["param", "op", "val"],
+              "properties": {
+                "param": {"type": "string", "maxLength": 40},
+                "op": {"enum": ["fijar", "sumar"]},
+                "val": {"type": "number", "minimum": -200, "maximum": 200}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "pct": {"type": "number", "minimum": 0, "maximum": 100},
+    "big5": {
+      "type": "object",
+      "required": ["o", "c", "e", "a", "n"],
+      "properties": {
+        "o": {"$ref": "#/definitions/pct"},
+        "c": {"$ref": "#/definitions/pct"},
+        "e": {"$ref": "#/definitions/pct"},
+        "a": {"$ref": "#/definitions/pct"},
+        "n": {"$ref": "#/definitions/pct"}
+      }
+    },
+    "protagonista": {
+      "type": "object",
+      "required": ["nombre"],
+      "properties": {
+        "nombre": {"type": "string", "minLength": 1, "maxLength": 120},
+        "rol": {"type": "string", "maxLength": 120},
+        "objetivo": {"type": "string", "maxLength": 600},
+        "trasfondo": {"type": "string", "maxLength": 600},
+        "demografia": {
+          "type": "object",
+          "properties": {
+            "edad": {"type": "integer", "minimum": 16, "maximum": 99},
+            "genero": {"type": "string", "maxLength": 40},
+            "origen_cultural": {"type": "string", "maxLength": 80},
+            "nse": {"type": "string", "maxLength": 40},
+            "educacion": {"type": "string", "maxLength": 40}
+          }
+        },
+        "big5": {"$ref": "#/definitions/big5"},
+        "avanzados": {
+          "type": "object",
+          "description": "Variables sensibles (hallazgo 24): con variables_sensibles=false llegan neutras (50) y con idioma vacío.",
+          "properties": {
+            "ideologia": {"$ref": "#/definitions/pct"},
+            "religiosidad": {"$ref": "#/definitions/pct"},
+            "antiguedad": {"$ref": "#/definitions/pct"},
+            "salud": {"$ref": "#/definitions/pct"},
+            "atractivo": {"$ref": "#/definitions/pct"},
+            "idioma": {"type": "string", "maxLength": 120}
+          }
+        },
+        "color": {"type": "string", "pattern": "^#[0-9a-fA-F]{6}$"}
+      }
+    },
+    "agente_generado": {
+      "type": "object",
+      "required": ["nom"],
+      "properties": {
+        "nom": {"type": "string", "minLength": 1, "maxLength": 120},
+        "rol": {"type": "string", "maxLength": 80},
+        "sub": {"type": "string", "maxLength": 80},
+        "edad": {"type": "integer", "minimum": 16, "maximum": 99},
+        "gen": {"type": "string", "maxLength": 40},
+        "ori": {"type": "string", "maxLength": 80},
+        "nse": {"type": "string", "maxLength": 40},
+        "edu": {"type": "string", "maxLength": 40},
+        "idi": {"type": "string", "maxLength": 80},
+        "b": {"$ref": "#/definitions/big5"},
+        "b2": {
+          "type": "object",
+          "properties": {
+            "ideo": {"$ref": "#/definitions/pct"},
+            "reli": {"$ref": "#/definitions/pct"},
+            "anti": {"$ref": "#/definitions/pct"},
+            "salud": {"$ref": "#/definitions/pct"},
+            "atr": {"$ref": "#/definitions/pct"}
+          }
+        }
+      }
+    }
+  }
+}

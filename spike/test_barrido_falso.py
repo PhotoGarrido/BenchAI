@@ -184,6 +184,38 @@ def barrido_gfinal(payload, nombre):
     return ok
 
 
+class ModeloGuion(ModeloFalso):
+    """Devuelve respuestas conductuales válidas para ejercitar el flujo
+    completo (el barrido de canal privado necesita que la privada se pregunte)."""
+
+    def sample_text(self, prompt, **kw):
+        self.prompts.append(prompt)
+        if "fuero interno" in prompt:
+            return "NO, no me parece justo — RESPUESTA-PRIVADA-CENTINELA"
+        if "REALMENTE" in prompt:
+            return "Me piden mano dura con el grupo."
+        return "ESTRICTO — aplico el reglamento sin margen."
+
+
+def barrido_canal_privado():
+    """Regla de los dos canales (revisión externa, CI 'test del canal
+    privado'): ni la PREGUNTA privada ni su RESPUESTA pueden aparecer en
+    ningún prompt público o de interpretación posterior."""
+    ok = True
+    m = ModeloGuion()
+    celda = {"modulo": "A", "dominio": "prision", "contenido": "degradacion",
+             "clausula": False, "marco": "orden", "rep": 1}
+    gfinal.brazo(m, celda, dias=3)
+    publicos = [p for p in m.prompts if "fuero interno" not in p]
+    ok &= _c(all("RESPUESTA-PRIVADA-CENTINELA" not in p for p in publicos),
+             "canal privado: la respuesta privada jamás entra en otro prompt")
+    ok &= _c(all("nadie lo sabrá" not in p for p in publicos),
+             "canal privado: la pregunta privada jamás entra en otro prompt")
+    ok &= _c(any("actuaste de forma estricto" in p.lower() for p in m.prompts),
+             "canal público: el diario sí propaga la conducta pública")
+    return ok
+
+
 def run():
     ok = True
     cargas = [("vacio", ""), ("ilegible", ILEGIBLE)]
@@ -201,6 +233,7 @@ def run():
         ok &= barrido_g2(payload, nombre)
     for nombre, payload in cargas + [("truncado", "DESHU")]:
         ok &= barrido_gfinal(payload, nombre)
+    ok &= barrido_canal_privado()
     print("\n" + ("TODOS OK" if ok else "HAY FALLOS"))
     return ok
 

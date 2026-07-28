@@ -53,19 +53,21 @@
 | R4.3 | **Ficha de riesgo de estereotipos**: variables sensibles documentadas con sus plantillas de verbalización, análisis de sensibilidad con/sin demografía desde fixtures, «atractivo» retirado salvo hipótesis explícita en diseños futuros | 24 |
 | R4.4 | Research Card + tag `v0.1.0-alpha` («research preview») | — |
 
-## Checklist de salida (la del revisor, adoptada)
+## Checklist de salida (la del revisor, adoptada) — estado 29-07-2026
 
-- [ ] 19 reclasificaciones documentadas y reconciliadas con el manuscrito (R1.1-R1.2)
-- [ ] No se afirma re-derivabilidad donde faltan raws (R1.2)
-- [ ] Panel sin datos editables en `innerHTML` + test XSS (R2.1)
-- [ ] `sample_choice` sin imputar opción 0 (R2.5)
-- [ ] Motor principal con manifiesto completo (R3.2-R3.3)
-- [ ] Schemas de escenario y replay en los tres extremos (R2.2)
-- [ ] Denominadores 16/19/4 inequívocos + tabla maestra (R1.4)
-- [ ] κ presentada como validación confirmatoria fallida (R1.6)
-- [ ] Sin referencias provisionales (R1.9)
-- [ ] LICENSE y capa OSS (R4.1)
-- [ ] CI verde y obligatoria + secret scan del historial (R2.4)
-- [ ] Un tercero regenera las tablas desde release manifest sin red (R3.5)
+- [x] 19 reclasificaciones documentadas y reconciliadas (`preprint/auditoria_reproceso.md` + `reproceso_erratas.json`; disonancia gemini/glm regenerada vía resumen_v2)
+- [x] No se afirma re-derivabilidad donde faltan raws (G2 declarado NO re-derivable en preprint §6/§8 y auditoría)
+- [x] Panel sin datos editables en `innerHTML` + test XSS estático en CI
+- [x] `sample_choice` sin imputar opción 0 (NO_ACTION registrado como INVALIDA + test)
+- [x] Motor principal con manifiesto completo (RunManifest con hashes y estado final; escritura atómica)
+- [x] Schemas de escenario y replay validados en panel/motor/visor + límites de carga
+- [x] Denominadores 17/16/4-6 inequívocos + tabla maestra (preprint §2)
+- [x] κ presentada como validación confirmatoria FALLIDA (preprint §6, sin rescate retrospectivo)
+- [x] Sin referencias provisionales (Hewitt et al. 2026 + DOIs completos)
+- [x] LICENSE (Apache-2.0 + CC BY 4.0 datos) y capa OSS completa
+- [x] CI verde con doble gate, XSS, schemas, mypy, pip-audit y gitleaks; secret scan del historial local: 2.038 blobs limpios. *Protección de rama: requiere repo público/Pro (comando documentado en SECURITY.md)*
+- [x] Un tercero regenera las tablas desde `release_manifest.json` (hashes sha256; `analizar_gfinal.py --manifest`) sin red
+
+**Pendiente fuera del código** (decisiones/acciones de David): elegir venue del preprint, segunda revisión externa humana antes del GO público definitivo, y activar la protección de rama al publicar el repo.
 
 **Orden de ejecución**: R1 (preprint deja de contradecir artefactos) → R2 (seguridad) → R3 (reproducibilidad) → R4 (decisiones de licencia/venue + release). R1+R2+R3 no requieren API ni presupuesto; R4 requiere dos decisiones de David (licencias, venue).

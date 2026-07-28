@@ -70,7 +70,7 @@ class RunManifest:
         self._n = 0
         self._errores = 0
         import parsers
-        self.cabecera = {
+        self.cabecera: dict = {
             "commit": _commit(),
             "python": sys.version.split()[0],
             "parser_version": parsers.PARSER_VERSION,

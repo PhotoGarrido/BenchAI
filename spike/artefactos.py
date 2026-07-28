@@ -77,9 +77,10 @@ def _crudos_de_fila(tipo: str, fila: dict, nombre_dir: str) -> list[Crudo]:
                       lambda r: parsers.parsear_sino(r), "sonda justa")]
     if tipo == "cronica":
         v2 = _es_v2(nombre_dir)
-        return [Crudo("raw", "decision",
-                      lambda r, v2=v2: parsers.parsear_cronica(r, v2=v2),
-                      "decisión")]
+
+        def _reparse_cronica(r: str, v2: bool = v2) -> parsers.Resultado:
+            return parsers.parsear_cronica(r, v2=v2)
+        return [Crudo("raw", "decision", _reparse_cronica, "decisión")]
     if tipo == "prision":
         if "supervisor" in fila:
             return [Crudo("raw", "nivel",

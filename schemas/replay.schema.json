@@ -1,0 +1,202 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/PhotoGarrido/PsicoAI/schemas/replay.schema.json",
+  "title": "Replay PsicoAI (replay.json)",
+  "description": "Contrato del replay que produce spike/export_replay.py (build_replay) y reproduce el visor (viewer/). Derivado de replays reales: spike/runs/*/replay.json y episodios/*/replay.json. Límites de carga del visor: máximo 200 agentes, 50000 eventos y 10000 caracteres por texto; además el visor rechaza ficheros de más de 20 MB (validarReplay en viewer/app.js implementa un subconjunto documentado de este esquema). El tipo constraint_violation debe renderizarse SIEMPRE como fila de advertencia visible, nunca ocultarse.",
+  "type": "object",
+  "required": [
+    "agentes",
+    "eventos"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "meta": {
+      "type": "object",
+      "properties": {
+        "titulo": {
+          "type": "string",
+          "maxLength": 300
+        },
+        "descripcion": {
+          "type": "string",
+          "maxLength": 10000
+        },
+        "fecha": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "fuente": {
+          "type": "string",
+          "maxLength": 300
+        }
+      }
+    },
+    "agentes": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 200,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "nombre"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 60
+          },
+          "nombre": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
+          },
+          "rol": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "color": {
+            "type": "string",
+            "pattern": "^#[0-9a-fA-F]{6}$"
+          },
+          "spot": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Punto de anclaje inicial en la sala (tablon, ventana, mesa_o, mesa_e, mesa_s, sofa, puerta, centro, planta). Si falta o no existe, el visor asigna uno por orden."
+          }
+        }
+      }
+    },
+    "eventos": {
+      "type": "array",
+      "maxItems": 50000,
+      "items": {
+        "$ref": "#/definitions/evento"
+      }
+    }
+  },
+  "definitions": {
+    "evento": {
+      "type": "object",
+      "required": [
+        "tipo"
+      ],
+      "properties": {
+        "tipo": {
+          "enum": [
+            "narrador",
+            "dialogo",
+            "accion",
+            "pensamiento",
+            "movimiento",
+            "paso",
+            "constraint_violation"
+          ],
+          "description": "Lista blanca de tipos. constraint_violation = el motor violó una restricción declarada; el visor lo muestra como ADVERTENCIA visible."
+        },
+        "texto": {
+          "type": "string",
+          "maxLength": 10000
+        },
+        "agente": {
+          "type": "string",
+          "maxLength": 60,
+          "description": "Debe ser el id de un agente declarado en 'agentes'."
+        },
+        "hacia": {
+          "type": "string",
+          "maxLength": 60,
+          "description": "Destinatario del diálogo; id de un agente declarado."
+        },
+        "haciaAgente": {
+          "type": "string",
+          "maxLength": 60,
+          "description": "Objetivo de un movimiento; id de un agente declarado."
+        },
+        "spot": {
+          "type": "string",
+          "maxLength": 40
+        },
+        "n": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Número de paso (solo tipo=paso)."
+        },
+        "canal": {
+          "type": "string",
+          "maxLength": 40,
+          "description": "Marca del canal del evento; export_replay.py usa 'privado' para el monólogo privado generado."
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "tipo": {
+                "const": "paso"
+              }
+            },
+            "required": [
+              "tipo"
+            ]
+          },
+          "then": {
+            "required": [
+              "n"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "tipo": {
+                "enum": [
+                  "narrador",
+                  "dialogo",
+                  "accion",
+                  "pensamiento",
+                  "constraint_violation"
+                ]
+              }
+            },
+            "required": [
+              "tipo"
+            ]
+          },
+          "then": {
+            "required": [
+              "texto"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "tipo": {
+                "enum": [
+                  "dialogo",
+                  "accion",
+                  "pensamiento",
+                  "movimiento"
+                ]
+              }
+            },
+            "required": [
+              "tipo"
+            ]
+          },
+          "then": {
+            "required": [
+              "agente"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
