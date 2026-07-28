@@ -11,6 +11,7 @@ Dos piezas:
 
 from collections.abc import Mapping
 import dataclasses
+import os
 
 from concordia.agents import entity_agent_with_logging
 from concordia.associative_memory import basic_associative_memory
@@ -23,6 +24,15 @@ _GENERO = {
     "hombre": "un hombre",
     "no binario": "una persona no binaria",
 }
+
+# Ventana de observaciones del agente (revisión externa, hallazgo 20).
+# El valor histórico (1_000_000) era de facto "historial infinito": el bloque
+# de eventos del prompt crecía sin tope paso a paso — coste por llamada
+# creciente y deriva de atención del modelo en runs largos. 120 observaciones
+# cubren con holgura un episodio del spike (~20 pasos con unos pocos eventos
+# observados por paso) manteniendo el contexto acotado y estable; para runs
+# más largos se ajusta por entorno sin tocar código.
+VENTANA_OBSERVACIONES = int(os.environ.get("PSICOAI_VENTANA_OBS", "120"))
 _EDU = {"básica": "básicos", "media": "medios", "superior": "superiores"}
 
 
@@ -167,7 +177,7 @@ class PersonaEntity(prefab_lib.Prefab):
         observation_key = (
             agent_components.observation.DEFAULT_OBSERVATION_COMPONENT_KEY)
         observation = agent_components.observation.LastNObservations(
-            history_length=1_000_000,
+            history_length=VENTANA_OBSERVACIONES,
             pre_act_label=(
                 "\nEvents so far (ordered from least recent to most recent)"),
         )

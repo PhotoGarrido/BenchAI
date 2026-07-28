@@ -31,6 +31,7 @@ from concordia.typing import prefab as prefab_lib
 from concordia.utils import helper_functions
 
 import export_replay
+import manifiesto
 import model_factory
 import personas
 
@@ -123,10 +124,16 @@ def main() -> None:
     args = parser.parse_args()
 
     if args.config:
-        escenario = json.loads(args.config.read_text(encoding="utf-8"))
+        texto_escenario = args.config.read_text(encoding="utf-8")
+        escenario = json.loads(texto_escenario)
         print(f"Escenario cargado: {escenario.get('titulo', args.config.name)}")
     else:
         escenario = ESCENARIO_DEFECTO
+        texto_escenario = json.dumps(escenario, ensure_ascii=False,
+                                     sort_keys=True)
+    # Hash del escenario tal como se usó (fichero exportado o el integrado
+    # canonizado): va a la cabecera del RunManifest para reproducibilidad.
+    escenario_sha256 = manifiesto.sha256_texto(texto_escenario)
 
     pasos = args.steps or int(escenario.get("pasos", 20))
     poblacion_cfg = escenario.get("poblacion") or {}
@@ -229,53 +236,71 @@ def main() -> None:
 
     run_id = datetime.datetime.now().strftime("spike_%Y%m%d_%H%M%S")
     outdir = pathlib.Path(args.out) / run_id
-    outdir.mkdir(parents=True, exist_ok=True)
 
     inicio = time.time()
-    sim = simulation.Simulation(
-        config=config, model=model, embedder=embedder, engine=engine)
-    # Checkpoints por paso: un run largo no se pierde por un hipo de red.
-    results = sim.play(checkpoint_path=str(outdir / "checkpoints"))
-    duracion = time.time() - inicio
+    # RunManifest como context manager: manifest_run.json queda en status
+    # running mientras corre y completed/failed al salir — un run interrumpido
+    # se distingue siempre de uno terminado. Todos los JSON de salida se
+    # escriben de forma atómica (X.tmp + os.replace) y DENTRO del with.
+    with manifiesto.RunManifest(
+            outdir, vars(args),
+            hashes={
+                "escenario_sha256": escenario_sha256,
+                "system_prompt_sha256":
+                    manifiesto.sha256_texto(model_factory._SYSTEM),
+            }) as m:
+        sim = simulation.Simulation(
+            config=config, model=model, embedder=embedder, engine=engine)
+        # Checkpoints por paso: un run largo no se pierde por un hipo de red.
+        results = sim.play(checkpoint_path=str(outdir / "checkpoints"))
+        duracion = time.time() - inicio
 
-    (outdir / "log.json").write_text(results.to_json(), encoding="utf-8")
-    # transcripcion.html la genera Concordia 2.4 incrustando el JSON del log
-    # dentro de un <script> SIN neutralizar «</script>»: contenido del LLM
-    # puede cerrar el script e inyectar JS (XSS almacenado — reauditoría 25-07).
-    # NO se genera por defecto: el canal de distribución seguro es replay.json
-    # en el visor saneado. Con --transcripcion-html se escribe pero marcada
-    # como NO CONFIABLE, para no abrirla/compartirla como contenido de fiar.
-    if args.transcripcion_html:
-        banner = ("<!-- ⚠ ARTEFACTO NO CONFIABLE: contiene texto del LLM sin"
-                  " sanear (posible XSS). No abrir ni compartir como contenido"
-                  " de fiar. Usa replay.json en el visor. -->\n")
-        (outdir / "transcripcion.NO_CONFIABLE.html").write_text(
-            banner + results.to_html(title=f"PsicoAI {run_id}"),
-            encoding="utf-8")
+        export_replay.escribir_atomico(outdir / "log.json", results.to_json())
+        # transcripcion.html la genera Concordia 2.4 incrustando el JSON del
+        # log dentro de un <script> SIN neutralizar «</script>»: contenido del
+        # LLM puede cerrar el script e inyectar JS (XSS almacenado —
+        # reauditoría 25-07). NO se genera por defecto: el canal de
+        # distribución seguro es replay.json en el visor saneado. Con
+        # --transcripcion-html se escribe pero marcada como NO CONFIABLE,
+        # para no abrirla/compartirla como contenido de fiar.
+        if args.transcripcion_html:
+            banner = ("<!-- ⚠ ARTEFACTO NO CONFIABLE: contiene texto del LLM"
+                      " sin sanear (posible XSS). No abrir ni compartir como"
+                      " contenido de fiar. Usa replay.json en el visor. -->\n")
+            export_replay.escribir_atomico(
+                outdir / "transcripcion.NO_CONFIABLE.html",
+                banner + results.to_html(title=f"PsicoAI {run_id}"))
 
-    meta = {
-        "run_id": run_id,
-        "titulo": escenario.get("titulo", ""),
-        "dry_run": args.dry_run,
-        "steps": pasos,
-        "modelo": ("dry-run" if args.dry_run else
-                   os.environ.get("NAN_MODEL", "desconocido")),
-        "proveedor": ("dry-run" if args.dry_run else
-                      ("openrouter" if "/" in os.environ.get("NAN_MODEL", "")
-                       else "nan")),
-        "duracion_segundos": round(duracion, 1),
-        "premisa": premisa,
-        "engine": args.engine,
-        "agentes": ([p["nombre"] for p in protagonistas]
-                    + [p["nombre"] for p in poblacion_personas]),
-        "personas": {p["nombre"]: personas.texto_persona(p)
-                     for p in protagonistas + poblacion_personas},
-    }
-    (outdir / "meta.json").write_text(
-        json.dumps(meta, ensure_ascii=False, indent=2), encoding="utf-8"
-    )
+        meta = {
+            "run_id": run_id,
+            "titulo": escenario.get("titulo", ""),
+            "dry_run": args.dry_run,
+            "steps": pasos,
+            "modelo": ("dry-run" if args.dry_run else
+                       os.environ.get("NAN_MODEL", "desconocido")),
+            "proveedor": ("dry-run" if args.dry_run else
+                          ("openrouter"
+                           if "/" in os.environ.get("NAN_MODEL", "")
+                           else "nan")),
+            "duracion_segundos": round(duracion, 1),
+            "premisa": premisa,
+            "engine": args.engine,
+            "agentes": ([p["nombre"] for p in protagonistas]
+                        + [p["nombre"] for p in poblacion_personas]),
+            "personas": {p["nombre"]: personas.texto_persona(p)
+                         for p in protagonistas + poblacion_personas},
+        }
+        export_replay.escribir_atomico(
+            outdir / "meta.json",
+            json.dumps(meta, ensure_ascii=False, indent=2))
 
-    export_replay.exportar(outdir / "log.json")
+        export_replay.exportar(outdir / "log.json")
+        # Hash del artefacto final en la cabecera del manifiesto: el cierre
+        # del context manager la persiste junto al status=completed.
+        m.cabecera["hashes"]["replay_sha256"] = manifiesto.sha256_texto(
+            (outdir / "replay.full.json").read_text(encoding="utf-8"))
+        m.cabecera["hashes"]["replay_public_sha256"] = manifiesto.sha256_texto(
+            (outdir / "replay.public.json").read_text(encoding="utf-8"))
 
     print(f"\nRun guardado en {outdir} ({duracion:.0f}s).")
     print("Replay: abre viewer/index.html y carga el replay.json de esa carpeta.")

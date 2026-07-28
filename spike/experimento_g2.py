@@ -249,8 +249,10 @@ def main():
     args = parser.parse_args()
 
     celdas, laboral, temp = celdas_fase(args.fase)
+    # Microsegundos en el nombre (hallazgo 18): dos lanzamientos en el mismo
+    # segundo ya no comparten directorio.
     outdir = pathlib.Path(args.out) / datetime.datetime.now().strftime(
-        f"g2_{args.fase}_%Y%m%d_%H%M%S")
+        f"g2_{args.fase}_%Y%m%d_%H%M%S_%f")
     outdir.mkdir(parents=True, exist_ok=True)
     manifiesto.activar(outdir, vars(args))
     inicio = time.time()
@@ -259,7 +261,9 @@ def main():
     for nombre_modelo in [m.strip() for m in args.modelos.split(",")]:
         modelo = model_factory.build_model(dry_run=False,
                                            model_name=nombre_modelo)
-        et = nombre_modelo.split("/")[-1]
+        # Hallazgo 18: split("/")[-1] colisionaba entre orgs (a/m y b/m →
+        # registros_m.jsonl); el "__" conserva el id completo sin path.
+        et = nombre_modelo.replace("/", "__")
         with ThreadPoolExecutor(max_workers=6) as pool:
             bloques = list(pool.map(
                 lambda c: brazo(modelo, c, laboral=laboral, temperatura=temp),

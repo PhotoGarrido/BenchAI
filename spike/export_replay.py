@@ -11,6 +11,7 @@ Uso integrado:   run_spike.py lo llama tras cada sesión.
 """
 
 import json
+import os
 import pathlib
 import re
 import sys
@@ -39,6 +40,11 @@ _SPOT = {
     "habitación": "puerta", "habitacion": "puerta", "pasillo": "puerta",
     "cocina": "puerta", "salir de la sala": "puerta",
 }
+# Hallazgo 21: el mapeo anterior era silencioso. Cuando el lugar narrado no
+# existe en la sala, además del movimiento a la puerta se emite un evento
+# constraint_violation auditable (rule=unknown_location, texto crudo).
+_LUGARES_DESCONOCIDOS = {"habitación", "habitacion", "pasillo", "cocina",
+                         "salir de la sala"}
 
 
 _MOV_PERSONA_RE = re.compile(
@@ -60,23 +66,60 @@ def _quien_actua(texto: str, nombres: list[str], agente: str | None, pos: int):
 def _detectar_movimiento(texto: str, nombres: list[str], agente: str | None):
     """Detecta desplazamientos narrados.
 
-    Devuelve (nombre_agente, {"spot": ...}) para lugares de la sala, o
-    (nombre_agente, {"haciaAgente": nombre_objetivo}) al acercarse a alguien.
+    Devuelve (nombre_agente | None, destino | None, info) donde destino es
+    {"spot": ...} para lugares de la sala o {"haciaAgente": nombre} al
+    acercarse a alguien, e info trae la trazabilidad: "atribucion" ("exacta"
+    si el actor venía dado por el evento, "regex" si se infirió del texto;
+    hallazgo 22) y "raw_location" cuando el GM narró un lugar que no existe
+    en la sala (hallazgo 21). Devuelve None si no hay movimiento.
     """
     m = _MOV_RE.search(texto)
     if m:
+        lugar = m.group(1).lower()
         quien = _quien_actua(texto, nombres, agente, m.start())
-        if quien:
-            return quien, {"spot": _SPOT[m.group(1).lower()]}
+        info = {"atribucion": "exacta" if agente else "regex"}
+        if lugar in _LUGARES_DESCONOCIDOS:
+            info["raw_location"] = m.group(1)
+        if quien or "raw_location" in info:
+            return quien, ({"spot": _SPOT[lugar]} if quien else None), info
     m = _MOV_PERSONA_RE.search(texto)
     if m:
         candidato = m.group(1)
-        objetivo = next((n for n in nombres if n.startswith(candidato)
-                         or candidato in n), None)
+        objetivos = [n for n in nombres
+                     if n.startswith(candidato) or candidato in n]
         quien = _quien_actua(texto, nombres, agente, m.start())
-        if objetivo and quien and objetivo != quien:
-            return quien, {"haciaAgente": objetivo}
+        # Hallazgo 22: si el candidato casa con varios nombres, NO se adivina
+        # el objetivo — mejor ningún movimiento que uno inventado.
+        if len(objetivos) == 1 and quien and objetivos[0] != quien:
+            return quien, {"haciaAgente": objetivos[0]}, {
+                "atribucion": "exacta" if agente else "regex"}
     return None
+
+
+def _eventos_movimiento(texto_evento, nombres, actor, id_por_nombre):
+    """Eventos derivados del movimiento narrado, listos para el replay:
+    constraint_violation si el GM inventó un lugar + movimiento del visor."""
+    det = _detectar_movimiento(texto_evento, nombres, actor)
+    if det is None:
+        return []
+    quien, destino, info = det
+    out = []
+    if "raw_location" in info:
+        out.append({
+            "tipo": "constraint_violation",
+            "rule": "unknown_location",
+            "raw_location": info["raw_location"],
+            "agente": id_por_nombre.get(quien),
+        })
+    if quien in id_por_nombre and destino:
+        if "haciaAgente" in destino:
+            destino = dict(destino,
+                           haciaAgente=id_por_nombre.get(destino["haciaAgente"]))
+            if not destino["haciaAgente"]:
+                return out
+        out.append({"tipo": "movimiento", "agente": id_por_nombre[quien],
+                    "atribucion": info["atribucion"], **destino})
+    return out
 
 
 def _resolver_ref(store: dict, v):
@@ -107,17 +150,36 @@ def _limpiar_evento(summary: str) -> str:
 
 
 def _clasificar(texto: str, nombres: list[str]) -> dict | None:
-    """Convierte el texto de un evento resuelto en un evento de replay."""
+    """Convierte el texto de un evento resuelto en un evento de replay.
+
+    Hallazgo 22: la atribución de actor es EXPLÍCITA en cada evento
+    atribuido: "exacta" (el hablante coincide con un nombre conocido o el
+    texto empieza por él), "regex" (el nombre se extrajo por patrón, con
+    texto extra alrededor) o "ambigua" (cero o varios candidatos): entonces
+    NO se adivina — agente None y el texto crudo se conserva.
+    """
     if not texto:
         return None
     m = _DIALOGO_RE.match(texto)
-    if m and any(n in m.group("nombre") for n in nombres):
-        agente = next(n for n in nombres if n in m.group("nombre"))
-        return {"tipo": "dialogo", "agente": agente, "texto": m.group("texto").strip()}
-    for n in nombres:
-        if texto.startswith(n):
-            resto = texto[len(n):].strip(" \t,;:") or texto
-            return {"tipo": "accion", "agente": n, "texto": resto}
+    if m:
+        hablante = m.group("nombre").strip()
+        candidatos = [n for n in nombres if n in hablante]
+        if len(candidatos) == 1:
+            return {"tipo": "dialogo", "agente": candidatos[0],
+                    "atribucion": ("exacta" if hablante == candidatos[0]
+                                   else "regex"),
+                    "texto": m.group("texto").strip()}
+        # Varios nombres casan (o ninguno conocido): no se adivina.
+        return {"tipo": "dialogo", "agente": None, "atribucion": "ambigua",
+                "texto": m.group("texto").strip(), "texto_crudo": texto}
+    candidatos = [n for n in nombres if texto.startswith(n)]
+    if candidatos:
+        # Con startswith todos los candidatos son prefijos entre sí: el más
+        # largo es el más específico, no una adivinanza.
+        n = max(candidatos, key=len)
+        resto = texto[len(n):].strip(" \t,;:") or texto
+        return {"tipo": "accion", "agente": n, "atribucion": "exacta",
+                "texto": resto}
     return {"tipo": "narrador", "texto": texto}
 
 
@@ -154,6 +216,7 @@ def build_replay(log_dict: dict, meta: dict) -> dict:
             eventos.append({
                 "tipo": "pensamiento",
                 "agente": id_por_nombre[e["entity_name"]],
+                "atribucion": "exacta",  # viene del entity_name del log
                 "texto": pensamiento,
                 "canal": "privado",
                 "_paso": paso,
@@ -163,23 +226,12 @@ def build_replay(log_dict: dict, meta: dict) -> dict:
         if ev is None:
             continue
         # Movimiento físico narrado → evento estructurado antes de la acción,
-        # para que el visor desplace al personaje y luego muestre el bocadillo.
+        # para que el visor desplace al personaje y luego muestre el bocadillo
+        # (más constraint_violation si el lugar no existe, hallazgo 21).
         actor = ev.get("agente") if ev.get("agente") in nombres else None
-        mov = _detectar_movimiento(texto_evento, nombres, actor)
-        if mov and mov[0] in id_por_nombre:
-            destino = dict(mov[1])
-            if "haciaAgente" in destino:
-                if destino["haciaAgente"] not in id_por_nombre:
-                    destino = None
-                else:
-                    destino["haciaAgente"] = id_por_nombre[destino["haciaAgente"]]
-            if destino:
-                eventos.append({
-                    "tipo": "movimiento",
-                    "agente": id_por_nombre[mov[0]],
-                    **destino,
-                })
-        if "agente" in ev:
+        eventos.extend(
+            _eventos_movimiento(texto_evento, nombres, actor, id_por_nombre))
+        if ev.get("agente") is not None:
             ev["agente"] = id_por_nombre[ev["agente"]]
         eventos.append(ev)
 
@@ -212,19 +264,9 @@ def build_replay(log_dict: dict, meta: dict) -> dict:
             if ev is None:
                 continue
             actor = ev.get("agente") if ev.get("agente") in nombres else None
-            mov = _detectar_movimiento(texto, nombres, actor)
-            if mov and mov[0] in id_por_nombre:
-                destino = dict(mov[1])
-                if "haciaAgente" in destino:
-                    destino["haciaAgente"] = id_por_nombre.get(
-                        destino["haciaAgente"])
-                    if not destino["haciaAgente"]:
-                        destino = None
-                if destino:
-                    eventos.append({"tipo": "movimiento",
-                                    "agente": id_por_nombre[mov[0]],
-                                    **destino})
-            if "agente" in ev:
+            eventos.extend(
+                _eventos_movimiento(texto, nombres, actor, id_por_nombre))
+            if ev.get("agente") is not None:
                 ev["agente"] = id_por_nombre[ev["agente"]]
             eventos.append(ev)
     # limpia la marca interna de paso de los pensamientos
@@ -244,14 +286,43 @@ def build_replay(log_dict: dict, meta: dict) -> dict:
     }
 
 
+def escribir_atomico(path: pathlib.Path, texto: str) -> None:
+    """Escritura atómica: X.tmp + os.replace → nunca queda un X a medias.
+
+    Un run interrumpido se distingue por el status del manifest_run.json
+    (running/failed), no por un JSON truncado."""
+    tmp = path.with_name(path.name + ".tmp")
+    tmp.write_text(texto, encoding="utf-8")
+    os.replace(tmp, path)
+
+
+def replay_publico(replay: dict) -> dict:
+    """Copia publicable del replay: los eventos del canal privado (tipo
+    "pensamiento", canal "privado" — el monólogo interno de los agentes) se
+    ELIMINAN físicamente del JSON, no se ocultan (hallazgo 23)."""
+    publico = dict(replay)
+    publico["eventos"] = [
+        e for e in replay.get("eventos", [])
+        if e.get("tipo") != "pensamiento" and e.get("canal") != "privado"]
+    return publico
+
+
 def exportar(log_path: pathlib.Path) -> pathlib.Path:
     log_dict = json.loads(log_path.read_text(encoding="utf-8"))
     meta_path = log_path.parent / "meta.json"
     meta = json.loads(meta_path.read_text(encoding="utf-8")) if meta_path.exists() else {}
     replay = build_replay(log_dict, meta)
-    out = log_path.parent / "replay.json"
-    out.write_text(json.dumps(replay, ensure_ascii=False, indent=2), encoding="utf-8")
-    return out
+    texto_full = json.dumps(replay, ensure_ascii=False, indent=2)
+    texto_public = json.dumps(replay_publico(replay), ensure_ascii=False,
+                              indent=2)
+    # Hallazgo 23: el par full/public es el contrato nuevo. replay.json se
+    # mantiene como alias byte a byte del full porque es el nombre que carga
+    # el visor actual (viewer/index.html) — no se rompe nada.
+    for nombre, texto in (("replay.full.json", texto_full),
+                          ("replay.public.json", texto_public),
+                          ("replay.json", texto_full)):
+        escribir_atomico(log_path.parent / nombre, texto)
+    return log_path.parent / "replay.json"
 
 
 if __name__ == "__main__":
