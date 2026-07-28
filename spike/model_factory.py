@@ -154,12 +154,15 @@ class NaNLanguageModel(language_model.LanguageModel):
         # reasoning del content).
         extra = ({"chat_template_kwargs": {"enable_thinking": False}}
                  if con_extra and self._proveedor == "nan" else None)
-        # RunManifest (Fase 0.4): cada solicitud FÍSICA queda registrada —
-        # también las que acaban en excepción; los reintentos del wrapper
-        # aparecen como líneas separadas.
+        # RunManifest (Fase 0.4; revisión R3.3): cada solicitud FÍSICA queda
+        # registrada con los MENSAJES COMPLETOS (system incluido) — «prompt
+        # exacto» ahora lo es de verdad — y el modelo pedido vs devuelto.
         base_evento = {"modelo": self._model, "proveedor": self._proveedor,
                        "max_tokens": max_tokens, "temperature": temperature,
-                       "top_p": top_p, "seed": seed, "prompt": prompt}
+                       "top_p": top_p, "seed": seed,
+                       "messages": [{"role": "system", "content": _SYSTEM},
+                                    {"role": "user", "content": prompt}],
+                       "system_prompt_sha256": manifiesto.sha256_texto(_SYSTEM)}
         t0 = time.monotonic()
         try:
             respuesta = self._client.chat.completions.create(
@@ -184,6 +187,7 @@ class NaNLanguageModel(language_model.LanguageModel):
         manifiesto.registrar(dict(
             base_evento, latencia_s=round(time.monotonic() - t0, 3),
             request_id=getattr(respuesta, "id", None),
+            model_returned=getattr(respuesta, "model", None),
             respuesta=respuesta.choices[0].message.content,
             tokens={"prompt": getattr(uso, "prompt_tokens", None),
                     "completion": getattr(uso, "completion_tokens", None),
@@ -234,6 +238,13 @@ class NaNLanguageModel(language_model.LanguageModel):
         return texto
 
     def sample_choice(self, prompt: str, responses, *, seed: int | None = None):
+        """Revisión externa (hallazgo 4): jamás se imputa la opción 0. Tras 8
+        intentos ilegibles se elige una opción NEUTRA — la marcada como
+        no-acción si el menú la trae, o la ÚLTIMA opción del menú extendido
+        con una abstención explícita — y el evento queda registrado como
+        INVALIDA en el manifiesto. Un fallo del proveedor nunca se convierte
+        en silencio en la primera acción disponible."""
+        NO_ACTION = "no hace nada (respuesta no interpretable del modelo)"
         opciones = "\n".join(
             f"({_LETRAS[i]}) {r}" for i, r in enumerate(responses)
         )
@@ -253,11 +264,18 @@ class NaNLanguageModel(language_model.LanguageModel):
             res = parsers.parsear_choice(texto, len(responses))
             if res.ok:
                 return res.valor, responses[res.valor], {}
-        # 8 intentos ilegibles: la interfaz de Concordia exige un índice, pero
-        # lo avisamos en vez de fingir en silencio que eligió la primera.
-        print("[nan] sample_choice ilegible tras 8 intentos → opción 0 (avisado)",
-              file=sys.stderr)
-        return 0, responses[0], {}
+        neutras = [i for i, r in enumerate(responses)
+                   if "no hace nada" in str(r).lower()
+                   or "no hacer nada" in str(r).lower()]
+        idx = neutras[0] if neutras else len(responses) - 1
+        eleccion = responses[idx] if neutras else NO_ACTION
+        manifiesto.registrar({
+            "modelo": self._model, "proveedor": self._proveedor,
+            "choice_state": "INVALIDA", "fallback_option": "NO_ACTION",
+            "n_opciones": len(responses), "indice_devuelto": idx})
+        print("[nan] sample_choice ilegible tras 8 intentos → NO_ACTION"
+              f" (índice {idx}, registrado como INVALIDA)", file=sys.stderr)
+        return idx, eleccion, {"choice_state": "INVALIDA"}
 
 
 def build_embedder(dry_run: bool):
