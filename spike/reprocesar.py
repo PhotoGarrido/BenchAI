@@ -76,8 +76,13 @@ def main():
     ap.add_argument("--tipo", choices=list(artefactos.TIPOS) + ["todos"],
                     default="todos")
     ap.add_argument("--check", action="store_true",
-                    help="modo puerta: sale 1 ante desviaciones nuevas"
-                         " respecto a reproceso_baseline.jsonl")
+                    help="puerta de REGRESIÓN: sale 1 ante desviaciones"
+                         " nuevas respecto a reproceso_baseline.jsonl")
+    ap.add_argument("--check-publication", action="store_true",
+                    help="puerta de PUBLICACIÓN (revisión externa, hallazgo"
+                         " 2): toda conducta_cambia debe tener errata_id en"
+                         " reproceso_erratas.json; los datos confirmatorios"
+                         " (gfinal) deben tener raw y parser_version")
     ap.add_argument("--actualizar-baseline", action="store_true",
                     help="congela el detalle actual como baseline (revisar"
                          " el diff antes de commitear)")
@@ -117,6 +122,42 @@ def main():
     canon = sorted(json.dumps(d, ensure_ascii=False, sort_keys=True)
                    for d in detalle)
     baseline_f = res / "reproceso_baseline.jsonl"
+
+    if args.check_publication:
+        fallos = []
+        # (a) toda conducta_cambia con errata_id
+        err_f = res / "reproceso_erratas.json"
+        con_errata = set()
+        if err_f.exists():
+            for e in json.loads(err_f.read_text())["erratas"]:
+                con_errata.add(json.dumps(e["fila"], ensure_ascii=False,
+                                          sort_keys=True))
+        for d in detalle:
+            if d["categoria"] == "conducta_cambia":
+                clave = json.dumps(d, ensure_ascii=False, sort_keys=True)
+                if clave not in con_errata:
+                    fallos.append("conducta_cambia SIN errata_id: "
+                                  f"{d['tipo']}·{d['dir'][:40]}")
+        # (b) datos confirmatorios (gfinal no-piloto): raw y parser_version
+        for reg in artefactos.iterar_registros(res, ("gfinal",)):
+            if "piloto" in reg.directorio:
+                continue
+            fila = reg.fila
+            if not fila.get("raw_publico"):
+                fallos.append(f"fila sin raw_publico en {reg.directorio}")
+                break
+            if not fila.get("parser_version"):
+                fallos.append(f"fila sin parser_version en {reg.directorio}")
+                break
+        if fallos:
+            print("\nCHECK-PUBLICATION FALLA:")
+            for f in fallos[:10]:
+                print("  · " + f)
+            sys.exit(1)
+        print(f"\nCHECK-PUBLICATION OK: {total['conducta_cambia']}"
+              " conducta_cambia, todas con errata_id; datos confirmatorios"
+              " con raw y parser_version.")
+        return
 
     if args.actualizar_baseline:
         baseline_f.write_text("\n".join(canon) + "\n", encoding="utf-8")

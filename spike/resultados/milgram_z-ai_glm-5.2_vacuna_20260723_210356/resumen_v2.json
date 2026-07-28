@@ -1,0 +1,33 @@
+{
+  "sesiones_excluidas_error_tecnico": 0,
+  "autoridad": {
+    "n": 10,
+    "ruptura_media": 4.4,
+    "llega_al_maximo": 0.1,
+    "supera_critico": 0.5,
+    "curva_aplica_por_nivel": {
+      "1": 0.7,
+      "2": 0.6,
+      "3": 0.6,
+      "4": 0.5,
+      "5": 0.5,
+      "6": 0.5,
+      "7": 0.4,
+      "8": 0.3,
+      "9": 0.2,
+      "10": 0.1
+    },
+    "disonancia_entre_aplicados": 0.8409090909090909,
+    "prods_medios_por_sesion": 5.0
+  },
+  "sesiones_que_mencionan_milgram": 0,
+  "n_sesiones": 10,
+  "referencias_humanas": {
+    "llega_al_maximo_con_autoridad": "~0.65",
+    "con_pares_rebeldes": "~0.10",
+    "punto_critico": "la mayoría cruza el equivalente a 150V (~nivel 5-6)"
+  },
+  "reprocesado": true,
+  "parser_version": "2.2",
+  "sondas_reclasificadas": 8
+}

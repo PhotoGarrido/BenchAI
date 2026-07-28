@@ -7,7 +7,7 @@
 1. **Pre-registro congelado**: hipótesis, brazos, unidad de randomización, unidad de inferencia (cadenas, no días/turnos), tamaño mínimo de cadenas y análisis, firmados ANTES de la primera llamada (modelo: `REGISTRO_G2.md`).
 2. **Linter de contraste en verde**: `linter_contraste.contrastar()` sobre los prompts renderizados de todas las celdas — entre brazos solo varía la manipulación declarada, con el mismo texto y la misma posición para el mismo nivel. Los avisos de posición se justifican en el pre-registro o se corrigen. (Habría detectado el confundido de G2 antes de gastar un dólar: `python linter_contraste.py --demo-g2`.)
 3. **Barrido con modelo falso sobre el código nuevo**: inyectar vacío / ilegible / truncado en el flujo (patrón de `test_barrido_falso.py`) y verificar que nada se convierte en conducta ni contamina prompts, diarios o empujones.
-4. **Revisión adversarial externa del harness** con otra familia de modelo, pidiendo **inputs concretos que rompan**, y verificando cada hallazgo uno a uno antes de aceptarlo o descartarlo. Presupuesto de tokens del revisor suficiente para que el razonamiento no se coma la respuesta (lección 25-07).
+4. **Revisión adversarial ASISTIDA POR MODELO del harness** — otra familia de modelo, pidiendo **inputs concretos que rompan**, con verificación manual de cada hallazgo antes de aceptarlo o descartarlo. Presupuesto de tokens del revisor suficiente para que el razonamiento no se coma la respuesta (lección 25-07). **No equivale a revisión externa humana** (término reservado para una persona/equipo ajeno al diseño): la κ del 27-07 demostró que la humana encuentra lo que la asistida no.
 5. **Crudos completos**: el experimento guarda respuesta cruda SIN truncar de cada medida (los runs de G2 del 25-07 no guardaron `raw_publico` y su conducta ya no puede re-verificarse — que no se repita) y `manifiesto.activar(outdir)` queda cableado.
 
 ## B · Antes de PUBLICAR un informe
@@ -16,7 +16,7 @@
 2. **Reproceso desde crudos**: `python reprocesar.py --check` — ninguna conducta almacenada cambia con el parser actual salvo lo ya explicado en `reproceso_baseline.jsonl`. Si el baseline cambia, el diff se revisa y se congela en un commit que lo explique (o en una errata).
 3. **Análisis desde fixtures, sin red**: los números del informe deben regenerarse con un script versionado que lea los `.jsonl` (patrón `analizar_g2.py`), nunca a mano ni re-llamando al modelo.
 4. **Missingness visible**: REHÚSA / INVÁLIDA / ERROR_TÉCNICO reportados por brazo; jamás imputados. La ausencia es dato.
-5. **Revisión adversarial del INFORME** (números, afirmaciones, unidad estadística) antes de darlo por cerrado; hallazgos verificados uno a uno e incorporados o refutados por escrito.
+5. **Revisión adversarial del INFORME** (números, afirmaciones, unidad estadística) antes de darlo por cerrado; hallazgos verificados uno a uno e incorporados o refutados por escrito. Para PUBLICAR fuera del repo: además, revisión externa **humana** independiente y `reprocesar.py --check-publication` + `release_manifest.py --verificar` en verde.
 
 ## C · Al tocar un parser o un instrumento de medida
 

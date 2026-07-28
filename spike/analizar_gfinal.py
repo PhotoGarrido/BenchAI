@@ -97,7 +97,24 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--dir-a", default=None)
     ap.add_argument("--dir-b", default=None)
+    ap.add_argument("--manifest", action="store_true",
+                    help="usa los datasets FIJADOS en"
+                         " preprint/release_manifest.json (verifica hashes;"
+                         " sin selección silenciosa del último directorio)")
     args = ap.parse_args()
+    if args.manifest:
+        import subprocess
+        import sys as _sys
+        rc = subprocess.run([_sys.executable, "release_manifest.py",
+                             "--verificar"],
+                            cwd=pathlib.Path(__file__).parent).returncode
+        if rc:
+            raise SystemExit("release manifest inválido: no se analiza")
+        man = json.loads((pathlib.Path(__file__).parent.parent / "preprint"
+                          / "release_manifest.json").read_text())
+        base = pathlib.Path(__file__).parent
+        args.dir_a = str(base / man["datasets"]["gfinal_A"]["dir"])
+        args.dir_b = str(base / man["datasets"]["gfinal_B"]["dir"])
     rng = random.Random(SEED)
     salida = {"seed": SEED, "n_boot": N_BOOT,
               "unidad": "cadena (modelo×celda×rep×supervisor)",

@@ -1,0 +1,90 @@
+{
+  "parser_version": "2.2",
+  "datasets": {
+    "gfinal_A": {
+      "dir": "resultados/gfinal_A_20260726_201144",
+      "ficheros": {
+        "manifest_run.json": "aaa932c5c25fe44345e8145e65fabcc09480a488ab331e09b279ce5debed1237",
+        "registros_claude-sonnet-5.jsonl": "1b14295cfe916d0bd022ad0a22a2a594be71795ced535e125526f45da6877447",
+        "registros_deepseek-v3.2.jsonl": "7be417fe87ea51f885429206fb77a74b7e4309d9ec20af144701c364b5bbf283",
+        "registros_glm-5.2.jsonl": "c706b0415e39e4b227f28f239867163f6020be820aa642805b91b4880cef75dd",
+        "registros_grok-4.5.jsonl": "470e4c5c56ba4fbdea746dce01772a64e641a1b7711463f1d5557c93e6c1ff44",
+        "resumen.json": "4bdcf764654618794a910d900b2df3073dadfb17dc3ff9c6cf7a8bb6d8ffec64",
+        "solicitudes.jsonl": "61ac50201061bb510589081aecc2a358d5e5a581c3de2b3cc433784e2f6a7346"
+      }
+    },
+    "gfinal_B": {
+      "dir": "resultados/gfinal_B_20260726_201146",
+      "ficheros": {
+        "manifest_run.json": "dc524a1ab5cda8c16dafb892bc68aee612fcd01d24ac98b0a9b52efda1db9ed5",
+        "registros_claude-opus-5.jsonl": "1d3ca2f8737a592c8094759e364e6396ea3ddfbeae48da6472b841775883b98b",
+        "resumen.json": "22cb100cf5bb298c563ab4deee7375c67d0b9043f3c3fafc9644e0c9f0ecd5af",
+        "solicitudes.jsonl": "9d7ce8fa4d725b394e0a24876ab3e56bb4173e9bb54c602e744602ce7df5e85e"
+      }
+    },
+    "g2_a2": {
+      "dir": "resultados/g2_a2_20260725_194112",
+      "ficheros": {
+        "a4_validacion.json": "82f20d624be54148ad9201f449135ef0bcfdbcd0b75ee7d1a1cb55ceae0195fd",
+        "registros_claude-sonnet-5.jsonl": "db79b19bf06eaa3da39514315390c872df0478f76fce546210687636addd66bd",
+        "registros_deepseek-v3.2.jsonl": "80f60627b4c40b78cfb0956ad243993634bee6a172306f2e7323f0c90cebf915",
+        "registros_grok-4.5.jsonl": "abf4451a2d6070094977b6a017236a7cce6e7e68daf29cb03e4d89c4cc1f9179",
+        "registros_mistral-medium-3-5.jsonl": "1e6f1feaa868fe45f13c36127d7c1e6635e0a238808366d3ff050358c29d3086",
+        "resumen.json": "f6b8499842f472522d1c5c9434f79f0cc828bf91483fe96a17a1c99f88d646c1"
+      }
+    },
+    "g2_a3": {
+      "dir": "resultados/g2_a3_20260725_201904",
+      "ficheros": {
+        "registros_grok-4.5.jsonl": "4fb0188f96c1b1af84b90635201b6b14db54aafe3621cb8cd015ac2bc4c8f502",
+        "registros_mistral-medium-3-5.jsonl": "18387376f3f3052440ead9e3e182b49c1d21921e168a47675ceb13e6f398231f",
+        "resumen.json": "3d00a82215f9ce6b3e350e010dc742242f25038a69e857e4f71ed447c725da81"
+      }
+    },
+    "g2_b": {
+      "dir": "resultados/g2_b_20260725_203608",
+      "ficheros": {
+        "registros_claude-opus-4.8.jsonl": "e4832dab4db418b9293f24bf2d833be0504109e319bfb324f1bda5bdefd45758",
+        "registros_claude-opus-5.jsonl": "a8fdf72b222dffd8d261033e26ee2e8f821a65120c3a562487d3b50c392a84d0",
+        "resumen.json": "d1518ee159439f6caa48a58788351f54b255b1c8fa4430c9f8e5234877358ab6"
+      }
+    },
+    "g2_c": {
+      "dir": "resultados/g2_c_20260725_204754",
+      "ficheros": {
+        "registros_claude-sonnet-5.jsonl": "2c6b9728f02e2272452cbb15d11ab9e916b52622ea9348bff7c06f446d5c688b",
+        "registros_grok-4.5.jsonl": "cb11f5fbcdf912c414ee794136bb6e038497ceb25f1e591815f9f832eb87318c",
+        "resumen.json": "96670ddd88e08edba54033f682f0e83de4cb93afbf05655d975fe80fac7f38a6"
+      }
+    },
+    "kappa_r1": {
+      "dir": "resultados/gfinal_juez",
+      "ficheros": {
+        "clave_privada.json": "00662d4a92fb36f295997b8d64c7badd314af972e760dc52c3ce85f93402073f",
+        "hoja_rellena.json": "e9592e336fa00a1d1b364c0c779d44c404de8e1aa35bece5c05f8635e20eb0f4",
+        "kappa.json": "8f59a706a08d49972393b8932fd73acb4673275cd9c43d667d7166a5fa85d4c1",
+        "kappa_sensibilidad.json": "d705d17f83066eda5570d32faed80080fbb202f61e2daa6d27d12cc02136cd82"
+      }
+    },
+    "kappa_r2": {
+      "dir": "resultados/g2_juez",
+      "ficheros": {
+        "clave_privada.json": "07c667444f7480a78acb09bbc74211bec4c9c8a10b348c4e10c77fec336b0c62",
+        "hoja_rellena.json": "75d3cd7bbe6800ed469de7c695db848e425812fe0dbf93cde1343687a9bbf866",
+        "kappa.json": "47d7fb21b57acc2906c165f27b4a5a442a99958be2eaad83b49cbfcaf06d0a3f"
+      }
+    },
+    "analisis_gfinal": {
+      "fichero": "resultados/gfinal_analisis.json",
+      "sha256": "dd2f3023143b7d3ae6265229df09244f279aa84a7caa92fba63f0929aa012559"
+    },
+    "analisis_g2": {
+      "fichero": "resultados/g2_analisis.json",
+      "sha256": "d4f76210bc43c8ab872cc2cbf6a7c6070036747e670434d6cd9ca98fb6670f11"
+    },
+    "reproceso": {
+      "fichero": "resultados/reproceso.json",
+      "sha256": "abb1525e6b2515d5df55914e18946fa004ea91b73257994ed6d6cf07a4fe0a70"
+    }
+  }
+}

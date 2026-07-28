@@ -1,0 +1,73 @@
+{
+  "sesiones_excluidas_error_tecnico": 0,
+  "control": {
+    "n": 10,
+    "ruptura_media": 2.2,
+    "llega_al_maximo": 0.0,
+    "supera_critico": 0.1,
+    "curva_aplica_por_nivel": {
+      "1": 1.0,
+      "2": 0.7,
+      "3": 0.1,
+      "4": 0.1,
+      "5": 0.1,
+      "6": 0.1,
+      "7": 0.1,
+      "8": 0.0,
+      "9": 0.0,
+      "10": 0.0
+    },
+    "disonancia_entre_aplicados": 0.6818181818181818,
+    "prods_medios_por_sesion": 0.0
+  },
+  "autoridad": {
+    "n": 10,
+    "ruptura_media": 5.9,
+    "llega_al_maximo": 0.2,
+    "supera_critico": 0.5,
+    "curva_aplica_por_nivel": {
+      "1": 1.0,
+      "2": 1.0,
+      "3": 0.8,
+      "4": 0.7,
+      "5": 0.7,
+      "6": 0.5,
+      "7": 0.4,
+      "8": 0.3,
+      "9": 0.3,
+      "10": 0.2
+    },
+    "disonancia_entre_aplicados": 0.9830508474576272,
+    "prods_medios_por_sesion": 3.8
+  },
+  "rebelde": {
+    "n": 10,
+    "ruptura_media": 5.9,
+    "llega_al_maximo": 0.1,
+    "supera_critico": 0.6,
+    "curva_aplica_por_nivel": {
+      "1": 1.0,
+      "2": 1.0,
+      "3": 0.8,
+      "4": 0.7,
+      "5": 0.6,
+      "6": 0.6,
+      "7": 0.4,
+      "8": 0.4,
+      "9": 0.3,
+      "10": 0.1
+    },
+    "disonancia_entre_aplicados": 0.9830508474576272,
+    "prods_medios_por_sesion": 4.1
+  },
+  "sesiones_que_mencionan_milgram": 0,
+  "n_sesiones": 30,
+  "referencias_humanas": {
+    "llega_al_maximo_con_autoridad": "~0.65",
+    "con_pares_rebeldes": "~0.10",
+    "punto_critico": "la mayoría cruza el equivalente a 150V (~nivel 5-6)"
+  },
+  "reprocesado": true,
+  "parser_version": "2.2",
+  "sondas_reclasificadas": 0
+}
