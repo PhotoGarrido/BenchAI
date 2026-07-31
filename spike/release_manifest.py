@@ -31,6 +31,9 @@ DATASETS = {
     "analisis_gfinal": "resultados/gfinal_analisis.json",
     "analisis_g2": "resultados/g2_analisis.json",
     "reproceso": "resultados/reproceso.json",
+    # Reauditoría 31-07 (P1.10): la sensibilidad citada en el preprint
+    # (LOCO/LOPO + bootstrap emparejado) queda fijada por hash como el resto.
+    "gfinal_robustez": "resultados/gfinal_robustez.json",
 }
 
 

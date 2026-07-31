@@ -1,4 +1,4 @@
-# Research Card — PsicoAI v0.1.0-alpha
+# Research Card — PsicoAI v0.1.2-alpha
 
 **Qué es**: banco de pruebas conductual que somete modelos de lenguaje a paradigmas clásicos de psicología social (isomorfos y disfrazados) con harness controlado, y un simulador narrativo aparte para material didáctico.
 
@@ -6,12 +6,12 @@
 
 **Resultados principales** (con sus denominadores; detalles y IC en `preprint/preprint.md`):
 - Complacencia sin internalización en 16/16 modelos de la batería.
-- Obediencia destructiva de 0,00 a 1,00 según modelo: rasgo, no especie.
+- Obediencia destructiva de 0,00 a 1,00 según modelo: en esta muestra y protocolo se comporta como propiedad del modelo concreto, no como atributo compartido de los LLM evaluados.
 - Dos factores de ejecución de daño con efectos diferenciados (orden, provocación).
 - Una cláusula de proporcionalidad reduce la ejecución en 3/4 modelos (confirmatorio, pre-registrado).
 - Tres refutaciones pre-registradas de hipótesis propias, publicadas.
 
-**Validación del instrumento**: parsers v2.2 con reproceso auditado de 55.470 campos (19 reclasificaciones, todas con errata; `preprint/auditoria_reproceso.md`); juez LLM con validación humana **fallida según su umbral pre-registrado** (κ 0,55 < 0,8; se reporta como tal).
+**Validación del instrumento**: parsers v2.2 con reproceso auditado de 55.545 campos con raw — 55.470 idénticos; 5.472 sin raw, 5.400 de ellos la conducta de G2 — (19 reclasificaciones, todas con errata; `preprint/auditoria_reproceso.md`); juez LLM con validación humana **fallida según su umbral pre-registrado** (κ 0,55 < 0,8; se reporta como tal).
 
 **Usos previstos**: investigación de seguridad/alineamiento de agentes; selección de modelo para roles con autoridad; docencia de metodología (el historial de errores y erratas es material didáctico deliberado).
 

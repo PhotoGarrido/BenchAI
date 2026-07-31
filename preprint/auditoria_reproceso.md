@@ -44,9 +44,24 @@ Además, las 16 `conducta_a_invalida` de sondas milgram (ecos de consigna de glm
 
 Esta asimetría queda declarada en el manuscrito (§6 y §8): la afirmación de re-derivabilidad se limita a los experimentos con raw.
 
-## 3-bis · Limitación de los manifiestos confirmatorios (P0.5, 31-07)
+## 3-bis · Limitación de los manifiestos confirmatorios (P0.5, 31-07; ampliada tras la reauditoría)
 
-Los `manifest_run.json` de los runs del G-final (26-07) son **anteriores** a la clase `RunManifest` con estado final (29-07): contienen cabecera y el registro completo por solicitud (`solicitudes.jsonl`), pero **no** `status`, hora de fin, recuentos ni hashes de cierre. No se reescriben (los crudos históricos son inmutables); la garantía de «estado final» aplica a runs posteriores al 29-07, y así lo declara el preprint. Un run confirmatorio futuro (la ampliación a ≥20 cadenas) nacerá ya con manifiesto completo.
+Los `manifest_run.json` de los runs del G-final (26-07) son **anteriores** a la clase `RunManifest` con estado final (29-07): contienen cabecera y el registro por solicitud (`solicitudes.jsonl`; A: 3.883 solicitudes, B: 243), pero **no** `status`, hora de fin, recuentos ni hashes de cierre. La reauditoría del 31-07 precisó dos huecos más, verificados contra el artefacto: **(a)** el `solicitudes.jsonl` de A contiene **5 registros con `respuesta: null` y sin campo `error`** — solicitudes cuyo desenlace (¿timeout silencioso?, ¿contenido vacío del proveedor?) no puede distinguirse desde el manifiesto; **(b)** ningún registro de A ni de B guarda `model_returned` (el modelo que el gateway declaró haber servido), de modo que la coincidencia pedido↔servido no es verificable retrospectivamente para esos runs. Por todo ello, «registro completo por solicitud» es una descripción EXCESIVA para los manifiestos del 26-07: lo exacto es «registro por solicitud con mensajes, parámetros y respuesta, sin estado final, sin desenlace tipado en 5 casos de A y sin modelo devuelto». No se reescriben (los crudos históricos son inmutables); las garantías completas (estado final, error tipado, `model_returned`) aplican a runs desde el 29-07, y así lo declara el preprint. Un run confirmatorio futuro (la ampliación a ≥20 cadenas) nacerá ya con manifiesto completo.
+
+## 3-ter · Inventario de scripts con llamadas al proveedor (reauditoría 31-07, inventario A)
+
+La afirmación «todos los harness registran con manifiesto» se limitaba a los seis entrypoints del modo estudio. Inventario completo y su estado desde v0.1.2-alpha:
+
+| Script | Llama al proveedor | Manifiesto |
+|---|---|---|
+| `experimento_{asch,milgram,prision,cronica,g2,gfinal}.py` | sí (4 de ellos con pools) | **Sí** desde v0.1.0; los pools registran desde v0.1.2 (`map_paralelo`) |
+| `experimento_gradiente.py` | sí (pools) | **Integrado en v0.1.2** (antes: sin manifiesto) |
+| `tiento.py`, `retest_aptitud.py`, `retest_inkling_personas.py` | sí | **Integrados en v0.1.2** (antes: sin manifiesto) |
+| `juez_gfinal.py`, `juez_g2.py`, `a4_validacion.py` | sí (juez vía cliente OpenAI directo) | **Integrados en v0.1.2**: cada solicitud del juez se registra; las ramas offline (`--kappa`, `--solo-muestra`) no activan manifiesto |
+| `bateria.py`, `relanzar_celdas.py` | no (orquestan **subprocesos** de los entrypoints) | Declarados orquestadores: el manifiesto vive en cada entrypoint lanzado; conservan su `manifest.json` de lote |
+| `run_spike.py` (narrativo) | sí | Sí (RunManifest context manager con hashes) |
+
+**Limitación histórica declarada**: los outputs ya versionados de gradiente, tiento, retests, jueces y A4 (anteriores a v0.1.2) se generaron **sin** manifiesto por solicitud; sus artefactos agregados (registros/huellas/claves del juez) existen y están fijados donde procede por el release manifest, pero no tienen registro por solicitud física. No se reconstruyen retroactivamente.
 
 ## 4 · Vigilancia continua
 

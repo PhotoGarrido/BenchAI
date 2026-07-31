@@ -54,7 +54,11 @@ def main():
                     if cadenas(v)[0]}
         con = _props([r for r in rm if r["clausula"]])
         sin = _props([r for r in rm if not r["clausula"]])
-        pares = [con[k] - sin[k] for k in con.keys() & sin.keys()]
+        # sorted() sobre la intersección (reauditoría 31-07, P1.10): el orden
+        # de un `dict.keys() & dict.keys()` depende del hash de proceso
+        # (PYTHONHASHSEED), así que la MISMA seed producía IC distintos entre
+        # ejecuciones. Con orden determinista, mismos bytes en cada proceso.
+        pares = [con[k] - sin[k] for k in sorted(con.keys() & sin.keys())]
         if pares:
             ds = sorted(sum(rng.choice(pares) for _ in pares) / len(pares)
                         for _ in range(5000))

@@ -85,6 +85,10 @@
     "reproceso": {
       "fichero": "resultados/reproceso.json",
       "sha256": "c18f7ff7d50fdd1fb456c4d84f06096c06fbfea4e45e666e45896290fe3bd482"
+    },
+    "gfinal_robustez": {
+      "fichero": "resultados/gfinal_robustez.json",
+      "sha256": "ac484220e0d9b56f5d647167485fd0253e73224fadb7b7da5b22419ea8ce6864"
     }
   }
 }

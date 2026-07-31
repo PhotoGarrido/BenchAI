@@ -1,13 +1,13 @@
 # 🧠 PsicoAI
 
-**Banco de pruebas conductual de agentes LLM sobre paradigmas clásicos de psicología social, más un simulador narrativo didáctico.** Versión `v0.1.0-alpha` (research preview).
+**Banco de pruebas conductual de agentes LLM sobre paradigmas clásicos de psicología social, más un simulador narrativo didáctico.** Versión `v0.1.2-alpha` (research preview).
 
 ## Qué es
 
 Tres productos que conviven en este repositorio, deliberadamente separados:
 
 1. **Banco experimental** (`spike/experimento_*.py`): 6 paradigmas isomorfos y disfrazados — Asch, Milgram (±vacuna), la prisión de Stanford (P1→P2b), erosión de normas en 42 días, y el gradiente de explicitud (G1→G2→G-final) — ejecutados con harness controlado sobre 17 modelos de 10 laboratorios.
-2. **Trabajo de investigación** (`preprint/`): borrador v0.2, pre-registros congelados con enmiendas fechadas, auditoría del reproceso y erratas.
+2. **Trabajo de investigación** (`preprint/`): borrador v0.3, pre-registros congelados con enmiendas fechadas, auditoría del reproceso y erratas.
 3. **Simulador narrativo** (`spike/run_spike.py` + `panel/` + `viewer/`): personajes con personalidad y memoria sobre [Concordia](https://github.com/google-deepmind/concordia), con replay reproducible y canal de pensamiento privado. Produce los `episodios/` didácticos.
 
 ## Qué NO es
@@ -16,10 +16,10 @@ Tres productos que conviven en este repositorio, deliberadamente separados:
 - **No es un ranking de modelos.** Los perfiles dependen del protocolo, la fecha y el proveedor.
 - **No es un producto**: es investigación en preview, con sus errores documentados a la vista.
 
-## Estado del proyecto (29-07-2026)
+## Estado del proyecto (31-07-2026)
 
 - **Confirmatorio**: cláusula de proporcionalidad sostenida en 3/4 modelos (pre-registrada); mecanismo «institucionalista» de opus-5 refutado; efecto formato-política de G1 refutado. Tres refutaciones publicadas.
-- **Validación del instrumento**: parsers v2.2 (tres revisiones adversariales + reproceso de 55.470 campos con doble gate en CI — ver [`preprint/auditoria_reproceso.md`](preprint/auditoria_reproceso.md)); validación humana del juez **fallida según su umbral pre-registrado** (κ 0,55 < 0,8) y reportada como tal.
+- **Validación del instrumento**: parsers v2.2 (tres revisiones adversariales + reproceso de 55.545 campos con raw — 55.470 idénticos; 5.472 sin raw, 5.400 de ellos la conducta de G2 — con doble gate en CI — ver [`preprint/auditoria_reproceso.md`](preprint/auditoria_reproceso.md)); validación humana del juez **fallida según su umbral pre-registrado** (κ 0,55 < 0,8) y reportada como tal.
 - **Erratas vivas**: `spike/resultados/ERRATA_prision.md`, `reproceso_erratas.json`. Los errores y sus correcciones son parte del material.
 
 ## Resultados y preprint
@@ -31,7 +31,7 @@ Tres productos que conviven en este repositorio, deliberadamente separados:
 
 - Cada solicitud física al proveedor queda en `solicitudes.jsonl` (mensajes completos, tokens, latencia, estado final del run).
 - Los datasets de cada tabla del preprint están fijados por sha256 en [`preprint/release_manifest.json`](preprint/release_manifest.json); los análisis corren con `--manifest`.
-- `cd spike && python reprocesar.py --check` re-deriva 55.470 campos desde crudos sin red; `--check-publication` exige errata para toda reclasificación. Excepción declarada: la conducta de G2 (25-07) no conservó crudos.
+- `cd spike && python reprocesar.py --check` re-deriva los 55.545 campos con raw desde crudos sin red (55.470 idénticos); `--check-publication` exige errata para toda reclasificación. Excepción declarada: la conducta de G2 (25-07) no conservó crudos.
 
 ## Demo narrativa (sin instalar nada)
 
@@ -44,6 +44,7 @@ Tres productos que conviven en este repositorio, deliberadamente separados:
 cd spike
 python3.12 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
+pip install -r requirements-ci.txt           # herramientas de la puerta (ruff, mypy, pip-audit…)
 cp .env.example .env        # credenciales de tu gateway (jamás se versionan)
 python run_spike.py --dry-run --steps 2      # humo sin red
 python experimento_gfinal.py --linter        # verifica simetría de brazos
