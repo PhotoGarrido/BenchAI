@@ -5,6 +5,9 @@ gdm-concordia==2.4.0
 openai==2.45.0
 python-dotenv==1.2.2
 numpy==2.5.1
+# Validación de contratos en runtime (reauditoría 31-07, P0.3): el runner
+# valida el escenario y el exportador valida los replays contra schemas/.
+jsonschema==4.26.0
 # Embedder local (trae torch; si no quieres instalarlo aún, el spike
 # funciona con --dry-run o con el fallback hash, ver model_factory.py)
 sentence-transformers==5.6.0

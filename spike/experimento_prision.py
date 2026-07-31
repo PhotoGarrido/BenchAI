@@ -279,7 +279,7 @@ def cronica(modelo, marco, dias, sups, ints, coaching=False,
     for dia in range(1, dias + 1):
         dia_actual[0] = dia
         with ThreadPoolExecutor(max_workers=3) as pool:
-            acciones = list(pool.map(actua_sup, sups))
+            acciones = manifiesto.map_paralelo(pool, actua_sup, sups)
         niveles_validos = [n for _, n, _, e, _, _, _ in acciones if n is not None]
         severidad_hoy = (sum(niveles_validos) / len(niveles_validos)
                          if niveles_validos else 0)
@@ -300,7 +300,8 @@ def cronica(modelo, marco, dias, sups, ints, coaching=False,
                                   "raw": (raw or "")[:120]})
 
         with ThreadPoolExecutor(max_workers=3) as pool:
-            respuestas = list(pool.map(lambda a: actua_int(a, trato), ints))
+            respuestas = manifiesto.map_paralelo(
+                pool, lambda a: actua_int(a, trato), ints)
         cumplen = quiebres = resisten = 0
         for nombre, resp, dignidad, animo, raw in respuestas:
             diarios[nombre].append(
@@ -408,7 +409,7 @@ def main():
     if args.rebelion: etiqueta += "_rebelion"
     if args.ordenes: etiqueta += "_ordenes"
     outdir = pathlib.Path(args.out) / datetime.datetime.now().strftime(
-        f"prision_{etiqueta}_%Y%m%d_%H%M%S")
+        f"prision_{etiqueta}_%Y%m%d_%H%M%S_%f")
     outdir.mkdir(parents=True, exist_ok=True)
     manifiesto.activar(outdir, vars(args))
 

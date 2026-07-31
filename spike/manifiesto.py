@@ -169,3 +169,20 @@ def registrar(evento: dict) -> None:
     m = _ACTIVO.get()
     if m is not None:
         m.registrar(evento)
+
+
+def map_paralelo(pool, fn, iterable):
+    """`pool.map` que PROPAGA el contexto (y con él el manifiesto activo) a
+    los workers (reauditoría 31-07, P0.2): los hilos de un ThreadPoolExecutor
+    nacen con un contexto vacío, así que `registrar()` dentro de un worker
+    veía `None` y las solicitudes físicas se perdían en silencio — el run
+    terminaba `completed` con `solicitudes=0` pese a haber gastado.
+
+    Cada tarea se envía con su PROPIA copia del contexto del hilo llamante
+    (una `Context` no puede entrarse dos veces a la vez), de modo que dos
+    runs concurrentes con manifiestos distintos no se mezclan. Conserva el
+    orden de entrada y la semántica de errores de `pool.map` (la primera
+    excepción se propaga al consumir los resultados)."""
+    futuros = [pool.submit(contextvars.copy_context().run, fn, x)
+               for x in iterable]
+    return [f.result() for f in futuros]

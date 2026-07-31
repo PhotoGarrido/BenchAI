@@ -35,8 +35,13 @@ import manifiesto
 import model_factory
 import personas
 
-# Escenario por defecto: mismo esquema que exporta el diseñador.
+# Escenario por defecto: mismo esquema que exporta el diseñador (version 1
+# del contrato schemas/scenario.schema.json; se valida igual que un --config).
+# variables_sensibles=true es una DECLARACIÓN consciente del autor: los
+# atributos avanzados de estos cuatro personajes son parte del diseño.
 ESCENARIO_DEFECTO = {
+    "version": 1,
+    "variables_sensibles": True,
     "titulo": "El Centro Aldaba — Día 1",
     "premisa": (
         "El Centro Aldaba es una residencia de evaluación de la que los"
@@ -118,7 +123,18 @@ def cargar_y_validar_escenario(escenario: dict, origen: str) -> None:
         ruta = "/".join(str(x) for x in e.absolute_path) or "(raíz)"
         raise SystemExit(f"Escenario inválido ({origen}) en {ruta}: "
                          f"{e.message[:200]}")
-    if escenario.get("variables_sensibles") is False:
+    # Política de sensibles (reauditoría 31-07, P1.8): DEFAULT SEGURO. Solo
+    # variables_sensibles=true (consentimiento explícito del diseñador)
+    # conserva los atributos sensibles; false O AUSENTE los neutraliza. Los
+    # escenarios del repo (integrado, escenario_test, episodio_el_centro)
+    # declaran true explícitamente, así que ninguno legítimo cambia; un JSON
+    # antiguo sin flag queda neutro y se avisa.
+    if escenario.get("variables_sensibles") is not True:
+        if "variables_sensibles" not in escenario:
+            print("[aviso] El escenario no declara 'variables_sensibles':"
+                  " se neutralizan los atributos sensibles por defecto"
+                  " (añade \"variables_sensibles\": true si su uso es"
+                  " deliberado).")
         personas.neutralizar_sensibles(escenario)
 
 
@@ -149,6 +165,10 @@ def main() -> None:
         print(f"Escenario cargado: {escenario.get('titulo', args.config.name)}")
     else:
         escenario = ESCENARIO_DEFECTO
+        # El integrado pasa por la MISMA puerta que un --config (reauditoría
+        # 31-07, P0.3): si el contrato del schema cambia, el defecto no puede
+        # quedarse atrás en silencio.
+        cargar_y_validar_escenario(escenario, "(integrado)")
         texto_escenario = json.dumps(escenario, ensure_ascii=False,
                                      sort_keys=True)
     # Hash del escenario tal como se usó (fichero exportado o el integrado
@@ -254,7 +274,9 @@ def main() -> None:
         from concordia.environment.engines import sequential
         engine = sequential.Sequential()
 
-    run_id = datetime.datetime.now().strftime("spike_%Y%m%d_%H%M%S")
+    # Microsegundos (reauditoría 31-07, P1.1): dos lanzamientos en el mismo
+    # segundo ya no comparten directorio.
+    run_id = datetime.datetime.now().strftime("spike_%Y%m%d_%H%M%S_%f")
     outdir = pathlib.Path(args.out) / run_id
 
     inicio = time.time()

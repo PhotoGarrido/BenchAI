@@ -31,7 +31,9 @@ from dotenv import load_dotenv
 
 load_dotenv(pathlib.Path(__file__).parent / ".env")
 
+import manifiesto
 from a4_validacion import JUEZ_MODELO, JUEZ_PARAMS, JUEZ_PROMPT, RUBRICA
+from a4_validacion import juez_llm
 
 RES = pathlib.Path(__file__).parent / "resultados"
 SEED = 20260726
@@ -116,20 +118,12 @@ def juzgar(muestra):
     from openai import OpenAI
     cli = OpenAI(api_key=os.environ["OPENROUTER_API_KEY"],
                  base_url="https://openrouter.ai/api/v1")
-
-    def uno(r):
-        try:
-            resp = cli.chat.completions.create(
-                model=JUEZ_MODELO,
-                messages=[{"role": "user", "content":
-                           JUEZ_PROMPT.format(txt=r["interpretacion"])}],
-                **JUEZ_PARAMS)
-            t = (resp.choices[0].message.content or "").upper()
-            return "SÍ" in t or bool(re.search(r"\bSI\b", t))
-        except Exception:
-            return None
+    # juez_llm registra cada solicitud física en el manifiesto activo, y
+    # map_paralelo propaga el contexto a los workers (reauditoría 31-07,
+    # inventario A).
     with ThreadPoolExecutor(8) as pool:
-        return list(pool.map(uno, muestra))
+        return manifiesto.map_paralelo(
+            pool, lambda r: juez_llm(cli, r["interpretacion"]), muestra)
 
 
 def kappa(a, b):
@@ -173,6 +167,9 @@ def main():
         return
 
     regs, origen = cargar_a(args.dir)
+    # El manifiesto se activa SOLO al llegar a la rama que llama al juez
+    # (--kappa es offline y ya retornó).
+    manifiesto.activar(outdir, vars(args))
     rng = random.Random(SEED)
     muestra = muestrear(regs, rng)
     for r in muestra:
@@ -219,4 +216,10 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+        manifiesto.cerrar_activo()
+    except BaseException as _e:
+        manifiesto.cerrar_activo("failed",
+                                 {"exception_type": type(_e).__name__})
+        raise

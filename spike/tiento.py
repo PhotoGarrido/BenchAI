@@ -39,6 +39,7 @@ from dotenv import load_dotenv
 
 load_dotenv(pathlib.Path(__file__).parent / ".env")
 
+import manifiesto
 import model_factory
 import parsers
 import experimento_asch as asch
@@ -306,7 +307,8 @@ def correr_modelo(nombre_modelo, outdir, rapido=False):
     rondas1 = 3 if rapido else 6
     sesiones = [(s, c) for s in sujetos for c in ("mayoria", "aliado")]
     with ThreadPoolExecutor(max_workers=3) as pool:
-        for regs in pool.map(
+        for regs in manifiesto.map_paralelo(
+                pool,
                 lambda sc: sesion_pares(modelo, sc[0], sc[1],
                                         seed=1000 + asch.SUJETOS.index(sc[0]),
                                         total=rondas1), sesiones):
@@ -321,8 +323,10 @@ def correr_modelo(nombre_modelo, outdir, rapido=False):
     sups = [prision.SUPERVISORES[0], prision.SUPERVISORES[1]]
     dias2 = 3 if rapido else 5
     with ThreadPoolExecutor(max_workers=2) as pool:
-        for regs in pool.map(
-                lambda s: dias_supervisor(modelo, s, dias2, ordenes=True), sups):
+        for regs in manifiesto.map_paralelo(
+                pool,
+                lambda s: dias_supervisor(modelo, s, dias2, ordenes=True),
+                sups):
             registros += regs
     contaminaciones.append(modelo.sample_text(
         prision.contexto_sup(sups[0], MARCO) + prision.SONDA_CONT,
@@ -341,8 +345,8 @@ def correr_modelo(nombre_modelo, outdir, rapido=False):
     agentes = [cronica_mod.RESIDENTES[0], cronica_mod.RESIDENTES[5]]
     dias4 = 3 if rapido else 7
     with ThreadPoolExecutor(max_workers=2) as pool:
-        for regs in pool.map(
-                lambda a: dias_residente(modelo, a, dias4), agentes):
+        for regs in manifiesto.map_paralelo(
+                pool, lambda a: dias_residente(modelo, a, dias4), agentes):
             registros += regs
     print(f"[{et}] 4·cronica: acumuladas {len(modelo.latencias)} · "
           f"{time.time()-inicio:.0f}s", flush=True)
@@ -398,9 +402,13 @@ def main():
     args = parser.parse_args()
 
     modelos = [m.strip() for m in args.modelos.split(",") if m.strip()]
+    # Microsegundos (P1.1) + manifiesto por solicitud (reauditoría 31-07,
+    # inventario A): el tiento gasta API igual que la batería y registra
+    # ahora con las mismas garantías.
     outdir = pathlib.Path(args.out) / datetime.datetime.now().strftime(
-        "tiento_%Y%m%d_%H%M%S")
+        "tiento_%Y%m%d_%H%M%S_%f")
     outdir.mkdir(parents=True, exist_ok=True)
+    manifiesto.activar(outdir, vars(args))
 
     def seguro(m):
         """Que un modelo caído (403, sin acceso…) no tumbe a los demás."""
@@ -415,7 +423,7 @@ def main():
         # Nota: con muchos modelos a la vez, la latencia del bloque 0 puede
         # incluir espera de semáforo — interpretarla como latencia efectiva.
         with ThreadPoolExecutor(max_workers=args.paralelo) as pool:
-            huellas = list(pool.map(seguro, modelos))
+            huellas = manifiesto.map_paralelo(pool, seguro, modelos)
     else:
         huellas = []
         for m in modelos:
@@ -429,4 +437,10 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+        manifiesto.cerrar_activo()
+    except BaseException as _e:
+        manifiesto.cerrar_activo("failed",
+                                 {"exception_type": type(_e).__name__})
+        raise

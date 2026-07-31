@@ -105,14 +105,20 @@ def _eventos_movimiento(texto_evento, nombres, actor, id_por_nombre):
     quien, destino, info = det
     out = []
     if "raw_location" in info:
-        out.append({
+        cv = {
             "tipo": "constraint_violation",
             "rule": "unknown_location",
             "raw_location": info["raw_location"],
             "texto": ("El GM nombró un lugar fuera del escenario: "
                       f"«{info['raw_location']}»"),
-            "agente": id_por_nombre.get(quien),
-        })
+        }
+        # Reauditoría 31-07 (P1.6): sin actor identificable, la clave
+        # "agente" se OMITE — el schema exige string cuando existe, y un
+        # null rompía el contrato del replay.
+        aid = id_por_nombre.get(quien)
+        if aid is not None:
+            cv["agente"] = aid
+        out.append(cv)
     if quien in id_por_nombre and destino:
         if "haciaAgente" in destino:
             destino = dict(destino,
@@ -235,6 +241,11 @@ def build_replay(log_dict: dict, meta: dict) -> dict:
             _eventos_movimiento(texto_evento, nombres, actor, id_por_nombre))
         if ev.get("agente") is not None:
             ev["agente"] = id_por_nombre[ev["agente"]]
+        elif "agente" in ev:
+            # Atribución ambigua (hallazgo 22): no se adivina el actor y la
+            # clave se omite (P1.6) — el schema admite diálogo sin agente
+            # solo con atribucion="ambigua".
+            ev.pop("agente")
         eventos.append(ev)
 
     # Fallback (motor simultáneo): sus summaries vienen vacíos ("Step N gm") y
@@ -270,6 +281,8 @@ def build_replay(log_dict: dict, meta: dict) -> dict:
                 _eventos_movimiento(texto, nombres, actor, id_por_nombre))
             if ev.get("agente") is not None:
                 ev["agente"] = id_por_nombre[ev["agente"]]
+            elif "agente" in ev:
+                ev.pop("agente")   # atribución ambigua: se omite, no null
             eventos.append(ev)
     # limpia la marca interna de paso de los pensamientos
     for e in eventos:
@@ -319,14 +332,38 @@ def replay_publico(replay: dict) -> dict:
     return publico
 
 
+def validar_contra_schema(replay: dict, etiqueta: str) -> None:
+    """Reauditoría 31-07 (P1.6): NINGÚN replay se escribe sin validar antes
+    contra schemas/replay.schema.json. Un replay que el visor rechazaría no
+    debe llegar al disco como artefacto bueno."""
+    import jsonschema
+    schema = json.loads(
+        (pathlib.Path(__file__).parent.parent / "schemas" /
+         "replay.schema.json").read_text(encoding="utf-8"))
+    errores = sorted(jsonschema.Draft7Validator(schema).iter_errors(replay),
+                     key=lambda e: list(e.absolute_path))
+    if errores:
+        e = errores[0]
+        ruta = "/".join(str(x) for x in e.absolute_path) or "(raíz)"
+        raise RuntimeError(
+            f"replay inválido ({etiqueta}) en {ruta}: {e.message[:200]}")
+
+
 def exportar(log_path: pathlib.Path) -> pathlib.Path:
     log_dict = json.loads(log_path.read_text(encoding="utf-8"))
     meta_path = log_path.parent / "meta.json"
     meta = json.loads(meta_path.read_text(encoding="utf-8")) if meta_path.exists() else {}
     replay = build_replay(log_dict, meta)
+    publico = replay_publico(replay)
+    # Validación ANTES de escribir (P1.6): full, public y alias — el alias
+    # es byte a byte el full, pero se valida como objeto propio para que el
+    # contrato no dependa de esa implementación.
+    for etiqueta, objeto in (("replay.full.json", replay),
+                             ("replay.public.json", publico),
+                             ("replay.json", replay)):
+        validar_contra_schema(objeto, etiqueta)
     texto_full = json.dumps(replay, ensure_ascii=False, indent=2)
-    texto_public = json.dumps(replay_publico(replay), ensure_ascii=False,
-                              indent=2)
+    texto_public = json.dumps(publico, ensure_ascii=False, indent=2)
     # Hallazgo 23: el par full/public es el contrato nuevo. replay.json se
     # mantiene como alias byte a byte del full porque es el nombre que carga
     # el visor actual (viewer/index.html) — no se rompe nada.

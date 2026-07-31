@@ -22,12 +22,14 @@ import os
 import pathlib
 import random
 import re
+import time
 from concurrent.futures import ThreadPoolExecutor
 
 from dotenv import load_dotenv
 
 load_dotenv(pathlib.Path(__file__).parent / ".env")
 
+import manifiesto
 from experimento_gradiente import RE_DANO
 
 RES = pathlib.Path(__file__).parent / "resultados"
@@ -58,14 +60,28 @@ def cargar_a2():
 
 
 def juez_llm(cli, txt):
+    # Cada solicitud FÍSICA del juez queda en el manifiesto activo, con el
+    # mensaje completo y la respuesta o el error (reauditoría 31-07,
+    # inventario A).
+    mensajes = [{"role": "user", "content": JUEZ_PROMPT.format(txt=txt)}]
+    base = {"modelo": JUEZ_MODELO, "proveedor": "openrouter",
+            "params": JUEZ_PARAMS, "messages": mensajes}
+    t0 = time.monotonic()
     try:
         r = cli.chat.completions.create(
-            model=JUEZ_MODELO, messages=[{"role": "user",
-            "content": JUEZ_PROMPT.format(txt=txt)}], **JUEZ_PARAMS)
-        t = (r.choices[0].message.content or "").upper()
-        return "SÍ" in t or bool(re.search(r"\bSI\b", t))
-    except Exception:
+            model=JUEZ_MODELO, messages=mensajes, **JUEZ_PARAMS)
+    except Exception as e:
+        manifiesto.registrar(dict(
+            base, latencia_s=round(time.monotonic() - t0, 3),
+            error=f"{type(e).__name__}: {str(e)[:500]}"))
         return None
+    manifiesto.registrar(dict(
+        base, latencia_s=round(time.monotonic() - t0, 3),
+        request_id=getattr(r, "id", None),
+        model_returned=getattr(r, "model", None),
+        respuesta=r.choices[0].message.content))
+    t = (r.choices[0].message.content or "").upper()
+    return "SÍ" in t or bool(re.search(r"\bSI\b", t))
 
 
 def main():
@@ -106,9 +122,12 @@ def main():
     from openai import OpenAI
     cli = OpenAI(api_key=os.environ["OPENROUTER_API_KEY"],
                  base_url="https://openrouter.ai/api/v1")
+    # El manifiesto se activa SOLO cuando de verdad va a llamarse al juez
+    # (con --solo-muestra no hay solicitudes que registrar).
+    manifiesto.activar(outdir, vars(args))
     with ThreadPoolExecutor(8) as pool:
-        veredictos = list(pool.map(lambda r: juez_llm(cli, r["interpretacion"]),
-                                   regs))
+        veredictos = manifiesto.map_paralelo(
+            pool, lambda r: juez_llm(cli, r["interpretacion"]), regs)
     for r, v in zip(regs, veredictos):
         r["_juez"] = v
 
@@ -149,4 +168,10 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+        manifiesto.cerrar_activo()
+    except BaseException as _e:
+        manifiesto.cerrar_activo("failed",
+                                 {"exception_type": type(_e).__name__})
+        raise

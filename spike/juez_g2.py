@@ -27,6 +27,7 @@ from dotenv import load_dotenv
 load_dotenv(pathlib.Path(__file__).parent / ".env")
 
 from a4_validacion import JUEZ_MODELO, JUEZ_PARAMS, JUEZ_PROMPT, RUBRICA
+import manifiesto
 from juez_gfinal import juzgar, kappa
 
 RES = pathlib.Path(__file__).parent / "resultados"
@@ -120,6 +121,9 @@ def main():
         print(json.dumps(salida, ensure_ascii=False, indent=2))
         return
 
+    # El manifiesto se activa SOLO en la rama que llama al juez (--kappa es
+    # offline y ya retornó); juzgar() registra cada solicitud física.
+    manifiesto.activar(outdir, vars(args))
     rng = random.Random(SEED)
     muestra, origenes = muestrear(rng)
     veredictos = juzgar(muestra)
@@ -158,4 +162,10 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+        manifiesto.cerrar_activo()
+    except BaseException as _e:
+        manifiesto.cerrar_activo("failed",
+                                 {"exception_type": type(_e).__name__})
+        raise

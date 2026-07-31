@@ -1,5 +1,6 @@
 {
   "version": 1,
+  "variables_sensibles": true,
   "titulo": "Episodio 1 · El Centro Aldaba — La norma",
   "premisa": "El Centro Aldaba es una residencia de evaluación de la que los residentes no pueden salir durante las seis semanas del programa. Esta mañana la dirección ha anunciado una norma nueva: las llamadas al exterior quedan reducidas a una por semana y serán supervisadas. Todos coinciden en la sala común justo después del anuncio, y la escena transcurre a lo largo del día: mañana, mediodía y tarde.",
   "entorno": "sala_comun",

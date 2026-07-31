@@ -108,28 +108,82 @@ def texto_persona(p: dict) -> str:
 
 SENSIBLES_AVANZADOS = ("ideologia", "religiosidad", "salud", "atractivo",
                        "idioma")
+# Claves sensibles por contenedor, según la estructura REAL que exportan el
+# panel (construirConfig) y consume el runner: protagonista.avanzados,
+# agente_generado.b2 y sus claves planas (ori/nse/idi), demografia de
+# cualquiera de los dos, y las medias/distribuciones de poblacion
+# (demografia.origenes_culturales, mas_atributos.*).
+_SENSIBLES_B2 = ("ideo", "reli", "salud", "atr")
+_SENSIBLES_DEMOGRAFIA = ("origen_cultural", "nse")
+_SENSIBLES_PLANAS = ("ori", "nse", "idi")
+_SENSIBLES_MAS_ATRIBUTOS = ("ideologia_media", "religiosidad_media",
+                            "salud_media", "atractivo_media",
+                            "pct_otra_lengua")
+_SENSIBLES_PARAM_VARIANTE = frozenset(
+    SENSIBLES_AVANZADOS + _SENSIBLES_B2 + _SENSIBLES_MAS_ATRIBUTOS
+    # Claves reales de las variantes del panel (PARAMS de panel/app.js):
+    # t2_* son las medias de los atributos avanzados; idiomaPct, la lengua.
+    + ("t2_ideo", "t2_reli", "t2_salud", "t2_atr", "idiomapct"))
+
+
+def _neutralizar_nodo(d: dict) -> None:
+    """Elimina las claves sensibles presentes en UN dict, sea protagonista,
+    agente generado, demografía, b2, avanzados o mas_atributos."""
+    av = d.get("avanzados")
+    if isinstance(av, dict):
+        for k in SENSIBLES_AVANZADOS:
+            av.pop(k, None)
+    b2 = d.get("b2")
+    if isinstance(b2, dict):
+        for k in _SENSIBLES_B2:
+            b2.pop(k, None)
+    demo = d.get("demografia")
+    if isinstance(demo, dict):
+        for k in _SENSIBLES_DEMOGRAFIA:
+            demo.pop(k, None)
+        demo.pop("origenes_culturales", None)
+    for k in _SENSIBLES_PLANAS:
+        d.pop(k, None)
+    mas = d.get("mas_atributos")
+    if isinstance(mas, dict):
+        for k in _SENSIBLES_MAS_ATRIBUTOS:
+            mas.pop(k, None)
+    cambios = d.get("cambios")
+    if isinstance(cambios, list):
+        # Una variante no puede reintroducir por la puerta de atrás lo que
+        # el escenario declaró neutro: sus cambios sensibles se descartan.
+        d["cambios"] = [c for c in cambios
+                        if not (isinstance(c, dict) and
+                                str(c.get("param", "")).lower()
+                                in _SENSIBLES_PARAM_VARIANTE)]
 
 
 def neutralizar_sensibles(escenario: dict) -> None:
-    """Cinturón del MOTOR (auditoría 31-07, P1.8): si el escenario declara
-    variables_sensibles=false, los atributos sensibles se eliminan aquí antes
-    de verbalizar — aunque el JSON venga antiguo o manipulado; el panel deja
-    de ser la única barrera. texto_persona() omite campos ausentes."""
-    for clave in ("protagonistas", "poblacion", "agentes", "variantes"):
-        for p in (escenario.get(clave) or []):
-            if not isinstance(p, dict):
-                continue
-            av = p.get("avanzados") or {}
-            for k in SENSIBLES_AVANZADOS:
-                av.pop(k, None)
-            b2 = p.get("b2") or {}
-            for k in ("ideo", "reli", "salud", "atr"):
-                b2.pop(k, None)
-            demo = p.get("demografia") or {}
-            demo.pop("origen_cultural", None)
-            demo.pop("nse", None)
-            for k in ("ori", "nse", "idi"):
-                p.pop(k, None)
+    """Cinturón del MOTOR (reauditoría 31-07, P1.8): recorre RECURSIVAMENTE
+    la estructura real del escenario (protagonistas, poblacion como OBJETO
+    con agentes_generados, variantes, y cualquier anidamiento futuro) y
+    elimina los atributos sensibles antes de verbalizar — aunque el JSON
+    venga antiguo o manipulado; el panel deja de ser la única barrera.
+    texto_persona()/persona_de_poblacion() omiten campos ausentes.
+
+    La versión anterior iteraba `poblacion` como lista siendo un objeto:
+    los agentes generados conservaban origen, NSE, idioma, ideología,
+    religiosidad, salud y atractivo (regresión P0 de la reauditoría)."""
+    visitados: set[int] = set()
+
+    def _walk(nodo) -> None:
+        if isinstance(nodo, dict):
+            if id(nodo) in visitados:
+                return
+            visitados.add(id(nodo))
+            _neutralizar_nodo(nodo)
+            for v in nodo.values():
+                _walk(v)
+        elif isinstance(nodo, list):
+            for v in nodo:
+                _walk(v)
+
+    _walk(escenario)
 
 
 def persona_de_poblacion(a: dict) -> dict:

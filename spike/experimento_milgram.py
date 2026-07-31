@@ -282,7 +282,7 @@ def main():
     if args.vacuna:
         etiqueta += "_vacuna"
     outdir = pathlib.Path(args.out) / datetime.datetime.now().strftime(
-        f"milgram_{etiqueta}_%Y%m%d_%H%M%S")
+        f"milgram_{etiqueta}_%Y%m%d_%H%M%S_%f")
     outdir.mkdir(parents=True, exist_ok=True)
     manifiesto.activar(outdir, vars(args))
 

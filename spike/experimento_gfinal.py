@@ -172,8 +172,8 @@ def brazo(modelo, celda, dias=3, temperatura=0.7):
 
     for dia in range(1, dias + 1):
         with ThreadPoolExecutor(max_workers=3) as pool:
-            filas = list(pool.map(
-                lambda s: dia_sup(s, dia), prision.SUPERVISORES))
+            filas = manifiesto.map_paralelo(
+                pool, lambda s: dia_sup(s, dia), prision.SUPERVISORES)
         for f in filas:
             # Un fallo técnico deja un marcador NEUTRO en el diario, nunca
             # texto que parezca conducta ni «respuesta poco clara» (que
@@ -318,8 +318,8 @@ def main():
         # registros_m.jsonl); el "__" conserva el id completo sin path.
         et = nombre_modelo.replace("/", "__")
         with ThreadPoolExecutor(max_workers=6) as pool:
-            bloques = list(pool.map(
-                lambda c: brazo(modelo, c, dias=dias), celdas))
+            bloques = manifiesto.map_paralelo(
+                pool, lambda c: brazo(modelo, c, dias=dias), celdas)
         regs = [dict(r, modelo=nombre_modelo) for b in bloques for r in b]
         with (outdir / f"registros_{et}.jsonl").open("w",
                                                      encoding="utf-8") as f:

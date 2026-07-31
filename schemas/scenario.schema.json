@@ -14,6 +14,11 @@
   ],
   "additionalProperties": true,
   "properties": {
+    "version": {
+      "type": "integer",
+      "const": 1,
+      "description": "Versión del contrato de escenario (reauditoría 31-07, P0.3). La única versión publicada es 1: el panel la emite en construirConfig(), validarEscenario() la comprueba y el motor la exige (integrado incluido). Un valor distinto o ausente se rechaza."
+    },
     "titulo": {
       "type": "string",
       "minLength": 1,
@@ -48,7 +53,7 @@
     },
     "variables_sensibles": {
       "type": "boolean",
-      "description": "Hallazgo 24: false (por defecto en el panel) significa que ideología, religiosidad, salud, atractivo, origen cultural y lengua materna se han exportado neutras; true significa que el usuario las activó conscientemente."
+      "description": "Hallazgo 24 + reauditoría 31-07 (P1.8): false (por defecto en el panel) significa que ideología, religiosidad, salud, atractivo, origen cultural y lengua materna se han exportado neutras; true significa que el usuario las activó conscientemente. POLÍTICA DEL MOTOR (default seguro): run_spike.py neutraliza los atributos sensibles salvo que el escenario declare exactamente true — un escenario sin el flag queda neutro y el runner lo avisa."
     },
     "lugares": {
       "type": "string",

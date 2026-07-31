@@ -34,6 +34,8 @@ const TRAITS2 = [
 const SENSIBLES_T2 = ['ideo','reli','salud','atr'];
 const NEUTRO = 50;
 const ORIGEN_NEUTRO = "sin especificar";
+// Versión del contrato de escenario (schemas/scenario.schema.json, const 1).
+const VERSION_ESCENARIO = 1;
 const PARAMS = [
   {k:'pctMuj',    nom:'% mujeres'},
   {k:'edad',      nom:'edad media (años)'},
@@ -516,6 +518,9 @@ function construirConfig(){
   const sens = sensiblesActivas();
   const neutro = v => sens ? v : NEUTRO;
   return {
+    // Versión del contrato (reauditoría 31-07, P0.3): el schema la exige y
+    // el motor la valida; sin ella, todo escenario exportado era rechazado.
+    version: VERSION_ESCENARIO,
     titulo:$("titulo").value, premisa:$("premisa").value, entorno:$("entorno").value, reglas:$("reglas").value,
     pasos:+$("pasos").value, agentes_total:+$("total").value,
     // Hallazgo 24: consentimiento explícito para variables sensibles.
@@ -558,6 +563,7 @@ function validarEscenario(cfg){
   const esNum = (v,min,max) => typeof v === "number" && isFinite(v) && v>=min && v<=max;
   const esTxt = (v,max) => typeof v === "string" && v.length <= max;
   if(!esObj(cfg)) return ["el escenario no es un objeto JSON"];
+  if(cfg.version !== VERSION_ESCENARIO) err.push(`«version» debe ser el entero ${VERSION_ESCENARIO} (contrato scenario.schema.json)`);
   if(!esTxt(cfg.titulo,200) || !cfg.titulo.trim()) err.push("falta el título (texto no vacío, máx. 200 caracteres)");
   if(!esTxt(cfg.premisa,4000) || !cfg.premisa.trim()) err.push("falta la premisa (texto no vacío, máx. 4000 caracteres)");
   if(!esTxt(cfg.reglas ?? "",4000)) err.push("«reglas» debe ser texto (máx. 4000 caracteres)");

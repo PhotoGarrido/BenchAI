@@ -132,6 +132,15 @@
           "type": "string",
           "maxLength": 40,
           "description": "Marca del canal del evento; export_replay.py usa 'privado' para el monólogo privado generado."
+        },
+        "atribucion": {
+          "enum": ["exacta", "regex", "ambigua"],
+          "description": "Trazabilidad de la atribución de actor (hallazgo 22): 'exacta' (el evento traía el actor), 'regex' (inferido por patrón) o 'ambigua' (cero o varios candidatos: NO se adivina; la clave 'agente' se omite y 'texto_crudo' conserva el original)."
+        },
+        "texto_crudo": {
+          "type": "string",
+          "maxLength": 10000,
+          "description": "Texto original del evento cuando la atribución fue ambigua."
         }
       },
       "allOf": [
@@ -180,7 +189,6 @@
             "properties": {
               "tipo": {
                 "enum": [
-                  "dialogo",
                   "accion",
                   "pensamiento",
                   "movimiento"
@@ -194,6 +202,37 @@
           "then": {
             "required": [
               "agente"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "tipo": {
+                "const": "dialogo"
+              }
+            },
+            "required": [
+              "tipo"
+            ]
+          },
+          "then": {
+            "anyOf": [
+              {
+                "required": [
+                  "agente"
+                ]
+              },
+              {
+                "properties": {
+                  "atribucion": {
+                    "const": "ambigua"
+                  }
+                },
+                "required": [
+                  "atribucion"
+                ]
+              }
             ]
           }
         }

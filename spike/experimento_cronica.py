@@ -190,7 +190,8 @@ def cronica(modelo, args):
         # Las mutaciones se aplican DESPUÉS: entrega de mensajes estrictamente
         # al día siguiente (corrige la fuga de mismo-día de la v2).
         with ThreadPoolExecutor(max_workers=3) as pool:
-            resultados = list(pool.map(lambda a: decidir(a, dia, semana), agentes))
+            resultados = manifiesto.map_paralelo(
+                pool, lambda a: decidir(a, dia, semana), agentes)
         for nombre in mensajes_pendientes:
             mensajes_pendientes[nombre] = []
         for nombre, decision, estado, destinatario, mensaje, raw in resultados:
@@ -273,7 +274,7 @@ def cronica(modelo, args):
                         "justa": justa, "animo": animo,
                         "confianza": confianza, "raw": (raw or "")[:100]}
             with ThreadPoolExecutor(max_workers=3) as pool:
-                sondas.extend(pool.map(sondear, agentes))
+                sondas.extend(manifiesto.map_paralelo(pool, sondear, agentes))
         if estado_norma == 2:
             break
 
@@ -362,7 +363,7 @@ def main():
     if args.v2:
         etiqueta += f"_v2_s{args.semilla % 1000}"
     outdir = pathlib.Path(args.out) / datetime.datetime.now().strftime(
-        f"cronica_{etiqueta}_%Y%m%d_%H%M%S")
+        f"cronica_{etiqueta}_%Y%m%d_%H%M%S_%f")
     outdir.mkdir(parents=True, exist_ok=True)
     manifiesto.activar(outdir, vars(args))
 

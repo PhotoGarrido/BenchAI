@@ -37,6 +37,7 @@ from dotenv import load_dotenv
 
 load_dotenv(pathlib.Path(__file__).parent / ".env")
 
+import manifiesto
 import model_factory
 import parsers
 import experimento_prision as prision
@@ -122,7 +123,8 @@ def brazo(modelo, brazo_id, fuente, escalon, rep, dias, sups):
 
     for dia in range(1, dias + 1):
         with ThreadPoolExecutor(max_workers=3) as pool:
-            filas = list(pool.map(lambda s: dia_sup(s, dia), sups))
+            filas = manifiesto.map_paralelo(
+                pool, lambda s: dia_sup(s, dia), sups)
         for f in filas:
             diarios[f["supervisor"]].append(
                 f"Actuaste de forma {f['palabra'].lower()}.")
@@ -161,9 +163,13 @@ def main():
     dias = 2 if args.rapido else DIAS
     repes = 1 if args.rapido else REPES
 
+    # Microsegundos (P1.1) + manifiesto por solicitud (reauditoría 31-07,
+    # inventario A): el gradiente llama al modelo igual que los seis
+    # entrypoints y registra ahora con las mismas garantías.
     outdir = pathlib.Path(args.out) / datetime.datetime.now().strftime(
-        "gradiente_%Y%m%d_%H%M%S")
+        "gradiente_%Y%m%d_%H%M%S_%f")
     outdir.mkdir(parents=True, exist_ok=True)
+    manifiesto.activar(outdir, vars(args))
     inicio = time.time()
     salida = {}
 
@@ -175,9 +181,10 @@ def main():
                   for rep in range(1, repes + 1)]
         # Cadenas (brazo×rep) independientes → en paralelo bajo el semáforo.
         with ThreadPoolExecutor(max_workers=6) as pool:
-            bloques = list(pool.map(
+            bloques = manifiesto.map_paralelo(
+                pool,
                 lambda t: brazo(modelo, t[0], t[1], t[2], t[3], dias, sups),
-                tareas))
+                tareas)
         regs = [r for b in bloques for r in b]
         for r in regs:
             r["modelo"] = nombre_modelo
@@ -203,4 +210,10 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+        manifiesto.cerrar_activo()
+    except BaseException as _e:
+        manifiesto.cerrar_activo("failed",
+                                 {"exception_type": type(_e).__name__})
+        raise

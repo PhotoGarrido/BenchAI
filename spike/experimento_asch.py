@@ -246,7 +246,7 @@ def main():
     etiqueta = (args.modelo or "default").replace("/", "_")
 
     outdir = pathlib.Path(args.out) / datetime.datetime.now().strftime(
-        f"asch_{etiqueta}_%Y%m%d_%H%M%S")
+        f"asch_{etiqueta}_%Y%m%d_%H%M%S_%f")
     outdir.mkdir(parents=True, exist_ok=True)
     manifiesto.activar(outdir, vars(args))
 

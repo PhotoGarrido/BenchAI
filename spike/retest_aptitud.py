@@ -21,6 +21,7 @@ from dotenv import load_dotenv
 
 load_dotenv(pathlib.Path(__file__).parent / ".env")
 
+import manifiesto
 import model_factory
 import experimento_asch as asch
 import tiento
@@ -35,6 +36,14 @@ def main():
     parser.add_argument("--rondas", type=int, default=6)
     parser.add_argument("--out", default="resultados")
     args = parser.parse_args()
+
+    # Manifiesto por solicitud (reauditoría 31-07, inventario A): el outdir
+    # nace ANTES de la primera llamada para registrarlas todas; microsegundos
+    # contra colisiones (P1.1).
+    outdir = pathlib.Path(args.out) / datetime.datetime.now().strftime(
+        f"retest_{args.modelo.replace('/', '_')}_%Y%m%d_%H%M%S_%f")
+    outdir.mkdir(parents=True, exist_ok=True)
+    manifiesto.activar(outdir, vars(args))
 
     modelo = tiento.Medidor(model_factory.build_model(
         dry_run=False, model_name=args.modelo))
@@ -72,9 +81,6 @@ def main():
         sum(modelo.latencias) / len(modelo.latencias), 1)
     resumen["duracion_segundos"] = round(time.time() - inicio, 1)
 
-    outdir = pathlib.Path(args.out) / datetime.datetime.now().strftime(
-        f"retest_{args.modelo.replace('/', '_')}_%Y%m%d_%H%M%S")
-    outdir.mkdir(parents=True, exist_ok=True)
     with (outdir / "registros.jsonl").open("w", encoding="utf-8") as f:
         for r in registros:
             f.write(json.dumps(r, ensure_ascii=False) + "\n")
@@ -85,4 +91,10 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+        manifiesto.cerrar_activo()
+    except BaseException as _e:
+        manifiesto.cerrar_activo("failed",
+                                 {"exception_type": type(_e).__name__})
+        raise
