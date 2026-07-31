@@ -106,6 +106,32 @@ def texto_persona(p: dict) -> str:
     return "\n".join(frases)
 
 
+SENSIBLES_AVANZADOS = ("ideologia", "religiosidad", "salud", "atractivo",
+                       "idioma")
+
+
+def neutralizar_sensibles(escenario: dict) -> None:
+    """Cinturón del MOTOR (auditoría 31-07, P1.8): si el escenario declara
+    variables_sensibles=false, los atributos sensibles se eliminan aquí antes
+    de verbalizar — aunque el JSON venga antiguo o manipulado; el panel deja
+    de ser la única barrera. texto_persona() omite campos ausentes."""
+    for clave in ("protagonistas", "poblacion", "agentes", "variantes"):
+        for p in (escenario.get(clave) or []):
+            if not isinstance(p, dict):
+                continue
+            av = p.get("avanzados") or {}
+            for k in SENSIBLES_AVANZADOS:
+                av.pop(k, None)
+            b2 = p.get("b2") or {}
+            for k in ("ideo", "reli", "salud", "atr"):
+                b2.pop(k, None)
+            demo = p.get("demografia") or {}
+            demo.pop("origen_cultural", None)
+            demo.pop("nse", None)
+            for k in ("ori", "nse", "idi"):
+                p.pop(k, None)
+
+
 def persona_de_poblacion(a: dict) -> dict:
     """Adapta un agente de población del diseñador (nom/gen/ori/b/b2...)
     al esquema de protagonista que consumen texto_persona() y el runner."""

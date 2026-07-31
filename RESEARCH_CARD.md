@@ -2,7 +2,7 @@
 
 **Qué es**: banco de pruebas conductual que somete modelos de lenguaje a paradigmas clásicos de psicología social (isomorfos y disfrazados) con harness controlado, y un simulador narrativo aparte para material didáctico.
 
-**Objeto de estudio**: conducta de **modelos concretos, en fechas y proveedores concretos, bajo protocolos concretos**. NO es evidencia sobre psicología humana, y no debe citarse como tal (los LLM tienden a sobreestimar los efectos humanos; Hewitt et al., Nature 2026).
+**Objeto de estudio**: conducta de **modelos concretos, en fechas y proveedores concretos, bajo protocolos concretos**. NO es evidencia sobre psicología humana, y no debe citarse como tal (los LLM tienden a sobreestimar los efectos humanos; Ashokkumar et al., Nature 2026).
 
 **Resultados principales** (con sus denominadores; detalles y IC en `preprint/preprint.md`):
 - Complacencia sin internalización en 16/16 modelos de la batería.

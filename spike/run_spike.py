@@ -103,6 +103,25 @@ LUGARES_SALA = (
 )
 
 
+def cargar_y_validar_escenario(escenario: dict, origen: str) -> None:
+    """Puerta del motor (auditoría 31-07, P0.3): el escenario se valida
+    contra schemas/scenario.schema.json ANTES de construir modelos, abrir
+    credenciales o crear el outdir. Un JSON corrupto termina aquí con la
+    ruta exacta del error."""
+    import jsonschema
+    schema = json.loads((pathlib.Path(__file__).parent.parent / "schemas" /
+                         "scenario.schema.json").read_text(encoding="utf-8"))
+    errores = sorted(jsonschema.Draft7Validator(schema).iter_errors(escenario),
+                     key=lambda e: list(e.absolute_path))
+    if errores:
+        e = errores[0]
+        ruta = "/".join(str(x) for x in e.absolute_path) or "(raíz)"
+        raise SystemExit(f"Escenario inválido ({origen}) en {ruta}: "
+                         f"{e.message[:200]}")
+    if escenario.get("variables_sensibles") is False:
+        personas.neutralizar_sensibles(escenario)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--dry-run", action="store_true", help="sin LLM ni claves")
@@ -126,6 +145,7 @@ def main() -> None:
     if args.config:
         texto_escenario = args.config.read_text(encoding="utf-8")
         escenario = json.loads(texto_escenario)
+        cargar_y_validar_escenario(escenario, str(args.config))
         print(f"Escenario cargado: {escenario.get('titulo', args.config.name)}")
     else:
         escenario = ESCENARIO_DEFECTO

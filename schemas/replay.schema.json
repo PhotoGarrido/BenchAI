@@ -5,10 +5,11 @@
   "description": "Contrato del replay que produce spike/export_replay.py (build_replay) y reproduce el visor (viewer/). Derivado de replays reales: spike/runs/*/replay.json y episodios/*/replay.json. Límites de carga del visor: máximo 200 agentes, 50000 eventos y 10000 caracteres por texto; además el visor rechaza ficheros de más de 20 MB (validarReplay en viewer/app.js implementa un subconjunto documentado de este esquema). El tipo constraint_violation debe renderizarse SIEMPRE como fila de advertencia visible, nunca ocultarse.",
   "type": "object",
   "required": [
+    "version",
     "agentes",
     "eventos"
   ],
-  "additionalProperties": true,
+  "additionalProperties": false,
   "properties": {
     "version": {
       "type": "integer",

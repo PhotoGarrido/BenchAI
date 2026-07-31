@@ -24,6 +24,7 @@ import datetime
 import hashlib
 import json
 import pathlib
+import contextvars
 import subprocess
 import sys
 import threading
@@ -101,7 +102,8 @@ class RunManifest:
             linea = json.dumps(evento, ensure_ascii=False, default=str)
         except (TypeError, ValueError) as e:
             linea = json.dumps({"error_serializacion": str(e)[:200],
-                                "ts": evento["ts"]})
+                                "error": "serializacion", "ts": evento["ts"]})
+            evento = {"error": "serializacion"}
         with self._lock:
             self._n += 1
             if evento.get("error"):
@@ -126,7 +128,8 @@ class RunManifest:
 
     def __exit__(self, exc_type, exc, tb):
         if exc_type is None:
-            self.cerrar("completed")
+            if self.cabecera.get("status") == "running":
+                self.cerrar("completed")
         else:
             self.cerrar("failed", {"exception_type": exc_type.__name__,
                                    "exception": str(exc)[:300]})
@@ -134,13 +137,25 @@ class RunManifest:
         return False
 
 
-# ── Compatibilidad de módulo (los harness llaman activar/registrar) ────────
-_ACTIVO: RunManifest | None = None
+# ── Compatibilidad de módulo (los harness llaman activar/registrar). El
+# activo vive en un ContextVar (auditoría 31-07, P1.4): dos runs en hilos o
+# contextos distintos del mismo proceso no se mezclan. ────────────────────
+_ACTIVO: contextvars.ContextVar[RunManifest | None] = contextvars.ContextVar(
+    "manifiesto_activo", default=None)
 
 
 def activar_instancia(m: RunManifest | None) -> None:
-    global _ACTIVO
-    _ACTIVO = m
+    _ACTIVO.set(m)
+
+
+def cerrar_activo(status: str = "completed", extra: dict | None = None):
+    """Cierra el manifiesto activo del contexto (P0.2): los harness lo
+    llaman al terminar; una excepción lo cierra como failed en el bloque
+    __main__ de cada experimento. No-op si no hay activo."""
+    m = _ACTIVO.get()
+    if m is not None:
+        m.cerrar(status, extra)
+        activar_instancia(None)
 
 
 def activar(outdir, args: dict | None = None,
@@ -151,5 +166,6 @@ def activar(outdir, args: dict | None = None,
 
 
 def registrar(evento: dict) -> None:
-    if _ACTIVO is not None:
-        _ACTIVO.registrar(evento)
+    m = _ACTIVO.get()
+    if m is not None:
+        m.registrar(evento)

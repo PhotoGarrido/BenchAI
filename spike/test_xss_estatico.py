@@ -88,3 +88,27 @@ def run() -> bool:
 if __name__ == "__main__":
     import sys
     sys.exit(0 if run() else 1)
+
+
+# ── Ampliación (auditoría 31-07): sinks adicionales y handlers on* completos.
+_SINKS = re.compile(
+    r"outerHTML\s*=|insertAdjacentHTML|document\.write|\beval\s*\(|"
+    r"new\s+Function|javascript:", re.I)
+_HANDLER_TOTAL = re.compile(r"\son[a-z]+\s*=", re.I)
+
+_run_base = run
+
+
+def run():
+    ok = _run_base()
+    for f in JS + HTML:
+        t = (RAIZ / f).read_text(encoding="utf-8")
+        ok &= _c(not _SINKS.search(t),
+                 f"{f}: sin outerHTML/insertAdjacentHTML/document.write/"
+                 "eval/new Function/javascript:")
+    for f in HTML:
+        t = (RAIZ / f).read_text(encoding="utf-8")
+        ok &= _c(not _HANDLER_TOTAL.search(t),
+                 f"{f}: sin NINGÚN handler inline on*=")
+    print("ampliación de sinks: " + ("OK" if ok else "FALLOS"))
+    return ok

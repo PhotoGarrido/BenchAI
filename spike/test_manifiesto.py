@@ -56,15 +56,18 @@ def run():
     m = object.__new__(model_factory.NaNLanguageModel)
     m._model, m._proveedor = "falso", "test"
     m.sample_text = lambda *a, **k: "%% ilegible %%"
-    idx, eleccion, meta = model_factory.NaNLanguageModel.sample_choice(
-        m, "q", ["golpear la puerta", "gritar", "salir"])
-    ok &= _c(idx == 2 and meta.get("choice_state") == "INVALIDA"
-             and "no interpretable" in eleccion,
-             "sample_choice ilegible → NO_ACTION registrado, no opción 0")
+    try:
+        model_factory.NaNLanguageModel.sample_choice(
+            m, "q", ["golpear la puerta", "gritar", "salir"])
+        ok &= _c(False, "sin opción neutra debía lanzar excepción")
+    except model_factory.RespuestaIlegibleError:
+        ok &= _c(True, "sample_choice sin neutra → RespuestaIlegibleError"
+                       " (jamás un índice de acción real)")
     idx2, eleccion2, meta2 = model_factory.NaNLanguageModel.sample_choice(
         m, "q", ["golpear", "no hace nada", "gritar"])
-    ok &= _c(idx2 == 1 and meta2.get("choice_state") == "INVALIDA",
-             "sample_choice prefiere la opción neutra del menú si existe")
+    ok &= _c(idx2 == 1 and eleccion2 == "no hace nada"
+             and meta2.get("choice_state") == "INVALIDA",
+             "con neutra: índice y texto COHERENTES + INVALIDA registrada")
     manifiesto.activar_instancia(None)
     print("\n" + ("TODOS OK" if ok else "HAY FALLOS"))
     return ok

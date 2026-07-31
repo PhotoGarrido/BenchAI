@@ -12,7 +12,7 @@ Tres productos que conviven en este repositorio, deliberadamente separados:
 
 ## Qué NO es
 
-- **No es evidencia sobre humanos.** Se mide conducta de modelos concretos bajo protocolos concretos; los LLM tienden a sobreestimar los efectos humanos (Hewitt et al., Nature 2026). Ver `RESEARCH_CARD.md`.
+- **No es evidencia sobre humanos.** Se mide conducta de modelos concretos bajo protocolos concretos; los LLM tienden a sobreestimar los efectos humanos (Ashokkumar et al., Nature 2026). Ver `RESEARCH_CARD.md`.
 - **No es un ranking de modelos.** Los perfiles dependen del protocolo, la fecha y el proveedor.
 - **No es un producto**: es investigación en preview, con sus errores documentados a la vista.
 
@@ -48,6 +48,7 @@ cp .env.example .env        # credenciales de tu gateway (jamás se versionan)
 python run_spike.py --dry-run --steps 2      # humo sin red
 python experimento_gfinal.py --linter        # verifica simetría de brazos
 python test_barrido_falso.py                 # nada ilegible se vuelve conducta
+cd .. && ./verificar.sh                      # la puerta completa, un solo comando
 ```
 
 Los experimentos con API se documentan en cada `experimento_*.py`; **lee `METODO.md` antes de ejecutar nada con presupuesto**.

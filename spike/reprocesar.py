@@ -129,9 +129,22 @@ def main():
         err_f = res / "reproceso_erratas.json"
         con_errata = set()
         if err_f.exists():
-            for e in json.loads(err_f.read_text())["erratas"]:
-                con_errata.add(json.dumps(e["fila"], ensure_ascii=False,
-                                          sort_keys=True))
+            entradas = json.loads(err_f.read_text())["erratas"]
+            for e in entradas:
+                # Cada errata: campos obligatorios y bien tipados (P1.2).
+                if not (e.get("errata_id") and e.get("justification")
+                        and isinstance(e.get("affects_aggregate"), bool)):
+                    fallos.append(f"errata malformada: {e.get('errata_id')}")
+                clave = json.dumps(e["fila"], ensure_ascii=False,
+                                   sort_keys=True)
+                if clave in con_errata:
+                    fallos.append(f"errata duplicada: {e.get('errata_id')}")
+                con_errata.add(clave)
+            actuales = {json.dumps(d, ensure_ascii=False, sort_keys=True)
+                        for d in detalle if d["categoria"] == "conducta_cambia"}
+            for clave in con_errata - actuales:
+                fallos.append("errata huérfana (fila ya no existe en el"
+                              " reproceso): " + clave[:80])
         for d in detalle:
             if d["categoria"] == "conducta_cambia":
                 clave = json.dumps(d, ensure_ascii=False, sort_keys=True)

@@ -109,6 +109,8 @@ def _eventos_movimiento(texto_evento, nombres, actor, id_por_nombre):
             "tipo": "constraint_violation",
             "rule": "unknown_location",
             "raw_location": info["raw_location"],
+            "texto": ("El GM nombró un lugar fuera del escenario: "
+                      f"«{info['raw_location']}»"),
             "agente": id_por_nombre.get(quien),
         })
     if quien in id_por_nombre and destino:
@@ -301,9 +303,19 @@ def replay_publico(replay: dict) -> dict:
     "pensamiento", canal "privado" — el monólogo interno de los agentes) se
     ELIMINAN físicamente del JSON, no se ocultan (hallazgo 23)."""
     publico = dict(replay)
+    privados = [e for e in replay.get("eventos", [])
+                if e.get("tipo") == "pensamiento"
+                or e.get("canal") == "privado"]
     publico["eventos"] = [
-        e for e in replay.get("eventos", [])
-        if e.get("tipo") != "pensamiento" and e.get("canal") != "privado"]
+        e for e in replay.get("eventos", []) if e not in privados]
+    # Canary recursivo (auditoría 31-07, P1.6): ningún texto privado puede
+    # sobrevivir en NINGUNA parte del JSON público, o se aborta.
+    serializado = json.dumps(publico, ensure_ascii=False)
+    for e in privados:
+        t = (e.get("texto") or "").strip()
+        if len(t) >= 12 and t in serializado:
+            raise RuntimeError(
+                "fuga de contenido privado en replay.public.json")
     return publico
 
 

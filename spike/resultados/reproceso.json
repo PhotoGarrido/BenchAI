@@ -21,6 +21,12 @@
     "g2·sonda justa": {
       "sin_raw": 2700
     },
+    "gfinal·nivel": {
+      "identica": 1530
+    },
+    "gfinal·sonda justa": {
+      "identica": 1530
+    },
     "milgram·decisión": {
       "identica": 3637,
       "invalida_a_conducta": 2
@@ -41,7 +47,7 @@
     }
   },
   "total": {
-    "identica": 52410,
+    "identica": 55470,
     "sin_raw": 5472,
     "conducta_a_invalida": 43,
     "fallback_convencer": 11,

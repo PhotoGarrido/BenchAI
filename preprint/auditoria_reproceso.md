@@ -8,7 +8,7 @@ Una fila de `reproceso.json` es un **campo re-parseable**, no una observación i
 
 | Categoría | n | Significado |
 |---|---|---|
-| identica | 55.470 | el parser actual reproduce el valor almacenado |
+| identica | 55.470 *(JSON canónico regenerado el 31-07: hasta entonces el fichero conservaba el recuento pre-G-final, 52.410 — discrepancia detectada por la auditoría de terceros del 31-07 y cerrada regenerándolo; la cifra citable es SIEMPRE la del JSON)* | el parser actual reproduce el valor almacenado |
 | conducta_cambia | 19 | una conducta pasa a OTRA conducta → auditadas una a una (§2) |
 | conducta_a_invalida | 43 | el parser actual es más estricto; el campo sale del análisis, no se convierte en otro dato |
 | invalida_a_conducta | 2 | typos ahora legibles («APLIICO»→APLICO) |
@@ -43,6 +43,10 @@ Además, las 16 `conducta_a_invalida` de sondas milgram (ecos de consigna de glm
 | G-final | nivel + sonda + interpretación | **COMPLETO** | **Total** (además con manifiesto por solicitud) |
 
 Esta asimetría queda declarada en el manuscrito (§6 y §8): la afirmación de re-derivabilidad se limita a los experimentos con raw.
+
+## 3-bis · Limitación de los manifiestos confirmatorios (P0.5, 31-07)
+
+Los `manifest_run.json` de los runs del G-final (26-07) son **anteriores** a la clase `RunManifest` con estado final (29-07): contienen cabecera y el registro completo por solicitud (`solicitudes.jsonl`), pero **no** `status`, hora de fin, recuentos ni hashes de cierre. No se reescriben (los crudos históricos son inmutables); la garantía de «estado final» aplica a runs posteriores al 29-07, y así lo declara el preprint. Un run confirmatorio futuro (la ampliación a ≥20 cadenas) nacerá ya con manifiesto completo.
 
 ## 4 · Vigilancia continua
 

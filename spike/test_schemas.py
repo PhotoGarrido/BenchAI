@@ -47,6 +47,22 @@ def run():
         ok &= _c(False, "un replay corrupto debería rechazarse")
     except jsonschema.ValidationError:
         ok &= _c(True, "un replay corrupto se rechaza")
+    # El RUNNER debe rechazar un escenario corrupto ANTES de construir
+    # modelos (P0.3): se ejecuta run_spike con un config inválido y sin
+    # claves; si intentara abrir proveedor fallaría con otro mensaje.
+    import subprocess
+    import sys as _sys
+    import tempfile
+    with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as f:
+        f.write('{"version": 1, "agentes": "no-es-lista"}')
+        corrupto = f.name
+    r = subprocess.run([_sys.executable, "run_spike.py", "--config", corrupto,
+                        "--dry-run", "--steps", "1"],
+                       cwd=pathlib.Path(__file__).parent,
+                       capture_output=True, text=True)
+    ok &= _c(r.returncode != 0 and "Escenario inválido" in
+             (r.stderr + r.stdout),
+             "run_spike rechaza un escenario corrupto antes de todo")
     print("\n" + ("TODOS OK" if ok else "HAY FALLOS"))
     return ok
 

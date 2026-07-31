@@ -39,6 +39,11 @@ _SYSTEM = (
     "what the user already said. Respond directly and concisely, with no meta "
     "commentary and no reasoning traces."
 )
+class RespuestaIlegibleError(RuntimeError):
+    """El modelo no produjo una elección interpretable y no hay opción
+    neutra: el run debe fallar visiblemente, nunca inventar una acción."""
+
+
 _THINK_RE = re.compile(r"<think>.*?(?:</think>|$)", re.S)
 _LETRAS = "abcdefghijklmnopqrstuvwxyz"
 
@@ -267,15 +272,27 @@ class NaNLanguageModel(language_model.LanguageModel):
         neutras = [i for i, r in enumerate(responses)
                    if "no hace nada" in str(r).lower()
                    or "no hacer nada" in str(r).lower()]
-        idx = neutras[0] if neutras else len(responses) - 1
-        eleccion = responses[idx] if neutras else NO_ACTION
+        if neutras:
+            idx = neutras[0]
+            manifiesto.registrar({
+                "modelo": self._model, "proveedor": self._proveedor,
+                "choice_state": "INVALIDA", "fallback_option": "NO_ACTION",
+                "n_opciones": len(responses), "indice_devuelto": idx})
+            print("[nan] sample_choice ilegible tras 8 intentos → opción"
+                  f" neutra del menú (índice {idx}, INVALIDA)",
+                  file=sys.stderr)
+            # Coherencia índice/texto garantizada: texto = responses[idx].
+            return idx, responses[idx], {"choice_state": "INVALIDA"}
+        # Auditoría 31-07 (P0.1): sin opción neutra NO existe un índice
+        # honesto — devolver cualquiera ejecutaría una acción real con un
+        # texto que no le corresponde. Se aborta con excepción tipada.
         manifiesto.registrar({
             "modelo": self._model, "proveedor": self._proveedor,
-            "choice_state": "INVALIDA", "fallback_option": "NO_ACTION",
-            "n_opciones": len(responses), "indice_devuelto": idx})
-        print("[nan] sample_choice ilegible tras 8 intentos → NO_ACTION"
-              f" (índice {idx}, registrado como INVALIDA)", file=sys.stderr)
-        return idx, eleccion, {"choice_state": "INVALIDA"}
+            "choice_state": "INVALIDA", "fallback_option": "ABORT",
+            "n_opciones": len(responses)})
+        raise RespuestaIlegibleError(
+            f"sample_choice: 8 intentos ilegibles y el menú de "
+            f"{len(responses)} opciones no contiene una neutra")
 
 
 def build_embedder(dry_run: bool):

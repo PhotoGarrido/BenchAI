@@ -38,11 +38,36 @@ def main():
             filas[f"sin_{sup.split()[0]}"] = {"dif": b.get("dif"),
                                               "ic95": b.get("ic95")}
         salida[m] = filas
+    # Sensibilidad ADICIONAL (auditoría 31-07, P1.10): bootstrap de
+    # DIFERENCIAS EMPAREJADAS por (dominio, contenido, rep, supervisor) —
+    # las celdas con/sin cláusula comparten diseño aunque sean mundos
+    # independientes. No sustituye al análisis pre-registrado (no pareado).
+    from analizar_gfinal import cadenas
+    for m in sorted({r["modelo"] for r in a}):
+        rm = [r for r in a if r["modelo"] == m]
+        def _props(rs):
+            por = {}
+            for r in rs:
+                k = (r["dominio"], r["contenido"], r["rep"], r["supervisor"])
+                por.setdefault(k, []).append(r)
+            return {k: cadenas(v)[0][0] for k, v in por.items()
+                    if cadenas(v)[0]}
+        con = _props([r for r in rm if r["clausula"]])
+        sin = _props([r for r in rm if not r["clausula"]])
+        pares = [con[k] - sin[k] for k in con.keys() & sin.keys()]
+        if pares:
+            ds = sorted(sum(rng.choice(pares) for _ in pares) / len(pares)
+                        for _ in range(5000))
+            salida[m]["h1_emparejado"] = {
+                "dif_media": round(sum(pares) / len(pares), 3),
+                "ic95": [round(ds[125], 3), round(ds[4875], 3)],
+                "n_pares": len(pares)}
     (RES / "gfinal_robustez.json").write_text(
         json.dumps(salida, ensure_ascii=False, indent=2), encoding="utf-8")
     for m, filas in salida.items():
         if isinstance(filas, dict) and "sin_degradacion" in filas:
-            difs = [v["dif"] for v in filas.values() if v["dif"] is not None]
+            difs = [v["dif"] for k2, v in filas.items()
+                    if k2 != "h1_emparejado" and v.get("dif") is not None]
             print(f"{m.split('/')[-1]:22} H1 LOCO/LOPO rango de dif:"
                   f" [{min(difs):+.2f}, {max(difs):+.2f}]")
     print(f"Guardado en {RES / 'gfinal_robustez.json'}")
