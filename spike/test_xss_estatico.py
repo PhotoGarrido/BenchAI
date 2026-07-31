@@ -85,11 +85,6 @@ def run() -> bool:
     return ok
 
 
-if __name__ == "__main__":
-    import sys
-    sys.exit(0 if run() else 1)
-
-
 # ── Ampliación (auditoría 31-07): sinks adicionales y handlers on* completos.
 _SINKS = re.compile(
     r"outerHTML\s*=|insertAdjacentHTML|document\.write|\beval\s*\(|"
@@ -112,3 +107,11 @@ def run():
                  f"{f}: sin NINGÚN handler inline on*=")
     print("ampliación de sinks: " + ("OK" if ok else "FALLOS"))
     return ok
+
+
+# El bloque __main__ va al FINAL del fichero, DESPUÉS de la redefinición de
+# run() (reauditoría 31-07): situado antes, la ejecución directa salía por
+# sys.exit sin evaluar jamás la ampliación de sinks — falso verde en CI.
+if __name__ == "__main__":
+    import sys
+    sys.exit(0 if run() else 1)

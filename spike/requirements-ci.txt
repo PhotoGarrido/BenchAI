@@ -1,9 +1,13 @@
-# Dependencias mínimas para la CI (tests offline + lint): sin
-# sentence-transformers/torch (~2 GB) — el embedder real no se usa en tests.
+# Dependencias mínimas para la CI y la puerta local (tests offline + lint):
+# sin sentence-transformers/torch (~2 GB) — el embedder real no se usa en
+# tests. Con requirements.txt + este fichero, verificar.sh corre completo
+# (reauditoría 31-07: ruff faltaba aquí y la instalación limpia del README
+# no podía ejecutar la puerta).
 gdm-concordia==2.4.0
 openai==2.45.0
 python-dotenv==1.2.2
 numpy==2.5.1
+ruff==0.14.4
 mypy==2.3.0
 pip-audit==2.10.1
 jsonschema==4.26.0
