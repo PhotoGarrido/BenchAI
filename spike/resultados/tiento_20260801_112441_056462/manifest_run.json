@@ -1,0 +1,28 @@
+{
+  "commit": "c0fef40ee1b4fc2fec94be513e21c8ddf9153fac",
+  "python": "3.12.11",
+  "parser_version": "2.2",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "tiento.py",
+    "--modelos",
+    "deepseek-v4-flash-0731"
+  ],
+  "args": {
+    "modelos": "deepseek-v4-flash-0731",
+    "rapido": false,
+    "paralelo": 1,
+    "out": "resultados"
+  },
+  "hashes": {},
+  "inicio": "2026-08-01T11:24:41",
+  "status": "completed",
+  "fin": "2026-08-01T11:29:50",
+  "solicitudes": 99,
+  "errores": 0,
+  "fallo_escritura": false
+}

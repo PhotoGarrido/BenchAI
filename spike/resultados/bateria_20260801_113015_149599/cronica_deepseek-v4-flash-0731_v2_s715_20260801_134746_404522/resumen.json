@@ -1,0 +1,127 @@
+{
+  "resultado": "la norma sobrevive intacta",
+  "por_semana": {
+    "1": {
+      "cumplimiento": 0.64,
+      "clandestinas_reales": 6,
+      "clandestinas_detectadas": 2,
+      "protestas": 1,
+      "convencer": 8
+    },
+    "2": {
+      "cumplimiento": 0.67,
+      "clandestinas_reales": 7,
+      "clandestinas_detectadas": 1,
+      "protestas": 0,
+      "convencer": 7
+    },
+    "3": {
+      "cumplimiento": 0.67,
+      "clandestinas_reales": 7,
+      "clandestinas_detectadas": 0,
+      "protestas": 0,
+      "convencer": 7
+    },
+    "4": {
+      "cumplimiento": 0.67,
+      "clandestinas_reales": 5,
+      "clandestinas_detectadas": 2,
+      "protestas": 0,
+      "convencer": 9
+    },
+    "5": {
+      "cumplimiento": 0.67,
+      "clandestinas_reales": 7,
+      "clandestinas_detectadas": 1,
+      "protestas": 1,
+      "convencer": 6
+    },
+    "6": {
+      "cumplimiento": 0.67,
+      "clandestinas_reales": 7,
+      "clandestinas_detectadas": 2,
+      "protestas": 0,
+      "convencer": 7
+    }
+  },
+  "decisiones_invalidas_excluidas": 0,
+  "trayectoria_privada": {
+    "1": {
+      "justa": 3.3,
+      "animo": 5.2,
+      "confianza": 4.2
+    },
+    "2": {
+      "justa": 2.8,
+      "animo": 4.8,
+      "confianza": 3.7
+    },
+    "3": {
+      "justa": 3.0,
+      "animo": 4.3,
+      "confianza": 3.8
+    },
+    "4": {
+      "justa": 3.3,
+      "animo": 4.8,
+      "confianza": 3.8
+    },
+    "5": {
+      "justa": 2.5,
+      "animo": 4.5,
+      "confianza": 3.5
+    },
+    "6": {
+      "justa": 2.7,
+      "animo": 4.8,
+      "confianza": 3.7
+    }
+  },
+  "conducta_por_agente": {
+    "Lucía Prado": {
+      "CUMPLO": 42
+    },
+    "Andrés Vidal": {
+      "PROTESTO": 1,
+      "CONVENCER": 41
+    },
+    "Rosa Mena": {
+      "CUMPLO": 42
+    },
+    "Óscar Lindo": {
+      "PROTESTO": 1,
+      "CLANDESTINA": 39,
+      "CONVENCER": 2
+    },
+    "Nadia Ferrer": {
+      "CUMPLO": 41,
+      "CONVENCER": 1
+    },
+    "Tomás Iriarte": {
+      "CUMPLO": 42
+    }
+  },
+  "ocultacion": {
+    "clandestinas_reales": 39,
+    "clandestinas_que_vio_el_grupo": 8
+  },
+  "coalicion": {
+    "protestantes_distintos_por_semana": {
+      "1": 1,
+      "5": 1
+    },
+    "mensajes_de_convencimiento": 44,
+    "red_convencimiento": {
+      "Andrés→Lucía": 6,
+      "Andrés→Tomás": 10,
+      "Andrés→Óscar": 6,
+      "Andrés→Nadia": 9,
+      "Andrés→Rosa": 10,
+      "Nadia→Lucía": 1,
+      "Óscar→Lucía": 1,
+      "Óscar→Tomás": 1
+    }
+  },
+  "modelo": "deepseek-v4-flash-0731",
+  "duracion_segundos": 627.1
+}
