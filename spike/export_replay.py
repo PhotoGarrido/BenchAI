@@ -15,6 +15,10 @@ import os
 import pathlib
 import re
 import sys
+import tempfile
+import unicodedata
+
+import manifiesto
 
 # Paleta fija: color estable por orden de aparición del agente.
 COLORES = ["#e4572e", "#4d9de0", "#3bb273", "#b86fc6", "#f2a65a", "#e26d8f"]
@@ -302,31 +306,105 @@ def build_replay(log_dict: dict, meta: dict) -> dict:
 
 
 def escribir_atomico(path: pathlib.Path, texto: str) -> None:
-    """Escritura atómica: X.tmp + os.replace → nunca queda un X a medias.
+    """Escritura atómica con temporal ÚNICO (G11, reauditoría 31-07): un
+    SIGKILL entre la escritura y el replace no deja un `X.tmp` fijo que pueda
+    confundirse con un artefacto válido. Un run interrumpido se distingue por
+    el status del manifest_run.json (running/failed), no por un JSON a
+    medias."""
+    manifiesto.escribir_atomico_unico(path, texto)
 
-    Un run interrumpido se distingue por el status del manifest_run.json
-    (running/failed), no por un JSON truncado."""
-    tmp = path.with_name(path.name + ".tmp")
-    tmp.write_text(texto, encoding="utf-8")
-    os.replace(tmp, path)
+
+def escribir_conjunto_atomico(dirpath: pathlib.Path, ficheros: dict) -> None:
+    """Escribe un CONJUNTO de ficheros como una transacción (G11): primero
+    TODOS a temporales únicos y solo después el replace de todos. Un SIGKILL
+    antes del primer replace no deja ningún definitivo nuevo; entre replaces,
+    a lo sumo un fichero del conjunto queda del run anterior — nunca un `.tmp`
+    que pase por válido. El llamador ya validó cada objeto contra el schema."""
+    dirpath = pathlib.Path(dirpath)
+    manifiesto.limpiar_tmp_huerfanos(dirpath)
+    temps = {}
+    try:
+        for nombre, texto in ficheros.items():
+            fd, tmp = tempfile.mkstemp(dir=str(dirpath), prefix=nombre + ".",
+                                       suffix=".tmp")
+            with os.fdopen(fd, "w", encoding="utf-8") as f:
+                f.write(texto)
+            temps[nombre] = tmp
+        for nombre, tmp in temps.items():
+            os.replace(tmp, dirpath / nombre)
+    except BaseException:
+        for tmp in temps.values():
+            try:
+                os.unlink(tmp)
+            except OSError:
+                pass
+        raise
+
+
+# Contrato público (G8, reauditoría 31-07): el replay público se construye
+# desde una WHITELIST de tipos de evento y de campos por tipo, NO por copia
+# superficial + filtro. Lo que no esté en la whitelist no llega al artefacto
+# distribuido, aunque un evento nuevo lo introduzca en el futuro. El tipo
+# "pensamiento" (canal privado) NO está en la whitelist: por construcción, el
+# monólogo interno jamás entra en el público.
+_EVENTOS_PUBLICOS = {
+    "narrador": ("tipo", "texto"),
+    "paso": ("tipo", "n"),
+    "dialogo": ("tipo", "agente", "atribucion", "texto", "texto_crudo"),
+    "accion": ("tipo", "agente", "atribucion", "texto"),
+    "movimiento": ("tipo", "agente", "atribucion", "spot", "haciaAgente"),
+    "constraint_violation": ("tipo", "agente", "rule", "raw_location", "texto"),
+}
+_META_PUBLICA = ("titulo", "descripcion", "fecha", "fuente")
+
+
+def _normalizar(texto: str) -> str:
+    """Normaliza para el canary: NFKC, comillas curvas→rectas, minúsculas y
+    espacios colapsados. Así una fuga no se escapa por un cambio de comilla,
+    un guion unicode o el escape JSON de las comillas."""
+    t = unicodedata.normalize("NFKC", texto or "")
+    for a, b in (("“", '"'), ("”", '"'), ("‘", "'"),
+                 ("’", "'"), ("—", "-"), ("–", "-")):
+        t = t.replace(a, b)
+    return re.sub(r"\s+", " ", t).strip().lower()
 
 
 def replay_publico(replay: dict) -> dict:
-    """Copia publicable del replay: los eventos del canal privado (tipo
-    "pensamiento", canal "privado" — el monólogo interno de los agentes) se
-    ELIMINAN físicamente del JSON, no se ocultan (hallazgo 23)."""
-    publico = dict(replay)
-    privados = [e for e in replay.get("eventos", [])
-                if e.get("tipo") == "pensamiento"
-                or e.get("canal") == "privado"]
-    publico["eventos"] = [
-        e for e in replay.get("eventos", []) if e not in privados]
-    # Canary recursivo (auditoría 31-07, P1.6): ningún texto privado puede
-    # sobrevivir en NINGUNA parte del JSON público, o se aborta.
-    serializado = json.dumps(publico, ensure_ascii=False)
+    """Copia publicable del replay construida desde WHITELIST (G8, hallazgo 23
+    + reauditoría 31-07, mutante 11): solo los tipos de evento públicos y solo
+    sus campos públicos pasan al artefacto; los eventos del canal privado
+    (tipo "pensamiento" o canal "privado") no están en la whitelist y por
+    tanto NUNCA aparecen. La meta pública también se reconstruye campo a
+    campo, no se copia.
+
+    Belt-and-suspenders: un canary recursivo comprueba que NINGÚN texto de un
+    evento privado sobreviva —normalizado, por substring y con umbral bajo—
+    en ninguna parte del JSON público, ni en meta ni en fragmentos. Si algo se
+    cuela, se aborta fail-closed en vez de distribuir el artefacto."""
+    eventos = replay.get("eventos", [])
+    privados = [e for e in eventos
+                if e.get("tipo") == "pensamiento" or e.get("canal") == "privado"]
+    publicos = []
+    for e in eventos:
+        if e.get("tipo") == "pensamiento" or e.get("canal") == "privado":
+            continue
+        campos = _EVENTOS_PUBLICOS.get(e.get("tipo"))
+        if campos is None:
+            continue   # tipo desconocido → no se distribuye (fail-closed)
+        publicos.append({k: e[k] for k in campos if k in e})
+
+    meta = replay.get("meta", {}) or {}
+    publico = {
+        "version": replay.get("version", 1),
+        "meta": {k: meta[k] for k in _META_PUBLICA if k in meta},
+        "agentes": replay.get("agentes", []),
+        "eventos": publicos,
+    }
+
+    serializado = _normalizar(json.dumps(publico, ensure_ascii=False))
     for e in privados:
-        t = (e.get("texto") or "").strip()
-        if len(t) >= 12 and t in serializado:
+        t = _normalizar(e.get("texto") or "")
+        if len(t) >= 6 and t in serializado:
             raise RuntimeError(
                 "fuga de contenido privado en replay.public.json")
     return publico
@@ -366,11 +444,15 @@ def exportar(log_path: pathlib.Path) -> pathlib.Path:
     texto_public = json.dumps(publico, ensure_ascii=False, indent=2)
     # Hallazgo 23: el par full/public es el contrato nuevo. replay.json se
     # mantiene como alias byte a byte del full porque es el nombre que carga
-    # el visor actual (viewer/index.html) — no se rompe nada.
-    for nombre, texto in (("replay.full.json", texto_full),
-                          ("replay.public.json", texto_public),
-                          ("replay.json", texto_full)):
-        escribir_atomico(log_path.parent / nombre, texto)
+    # el visor actual (viewer/index.html) — no se rompe nada. G11: los TRES
+    # se escriben como una transacción (temporales únicos, luego replace de
+    # todos) — un run interrumpido no deja un trío incoherente ni un .tmp que
+    # pase por válido.
+    escribir_conjunto_atomico(log_path.parent, {
+        "replay.full.json": texto_full,
+        "replay.public.json": texto_public,
+        "replay.json": texto_full,
+    })
     return log_path.parent / "replay.json"
 
 

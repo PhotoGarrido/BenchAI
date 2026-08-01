@@ -34,6 +34,21 @@ revierten con `git checkout`):
 11. `spike/export_replay.py`: quitar el filtro de `pensamiento` en `replay_publico`.
 12. `schemas/scenario.schema.json`: quitar `version` de `required`.
 
+**Resultado v0.1.2 → v0.1.3 (reauditoría 31-07)**: los mutantes **1, 2, 8 y
+11 eran falsos-verdes** en v0.1.2 (la puerta seguía verde al aplicarlos). En
+v0.1.3 cada uno tiene puerta y vuelve la puerta ROJA:
+
+- **1 y 2** — `test_parsers_contrato.py`: corpus golden con negativas milgram
+  sin «aplicar» (p. ej. «Me opongo rotundamente» → RECHAZO) + candado que liga
+  `PARSER_VERSION` a un hash del comportamiento.
+- **8** — `test_gfinal_linter.py`: fuerza un linter que falla y comprueba que
+  `main` aborta ANTES de invocar `build_model` (el proveedor nunca se construye).
+- **11** — `test_replay_privacidad.py` + `replay_publico` reescrito por
+  whitelist con canary normalizado: ningún pensamiento privado llega al público.
+
+Los otros ocho (3,4,5,6,7,9,10,12) ya volvían la puerta roja en v0.1.2 y se
+verificaron de nuevo en v0.1.3 (12/12 rojos).
+
 ## Prueba 4 · Mini-run real + kill (~1 $ de API)
 (a) Un harness pequeño contra proveedor real: `solicitudes.jsonl` debe cuadrar
 con el dashboard del proveedor (recuento y tokens). (b) `kill -9` a mitad de
