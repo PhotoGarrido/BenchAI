@@ -71,6 +71,9 @@ jobs:
       - name: Regeneración de cifras publicables desde el manifest (G9)
         working-directory: spike
         run: python regenerar_publicacion.py --check
+      - name: PsicoBench al día con las matrices (tabla, panel y datos)
+        working-directory: spike
+        run: python generar_benchmark.py --check
       - name: Sensibilidad determinista entre procesos (PYTHONHASHSEED)
         working-directory: spike
         run: python test_robustez_determinista.py

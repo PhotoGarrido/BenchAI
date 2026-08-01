@@ -41,8 +41,16 @@ def _es_rapido(d: pathlib.Path) -> bool:
         return False
     n = sum(1 for f in reg for _ in f.open())
     # Milgram guarda 1 línea por SESIÓN (no por decisión): 30 sesiones en el
-    # run completo, 6 en el piloto → umbral propio más bajo.
-    minimo = 12 if any(f.name == "sesiones.jsonl" for f in reg) else N_MINIMO
+    # run completo, 6 en el piloto → umbral propio más bajo. El modo --vacuna
+    # corre UN solo brazo (10 sesiones completas, 2 en piloto): con el umbral
+    # general de 12 un run de vacuna válido se descartaba como humo y el
+    # perfil perdía vacuna_delta en silencio (visto en el batch 0731).
+    if "_vacuna_" in d.name:
+        minimo = 6
+    elif any(f.name == "sesiones.jsonl" for f in reg):
+        minimo = 12
+    else:
+        minimo = N_MINIMO
     return 0 < n < minimo
 
 

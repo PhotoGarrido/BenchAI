@@ -1,0 +1,559 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PsicoBench · Perfil social de modelos LLM</title>
+<style>
+  :root {
+    --papel:#F5F5F1; --carta:#FFFFFF; --tinta:#20232A; --tinta2:#6A6F7B;
+    --linea:#DCDDD4; --acento:#1E6E78; --acento-tenue:rgba(30,110,120,.11);
+    --serieB:#A03A40; --calor:179,64,58; --foco:#1E6E78;
+    --serif:"Iowan Old Style","Palatino Nova",Palatino,Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --papel:#16181D; --carta:#1D2026; --tinta:#E6E5DF;
+      --tinta2:#979CA8; --linea:#2C2F38; --acento:#57B1BB;
+      --acento-tenue:rgba(87,177,187,.14); --serieB:#D97D81;
+      --calor:224,106,98; --foco:#57B1BB; }
+  }
+  :root[data-theme="dark"] { --papel:#16181D; --carta:#1D2026; --tinta:#E6E5DF;
+    --tinta2:#979CA8; --linea:#2C2F38; --acento:#57B1BB;
+    --acento-tenue:rgba(87,177,187,.14); --serieB:#D97D81;
+    --calor:224,106,98; --foco:#57B1BB; }
+  :root[data-theme="light"] { --papel:#F5F5F1; --carta:#FFFFFF; --tinta:#20232A;
+    --tinta2:#6A6F7B; --linea:#DCDDD4; --acento:#1E6E78;
+    --acento-tenue:rgba(30,110,120,.11); --serieB:#A03A40;
+    --calor:179,64,58; --foco:#1E6E78; }
+
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--papel); color:var(--tinta);
+    font:15px/1.55 var(--sans); }
+  .marco { max-width:1120px; margin:0 auto; padding:28px 20px 64px; }
+
+  header .ceja { font:600 11px/1 var(--sans); letter-spacing:.14em;
+    text-transform:uppercase; color:var(--acento); margin:0 0 10px; }
+  header h1 { font:700 34px/1.1 var(--serif); margin:0; text-wrap:balance; }
+  header h1 .version { font:600 12px/1 var(--mono); color:var(--tinta2);
+    border:1px solid var(--linea); border-radius:99px; padding:4px 10px;
+    vertical-align:6px; margin-left:10px; letter-spacing:.02em; }
+  header .sub { color:var(--tinta2); margin:8px 0 0; max-width:72ch; }
+
+  nav { display:flex; gap:4px; margin:26px 0 0; border-bottom:1px solid var(--linea); }
+  nav button { appearance:none; background:none; border:none; cursor:pointer;
+    font:600 14px/1 var(--sans); color:var(--tinta2); padding:11px 14px;
+    border-bottom:2px solid transparent; margin-bottom:-1px; }
+  nav button[aria-selected="true"] { color:var(--acento);
+    border-bottom-color:var(--acento); }
+  nav button:focus-visible, a:focus-visible, button:focus-visible,
+  select:focus-visible, tr.fila:focus-visible { outline:2px solid var(--foco);
+    outline-offset:2px; }
+
+  section[hidden] { display:none; }
+  section { padding-top:22px; }
+  h2 { font:700 21px/1.2 var(--serif); margin:0 0 4px; }
+  .nota { color:var(--tinta2); font-size:13px; margin:0 0 16px; max-width:80ch; }
+
+  .rollo { overflow-x:auto; border:1px solid var(--linea); border-radius:10px;
+    background:var(--carta); }
+  table { border-collapse:collapse; width:100%; min-width:980px;
+    font-variant-numeric:tabular-nums; }
+  thead th { position:sticky; top:0; background:var(--carta); z-index:1;
+    font:600 11px/1.3 var(--sans); letter-spacing:.06em; text-transform:uppercase;
+    color:var(--tinta2); text-align:right; padding:10px 9px;
+    border-bottom:1px solid var(--linea); cursor:pointer; white-space:nowrap; }
+  thead th.izq { text-align:left; }
+  thead th[aria-sort]:not([aria-sort="none"]) { color:var(--acento); }
+  tbody td { padding:8px 9px; border-bottom:1px solid var(--linea);
+    text-align:right; font-family:var(--mono); font-size:13px; white-space:nowrap; }
+  tbody tr:last-child td { border-bottom:none; }
+  tbody td.izq { text-align:left; font-family:var(--sans); }
+  tr.fila { cursor:pointer; }
+  tr.fila:hover td { background:var(--acento-tenue); }
+  .nombre { font-weight:650; font-size:14px; }
+  .meta { color:var(--tinta2); font-size:11.5px; }
+  .chip { display:inline-block; font:600 10px/1 var(--sans); color:var(--acento);
+    border:1px solid var(--acento); border-radius:99px; padding:2.5px 7px;
+    margin-left:7px; letter-spacing:.04em; vertical-align:1px; }
+  td.iss { font-weight:700; }
+  .celda-calor { border-radius:5px; padding:2px 6px; }
+
+  .comparador { display:flex; flex-wrap:wrap; gap:14px; align-items:center;
+    margin:0 0 18px; }
+  .comparador label { font:600 12px/1 var(--sans); color:var(--tinta2);
+    display:flex; align-items:center; gap:8px; }
+  .comparador .punto { width:10px; height:10px; border-radius:3px; }
+  select { font:600 13px/1.2 var(--sans); color:var(--tinta); background:var(--carta);
+    border:1px solid var(--linea); border-radius:8px; padding:8px 10px; }
+  .intercambiar { appearance:none; background:var(--carta); color:var(--tinta2);
+    border:1px solid var(--linea); border-radius:8px; padding:8px 12px;
+    font:600 13px/1 var(--sans); cursor:pointer; }
+  .intercambiar:hover { color:var(--acento); border-color:var(--acento); }
+
+  .radar-zona { display:flex; flex-wrap:wrap; gap:24px; align-items:flex-start; }
+  .radar-svg { background:var(--carta); border:1px solid var(--linea);
+    border-radius:12px; flex:0 1 460px; max-width:100%; }
+  .fichas { flex:1 1 300px; min-width:280px; display:flex; flex-direction:column;
+    gap:12px; }
+  .ficha { background:var(--carta); border:1px solid var(--linea);
+    border-radius:10px; padding:12px 14px; border-left-width:4px; }
+  .ficha h3 { margin:0; font:650 15px/1.2 var(--sans); }
+  .ficha .meta { margin-top:2px; }
+  .ficha .iss-grande { font:700 22px/1 var(--mono); margin-top:8px; }
+  .ficha .iss-grande small { font:600 10px/1 var(--sans); color:var(--tinta2);
+    letter-spacing:.08em; text-transform:uppercase; margin-left:6px; }
+  .deltas { background:var(--carta); border:1px solid var(--linea);
+    border-radius:10px; padding:12px 14px; }
+  .deltas h3 { margin:0 0 8px; font:600 11px/1 var(--sans); letter-spacing:.1em;
+    text-transform:uppercase; color:var(--tinta2); }
+  .deltas table { min-width:0; width:100%; font-size:13px; }
+  .deltas td { border:none; padding:3.5px 6px; }
+  .aviso-snapshot { font-size:12.5px; color:var(--acento); background:var(--acento-tenue);
+    border-radius:8px; padding:8px 12px; margin-top:12px; }
+
+  .mapas { display:grid; grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+    gap:20px; }
+  .mapa { background:var(--carta); border:1px solid var(--linea);
+    border-radius:12px; padding:14px; }
+  .mapa h3 { font:700 16px/1.25 var(--serif); margin:0 0 2px; }
+  .mapa p { color:var(--tinta2); font-size:12.5px; margin:0 0 10px; }
+  .mapa svg { width:100%; height:auto; }
+
+  .metodo { max-width:78ch; }
+  .metodo dt { font-weight:650; margin-top:12px; }
+  .metodo dd { margin:2px 0 0 0; color:var(--tinta2); }
+  .metodo code { font-family:var(--mono); font-size:12.5px;
+    background:var(--acento-tenue); border-radius:5px; padding:2px 6px; }
+  .doctrina { border-left:3px solid var(--acento); padding:2px 0 2px 14px;
+    margin:18px 0; }
+
+  footer { margin-top:40px; padding-top:14px; border-top:1px solid var(--linea);
+    color:var(--tinta2); font-size:12px; }
+  @media (prefers-reduced-motion: no-preference) {
+    nav button, tr.fila td, .intercambiar { transition:color .15s, background .15s,
+      border-color .15s; }
+  }
+</style>
+</head>
+<body>
+<div class="marco">
+  <header>
+    <p class="ceja">Banco conductual PsicoAI</p>
+    <h1>PsicoBench<span class="version" id="version"></span></h1>
+    <p class="sub" id="subtitulo"></p>
+  </header>
+  <nav role="tablist" id="pestanas"></nav>
+  <section id="sec-clasificacion" role="tabpanel"></section>
+  <section id="sec-radar" role="tabpanel" hidden></section>
+  <section id="sec-mapas" role="tabpanel" hidden></section>
+  <section id="sec-metodo" role="tabpanel" hidden></section>
+  <footer id="pie"></footer>
+</div>
+<script id="psicobench-datos" type="application/json">__PSICOBENCH_DATOS__</script>
+<script>
+"use strict";
+const DATOS = JSON.parse(document.getElementById("psicobench-datos").textContent);
+const E = DATOS.entradas;
+const EJES = DATOS.ejes;
+
+// -- utilidades DOM (textContent siempre; nunca innerHTML con datos) --------
+function el(tag, attrs, hijos) {
+  const n = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs || {})) {
+    if (k === "text") n.textContent = v;
+    else if (k.startsWith("on")) n.addEventListener(k.slice(2), v);
+    else n.setAttribute(k, v);
+  }
+  for (const h of hijos || []) n.appendChild(h);
+  return n;
+}
+const SVGNS = "http://www.w3.org/2000/svg";
+function sv(tag, attrs, hijos) {
+  const n = document.createElementNS(SVGNS, tag);
+  for (const [k, v] of Object.entries(attrs || {})) {
+    if (k === "text") n.textContent = v; else n.setAttribute(k, v);
+  }
+  for (const h of hijos || []) n.appendChild(h);
+  return n;
+}
+function pct(v, dec) { return v == null ? "—" :
+  (v * 100).toFixed(dec == null ? 0 : dec).replace(".", ","); }
+function conSigno(v, dec) { return v == null ? "—" :
+  (v > 0 ? "+" : "") + (v * 100).toFixed(dec == null ? 0 : dec).replace(".", ","); }
+function etiqueta(e) { return e.id; }
+function via(e) { return e.proveedor + " · " + (e.fecha || "¿?"); }
+function colorSerie(i) {
+  return getComputedStyle(document.documentElement)
+    .getPropertyValue(i === 0 ? "--acento" : "--serieB").trim();
+}
+
+// -- pestañas ---------------------------------------------------------------
+const PESTANAS = [
+  ["clasificacion", "Clasificación"], ["radar", "Radar"],
+  ["mapas", "Mapas"], ["metodo", "Método"],
+];
+function irA(clave) {
+  for (const [c] of PESTANAS) {
+    document.getElementById("sec-" + c).hidden = c !== clave;
+    document.getElementById("tab-" + c).setAttribute("aria-selected",
+      String(c === clave));
+  }
+}
+document.getElementById("pestanas").append(...PESTANAS.map(([c, nombre]) =>
+  el("button", { id: "tab-" + c, role: "tab", "aria-selected": "false",
+    text: nombre, onclick: () => irA(c) })));
+
+// -- cabecera ---------------------------------------------------------------
+document.getElementById("version").textContent = "v" + DATOS.version;
+document.getElementById("subtitulo").textContent =
+  "Perfil social medido de " + E.length + " modelos·snapshot — suite " +
+  DATOS.suite + ". La unidad es la medición (modelo + snapshot + proveedor + " +
+  "fecha): el mismo nombre comercial puede cambiar de conducta entre versiones.";
+document.getElementById("pie").textContent =
+  "Generado por spike/generar_benchmark.py desde las matrices versionadas · " +
+  "PsicoBench v" + DATOS.version + " · datos CC BY 4.0 · código Apache-2.0";
+
+// -- clasificación ----------------------------------------------------------
+const COLS = [
+  { k: "pos", titulo: "#", num: true, v: e => null },
+  { k: "modelo", titulo: "Modelo", izq: true, v: e => e.id.toLowerCase() },
+  { k: "iss", titulo: "ISS", num: true, v: e => e.iss },
+  ...EJES.map(x => ({ k: x.clave, titulo: x.nombre.split(" ")[0], num: true,
+    title: x.nombre + " — " + x.definicion, v: e => e.ejes[x.clave] })),
+  { k: "disonancia", titulo: "Dison.", num: true,
+    title: "Disonancia: aplica lo que en privado juzga injusto",
+    v: e => e.secundarias.disonancia },
+  { k: "vacuna_delta", titulo: "Δ vacuna", num: true,
+    title: "Cambio en obediencia al recordar Milgram antes (− = protege)",
+    v: e => e.secundarias.vacuna_delta },
+  { k: "efecto_aliado", titulo: "Δ aliado", num: true,
+    title: "Conformidad con aliado − con mayoría (− = el aliado libera)",
+    v: e => e.secundarias.efecto_aliado },
+];
+let orden = { k: "iss", asc: true };
+function calor(v) {
+  return v == null ? "" : "background:rgba(var(--calor)," +
+    (0.06 + v * 0.42).toFixed(3) + ")";
+}
+function renderClasificacion() {
+  const sec = document.getElementById("sec-clasificacion");
+  sec.replaceChildren(
+    el("h2", { text: "Clasificación por resistencia" }),
+    el("p", { class: "nota", text: DATOS.nota_iss + " Todas las cifras son " +
+      "proporciones × 100. Clic en una columna para ordenar; clic en una " +
+      "fila para llevar ese perfil al radar." }));
+  const filas = E.slice();
+  const col = COLS.find(c => c.k === orden.k);
+  if (col && col.k !== "pos") {
+    filas.sort((a, b) => {
+      const va = col.v(a), vb = col.v(b);
+      if (va == null && vb == null) return 0;
+      if (va == null) return 1;
+      if (vb == null) return -1;
+      const d = va < vb ? -1 : va > vb ? 1 : 0;
+      return orden.asc ? d : -d;
+    });
+  }
+  const rangoISS = E.map(e => e.iss).filter(v => v != null).sort((a, b) => a - b);
+  const cuerpo = el("tbody", {}, filas.map((e, i) => {
+    const celdas = [
+      el("td", { text: String(i + 1) }),
+      el("td", { class: "izq" }, [
+        el("span", { class: "nombre", text: etiqueta(e) }),
+        ...(e.grupo_snapshot ? [el("span", { class: "chip", text: "snapshot" })] : []),
+        el("br"),
+        el("span", { class: "meta", text: e.lab + " · " + via(e) }),
+      ]),
+      el("td", { class: "iss", text: e.iss == null ? "—" :
+        String(e.iss).replace(".", ",") }),
+      ...EJES.map(x => {
+        const v = e.ejes[x.clave];
+        return el("td", {}, [el("span",
+          { class: "celda-calor", style: calor(v), text: pct(v) })]);
+      }),
+      el("td", { text: pct(e.secundarias.disonancia) }),
+      el("td", { text: conSigno(e.secundarias.vacuna_delta) }),
+      el("td", { text: conSigno(e.secundarias.efecto_aliado) }),
+    ];
+    return el("tr", { class: "fila", tabindex: "0",
+      onclick: () => { selA = E.indexOf(e); renderRadar(); irA("radar"); },
+      onkeydown: ev => { if (ev.key === "Enter") ev.currentTarget.click(); } },
+      celdas);
+  }));
+  const cab = el("thead", {}, [el("tr", {}, COLS.map(c =>
+    el("th", { class: c.izq ? "izq" : "", title: c.title || "",
+      "aria-sort": orden.k === c.k ? (orden.asc ? "ascending" : "descending")
+        : "none",
+      text: c.titulo,
+      onclick: () => {
+        if (c.k === "pos") return;
+        orden = { k: c.k, asc: orden.k === c.k ? !orden.asc : true };
+        renderClasificacion();
+      } })))]);
+  sec.appendChild(el("div", { class: "rollo" },
+    [el("table", {}, [cab, cuerpo])]));
+  void rangoISS;
+}
+
+// -- radar ------------------------------------------------------------------
+let selA = Math.max(0, E.findIndex(e => e.id === "deepseek-v4-flash"));
+let selB = Math.max(0, E.findIndex(e => e.id === "deepseek-v4-flash-0731"));
+function poligono(entrada, color) {
+  const cx = 210, cy = 210, R = 148;
+  const puntos = EJES.map((x, i) => {
+    const v = entrada.ejes[x.clave] || 0;
+    const a = -Math.PI / 2 + i * Math.PI / 3;
+    return [cx + R * v * Math.cos(a), cy + R * v * Math.sin(a)];
+  });
+  const g = sv("g", {});
+  g.appendChild(sv("polygon", {
+    points: puntos.map(p => p.map(n => n.toFixed(1)).join(",")).join(" "),
+    fill: color, "fill-opacity": "0.16", stroke: color, "stroke-width": "2",
+    "stroke-linejoin": "round" }));
+  for (const p of puntos) g.appendChild(sv("circle",
+    { cx: p[0].toFixed(1), cy: p[1].toFixed(1), r: "3.4", fill: color }));
+  return g;
+}
+function renderRadar() {
+  const sec = document.getElementById("sec-radar");
+  const opciones = sel => E.map((e, i) => {
+    const o = el("option", { value: String(i),
+      text: etiqueta(e) + "  ·  " + via(e) });
+    if (i === sel) o.selected = true;
+    return o;
+  });
+  const selectA = el("select", { "aria-label": "Serie A",
+    onchange: ev => { selA = Number(ev.target.value); renderRadar(); } },
+    opciones(selA));
+  const selectB = el("select", { "aria-label": "Serie B",
+    onchange: ev => { selB = Number(ev.target.value); renderRadar(); } },
+    opciones(selB));
+  const A = E[selA], B = E[selB];
+  const cA = colorSerie(0), cB = colorSerie(1);
+
+  const svg = sv("svg", { viewBox: "0 0 420 420", class: "radar-svg",
+    role: "img", "aria-label": "Radar de perfil social de " + etiqueta(A) +
+    " frente a " + etiqueta(B) });
+  const cx = 210, cy = 210, R = 148;
+  for (const nivel of [0.25, 0.5, 0.75, 1]) {
+    svg.appendChild(sv("polygon", {
+      points: EJES.map((x, i) => {
+        const a = -Math.PI / 2 + i * Math.PI / 3;
+        return (cx + R * nivel * Math.cos(a)).toFixed(1) + "," +
+               (cy + R * nivel * Math.sin(a)).toFixed(1);
+      }).join(" "),
+      fill: "none", stroke: "currentColor", "stroke-opacity": "0.14" }));
+  }
+  EJES.forEach((x, i) => {
+    const a = -Math.PI / 2 + i * Math.PI / 3;
+    svg.appendChild(sv("line", { x1: cx, y1: cy,
+      x2: (cx + R * Math.cos(a)).toFixed(1),
+      y2: (cy + R * Math.sin(a)).toFixed(1),
+      stroke: "currentColor", "stroke-opacity": "0.14" }));
+    const lx = cx + (R + 26) * Math.cos(a), ly = cy + (R + 24) * Math.sin(a);
+    const t = sv("text", { x: lx.toFixed(1), y: ly.toFixed(1),
+      "text-anchor": "middle", "dominant-baseline": "middle",
+      "font-size": "11.5", "font-weight": "600", fill: "currentColor",
+      text: x.nombre.split(" ")[0] });
+    t.appendChild(sv("title", { text: x.nombre + " — " + x.definicion }));
+    svg.appendChild(t);
+  });
+  svg.appendChild(poligono(A, cA));
+  svg.appendChild(poligono(B, cB));
+
+  const ficha = (e, color) => el("div",
+    { class: "ficha", style: "border-left-color:" + color }, [
+      el("h3", { text: etiqueta(e) }),
+      el("div", { class: "meta", text: e.lab + " · " + via(e) }),
+      el("div", { class: "iss-grande" }, [
+        document.createTextNode(e.iss == null ? "—" :
+          String(e.iss).replace(".", ",")),
+        el("small", { text: "ISS" })]),
+    ]);
+  const filasDelta = EJES.map(x => {
+    const va = A.ejes[x.clave], vb = B.ejes[x.clave];
+    const d = (va != null && vb != null) ? vb - va : null;
+    return el("tr", {}, [
+      el("td", { class: "izq", text: x.nombre }),
+      el("td", { text: pct(va) }),
+      el("td", { text: pct(vb) }),
+      el("td", { style: d != null && Math.abs(d) >= 0.1 ?
+        "font-weight:700" : "", text: conSigno(d) }),
+    ]);
+  });
+  filasDelta.push(el("tr", {}, [
+    el("td", { class: "izq", text: "Disonancia" }),
+    el("td", { text: pct(A.secundarias.disonancia) }),
+    el("td", { text: pct(B.secundarias.disonancia) }),
+    el("td", { text: (A.secundarias.disonancia != null &&
+      B.secundarias.disonancia != null) ?
+      conSigno(B.secundarias.disonancia - A.secundarias.disonancia) : "—" }),
+  ]));
+  const deltas = el("div", { class: "deltas" }, [
+    el("h3", { text: "B − A por eje (puntos × 100)" }),
+    el("table", {}, [el("tbody", {}, filasDelta)]),
+  ]);
+  const zona = el("div", { class: "radar-zona" }, [svg,
+    el("div", { class: "fichas" }, [ficha(A, cA), ficha(B, cB), deltas])]);
+
+  sec.replaceChildren(
+    el("h2", { text: "Radar comparador" }),
+    el("p", { class: "nota", text: "Seis ejes conductuales, 0–100; más " +
+      "área = más susceptible a la presión social del protocolo." }),
+    el("div", { class: "comparador" }, [
+      el("label", {}, [el("span", { class: "punto",
+        style: "background:" + cA }), document.createTextNode("A"), selectA]),
+      el("label", {}, [el("span", { class: "punto",
+        style: "background:" + cB }), document.createTextNode("B"), selectB]),
+      el("button", { class: "intercambiar", text: "⇄ Intercambiar",
+        onclick: () => { const t = selA; selA = selB; selB = t; renderRadar(); } }),
+    ]),
+    zona);
+  if (A.grupo_snapshot && A.grupo_snapshot === B.grupo_snapshot &&
+      selA !== selB) {
+    sec.appendChild(el("p", { class: "aviso-snapshot",
+      text: "Réplica generacional: mismo nombre comercial (" +
+        A.grupo_snapshot + "), snapshots distintos. Las diferencias de " +
+        "este radar son el cambio de conducta entre versiones." }));
+  }
+}
+
+// -- mapas ------------------------------------------------------------------
+function dispersion(cfg) {
+  const W = 460, H = 420, m = { izq: 46, der: 14, arr: 14, aba: 42 };
+  const sx = v => m.izq + v * (W - m.izq - m.der);
+  const sy = v => H - m.aba - v * (H - m.arr - m.aba);
+  const svg = sv("svg", { viewBox: "0 0 " + W + " " + H, role: "img",
+    "aria-label": cfg.titulo });
+  for (const t of [0, 0.25, 0.5, 0.75, 1]) {
+    svg.appendChild(sv("line", { x1: sx(t), y1: sy(0), x2: sx(t), y2: sy(1),
+      stroke: "currentColor", "stroke-opacity": t === 0.5 ? "0.25" : "0.09",
+      "stroke-dasharray": t === 0.5 ? "4 4" : "" }));
+    svg.appendChild(sv("line", { x1: sx(0), y1: sy(t), x2: sx(1), y2: sy(t),
+      stroke: "currentColor", "stroke-opacity": t === 0.5 ? "0.25" : "0.09",
+      "stroke-dasharray": t === 0.5 ? "4 4" : "" }));
+    svg.appendChild(sv("text", { x: sx(t), y: H - m.aba + 16,
+      "text-anchor": "middle", "font-size": "10", fill: "currentColor",
+      "fill-opacity": "0.6", text: String(t * 100) }));
+    svg.appendChild(sv("text", { x: m.izq - 8, y: sy(t),
+      "text-anchor": "end", "dominant-baseline": "middle", "font-size": "10",
+      fill: "currentColor", "fill-opacity": "0.6", text: String(t * 100) }));
+  }
+  cfg.cuadrantes.forEach((q, i) => {
+    const qx = i % 2 === 0 ? sx(0.25) : sx(0.75);
+    const qy = i < 2 ? sy(0.97) + 12 : sy(0.03) - 6;
+    svg.appendChild(sv("text", { x: qx, y: qy, "text-anchor": "middle",
+      "font-size": "10.5", "font-style": "italic", fill: "currentColor",
+      "fill-opacity": "0.45", text: q }));
+  });
+  svg.appendChild(sv("text", { x: (m.izq + W - m.der) / 2, y: H - 6,
+    "text-anchor": "middle", "font-size": "11.5", "font-weight": "600",
+    fill: "currentColor", text: cfg.ex }));
+  const ty = sv("text", { x: 12, y: (H - m.aba + m.arr) / 2,
+    "text-anchor": "middle", "font-size": "11.5", "font-weight": "600",
+    fill: "currentColor", text: cfg.ey });
+  ty.setAttribute("transform", "rotate(-90 12 " + (H - m.aba + m.arr) / 2 + ")");
+  svg.appendChild(ty);
+  const acento = colorSerie(0);
+  E.forEach((e, i) => {
+    const vx = cfg.x(e), vy = cfg.y(e);
+    if (vx == null || vy == null) return;
+    const c = sv("circle", { cx: sx(vx).toFixed(1), cy: sy(vy).toFixed(1),
+      r: "5", fill: acento, "fill-opacity": "0.85", stroke: "var(--carta)",
+      "stroke-width": "1.5" });
+    c.appendChild(sv("title", { text: etiqueta(e) + " · " + via(e) + " — " +
+      cfg.ex + " " + pct(vx) + ", " + cfg.ey + " " + pct(vy) }));
+    svg.appendChild(c);
+    const izq = vx > 0.72;
+    svg.appendChild(sv("text", { x: (sx(vx) + (izq ? -8 : 8)).toFixed(1),
+      y: (sy(vy) + (i % 2 ? -6 : 11)).toFixed(1),
+      "text-anchor": izq ? "end" : "start", "font-size": "10",
+      fill: "currentColor", "fill-opacity": "0.8", text: etiqueta(e) }));
+  });
+  return el("div", { class: "mapa" }, [
+    el("h3", { text: cfg.titulo }), el("p", { text: cfg.lectura }), svg]);
+}
+function renderMapas() {
+  document.getElementById("sec-mapas").replaceChildren(
+    el("h2", { text: "Mapas de dispersión" }),
+    el("p", { class: "nota", text: "Cada punto es una medición " +
+      "modelo@snapshot. Las guías discontinuas marcan el 50." }),
+    el("div", { class: "mapas" }, [
+      dispersion({
+        titulo: "Las dos obediencias",
+        lectura: "Derecha = obedece; arriba = lo hace juzgándolo injusto " +
+          "en privado (a sabiendas); abajo-derecha = obedece convencido.",
+        ex: "Obediencia (Milgram supera crítico)",
+        ey: "Disonancia (aplica lo que juzga injusto)",
+        x: e => e.ejes.obed, y: e => e.secundarias.disonancia,
+        cuadrantes: ["se niega, y lo que aplica le pesa", "obedece a sabiendas",
+          "se niega convencido", "obedece convencido"],
+      }),
+      dispersion({
+        titulo: "Los dos motores de crueldad",
+        lectura: "Ejes independientes: el conflicto (motín) y la orden " +
+          "explícita disparan a modelos distintos.",
+        ex: "Provocabilidad (P2, motín)",
+        ey: "Ejecución de órdenes (P2b)",
+        x: e => e.ejes.prov, y: e => e.ejes.sold,
+        cuadrantes: ["soldado", "ambos motores", "resistente", "provocable"],
+      }),
+    ]));
+}
+
+// -- método -----------------------------------------------------------------
+function renderMetodo() {
+  const sec = document.getElementById("sec-metodo");
+  const defs = el("dl", {}, EJES.flatMap(x => [
+    el("dt", { text: x.nombre }), el("dd", { text: x.definicion })]).concat([
+    el("dt", { text: "Disonancia" }),
+    el("dd", { text: "Entre los niveles aplicados en Milgram, proporción " +
+      "que el modelo juzga injustos en su canal privado. No entra en el ISS: " +
+      "mide cómo obedece, no cuánto." }),
+    el("dt", { text: "Δ vacuna" }),
+    el("dd", { text: "Cambio en obediencia si se le recuerda el experimento " +
+      "de Milgram justo antes (negativo = la contaminación protege)." }),
+    el("dt", { text: "Δ aliado" }),
+    el("dd", { text: "Conformidad con un aliado disidente menos conformidad " +
+      "con mayoría unánime (negativo = el aliado libera, como en humanos)." }),
+    el("dt", { text: "ISS" }), el("dd", { text: DATOS.nota_iss }),
+  ]));
+  sec.replaceChildren(
+    el("h2", { text: "Método y doctrina" }),
+    el("div", { class: "metodo" }, [
+      el("div", { class: "doctrina" }, [
+        el("p", { text: "La unidad del benchmark es la MEDICIÓN: modelo + " +
+          "snapshot + proveedor + fecha. El mismo nombre comercial cambia de " +
+          "conducta entre versiones (réplica deepseek-v4-flash jul → 0731), " +
+          "así que no certificamos nombres: fotografiamos versiones." }),
+        el("p", { text: "Esto NO es un ranking de calidad. Un ISS bajo " +
+          "significa resistencia a la presión social de estos protocolos, " +
+          "con contaminación en techo (los modelos conocen los paradigmas) " +
+          "y protocolos en español. Cifras descriptivas, sin IC en esta " +
+          "vista; los análisis confirmatorios viven en el preprint." }),
+      ]),
+      defs,
+      el("p", {}, [
+        document.createTextNode("Paradigmas: suite " + DATOS.suite +
+          ", harness controlado con cómplices con guion, canal privado por " +
+          "bifurcación de contexto, parsers tipados versionados. " +
+          "Regeneración: "),
+        el("code", { text: "python spike/generar_benchmark.py" }),
+        document.createTextNode(" · datos en "),
+        el("code", { text: "benchmark/psicobench.json" }),
+        document.createTextNode(" · registro completo en EXPERIMENTOS.md y " +
+          "BENCHMARK.md del repositorio PsicoAI."),
+      ]),
+    ]));
+}
+
+renderClasificacion();
+renderRadar();
+renderMapas();
+renderMetodo();
+irA("clasificacion");
+</script>
+</body>
+</html>

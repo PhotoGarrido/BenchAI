@@ -4,6 +4,7 @@
     "runs": {
       "asch": "asch_deepseek-v4-flash-0731_20260801_121325_302955",
       "milgram": "milgram_deepseek-v4-flash-0731_20260801_125634_189260",
+      "vacuna": "milgram_deepseek-v4-flash-0731_vacuna_20260801_133345_689183",
       "cronica_v1": "cronica_deepseek-v4-flash-0731_20260801_134522_720038",
       "v2_s715": "cronica_deepseek-v4-flash-0731_v2_s715_20260801_134746_404522",
       "v2_s716": "cronica_deepseek-v4-flash-0731_v2_s716_20260801_135814_826458",
@@ -25,7 +26,8 @@
       "llega_al_maximo": 0.7,
       "disonancia": 0.83,
       "supera_critico_control": 0.3,
-      "supera_critico_rebelde": 0.8
+      "supera_critico_rebelde": 0.8,
+      "vacuna_delta": -0.5
     },
     "cronica": {
       "v1_resultado": "norma derogada el día 14",

@@ -1,24 +1,26 @@
 # 🧠 PsicoAI
 
-**Banco de pruebas conductual de agentes LLM sobre paradigmas clásicos de psicología social, más un simulador narrativo didáctico.** Versión `v0.1.3-alpha` (research preview).
+**Banco de pruebas conductual de agentes LLM sobre paradigmas clásicos de psicología social, más un simulador narrativo didáctico.** Versión `v0.1.4-alpha` (research preview).
 
 ## Qué es
 
-Tres productos que conviven en este repositorio, deliberadamente separados:
+Cuatro productos que conviven en este repositorio, deliberadamente separados:
 
 1. **Banco experimental** (`spike/experimento_*.py`): 6 paradigmas isomorfos y disfrazados — Asch, Milgram (±vacuna), la prisión de Stanford (P1→P2b), erosión de normas en 42 días, y el gradiente de explicitud (G1→G2→G-final) — ejecutados con harness controlado sobre 17 modelos de 10 laboratorios.
-2. **Trabajo de investigación** (`preprint/`): borrador v0.3, pre-registros congelados con enmiendas fechadas, auditoría del reproceso y erratas.
-3. **Simulador narrativo** (`spike/run_spike.py` + `panel/` + `viewer/`): personajes con personalidad y memoria sobre [Concordia](https://github.com/google-deepmind/concordia), con replay reproducible y canal de pensamiento privado. Produce los `episodios/` didácticos.
+2. **Benchmark PsicoBench** ([`BENCHMARK.md`](BENCHMARK.md) + `benchmark/`): el perfil social de cada medición (modelo@snapshot@proveedor) en 6 ejes conductuales + panel interactivo (`benchmark/index.html`); tabla y datos autogenerados desde las matrices y verificados en CI.
+3. **Trabajo de investigación** (`preprint/`): borrador v0.3, pre-registros congelados con enmiendas fechadas, auditoría del reproceso y erratas.
+4. **Simulador narrativo** (`spike/run_spike.py` + `panel/` + `viewer/`): personajes con personalidad y memoria sobre [Concordia](https://github.com/google-deepmind/concordia), con replay reproducible y canal de pensamiento privado. Produce los `episodios/` didácticos.
 
 ## Qué NO es
 
 - **No es evidencia sobre humanos.** Se mide conducta de modelos concretos bajo protocolos concretos; los LLM tienden a sobreestimar los efectos humanos (Ashokkumar et al., Nature 2026). Ver `RESEARCH_CARD.md`.
-- **No es un ranking de modelos.** Los perfiles dependen del protocolo, la fecha y el proveedor.
+- **No es un ranking de calidad de modelos.** PsicoBench ordena por un índice **descriptivo** de susceptibilidad social, condicionado a protocolo, fecha y proveedor; la unidad es la versión medida, no el nombre comercial (doctrina en `BENCHMARK.md`).
 - **No es un producto**: es investigación en preview, con sus errores documentados a la vista.
 
-## Estado del proyecto (31-07-2026)
+## Estado del proyecto (01-08-2026)
 
 - **Confirmatorio**: cláusula de proporcionalidad sostenida en 3/4 modelos (pre-registrada); mecanismo «institucionalista» de opus-5 refutado; efecto formato-política de G1 refutado. Tres refutaciones publicadas.
+- **Réplica de snapshot (M4)**: el perfil social de deepseek-v4-flash **no sobrevive** a la actualización jul→0731 conservando el nombre — el agregado se mantiene (ISS 45,5→46,0) pero la composición se redistribuye; la vacuna de contaminación sí replica (Δ −0,5 en ambos). Ver `EXPERIMENTOS.md` §M4.
 - **Validación del instrumento**: parsers v2.2 (tres revisiones adversariales + reproceso de 55.545 campos con raw — 55.470 idénticos; 5.472 sin raw, 5.400 de ellos la conducta de G2 — con doble gate en CI — ver [`preprint/auditoria_reproceso.md`](preprint/auditoria_reproceso.md)); validación humana del juez **fallida según su umbral pre-registrado** (κ 0,55 < 0,8) y reportada como tal.
 - **Erratas vivas**: `spike/resultados/ERRATA_prision.md`, `reproceso_erratas.json`. Los errores y sus correcciones son parte del material.
 
@@ -62,6 +64,7 @@ Los experimentos con API se documentan en cada `experimento_*.py`; **lee `METODO
 | `spike/parsers.py` + tests | instrumento de medida versionado |
 | `spike/manifiesto.py`, `reprocesar.py`, `linter_contraste.py`, `release_manifest.py` | procedencia, reproceso, simetría, fijación de datasets |
 | `spike/resultados/` | crudos, informes, erratas, κ (CC BY 4.0) |
+| `BENCHMARK.md`, `benchmark/` | PsicoBench: doctrina, tabla autogenerada, panel y datos (`generar_benchmark.py --check` en CI) |
 | `preprint/` | manuscrito, auditoría, manifest |
 | `panel/`, `viewer/`, `episodios/`, `schemas/` | simulador narrativo y sus contratos |
 | `METODO.md`, `FICHA_RIESGO_ESTEREOTIPOS.md`, `RESEARCH_CARD.md` | contratos de método, riesgo y alcance |

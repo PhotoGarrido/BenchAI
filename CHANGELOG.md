@@ -1,5 +1,26 @@
 # Changelog
 
+## v0.1.4-alpha · PsicoBench + réplica de snapshot · 01-08-2026
+
+- **PsicoBench v0.1**: el proyecto formaliza su benchmark de perfil social.
+  `BENCHMARK.md` (doctrina modelo@snapshot@proveedor, utilidad práctica,
+  criterios de inclusión), `benchmark/psicobench.json` + `benchmark/index.html`
+  (panel autocontenido: clasificación ordenable, radar comparador A/B, mapas
+  «las dos obediencias» y «los dos motores de crueldad», método), todo
+  autogenerado por `spike/generar_benchmark.py` desde las matrices — con
+  `--check` en CI para que tabla y panel no puedan desfasarse de los datos.
+- **M4 · réplica de snapshot** (EXPERIMENTOS.md): batería íntegra sobre
+  deepseek-v4-flash-0731 vía NaN (11/11 OK, 2,6 h, batch aislado, primera
+  reanudación real por `progreso.jsonl`). El agregado se conserva (ISS
+  45,5→46,0) pero el perfil se redistribuye (obediencia 0,80→0,90, P1b
+  0→0,20, P2 0,77→0,58, Δ aliado −0,01→−0,12); la vacuna replica (Δ −0,5).
+  Incluye corrección de registro del mensaje del commit `d2405c5` (comparó
+  contra cifras recordadas, no archivadas).
+- **Fix del agregador**: `analisis_bateria._es_rapido` descartaba como humo
+  los runs `--vacuna` válidos (10 sesiones por diseño, un solo brazo);
+  umbral propio (6) y matriz del batch 0731 regenerada con `vacuna_delta`.
+  La matriz raíz pineada no se toca.
+
 ## v0.1.3-alpha · Research Preview · 01-08-2026
 
 Cierre de la **ronda seca** de la 4ª auditoría externa (31-07). El auditor

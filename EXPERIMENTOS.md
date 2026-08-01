@@ -217,6 +217,38 @@ Dos brazos sobre el harness de la prisión. **La trilogía completa** (% actos a
 
 ---
 
+## M4 · Réplica de snapshot: deepseek-v4-flash jul → 0731 — 01-08-2026 ✅
+
+**Pregunta**: cuando el proveedor actualiza el snapshot conservando el nombre comercial, ¿sobrevive el perfil social? (Segundo datapoint de la línea «la versión, no el nombre», tras la escalera Anthropic de M3.)
+
+**Método**: batería M2 íntegra sobre `deepseek-v4-flash-0731` recién integrado en NaN (11/11 experimentos OK, 2,6 h; batch aislado con manifest). Primera batería con **reanudación por `progreso.jsonl`** (idea adoptada del sistema HERMES/PRISMA): un reinicio del equipo a mitad de Asch costó repetir solo ese experimento, no las horas previas. Comparador: la medición M2 del `deepseek/deepseek-v4-flash` (OpenRouter, 23-07), con la réplica cruzada OR ≈ NaN de M2 descartando el gateway como confundido.
+
+**Resultados** (jul → 0731):
+
+| Métrica | v4-flash (OR · 23-07) | 0731 (NaN · 01-08) | Δ |
+|---|---|---|---|
+| Asch conf. mayoría | 0,27 | 0,29 | estable |
+| Asch Δ aliado | −0,01 (no libera) | **−0,12 (libera)** | cambia |
+| Milgram supera crítico | 0,80 | **0,90** (ruptura 8,2→8,8) | sube |
+| Disonancia | 0,89 | 0,83 | estable-alta |
+| Δ vacuna | −0,50 | **−0,50** | **replica** |
+| Crónica v1 / v2 | derogada d14 · 0/3 | derogada d14 · 0/3 | estable |
+| P1 espontáneo | 0,00 | 0,00 | estable |
+| P1b briefing | 0,00 | **0,20** | ahora lo implementa |
+| P2 motín | 0,77 | **0,58** | baja |
+| P2b órdenes | 0,89 | 0,79 (quiebres 25→12) | baja algo |
+| **ISS (PsicoBench)** | 45,5 | 46,0 | estable |
+
+**Hallazgos**:
+1. **El agregado se conserva; la composición no.** El ISS apenas se mueve (45,5→46,0), pero por dentro el perfil se redistribuye: más obediente a la autoridad vertical (0,80→0,90), estrena la implementación del clima de coaching (0→0,20), menos provocable por el conflicto horizontal (0,77→0,58) y el aliado pasa de no liberar a liberar (−0,01→−0,12). Un «smoke test conductual» que solo mirase un índice global daría el snapshot por idéntico; por ejes, no lo es.
+2. **Lo que sí replica**: la vacuna de contaminación (Δ −0,5 exacto en ambos snapshots — el efecto intra-modelo más robusto que tenemos en deepseek), la complacencia 1,0, el null de P1 y el patrón de crónica.
+3. **El Tiento vuelve a fallar el canal privado**: acertó el cuadrante (soldado-provocable) pero predijo disonancia 0,25 donde la batería da 0,83 — tercer aviso de que el screener ordena carteras pero no lee la disonancia.
+4. *Corrección de registro*: el mensaje del commit `d2405c5` comparó contra cifras mal recordadas del perfil de julio (obediencia «0,60», disonancia «0,50»); el comparador archivado en `matriz_m2.json` dice 0,80 y 0,89. Esta tabla, generada desde las matrices, es la canónica. (De ahí nació `generar_benchmark.py`: las tablas publicables ya no se escriben de memoria.)
+
+**Datos**: batch completo en `spike/resultados/bateria_20260801_113015_149599/` (matriz, manifest, progreso.jsonl, crudos) · tiento previo en `tiento_20260801_112441_056462` · perfil integrado en [`BENCHMARK.md`](BENCHMARK.md). Reproducir: `python bateria.py --modelos deepseek-v4-flash-0731` (reanudar: `--reanudar LOGDIR`).
+
+---
+
 ### Seguimientos de hallazgos propios (nacidos de E1 y E2)
 
 | Experimento | Hipótesis a probar | Cómo se monta |
