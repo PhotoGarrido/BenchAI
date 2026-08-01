@@ -75,11 +75,18 @@ def juez_llm(cli, txt):
             base, latencia_s=round(time.monotonic() - t0, 3),
             error=f"{type(e).__name__}: {str(e)[:500]}"))
         return None
+    uso = getattr(r, "usage", None)
     manifiesto.registrar(dict(
         base, latencia_s=round(time.monotonic() - t0, 3),
         request_id=getattr(r, "id", None),
         model_returned=getattr(r, "model", None),
-        respuesta=r.choices[0].message.content))
+        respuesta=r.choices[0].message.content,
+        # G3 (reauditoría 31-07): el juez directo también registra tokens —
+        # el manifiesto debe representar cada solicitud física con TODOS sus
+        # campos, también las del cliente OpenAI directo del juez.
+        tokens={"prompt": getattr(uso, "prompt_tokens", None),
+                "completion": getattr(uso, "completion_tokens", None),
+                "total": getattr(uso, "total_tokens", None)}))
     t = (r.choices[0].message.content or "").upper()
     return "SÍ" in t or bool(re.search(r"\bSI\b", t))
 
@@ -120,8 +127,10 @@ def main():
         return
 
     from openai import OpenAI
+    # max_retries=0 (G3): que el único reintento sea instrumentado, no el
+    # interno silencioso del SDK.
     cli = OpenAI(api_key=os.environ["OPENROUTER_API_KEY"],
-                 base_url="https://openrouter.ai/api/v1")
+                 base_url="https://openrouter.ai/api/v1", max_retries=0)
     # El manifiesto se activa SOLO cuando de verdad va a llamarse al juez
     # (con --solo-muestra no hay solicitudes que registrar).
     manifiesto.activar(outdir, vars(args))

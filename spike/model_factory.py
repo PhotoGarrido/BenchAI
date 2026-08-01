@@ -77,7 +77,6 @@ def build_model(dry_run: bool, model_name: str | None = None):
 
         return no_language_model.RandomChoiceLanguageModel()
 
-    from concordia.language_model import call_limit_wrapper
     from concordia.language_model import retry_wrapper
 
     model_name = model_name or os.environ.get("NAN_MODEL")
@@ -102,10 +101,39 @@ def build_model(dry_run: bool, model_name: str | None = None):
         model = NaNLanguageModel(model_name, api_key=api_key, base_url=base_url)
     model = retry_wrapper.RetryLanguageModel(model, retry_tries=4)
     max_calls = int(os.environ.get("PSICOAI_MAX_CALLS", "2000"))
-    return call_limit_wrapper.CallLimitLanguageModel(model, max_calls=max_calls)
+    return LimiteFailClosed(model, max_calls=max_calls)
 
 
 from concordia.language_model import language_model  # noqa: E402
+from concordia.language_model import call_limit_wrapper  # noqa: E402
+
+
+class LimiteDeLlamadasError(RuntimeError):
+    """El presupuesto de llamadas del run se agotó. Fail-closed: el run se
+    detiene visiblemente en vez de fabricar una acción."""
+
+
+class LimiteFailClosed(call_limit_wrapper.CallLimitLanguageModel):
+    """Fail-closed sobre el CallLimitLanguageModel de Concordia (G4
+    producción, reauditoría 31-07): al agotar el presupuesto, el wrapper de
+    la librería devuelve `''` en sample_text y `(0, responses[0], {})` en
+    sample_choice — es decir, la PRIMERA acción real del menú, exactamente
+    la clase de imputación P0.1 que se corrigió en la clase base. Aquí, en
+    su lugar, se LANZA: un límite agotado nunca elige por el modelo."""
+
+    def sample_text(self, prompt, **kwargs):
+        if self._calls >= self._max_calls:
+            raise LimiteDeLlamadasError(
+                f"límite de {self._max_calls} llamadas agotado (sample_text):"
+                " el run se detiene en vez de devolver cadena vacía")
+        return super().sample_text(prompt, **kwargs)
+
+    def sample_choice(self, prompt, responses, *, seed: int | None = None):
+        if self._calls >= self._max_calls:
+            raise LimiteDeLlamadasError(
+                f"límite de {self._max_calls} llamadas agotado (sample_choice):"
+                " el run se detiene en vez de devolver la opción 0")
+        return super().sample_choice(prompt, responses, seed=seed)
 
 
 class NaNLanguageModel(language_model.LanguageModel):
@@ -118,7 +146,13 @@ class NaNLanguageModel(language_model.LanguageModel):
         self._model = model_name
         self._proveedor = proveedor
         self._sem = _SEMAFORO_OR if proveedor == "openrouter" else _SEMAFORO
-        self._client = OpenAI(api_key=api_key, base_url=base_url)
+        # max_retries=0 (reauditoría 31-07, G3): el SDK de OpenAI reintenta
+        # por dentro por defecto (2 veces) y esos intentos FÍSICOS no pasan
+        # por nuestro registro — el manifiesto los perdía. Con reintentos del
+        # SDK apagados, el ÚNICO que reintenta es RetryLanguageModel, y cada
+        # intento físico = una línea de solicitudes.jsonl.
+        self._client = OpenAI(api_key=api_key, base_url=base_url,
+                              max_retries=0)
 
     def _chat(self, prompt, *, max_tokens, temperature, top_p, seed, timeout):
         with self._sem:

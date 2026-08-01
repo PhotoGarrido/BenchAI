@@ -23,11 +23,45 @@ from __future__ import annotations
 import datetime
 import hashlib
 import json
+import os
 import pathlib
 import contextvars
 import subprocess
 import sys
+import tempfile
 import threading
+
+
+def escribir_atomico_unico(path, texto: str) -> None:
+    """Escritura atómica con temporal ÚNICO por escritura (G11, reauditoría
+    31-07): `mkstemp` da un nombre irrepetible en el mismo directorio; se
+    escribe y solo entonces `os.replace`. Un SIGKILL entre la escritura y el
+    replace deja, a lo sumo, un `.tmp` de nombre único —que la limpieza de
+    apertura borra— y NUNCA un `manifest_run.json.tmp` fijo que pueda
+    confundirse con un artefacto válido ni un definitivo a medias."""
+    path = pathlib.Path(path)
+    fd, tmp = tempfile.mkstemp(dir=str(path.parent),
+                              prefix=path.name + ".", suffix=".tmp")
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as f:
+            f.write(texto)
+        os.replace(tmp, path)
+    except BaseException:
+        try:
+            os.unlink(tmp)
+        except OSError:
+            pass
+        raise
+
+
+def limpiar_tmp_huerfanos(outdir) -> None:
+    """Al abrir un outdir, borra los temporales `.tmp` que un run
+    interrumpido pudiera haber dejado (G11): ninguno es un artefacto válido."""
+    for t in pathlib.Path(outdir).glob("*.tmp"):
+        try:
+            t.unlink()
+        except OSError:
+            pass
 
 
 def _commit() -> str:
@@ -66,10 +100,15 @@ class RunManifest:
                  hashes: dict | None = None):
         self.outdir = pathlib.Path(outdir)
         self.outdir.mkdir(parents=True, exist_ok=True)
+        limpiar_tmp_huerfanos(self.outdir)   # G11: sin .tmp de un run muerto
         self.fichero = self.outdir / "solicitudes.jsonl"
         self._lock = threading.Lock()
         self._n = 0
         self._errores = 0
+        # G3 (reauditoría 31-07): si un append a disco falla, el run NO puede
+        # cerrar 'completed' — el contador solo sube cuando la línea se
+        # escribió de verdad, y este flag degrada el estado final.
+        self._fallo_escritura = False
         import parsers
         self.cabecera: dict = {
             "commit": _commit(),
@@ -86,11 +125,9 @@ class RunManifest:
 
     def _escribir_cabecera(self):
         try:
-            tmp = self.outdir / "manifest_run.json.tmp"
-            tmp.write_text(json.dumps(self.cabecera, ensure_ascii=False,
-                                      indent=2, default=str),
-                           encoding="utf-8")
-            tmp.replace(self.outdir / "manifest_run.json")
+            escribir_atomico_unico(self.outdir / "manifest_run.json",
+                                   json.dumps(self.cabecera, ensure_ascii=False,
+                                              indent=2, default=str))
         except OSError as e:
             print(f"[manifiesto] no pude escribir cabecera: {e}",
                   file=sys.stderr)
@@ -105,20 +142,32 @@ class RunManifest:
                                 "error": "serializacion", "ts": evento["ts"]})
             evento = {"error": "serializacion"}
         with self._lock:
-            self._n += 1
-            if evento.get("error"):
-                self._errores += 1
+            # G3: se cuenta DESPUÉS de escribir. Si el append falla, la
+            # solicitud NO se registró y NO se cuenta — y el run queda
+            # marcado para no poder cerrar 'completed'.
             try:
                 with self.fichero.open("a", encoding="utf-8") as f:
                     f.write(linea + "\n")
             except OSError as e:
-                print(f"[manifiesto] no pude registrar: {e}", file=sys.stderr)
+                self._fallo_escritura = True
+                print(f"[manifiesto] no pude registrar (run degradado): {e}",
+                      file=sys.stderr)
+                return
+            self._n += 1
+            if evento.get("error"):
+                self._errores += 1
 
     def cerrar(self, status: str = "completed", extra: dict | None = None):
+        # G3: un fallo de escritura durante el run impide declarar 'completed'
+        # — el manifiesto no representa cada solicitud física, así que miente
+        # si dice que terminó bien. Se degrada a 'degraded'.
+        if status == "completed" and self._fallo_escritura:
+            status = "degraded"
         self.cabecera.update({
             "status": status,
             "fin": datetime.datetime.now().isoformat(timespec="seconds"),
             "solicitudes": self._n, "errores": self._errores,
+            "fallo_escritura": self._fallo_escritura,
             **(extra or {})})
         self._escribir_cabecera()
 
