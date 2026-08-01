@@ -43,11 +43,29 @@ SUITE = [
 ]
 
 
+def _progreso(logdir):
+    """Sub-experimentos ya completados en este batch (runtime-state releíble,
+    idea adoptada de HERMES/PRISMA 31-07: la continuidad no depende de la
+    memoria de nadie sino de releer lo que quedó escrito)."""
+    f = logdir / "progreso.jsonl"
+    if not f.exists():
+        return set()
+    return {(j["modelo"], j["experimento"])
+            for j in (json.loads(l) for l in f.open(encoding="utf-8"))}
+
+
 def correr_suite(modelo, logdir, rapido=False):
     et = modelo.split("/")[-1][:22]
     log = logdir / (modelo.replace("/", "_") + ".log")
+    hechos = _progreso(logdir)
     resultados = []
     for nombre, script, extra in SUITE:
+        if (modelo, nombre) in hechos:
+            print(f"[{et}] {nombre}: ya completado (reanudación) — se salta",
+                  flush=True)
+            resultados.append({"experimento": nombre, "estado": "OK",
+                               "minutos": 0.0, "reanudado": True})
+            continue
         # Aislamiento por batch (auditoría): cada run escribe DENTRO del
         # directorio de esta batería — un humo posterior ya no puede pisar ni
         # mezclarse con un run completo en resultados/ raíz.
@@ -74,6 +92,10 @@ def correr_suite(modelo, logdir, rapido=False):
         print(f"[{et}] {nombre}: {estado} · {dur/60:.1f} min", flush=True)
         resultados.append({"experimento": nombre, "estado": estado,
                            "minutos": round(dur / 60, 1)})
+        if rc == 0:
+            with (logdir / "progreso.jsonl").open("a", encoding="utf-8") as f:
+                f.write(json.dumps({"modelo": modelo, "experimento": nombre},
+                                   ensure_ascii=False) + "\n")
     return {"modelo": modelo, "suite": resultados}
 
 
@@ -83,11 +105,19 @@ def main():
                         help="lista separada por comas (IDs OpenRouter con /)")
     parser.add_argument("--rapido", action="store_true",
                         help="humo: cada experimento en modo piloto")
+    parser.add_argument("--reanudar", default=None,
+                        help="ruta de un bateria_*/ previo: salta los"
+                             " sub-experimentos ya completados (progreso.jsonl)")
     args = parser.parse_args()
 
     modelos = [m.strip() for m in args.modelos.split(",") if m.strip()]
-    logdir = AQUI / "resultados" / datetime.datetime.now().strftime(
-        "bateria_%Y%m%d_%H%M%S")
+    if args.reanudar:
+        logdir = pathlib.Path(args.reanudar)
+        if not logdir.is_dir():
+            raise SystemExit(f"--reanudar: no existe {logdir}")
+    else:
+        logdir = AQUI / "resultados" / datetime.datetime.now().strftime(
+            "bateria_%Y%m%d_%H%M%S_%f")
     logdir.mkdir(parents=True, exist_ok=True)
     print(f"Batería de {len(modelos)} modelos · logs en {logdir}", flush=True)
 
