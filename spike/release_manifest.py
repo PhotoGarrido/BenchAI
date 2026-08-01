@@ -34,6 +34,24 @@ DATASETS = {
     # Reauditoría 31-07 (P1.10): la sensibilidad citada en el preprint
     # (LOCO/LOPO + bootstrap emparejado) queda fijada por hash como el resto.
     "gfinal_robustez": "resultados/gfinal_robustez.json",
+    # Reauditoría 31-07 (P0-G / encargo item 1): los datasets NaN que
+    # sostienen la tabla de prisión §3.3 (P2 rebelión y P2b órdenes, media de
+    # los dos marcos, parser anclado v2.2) — antes fuera del manifest, la
+    # cifra citada no era trazable a su crudo. Cohorte NaN 15-07, la misma que
+    # el informe_trilogia y la ERRATA.
+    "prision_qwen3.6_p2": "resultados/prision_default_rebelion_20260715_202117",
+    "prision_qwen3.6_p2b": "resultados/prision_default_ordenes_20260715_205757",
+    "prision_gemma4_p2": "resultados/prision_gemma4_rebelion_20260715_202913",
+    "prision_gemma4_p2b": "resultados/prision_gemma4_ordenes_20260715_210812",
+    "prision_mimo_p2": "resultados/prision_mimo-v2.5_rebelion_20260715_203720",
+    "prision_mimo_p2b": "resultados/prision_mimo-v2.5_ordenes_20260715_211638",
+    "prision_deepseek_p2":
+        "resultados/prision_deepseek-v4-flash_rebelion_20260715_204524",
+    "prision_deepseek_p2b":
+        "resultados/prision_deepseek-v4-flash_ordenes_20260715_212448",
+    # Perfiles de la batería de 16 modelos (§3.3 2º párrafo y §4): matriz
+    # agregada post-reproceso.
+    "matriz_bateria": "resultados/matriz_m2.json",
 }
 
 
@@ -55,6 +73,25 @@ def _hashes(base: pathlib.Path) -> dict:
     return out
 
 
+def dir_de(clave: str) -> pathlib.Path:
+    """Ruta ABSOLUTA del dataset fijado `clave` en el manifest (modo
+    publicable): los analizadores la usan en vez de `glob(...)[-1]`, para que
+    un directorio decoy más reciente nunca cambie la cifra citada (G9)."""
+    man = json.loads(FICHERO.read_text(encoding="utf-8"))
+    entrada = man["datasets"][clave]
+    rel = entrada.get("dir") or entrada.get("fichero")
+    return pathlib.Path(__file__).parent / rel
+
+
+def verificar(base: pathlib.Path | None = None) -> list:
+    """Devuelve la lista de claves cuyo hash NO coincide (vacía = todo intacto).
+    Reutilizable desde otros scripts (regenerar_publicacion, analizar_g2)."""
+    base = base or pathlib.Path(__file__).parent
+    man = json.loads(FICHERO.read_text(encoding="utf-8"))
+    ahora = _hashes(base)
+    return [k for k in man["datasets"] if man["datasets"][k] != ahora.get(k)]
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--generar", action="store_true")
@@ -72,9 +109,8 @@ def main():
         print(f"Escrito {FICHERO}")
         return
     # verificar (por defecto)
+    fallos = verificar(base)
     man = json.loads(FICHERO.read_text())
-    ahora = _hashes(base)
-    fallos = [k for k in man["datasets"] if man["datasets"][k] != ahora.get(k)]
     if fallos:
         print("MANIFEST FALLA — datasets alterados o ausentes:", fallos)
         sys.exit(1)

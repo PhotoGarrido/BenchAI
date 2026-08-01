@@ -89,6 +89,82 @@
     "gfinal_robustez": {
       "fichero": "resultados/gfinal_robustez.json",
       "sha256": "ac484220e0d9b56f5d647167485fd0253e73224fadb7b7da5b22419ea8ce6864"
+    },
+    "prision_qwen3.6_p2": {
+      "dir": "resultados/prision_default_rebelion_20260715_202117",
+      "ficheros": {
+        "registros_carcel.jsonl": "77c666269f5e1f13f63a3e1080e4594a4934440c5d3284080f5fb4222b62ad6d",
+        "registros_programa.jsonl": "98520211c5fcdf33c260c251203af11035368f30f18d78be0b6111e66143b129",
+        "resumen.json": "34eaba0743265b51a45d20771c01c58b5d7d26274ae2b0118182287663c91489",
+        "resumen_v2.json": "89c9ee98f9ff53b37614aa356a54647ea85fdc8698392de94e652d7f05ad080b"
+      }
+    },
+    "prision_qwen3.6_p2b": {
+      "dir": "resultados/prision_default_ordenes_20260715_205757",
+      "ficheros": {
+        "registros_carcel.jsonl": "108b6e32125e8b6d3f1373568c0107718406363a89d06aa065fae35f6f91152c",
+        "registros_programa.jsonl": "5b6fb70e8be45e9608331563b842383e9605f144341223fd1b51bb279991fc15",
+        "resumen.json": "d237574b2f659e19c3996192bb2d97a11c5e5ececc61e6eccf669c327c34598d",
+        "resumen_v2.json": "2ca8c88eadf71ac97a804e6e95db695ff31c2621b0f7b7facde1c6478499af08"
+      }
+    },
+    "prision_gemma4_p2": {
+      "dir": "resultados/prision_gemma4_rebelion_20260715_202913",
+      "ficheros": {
+        "registros_carcel.jsonl": "69a8cb5c1402f0c2d9b15e401ddb77eb8e82820936d5401a8c80a46d752fb796",
+        "registros_programa.jsonl": "9be68321c2e93ae00e7d54c43c9b59195835a861ad390cc6b18ebec721713d29",
+        "resumen.json": "049998e0f8544a0552229e720f68a47a37729127e1f5fedd07590e6e9b740597",
+        "resumen_v2.json": "f0d58c0d1d7d8401e07d5cdb0e08ca115f3135815fead09d62343f0efdec1271"
+      }
+    },
+    "prision_gemma4_p2b": {
+      "dir": "resultados/prision_gemma4_ordenes_20260715_210812",
+      "ficheros": {
+        "registros_carcel.jsonl": "3614d682eddc620da5b1a991b5953facd7fefd66f6e1f96f586d7606664ba868",
+        "registros_programa.jsonl": "07c07e65f0d86aabee195cd8c469a2ca3d2d5170aebde81082c9c2dc341d7dad",
+        "resumen.json": "ae1de03a2766f6b7369857941866c5d493133a08cc879c0b5c76c68bf89c9501",
+        "resumen_v2.json": "0af48331c1db4054c452d9ed2d197724599b0d0926d808e9055a7e6e2a2c14b5"
+      }
+    },
+    "prision_mimo_p2": {
+      "dir": "resultados/prision_mimo-v2.5_rebelion_20260715_203720",
+      "ficheros": {
+        "registros_carcel.jsonl": "4d4b1cd63c2980d09479e49dd9b7ee449ae49aabf23c55dff21a20ee81bc2f4f",
+        "registros_programa.jsonl": "9172eb301a9bdd1746cd4edd43ff5d2b1a1ba9ef742f04c5bedef937752b32ee",
+        "resumen.json": "075e82cb079c940210f4b78a8e5ea0d8ae4fbcb0e4ed0d4732ba5d75b487d354",
+        "resumen_v2.json": "68b6dba3accc6a28a9b220c97b89ab6c8a04b47fb36ccd4e6b15f1cd7d38c188"
+      }
+    },
+    "prision_mimo_p2b": {
+      "dir": "resultados/prision_mimo-v2.5_ordenes_20260715_211638",
+      "ficheros": {
+        "registros_carcel.jsonl": "7049fda74d9d76bc0b13c636f6ba1faf370b92be08e558dbc7bccf8655ad6d0d",
+        "registros_programa.jsonl": "4d6a4696f7ad6218e176485927737af57681b9e7b1c36b78420e0b1bbe839d33",
+        "resumen.json": "19a892947d92ade65ce3952427e445e7c452a867a2ced01426384604580538e2",
+        "resumen_v2.json": "e2906ada33ea9f47ad6e22ab19c781a852debecd6a7d2ff97eec8ff6c9a681cb"
+      }
+    },
+    "prision_deepseek_p2": {
+      "dir": "resultados/prision_deepseek-v4-flash_rebelion_20260715_204524",
+      "ficheros": {
+        "registros_carcel.jsonl": "f2d874b43c83e81bb95ff5de4151bb3a9f3ba49ad0868d61ed4b871ac3dd4d0e",
+        "registros_programa.jsonl": "1ffb624cf058b1c98750cc6fb1c64259798034e306e1130844c8adde10c24611",
+        "resumen.json": "1c873e95481e53e6f177b586985aebdff18596348cb1188081ef98119c1e9739",
+        "resumen_v2.json": "2654b8233595b4ec8df274608cf7d58e591012b62c0a9f337e1f852e13389efc"
+      }
+    },
+    "prision_deepseek_p2b": {
+      "dir": "resultados/prision_deepseek-v4-flash_ordenes_20260715_212448",
+      "ficheros": {
+        "registros_carcel.jsonl": "8aadbd3da70ced3339c9a661ea5e5d2b2bc416235ebdd0b779fb7df1c5a8767a",
+        "registros_programa.jsonl": "7c5759f400b128992413c340fee9c8078c15d28983c6312dc4f6951878601862",
+        "resumen.json": "b0f9840bbbe09c6fa6d411e1718941c26692f68bb1c9ecb5b10be4ca36fb5a93",
+        "resumen_v2.json": "248389feee02b55074bbb9a973ff06881e6c365e04ed9fd9e3bb1e708bb86df7"
+      }
+    },
+    "matriz_bateria": {
+      "fichero": "resultados/matriz_m2.json",
+      "sha256": "6def02468a84d56b7668ee7f029c1578da2c04010d0bf3fd2ab8a4c43f119dca"
     }
   }
 }

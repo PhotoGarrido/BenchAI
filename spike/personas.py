@@ -106,15 +106,26 @@ def texto_persona(p: dict) -> str:
     return "\n".join(frases)
 
 
+# Taxonomía sensible ÚNICA (reauditoría 31-07, G5) — la MISMA que declara
+# FICHA_RIESGO_ESTEREOTIPOS.md y comprueba test_sensibles.py:
+#   SENSIBLES (se neutralizan cuando variables_sensibles ≠ true):
+#     origen_cultural, nse, ideología, religiosidad, salud, atractivo, idioma.
+#   DE DISEÑO (NO se neutralizan — son constantes del experimento):
+#     edad, género, educación.
+# El scrub debe cubrir NSE en TODAS sus formas (protagonista, agente generado,
+# media de población y variante) y NO tocar educación en ninguna.
 SENSIBLES_AVANZADOS = ("ideologia", "religiosidad", "salud", "atractivo",
                        "idioma")
 # Claves sensibles por contenedor, según la estructura REAL que exportan el
 # panel (construirConfig) y consume el runner: protagonista.avanzados,
 # agente_generado.b2 y sus claves planas (ori/nse/idi), demografia de
-# cualquiera de los dos, y las medias/distribuciones de poblacion
-# (demografia.origenes_culturales, mas_atributos.*).
+# cualquiera de los dos (incluida la media de NSE de población), y las
+# medias/distribuciones de poblacion (demografia.origenes_culturales,
+# mas_atributos.*).
 _SENSIBLES_B2 = ("ideo", "reli", "salud", "atr")
-_SENSIBLES_DEMOGRAFIA = ("origen_cultural", "nse")
+# nse_media es la media de NSE de la población (poblacion.demografia): NSE es
+# sensible en TODAS sus formas. educacion/educacion_media NO se tocan (diseño).
+_SENSIBLES_DEMOGRAFIA = ("origen_cultural", "nse", "nse_media")
 _SENSIBLES_PLANAS = ("ori", "nse", "idi")
 _SENSIBLES_MAS_ATRIBUTOS = ("ideologia_media", "religiosidad_media",
                             "salud_media", "atractivo_media",
@@ -122,8 +133,9 @@ _SENSIBLES_MAS_ATRIBUTOS = ("ideologia_media", "religiosidad_media",
 _SENSIBLES_PARAM_VARIANTE = frozenset(
     SENSIBLES_AVANZADOS + _SENSIBLES_B2 + _SENSIBLES_MAS_ATRIBUTOS
     # Claves reales de las variantes del panel (PARAMS de panel/app.js):
-    # t2_* son las medias de los atributos avanzados; idiomaPct, la lengua.
-    + ("t2_ideo", "t2_reli", "t2_salud", "t2_atr", "idiomapct"))
+    # t2_* son las medias de los atributos avanzados; idiomaPct, la lengua;
+    # nsemedia, la media de NSE. eduMedia (educación) NO está: es de diseño.
+    + ("t2_ideo", "t2_reli", "t2_salud", "t2_atr", "idiomapct", "nsemedia"))
 
 
 def _neutralizar_nodo(d: dict) -> None:

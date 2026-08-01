@@ -10,6 +10,7 @@ bootstrap remuestrea cadenas, no días. Salida: resultados/g2_analisis.json.
 Uso: python analizar_g2.py
 """
 
+import argparse
 import json
 import pathlib
 import random
@@ -19,12 +20,23 @@ SEED = 20260725
 N_BOOT = 5000
 
 
-def cargar(pref):
-    ds = sorted(RES.glob(f"g2_{pref}_*"))
-    if not ds:
-        return [], None
-    d = ds[-1]
-    regs = [json.loads(l) for f in d.glob("registros_*.jsonl")
+def cargar(pref, usar_manifest=False):
+    """Carga los registros de una fase de G2.
+
+    G9 (reauditoría 31-07): en modo publicable (`usar_manifest=True`) el
+    directorio se toma del release_manifest (dataset fijado por hash), NUNCA
+    del último por glob — un directorio decoy más reciente no puede cambiar la
+    cifra citada. En modo exploratorio se conserva el glob (último dir). El
+    glob va ORDENADO para que el orden de carga sea determinista."""
+    if usar_manifest:
+        import release_manifest
+        d = release_manifest.dir_de(f"g2_{pref}")
+    else:
+        ds = sorted(RES.glob(f"g2_{pref}_*"))
+        if not ds:
+            return [], None
+        d = ds[-1]
+    regs = [json.loads(l) for f in sorted(d.glob("registros_*.jsonl"))
             for l in f.open(encoding="utf-8")]
     return regs, d.name
 
@@ -64,12 +76,17 @@ def boot(rng, rs_a, rs_b):
             "significativo": not (ds[int(.025 * N_BOOT)] <= 0 <= ds[int(.975 * N_BOOT)])}
 
 
-def main():
+def main(usar_manifest=False):
     rng = random.Random(SEED)
-    salida = {"seed": SEED, "n_boot": N_BOOT, "unidad": "cadena (modelo×celda×rep×supervisor)"}
+    salida = {"seed": SEED, "n_boot": N_BOOT,
+              "modo": "manifest" if usar_manifest else "glob-ultimo",
+              "unidad": "cadena (modelo×celda×rep×supervisor)"}
+
+    def cargar_f(pref):
+        return cargar(pref, usar_manifest=usar_manifest)
 
     # A2 · efecto fuente controlando negativa, y efecto negativa por fuente
-    a2, nom = cargar("a2")
+    a2, nom = cargar_f("a2")
     salida["a2"] = {"origen": nom, "fuente_dado_negativa": {}, "negativa_dado_fuente": {}}
     for neg in (True, False):
         pol = [r for r in a2 if r["fuente"] == "politica" and r["negativa"] == neg]
@@ -81,7 +98,7 @@ def main():
         salida["a2"]["negativa_dado_fuente"][fu] = boot(rng, con, sin)
 
     # A3 · cláusula de proporcionalidad (por modelo)
-    a3, nom = cargar("a3")
+    a3, nom = cargar_f("a3")
     salida["a3"] = {"origen": nom, "por_modelo": {}}
     for m in sorted({r["modelo"] for r in a3}):
         rm = [r for r in a3 if r["modelo"] == m]
@@ -90,14 +107,14 @@ def main():
         salida["a3"]["por_modelo"][m] = boot(rng, con, sin)
 
     # B · opus-5 vs opus-4.8 en el briefing literal
-    b, nom = cargar("b")
+    b, nom = cargar_f("b")
     salida["b"] = {"origen": nom}
     c5 = [r for r in b if r["modelo"].endswith("opus-5") and r["contenido"] == "completo"]
     c48 = [r for r in b if r["modelo"].endswith("opus-4.8") and r["contenido"] == "completo"]
     salida["b"]["opus5_menos_opus48_briefing_literal"] = boot(rng, c5, c48)
 
     # C · interacción negativa×fuente en dominio laboral (por modelo)
-    c, nom = cargar("c")
+    c, nom = cargar_f("c")
     salida["c"] = {"origen": nom, "por_modelo": {}}
     for m in sorted({r["modelo"] for r in c}):
         rm = [r for r in c if r["modelo"] == m]
@@ -119,4 +136,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--manifest", action="store_true",
+                    help="modo publicable: datasets fijados por el "
+                         "release_manifest (no el último dir por glob)")
+    main(usar_manifest=ap.parse_args().manifest)

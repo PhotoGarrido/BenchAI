@@ -54,6 +54,9 @@ def _escenario_canario():
             "n": 1, "modo": "reglas", "semilla": "s",
             "demografia": {
                 "edad": [20, 60], "pct_mujeres": 50,
+                # NSE (sensible) en su forma de media de población, junto a
+                # educación (de diseño, NO se toca): la taxonomía única.
+                "nse_media": 99, "educacion_media": 50,
                 "origenes_culturales": [{"nombre": "CANARIO_ORIGEN",
                                          "pct": 100}],
             },
@@ -74,6 +77,8 @@ def _escenario_canario():
         "variantes": [
             {"nombre": "más conservadores",
              "cambios": [{"param": "t2_ideo", "op": "sumar", "val": 25},
+                         {"param": "nseMedia", "op": "fijar", "val": 99},
+                         {"param": "eduMedia", "op": "fijar", "val": 99},
                          {"param": "pctMuj", "op": "fijar", "val": 80},
                          {"param": "idiomaPct", "op": "fijar", "val": 100}]},
         ],
@@ -112,8 +117,10 @@ def run():
 
     # Distribuciones y variantes: nada sensible puede volver por ahí.
     pob = esc["poblacion"]
-    ok &= _c("origenes_culturales" not in pob.get("demografia", {}),
-             "poblacion.demografia sin origenes_culturales")
+    ok &= _c("origenes_culturales" not in pob.get("demografia", {})
+             and "nse_media" not in pob.get("demografia", {}),
+             "poblacion.demografia sin origenes_culturales ni nse_media (NSE"
+             " sensible en su forma de media)")
     ok &= _c(not any(k in (pob.get("mas_atributos") or {})
                      for k in ("ideologia_media", "religiosidad_media",
                                "salud_media", "atractivo_media",
@@ -121,15 +128,20 @@ def run():
              "poblacion.mas_atributos sin medias sensibles")
     params = [c["param"] for v in esc["variantes"] for c in v["cambios"]]
     ok &= _c("t2_ideo" not in params and "idiomaPct" not in params
-             and "pctMuj" in params,
-             "variantes: cambios sensibles fuera, no sensibles intactos")
+             and "nseMedia" not in params
+             and "pctMuj" in params and "eduMedia" in params,
+             "variantes: cambios sensibles fuera (t2_ideo, idiomaPct,"
+             " nseMedia); de diseño intactos (pctMuj, eduMedia)")
 
-    # Lo no sensible sobrevive (el scrub no arrasa el escenario).
+    # Lo no sensible sobrevive (el scrub no arrasa el escenario): educación es
+    # de DISEÑO — se conserva en todas sus formas (protagonista, media de
+    # población y variante).
     ok &= _c(esc["protagonistas"][0]["avanzados"].get("antiguedad") == 80
              and esc["protagonistas"][0]["demografia"].get("educacion")
              == "superior"
+             and pob.get("demografia", {}).get("educacion_media") == 50
              and gen["b2"].get("anti") == 50 and gen.get("edu") == "media",
-             "atributos no sensibles (antigüedad, educación) intactos")
+             "de diseño (antigüedad, educación en todas sus formas) intactos")
 
     # Política del motor: DEFAULT SEGURO en el validador real.
     con_flag_false = _escenario_canario()
