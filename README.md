@@ -1,6 +1,6 @@
 # 🧠 PsicoAI
 
-**Banco de pruebas conductual de agentes LLM sobre paradigmas clásicos de psicología social, más un simulador narrativo didáctico.** Versión `v0.1.2-alpha` (research preview).
+**Banco de pruebas conductual de agentes LLM sobre paradigmas clásicos de psicología social, más un simulador narrativo didáctico.** Versión `v0.1.3-alpha` (research preview).
 
 ## Qué es
 

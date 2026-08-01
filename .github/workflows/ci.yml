@@ -39,7 +39,14 @@ jobs:
         run: |
           python test_parsers.py
           python test_parsers_tipados.py
+          python test_parsers_contrato.py
           python test_manifiesto.py
+      - name: Puertas de mutantes 1,2,8,11 (parsers/linter/replay) y trazabilidad
+        working-directory: spike
+        run: |
+          python test_replay_privacidad.py
+          python test_gfinal_linter.py
+          python test_trazabilidad.py
       - name: Manifiesto con pools (conteo exacto en los 6 entrypoints)
         working-directory: spike
         run: python test_manifiesto_pool.py
@@ -61,6 +68,9 @@ jobs:
       - name: Release manifest (datasets del preprint intactos)
         working-directory: spike
         run: python release_manifest.py --verificar
+      - name: Regeneración de cifras publicables desde el manifest (G9)
+        working-directory: spike
+        run: python regenerar_publicacion.py --check
       - name: Sensibilidad determinista entre procesos (PYTHONHASHSEED)
         working-directory: spike
         run: python test_robustez_determinista.py

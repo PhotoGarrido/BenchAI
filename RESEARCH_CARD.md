@@ -1,4 +1,4 @@
-# Research Card — PsicoAI v0.1.2-alpha
+# Research Card — PsicoAI v0.1.3-alpha
 
 **Qué es**: banco de pruebas conductual que somete modelos de lenguaje a paradigmas clásicos de psicología social (isomorfos y disfrazados) con harness controlado, y un simulador narrativo aparte para material didáctico.
 

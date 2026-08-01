@@ -1,5 +1,54 @@
 # Changelog
 
+## v0.1.3-alpha · Research Preview · 01-08-2026
+
+Cierre de la **ronda seca** de la 4ª auditoría externa (31-07). El auditor
+falsificó 8 garantías y dejó 4 mutantes vivos; todo confirmado por
+reproducción y corregido, más las dos contradicciones del manuscrito.
+
+- **12/12 mutantes ponen la puerta en ROJO** (antes 8/12). Nuevas puertas:
+  `test_parsers_contrato.py` (corpus golden con negativas milgram sin
+  «aplicar» + candado que liga `PARSER_VERSION` a un hash del comportamiento —
+  mutantes 1 y 2), `test_gfinal_linter.py` (el linter aborta ANTES de
+  `build_model` — mutante 8), `test_replay_privacidad.py` + `replay_publico`
+  reescrito por whitelist con canary normalizado (mutante 11).
+- **G1 · missingness fuera de conducta y narrativa (modo estudio)**:
+  `experimento_asch.analizar` excluye los `None` de todos los denominadores y
+  reporta `n_missing` por medida (12 vacías ya no dan conformidad 0,0);
+  prisión ya no pasa el marcador `error_tecnico` como trato observado por los
+  internos; g2 alineado con g-final (sonda privada no se pregunta tras fallo,
+  sin «respuesta poco clara» en el diario). Nuevos casos en
+  `test_barrido_falso.py` que ejecutan `analizar()`/`resumir()` con modelo
+  vacío.
+- **G3 · manifiesto honesto**: cliente OpenAI con `max_retries=0` (los
+  reintentos físicos = líneas del JSONL; el SDK ya no reintenta en silencio);
+  un fallo de escritura degrada el estado final (nunca `completed`) y no sube
+  el contador; los seis harness activan el manifiesto ANTES del proveedor; el
+  juez de A4 registra tokens. Tests: 500→500→200 = 3 líneas, fallo de disco →
+  `degraded`, objeto de `build_model` fail-closed.
+- **G4 producción**: `LimiteFailClosed` envuelve el `CallLimitLanguageModel`
+  de Concordia y LANZA al agotar el límite en vez de devolver la opción 0 (una
+  acción real); probado sobre el objeto que devuelve `build_model`.
+- **G5 · taxonomía sensible única** entre ficha, scrub y test: sensibles =
+  origen, NSE (incl. `nse_media`/`nseMedia`), ideología, religiosidad, salud,
+  atractivo, idioma; de diseño = edad, género, educación; default seguro.
+- **G9 · trazabilidad**: `analizar_g2 --manifest` toma los datasets del
+  release_manifest (no el último dir por glob); 8 datasets de prisión + la
+  matriz de la batería añadidos al manifest; nuevo `regenerar_publicacion.py
+  --check` regenera y compara toda cifra citable; `test_trazabilidad.py` (un
+  decoy no cambia la cifra en modo manifest).
+- **G11 · SIGKILL**: escritura atómica con temporal ÚNICO (`mkstemp`), limpieza
+  de `.tmp` huérfanos al abrir, y los tres replays como transacción; test que
+  mata el proceso entre escritura y replace.
+- **Preprint (ronda seca)**: tabla de prisión §3.3 regenerada desde los
+  datasets fijados (media de los dos marcos, parser anclado, gemma
+  post-ERRATA: qwen 15/73, gemma 90/78, mimo 1/14, deepseek 81/85 — el
+  preprint anterior citaba el marco-peor); la afirmación de «ninguna
+  aceptación privada» sustituida por la distribución real por modelo (grok
+  0,19 como caso de baja disonancia), coherente en abstract, §3.3 y §4.
+- **GARANTIAS/PROTOCOLO/ACUERDO** reescritos por alcance (banco vs simulador);
+  los límites del simulador Concordia declarados y vigilados por puerta.
+
 ## v0.1.2-alpha · Research Preview · 31-07-2026
 
 Cierre de la reauditoría de terceros del 31-07 sobre v0.1.1-alpha (los
