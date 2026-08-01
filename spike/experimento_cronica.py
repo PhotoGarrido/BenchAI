@@ -358,14 +358,15 @@ def main():
     parser.add_argument("--out", default="resultados")
     args = parser.parse_args()
 
-    modelo = model_factory.build_model(dry_run=False, model_name=args.modelo)
     etiqueta = (args.modelo or "default").replace("/", "_")
     if args.v2:
         etiqueta += f"_v2_s{args.semilla % 1000}"
     outdir = pathlib.Path(args.out) / datetime.datetime.now().strftime(
         f"cronica_{etiqueta}_%Y%m%d_%H%M%S_%f")
     outdir.mkdir(parents=True, exist_ok=True)
+    # G3 (reauditoría 31-07): manifiesto ANTES del proveedor.
     manifiesto.activar(outdir, vars(args))
+    modelo = model_factory.build_model(dry_run=False, model_name=args.modelo)
 
     inicio = time.time()
     registros, sondas, dia_derogacion, estado_norma = cronica(modelo, args)

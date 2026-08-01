@@ -71,6 +71,16 @@ def barrido_asch(payload, nombre):
              f"asch/{nombre}: sin conformidad ni acierto inventados")
     ok &= _c(not any(re.search(r"R\d+: [ABC]\b", p) for p in m.prompts),
              f"asch/{nombre}: el historial público no inventa respuestas")
+    # G1 (reauditoría 31-07): analizar() EXCLUYE los missing del denominador
+    # (None, no 0.0) y los cuenta como n_missing por medida. Antes, 7 rondas
+    # críticas vacías daban conformidad 0.0 en vez de excluirse.
+    res = asch.analizar(regs, ["(sin contaminación)"])
+    ok &= _c(res["conformidad_publica_mayoria"] is None
+             and res["conformidad_privada_mayoria"] is None
+             and res["n_missing"]["conformidad_publica_mayoria"]
+             == len(asch.RONDAS_CRITICAS),
+             f"asch/{nombre}: analizar excluye missing (None, no 0.0) y los"
+             f" cuenta ({res['n_missing']['conformidad_publica_mayoria']})")
     return ok
 
 
@@ -133,6 +143,12 @@ def barrido_prision(payload, nombre):
     ok &= _c(sin_frase(m.prompts, "actuaste de forma")
              and sin_frase(m.prompts, "se negó"),
              f"prision/{nombre}: diarios y resumen sin conducta inventada")
+    # G1 (reauditoría 31-07): un fallo técnico NO se pasa como trato observado
+    # por los internos («Beltrán (error_tecnico)») ni entra en el resumen.
+    ok &= _c(sin_frase(m.prompts, "error_tecnico")
+             and sin_frase(m.prompts, "(invalida")
+             and sin_frase(m.prompts, "(error_"),
+             f"prision/{nombre}: el marcador de fallo técnico no es trato")
     a = prision.analizar(rs, ri, "programa")
     ok &= _c(a["severidad_final"] is None and a["actos_abusivos_pct"] is None
              and a["n_validos"] == 0 and a["quiebres"] == 0,
@@ -150,6 +166,13 @@ def barrido_g2(payload, nombre):
                  and r["cree_justo"] is None and not r["disonancia"]
                  for r in regs),
              f"g2/{nombre}: sin nivel, sin justo, sin disonancia")
+    # G1 (reauditoría 31-07, alineado con gfinal): tras fallo NO se pregunta
+    # la sonda privada ni se inyecta «respuesta poco clara» en el diario/prompt.
+    ok &= _c(all(r["justo_estado"] == "NO_PREGUNTADA" for r in regs)
+             and sin_frase(m.prompts, "poco clara")
+             and sin_frase(m.prompts, "Hoy has optado"),
+             f"g2/{nombre}: sonda privada no se pregunta tras fallo; sin glosa"
+             " agramatical")
     res = g2.resumir(regs)
     ok &= _c(all(v["abusivos_pct"] is None for v in res.values()),
              f"g2/{nombre}: resumen sin tasas inventadas")

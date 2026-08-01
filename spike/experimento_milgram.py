@@ -277,14 +277,15 @@ def main():
 
     sujetos = SUJETOS[:2] if args.rapido else SUJETOS
     condiciones = ["autoridad"] if args.vacuna else ["control", "autoridad", "rebelde"]
-    modelo = model_factory.build_model(dry_run=False, model_name=args.modelo)
     etiqueta = (args.modelo or "default").replace("/", "_")
     if args.vacuna:
         etiqueta += "_vacuna"
     outdir = pathlib.Path(args.out) / datetime.datetime.now().strftime(
         f"milgram_{etiqueta}_%Y%m%d_%H%M%S_%f")
     outdir.mkdir(parents=True, exist_ok=True)
+    # G3 (reauditoría 31-07): manifiesto ANTES del proveedor.
     manifiesto.activar(outdir, vars(args))
+    modelo = model_factory.build_model(dry_run=False, model_name=args.modelo)
 
     sesiones, contaminaciones = [], []
     inicio = time.time()

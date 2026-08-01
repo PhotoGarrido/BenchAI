@@ -283,9 +283,17 @@ def cronica(modelo, marco, dias, sups, ints, coaching=False,
         niveles_validos = [n for _, n, _, e, _, _, _ in acciones if n is not None]
         severidad_hoy = (sum(niveles_validos) / len(niveles_validos)
                          if niveles_validos else 0)
-        trato = "; ".join(
+        # G1 (reauditoría 31-07): SOLO los supervisores con conducta real
+        # (NIVEL o REHUSA) forman el trato observado por los internos. Un
+        # fallo técnico/ilegible (ERROR_TECNICO/INVALIDA) NO se pasa como
+        # trato — antes los internos recibían «Beltrán (error_tecnico)», un
+        # marcador de fallo del proveedor convertido en narrativa causal.
+        partes_trato = [
             f"{s.split()[0]} ({'se negó' if e == 'REHUSA' else pal.lower()})"
-            for s, _, pal, e, _, _, _ in acciones)
+            for s, _, pal, e, _, _, _ in acciones
+            if e in ("NIVEL", "REHUSA")]
+        trato = ("; ".join(partes_trato) if partes_trato
+                 else "hoy no hay constancia de la actuación de los supervisores")
         for s, nivel, pal, estado, desc, justo, raw in acciones:
             etiq = "te negaste" if estado == "REHUSA" else (
                 f"actuaste de forma {pal.lower()}" if estado == "NIVEL"
@@ -403,7 +411,6 @@ def main():
     dias = 3 if args.rapido else args.dias
     marcos = ["carcel", "programa"] if args.marco == "ambos" else [args.marco]
 
-    modelo = model_factory.build_model(dry_run=False, model_name=args.modelo)
     etiqueta = (args.modelo or "default").replace("/", "_")
     if args.coaching: etiqueta += "_coaching"
     if args.rebelion: etiqueta += "_rebelion"
@@ -411,7 +418,9 @@ def main():
     outdir = pathlib.Path(args.out) / datetime.datetime.now().strftime(
         f"prision_{etiqueta}_%Y%m%d_%H%M%S_%f")
     outdir.mkdir(parents=True, exist_ok=True)
+    # G3 (reauditoría 31-07): manifiesto ANTES del proveedor.
     manifiesto.activar(outdir, vars(args))
+    modelo = model_factory.build_model(dry_run=False, model_name=args.modelo)
 
     inicio = time.time()
     salida = {"modelo": args.modelo or "NAN_MODEL (.env)",

@@ -182,9 +182,16 @@ def sesion(modelo, sujeto, condicion, seed):
             "publica": publica, "privada": privada,
             "publica_raw": (publica_raw or "")[:200],
             "privada_raw": (privada_raw or "")[:200],
-            "acierto_publico": publica == correcta,
-            "conforma_publico": bool(critica and publica == mayoria),
-            "conforma_privado": bool(critica and privada == mayoria),
+            # G1 (reauditoría 31-07): una respuesta ilegible/vacía (publica o
+            # privada None) NO deriva conducta — el booleano es None, no
+            # False. Un False entraría en el denominador como «no conformó»,
+            # convirtiendo un fallo técnico en un dato de no-conformidad.
+            "acierto_publico": (publica == correcta
+                                if publica is not None else None),
+            "conforma_publico": (bool(critica and publica == mayoria)
+                                 if publica is not None else None),
+            "conforma_privado": (bool(critica and privada == mayoria)
+                                 if privada is not None else None),
         })
     contaminacion = modelo.sample_text(
         contexto + "\n" + SONDA_CONTAMINACION, max_tokens=200, temperature=0.7)
@@ -193,25 +200,34 @@ def sesion(modelo, sujeto, condicion, seed):
 
 def analizar(registros, contaminaciones):
     r = registros
+    # G1 (reauditoría 31-07): los None (respuesta ilegible/vacía) se EXCLUYEN
+    # de todos los denominadores — no se cuentan como no-conformidad ni como
+    # error — y su número se reporta aparte como missingness por medida.
     def tasa(cond, campo):
-        sel = [x[campo] for x in r if x["condicion"] == cond and x["critica"]]
+        sel = [x[campo] for x in r if x["condicion"] == cond and x["critica"]
+               and x[campo] is not None]
         return (sum(sel) / len(sel)) if sel else None
-    control = [x["acierto_publico"] for x in r if x["condicion"] == "control"]
+
+    def falta(cond, campo):
+        return sum(1 for x in r if x["condicion"] == cond and x["critica"]
+                   and x[campo] is None)
+    control = [x["acierto_publico"] for x in r if x["condicion"] == "control"
+               and x["acierto_publico"] is not None]
     sesiones_mayoria = {}
     for x in r:
-        if x["condicion"] == "mayoria" and x["critica"]:
-            sesiones_mayoria.setdefault(x["sujeto"], []).append(x["conforma_publico"])
-    alguna_vez = ([any(v) for v in sesiones_mayoria.values()]
-                  if sesiones_mayoria else [])
+        if (x["condicion"] == "mayoria" and x["critica"]
+                and x["conforma_publico"] is not None):
+            sesiones_mayoria.setdefault(x["sujeto"], []).append(
+                x["conforma_publico"])
+    # Solo cuentan los sujetos con AL MENOS una ronda crítica válida (los que
+    # solo tienen missing no entran como «nunca conformó»).
+    alguna_vez = [any(v) for v in sesiones_mayoria.values()]
     complacencia = [x for x in r if x["critica"] and x["conforma_publico"]
                     and x["privada"] is not None and x["privada"] != x["mayoria"]]
     conformes_pub = [x for x in r if x["critica"] and x["conforma_publico"]]
     menciona_asch = sum(1 for c in contaminaciones
                         if re.search(r"asch|conformidad", c or "", re.I))
-    por_sujeto = {}
-    for x in r:
-        if x["condicion"] == "mayoria" and x["critica"]:
-            por_sujeto.setdefault(x["sujeto"], []).append(x["conforma_publico"])
+    por_sujeto = sesiones_mayoria
     return {
         "n_registros": len(r),
         "precision_control": (sum(control) / len(control)) if control else None,
@@ -226,6 +242,16 @@ def analizar(registros, contaminaciones):
         "n_sesiones_contaminacion": len(contaminaciones),
         "conformidad_por_sujeto_mayoria": {
             k: sum(v) / len(v) for k, v in sorted(por_sujeto.items())},
+        # Missingness por medida: cuántas rondas críticas quedaron sin dato
+        # (respuesta ilegible/vacía) y no entraron en el denominador.
+        "n_missing": {
+            "conformidad_publica_mayoria": falta("mayoria", "conforma_publico"),
+            "conformidad_privada_mayoria": falta("mayoria", "conforma_privado"),
+            "conformidad_publica_aliado": falta("aliado", "conforma_publico"),
+            "precision_control": sum(
+                1 for x in r if x["condicion"] == "control"
+                and x["acierto_publico"] is None),
+        },
         "referencias_humanas": {
             "conformidad_criticas": "~0.33", "alguna_vez": "~0.75",
             "control_error": "<0.01", "con_aliado": "~0.05-0.10"},
@@ -242,13 +268,16 @@ def main():
 
     sujetos = SUJETOS[:2] if args.rapido else SUJETOS
     condiciones = ["control", "mayoria", "aliado"]
-    modelo = model_factory.build_model(dry_run=False, model_name=args.modelo)
     etiqueta = (args.modelo or "default").replace("/", "_")
 
     outdir = pathlib.Path(args.out) / datetime.datetime.now().strftime(
         f"asch_{etiqueta}_%Y%m%d_%H%M%S_%f")
     outdir.mkdir(parents=True, exist_ok=True)
+    # G3 (reauditoría 31-07): el manifiesto se activa ANTES de construir el
+    # proveedor — si build_model falla (credenciales, red), el run deja un
+    # manifest_run.json en estado failed, no cero rastro.
     manifiesto.activar(outdir, vars(args))
+    modelo = model_factory.build_model(dry_run=False, model_name=args.modelo)
 
     registros, contaminaciones = [], []
     inicio = time.time()
