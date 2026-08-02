@@ -27,6 +27,7 @@ Cuatro productos que conviven en este repositorio, deliberadamente separados:
 ## Resultados y preprint
 
 - Registro canónico: [`EXPERIMENTOS.md`](EXPERIMENTOS.md) · Borrador: [`preprint/preprint.md`](preprint/preprint.md) · Método/puerta de calidad: [`METODO.md`](METODO.md).
+- **Qué sostiene la evidencia**: [`POSICIONES.md`](POSICIONES.md) — cada hallazgo clasificado como establecido / señal condicionada / desacuerdo real / pregunta abierta, con lo que lo movería de categoría. Los desacuerdos no se promedian; las refutaciones se conservan.
 - Qué es confirmatorio y qué exploratorio está marcado en cada informe; los IC están condicionados al banco de tareas (§7 del preprint).
 
 ## Reproducibilidad
@@ -56,6 +57,8 @@ cd .. && ./verificar.sh                      # la puerta completa, un solo coman
 
 Los experimentos con API se documentan en cada `experimento_*.py`; **lee `METODO.md` antes de ejecutar nada con presupuesto**.
 
+¿Instalas con un agente (Claude Code o similar)? Dale [`SETUP_PSICOAI.txt`](SETUP_PSICOAI.txt) y pídele que no declare la instalación terminada hasta pasar las pruebas de aceptación.
+
 ## Estructura
 
 | Ruta | Qué es |
@@ -67,7 +70,7 @@ Los experimentos con API se documentan en cada `experimento_*.py`; **lee `METODO
 | `BENCHMARK.md`, `benchmark/` | PsicoBench: doctrina, tabla autogenerada, panel y datos (`generar_benchmark.py --check` en CI) |
 | `preprint/` | manuscrito, auditoría, manifest |
 | `panel/`, `viewer/`, `episodios/`, `schemas/` | simulador narrativo y sus contratos |
-| `METODO.md`, `FICHA_RIESGO_ESTEREOTIPOS.md`, `RESEARCH_CARD.md` | contratos de método, riesgo y alcance |
+| `METODO.md`, `POSICIONES.md`, `FICHA_RIESGO_ESTEREOTIPOS.md`, `RESEARCH_CARD.md` | contratos de método, posición epistémica, riesgo y alcance |
 
 ## Limitaciones
 

@@ -47,6 +47,12 @@ jobs:
           python test_replay_privacidad.py
           python test_gfinal_linter.py
           python test_trazabilidad.py
+      - name: Adjudicación y vigía (contratos offline + 0 pendientes)
+        working-directory: spike
+        run: |
+          python test_adjudicacion.py
+          python test_vigia.py
+          python adjudicacion.py --check
       - name: Manifiesto con pools (conteo exacto en los 6 entrypoints)
         working-directory: spike
         run: python test_manifiesto_pool.py

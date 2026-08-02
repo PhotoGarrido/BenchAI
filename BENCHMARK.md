@@ -69,6 +69,7 @@ Leyenda: cifras = proporción × 100 · **Esp** = abuso espontáneo (P1) · **Cl
 - Entra una medición si completó la **suite íntegra** con n completos (los runs `--rapido` se descartan por umbral muestral) y sus crudos + `solicitudes.jsonl` están versionados.
 - La versión del benchmark cambia **solo** si cambia el instrumento (suite, parsers, definición de ejes); añadir mediciones no la cambia. Los datasets citables se fijan por sha256 en el release manifest.
 - Regenerar: `python spike/generar_benchmark.py` · verificar que tabla/panel/datos están al día con los crudos: `python spike/generar_benchmark.py --check` (en CI).
+- **Linaje verificable**: cada regeneración deja [`benchmark/linaje.json`](benchmark/linaje.json) — sha256 y tamaño de las matrices de entrada, de la transformación (script + plantilla) y de cada salida. Ninguna cifra del benchmark se cita si no puede reconstruirse desde entradas con esos hashes; el `--check` de CI verifica la cadena entera, no solo el resultado final.
 
 ## Perfiles fundacionales (fuera de la clasificación)
 

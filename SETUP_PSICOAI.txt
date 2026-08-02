@@ -1,0 +1,83 @@
+SETUP_PSICOAI.txt — instalación acompañada por agente
+======================================================
+
+Este fichero está pensado para dárselo a un agente (Claude Code o
+equivalente), no para memorizar comandos. Frase sugerida para el usuario:
+
+  «Lee SETUP_PSICOAI.txt, guíame paso a paso y NO declares la instalación
+   terminada hasta que hayan pasado todas las pruebas de aceptación.»
+
+Contrato para el agente que ejecute esto
+----------------------------------------
+- No declares éxito parcial: o pasan TODAS las pruebas de aceptación (§4)
+  o la instalación está incompleta y lo dices.
+- No necesitas credenciales para el 95% de esto: la puerta completa corre
+  sin red. Solo pide claves si el usuario quiere ejecutar experimentos.
+- Reglas de la casa que no se negocian:
+  · spike/.env JAMÁS se versiona (está en .gitignore; compruébalo).
+  · Los .jsonl históricos de spike/resultados/ son INMUTABLES: las
+    correcciones van por reproceso + errata, nunca editando crudos.
+  · Los tags de git existentes no se mueven.
+  · Nada de ejecutar experimentos con gasto sin leer METODO.md y sin
+    autorización explícita de presupuesto del usuario.
+
+1 · Requisitos
+--------------
+- Python 3.12 (el venv se llama así en los docs: spike/.venv)
+- git; macOS o Linux (la CI corre en ubuntu-latest)
+
+2 · Instalación
+---------------
+  git clone <url-del-repo> && cd PsicoAI
+  cd spike
+  python3.12 -m venv .venv && source .venv/bin/activate
+  pip install -r requirements.txt          # runtime (incluye torch: tarda)
+  pip install -r requirements-ci.txt       # herramientas de la puerta
+  cp .env.example .env                     # rellenar solo si habrá red
+
+Variables de .env (todas opcionales para la aceptación offline):
+  NAN_BASE_URL / NAN_API_KEY / NAN_MODEL   endpoint OpenAI-compatible
+  OPENROUTER_API_KEY                       cartera OpenRouter
+  PSICOAI_MAX_CALLS                        kill-switch de presupuesto
+
+3 · Primer contacto (sin red, sin claves)
+-----------------------------------------
+  python run_spike.py --dry-run --steps 2      # humo del simulador
+  python experimento_gfinal.py --linter        # simetría de brazos
+  python test_barrido_falso.py                 # nada ilegible es conducta
+
+4 · PRUEBAS DE ACEPTACIÓN (todas deben pasar)
+---------------------------------------------
+  A1  cd .. && ./verificar.sh
+      → debe terminar imprimiendo "PUERTA COMPLETA: OK".
+      Incluye: ruff, mypy, pip-audit, ~16 suites offline, reproceso
+      golden-file, puerta de publicación, release manifest, benchmark al
+      día, XSS estático, linter y smoke dry-run.
+  A2  cd spike && python generar_benchmark.py --check
+      → "psicobench al día (N entradas): OK" — la tabla del benchmark se
+      reconstruye desde las matrices con el linaje intacto.
+  A3  python adjudicacion.py --check
+      → "adjudicación: 0 pendientes — OK" (si hay pendientes, la
+      instalación está bien pero el CORPUS tiene decisiones sin firmar:
+      repórtalo, no lo resuelvas tú).
+  A4  Visor sin instalar nada: abrir viewer/index.html en un navegador,
+      cargar episodios/ep01-el-centro-la-norma/replay.json y comprobar que
+      reproduce y que «Mostrar monólogo privado generado» funciona.
+
+5 · Si algo falla
+-----------------
+- Falta un paquete → reinstala requirements-ci.txt dentro del venv.
+- verificar.sh usa spike/.venv/bin/python por defecto; con otro venv,
+  exporta PY=/ruta/a/python antes de lanzarlo.
+- Un fallo REAL de un test no se «arregla» tocando el test: es un
+  hallazgo. Repórtalo (SECURITY.md para seguridad; issue/nota para lo
+  demás) con el comando exacto y la salida.
+
+6 · Después de aceptar
+----------------------
+- Para revisar el proyecto: EXPERIMENTOS.md (registro canónico),
+  POSICIONES.md (qué sostiene la evidencia), BENCHMARK.md (PsicoBench),
+  METODO.md (puerta de calidad), preprint/ (manuscrito y auditoría).
+- Para correr una batería con presupuesto: METODO.md §A primero;
+  bateria.py --modelos …; si el equipo puede reiniciarse, deja el vigía:
+  python vigia.py resultados/bateria_X/ (reanuda y notifica solo).

@@ -17,6 +17,8 @@
 3. **Análisis desde fixtures, sin red**: los números del informe deben regenerarse con un script versionado que lea los `.jsonl` (patrón `analizar_g2.py`), nunca a mano ni re-llamando al modelo.
 4. **Missingness visible**: REHÚSA / INVÁLIDA / ERROR_TÉCNICO reportados por brazo; jamás imputados. La ausencia es dato.
 5. **Revisión adversarial del INFORME** (números, afirmaciones, unidad estadística) antes de darlo por cerrado; hallazgos verificados uno a uno e incorporados o refutados por escrito. Para PUBLICAR fuera del repo: además, revisión externa **humana** independiente y `reprocesar.py --check-publication` + `release_manifest.py --verificar` en verde.
+6. **Cero discrepancias sin adjudicar**: si dos jueces (parser vs juez LLM, juez vs humano) discrepan sobre un registro, la discrepancia se registra en `adjudicacion.py` y cuenta como INVALIDA hasta que reciba decisión **firmada** (decisión + razón + quién). `python adjudicacion.py --check` en verde antes de publicar (lo exige la CI). Ninguna regla resuelve discrepancias en silencio.
+7. **Posición epistémica declarada**: toda afirmación del informe debe caber en una categoría de `POSICIONES.md` (establecido / condicionado / desacuerdo / abierto) y citarse con ella; si el hallazgo es nuevo, se añade allí en el mismo commit.
 
 ## C · Al tocar un parser o un instrumento de medida
 
@@ -33,3 +35,6 @@
 | `linter_contraste.py` | entre brazos solo cambia la manipulación pre-registrada | librería + `--demo-g2` |
 | `manifiesto.py` | procedencia por solicitud física: prompt, params, tokens, latencia | `manifiesto.activar(outdir)` |
 | `artefactos.py` | mapa único del layout de crudos (adiós puntos ciegos tipo `sesiones.jsonl`) | librería |
+| `adjudicacion.py` | ninguna discrepancia entre jueces se resuelve en silencio: decisión firmada o INVALIDA | `python adjudicacion.py --check` |
+| `generar_benchmark.py` | tabla/panel/datos del benchmark re-derivables de las matrices, con linaje sha256 | `python generar_benchmark.py --check` |
+| `vigia.py` | una batería caída se reanuda desde `progreso.jsonl` sin intervención (y avisa) | `python vigia.py resultados/bateria_X/` |

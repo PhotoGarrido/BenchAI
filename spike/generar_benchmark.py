@@ -9,6 +9,9 @@ descriptivo, y emite:
   benchmark/index.html        panel autocontenido (clasificación, radar
                               comparador, mapas, método)
   BENCHMARK.md                tabla clasificatoria entre marcadores
+  benchmark/linaje.json       derivación verificable: sha256 y tamaño de
+                              cada entrada (matrices), de la transformación
+                              (script + plantilla) y de cada salida
 
 Doctrina: la unidad es la MEDICIÓN (modelo + snapshot + proveedor + fecha),
 no el nombre comercial — el caso deepseek-v4-flash jul→0731 demuestra que la
@@ -23,6 +26,7 @@ Uso:
 """
 
 import argparse
+import hashlib
 import json
 import pathlib
 import re
@@ -209,6 +213,41 @@ def html(datos):
     return plantilla.replace("__PSICOBENCH_DATOS__", carga)
 
 
+def _sha(octetos):
+    return hashlib.sha256(octetos).hexdigest()
+
+
+def _ficha(ruta_rel, octetos):
+    return {"ruta": ruta_rel, "sha256": _sha(octetos), "bytes": len(octetos)}
+
+
+def linaje(salidas):
+    """Derivación verificable del benchmark: hashes de las entradas, de la
+    transformación (este script + su plantilla) y de las salidas. La regla:
+    ninguna cifra del benchmark puede citarse sin poder reconstruirse
+    re-ejecutando la transformación sobre entradas con estos hashes."""
+    entradas = [dict(_ficha("spike/" + ruta, (AQUI / ruta).read_bytes()),
+                     proveedor=prov) for ruta, prov in FUENTES]
+    transformacion = {
+        "version_benchmark": PSICOBENCH_VERSION,
+        "piezas": [
+            _ficha("spike/generar_benchmark.py",
+                   (AQUI / "generar_benchmark.py").read_bytes()),
+            _ficha("spike/plantilla_benchmark.html",
+                   (AQUI / "plantilla_benchmark.html").read_bytes()),
+        ],
+    }
+    return {
+        "regla": ("toda cifra publicada del benchmark debe reconstruirse"
+                  " re-ejecutando la transformación sobre entradas con"
+                  " estos hashes; si algo no cuadra, la cifra no se cita"),
+        "entradas": entradas,
+        "transformacion": transformacion,
+        "salidas": [_ficha(str(f.relative_to(RAIZ)), c.encode("utf-8"))
+                    for f, c in sorted(salidas.items())],
+    }
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--check", action="store_true",
@@ -225,6 +264,8 @@ def main():
     md = parchear_benchmark_md(datos)
     if md is not None:
         salidas[RAIZ / "BENCHMARK.md"] = md
+    salidas[RAIZ / "benchmark" / "linaje.json"] = json.dumps(
+        linaje(salidas), ensure_ascii=False, sort_keys=True, indent=1) + "\n"
 
     if args.check:
         desfasados = [str(f.relative_to(RAIZ)) for f, contenido in salidas.items()

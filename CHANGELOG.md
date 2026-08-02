@@ -20,6 +20,24 @@
   los runs `--vacuna` válidos (10 sesiones por diseño, un solo brazo);
   umbral propio (6) y matriz del batch 0731 regenerada con `vacuna_delta`.
   La matriz raíz pineada no se toca.
+- **Trazabilidad operativa (02-08)** — principios adoptados tras revisar
+  sistemas de revisión trazables, abstraídos a nuestro instrumento:
+  - `benchmark/linaje.json`: derivación verificable del benchmark (sha256 y
+    tamaño de matrices de entrada, transformación y salidas); el `--check`
+    de CI verifica la cadena, no solo el resultado.
+  - `POSICIONES.md`: todo hallazgo vive en una categoría epistémica
+    (establecido / condicionado / desacuerdo real / abierto) con su
+    evidencia y «qué lo movería»; los desacuerdos no se promedian.
+    METODO.md §B lo exige para publicar.
+  - `spike/adjudicacion.py` (+ tests): las discrepancias entre jueces no se
+    resuelven en silencio — decisión firmada (decisión + razón + quién) o
+    INVALIDA; corrección solo por sustitución; `--check` en CI y
+    verificar.sh exige 0 pendientes para cerrar publicación.
+  - `spike/vigia.py` (+ tests): una batería caída se reanuda sola desde
+    `progreso.jsonl` (modelos desde el manifest del batch) con
+    notificación macOS y tope de relanzamientos.
+  - `SETUP_PSICOAI.txt`: instalación acompañada por agente con pruebas de
+    aceptación explícitas — pensada para el segundo revisor externo.
 
 ## v0.1.3-alpha · Research Preview · 01-08-2026
 
