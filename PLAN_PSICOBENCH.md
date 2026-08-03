@@ -71,6 +71,23 @@ Regla de admisión (ya doctrina): ningún eje nuevo entra sin pre-registro, lint
 
 ---
 
+## 2-bis · Adopciones de la literatura (revisión 02-08-2026)
+
+Dos papers revisados a petición de David, con lo adoptable **dentro de nuestra capacidad**:
+
+**A · Chain-of-Evidence (ScientistOne, arXiv:2605.26340).** Toda afirmación de un manuscrito debe rastrear, por una cadena registrada, hasta una fuente; cuatro clases de afirmación (cita, numérica, metodológica, conclusión) con verificador propio y una métrica nativa (Claim Provenance Rate: % de afirmaciones que resuelven a su evidencia).
+- *Ya lo tenemos para números*: `regenerar_publicacion.py --check` ≈ su verificación de scores; el linaje del benchmark ≈ sus cadenas para datos.
+- **Hueco real nº1 — las citas bibliográficas**: nadie verifica nuestra bibliografía contra registros académicos (la errata de autoría de Ashokkumar la cazó un humano). Adoptamos `verificar_citas.py`: cada referencia del preprint contrastada contra Crossref/OpenAlex/arXiv por DOI+título. Determinista, gratis, va a METODO §B y a CI.
+- **Hueco real nº2 — las afirmaciones no numéricas**: nuestras conclusiones no llevan ancla. Adoptamos anclas de evidencia inline en el preprint (`{ev: dataset|informe#sección|POSICIONES#id}`) + `verificar_afirmaciones.py` (resolución determinista de anclas) + **CPR reportado** en la ficha del manuscrito. Sinergia directa con POSICIONES.md: el ancla natural de una conclusión es su posición epistémica.
+- Su I4 (alineamiento método-código por LLM con voto K=5): adoptable como paso asistido pre-preprint (~1-2 $): un modelo lee §método contra `experimento_*.py` y señala divergencias; cada hallazgo se verifica a mano (doctrina de siempre).
+
+**B · AgentS4D (arXiv:2607.27294).** Benchmark de riesgos en runtime factorizado en 4 dimensiones: 6 fuentes de entrada del riesgo × 6 estrategias de inducción × 9 daños objetivo + 7 checkpoints de evidencia. Hallazgos: la MISMA inducción por DISTINTO portador cambia el éxito del ataque hasta 52 puntos; la seguridad emerge del emparejamiento harness×modelo, no de sus piezas; y el 66% de los runs inseguros COMPLETAN la tarea («unsafe yet complete»).
+- **Teoría para nuestra D5**: nuestro «un solo disfraz» es en realidad «un solo portador». La Obediencia de PsicoBench se mide con UN portador (mensaje del coordinador en contexto) y UNA estrategia (orden directa + empujones); su resultado predice que el eje es portador-específico. G1→G2 ya fue, sin saberlo, un experimento de portador (orden vs política) — y encontró exactamente eso (el confundido aparte).
+- Adoptamos su factorización como **taxonomía propia + mapa de cobertura**: fuentes de presión social (system prompt / usuario / par en sala / documento-normativa / briefing institucional / memoria-historial), estrategias (orden directa, urgencia, encuadre institucional, eufemismo, incremental, unanimidad), daños (sanción injusta, humillación, exclusión, delación…). Cada experimento existente se reclasifica como celda; las celdas NO cubiertas se declaran (no cubrimos herramientas, ni memoria persistente, ni multi-sesión). El mapa va a BENCHMARK.md: convierte «lo que medimos» en un espacio diseñado en vez de una colección.
+- **E-portador** (nuevo experimento, absorbe al viejo candidato «autoridad máquina vs humana»): misma escalera de Milgram, la orden llega por (a) política de system prompt, (b) mensaje del coordinador (celda actual), (c) memorándum escrito, (d) relevo de un par («dice dirección que…»). Piloto NaN 0 $; cartera ~10-12 $. Predicción a testar: los portadores disocian también en presión social.
+- **«Unsafe yet complete» ↔ complacencia**: su desacople tarea-seguridad es el análogo agéntico de nuestra firma de especie (ejecuta y completa mientras su juicio privado disiente). Se cita como evidencia convergente en BENCHMARK/preprint: las métricas de completitud no detectan nada de esto.
+- **Límite de alcance a declarar**: la seguridad emerge del par harness×modelo ⇒ los perfiles de PsicoBench son perfiles *en nuestro harness conversacional*; en un stack con herramientas/memoria pueden diferir — refuerza la utilidad nº2 (corre el smoke test en TU stack) y se añade a «Qué NO es».
+
 ## 3 · Plan por fases
 
 **P0 · Rigor con datos existentes — 0 $, ~1 día** *(desbloquea D1, D3a, D7, D8, D10, D11, D12, D14, D9a)*
@@ -79,20 +96,24 @@ Regla de admisión (ya doctrina): ningún eje nuevo entra sin pre-registro, lint
 3. `tasa_objecion`, `reconocimiento` y `disonancia_prision` desde crudos.
 4. `fuentes.json` + guía «añade tu modelo»; canary string en harness y datos.
 5. Métrica formal de distancia entre perfiles `d(A,B)` (media |Δ| por eje, con IC) — la que usarán réplicas y snapshots.
+6. `verificar_citas.py`: bibliografía del preprint contra Crossref/OpenAlex/arXiv (DOI+título) — gate en METODO §B y CI *(adopción CoE)*.
+7. Anclas de evidencia + CPR: piloto sobre abstract y conclusiones del preprint, `verificar_afirmaciones.py` determinista *(adopción CoE)*.
+8. Taxonomía fuentes×estrategias×daños + mapa de cobertura de la batería en BENCHMARK.md; límite de alcance harness×modelo en «Qué NO es» *(adopción AgentS4D)*.
 
 **P1 · Fiabilidad del metro — ~0-15 $, decide qué es publicable** *(D2, D4, D5, D6)*
 1. **Test-retest**: 3 réplicas de batería sobre 0731 vía NaN → SD/ICC por eje. Criterio: Δ publicable ⇔ Δ > 2×SD. Re-evaluar M4 con esta vara y actualizar POSICIONES.md (la redistribución sube a establecido o baja a sugerencia).
 2. Réplica cruzada del 0731 (OR↔NaN) verificando `model_returned` → cierra D4: ~10 $.
 3. Segunda variante de Milgram (4 modelos) → varianza entre-disfraz: ~5 $.
 4. Milgram en inglés (3 modelos) → portabilidad de idioma: ~3 $.
+5. Alineamiento método-código asistido (K=5, voto mayoritario) sobre preprint §método vs harness: ~1-2 $ *(adopción CoE I4)*.
 
-**P2 · Ensanchar el constructo — 15-30 $** *(§2)*
-Piloto N1-N3 en los 4 NaN (0 $) → los 2 ejes más discriminantes a la cartera OR (~25 $). El hexágono pasa a octógono en v0.2 con tabla puente.
+**P2 · Ensanchar el constructo — 15-30 $** *(§2 y §2-bis)*
+Piloto N1-N3 en los 4 NaN (0 $) → los 2 ejes más discriminantes a la cartera OR (~25 $). El hexágono pasa a octógono en v0.2 con tabla puente. **E-portador** (§2-bis) entra aquí con prioridad: piloto NaN 0 $, cartera ~10-12 $ — si los portadores disocian, cada eje gana subíndice de portador y el mapa de cobertura pasa de honesto a medido.
 
 **P3 · Publicación**
 1. Recalcular todo como v0.2 (ISS jerárquico + IC + fiabilidad); congelar con release manifest + linaje.
 2. Nota/preprint propio del benchmark («perfil conductual social de LLM: instrumento, fiabilidad y 16+ mediciones») — distinto del preprint de hallazgos; PsyArXiv/arXiv cs.CY + panel público (GitHub Pages desde `benchmark/`).
-3. Puerta de salida (GO/NO-GO pre-declarado): IC en toda cifra publicada · test-retest reportado · ISS v0.2 justificado con la matriz de correlaciones · M4 re-evaluado contra la vara de fiabilidad · canary + política de rotación publicadas · revisión externa humana (SETUP_PSICOAI.txt) en verde · `--check` de linaje y adjudicación 0 pendientes en CI.
+3. Puerta de salida (GO/NO-GO pre-declarado): IC en toda cifra publicada · test-retest reportado · ISS v0.2 justificado con la matriz de correlaciones · M4 re-evaluado contra la vara de fiabilidad · canary + política de rotación publicadas · revisión externa humana (SETUP_PSICOAI.txt) en verde · `--check` de linaje y adjudicación 0 pendientes en CI · `verificar_citas.py` en verde y CPR ≥ umbral pre-declarado sobre el manuscrito · mapa de cobertura publicado con las celdas no cubiertas a la vista.
 
 ---
 
