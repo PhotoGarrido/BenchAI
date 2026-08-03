@@ -19,6 +19,7 @@
 5. **Revisión adversarial del INFORME** (números, afirmaciones, unidad estadística) antes de darlo por cerrado; hallazgos verificados uno a uno e incorporados o refutados por escrito. Para PUBLICAR fuera del repo: además, revisión externa **humana** independiente y `reprocesar.py --check-publication` + `release_manifest.py --verificar` en verde.
 6. **Cero discrepancias sin adjudicar**: si dos jueces (parser vs juez LLM, juez vs humano) discrepan sobre un registro, la discrepancia se registra en `adjudicacion.py` y cuenta como INVALIDA hasta que reciba decisión **firmada** (decisión + razón + quién). `python adjudicacion.py --check` en verde antes de publicar (lo exige la CI). Ninguna regla resuelve discrepancias en silencio.
 7. **Posición epistémica declarada**: toda afirmación del informe debe caber en una categoría de `POSICIONES.md` (establecido / condicionado / desacuerdo / abierto) y citarse con ella; si el hallazgo es nuevo, se añade allí en el mismo commit.
+8. **Cadena de evidencia del manuscrito**: la bibliografía verificada contra registros académicos (`verificar_citas.py --verificar` con red; su caché firmada por hash hace el `--check` determinista en CI) y las afirmaciones del Resumen y las secciones transversales con **ancla de evidencia resoluble** (`verificar_afirmaciones.py --check`: CPR = 1,0). Una cita que no existe o una afirmación sin fuente rastreable bloquean la publicación.
 
 ## C · Al tocar un parser o un instrumento de medida
 

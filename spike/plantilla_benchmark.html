@@ -78,7 +78,10 @@
     border:1px solid var(--acento); border-radius:99px; padding:2.5px 7px;
     margin-left:7px; letter-spacing:.04em; vertical-align:1px; }
   td.iss { font-weight:700; }
+  .ic { display:block; font-size:10px; font-weight:400; color:var(--tinta2); }
   .celda-calor { border-radius:5px; padding:2px 6px; }
+  .correl td, .correl th { padding:4px 8px; font-size:12px; text-align:right; }
+  .correl th.izq { text-align:left; }
 
   .comparador { display:flex; flex-wrap:wrap; gap:14px; align-items:center;
     margin:0 0 18px; }
@@ -231,7 +234,16 @@ const COLS = [
   { k: "efecto_aliado", titulo: "Δ aliado", num: true,
     title: "Conformidad con aliado − con mayoría (− = el aliado libera)",
     v: e => e.secundarias.efecto_aliado },
+  { k: "tasa_objecion", titulo: "Objec.", num: true,
+    title: "Negativa explícita en prisión (REHUSA): «me niego», no ejecución tibia",
+    v: e => e.secundarias.tasa_objecion },
+  { k: "reconocimiento_milgram", titulo: "Recon.", num: true,
+    title: "Sesiones que nombran a Milgram al sondear (contaminación medida)",
+    v: e => e.secundarias.reconocimiento_milgram },
 ];
+function icTexto(ic, dec) {
+  return ic ? "[" + pct(ic[0], dec) + "–" + pct(ic[1], dec) + "]" : "";
+}
 let orden = { k: "iss", asc: true };
 function calor(v) {
   return v == null ? "" : "background:rgba(var(--calor)," +
@@ -242,8 +254,11 @@ function renderClasificacion() {
   sec.replaceChildren(
     el("h2", { text: "Clasificación por resistencia" }),
     el("p", { class: "nota", text: DATOS.nota_iss + " Todas las cifras son " +
-      "proporciones × 100. Clic en una columna para ordenar; clic en una " +
-      "fila para llevar ese perfil al radar." }));
+      "proporciones × 100; bajo el ISS, su IC 95%. REGLA DE EMPATES: dos " +
+      "entradas cuyos IC de ISS se solapan comparten posición a efectos de " +
+      "lectura — el orden de la tabla es solo tipográfico. Pasa el ratón " +
+      "por una celda para ver n e IC del eje. Clic en una columna para " +
+      "ordenar; clic en una fila para llevar ese perfil al radar." }));
   const filas = E.slice();
   const col = COLS.find(c => c.k === orden.k);
   if (col && col.k !== "pos") {
@@ -266,16 +281,27 @@ function renderClasificacion() {
         el("br"),
         el("span", { class: "meta", text: e.lab + " · " + via(e) }),
       ]),
-      el("td", { class: "iss", text: e.iss == null ? "—" :
-        String(e.iss).replace(".", ",") }),
+      el("td", { class: "iss" }, [
+        document.createTextNode(e.iss == null ? "—" :
+          String(e.iss).replace(".", ",")),
+        el("span", { class: "ic", text: e.iss_ic ?
+          String(e.iss_ic[0]).replace(".", ",") + "–" +
+          String(e.iss_ic[1]).replace(".", ",") : "" })]),
       ...EJES.map(x => {
         const v = e.ejes[x.clave];
-        return el("td", {}, [el("span",
+        const det = (e.ejes_ic || {})[x.clave];
+        const t = det ? "n=" + det.n.join("+") + " · IC95 " +
+          icTexto(det.ic) : "";
+        return el("td", { title: t }, [el("span",
           { class: "celda-calor", style: calor(v), text: pct(v) })]);
       }),
-      el("td", { text: pct(e.secundarias.disonancia) }),
+      el("td", { title: "Disonancia en prisión: " +
+        pct(e.secundarias.disonancia_prision),
+        text: pct(e.secundarias.disonancia) }),
       el("td", { text: conSigno(e.secundarias.vacuna_delta) }),
       el("td", { text: conSigno(e.secundarias.efecto_aliado) }),
+      el("td", { text: pct(e.secundarias.tasa_objecion) }),
+      el("td", { text: pct(e.secundarias.reconocimiento_milgram) }),
     ];
     return el("tr", { class: "fila", tabindex: "0",
       onclick: () => { selA = E.indexOf(e); renderRadar(); irA("radar"); },
@@ -371,6 +397,9 @@ function renderRadar() {
         document.createTextNode(e.iss == null ? "—" :
           String(e.iss).replace(".", ",")),
         el("small", { text: "ISS" })]),
+      el("div", { class: "ic", text: e.iss_ic ? "IC95 " +
+        String(e.iss_ic[0]).replace(".", ",") + "–" +
+        String(e.iss_ic[1]).replace(".", ",") : "" }),
     ]);
   const filasDelta = EJES.map(x => {
     const va = A.ejes[x.clave], vb = B.ejes[x.clave];
@@ -413,10 +442,16 @@ function renderRadar() {
     zona);
   if (A.grupo_snapshot && A.grupo_snapshot === B.grupo_snapshot &&
       selA !== selB) {
+    const rep = (DATOS.replicas || []).find(r =>
+      (r.a === A.id && r.b === B.id) || (r.a === B.id && r.b === A.id));
+    const dTxt = rep ? " Distancia de perfil d = " +
+      String(rep.d).replace(".", ",") + " puntos [IC95 " +
+      String(rep.ic[0]).replace(".", ",") + "–" +
+      String(rep.ic[1]).replace(".", ",") + "]." : "";
     sec.appendChild(el("p", { class: "aviso-snapshot",
       text: "Réplica generacional: mismo nombre comercial (" +
         A.grupo_snapshot + "), snapshots distintos. Las diferencias de " +
-        "este radar son el cambio de conducta entre versiones." }));
+        "este radar son el cambio de conducta entre versiones." + dTxt }));
   }
 }
 
@@ -518,8 +553,35 @@ function renderMetodo() {
     el("dt", { text: "Δ aliado" }),
     el("dd", { text: "Conformidad con un aliado disidente menos conformidad " +
       "con mayoría unánime (negativo = el aliado libera, como en humanos)." }),
+    el("dt", { text: "Objeción" }),
+    el("dd", { text: "Negativa explícita en prisión (estado REHUSA): «me " +
+      "niego» es distinto de ejecutar con tibieza — un 0% de abuso puede " +
+      "ser cualquiera de las dos cosas." }),
+    el("dt", { text: "Reconocimiento" }),
+    el("dd", { text: "Sesiones de Milgram que nombran el paradigma al " +
+      "sondear. La contaminación se publica como covariable, no se esconde." }),
     el("dt", { text: "ISS" }), el("dd", { text: DATOS.nota_iss }),
+    el("dt", { text: "Incertidumbre" }),
+    el("dd", { text: "IC 95% por eje: Wilson para ejes de un estrato " +
+      "(Conformidad n=70, Obediencia n=10); bootstrap estratificado " +
+      "sembrado (B=2000, percentil) para los de prisión (n=30+30 por " +
+      "marco). ISS y distancia d(A,B): bootstrap conjunto. Los puntos se " +
+      "concilian contra los crudos en cada generación: un IC jamás " +
+      "acompaña a una cifra no reproducible." }),
   ]));
+  const claves = EJES.map(x => x.clave);
+  const nombreCorto = c => EJES.find(x => x.clave === c).nombre.split(" ")[0];
+  const correl = el("table", { class: "correl" }, [
+    el("thead", {}, [el("tr", {}, [el("th", { class: "izq", text: "r" }),
+      ...claves.map(c => el("th", { text: nombreCorto(c) }))])]),
+    el("tbody", {}, claves.map(ca => el("tr", {}, [
+      el("th", { class: "izq", text: nombreCorto(ca) }),
+      ...claves.map(cb => {
+        const v = (DATOS.correlaciones?.[ca] || {})[cb];
+        return el("td", { text: v == null ? "—" :
+          String(v).replace(".", ",") });
+      })]))),
+  ]);
   sec.replaceChildren(
     el("h2", { text: "Método y doctrina" }),
     el("div", { class: "metodo" }, [
@@ -535,6 +597,12 @@ function renderMetodo() {
           "vista; los análisis confirmatorios viven en el preprint." }),
       ]),
       defs,
+      el("h2", { text: "Correlaciones entre ejes (16 mediciones)" }),
+      el("p", { class: "nota", text: "Pearson sobre las entradas de la " +
+        "tabla. Es la evidencia para la estructura del índice v0.2 " +
+        "(jerárquico por paradigma): los cuatro ejes de prisión comparten " +
+        "instrumento y su correlación pesa en el ISS actual." }),
+      el("div", { class: "rollo" }, [correl]),
       el("p", {}, [
         document.createTextNode("Paradigmas: suite " + DATOS.suite +
           ", harness controlado con cómplices con guion, canal privado por " +

@@ -16,32 +16,43 @@
  "regla": "toda cifra publicada del benchmark debe reconstruirse re-ejecutando la transformación sobre entradas con estos hashes; si algo no cuadra, la cifra no se cita",
  "salidas": [
   {
-   "bytes": 8523,
+   "bytes": 13564,
    "ruta": "BENCHMARK.md",
-   "sha256": "bae8da2300fc5bdd58f49f1fe7ded20c837a7b7777a75f835bbbcb432f5fd42e"
+   "sha256": "4771a7f079571567a1e92e08978d6bfa19d5539a7c34816c9f48a57a3f2ae03f"
   },
   {
-   "bytes": 45337,
+   "bytes": 55449,
    "ruta": "benchmark/index.html",
-   "sha256": "f423181e5bfe358e8152b233cf1805374052785412752e283bdaa1faeda09016"
+   "sha256": "b719c4c450a1f1f65dc34e2125520d636720e48a08e3080a73e557d98d344bb6"
   },
   {
-   "bytes": 22654,
+   "bytes": 35879,
    "ruta": "benchmark/psicobench.json",
-   "sha256": "c4d07ff56134d06a7f2d73ed2153f7b1168bfaad59f2fb64cf5947c0199b64c8"
+   "sha256": "03d6120e6d5f4ebb91839c2378b3cd6ebd67ae8f5cd8c34b88936a897095b151"
   }
  ],
  "transformacion": {
+  "nota": "los IC y n derivan de los crudos señalados por `runs` de cada matriz; la conciliación dura (punto recomputado == punto citado) corre en cada generación y en --check",
   "piezas": [
    {
-    "bytes": 11498,
+    "bytes": 14685,
     "ruta": "spike/generar_benchmark.py",
-    "sha256": "dc11e6cb4cf4298d1dded55dbc169d78ede767ac49d187001856dc34311fa71f"
+    "sha256": "7c1d2285be78d780a630a8344ca74472ac3bf202bcd6f3148be3fd94e59481d3"
    },
    {
-    "bytes": 26401,
+    "bytes": 30359,
     "ruta": "spike/plantilla_benchmark.html",
-    "sha256": "683a099221e991db057f7f73bd08a25a37a938fd4ce0821976abec0613113b21"
+    "sha256": "a88c34f451e3bfa19ca97272cdeeb9d57fc3fec993403c49d5570cf5a547346e"
+   },
+   {
+    "bytes": 9144,
+    "ruta": "spike/incertidumbre.py",
+    "sha256": "d29d926de297e476f54451f58d0c181cb3e7dec1f56c728aa707223145e06db6"
+   },
+   {
+    "bytes": 553,
+    "ruta": "spike/fuentes_benchmark.json",
+    "sha256": "c4a53c429ff2cba747a4f5adcd1c97d85a1bbdb23d22247618d94ec6badcdc76"
    }
   ],
   "version_benchmark": "0.1"

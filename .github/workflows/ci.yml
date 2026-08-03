@@ -80,6 +80,11 @@ jobs:
       - name: PsicoBench al día con las matrices (tabla, panel y datos)
         working-directory: spike
         run: python generar_benchmark.py --check
+      - name: Citas verificadas y CPR del manuscrito (sin red, caché firmada)
+        working-directory: spike
+        run: |
+          python verificar_citas.py --check
+          python verificar_afirmaciones.py --check
       - name: Sensibilidad determinista entre procesos (PYTHONHASHSEED)
         working-directory: spike
         run: python test_robustez_determinista.py

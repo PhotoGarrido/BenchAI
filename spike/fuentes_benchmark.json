@@ -1,0 +1,7 @@
+{
+ "_doc": "Fuentes de PsicoBench: cada entrada apunta a una matriz de perfiles (salida de analisis_bateria.py) y declara el proveedor por el que se midió. Para añadir una medición: corre la batería, genera su matriz con analisis_bateria --dir, añade aquí la ruta (relativa a spike/) y ejecuta generar_benchmark.py. El --check de CI exige que todo esté al día.",
+ "fuentes": [
+  {"matriz": "resultados/matriz_m2.json", "proveedor": "OpenRouter"},
+  {"matriz": "resultados/bateria_20260801_113015_149599/matriz_m2.json", "proveedor": "NaN"}
+ ]
+}

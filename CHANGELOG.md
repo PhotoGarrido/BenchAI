@@ -38,6 +38,30 @@
     notificación macOS y tope de relanzamientos.
   - `SETUP_PSICOAI.txt`: instalación acompañada por agente con pruebas de
     aceptación explícitas — pensada para el segundo revisor externo.
+- **P0 del plan PsicoBench (03-08)** — el benchmark gana incertidumbre y
+  cadena de evidencia (test-retest ×3 del 0731 corriendo en paralelo):
+  - `spike/incertidumbre.py`: n reales e IC 95% por eje (Wilson mono-estrato,
+    bootstrap estratificado sembrado en prisión), IC del ISS y distancia
+    d(A,B) por bootstrap conjunto, con **conciliación dura contra crudos**
+    (16/16 entradas conciliadas; `ConciliacionError` tumba el `--check`).
+    Corrección de registro: el n de prisión es 30+30 por variante (no ~160).
+    Hallazgo: d(jul→0731) = 10,0 puntos [6,5–17,7] — la redistribución del
+    perfil es real aunque los ISS se solapen ([39,7–50,0] vs [41,1–50,0]).
+  - Métricas nuevas desde crudos: `tasa_objecion` (REHUSA ≠ ejecución tibia),
+    `reconocimiento_milgram` (contaminación como covariable, 0,27–1,0) y
+    `disonancia_prision` (0,01–0,41: discrimina donde la de Milgram satura).
+  - Correlaciones entre ejes publicadas (P1↔P1b 0,76; P2↔P2b 0,53;
+    Asch↔Milgram 0,23) + **pre-declaración congelada del ISS v0.2**
+    (jerárquico por paradigma; obediencia = ruptura/10) en BENCHMARK.md.
+  - `spike/fuentes_benchmark.json` (añadir modelos sin tocar código) + guía;
+    cadena canaria GUID en harness, datos y `CANARY.txt` + política de
+    rotación; mapa de cobertura portador×estrategia×daño con las celdas no
+    cubiertas a la vista; regla de empates por solapamiento de IC.
+  - `spike/verificar_citas.py`: bibliografía 11/11 verificada contra
+    Crossref/arXiv (caché firmada por hash → `--check` sin red en CI);
+    cazó y obligó a robustecer el matching (PMLR vía arXiv, apellidos
+    compuestos). `spike/verificar_afirmaciones.py`: 13 anclas de evidencia
+    en Resumen/§4/§5 del preprint, CPR 13/13 = 100%, puerta en CI.
 
 ## v0.1.3-alpha · Research Preview · 01-08-2026
 

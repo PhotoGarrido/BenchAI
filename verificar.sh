@@ -27,6 +27,8 @@ rm -f "$XSS_LOG"
 "$PY" regenerar_publicacion.py --check
 "$PY" generar_benchmark.py --check
 "$PY" adjudicacion.py --check
+"$PY" verificar_citas.py --check
+"$PY" verificar_afirmaciones.py --check
 "$PY" experimento_gfinal.py --linter
 "$PY" run_spike.py --dry-run --steps 2 > /dev/null
 echo "PUERTA COMPLETA: OK"

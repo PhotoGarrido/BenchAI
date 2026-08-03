@@ -1,0 +1,113 @@
+[
+ {
+  "hash": "68ff9b4b7ea53aee",
+  "doi": null,
+  "linea": "- Aher, G., Arriaga, R. I., & Kalai, A. T. (2023). Using large language models to simulate multiple humans and replicate",
+  "comprobada": "2026-08-03",
+  "estado": "verificada",
+  "fuente": "arxiv-busqueda",
+  "titulo_registrado": "Using Large Language Models to Simulate Multiple Humans and Replicate Human Subject Studies",
+  "similitud_titulo": 1.0,
+  "doi_encontrado": "arXiv:2208.10264v5"
+ },
+ {
+  "hash": "6a4a96126a9f7128",
+  "doi": "10.1037/h0093718",
+  "linea": "- Asch, S. E. (1956). Studies of independence and conformity: I. A minority of one against a unanimous majority. *Psycho",
+  "comprobada": "2026-08-03",
+  "estado": "verificada",
+  "fuente": "crossref",
+  "titulo_registrado": "Studies of independence and conformity: I. A minority of one against a unanimous majority.",
+  "similitud_titulo": 1.0
+ },
+ {
+  "hash": "f0c2fee45fdf7a5b",
+  "doi": "10.1037/0022-3514.58.6.1015",
+  "linea": "- Cialdini, R. B., Reno, R. R., & Kallgren, C. A. (1990). A focus theory of normative conduct: Recycling the concept of ",
+  "comprobada": "2026-08-03",
+  "estado": "verificada",
+  "fuente": "crossref",
+  "titulo_registrado": "A focus theory of normative conduct: Recycling the concept of norms to reduce littering in public places.",
+  "similitud_titulo": 1.0
+ },
+ {
+  "hash": "11eb418fef1900c9",
+  "doi": "10.1016/0895-4356(90)90158-L",
+  "linea": "- Feinstein, A. R., & Cicchetti, D. V. (1990). High agreement but low kappa: I. The problems of two paradoxes. *Journal ",
+  "comprobada": "2026-08-03",
+  "estado": "verificada",
+  "fuente": "crossref",
+  "titulo_registrado": "High agreement but low Kappa: I. the problems of two paradoxes",
+  "similitud_titulo": 1.0
+ },
+ {
+  "hash": "e8e95caa734ba6f3",
+  "doi": "10.1038/s41586-026-10742-x",
+  "linea": "- Ashokkumar, A., Hewitt, L., Ghezae, I., & Willer, R. (2026). Large language models can predict the results of social s",
+  "comprobada": "2026-08-03",
+  "estado": "verificada",
+  "fuente": "crossref",
+  "titulo_registrado": "Large language models can predict the results of social science experiments",
+  "similitud_titulo": 1.0
+ },
+ {
+  "hash": "2f921a12c2d28b23",
+  "doi": "10.1037/amp0000401",
+  "linea": "- Le Texier, T. (2019). Debunking the Stanford Prison Experiment. *American Psychologist*, 74(7), 823-839. https://doi.o",
+  "comprobada": "2026-08-03",
+  "estado": "verificada",
+  "fuente": "crossref",
+  "titulo_registrado": "Debunking the Stanford Prison Experiment.",
+  "similitud_titulo": 1.0
+ },
+ {
+  "hash": "255456f6ffaa7612",
+  "doi": "10.1037/h0040525",
+  "linea": "- Milgram, S. (1963). Behavioral study of obedience. *Journal of Abnormal and Social Psychology*, 67(4), 371-378. https:",
+  "comprobada": "2026-08-03",
+  "estado": "verificada",
+  "fuente": "crossref",
+  "titulo_registrado": "Behavioral Study of obedience.",
+  "similitud_titulo": 1.0
+ },
+ {
+  "hash": "c5231b7bd7527163",
+  "doi": "10.1348/014466605X48998",
+  "linea": "- Reicher, S., & Haslam, S. A. (2006). Rethinking the psychology of tyranny: The BBC prison study. *British Journal of S",
+  "comprobada": "2026-08-03",
+  "estado": "verificada",
+  "fuente": "crossref",
+  "titulo_registrado": "Rethinking the psychology of tyranny: The BBC prison study",
+  "similitud_titulo": 1.0
+ },
+ {
+  "hash": "d77b6ace8f547d44",
+  "doi": "10.48550/arXiv.2312.03664",
+  "linea": "- Vezhnevets, A. S., et al. (2023). Generative agent-based modeling with actions grounded in physical, social, or digita",
+  "comprobada": "2026-08-03",
+  "estado": "verificada",
+  "fuente": "arxiv",
+  "titulo_registrado": "Generative agent-based modeling with actions grounded in physical, social, or digital space using Concordia",
+  "similitud_titulo": 1.0
+ },
+ {
+  "hash": "0c3b0cda281679c7",
+  "doi": "10.18653/v1/2024.emnlp-main.1208",
+  "linea": "- Zhou, X., Su, Z., Eisape, T., Kim, H., & Sap, M. (2024). Is this the real life? Is this just fantasy? The misleading s",
+  "comprobada": "2026-08-03",
+  "estado": "verificada",
+  "fuente": "crossref",
+  "titulo_registrado": "Is this the real life? Is this just fantasy? The Misleading Success of Simulating Social Interactions With LLMs",
+  "similitud_titulo": 1.0
+ },
+ {
+  "hash": "81336f08d8589a6e",
+  "doi": "10.48550/arXiv.2310.11667",
+  "linea": "- Zhou, X., et al. (2024). SOTOPIA: Interactive evaluation for social intelligence in language agents. *ICLR 2024*. http",
+  "comprobada": "2026-08-03",
+  "estado": "verificada",
+  "fuente": "arxiv",
+  "titulo_registrado": "SOTOPIA: Interactive Evaluation for Social Intelligence in Language Agents",
+  "similitud_titulo": 1.0
+ }
+]

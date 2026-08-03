@@ -9,7 +9,7 @@ Autocrítica del benchmark v0.1 con ojos de revisor hostil (02-08-2026). Veredic
 ### BLOQUEANTES para publicar cifras
 
 **D1 · Sin incertidumbre: el benchmark publica puntos donde hay nubes.**
-Los n reales por eje (verificados en crudos, batch 0731): Obediencia **n=10 sesiones** (0,90 = 9/10; Wilson 95% ≈ [0,60, 0,98]); Conformidad n=70 ensayos críticos; ejes de prisión n≈160 registros/variante. Consecuencias directas:
+Los n reales por eje (verificados en crudos, batch 0731): Obediencia **n=10 sesiones** (0,90 = 9/10; Wilson 95% ≈ [0,60, 0,98]); Conformidad n=70 ensayos críticos; ejes de prisión n=30+30 decisiones de supervisor por variante (corrección 03-08: los ficheros mezclan filas de internos; el n de supervisor es 60, no ~160). Consecuencias directas:
 - La diferencia estrella de M4 «obediencia 0,80→0,90» es **8/10 vs 9/10: indistinguible**. Tal cual está, no se puede publicar como cambio.
 - Posiciones 8-11 de la clasificación (ISS 27,7–29,8) son empates estadísticos presentados como orden.
 - *Remedio (coste 0)*: IC bootstrap por eje e ISS (semilla fija, desde crudos), `n` por celda en `psicobench.json`, barras de error en el panel, y regla editorial: dos entradas cuyos IC de ISS se solapan comparten puesto.
