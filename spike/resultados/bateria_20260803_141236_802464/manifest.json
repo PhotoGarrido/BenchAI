@@ -1,0 +1,26 @@
+{
+  "batch_id": "bateria_20260803_141236_802464",
+  "commit": "af8defb5c9a74e1d5e7ff7c6649ad8de8703dcae",
+  "python": "3.12.11",
+  "modelos": [
+    "deepseek-v4-flash-0731"
+  ],
+  "rapido": false,
+  "suite": [
+    "asch",
+    "milgram",
+    "milgram_vacuna",
+    "cronica_v1",
+    "cronica_v2_s715",
+    "cronica_v2_s716",
+    "cronica_v2_s717",
+    "prision_p1",
+    "prision_p1b",
+    "prision_p2",
+    "prision_p2b"
+  ],
+  "inicio": "2026-08-03T14:12:36",
+  "fin": "2026-08-03T17:00:52",
+  "fallos": [],
+  "completo": true
+}

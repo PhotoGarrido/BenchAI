@@ -62,6 +62,14 @@
     cazó y obligó a robustecer el matching (PMLR vía arXiv, apellidos
     compuestos). `spike/verificar_afirmaciones.py`: 13 anclas de evidencia
     en Resumen/§4/§5 del preprint, CPR 13/13 = 100%, puerta en CI.
+- **M5 · fiabilidad test-retest (03-08)**: 3 réplicas de la batería íntegra
+  sobre el 0731 vía NaN (0 $ marginal; el vigía rescató la réplica 1 de un
+  disco lleno). El instrumento discrimina entre modelos 2,1–15,3× por
+  encima de su ruido; suelo de d intra-snapshot ≈5 (máx 8,2) vs
+  d(jul→0731)=10,0. Veredicto M4 con la regla |Δ|>2×SD: la redistribución
+  sobrevive en 6/10 ejes (P2 −0,19 el más sólido; P1b con el margen más
+  justo); la obediencia binaria no (solo su forma granular ruptura/10,
+  SD 0,013 — refuerza la pre-declaración v0.2). `informe_retest_0731.md`.
 
 ## v0.1.3-alpha · Research Preview · 01-08-2026
 

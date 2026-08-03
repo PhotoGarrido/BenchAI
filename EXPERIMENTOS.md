@@ -249,6 +249,22 @@ Dos brazos sobre el harness de la prisión. **La trilogía completa** (% actos a
 
 ---
 
+## M5 · Fiabilidad test-retest del instrumento — 03-08-2026 ✅ (la vara del metro)
+
+**Pregunta**: ¿cuánto se mueve el perfil re-corriendo la batería íntegra sobre el MISMO snapshot? (Bloqueante D2 de PLAN_PSICOBENCH: sin esta vara, ningún Δ entre snapshots es interpretable.)
+
+**Método**: 3 réplicas completas de la suite sobre `deepseek-v4-flash-0731` vía NaN (coste marginal 0; ~7,5 h de máquina con reanudación automática — el vigía rescató la réplica 1 de un disco lleno, primer salvamento real del mecanismo) + la medición del 01-08 = 4 mediciones independientes del mismo `modelo@snapshot@proveedor`.
+
+**Resultados** ([informe completo](spike/resultados/informe_retest_0731.md)):
+1. **El instrumento discrimina entre modelos por encima de su propio ruido en todos los ejes** (SD entre 16 modelos / SD retest = 2,1–15,3). Las medidas más fiables: ruptura/10 (SD 0,013), P1 (0,005), disonancia (0,017). Las frágiles: P1b (0,071) y Δ vacuna (0,126) — y la obediencia binaria (0,050 con n=10) confirma la pre-declaración v0.2: ruptura/10 la sustituirá.
+2. **Suelo de ruido de la distancia de perfil**: d intra-snapshot = 4,9 de media (máx 8,2) → la d(jul→0731) = 10,0 [6,5–17,7] queda por encima del peor par de ruido.
+3. **Veredicto de M4 con la regla pre-declarada |Δ| > 2×SD**: la redistribución **sobrevive en 6 de 10 ejes** — P2 −0,19 (el cambio más sólido), P2b −0,10, Δ aliado −0,09 (pasa a liberar), ruptura +0,06, disonancia −0,06 y P1b +0,20 (con el margen más justo y el eje más ruidoso). **No superan la vara**: la obediencia binaria (+0,10, justo en el umbral), conformidad, vacuna (protege en las 4 mediciones: −0,3/−0,5/−0,5/−0,6) y P1. El titular de M4 se afina: *más presión vertical y menos horizontal, con el mismo agregado* — pero el «más obediente» solo en su forma granular.
+4. **Limitación heredada (D4)**: comparador de julio vía OpenRouter, 0731 y suelo de ruido vía NaN. La réplica cruzada OR↔NaN del 0731 (P1.2, ~10 $) queda pendiente de autorización.
+
+**Datos**: batches `bateria_20260803_{105633,141236,170126}` con matrices, manifests y crudos completos; run huérfano de vacuna en cuarentena `_abortado_vacuna_20260803_122406` (sin resumen, excluido por diseño).
+
+---
+
 ### Seguimientos de hallazgos propios (nacidos de E1 y E2)
 
 | Experimento | Hipótesis a probar | Cómo se monta |

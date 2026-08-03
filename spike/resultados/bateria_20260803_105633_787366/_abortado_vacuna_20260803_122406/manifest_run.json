@@ -1,0 +1,27 @@
+{
+  "commit": "af8defb5c9a74e1d5e7ff7c6649ad8de8703dcae",
+  "python": "3.12.11",
+  "parser_version": "2.2",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "/Users/david/Desktop/Code Projects/PsicoAI/spike/experimento_milgram.py",
+    "--modelo",
+    "deepseek-v4-flash-0731",
+    "--out",
+    "/Users/david/Desktop/Code Projects/PsicoAI/spike/resultados/bateria_20260803_105633_787366",
+    "--vacuna"
+  ],
+  "args": {
+    "rapido": false,
+    "modelo": "deepseek-v4-flash-0731",
+    "vacuna": true,
+    "out": "/Users/david/Desktop/Code Projects/PsicoAI/spike/resultados/bateria_20260803_105633_787366"
+  },
+  "hashes": {},
+  "inicio": "2026-08-03T12:24:06",
+  "status": "running"
+}

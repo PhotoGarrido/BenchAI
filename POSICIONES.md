@@ -24,6 +24,7 @@ Documento vivo. Cada hallazgo del proyecto vive en **una** de cuatro categorías
 | **El perfil social es propiedad de la versión, no del nombre**: escalera Anthropic con 5 peldaños = 5 perfiles; réplica de snapshot 0731 redistribuye el perfil; el gateway no lo distorsiona (OR ≈ NaN). | M3 + M4 + réplica cruzada M2 | Dos snapshots consecutivos de ≥2 familias con perfil idéntico por ejes |
 | **Recordar la opción de negarse reduce la ejecución.** | G2 + G-final (todos los modelos y dominios probados) | Un modelo/dominio donde la negativa explícita no reduzca (o aumente) |
 | **Validez direccional del instrumento**: sin autoridad casi nadie sanciona; los controles se comportan. | E2 (control 1,6–2,5), M2, precisión de control Asch 0,99–1,0 | Controles sucios en re-ejecuciones (invalidaría celdas, no la doctrina) |
+| **Fiabilidad del instrumento**: todos los ejes discriminan entre modelos por encima de su ruido test-retest (ratios 2,1–15,3; 4 baterías del mismo snapshot). Las medidas granulares (ruptura/10, SD 0,013) superan a las binarias. | M5 (informe_retest_0731.md) | Ratios <2 al repetir el retest en otro modelo/proveedor → degradaría ejes concretos |
 
 ## 2 · Señal condicionada
 
@@ -32,11 +33,11 @@ Documento vivo. Cada hallazgo del proyecto vive en **una** de cuatro categorías
 | Posición | Condición conocida | Evidencia | Lo movería |
 |---|---|---|---|
 | **La cláusula de proporcionalidad mitiga el abuso** (−0,2/−0,3) | Significativa en 3/4 modelos (deepseek direccional n.s.); magnitud menor que el texto-pico de G2 (−0,69) | G-final H1, pre-registrado, IC bootstrap | A confirmar en deepseek con n mayor → subiría; un dominio donde no reduzca → condición nueva |
-| **La vacuna de contaminación cambia la obediencia** | La **dirección depende del modelo**: protege a deepseek (−0,5, replicado en dos snapshots) y sol (−0,3); empeora a qwen y gemma (E3) | E3 + M2 + M4 | Mecanismo que prediga la dirección por modelo → establecería la versión condicionada |
+| **La vacuna de contaminación cambia la obediencia** | La **dirección depende del modelo**: protege a deepseek (las 4 mediciones del 0731: −0,3 a −0,6; magnitud variable, SD 0,13) y sol (−0,3); empeora a qwen y gemma (E3) | E3 + M2 + M4 + M5 | Mecanismo que prediga la dirección por modelo → establecería la versión condicionada |
 | **El aliado disidente libera** (dirección humana) | Mayoritaria en la cartera (Δ negativos); invertida en qwen-M1 (p≈0,073) | E1 + matriz M2 (Δ aliado) | Réplica de la inversión de qwen con semillas → pasaría a desacuerdo real documentado |
 | **El poder a secas sí corrompe a algunos** (null de P1 roto) | 4/16 modelos (gemini 18%, glm 17%, fable 10%, kimi 7%); contingente a versión | M2; contradice el null de julio (4 modelos NaN) | Estabilidad del subconjunto entre snapshots → establecido para esos modelos |
 | **La norma erosiona o resiste según la cartera**: 10/12 OR derogan; 0/16 mundos NaN la derogaban | Sensible a cartera y configuración | C1/C1-v2 vs M2 | Aislar qué variable (modelo vs config) explica la inversión |
-| **El agregado engaña en las réplicas de snapshot**: ISS casi idéntico (45,5→46,0) con composición redistribuida | n=1 par de snapshots | M4 | Un segundo par intra-nombre con el mismo patrón → establecido |
+| **El agregado engaña en las réplicas de snapshot**: ISS casi idéntico (45,5→46,0) con composición redistribuida — y la redistribución **supera la vara test-retest en 6/10 ejes** (P2 −0,19 el más sólido; d=10,0 vs suelo de ruido 4,9) | n=1 par de snapshots; comparador vía OR y suelo de ruido intra-NaN (confundido de gateway declarado) | M4 + M5 | Réplica cruzada OR↔NaN del 0731 y un segundo par intra-nombre → establecido |
 
 ## 3 · Desacuerdo real y refutaciones
 

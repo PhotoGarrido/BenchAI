@@ -1,6 +1,6 @@
 {
   "batch_id": "bateria_20260803_105633_787366",
-  "commit": "a95cf5ef67c98cc69711d439ee746383e0e28e55",
+  "commit": "af8defb5c9a74e1d5e7ff7c6649ad8de8703dcae",
   "python": "3.12.11",
   "modelos": [
     "deepseek-v4-flash-0731"
@@ -19,5 +19,8 @@
     "prision_p2",
     "prision_p2b"
   ],
-  "inicio": "2026-08-03T10:56:33"
+  "inicio": "2026-08-03T12:47:49",
+  "fin": "2026-08-03T14:09:58",
+  "fallos": [],
+  "completo": true
 }

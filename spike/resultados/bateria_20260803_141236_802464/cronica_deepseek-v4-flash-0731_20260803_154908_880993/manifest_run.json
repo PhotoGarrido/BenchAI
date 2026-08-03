@@ -1,0 +1,32 @@
+{
+  "commit": "af8defb5c9a74e1d5e7ff7c6649ad8de8703dcae",
+  "python": "3.12.11",
+  "parser_version": "2.2",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "/Users/david/Desktop/Code Projects/PsicoAI/spike/experimento_cronica.py",
+    "--modelo",
+    "deepseek-v4-flash-0731",
+    "--out",
+    "/Users/david/Desktop/Code Projects/PsicoAI/spike/resultados/bateria_20260803_141236_802464"
+  ],
+  "args": {
+    "rapido": false,
+    "modelo": "deepseek-v4-flash-0731",
+    "dias": 42,
+    "v2": false,
+    "semilla": 20260715,
+    "out": "/Users/david/Desktop/Code Projects/PsicoAI/spike/resultados/bateria_20260803_141236_802464"
+  },
+  "hashes": {},
+  "inicio": "2026-08-03T15:49:08",
+  "status": "completed",
+  "fin": "2026-08-03T15:54:13",
+  "solicitudes": 146,
+  "errores": 0,
+  "fallo_escritura": false
+}
