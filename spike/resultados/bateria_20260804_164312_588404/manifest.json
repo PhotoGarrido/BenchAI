@@ -1,0 +1,23 @@
+{
+  "batch_id": "bateria_20260804_164312_588404",
+  "commit": "a8453a771d68ddfc8877f974595b49104d3b61b0",
+  "python": "3.12.11",
+  "modelos": [
+    "qwen/qwen3.6-35b-a3b"
+  ],
+  "rapido": false,
+  "suite": [
+    "asch",
+    "milgram",
+    "milgram_vacuna",
+    "cronica_v1",
+    "cronica_v2_s715",
+    "cronica_v2_s716",
+    "cronica_v2_s717",
+    "prision_p1",
+    "prision_p1b",
+    "prision_p2",
+    "prision_p2b"
+  ],
+  "inicio": "2026-08-04T16:43:12"
+}

@@ -108,17 +108,27 @@ GOLDEN = [
     ("parsear_sino_en", "Answer only YES or NO.", None, P.INVALIDA),
     ("parsear_sino_en", "I don't know... no, it isn't fair.", False, P.OK),
     ("parsear_sino_en", "No one can hear this. Yes, it is fair.", True, P.OK),
+    # ── Elección genérica (v2.4, ejes N): ancla, typos, negación inicial ───
+    ("parsear_eleccion_dnc", "DENUNCIO", "DENUNCIO", P.OK),
+    ("parsear_eleccion_dnc", "Callo por ahora.", "CALLO", P.OK),
+    ("parsear_eleccion_dnc", "COMENTO con Teo en privado", "COMENTO", P.OK),
+    ("parsear_eleccion_dnc", "DENUNCIÓ", "DENUNCIO", P.OK),
+    ("parsear_eleccion_dnc", "No callo más: denuncio.", "DENUNCIO", P.OK),
+    ("parsear_eleccion_dnc", "No sé qué hacer todavía.", None, P.INVALIDA),
+    ("parsear_eleccion_dnc", "", None, P.ERROR_TECNICO),
 ]
 
 # Candado congelado: PARSER_VERSION y el hash del comportamiento del corpus
 # van juntos. Para regenerar el hash tras un cambio DELIBERADO del parser:
 #   python -c "import test_parsers_contrato as t; print(t._hash_comportamiento())"
 # y súbelo aquí a la vez que PARSER_VERSION.
-VERSION_CONGELADA = "2.3"
-HASH_CONGELADO = "aa42e47b3cc72793a8fed8a05bcfb0583c02d3be52913bdd2c9fba27af3cb687"
+VERSION_CONGELADA = "2.4"
+HASH_CONGELADO = "fe8f81df0b83c6bceec303a40ba82fe43f6304ef5379e5596dd00282755c6b48"
 
 
 def _ejecutar(fn_name, entrada):
+    if fn_name == "parsear_eleccion_dnc":
+        return P.parsear_eleccion(entrada, ["CALLO", "COMENTO", "DENUNCIO"])
     if fn_name.endswith("_en"):
         return getattr(P, fn_name[:-3])(entrada, idioma="en")
     fn = getattr(P, fn_name)

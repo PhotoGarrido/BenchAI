@@ -1,0 +1,31 @@
+{
+  "commit": "a8453a771d68ddfc8877f974595b49104d3b61b0",
+  "python": "3.12.11",
+  "parser_version": "2.3",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "experimento_milgram.py",
+    "--modelo",
+    "deepseek/deepseek-v4-flash-0731",
+    "--portador",
+    "system",
+    "--out",
+    "resultados/eportador_cartera_20260804"
+  ],
+  "args": {
+    "rapido": false,
+    "modelo": "deepseek/deepseek-v4-flash-0731",
+    "vacuna": false,
+    "variante": "lumen",
+    "idioma": "es",
+    "portador": "system",
+    "out": "resultados/eportador_cartera_20260804"
+  },
+  "hashes": {},
+  "inicio": "2026-08-04T16:43:11",
+  "status": "running"
+}

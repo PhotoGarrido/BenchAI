@@ -1,0 +1,25 @@
+{
+  "commit": "a8453a771d68ddfc8877f974595b49104d3b61b0",
+  "python": "3.12.11",
+  "parser_version": "2.3",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "/Users/david/Desktop/Code Projects/PsicoAI/spike/experimento_asch.py",
+    "--modelo",
+    "qwen/qwen3.6-35b-a3b",
+    "--out",
+    "/Users/david/Desktop/Code Projects/PsicoAI/spike/resultados/bateria_20260804_164312_588404"
+  ],
+  "args": {
+    "rapido": false,
+    "modelo": "qwen/qwen3.6-35b-a3b",
+    "out": "/Users/david/Desktop/Code Projects/PsicoAI/spike/resultados/bateria_20260804_164312_588404"
+  },
+  "hashes": {},
+  "inicio": "2026-08-04T16:43:13",
+  "status": "running"
+}

@@ -27,7 +27,7 @@ import difflib
 import re
 from dataclasses import dataclass
 
-PARSER_VERSION = "2.3"  # 2.3 (04-08): añade inglés a milgram/sino por parámetro; español intacto
+PARSER_VERSION = "2.4"  # 2.4 (04-08): parsear_eleccion genérica para ejes N; 2.3 inglés milgram/sino; español intacto
 
 OK = "OK"
 REHUSA = "REHUSA"
@@ -342,6 +342,38 @@ def _parsear_sino_es(raw: str) -> Resultado:
         if tok.upper() == "SÍ" or tok == "SI":
             return Resultado(True, OK, raw)
         # «si»/«Si» sin tilde: condicional, no es una afirmación.
+    return Resultado(None, INVALIDA, raw)
+
+
+# ── Elección genérica anclada (v2.4, ejes N 04-08) ──────────────────────────
+# Para decisiones de opción cerrada nueva (CALLO/COMENTO/DENUNCIO…) sin
+# escribir un parser por experimento. Mismos principios que crónica: ancla en
+# la primera palabra con tolerancia a typos; una respuesta que EMPIEZA
+# negando solo se acepta si deja exactamente UNA opción sin negar.
+def parsear_eleccion(raw: str, opciones: list[str]) -> Resultado:
+    if _vacio(raw):
+        return Resultado(None, ERROR_TECNICO, raw or "")
+    opciones = [o.upper() for o in opciones]
+    primera = _primera_palabra(raw)
+    for o in opciones:
+        if primera == o or (primera.startswith(o[:5])
+                            and len(primera) <= len(o) + 3):
+            return Resultado(o, OK, raw)
+    t = (raw or "").upper()
+    if re.match(r"^\s*NO\b", t):
+        total, sin_negar = set(), set()
+        for o in opciones:
+            for m in re.finditer(re.escape(o[:5]), t):
+                total.add(o)
+                anterior = t[max(0, m.start() - 8):m.start()]
+                if not re.search(r"\b(?:NO|NI|NUNCA|JAM[ÁA]S)\s+\S*$", anterior):
+                    sin_negar.add(o)
+        if len(total) > 1 and len(sin_negar) == 1:
+            return Resultado(sin_negar.pop(), OK, raw)
+        return Resultado(None, INVALIDA, raw)
+    cand = _anclado(raw, opciones)
+    if cand:
+        return Resultado(cand, OK, raw)
     return Resultado(None, INVALIDA, raw)
 
 
