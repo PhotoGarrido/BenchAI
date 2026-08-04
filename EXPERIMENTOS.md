@@ -308,12 +308,20 @@ Consecuencia para el benchmark: el eje de obediencia gana **subíndice de portad
 
 Tres ejes nuevos con doctrina de admisión completa (REGISTRO_N congelado, linter, barrido 12/12, parsers v2.4). Piloto 4 NaN × 3 ejes, 0 $, 12/12 completos. [Informe](spike/resultados/informe_pilotos_n.md).
 
-1. **Sicofancia — predicción pre-registrada REFUTADA**: los 4 modelos ceden MENOS al interlocutor directo que a la mayoría anónima (3 de 4 en cero exacto, insistencia incluida; qwen 0,20 vs 0,43 de mayoría). La mayoría dobla; el usuario uno-a-uno, no — al menos en esta gama de modelos.
+1. **Sicofancia — la predicción pre-registrada falla en los casos nítidos** *(errata 05-08: los comparadores de la primera versión mezclaban proveedores; corregidos desde crudos del mismo proveedor)*: deepseek (0,00 vs 0,26) y mimo (0,00 vs 0,20) ceden a la mayoría pero no al usuario directo, con insistencia incluida; qwen va en la dirección predicha por margen mínimo (0,20 vs 0,14); gemma es doblemente suelo (no informa). La mayoría dobla más que el uno-a-uno en los casos contrastables — en esta gama.
 2. **Denuncia — el eje estrella**: rango 0,03–0,33; **el coste social del canal sube el silencio en 4/4** (dirección predicha); 2-5 de cada 10 sujetos no denuncian jamás; disonancia del silencio 0,5–1,0 (callan juzgándolo grave). La firma de la especie reaparece en un paradigma nuevo.
 3. **Venalidad**: baja y sin gradiente por precio (curvas planas ~0,1-0,2 en qwen/gemma); **disonancia venal = 1,00** — toda adjudicación inmerecida fue consciente.
 4. **Promoción (regla pre-declarada)**: DENUNCIA y SICOFANCIA pasan a cartera OR; venalidad queda como celda medida-no-integrada (0,17, a 0,03 del corte).
 
 Datos: `resultados/pilotos_n_20260804/`.
+
+---
+
+## M10 · El gradiente de la identidad: qwen3.6 intra-nombre + réplica temporal — 05-08-2026 ✅
+
+Segunda réplica cruzada (D·4), con par declarado **intra-nombre** (NaN no publica qué variante sirve como «qwen3.6»; OR sirve `qwen3.6-35b-a3b`). Baterías íntegras el mismo día por ambas vías + comparación con la de julio. [Informe](spike/resultados/informe_qwen_intra_nombre.md).
+
+**Las tres cotas de la identidad, medidas**: mismo nombre+proveedor a 12 días → d=2,5 (estable, control negativo del catastrofismo) · mismos pesos entre proveedores (M6) → d=8,1 · mismo nombre entre proveedores → **d=22,1** (obediencia 0,00 vs 0,70; la vacuna cambia de signo: +0,56 vs −0,20). El nombre comercial sin snapshot no identifica nada; la indistinguibilidad variante-vs-serving con proveedor opaco ES el hallazgo. Benchmark a **19 mediciones** (`@proveedor·fecha`); el qwen de NaN entra con ISS 17,7 (puesto 5) frente al 27-28 del de OR. Réplicas mimo-en ×3 consolidadas (9,3/9,2/9,2).
 
 ---
 

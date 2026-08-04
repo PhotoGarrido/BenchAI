@@ -3,6 +3,8 @@
  "fuentes": [
   {"matriz": "resultados/matriz_m2.json", "proveedor": "OpenRouter"},
   {"matriz": "resultados/bateria_20260801_113015_149599/matriz_m2.json", "proveedor": "NaN"},
-  {"matriz": "resultados/bateria_20260804_083433_188285/matriz_m2.json", "proveedor": "OpenRouter"}
+  {"matriz": "resultados/bateria_20260804_083433_188285/matriz_m2.json", "proveedor": "OpenRouter"},
+  {"matriz": "resultados/bateria_20260804_174641_548763/matriz_m2.json", "proveedor": "NaN"},
+  {"matriz": "resultados/bateria_20260804_164312_588404/matriz_m2.json", "proveedor": "OpenRouter"}
  ]
 }

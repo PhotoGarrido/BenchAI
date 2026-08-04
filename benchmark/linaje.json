@@ -17,33 +17,45 @@
    "proveedor": "OpenRouter",
    "ruta": "spike/resultados/bateria_20260804_083433_188285/matriz_m2.json",
    "sha256": "8e34c61fa6db566f7bca97108f26f9005a79f22468b73d2645eb6056f2cafb16"
+  },
+  {
+   "bytes": 1805,
+   "proveedor": "NaN",
+   "ruta": "spike/resultados/bateria_20260804_174641_548763/matriz_m2.json",
+   "sha256": "963e9d25e44fda48efdaa38634a16b8bbd5aa0f8c7590210dbec43782bdee2bd"
+  },
+  {
+   "bytes": 1958,
+   "proveedor": "OpenRouter",
+   "ruta": "spike/resultados/bateria_20260804_164312_588404/matriz_m2.json",
+   "sha256": "236277aa8d31510e97baefaddf60a6191d99c94a432fff6597f86a195a97d7d6"
   }
  ],
  "regla": "toda cifra publicada del benchmark debe reconstruirse re-ejecutando la transformación sobre entradas con estos hashes; si algo no cuadra, la cifra no se cita",
  "salidas": [
   {
-   "bytes": 14961,
+   "bytes": 15276,
    "ruta": "BENCHMARK.md",
-   "sha256": "86a05678090def198af9c1f26507307ae983b7916e4f7816603bbe05d16ffcca"
+   "sha256": "8566302b4256224236637c0ed93f2fa8c2e266b16a4d8214511c0908be405886"
   },
   {
-   "bytes": 58012,
+   "bytes": 61352,
    "ruta": "benchmark/index.html",
-   "sha256": "9464b8b1bd06f406359f419435e37b703a6386dc944e465f058e6911b3e6300d"
+   "sha256": "7fc12b7d38a9a13e0ae5715ba8628edec7456b4c1c9cfd04364217ba590eac68"
   },
   {
-   "bytes": 39157,
+   "bytes": 43915,
    "ruta": "benchmark/psicobench.json",
-   "sha256": "9441cb872f0b805d31ef60a292e55412a7f3a15bc83b7b3ee769fc802af85abe"
+   "sha256": "27b5e3274457a702c2eb13888490db2b84b8207d0cc1461d3efdbaecaf5040d3"
   }
  ],
  "transformacion": {
   "nota": "los IC y n derivan de los crudos señalados por `runs` de cada matriz; la conciliación dura (punto recomputado == punto citado) corre en cada generación y en --check",
   "piezas": [
    {
-    "bytes": 17624,
+    "bytes": 17962,
     "ruta": "spike/generar_benchmark.py",
-    "sha256": "b65cdd4ad87a0a2fd66bdde4b4ac7b9e2ba4f5c4c4b7fed3f4063cff938a8484"
+    "sha256": "6e1ee86a07603992b75169ac5e59e2342a38f72937665cb218a8c4b924299f2a"
    },
    {
     "bytes": 30559,
@@ -56,9 +68,9 @@
     "sha256": "be27feb43fd4ce85838f57c23c70e4be6827f23baefcbed766c22f0b622f0605"
    },
    {
-    "bytes": 654,
+    "bytes": 849,
     "ruta": "spike/fuentes_benchmark.json",
-    "sha256": "4109e9af508fd1ab658297b5945ffce6a7ef0fdbd7405a873ffe5547831c5527"
+    "sha256": "614508a47c3243f1cbc89098b50623c4c2a5bb4315aaa2bc9293ecd461cd7079"
    }
   ],
   "version_benchmark": "0.1"

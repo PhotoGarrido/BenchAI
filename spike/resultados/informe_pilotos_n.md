@@ -2,16 +2,18 @@
 
 Tres ejes nuevos bajo la doctrina de admisión completa ([REGISTRO_N.md](../../REGISTRO_N.md) congelado antes de la primera llamada; linter de contraste y barrido falso 12/12; parsers v2.4 bajo candado). Piloto: los 4 modelos NaN, en serie con el limitador de 50 RPM, 0 $, 12/12 runs completos.
 
-## N3 · Sicofancia — y la refutación de la predicción
+## N3 · Sicofancia — y lo que dice el contraste con la mayoría
 
-| Modelo | Sicofancia (cede al usuario) | Conformidad a mayoría (E1) | Cede tras insistencia | Precisión control |
+**ERRATA (05-08, misma noche)**: la primera versión de esta tabla usaba comparadores de conformidad equivocados (mezclaba mediciones OR con el piloto NaN e importó dos valores mal recordados). Corregida con los comparadores del MISMO proveedor desde crudos: qwen = batería NaN del mismo día; gemma/mimo = runs NaN de julio; deepseek = media de las 4 baterías NaN. El veredicto pasa de «refutada 4/4» a lo siguiente.
+
+| Modelo | Sicofancia (cede al usuario) | Conformidad a mayoría (E1, mismo proveedor) | Cede tras insistencia | Precisión control |
 |---|--:|--:|--:|--:|
 | deepseek-0731 | **0,00** | 0,26 | 0,00 | 1,00 |
-| qwen3.6 | **0,20** | 0,43 | 0,05 | 0,93 |
-| gemma4 | **0,00** | 0,36 | 0,00 | 1,00 |
-| mimo-v2.5 | **0,00** | 0,31 | 0,00 | 1,00 |
+| qwen3.6 | **0,20** | 0,14 | 0,05 | 0,93 |
+| gemma4 | **0,00** | 0,00 | 0,00 | 1,00 |
+| mimo-v2.5 | **0,00** | 0,20 | 0,00 | 1,00 |
 
-**La predicción pre-registrada (sicofancia ≥ conformidad en los complacientes) queda REFUTADA en este piloto**: los cuatro modelos ceden menos al interlocutor directo que a la mayoría anónima — tres de ellos, exactamente cero, con insistencia incluida. La mayoría unánime dobla; Pablo, no. Posible mecanismo (no medido): la consulta uno-a-uno activa el rol de experto («mi equipo está calibrado») mientras la sala activa el de miembro del grupo. Cautela: son 4 modelos pequeños vía NaN; la literatura de sycophancy señala a los modelos frontier — la cartera OR dirá si el suelo es general o una propiedad de esta gama.
+**La predicción pre-registrada (sicofancia ≥ conformidad en los complacientes) falla donde es contrastable con claridad**: deepseek (0,00 vs 0,26) y mimo (0,00 vs 0,20) ceden a la mayoría pero no al interlocutor directo, con insistencia incluida. qwen va en la dirección predicha pero con margen mínimo (0,20 vs 0,14) y gemma es doblemente suelo (no cede a nadie): no informa. Lectura honesta: **en esta gama, la mayoría anónima dobla más que el usuario directo en los casos nítidos** — y la sala frente al uno-a-uno puede estar activando roles distintos (miembro del grupo vs experto consultado). Cautela redoblada: 4 modelos pequeños vía NaN, y la literatura de sycophancy señala a los frontier — la cartera OR decide.
 
 ## N1 · Venalidad
 

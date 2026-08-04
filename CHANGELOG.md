@@ -57,6 +57,17 @@
   y sicofancia a cartera OR; venalidad celda medida-no-integrada.
   `informe_pilotos_n.md` · batería qwen@NaN reanudada y completa (0 fallos
   bajo el limitador) · réplicas mimo-en ×3 consolidadas.
+- **M10 · gradiente de la identidad (D·4)**: qwen3.6 por ambas vías el
+  mismo día — par declarado INTRA-NOMBRE (NaN opaco). d=22,1 entre
+  proveedores (obediencia 0,00 vs 0,70; vacuna cambia de signo +0,56/−0,20)
+  frente a d=2,5 del mismo nombre+proveedor a 12 días (control negativo:
+  la estabilidad temporal existe) y d=8,1 del snapshot fijado (M6). Las
+  tres cotas de la identidad medidas; benchmark a 19 mediciones con ids
+  `@proveedor·fecha`; qwen@NaN entra con ISS 17,7 (puesto 5). Errata M9
+  publicada (comparadores de sicofancia corregidos a mismo-proveedor: el
+  veredicto pasa de «refutada 4/4» a «falla en los 2 casos nítidos, qwen
+  la cumple por margen mínimo, gemma no informa»).
+  `informe_qwen_intra_nombre.md`.
 - **Parsers v2.3**: milgram/sino aceptan inglés por parámetro explícito
   (español byte-idéntico; candado versión↔comportamiento regenerado con
   corpus EN bajo contrato).

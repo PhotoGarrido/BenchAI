@@ -179,6 +179,14 @@ def construir():
     for e in entradas:
         if veces[e["id"]] > 1:
             e["id"] = f"{e['id']}@{e['proveedor']}"
+    # Segunda pasada (M10): mismo nombre por el MISMO proveedor en fechas
+    # distintas (réplica temporal) — se desambigua con la fecha.
+    veces2 = {}
+    for e in entradas:
+        veces2[e["id"]] = veces2.get(e["id"], 0) + 1
+    for e in entradas:
+        if veces2[e["id"]] > 1:
+            e["id"] = f"{e['id']}·{e['fecha']}"
     origen = {e["id"]: (perfil, base_dir) for e, perfil, base_dir in crudos}
     # Pares de snapshot: mismo nombre-base medido más de una vez.
     def nombre_base(e):
