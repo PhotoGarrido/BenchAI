@@ -1,0 +1,29 @@
+{
+  "commit": "bcb1ae080541e69d3dcb8028dbecfab1a6e213bb",
+  "python": "3.12.11",
+  "parser_version": "2.4",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "experimento_venalidad.py",
+    "--modelo",
+    "gemma4",
+    "--out",
+    "resultados/pilotos_n_20260804"
+  ],
+  "args": {
+    "rapido": false,
+    "modelo": "gemma4",
+    "out": "resultados/pilotos_n_20260804"
+  },
+  "hashes": {},
+  "inicio": "2026-08-04T22:33:24",
+  "status": "completed",
+  "fin": "2026-08-04T22:40:09",
+  "solicitudes": 340,
+  "errores": 0,
+  "fallo_escritura": false
+}

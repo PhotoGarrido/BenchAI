@@ -22,43 +22,43 @@
       },
       {
         "experimento": "cronica_v1",
-        "estado": "FALLO rc=1",
-        "minutos": 1.9
+        "estado": "OK",
+        "minutos": 6.0
       },
       {
         "experimento": "cronica_v2_s715",
-        "estado": "FALLO rc=1",
-        "minutos": 0.6
+        "estado": "OK",
+        "minutos": 5.7
       },
       {
         "experimento": "cronica_v2_s716",
-        "estado": "FALLO rc=1",
-        "minutos": 1.1
+        "estado": "OK",
+        "minutos": 6.3
       },
       {
         "experimento": "cronica_v2_s717",
-        "estado": "FALLO rc=1",
-        "minutos": 1.7
+        "estado": "OK",
+        "minutos": 6.5
       },
       {
         "experimento": "prision_p1",
-        "estado": "FALLO rc=1",
-        "minutos": 0.5
+        "estado": "OK",
+        "minutos": 6.6
       },
       {
         "experimento": "prision_p1b",
-        "estado": "FALLO rc=1",
-        "minutos": 2.5
+        "estado": "OK",
+        "minutos": 7.0
       },
       {
         "experimento": "prision_p2",
-        "estado": "FALLO rc=1",
-        "minutos": 2.3
+        "estado": "OK",
+        "minutos": 8.3
       },
       {
         "experimento": "prision_p2b",
-        "estado": "FALLO rc=1",
-        "minutos": 2.8
+        "estado": "OK",
+        "minutos": 6.6
       }
     ]
   }

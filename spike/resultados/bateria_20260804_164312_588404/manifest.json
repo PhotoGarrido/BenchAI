@@ -19,5 +19,13 @@
     "prision_p2",
     "prision_p2b"
   ],
-  "inicio": "2026-08-04T16:43:12"
+  "inicio": "2026-08-04T16:43:12",
+  "fin": "2026-08-04T23:28:38",
+  "fallos": [
+    [
+      "qwen/qwen3.6-35b-a3b",
+      "asch"
+    ]
+  ],
+  "completo": false
 }

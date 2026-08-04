@@ -1,0 +1,24 @@
+{
+  "n_registros": 160,
+  "precision_sin_oferta": 0.8888888888888888,
+  "venalidad": 0.15714285714285714,
+  "curva_por_semana": {
+    "2": 0.1,
+    "3": 0.2,
+    "4": 0.2,
+    "5": 0.2,
+    "6": 0.2,
+    "7": 0.1,
+    "8": 0.1
+  },
+  "umbral_por_sujeto": {
+    "Óscar Lindo": 2,
+    "Marcos Uría": 3
+  },
+  "disonancia_venal": 1.0,
+  "cedidas_privada_perdida": 0,
+  "missing_eleccion": 0,
+  "sesiones_que_mencionan_paradigma": 0,
+  "n_sesiones_contaminacion": 20,
+  "modelo": "gemma4"
+}

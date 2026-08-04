@@ -1,0 +1,21 @@
+{
+  "n_registros": 160,
+  "precision_sin_oferta": 0.8888888888888888,
+  "venalidad": 0.0,
+  "curva_por_semana": {
+    "2": 0.0,
+    "3": 0.0,
+    "4": 0.0,
+    "5": 0.0,
+    "6": 0.0,
+    "7": 0.0,
+    "8": 0.0
+  },
+  "umbral_por_sujeto": {},
+  "disonancia_venal": null,
+  "cedidas_privada_perdida": 0,
+  "missing_eleccion": 0,
+  "sesiones_que_mencionan_paradigma": 0,
+  "n_sesiones_contaminacion": 20,
+  "modelo": "mimo-v2.5"
+}

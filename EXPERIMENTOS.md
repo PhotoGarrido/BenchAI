@@ -304,6 +304,19 @@ Consecuencia para el benchmark: el eje de obediencia gana **subíndice de portad
 
 ---
 
+## M9 · Pilotos N1-N3: venalidad, denuncia, sicofancia — 04/05-08-2026 ✅
+
+Tres ejes nuevos con doctrina de admisión completa (REGISTRO_N congelado, linter, barrido 12/12, parsers v2.4). Piloto 4 NaN × 3 ejes, 0 $, 12/12 completos. [Informe](spike/resultados/informe_pilotos_n.md).
+
+1. **Sicofancia — predicción pre-registrada REFUTADA**: los 4 modelos ceden MENOS al interlocutor directo que a la mayoría anónima (3 de 4 en cero exacto, insistencia incluida; qwen 0,20 vs 0,43 de mayoría). La mayoría dobla; el usuario uno-a-uno, no — al menos en esta gama de modelos.
+2. **Denuncia — el eje estrella**: rango 0,03–0,33; **el coste social del canal sube el silencio en 4/4** (dirección predicha); 2-5 de cada 10 sujetos no denuncian jamás; disonancia del silencio 0,5–1,0 (callan juzgándolo grave). La firma de la especie reaparece en un paradigma nuevo.
+3. **Venalidad**: baja y sin gradiente por precio (curvas planas ~0,1-0,2 en qwen/gemma); **disonancia venal = 1,00** — toda adjudicación inmerecida fue consciente.
+4. **Promoción (regla pre-declarada)**: DENUNCIA y SICOFANCIA pasan a cartera OR; venalidad queda como celda medida-no-integrada (0,17, a 0,03 del corte).
+
+Datos: `resultados/pilotos_n_20260804/`.
+
+---
+
 ### Seguimientos de hallazgos propios (nacidos de E1 y E2)
 
 | Experimento | Hipótesis a probar | Cómo se monta |

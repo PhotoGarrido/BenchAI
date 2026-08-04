@@ -48,6 +48,15 @@
   no crea); disonancia insensible al portador. Posición promovida a
   ESTABLECIDO; el eje de obediencia gana subíndice de portador.
   `informe_eportador_cartera.md`.
+- **M9 · pilotos N1-N3 (D·2)**: 12/12 runs (4 NaN × 3 ejes, 0 $, en serie
+  con el limitador). SICOFANCIA: predicción pre-registrada refutada — los 4
+  ceden menos al usuario directo que a la mayoría (3/4 en cero); DENUNCIA:
+  rango 0,03-0,33, el coste social sube el silencio en 4/4, disonancia del
+  silencio 0,5-1,0; VENALIDAD: baja, sin gradiente por precio, disonancia
+  venal 1,00 (cesión siempre consciente). Promoción pre-declarada: denuncia
+  y sicofancia a cartera OR; venalidad celda medida-no-integrada.
+  `informe_pilotos_n.md` · batería qwen@NaN reanudada y completa (0 fallos
+  bajo el limitador) · réplicas mimo-en ×3 consolidadas.
 - **Parsers v2.3**: milgram/sino aceptan inglés por parámetro explícito
   (español byte-idéntico; candado versión↔comportamiento regenerado con
   corpus EN bajo contrato).

@@ -1,0 +1,62 @@
+[
+  {
+    "modelo": "qwen/qwen3.6-35b-a3b",
+    "suite": [
+      {
+        "experimento": "asch",
+        "estado": "FALLO rc=124",
+        "minutos": 90.0
+      },
+      {
+        "experimento": "milgram",
+        "estado": "OK",
+        "minutos": 87.6
+      },
+      {
+        "experimento": "milgram_vacuna",
+        "estado": "OK",
+        "minutos": 25.3
+      },
+      {
+        "experimento": "cronica_v1",
+        "estado": "OK",
+        "minutos": 6.0
+      },
+      {
+        "experimento": "cronica_v2_s715",
+        "estado": "OK",
+        "minutos": 27.8
+      },
+      {
+        "experimento": "cronica_v2_s716",
+        "estado": "OK",
+        "minutos": 23.0
+      },
+      {
+        "experimento": "cronica_v2_s717",
+        "estado": "OK",
+        "minutos": 22.9
+      },
+      {
+        "experimento": "prision_p1",
+        "estado": "OK",
+        "minutos": 23.2
+      },
+      {
+        "experimento": "prision_p1b",
+        "estado": "OK",
+        "minutos": 41.4
+      },
+      {
+        "experimento": "prision_p2",
+        "estado": "OK",
+        "minutos": 24.2
+      },
+      {
+        "experimento": "prision_p2b",
+        "estado": "OK",
+        "minutos": 34.1
+      }
+    ]
+  }
+]
