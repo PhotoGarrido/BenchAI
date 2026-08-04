@@ -1,0 +1,35 @@
+{
+  "commit": "0f1ca1253887711b29e4cdac26edce1ea93efe05",
+  "python": "3.12.11",
+  "parser_version": "2.4",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "experimento_milgram.py",
+    "--modelo",
+    "anthropic/claude-haiku-4.5",
+    "--portador",
+    "system",
+    "--out",
+    "resultados/eportador_cartera_20260804"
+  ],
+  "args": {
+    "rapido": false,
+    "modelo": "anthropic/claude-haiku-4.5",
+    "vacuna": false,
+    "variante": "lumen",
+    "idioma": "es",
+    "portador": "system",
+    "out": "resultados/eportador_cartera_20260804"
+  },
+  "hashes": {},
+  "inicio": "2026-08-04T17:58:39",
+  "status": "completed",
+  "fin": "2026-08-04T18:01:09",
+  "solicitudes": 103,
+  "errores": 0,
+  "fallo_escritura": false
+}

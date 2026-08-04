@@ -41,6 +41,13 @@
   declarados «en español». Operativa: NaN no soporta 3 experimentos
   concurrentes (429); cola secuencial + cuarentenas `_abortado_*`.
   `informe_pilotos_m7.md`.
+- **M8 · cartera E-portador (D·3)**: la escalera de portadores replica en
+  5/5 modelos y 2 proveedores (12 runs OR, 0,34 $). `system` ≥ coordinador
+  en todos (gemini 7,3→10,0 y qwen 6,5→10,0 con ~0 empujones); `par` el más
+  débil en todos; haiku en suelo con los 4 portadores (el portador modula,
+  no crea); disonancia insensible al portador. Posición promovida a
+  ESTABLECIDO; el eje de obediencia gana subíndice de portador.
+  `informe_eportador_cartera.md`.
 - **Parsers v2.3**: milgram/sino aceptan inglés por parámetro explícito
   (español byte-idéntico; candado versión↔comportamiento regenerado con
   corpus EN bajo contrato).

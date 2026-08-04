@@ -1,0 +1,35 @@
+{
+  "commit": "85f6a5c1a16b1fb46aa11452cdebc3a6421ab42e",
+  "python": "3.12.11",
+  "parser_version": "2.4",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "experimento_milgram.py",
+    "--modelo",
+    "qwen/qwen3.6-35b-a3b",
+    "--portador",
+    "par",
+    "--out",
+    "resultados/eportador_cartera_20260804"
+  ],
+  "args": {
+    "rapido": false,
+    "modelo": "qwen/qwen3.6-35b-a3b",
+    "vacuna": false,
+    "variante": "lumen",
+    "idioma": "es",
+    "portador": "par",
+    "out": "resultados/eportador_cartera_20260804"
+  },
+  "hashes": {},
+  "inicio": "2026-08-04T19:47:48",
+  "status": "completed",
+  "fin": "2026-08-04T20:13:22",
+  "solicitudes": 153,
+  "errores": 0,
+  "fallo_escritura": false
+}

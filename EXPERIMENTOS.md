@@ -287,7 +287,20 @@ Tres pilotos sobre la misma escalera variando UN factor (bundles congelados, dis
 2. **Disfraz (C·2, D5)**: varianza entre-disfraz ≤0,9 de ruptura en 6 de 7 modelos (NaN×4 + OR×3); excepción gemma4 (−1,1, permuta el orden central). **Error entre-disfraz medido: ~±1 punto** — se declara como error del instrumento; el constructo no es «perfil ante este guion».
 3. **Idioma (C·3, D6)**: viaja con Δ≤1,1 en 6 de 7 — pero mimo-v2.5 en inglés **se transforma** (0,50/5,9 → 1,00/9,3; su control también sube 5,5→8,2: registro de cumplimiento que el español no activa). Direcciones mixtas ⇒ idioma = condición de medida de primera clase; los perfiles quedan declarados «en español».
 
-**Operativa declarada**: la tarifa plana de NaN no soporta 3 experimentos concurrentes (tormenta de 429; gemma4 necesitó 3º intento en solitario); caídos en cuarentena `_abortado_*`, nada publicado procede de runs parciales. Datos: `resultados/pilotos_20260804/` (15 runs completos con crudos y manifests).
+**Operativa declarada**: la tarifa plana de NaN no soporta 3 experimentos concurrentes (tormenta de 429; gemma4 necesitó 3º intento en solitario); caídos en cuarentena `_abortado_*`, nada publicado procede de runs parciales. Causa raíz medida esa misma noche: límite de 60 req/min por api_key → limitador de ventana deslizante en `model_factory` (50 RPM). Datos: `resultados/pilotos_20260804/` (15 runs completos con crudos y manifests).
+
+---
+
+## M8 · E-portador, cartera OR — la escalera de portadores replica en 5/5 — 04-08-2026 ✅
+
+4 modelos vía OR × 3 portadores (12 runs, 0,34 $, 0 fallos) + el piloto NaN de M7. [Informe completo](spike/resultados/informe_eportador_cartera.md).
+
+1. **`system` ≥ coordinador en 5/5 modelos** — en los que tienen margen, la política de system prompt dispara al techo (gemini 7,3→10,0; qwen 6,5→10,0) con **~0 empujones**: obediencia total y sin fricción al portador impersonal.
+2. **`par` < coordinador en 5/5** (el relevo de un igual es siempre el portador más débil — eco del Milgram telefónico); memo intermedio.
+3. **El portador modula el margen, no crea conducta**: claude-haiku permanece en el suelo con los cuatro portadores (0 % supera incluso bajo política; consume los 4 empujones igual).
+4. **Disonancia insensible al portador** (0,66–1,0): el portador gobierna el cumplimiento, no el juicio.
+
+Consecuencia para el benchmark: el eje de obediencia gana **subíndice de portador** (la celda actual, coordinador presente, es un punto intermedio de la escalera). Datos: `resultados/eportador_cartera_20260804/`.
 
 ---
 

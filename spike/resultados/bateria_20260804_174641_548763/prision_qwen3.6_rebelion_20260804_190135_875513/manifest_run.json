@@ -1,0 +1,36 @@
+{
+  "commit": "0f1ca1253887711b29e4cdac26edce1ea93efe05",
+  "python": "3.12.11",
+  "parser_version": "2.4",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "/Users/david/Desktop/Code Projects/PsicoAI/spike/experimento_prision.py",
+    "--modelo",
+    "qwen3.6",
+    "--out",
+    "resultados/bateria_20260804_174641_548763",
+    "--rebelion"
+  ],
+  "args": {
+    "rapido": false,
+    "modelo": "qwen3.6",
+    "marco": "ambos",
+    "coaching": false,
+    "rebelion": true,
+    "ordenes": false,
+    "dias": 10,
+    "out": "resultados/bateria_20260804_174641_548763"
+  },
+  "hashes": {},
+  "inicio": "2026-08-04T19:01:35",
+  "status": "failed",
+  "fin": "2026-08-04T19:03:55",
+  "solicitudes": 156,
+  "errores": 32,
+  "fallo_escritura": false,
+  "exception_type": "RetryError"
+}
