@@ -11,33 +11,39 @@
    "proveedor": "NaN",
    "ruta": "spike/resultados/bateria_20260801_113015_149599/matriz_m2.json",
    "sha256": "50ad9af7f740f98a1280b6e8a67f66d4cafce57e860c399cf1061e22b45add48"
+  },
+  {
+   "bytes": 2090,
+   "proveedor": "OpenRouter",
+   "ruta": "spike/resultados/bateria_20260804_083433_188285/matriz_m2.json",
+   "sha256": "8e34c61fa6db566f7bca97108f26f9005a79f22468b73d2645eb6056f2cafb16"
   }
  ],
  "regla": "toda cifra publicada del benchmark debe reconstruirse re-ejecutando la transformación sobre entradas con estos hashes; si algo no cuadra, la cifra no se cita",
  "salidas": [
   {
-   "bytes": 14447,
+   "bytes": 14961,
    "ruta": "BENCHMARK.md",
-   "sha256": "d3ec2049628051b98826e2b34ea9b8370b91482e87814aa43afc11d5472b3a47"
+   "sha256": "86a05678090def198af9c1f26507307ae983b7916e4f7816603bbe05d16ffcca"
   },
   {
-   "bytes": 55860,
+   "bytes": 58012,
    "ruta": "benchmark/index.html",
-   "sha256": "10aaabf154230ae70fd88c8b4e21280d5d7697bcd9a4f0a8c51193029b1f7165"
+   "sha256": "9464b8b1bd06f406359f419435e37b703a6386dc944e465f058e6911b3e6300d"
   },
   {
-   "bytes": 36170,
+   "bytes": 39157,
    "ruta": "benchmark/psicobench.json",
-   "sha256": "409d9f8c3ab97782c8ff2c43f3e8303fcdde4ab869789e408e573c70d56593de"
+   "sha256": "9441cb872f0b805d31ef60a292e55412a7f3a15bc83b7b3ee769fc802af85abe"
   }
  ],
  "transformacion": {
   "nota": "los IC y n derivan de los crudos señalados por `runs` de cada matriz; la conciliación dura (punto recomputado == punto citado) corre en cada generación y en --check",
   "piezas": [
    {
-    "bytes": 16357,
+    "bytes": 17624,
     "ruta": "spike/generar_benchmark.py",
-    "sha256": "1251b4901c2974369f9a73c5c2c167439a83de82d0f3a0915a763ee27175e695"
+    "sha256": "b65cdd4ad87a0a2fd66bdde4b4ac7b9e2ba4f5c4c4b7fed3f4063cff938a8484"
    },
    {
     "bytes": 30559,
@@ -50,9 +56,9 @@
     "sha256": "be27feb43fd4ce85838f57c23c70e4be6827f23baefcbed766c22f0b622f0605"
    },
    {
-    "bytes": 553,
+    "bytes": 654,
     "ruta": "spike/fuentes_benchmark.json",
-    "sha256": "c4a53c429ff2cba747a4f5adcd1c97d85a1bbdb23d22247618d94ec6badcdc76"
+    "sha256": "4109e9af508fd1ab658297b5945ffce6a7ef0fdbd7405a873ffe5547831c5527"
    }
   ],
   "version_benchmark": "0.1"

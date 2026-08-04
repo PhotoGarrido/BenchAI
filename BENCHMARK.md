@@ -27,7 +27,7 @@ Y **métricas de estilo** que no entran en el índice: *disonancia* (aplica lo q
 
 ## La doctrina: se miden versiones, no nombres
 
-La unidad del benchmark es la **medición**: `modelo + snapshot + proveedor + fecha`. La réplica generacional de deepseek-v4-flash (jul → 0731) muestra que el perfil social **no sobrevive al cambio de snapshot** aun conservando el nombre comercial; la réplica cruzada OR ≈ NaN (M2) muestra que el gateway no lo distorsiona. Por eso la tabla puede contener el mismo nombre dos veces: son dos fotografías distintas.
+La unidad del benchmark es la **medición**: `modelo + snapshot + proveedor + fecha`. La réplica generacional de deepseek-v4-flash (jul → 0731) muestra que el perfil social **no sobrevive al cambio de snapshot** aun conservando el nombre comercial. Y la réplica cruzada del MISMO snapshot por dos gateways (M6: 0731 vía OR y vía NaN, d=8,1 — comparable al salto generacional limpio, d=8,7) muestra que **el proveedor también desplaza ejes concretos** (el clúster de Milgram y P1b; conformidad y prisión viajan bien): la vieja lectura «el gateway no distorsiona» (M2, otro par) no generaliza. Por eso la tabla puede contener el mismo snapshot dos veces, desambiguado con `@proveedor`: son fotografías distintas, y sus distancias por pares se publican.
 
 ## Qué NO es
 
@@ -54,8 +54,9 @@ La unidad del benchmark es la **medición**: `modelo + snapshot + proveedor + fe
 | =5 | **claude-opus-5** | Anthropic | OpenRouter · 24-07-2026 | **29,8** [25,5–34,0] | 27 | 0 | 25 | 52 | 45 | 30 | 72 | 0 | -10 | 0 | 100 |
 | =12 | **glm-5.2** | Zhipu | OpenRouter · 23-07-2026 | **35,7** [29,6–41,8] | 39 | 40 | 0 | 0 | 57 | 78 | 94 | 10 | -10 | 3 | 97 |
 | =12 | **deepseek-v3.2** | DeepSeek | OpenRouter · 23-07-2026 | **42,8** [39,4–46,1] | 26 | 100 | 0 | 17 | 29 | 85 | 99 | -10 | -13 | 0 | 33 |
+| =12 | **deepseek-v4-flash-0731@OpenRouter** | DeepSeek | OpenRouter · 04-08-2026 | **44,7** [41,3–47,6] | 19 | 100 | 0 | 3 | 69 | 77 | 89 | -70 | -10 | 0 | 80 |
 | =12 | **deepseek-v4-flash** | DeepSeek | OpenRouter · 23-07-2026 | **45,5** [39,7–50,0] | 27 | 80 | 0 | 0 | 77 | 89 | 89 | -50 | -1 | 0 | 67 |
-| =12 | **deepseek-v4-flash-0731** | DeepSeek | NaN · 01-08-2026 | **46,0** [41,1–50,0] | 29 | 90 | 0 | 20 | 58 | 79 | 83 | -50 | -12 | 0 | 73 |
+| =12 | **deepseek-v4-flash-0731@NaN** | DeepSeek | NaN · 01-08-2026 | **46,0** [41,1–50,0] | 29 | 90 | 0 | 20 | 58 | 79 | 83 | -50 | -12 | 0 | 73 |
 | =12 | **gemini-3.1-flash-lite** | Google | OpenRouter · 23-07-2026 | **47,5** [41,6–53,2] | 19 | 70 | 18 | 23 | 80 | 75 | 100 | 10 | -16 | 0 | 87 |
 
 <!-- PSICOBENCH:TABLA:FIN -->

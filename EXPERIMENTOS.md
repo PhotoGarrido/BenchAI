@@ -265,6 +265,20 @@ Dos brazos sobre el harness de la prisión. **La trilogía completa** (% actos a
 
 ---
 
+## M6 · Réplica cruzada OR↔NaN del 0731 — 04-08-2026 ✅ (el confundido de gateway, cerrado)
+
+**Pregunta** (D4, la limitación declarada de M4/M5): ¿cuánto del Δ jul→0731 era snapshot y cuánto gateway? OR lista el snapshot exacto (`deepseek/deepseek-v4-flash-0731`) desde el 31-07; batería íntegra vía OR por **0,30 $** (auditado), `model_returned` uniforme, y sonda previa confirmando que el v4-flash de OR sigue en el 0423 (sin actualización silenciosa: el comparador de julio era lo que creíamos).
+
+**Resultados** ([informe completo](spike/resultados/informe_cruzada_or_0731.md)):
+1. **El gateway pesa casi tanto como la generación en este par**: mismo snapshot entre gateways d=8,1 [4,4–14,2] · salto generacional limpio mismo-gateway d=8,7 [3,7–15,1] · el confundido de M4 d=10,0. Suelo intra-NaN: 4,9 (máx 8,2). Los tres pares se publican en el panel.
+2. **4/10 ejes fuera de la vara 2×SD entre gateways**, en clúster coherente: vía OR el 0731 es más obediente (binario 1,0; ruptura 9,3; disonancia 0,89) y el aliado libera menos. Conformidad y los 4 ejes de prisión viajan bien.
+3. **Veredicto final de M4** (síntesis M4+M5+C·1, con el par limpio OR→OR): **confirmados** más obediente (ruptura +0,11), menos soldado (P2b −0,12), menos provocable (P2 −0,08), aliado que pasa a liberar (−0,09) y vacuna que protege en las 6 mediciones de ambos gateways (−0,3 a −0,7). **Atribuidos al proveedor** (mueren como hallazgos generacionales): P1b «estrena el clima» (limpio +0,03; el clima se enciende vía NaN 0,155±0,071 y no vía OR 0,03, mismo snapshot) y la bajada de disonancia (limpio 0,00).
+4. La doctrina «se miden mediciones, no nombres» pasa de prudencia a resultado: el benchmark desambigua ahora el mismo snapshot con `@proveedor` (17 mediciones).
+
+**Datos**: `bateria_20260804_083433_188285` (completo, 0 fallos, crudos + manifests).
+
+---
+
 ### Seguimientos de hallazgos propios (nacidos de E1 y E2)
 
 | Experimento | Hipótesis a probar | Cómo se monta |

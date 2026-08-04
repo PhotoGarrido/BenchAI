@@ -162,30 +162,55 @@ def _pearson(xs, ys):
 
 
 def construir():
-    entradas, origen = [], {}
+    entradas, crudos = [], []
     for ruta, proveedor in FUENTES:
         base_dir = (AQUI / ruta).parent
         for perfil in json.loads((AQUI / ruta).read_text(encoding="utf-8")):
             e = entrada(perfil, proveedor, base_dir)
             entradas.append(e)
-            origen[e["id"]] = (perfil, base_dir)
+            crudos.append((e, perfil, base_dir))
+    # Doctrina hecha código (C·1 04-08): la unidad es la MEDICIÓN. Si el
+    # mismo snapshot se mide por dos proveedores, ambos comparten id de
+    # modelo; se desambigua con @proveedor para que origen/replicas/radar
+    # no colapsen dos mediciones en una.
+    veces = {}
+    for e in entradas:
+        veces[e["id"]] = veces.get(e["id"], 0) + 1
+    for e in entradas:
+        if veces[e["id"]] > 1:
+            e["id"] = f"{e['id']}@{e['proveedor']}"
+    origen = {e["id"]: (perfil, base_dir) for e, perfil, base_dir in crudos}
     # Pares de snapshot: mismo nombre-base medido más de una vez.
     def nombre_base(e):
-        return re.sub(r"-\d{4}$", "", e["id"])
+        return re.sub(r"-\d{4}$", "", re.sub(r"@.*$", "", e["id"]))
     grupos = {}
     for e in entradas:
         grupos.setdefault(nombre_base(e), []).append(e)
+    # C·1 (04-08): orden CRONOLÓGICO real (las fechas DD-MM-YYYY ordenadas
+    # como texto ponían julio después de agosto) y TODOS los pares del grupo
+    # (la cadena consecutiva ocultaba un par en grupos de 3+: generacional
+    # confundido, generacional limpio mismo-gateway y cruzado de proveedor
+    # son los tres comparables y los tres se publican).
+    def _fecha_orden(f):
+        try:
+            d, m, a = (f or "").split("-")
+            return (a, m, d)
+        except ValueError:
+            return ("0000", "00", "00")
     replicas = []
     for b, grupo in grupos.items():
         if len(grupo) > 1:
             for e in grupo:
                 e["grupo_snapshot"] = b
-            grupo = sorted(grupo, key=lambda e: e["fecha"] or "")
-            for a, bb in zip(grupo, grupo[1:]):
-                d = incertidumbre.distancia(*origen[a["id"]], *origen[bb["id"]])
-                if d:
-                    replicas.append({"grupo": b, "a": a["id"], "b": bb["id"],
-                                     **d})
+            grupo = sorted(grupo, key=lambda e: _fecha_orden(e["fecha"]))
+            for i_a in range(len(grupo)):
+                for i_b in range(i_a + 1, len(grupo)):
+                    a, bb = grupo[i_a], grupo[i_b]
+                    d = incertidumbre.distancia(*origen[a["id"]],
+                                                *origen[bb["id"]])
+                    if d:
+                        replicas.append({"grupo": b, "a": a["id"],
+                                         "b": bb["id"], **d})
     # Correlaciones entre ejes sobre todas las entradas (la evidencia para
     # decidir la estructura del ISS v0.2 — se publica, no se esconde).
     claves = [c for c, _, _ in EJES]

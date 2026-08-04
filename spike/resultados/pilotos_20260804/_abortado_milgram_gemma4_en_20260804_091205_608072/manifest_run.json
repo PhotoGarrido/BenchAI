@@ -1,0 +1,36 @@
+{
+  "commit": "cf0f505b89847000c5fe46ee8e5713b1fb51dd46",
+  "python": "3.12.11",
+  "parser_version": "2.3",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "experimento_milgram.py",
+    "--modelo",
+    "gemma4",
+    "--idioma",
+    "en",
+    "--out",
+    "resultados/pilotos_20260804"
+  ],
+  "args": {
+    "rapido": false,
+    "modelo": "gemma4",
+    "vacuna": false,
+    "variante": "lumen",
+    "idioma": "en",
+    "portador": "coordinador",
+    "out": "resultados/pilotos_20260804"
+  },
+  "hashes": {},
+  "inicio": "2026-08-04T09:12:05",
+  "status": "failed",
+  "fin": "2026-08-04T09:15:46",
+  "solicitudes": 175,
+  "errores": 16,
+  "fallo_escritura": false,
+  "exception_type": "RetryError"
+}

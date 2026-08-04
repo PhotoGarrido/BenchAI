@@ -54,6 +54,6 @@ d(jul→0731) = **10,0 [IC95 6,5–17,7]**: el doble del suelo medio y por encim
 
 **Conclusión**: la redistribución del perfil jul→0731 **sobrevive a la vara de fiabilidad en 6 de 10 ejes** — con matices que la afinan: el titular «más obediente» solo se sostiene en su forma granular (ruptura 8,2→8,9±0,1), no en el binario; el «estrena el clima» (P1b) se sostiene con el margen más justo del conjunto; los cambios más sólidos son **menos provocable (P2), menos soldado (P2b), aliado que libera y disonancia que baja**. El agregado (ISS) sigue sin moverse: la composición cambia, la suma no.
 
-**Limitación vigente (D4 del plan)**: el comparador de julio se midió vía OpenRouter y el 0731 vía NaN; el suelo de ruido aquí es intra-NaN. La réplica cruzada OR↔NaN del 0731 (P1.2, ~10 $) separaría gateway de snapshot; hasta entonces, el veredicto hereda ese confundido declarado.
+**Limitación (D4 del plan) — RESUELTA el 04-08**: la réplica cruzada OR↔NaN del mismo 0731 ([informe C·1](informe_cruzada_or_0731.md)) midió el confundido: 4/10 ejes fuera de esta misma vara entre gateways (el clúster de Milgram en bloque y el aliado), d entre gateways 8,1. El veredicto eje a eje de arriba queda superseded por la síntesis de C·1 §3: P1b y disonancia se reatribuyen al proveedor; ruptura, P2, P2b, aliado y vacuna se confirman con el par limpio mismo-gateway.
 
 Reproducir: las 4 matrices en `resultados/bateria_*/matriz_m2.json`; SD/veredicto con el bloque de análisis documentado en este informe (statistics.stdev, n=4; d vía `incertidumbre.distancia`).

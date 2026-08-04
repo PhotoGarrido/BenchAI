@@ -21,5 +21,9 @@
   },
   "hashes": {},
   "inicio": "2026-08-04T08:34:34",
-  "status": "running"
+  "status": "completed",
+  "fin": "2026-08-04T09:34:19",
+  "solicitudes": 634,
+  "errores": 0,
+  "fallo_escritura": false
 }

@@ -18,6 +18,19 @@
   paradigma). METODO §A-6 declara top_p/max_tokens reales (deuda D11).
   `informe_alineamiento_c4.md` · reprocesar --check: 55.470 decisiones
   intactas con parsers v2.3.
+- **M6 · réplica cruzada OR↔NaN del 0731 (C·1)**: batería íntegra del
+  snapshot exacto vía OpenRouter (0,30 $ auditado; `model_returned`
+  uniforme; sin actualización silenciosa del v4-flash de OR, sigue en 0423).
+  El gateway pesa casi tanto como la generación: d mismo-snapshot 8,1 ≈
+  d generacional limpio 8,7 (confundido de M4: 10,0); 4/10 ejes fuera de la
+  vara 2×SD entre gateways (clúster Milgram en bloque, aliado). Veredicto
+  final de M4: 5 ejes confirmados con el par limpio (ruptura +0,11, P2b
+  −0,12, aliado −0,09, P2 −0,08, vacuna −0,3..−0,7 siempre protege); P1b
+  «estrena el clima» y la bajada de disonancia se reatribuyen al proveedor.
+  PsicoBench pasa a 17 mediciones con ids `@proveedor`, los 3 pares de
+  distancia del grupo publicados, orden cronológico real de fechas y
+  doctrina de BENCHMARK actualizada («el gateway no distorsiona» no
+  generaliza). `informe_cruzada_or_0731.md`.
 - **Parsers v2.3**: milgram/sino aceptan inglés por parámetro explícito
   (español byte-idéntico; candado versión↔comportamiento regenerado con
   corpus EN bajo contrato).

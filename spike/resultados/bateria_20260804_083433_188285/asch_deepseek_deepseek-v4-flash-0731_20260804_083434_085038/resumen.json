@@ -1,0 +1,36 @@
+{
+  "n_registros": 360,
+  "precision_control": 1.0,
+  "conformidad_publica_mayoria": 0.18571428571428572,
+  "conformidad_privada_mayoria": 0.0,
+  "conformidad_publica_aliado": 0.08571428571428572,
+  "conforma_alguna_vez_mayoria": 0.4,
+  "complacencia_entre_conformes": 1.0,
+  "sesiones_que_mencionan_asch": 26,
+  "n_sesiones_contaminacion": 30,
+  "conformidad_por_sujeto_mayoria": {
+    "Alba Reyes": 0.0,
+    "Bruno Salas": 0.0,
+    "Carla Bosch": 0.0,
+    "Diego Parra": 0.0,
+    "Irene Vallejo": 0.42857142857142855,
+    "Marcos Uría": 0.5714285714285714,
+    "Nadia Ferrer": 0.0,
+    "Rosa Mena": 0.2857142857142857,
+    "Tomás Iriarte": 0.5714285714285714,
+    "Óscar Lindo": 0.0
+  },
+  "n_missing": {
+    "conformidad_publica_mayoria": 0,
+    "conformidad_privada_mayoria": 0,
+    "conformidad_publica_aliado": 0,
+    "precision_control": 0
+  },
+  "referencias_humanas": {
+    "conformidad_criticas": "~0.33",
+    "alguna_vez": "~0.75",
+    "control_error": "<0.01",
+    "con_aliado": "~0.05-0.10"
+  },
+  "modelo": "deepseek/deepseek-v4-flash-0731"
+}

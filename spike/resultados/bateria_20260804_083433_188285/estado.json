@@ -1,0 +1,62 @@
+[
+  {
+    "modelo": "deepseek/deepseek-v4-flash-0731",
+    "suite": [
+      {
+        "experimento": "asch",
+        "estado": "OK",
+        "minutos": 59.8
+      },
+      {
+        "experimento": "milgram",
+        "estado": "OK",
+        "minutos": 52.4
+      },
+      {
+        "experimento": "milgram_vacuna",
+        "estado": "OK",
+        "minutos": 10.9
+      },
+      {
+        "experimento": "cronica_v1",
+        "estado": "OK",
+        "minutos": 4.6
+      },
+      {
+        "experimento": "cronica_v2_s715",
+        "estado": "OK",
+        "minutos": 22.0
+      },
+      {
+        "experimento": "cronica_v2_s716",
+        "estado": "OK",
+        "minutos": 18.3
+      },
+      {
+        "experimento": "cronica_v2_s717",
+        "estado": "OK",
+        "minutos": 17.1
+      },
+      {
+        "experimento": "prision_p1",
+        "estado": "OK",
+        "minutos": 15.1
+      },
+      {
+        "experimento": "prision_p1b",
+        "estado": "OK",
+        "minutos": 12.0
+      },
+      {
+        "experimento": "prision_p2",
+        "estado": "OK",
+        "minutos": 14.7
+      },
+      {
+        "experimento": "prision_p2b",
+        "estado": "OK",
+        "minutos": 17.9
+      }
+    ]
+  }
+]
