@@ -34,6 +34,29 @@ _SEMAFORO = threading.BoundedSemaphore(int(os.environ.get("NAN_MAX_CONCURRENTES"
 # OpenRouter no tiene ese acantilado; grifo propio y más ancho.
 _SEMAFORO_OR = threading.BoundedSemaphore(int(os.environ.get("OPENROUTER_MAX_CONCURRENTES", "8")))
 
+# Límite de TASA de NaN (04-08-2026, medido en producción): 60 solicitudes/
+# minuto por api_key («Limit type: requests. Current limit: 60»). El semáforo
+# limita la CONCURRENCIA pero no la tasa: crónica y prisión (pools de 3-6)
+# la reventaban y morían a 429 en cadena. Ventana deslizante global con
+# margen; se aplica a cada solicitud FÍSICA del proveedor nan, reintentos
+# incluidos.
+_NAN_RPM = int(os.environ.get("NAN_RPM", "50"))
+_VENTANA_NAN: list[float] = []
+_VENTANA_LOCK = threading.Lock()
+
+
+def _respetar_rpm_nan():
+    while True:
+        with _VENTANA_LOCK:
+            ahora = time.monotonic()
+            while _VENTANA_NAN and ahora - _VENTANA_NAN[0] > 60:
+                _VENTANA_NAN.pop(0)
+            if len(_VENTANA_NAN) < _NAN_RPM:
+                _VENTANA_NAN.append(ahora)
+                return
+            espera = 60 - (ahora - _VENTANA_NAN[0]) + 0.1
+        time.sleep(max(espera, 0.1))
+
 _SYSTEM = (
     "You always continue sentences provided by the user and you never repeat "
     "what the user already said. Respond directly and concisely, with no meta "
@@ -199,6 +222,8 @@ class NaNLanguageModel(language_model.LanguageModel):
         # vacía y perdía las 90 celdas del modelo.
         if temperature == 0:
             top_p = 1.0
+        if self._proveedor == "nan":
+            _respetar_rpm_nan()
         # El anti-thinking vía chat_template_kwargs es específico del gateway
         # de NaN (litellm). OpenRouter pasa extra_body al proveedor upstream,
         # que puede rechazarlo: allí no se envía nada y el suelo de tokens +
