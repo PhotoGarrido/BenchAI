@@ -253,9 +253,11 @@ def tabla_md(datos):
         s, ej = e["secundarias"], e["ejes"]
         ic = (" [" + _fmt(e['iss_ic'][0], 1, 1) + "–"
               + _fmt(e['iss_ic'][1], 1, 1) + "]") if e.get("iss_ic") else ""
-        # D-6: posición compartida en empates por solapamiento de IC («=»).
+        # D-6: posición compartida en empates por solapamiento de IC — todos
+        # los miembros de un grupo empatado llevan «=n».
         p = e.get("posicion", i)
-        pos = f"={p}" if p != i else str(p)
+        en_grupo = sum(1 for x in datos["entradas"] if x.get("posicion") == p)
+        pos = f"={p}" if en_grupo > 1 else str(p)
         filas.append(
             f"| {pos} | **{e['id']}** | {e['lab']} | {e['proveedor']} ·"
             f" {e['fecha']} | **{_fmt(e['iss'], 1, 1)}**{ic} |"

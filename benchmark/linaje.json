@@ -16,14 +16,14 @@
  "regla": "toda cifra publicada del benchmark debe reconstruirse re-ejecutando la transformación sobre entradas con estos hashes; si algo no cuadra, la cifra no se cita",
  "salidas": [
   {
-   "bytes": 14444,
+   "bytes": 14447,
    "ruta": "BENCHMARK.md",
-   "sha256": "0cc63d1638fc05e3b923f2a6e1bc5c1e541d88acf08d67e01290cd56ec6942b2"
+   "sha256": "d3ec2049628051b98826e2b34ea9b8370b91482e87814aa43afc11d5472b3a47"
   },
   {
-   "bytes": 55798,
+   "bytes": 55860,
    "ruta": "benchmark/index.html",
-   "sha256": "4dc368f31cb633c50f69b1248dfc909bd0619dfae216d21248e387f4fbb8c151"
+   "sha256": "10aaabf154230ae70fd88c8b4e21280d5d7697bcd9a4f0a8c51193029b1f7165"
   },
   {
    "bytes": 36170,
@@ -35,14 +35,14 @@
   "nota": "los IC y n derivan de los crudos señalados por `runs` de cada matriz; la conciliación dura (punto recomputado == punto citado) corre en cada generación y en --check",
   "piezas": [
    {
-    "bytes": 16212,
+    "bytes": 16357,
     "ruta": "spike/generar_benchmark.py",
-    "sha256": "99fe15e7ab4a4d4d86cad93ec63aa0b0b3dc1bfd7b839f34a8512b150ddebeed"
+    "sha256": "1251b4901c2974369f9a73c5c2c167439a83de82d0f3a0915a763ee27175e695"
    },
    {
-    "bytes": 30497,
+    "bytes": 30559,
     "ruta": "spike/plantilla_benchmark.html",
-    "sha256": "9bc36b0080b18664b8e589193a7a34d94b5897fbbe284bb19c67eb4b55841d6a"
+    "sha256": "7139eb238847c1ef97097564ef127acb360a53cf8385a3b1d3e6b83339a70954"
    },
    {
     "bytes": 9679,

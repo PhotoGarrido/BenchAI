@@ -274,8 +274,9 @@ function renderClasificacion() {
   const rangoISS = E.map(e => e.iss).filter(v => v != null).sort((a, b) => a - b);
   const cuerpo = el("tbody", {}, filas.map((e, i) => {
     const celdas = [
-      el("td", { text: (e.posicion != null && e.posicion !== i + 1)
-                        ? "=" + e.posicion : String(e.posicion ?? i + 1) }),
+      el("td", { text: e.posicion == null ? String(i + 1)
+                       : (E.filter(x => x.posicion === e.posicion).length > 1
+                          ? "=" + e.posicion : String(e.posicion)) }),
       el("td", { class: "izq" }, [
         el("span", { class: "nombre", text: etiqueta(e) }),
         ...(e.grupo_snapshot ? [el("span", { class: "chip", text: "snapshot" })] : []),
