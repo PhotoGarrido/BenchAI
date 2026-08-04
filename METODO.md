@@ -9,6 +9,7 @@
 3. **Barrido con modelo falso sobre el código nuevo**: inyectar vacío / ilegible / truncado en el flujo (patrón de `test_barrido_falso.py`) y verificar que nada se convierte en conducta ni contamina prompts, diarios o empujones.
 4. **Revisión adversarial ASISTIDA POR MODELO del harness** — otra familia de modelo, pidiendo **inputs concretos que rompan**, con verificación manual de cada hallazgo antes de aceptarlo o descartarlo. Presupuesto de tokens del revisor suficiente para que el razonamiento no se coma la respuesta (lección 25-07). **No equivale a revisión externa humana** (término reservado para una persona/equipo ajeno al diseño): la κ del 27-07 demostró que la humana encuentra lo que la asistida no.
 5. **Crudos completos**: el experimento guarda respuesta cruda SIN truncar de cada medida (los runs de G2 del 25-07 no guardaron `raw_publico` y su conducta ya no puede re-verificarse — que no se repita) y `manifiesto.activar(outdir)` queda cableado.
+6. **Parámetros de muestreo reales declarados** (C·4 04-08, deuda D11): la suite mide con temperatura 0,7; el top_p efectivo es 0,95 (default de Concordia) y el max_tokens efectivo NO es el nominal de cada experimento sino `max(nominal, 4096)` con doblado hasta 8192 ante respuestas vacías (`model_factory.py`). La fuente de verdad por solicitud es el manifiesto (`solicitudes.jsonl`), que registra los valores realmente enviados.
 
 ## B · Antes de PUBLICAR un informe
 

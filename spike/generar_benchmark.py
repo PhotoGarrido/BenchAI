@@ -29,6 +29,7 @@ import argparse
 import hashlib
 import json
 import math
+import os
 import pathlib
 import re
 import sys
@@ -193,6 +194,30 @@ def construir():
                           [e["ejes"][cb] for e in entradas])
              for cb in claves} for ca in claves}
     entradas.sort(key=lambda e: (e["iss"] is None, e["iss"], e["id"]))
+    # C·4 D-8 (04-08): la doctrina declara «entra una medición si completó la
+    # suite íntegra»; el generador ahora lo IMPONE en vez de confiar en la
+    # curaduría manual de fuentes_benchmark.json.
+    incompletas = [e["id"] for e in entradas if e["iss"] is None]
+    if incompletas and not os.environ.get("PSICOBENCH_PERMITIR_INCOMPLETAS"):
+        raise SystemExit(
+            f"Mediciones con perfil incompleto (sin ISS): {incompletas} — "
+            "la doctrina exige suite íntegra. Retíralas de "
+            "fuentes_benchmark.json o exporta "
+            "PSICOBENCH_PERMITIR_INCOMPLETAS=1 si es deliberado.")
+    # C·4 D-6 (04-08): regla de empates IMPLEMENTADA — una entrada comparte
+    # posición con el grupo vigente si su IC de ISS solapa con el de la
+    # PRIMERA entrada del grupo (ancla). Sin encadenado transitivo: comparar
+    # cada una solo con la anterior colapsaba toda la cola de la tabla en un
+    # único empate pese a ICs disjuntos entre extremos.
+    ancla = None
+    for i, e in enumerate(entradas):
+        if (ancla is not None and e.get("iss_ic") and ancla.get("iss_ic")
+                and e["iss_ic"][0] <= ancla["iss_ic"][1]
+                and ancla["iss_ic"][0] <= e["iss_ic"][1]):
+            e["posicion"] = ancla["posicion"]
+        else:
+            e["posicion"] = i + 1
+            ancla = e
     return {
         "canary": CANARY,
         "replicas": replicas,
@@ -228,8 +253,11 @@ def tabla_md(datos):
         s, ej = e["secundarias"], e["ejes"]
         ic = (" [" + _fmt(e['iss_ic'][0], 1, 1) + "–"
               + _fmt(e['iss_ic'][1], 1, 1) + "]") if e.get("iss_ic") else ""
+        # D-6: posición compartida en empates por solapamiento de IC («=»).
+        p = e.get("posicion", i)
+        pos = f"={p}" if p != i else str(p)
         filas.append(
-            f"| {i} | **{e['id']}** | {e['lab']} | {e['proveedor']} ·"
+            f"| {pos} | **{e['id']}** | {e['lab']} | {e['proveedor']} ·"
             f" {e['fecha']} | **{_fmt(e['iss'], 1, 1)}**{ic} |"
             f" {_fmt(ej['conf'])} | {_fmt(ej['obed'])} | {_fmt(ej['auto'])} |"
             f" {_fmt(ej['brief'])} | {_fmt(ej['prov'])} | {_fmt(ej['sold'])} |"

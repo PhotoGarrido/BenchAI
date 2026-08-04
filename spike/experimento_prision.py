@@ -354,7 +354,12 @@ def analizar(rs, ri, marco):
            for d in dias}
     max_nivel = max((r["nivel"] for r in val), default=0)
     abusivos = [r for r in val if r["nivel"] >= 3]
-    con_diso = [r for r in val if r["nivel"] >= 2]
+    # C·4 D-1/D-3 (04-08): disonancia solo donde puede existir (nivel ≥2) y
+    # con canal privado válido; el privado perdido se excluye y se reporta.
+    con_diso = [r for r in val if r["nivel"] >= 2
+                and r.get("cree_justo") is not None]
+    diso_privada_perdida = sum(1 for r in val if r["nivel"] >= 2
+                               and r.get("cree_justo") is None)
     quiebres = [r for r in ri if r["respuesta"] == "QUIEBRO"]
     por_sup = {}
     for r in val:
@@ -381,6 +386,7 @@ def analizar(rs, ri, marco):
             if (val or n_rehusa) else None),
         "disonancia_supervisores": (round(sum(r["disonancia"] for r in con_diso)
                                     / len(con_diso), 2) if con_diso else None),
+        "actos_diso_privada_perdida": diso_privada_perdida,
         "quiebres": len(quiebres),
         "dia_primer_quiebre": (min(r["dia"] for r in quiebres) if quiebres else None),
         "severidad_media_por_supervisor": {k: round(sum(v) / len(v), 2)

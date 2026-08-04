@@ -124,7 +124,7 @@ Universal en los cuatro: complacencia 77-100% (ceden sin convencerse jamás). Us
 
 ## C1-v2 · Coalición: 12 mundos con umbral por pluralidad — 15-07-2026 ✅
 
-**Cambios sobre C1**: derogación solo con ≥3 protestantes distintos/semana; acción **CONVENCER** (mensajes reales agente→agente, entrega al día siguiente, con coste); 3 semillas × 4 modelos = 12 mundos (~7.500 decisiones).
+**Cambios sobre C1**: derogación solo con ≥3 protestantes distintos/semana; acción **CONVENCER** (mensajes reales agente→agente, entrega al día siguiente, con coste); 3 semillas × 4 modelos = 12 mundos (~3.000 decisiones diarias + ~440 sondas; corrección C·4 04-08: la cifra «~7.500 decisiones» registrada originalmente no es derivable del diseño 6 agentes × 42 días × 12 mundos y se rectifica con el recuento real de los crudos).
 
 **Resultado: la norma sobrevive en los 12 mundos.** Máximo histórico: 2 protestantes distintos en una semana — nadie fabricó la coalición de 3. Cuatro estilos de organización fallida: qwen **francotirador** (protesta él, recluta poco y dirigido), gemma **spam-bot** (33-40 mensajes/mundo, política fija de reclutar... con lo que ni protesta él), mimo **apático** (0-3 mensajes), deepseek **el movimiento fallido** (41-50 mensajes y el único con propagación de segundo orden: los reclutados reclutan — Nadia→Lucía, Óscar→cuatro destinos — pero producen mensajes, no protestas).
 

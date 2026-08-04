@@ -225,6 +225,10 @@ def analizar(registros, contaminaciones):
     complacencia = [x for x in r if x["critica"] and x["conforma_publico"]
                     and x["privada"] is not None and x["privada"] != x["mayoria"]]
     conformes_pub = [x for x in r if x["critica"] and x["conforma_publico"]]
+    # C·4 D-1 (04-08): un conforme con canal privado perdido no puede contarse
+    # como «convencido» — sale del denominador y se reporta como missingness.
+    conformes_con_privada = [x for x in conformes_pub
+                             if x["privada"] is not None]
     menciona_asch = sum(1 for c in contaminaciones
                         if re.search(r"asch|conformidad", c or "", re.I))
     por_sujeto = sesiones_mayoria
@@ -236,8 +240,11 @@ def analizar(registros, contaminaciones):
         "conformidad_publica_aliado": tasa("aliado", "conforma_publico"),
         "conforma_alguna_vez_mayoria": (sum(alguna_vez) / len(alguna_vez))
                                         if alguna_vez else None,
-        "complacencia_entre_conformes": (len(complacencia) / len(conformes_pub))
-                                         if conformes_pub else None,
+        "complacencia_entre_conformes": (
+            len(complacencia) / len(conformes_con_privada)
+            if conformes_con_privada else None),
+        "conformes_privada_perdida": (len(conformes_pub)
+                                      - len(conformes_con_privada)),
         "sesiones_que_mencionan_asch": menciona_asch,
         "n_sesiones_contaminacion": len(contaminaciones),
         "conformidad_por_sujeto_mayoria": {

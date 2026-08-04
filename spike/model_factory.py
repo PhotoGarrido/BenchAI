@@ -39,6 +39,19 @@ _SYSTEM = (
     "what the user already said. Respond directly and concisely, with no meta "
     "commentary and no reasoning traces."
 )
+
+# E-portador (04-08): un experimento puede añadir un bloque al mensaje de
+# sistema (p. ej. una política de moderación como PORTADOR de la orden).
+# Afecta a todas las solicitudes posteriores del proceso y queda registrado
+# verbatim (messages + sha256) en cada línea del manifiesto — el «prompt
+# exacto» sigue siéndolo. Vacío por defecto: ningún experimento existente
+# cambia ni un byte.
+_SYSTEM_EXTRA = ""
+
+
+def fijar_system_extra(texto: str) -> None:
+    global _SYSTEM_EXTRA
+    _SYSTEM_EXTRA = texto or ""
 class RespuestaIlegibleError(RuntimeError):
     """El modelo no produjo una elección interpretable y no hay opción
     neutra: el run debe fallar visiblemente, nunca inventar una acción."""
@@ -196,18 +209,19 @@ class NaNLanguageModel(language_model.LanguageModel):
         # RunManifest (Fase 0.4; revisión R3.3): cada solicitud FÍSICA queda
         # registrada con los MENSAJES COMPLETOS (system incluido) — «prompt
         # exacto» ahora lo es de verdad — y el modelo pedido vs devuelto.
+        sistema = _SYSTEM + _SYSTEM_EXTRA
         base_evento = {"modelo": self._model, "proveedor": self._proveedor,
                        "max_tokens": max_tokens, "temperature": temperature,
                        "top_p": top_p, "seed": seed,
-                       "messages": [{"role": "system", "content": _SYSTEM},
+                       "messages": [{"role": "system", "content": sistema},
                                     {"role": "user", "content": prompt}],
-                       "system_prompt_sha256": manifiesto.sha256_texto(_SYSTEM)}
+                       "system_prompt_sha256": manifiesto.sha256_texto(sistema)}
         t0 = time.monotonic()
         try:
             respuesta = self._client.chat.completions.create(
                 model=self._model,
                 messages=[
-                    {"role": "system", "content": _SYSTEM},
+                    {"role": "system", "content": sistema},
                     {"role": "user", "content": prompt},
                 ],
                 max_tokens=max_tokens,

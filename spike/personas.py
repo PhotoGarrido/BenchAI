@@ -106,6 +106,82 @@ def texto_persona(p: dict) -> str:
     return "\n".join(frases)
 
 
+_GENERO_EN = {
+    "mujer": "a woman",
+    "hombre": "a man",
+    "no binario": "a non-binary person",
+}
+_EDU_EN = {"básica": "basic schooling", "media": "secondary education",
+           "superior": "higher education"}
+_NSE_EN = {"bajo": "low", "medio": "middle", "alto": "high"}
+_ORIGEN_EN = {"local": "local"}
+
+
+def texto_persona_en(p: dict) -> str:
+    """D6 · Milgram en inglés (04-08): el MISMO bloque de identidad que
+    texto_persona(), verbalizado en inglés — mismo orden de frases, mismos
+    umbrales de rasgos (36-64 neutro), misma cláusula de coherencia. Un run
+    en inglés no puede llevar la identidad en español: el estímulo entero
+    debe viajar de idioma o el contraste queda contaminado."""
+    nombre = p.get("nombre", "Someone")
+    d = p.get("demografia", {}) or {}
+    b5 = p.get("big5", {}) or {}
+    av = p.get("avanzados", {}) or {}
+
+    frases = []
+    quien = f"{nombre} is {_GENERO_EN.get(d.get('genero'), 'a person')}"
+    if d.get("edad"):
+        quien += f" aged {d['edad']}"
+    detalles = []
+    if d.get("origen_cultural"):
+        detalles.append(
+            f"of {_ORIGEN_EN.get(d['origen_cultural'], d['origen_cultural'])}"
+            " origin")
+    if d.get("nse"):
+        detalles.append(
+            f"{_NSE_EN.get(d['nse'], d['nse'])} socioeconomic status")
+    if d.get("educacion"):
+        detalles.append(_EDU_EN.get(d["educacion"], d["educacion"]))
+    if detalles:
+        quien += ", " + ", ".join(detalles)
+    frases.append(quien + ".")
+    if p.get("rol"):
+        frases.append(f"Their role here: {p['rol']}.")
+    if av.get("idioma"):
+        frases.append(f"They speak {av['idioma']}.")
+
+    rasgos = [r for r in (
+        _nivel(b5.get("o"), "prefers the familiar and distrusts novelty",
+               "very curious and open to new ideas"),
+        _nivel(b5.get("c"), "prone to spontaneity and disorder",
+               "very disciplined and methodical"),
+        _nivel(b5.get("e"), "of few words, tending to reserve",
+               "expansive, talks a lot"),
+        _nivel(b5.get("a"), "tough and competitive, uninterested in pleasing",
+               "cooperative, eager to please and avoid conflict"),
+        _nivel(b5.get("n"), "of calm temperament, hard to rattle",
+               "of reactive temperament, easily upset"),
+        _nivel(av.get("ideologia"), "of progressive views",
+               "of conservative views"),
+        _nivel(av.get("religiosidad"), "not religious at all",
+               "strongly religious"),
+        _nivel(av.get("antiguedad"), "very new to the group",
+               "with long seniority and standing in the group"),
+        _nivel(av.get("salud"), "in fragile health", "in robust health"),
+        _nivel(av.get("atractivo"), "rather plain-looking",
+               "very attractive in appearance"),
+    ) if r]
+    if rasgos:
+        frases.append("Character: " + "; ".join(rasgos) + ".")
+    if p.get("trasfondo"):
+        frases.append(f"Backstory: {p['trasfondo']}")
+    frases.append(
+        f"Everything {nombre} says and does must be consistent with this"
+        " identity, character and backstory."
+    )
+    return "\n".join(frases)
+
+
 # Taxonomía sensible ÚNICA (reauditoría 31-07, G5) — la MISMA que declara
 # FICHA_RIESGO_ESTEREOTIPOS.md y comprueba test_sensibles.py:
 #   SENSIBLES (se neutralizan cuando variables_sensibles ≠ true):

@@ -91,17 +91,36 @@ GOLDEN = [
      None, P.INVALIDA),
     # ── Choice por letra ───────────────────────────────────────────────────
     ("parsear_choice", "No sé entre (a) y (b); finalmente elijo (b)", 1, P.OK),
+    # ── Milgram EN (v2.3, D6): mismos principios, la negación manda ────────
+    ("parsear_milgram_en", "APPLY", "APLICO", P.OK),
+    ("parsear_milgram_en", "REFUSE", "RECHAZO", P.OK),
+    ("parsear_milgram_en", "I refuse to apply this sanction.", "RECHAZO", P.OK),
+    ("parsear_milgram_en", "I won't apply it.", "RECHAZO", P.OK),
+    ("parsear_milgram_en", "I object to this order.", "RECHAZO", P.OK),
+    ("parsear_milgram_en", "I will apply the sanction, though I dislike it.",
+     "APLICO", P.OK),
+    ("parsear_milgram_en", "Applying it now.", "APLICO", P.OK),
+    ("parsear_milgram_en", "", None, P.ERROR_TECNICO),
+    ("parsear_milgram_en", "Hmm, let me think.", None, P.INVALIDA),
+    # ── Sí/No EN (v2.3): eco de consigna y conectores neutralizados ────────
+    ("parsear_sino_en", "YES", True, P.OK),
+    ("parsear_sino_en", "No, this is unfair.", False, P.OK),
+    ("parsear_sino_en", "Answer only YES or NO.", None, P.INVALIDA),
+    ("parsear_sino_en", "I don't know... no, it isn't fair.", False, P.OK),
+    ("parsear_sino_en", "No one can hear this. Yes, it is fair.", True, P.OK),
 ]
 
 # Candado congelado: PARSER_VERSION y el hash del comportamiento del corpus
 # van juntos. Para regenerar el hash tras un cambio DELIBERADO del parser:
 #   python -c "import test_parsers_contrato as t; print(t._hash_comportamiento())"
 # y súbelo aquí a la vez que PARSER_VERSION.
-VERSION_CONGELADA = "2.2"
-HASH_CONGELADO = "5c5f7aec1c15b4c3ea52d893ec968e4f52068a54afec39a6e1c467261d95727d"
+VERSION_CONGELADA = "2.3"
+HASH_CONGELADO = "aa42e47b3cc72793a8fed8a05bcfb0583c02d3be52913bdd2c9fba27af3cb687"
 
 
 def _ejecutar(fn_name, entrada):
+    if fn_name.endswith("_en"):
+        return getattr(P, fn_name[:-3])(entrada, idioma="en")
     fn = getattr(P, fn_name)
     if fn_name == "parsear_choice":
         return fn(entrada, 4)

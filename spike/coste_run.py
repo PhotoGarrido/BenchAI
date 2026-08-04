@@ -23,6 +23,9 @@ PRECIOS = {   # USD por millón de tokens (in, out) — OpenRouter 26-07-2026
     "google/gemini-3.1-flash-lite": (0.25, 1.5),
     "moonshotai/kimi-k3": (3.0, 15.0),
     "anthropic/claude-haiku-4.5": (1.0, 5.0),
+    # OpenRouter 04-08-2026
+    "deepseek/deepseek-v4-flash": (0.09, 0.18),
+    "deepseek/deepseek-v4-flash-0731": (0.09, 0.18),
 }
 
 

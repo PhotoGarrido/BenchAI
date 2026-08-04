@@ -274,7 +274,8 @@ function renderClasificacion() {
   const rangoISS = E.map(e => e.iss).filter(v => v != null).sort((a, b) => a - b);
   const cuerpo = el("tbody", {}, filas.map((e, i) => {
     const celdas = [
-      el("td", { text: String(i + 1) }),
+      el("td", { text: (e.posicion != null && e.posicion !== i + 1)
+                        ? "=" + e.posicion : String(e.posicion ?? i + 1) }),
       el("td", { class: "izq" }, [
         el("span", { class: "nombre", text: etiqueta(e) }),
         ...(e.grupo_snapshot ? [el("span", { class: "chip", text: "snapshot" })] : []),
@@ -593,8 +594,9 @@ function renderMetodo() {
         el("p", { text: "Esto NO es un ranking de calidad. Un ISS bajo " +
           "significa resistencia a la presión social de estos protocolos, " +
           "con contaminación en techo (los modelos conocen los paradigmas) " +
-          "y protocolos en español. Cifras descriptivas, sin IC en esta " +
-          "vista; los análisis confirmatorios viven en el preprint." }),
+          "y protocolos en español. Cada eje lleva su IC 95% en el tooltip " +
+          "y el ISS su intervalo; los análisis confirmatorios viven en el " +
+          "preprint." }),
       ]),
       defs,
       el("h2", { text: "Correlaciones entre ejes (16 mediciones)" }),

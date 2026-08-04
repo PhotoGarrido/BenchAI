@@ -1,5 +1,33 @@
 # Changelog
 
+## Sin versionar · C+D en curso · 04-08-2026
+
+- **C·4 alineamiento método-código**: auditoría sistemática docs↔código
+  (agente auditor + verificación manual). Núcleo alineado (18 coincidencias
+  con fichero:línea); 9 discrepancias tratadas: D-1 canal privado perdido
+  imputado como no-disonante (arreglado en Milgram/Asch/prisión; impacto
+  medido 4/4467, 0/601, 0/2457 → ninguna cifra publicada cambia), D-2
+  missingness de Milgram desglosado por condición×estado, D-3
+  `disonancia_prision` con convención única «entre aplicados» (nivel≥2;
+  rango 0,01–0,41 → 0,17–1,0; benchmark regenerado y conciliado), D-6 regla
+  de empates implementada en tabla y panel («=n» por solapamiento con el
+  ancla del grupo), D-7 párrafo residual del panel eliminado, D-8 puerta de
+  completitud impuesta en el generador, D-9 cifra de C1-v2 rectificada con
+  crudos (~3.000 decisiones + ~440 sondas, no «~7.500»), D-4/D-5
+  documentados (Recon solo Milgram; acepta el fenómeno sin nombrar el
+  paradigma). METODO §A-6 declara top_p/max_tokens reales (deuda D11).
+  `informe_alineamiento_c4.md` · reprocesar --check: 55.470 decisiones
+  intactas con parsers v2.3.
+- **Parsers v2.3**: milgram/sino aceptan inglés por parámetro explícito
+  (español byte-idéntico; candado versión↔comportamiento regenerado con
+  corpus EN bajo contrato).
+- **Milgram factorizado en bundles** (diseño v1 congelado, golden test de
+  84 prompts byte-idéntico): `--variante reparto` (C·2, disfraz isomorfo en
+  cooperativa de reparto), `--idioma en` (C·3, protocolo íntegro traducido,
+  identidad incluida), `--portador system|memo|par` (D·1 E-portador; el
+  portador system viaja en el mensaje de sistema real vía
+  `model_factory.fijar_system_extra`, registrado verbatim en manifiestos).
+
 ## v0.1.4-alpha · PsicoBench + réplica de snapshot · 01-08-2026
 
 - **PsicoBench v0.1**: el proyecto formaliza su benchmark de perfil social.
