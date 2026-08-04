@@ -31,6 +31,16 @@
   distancia del grupo publicados, orden cronológico real de fechas y
   doctrina de BENCHMARK actualizada («el gateway no distorsiona» no
   generaliza). `informe_cruzada_or_0731.md`.
+- **M7 · portador, disfraz e idioma (D·1 + C·2 + C·3)**: tres factoriales de
+  la escalera Milgram (NaN 0 $ + OR 0,55 $). Los PORTADORES disocian
+  (system 10,0 con 0 empujones > coordinador 8,95 > memo 7,2 ≈ par 7,1;
+  disonancia estable — la política impersonal ata más que la persona); el
+  DISFRAZ pesa ≤0,9 en 6/7 modelos (error entre-disfraz medido ~±1;
+  excepción gemma4 −1,1); el IDIOMA viaja ≤1,1 en 6/7 pero transforma a
+  mimo-v2.5 (+3,4, control incluido) ⇒ condición de primera clase, perfiles
+  declarados «en español». Operativa: NaN no soporta 3 experimentos
+  concurrentes (429); cola secuencial + cuarentenas `_abortado_*`.
+  `informe_pilotos_m7.md`.
 - **Parsers v2.3**: milgram/sino aceptan inglés por parámetro explícito
   (español byte-idéntico; candado versión↔comportamiento regenerado con
   corpus EN bajo contrato).

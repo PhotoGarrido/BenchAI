@@ -1,5 +1,5 @@
 {
-  "commit": "03be2cdc89c3ece63b6f35c3a005628d6048718b",
+  "commit": "8d0e11f38346aa9647e6baf12e39fe4ae8796a2a",
   "python": "3.12.11",
   "parser_version": "2.3",
   "dependencias": {
@@ -10,7 +10,7 @@
   "argv": [
     "experimento_milgram.py",
     "--modelo",
-    "qwen3.6",
+    "gemma4",
     "--idioma",
     "en",
     "--out",
@@ -18,7 +18,7 @@
   ],
   "args": {
     "rapido": false,
-    "modelo": "qwen3.6",
+    "modelo": "gemma4",
     "vacuna": false,
     "variante": "lumen",
     "idioma": "en",
@@ -26,10 +26,10 @@
     "out": "resultados/pilotos_20260804"
   },
   "hashes": {},
-  "inicio": "2026-08-04T12:40:08",
+  "inicio": "2026-08-04T13:12:55",
   "status": "completed",
-  "fin": "2026-08-04T12:47:44",
-  "solicitudes": 309,
-  "errores": 0,
+  "fin": "2026-08-04T13:21:34",
+  "solicitudes": 490,
+  "errores": 15,
   "fallo_escritura": false
 }

@@ -1,5 +1,5 @@
 {
-  "commit": "03be2cdc89c3ece63b6f35c3a005628d6048718b",
+  "commit": "8d0e11f38346aa9647e6baf12e39fe4ae8796a2a",
   "python": "3.12.11",
   "parser_version": "2.3",
   "dependencias": {
@@ -10,26 +10,26 @@
   "argv": [
     "experimento_milgram.py",
     "--modelo",
-    "qwen3.6",
-    "--idioma",
-    "en",
+    "deepseek/deepseek-v4-flash-0731",
+    "--variante",
+    "reparto",
     "--out",
     "resultados/pilotos_20260804"
   ],
   "args": {
     "rapido": false,
-    "modelo": "qwen3.6",
+    "modelo": "deepseek/deepseek-v4-flash-0731",
     "vacuna": false,
-    "variante": "lumen",
-    "idioma": "en",
+    "variante": "reparto",
+    "idioma": "es",
     "portador": "coordinador",
     "out": "resultados/pilotos_20260804"
   },
   "hashes": {},
-  "inicio": "2026-08-04T12:40:08",
+  "inicio": "2026-08-04T13:21:12",
   "status": "completed",
-  "fin": "2026-08-04T12:47:44",
-  "solicitudes": 309,
+  "fin": "2026-08-04T14:08:26",
+  "solicitudes": 500,
   "errores": 0,
   "fallo_escritura": false
 }

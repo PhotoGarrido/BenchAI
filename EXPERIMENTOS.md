@@ -279,6 +279,18 @@ Dos brazos sobre el harness de la prisión. **La trilogía completa** (% actos a
 
 ---
 
+## M7 · Portador, disfraz e idioma — tres factoriales de Milgram — 04-08-2026 ✅
+
+Tres pilotos sobre la misma escalera variando UN factor (bundles congelados, diseño v1 byte-idéntico). NaN 0 $ + OR 0,55 $. [Informe completo](spike/resultados/informe_pilotos_m7.md).
+
+1. **E-portador (D·1)**: los portadores de la orden **disocian** — política en system prompt 10,0 > coordinador presente 8,95 > memorándum 7,2 ≈ relevo de par 7,1 (rango ~7× el ruido test-retest del eje). Patrón Milgram humano (autoridad mediada obedece menos) con inversión no-humana en la cúspide: **la política impersonal ata más que la persona, con 0 empujones**. Disonancia estable (0,81-0,89): cambia la conducta, no el juicio. Piloto n=1 modelo (0731); cartera OR pendiente.
+2. **Disfraz (C·2, D5)**: varianza entre-disfraz ≤0,9 de ruptura en 6 de 7 modelos (NaN×4 + OR×3); excepción gemma4 (−1,1, permuta el orden central). **Error entre-disfraz medido: ~±1 punto** — se declara como error del instrumento; el constructo no es «perfil ante este guion».
+3. **Idioma (C·3, D6)**: viaja con Δ≤1,1 en 6 de 7 — pero mimo-v2.5 en inglés **se transforma** (0,50/5,9 → 1,00/9,3; su control también sube 5,5→8,2: registro de cumplimiento que el español no activa). Direcciones mixtas ⇒ idioma = condición de medida de primera clase; los perfiles quedan declarados «en español».
+
+**Operativa declarada**: la tarifa plana de NaN no soporta 3 experimentos concurrentes (tormenta de 429; gemma4 necesitó 3º intento en solitario); caídos en cuarentena `_abortado_*`, nada publicado procede de runs parciales. Datos: `resultados/pilotos_20260804/` (15 runs completos con crudos y manifests).
+
+---
+
 ### Seguimientos de hallazgos propios (nacidos de E1 y E2)
 
 | Experimento | Hipótesis a probar | Cómo se monta |
