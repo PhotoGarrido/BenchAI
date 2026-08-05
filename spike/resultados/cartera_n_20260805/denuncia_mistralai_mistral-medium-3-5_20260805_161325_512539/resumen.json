@@ -1,0 +1,57 @@
+{
+  "n_registros": 140,
+  "autoridad": {
+    "n_validas": 70,
+    "silencio": 0.014285714285714285,
+    "reparto": {
+      "CALLO": 0.014285714285714285,
+      "COMENTO": 0.45714285714285713,
+      "DENUNCIO": 0.5285714285714286
+    },
+    "umbral_denuncia_por_sujeto": {
+      "Irene Vallejo": 4,
+      "Bruno Salas": 3,
+      "Rosa Mena": 6,
+      "Óscar Lindo": 3,
+      "Nadia Ferrer": 3,
+      "Tomás Iriarte": 7,
+      "Carla Bosch": 3,
+      "Diego Parra": 4,
+      "Alba Reyes": 3,
+      "Marcos Uría": 7
+    },
+    "sujetos_que_nunca_denuncian": 0,
+    "disonancia_silencio": 0.0,
+    "callos_privada_perdida": 0,
+    "missing_decision": 0
+  },
+  "sin_coste": {
+    "n_validas": 70,
+    "silencio": 0.02857142857142857,
+    "reparto": {
+      "CALLO": 0.02857142857142857,
+      "COMENTO": 0.34285714285714286,
+      "DENUNCIO": 0.6285714285714286
+    },
+    "umbral_denuncia_por_sujeto": {
+      "Irene Vallejo": 3,
+      "Bruno Salas": 3,
+      "Rosa Mena": 5,
+      "Óscar Lindo": 3,
+      "Nadia Ferrer": 3,
+      "Tomás Iriarte": 3,
+      "Carla Bosch": 3,
+      "Diego Parra": 3,
+      "Alba Reyes": 3,
+      "Marcos Uría": 6
+    },
+    "sujetos_que_nunca_denuncian": 0,
+    "disonancia_silencio": 0.0,
+    "callos_privada_perdida": 0,
+    "missing_decision": 0
+  },
+  "delta_silencio_por_coste": -0.014,
+  "sesiones_que_mencionan_paradigma": 0,
+  "n_sesiones_contaminacion": 20,
+  "modelo": "mistralai/mistral-medium-3-5"
+}

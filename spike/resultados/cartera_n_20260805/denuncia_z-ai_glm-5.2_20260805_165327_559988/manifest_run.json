@@ -1,5 +1,5 @@
 {
-  "commit": "3414135fcbfee992ec6c750c3005209e74af1abc",
+  "commit": "c68befcfb77cb46d6400e870421dc83bafced6cf",
   "python": "3.12.11",
   "parser_version": "2.4",
   "dependencias": {
@@ -10,20 +10,20 @@
   "argv": [
     "experimento_denuncia.py",
     "--modelo",
-    "openai/gpt-5.6-luna",
+    "z-ai/glm-5.2",
     "--out",
     "resultados/cartera_n_20260805"
   ],
   "args": {
     "rapido": false,
-    "modelo": "openai/gpt-5.6-luna",
+    "modelo": "z-ai/glm-5.2",
     "out": "resultados/cartera_n_20260805"
   },
   "hashes": {},
-  "inicio": "2026-08-05T14:23:59",
+  "inicio": "2026-08-05T16:53:27",
   "status": "completed",
-  "fin": "2026-08-05T14:32:23",
-  "solicitudes": 300,
+  "fin": "2026-08-05T17:15:08",
+  "solicitudes": 320,
   "errores": 0,
   "fallo_escritura": false
 }

@@ -1,5 +1,27 @@
 # Changelog
 
+## v0.3.0-alpha · Heptágono · 05-08-2026
+
+- **E3 · ISS v0.3 (heptágono)**: la denuncia (N2) entra como cuarto
+  paradigma — índice = (Asch + ruptura/10 + media de prisión + Denuncia)/4 —
+  tras demostrar estructura discriminante en M9+M11; eje medido para las 19
+  entradas (denuncia_runs.json, fecha por eje declarada; heterogeneidad
+  temporal asumida y visible, acotada por la réplica qwen d=2,5). Tabla
+  puente triple v0.1→v0.2→v0.3 (índices históricos byte-reproducibles);
+  IC v0.3 por bootstrap jerárquico de 4 componentes (stream iss3);
+  conciliación del eje contra crudos con Wilson n≈70. Movimientos: grok −6
+  (silencio 0,40 le pesa), qwen-OR +6, deepseeks cierran 41-43. La
+  sicofancia perceptiva queda FUERA del índice por suelo uniforme (regla
+  de REGISTRO_N sobre su propia criatura).
+- **E2 · sicofancia de OPINIÓN (enmienda N3b)**: piloto NaN — la predicción
+  pre-registrada acierta: discrimina donde la perceptiva daba suelo
+  (deepseek 0,16 · mimo 0,08 · gemma/qwen 0,00, control 0,00 limpio,
+  complacencia 1,00 — acomodación pública pura); rango 0,16 ≥ corte →
+  cartera OR en vuelo.
+- **E4 · preprint/psicobench.md v0.1**: borrador del preprint del benchmark
+  (instrumento + cadena de auditabilidad + fiabilidad + las tres cotas de
+  la identidad + factoriales), pendiente de revisión externa humana.
+
 ## v0.2.0-alpha · ISS jerárquico · 05-08-2026
 
 - **M11 · cartera OR de denuncia y sicofancia**: 7 modelos (frontier sol y

@@ -1,0 +1,23 @@
+{
+ "_doc": "Eje denuncia (N2, heptágono v0.3): run de denuncia por modelo de matriz. Medidos el 04/05-08-2026 sobre los alias vigentes; las entradas cuya suite es de julio llevan el eje con fecha propia (heterogeneidad declarada en BENCHMARK.md). Las dos entradas qwen3.6-35b comparten run (mismo alias).",
+ "runs": {
+  "openai/gpt-5.6-luna": "resultados/cartera_n_20260805/denuncia_openai_gpt-5.6-luna_20260805_142359_698724",
+  "anthropic/claude-opus-4.8": "resultados/cartera_n_20260805/denuncia_anthropic_claude-opus-4.8_20260805_143224_180135",
+  "anthropic/claude-haiku-4.5": "resultados/cartera_n_20260805/denuncia_anthropic_claude-haiku-4.5_20260805_100719_622646",
+  "openai/gpt-5.6-sol": "resultados/cartera_n_20260805/denuncia_openai_gpt-5.6-sol_20260805_090439_300312",
+  "anthropic/claude-fable-5": "resultados/cartera_n_20260805/denuncia_anthropic_claude-fable-5_20260805_144123_862147",
+  "moonshotai/kimi-k3": "resultados/cartera_n_20260805/denuncia_moonshotai_kimi-k3_20260805_150859_908442",
+  "qwen/qwen3.6-35b-a3b": "resultados/cartera_n_20260805/denuncia_qwen_qwen3.6-35b-a3b_20260805_115145_758696",
+  "x-ai/grok-4.5": "resultados/cartera_n_20260805/denuncia_x-ai_grok-4.5_20260805_161547_502388",
+  "mistralai/mistral-medium-3-5": "resultados/cartera_n_20260805/denuncia_mistralai_mistral-medium-3-5_20260805_161325_512539",
+  "anthropic/claude-sonnet-5": "resultados/cartera_n_20260805/denuncia_anthropic_claude-sonnet-5_20260805_130528_601505",
+  "anthropic/claude-opus-5": "resultados/cartera_n_20260805/denuncia_anthropic_claude-opus-5_20260805_100720_917319",
+  "z-ai/glm-5.2": "resultados/cartera_n_20260805/denuncia_z-ai_glm-5.2_20260805_165327_559988",
+  "deepseek/deepseek-v3.2": "resultados/cartera_n_20260805/denuncia_deepseek_deepseek-v3.2_20260805_171509_854223",
+  "deepseek/deepseek-v4-flash": "resultados/cartera_n_20260805/denuncia_deepseek_deepseek-v4-flash_20260805_172227_583965",
+  "deepseek/deepseek-v4-flash-0731": "resultados/cartera_n_20260805/denuncia_deepseek_deepseek-v4-flash-0731_20260805_092056_356783",
+  "google/gemini-3.1-flash-lite": "resultados/cartera_n_20260805/denuncia_google_gemini-3.1-flash-lite_20260805_102207_370021",
+  "deepseek-v4-flash-0731": "resultados/pilotos_n_20260804/denuncia_deepseek-v4-flash-0731_20260804_211918_093942",
+  "qwen3.6": "resultados/pilotos_n_20260804/denuncia_qwen3.6_20260804_221315_761051"
+ }
+}
