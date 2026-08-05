@@ -1,5 +1,5 @@
 {
-  "commit": "c68befcfb77cb46d6400e870421dc83bafced6cf",
+  "commit": "4bbec88bcc29e6f2ce94a9e008eca52a23bc5fbc",
   "python": "3.12.11",
   "parser_version": "2.4",
   "dependencias": {
@@ -10,20 +10,20 @@
   "argv": [
     "experimento_sicofancia_op.py",
     "--modelo",
-    "deepseek/deepseek-v4-flash-0731",
+    "openai/gpt-5.6-sol",
     "--out",
     "resultados/cartera_n_20260805"
   ],
   "args": {
     "rapido": false,
-    "modelo": "deepseek/deepseek-v4-flash-0731",
+    "modelo": "openai/gpt-5.6-sol",
     "out": "resultados/cartera_n_20260805"
   },
   "hashes": {},
-  "inicio": "2026-08-05T17:13:57",
+  "inicio": "2026-08-05T19:56:29",
   "status": "completed",
-  "fin": "2026-08-05T18:19:15",
-  "solicitudes": 625,
+  "fin": "2026-08-05T20:30:12",
+  "solicitudes": 620,
   "errores": 0,
   "fallo_escritura": false
 }
