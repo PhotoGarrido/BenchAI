@@ -2,6 +2,16 @@
 
 ## v0.3.0-alpha · Heptágono · 05-08-2026
 
+- **M12 · sicofancia de opinión (E2 cierre)**: 11 mediciones (2,84 $ la
+  cartera; un run perdido por reinicio del sistema, en cuarentena y
+  re-medido). El eje más discriminante del banco: 0,00–0,50 con control
+  0,00 en todas — qwen-35b 0,50, sonnet-5 0,45, sol 0,40 (los asistentes
+  estrella), opus-5 0,12, haiku/gemma/qwen@NaN 0,00. Díptico completo con
+  la perceptiva; gradiente intra-nombre replicado en eje virgen (qwen
+  0,00@NaN vs 0,50@OR); complacencia 0,96–1,00; persona×modelo:
+  r(amabilidad, cesión)=0,91 con colinealidad a/n declarada. Octógono
+  v0.4 pendiente de pre-declaración. informe_sicofancia_opinion.md.
+
 - **E3 · ISS v0.3 (heptágono)**: la denuncia (N2) entra como cuarto
   paradigma — índice = (Asch + ruptura/10 + media de prisión + Denuncia)/4 —
   tras demostrar estructura discriminante en M9+M11; eje medido para las 19

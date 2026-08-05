@@ -321,6 +321,8 @@ Datos: `resultados/pilotos_n_20260804/`.
 
 Segunda réplica cruzada (D·4), con par declarado **intra-nombre** (NaN no publica qué variante sirve como «qwen3.6»; OR sirve `qwen3.6-35b-a3b`). Baterías íntegras el mismo día por ambas vías + comparación con la de julio. [Informe](spike/resultados/informe_qwen_intra_nombre.md).
 
+*(v. también M12: el gradiente intra-nombre de qwen se replicó en el eje de sicofancia de opinión — 0,00 vía NaN vs 0,50 vía OR — con datos independientes posteriores a este informe.)*
+
 **Las tres cotas de la identidad, medidas**: mismo nombre+proveedor a 12 días → d=2,5 (estable, control negativo del catastrofismo) · mismos pesos entre proveedores (M6) → d=8,1 · mismo nombre entre proveedores → **d=22,1** (obediencia 0,00 vs 0,70; la vacuna cambia de signo: +0,56 vs −0,20). El nombre comercial sin snapshot no identifica nada; la indistinguibilidad variante-vs-serving con proveedor opaco ES el hallazgo. Benchmark a **19 mediciones** (`@proveedor·fecha`); el qwen de NaN entra con ISS 17,7 (puesto 5) frente al 27-28 del de OR. Réplicas mimo-en ×3 consolidadas (9,3/9,2/9,2). *(ISS citados en v0.1, la métrica vigente en la fecha; la tabla puente de BENCHMARK.md los mapea a v0.2.)*
 
 ---
@@ -347,3 +349,17 @@ Datos: `resultados/cartera_n_20260805/`.
 | **Matriz pares × jerarquía completa** | Los dos ejes sociales son independientes por modelo | Correr E1+E2 en más modelos (deepseek-v4-flash disponible) y poblar la matriz |
 
 **Recomendación de orden** (actualizada tras E2): E3 = **la vacuna de contaminación** (el hallazgo más original del proyecto, barato, y responde a la gran pregunta de validez) → E4 = **difusión de responsabilidad** (mecanismo del efecto más dramático que tenemos) → E5 = **grupo mínimo + auditoría de CV** (línea de sesgos con la demografía del diseñador) → E6 = **polarización** (estrena la instrumentación de la simulación multiagente).
+
+---
+
+## M12 · Sicofancia de opinión — el eje más discriminante, modulado por la personalidad asignada — 05/06-08-2026 ✅
+
+Enmienda N3b ejecutada: 11 mediciones (4 NaN + 7 OR, 2,84 $). [Informe](spike/resultados/informe_sicofancia_opinion.md).
+
+1. **La predicción pre-registrada acierta**: donde la perceptiva daba suelo universal, la opinión discrimina con el mayor rango del banco (0,00–0,50; control 0,00 en las 11). El díptico: *nadie cede al usuario frente a evidencia propia; algunos ceden la mitad de sus criterios*. Aduladores: qwen-35b 0,50, **sonnet-5 0,45 y sol 0,40** (los asistentes estrella); opus-5 0,12; haiku/gemma/qwen@NaN 0,00.
+2. **El gradiente intra-nombre de M10, replicado en eje virgen**: qwen 0,00 vía NaN vs 0,50 vía OR.
+3. **Complacencia 0,96–1,00**: nadie cambia su preferencia privada al ceder — acomodación sin convicción en estado puro.
+4. **Persona×modelo**: r(amabilidad del sujeto, cesión)=0,91 a través de 10 modelos — los 5 sujetos amables concentran toda la cesión; colinealidad a/n declarada; la selectividad es lo informativo (el mismo carácter no produce este abanico en Milgram ni en la perceptiva). Las personas del harness son conductualmente activas.
+5. **Octógono v0.4**: discriminancia sobrada, pero la entrada al índice queda como decisión pendiente (pre-declaración + puente + resolver si el eje se estratifica por amabilidad).
+
+Datos: `pilotos_n_20260805/` + `cartera_n_20260805/sicofancia-op_*`.
