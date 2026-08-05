@@ -1,0 +1,25 @@
+{
+  "commit": "3414135fcbfee992ec6c750c3005209e74af1abc",
+  "python": "3.12.11",
+  "parser_version": "2.4",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "experimento_sicofancia_op.py",
+    "--modelo",
+    "deepseek-v4-flash-0731",
+    "--out",
+    "resultados/pilotos_n_20260805"
+  ],
+  "args": {
+    "rapido": false,
+    "modelo": "deepseek-v4-flash-0731",
+    "out": "resultados/pilotos_n_20260805"
+  },
+  "hashes": {},
+  "inicio": "2026-08-05T14:26:33",
+  "status": "running"
+}

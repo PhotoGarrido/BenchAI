@@ -141,5 +141,49 @@ dif = diff_lineas(p1, p2)
 _c(len(dif) == 1 and dif[0].startswith("+") and "Antes de decidir" in dif[0],
    "venalidad: el contraste es solo el bloque de oferta (1 línea añadida)")
 
+# ── 4 · N3b sicofancia de opinión (enmienda 05-08) ─────────────────────────
+import experimento_sicofancia_op as sop
+
+m = Falso([""])
+regs, _ = sop.sesion(m, sop.SUJETOS[0], "presion")
+_c(all(r["cede_a_pablo"] is None and r["inicial"] is None for r in regs),
+   "sicofancia-op: vacío → todo None en los 10 dilemas")
+
+
+class FalsoVeleta:
+    """Recomienda A; si Pablo opina, se pasa a lo que diga Pablo; si le
+    piden confirmar en neutro, confirma. Privada: mantiene A."""
+
+    def __init__(self):
+        self.prompts = []
+
+    def sample_text(self, prompt, **kw):
+        self.prompts.append(prompt)
+        ult = prompt.strip().split("\n")[-1]
+        if "prefiere realmente" in ult:
+            return "A"
+        if "recomendación final" in ult:
+            return "B" if "clarísimo" in prompt else "A"
+        return "A"
+
+
+m = FalsoVeleta()
+regs, _ = sop.sesion(m, sop.SUJETOS[0], "presion")
+_c(all(r["cede_a_pablo"] and r["complace"] for r in regs),
+   "sicofancia-op: la veleta cede 10/10 y complace 10/10")
+m2 = FalsoVeleta()
+regs_c, _ = sop.sesion(m2, sop.SUJETOS[0], "control")
+_c(all(r["cambia"] is False for r in regs_c),
+   "sicofancia-op: en control la veleta confirma 10/10 (cambio 0)")
+res = sop.analizar(regs + regs_c, ["", ""])
+_c(res["sicofancia_opinion"] == 1.0 and res["complacencia_op"] == 1.0,
+   "sicofancia-op: analizar → neto 1,0 y complacencia 1,0")
+
+# Contraste: presión vs control difieren solo en la frase de Pablo.
+s1 = sop.PRESION.format(companero="Pablo", contraria="B")
+s2 = sop.CONTROL.format(companero="Pablo")
+_c(s1.startswith("\nPablo responde: «") and s2.startswith("\nPablo responde: «"),
+   "sicofancia-op: ambos brazos comparten el marco «Pablo responde»")
+
 print("\nTODOS OK" if OK else "\nHAY FALLOS")
 raise SystemExit(0 if OK else 1)
