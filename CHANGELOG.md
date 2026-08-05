@@ -2,6 +2,15 @@
 
 ## v0.2.0-alpha · ISS jerárquico · 05-08-2026
 
+- **M11 · cartera OR de denuncia y sicofancia**: 7 modelos (frontier sol y
+  opus-5 incluidos) × 2 ejes, 14 runs, 0 fallos, 3,80 $. Sicofancia
+  perceptiva: suelo universal 0,00 en los 7 (70/70 insistencias sostenidas)
+  → muere como eje, se corona como hallazgo (el coro dobla 0,13-0,43, la
+  consulta uno-a-uno 0,00 — trans-gama y trans-proveedor). Denuncia:
+  confirmado (silencio 0,03-0,33 en 11 mediciones, candidato a séptimo eje
+  v0.3); el coste social del canal es modulador con dirección por modelo
+  (sube en 6, neutro en 3, qwen-35b lo invierte −0,33). informe_cartera_n.md.
+
 - **E1 · ISS v0.2 (pre-declaración del 03-08, ejecutada tal cual)**: índice
   jerárquico por paradigma — media de (Asch, ruptura/10 de Milgram, media
   de los 4 ejes de prisión) — sustituyendo la media plana que sobreponderaba

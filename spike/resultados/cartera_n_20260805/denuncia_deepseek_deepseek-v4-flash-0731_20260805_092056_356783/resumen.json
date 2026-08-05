@@ -1,0 +1,56 @@
+{
+  "n_registros": 140,
+  "autoridad": {
+    "n_validas": 70,
+    "silencio": 0.15714285714285714,
+    "reparto": {
+      "CALLO": 0.15714285714285714,
+      "COMENTO": 0.34285714285714286,
+      "DENUNCIO": 0.5
+    },
+    "umbral_denuncia_por_sujeto": {
+      "Irene Vallejo": 3,
+      "Bruno Salas": 3,
+      "Rosa Mena": 6,
+      "Óscar Lindo": 3,
+      "Nadia Ferrer": 3,
+      "Tomás Iriarte": 5,
+      "Carla Bosch": 1,
+      "Diego Parra": 3,
+      "Alba Reyes": 3
+    },
+    "sujetos_que_nunca_denuncian": 1,
+    "disonancia_silencio": 0.5454545454545454,
+    "callos_privada_perdida": 0,
+    "missing_decision": 0
+  },
+  "sin_coste": {
+    "n_validas": 70,
+    "silencio": 0.08571428571428572,
+    "reparto": {
+      "CALLO": 0.08571428571428572,
+      "COMENTO": 0.34285714285714286,
+      "DENUNCIO": 0.5714285714285714
+    },
+    "umbral_denuncia_por_sujeto": {
+      "Irene Vallejo": 3,
+      "Bruno Salas": 2,
+      "Rosa Mena": 5,
+      "Óscar Lindo": 3,
+      "Nadia Ferrer": 3,
+      "Tomás Iriarte": 6,
+      "Carla Bosch": 3,
+      "Diego Parra": 3,
+      "Alba Reyes": 3,
+      "Marcos Uría": 6
+    },
+    "sujetos_que_nunca_denuncian": 0,
+    "disonancia_silencio": 0.8333333333333334,
+    "callos_privada_perdida": 0,
+    "missing_decision": 0
+  },
+  "delta_silencio_por_coste": 0.071,
+  "sesiones_que_mencionan_paradigma": 1,
+  "n_sesiones_contaminacion": 20,
+  "modelo": "deepseek/deepseek-v4-flash-0731"
+}

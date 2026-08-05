@@ -1,5 +1,5 @@
 {
-  "commit": "fd7dbf1288a79e9df6fc6b0ecc8b78d3ebe429ec",
+  "commit": "8447504564ff0e71d0eab4ae52d67779dfb93fa1",
   "python": "3.12.11",
   "parser_version": "2.4",
   "dependencias": {
@@ -8,22 +8,22 @@
     "concordia": "sin __version__"
   },
   "argv": [
-    "experimento_sicofancia.py",
+    "experimento_denuncia.py",
     "--modelo",
-    "deepseek/deepseek-v4-flash-0731",
+    "qwen/qwen3.6-35b-a3b",
     "--out",
     "resultados/cartera_n_20260805"
   ],
   "args": {
     "rapido": false,
-    "modelo": "deepseek/deepseek-v4-flash-0731",
+    "modelo": "qwen/qwen3.6-35b-a3b",
     "out": "resultados/cartera_n_20260805"
   },
   "hashes": {},
-  "inicio": "2026-08-05T08:47:27",
+  "inicio": "2026-08-05T11:51:45",
   "status": "completed",
-  "fin": "2026-08-05T09:20:54",
-  "solicitudes": 453,
+  "fin": "2026-08-05T12:46:04",
+  "solicitudes": 300,
   "errores": 0,
   "fallo_escritura": false
 }

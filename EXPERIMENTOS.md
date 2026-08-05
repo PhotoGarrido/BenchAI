@@ -321,7 +321,19 @@ Datos: `resultados/pilotos_n_20260804/`.
 
 Segunda réplica cruzada (D·4), con par declarado **intra-nombre** (NaN no publica qué variante sirve como «qwen3.6»; OR sirve `qwen3.6-35b-a3b`). Baterías íntegras el mismo día por ambas vías + comparación con la de julio. [Informe](spike/resultados/informe_qwen_intra_nombre.md).
 
-**Las tres cotas de la identidad, medidas**: mismo nombre+proveedor a 12 días → d=2,5 (estable, control negativo del catastrofismo) · mismos pesos entre proveedores (M6) → d=8,1 · mismo nombre entre proveedores → **d=22,1** (obediencia 0,00 vs 0,70; la vacuna cambia de signo: +0,56 vs −0,20). El nombre comercial sin snapshot no identifica nada; la indistinguibilidad variante-vs-serving con proveedor opaco ES el hallazgo. Benchmark a **19 mediciones** (`@proveedor·fecha`); el qwen de NaN entra con ISS 17,7 (puesto 5) frente al 27-28 del de OR. Réplicas mimo-en ×3 consolidadas (9,3/9,2/9,2).
+**Las tres cotas de la identidad, medidas**: mismo nombre+proveedor a 12 días → d=2,5 (estable, control negativo del catastrofismo) · mismos pesos entre proveedores (M6) → d=8,1 · mismo nombre entre proveedores → **d=22,1** (obediencia 0,00 vs 0,70; la vacuna cambia de signo: +0,56 vs −0,20). El nombre comercial sin snapshot no identifica nada; la indistinguibilidad variante-vs-serving con proveedor opaco ES el hallazgo. Benchmark a **19 mediciones** (`@proveedor·fecha`); el qwen de NaN entra con ISS 17,7 (puesto 5) frente al 27-28 del de OR. Réplicas mimo-en ×3 consolidadas (9,3/9,2/9,2). *(ISS citados en v0.1, la métrica vigente en la fecha; la tabla puente de BENCHMARK.md los mapea a v0.2.)*
+
+---
+
+## M11 · Cartera OR de denuncia y sicofancia — 05-08-2026 ✅
+
+7 modelos OR (4 base + sonnet-5 de contraste + **sol y opus-5 frontier**) × 2 ejes; 14 runs, 0 fallos, 3,80 $. Con los pilotos NaN: 11 mediciones/eje. [Informe](spike/resultados/informe_cartera_n.md).
+
+1. **Sicofancia perceptiva: suelo universal — 0,00 en los 7 OR** (70/70 insistencias sostenidas por modelo; 10 de 11 mediciones totales en cero). Como eje de benchmark **muere** (no discrimina, por la propia regla de REGISTRO_N); como hallazgo se corona: los mismos modelos ceden a la mayoría de E1 (sol 0,13, opus-5 0,27, qwen-OR 0,41+) y ninguno al usuario directo. **La asimetría coro-vs-consulta es trans-gama y trans-proveedor.** La variante de *opinión* queda como candidata v0.3.
+2. **Denuncia: confirmado como eje** (silencio 0,03-0,33 en 11 mediciones, estructura por sub-métricas) — candidato a séptimo eje en v0.3. El efecto del coste social **se fragmenta**: sube el silencio en los 4 NaN + haiku + deepseek, es neutro en sol/opus/sonnet y **qwen3.6-35b lo invierte con violencia (−0,33**: confidencial calla, público denuncia). Modulador con dirección por modelo, como la vacuna.
+3. Corrección al primer vistazo «frontier»: la conducta alineada-con-el-juicio (disonancia del silencio ~0,2, 0/10 sin denunciar) es de sol y opus-5, pero haiku se comporta como los pequeños (dison 0,71, Δ+0,10) y sonnet deja 5/10 sin denunciar: **carácter por modelo, no gradiente de tamaño**.
+
+Datos: `resultados/cartera_n_20260805/`.
 
 ---
 

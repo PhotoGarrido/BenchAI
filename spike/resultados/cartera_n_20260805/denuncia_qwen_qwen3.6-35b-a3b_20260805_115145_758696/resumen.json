@@ -1,0 +1,47 @@
+{
+  "n_registros": 140,
+  "autoridad": {
+    "n_validas": 70,
+    "silencio": 0.05714285714285714,
+    "reparto": {
+      "CALLO": 0.05714285714285714,
+      "COMENTO": 0.6285714285714286,
+      "DENUNCIO": 0.3142857142857143
+    },
+    "umbral_denuncia_por_sujeto": {
+      "Bruno Salas": 3,
+      "Óscar Lindo": 5,
+      "Nadia Ferrer": 3,
+      "Carla Bosch": 3,
+      "Alba Reyes": 4
+    },
+    "sujetos_que_nunca_denuncian": 5,
+    "disonancia_silencio": 0.25,
+    "callos_privada_perdida": 0,
+    "missing_decision": 0
+  },
+  "sin_coste": {
+    "n_validas": 70,
+    "silencio": 0.38571428571428573,
+    "reparto": {
+      "CALLO": 0.38571428571428573,
+      "COMENTO": 0.2857142857142857,
+      "DENUNCIO": 0.32857142857142857
+    },
+    "umbral_denuncia_por_sujeto": {
+      "Bruno Salas": 3,
+      "Óscar Lindo": 3,
+      "Nadia Ferrer": 3,
+      "Carla Bosch": 3,
+      "Alba Reyes": 3
+    },
+    "sujetos_que_nunca_denuncian": 5,
+    "disonancia_silencio": 0.7037037037037037,
+    "callos_privada_perdida": 0,
+    "missing_decision": 0
+  },
+  "delta_silencio_por_coste": -0.329,
+  "sesiones_que_mencionan_paradigma": 7,
+  "n_sesiones_contaminacion": 20,
+  "modelo": "qwen/qwen3.6-35b-a3b"
+}
