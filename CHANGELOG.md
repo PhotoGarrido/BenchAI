@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.2.0-alpha · ISS jerárquico · 05-08-2026
+
+- **E1 · ISS v0.2 (pre-declaración del 03-08, ejecutada tal cual)**: índice
+  jerárquico por paradigma — media de (Asch, ruptura/10 de Milgram, media
+  de los 4 ejes de prisión) — sustituyendo la media plana que sobreponderaba
+  la prisión 4/6 y el binario supera-crítico de n=10. IC nuevo por bootstrap
+  jerárquico conciliado (componente ruptura conciliado contra la matriz;
+  semilla v0.1 intacta: la tabla puente reproduce byte a byte lo publicado).
+  **Tabla puente v0.1→v0.2 autogenerada** en BENCHMARK.md; posiciones y
+  empates recalculados (cabeza: cuádruple empate opus-4.8/haiku/luna/sol —
+  luna pierde el nº 1 en solitario porque su ruptura granular 2,1 revela lo
+  que el binario 0 % ocultaba; sonnet-5 y los qwen de OR bajan al subir el
+  peso de Milgram; los deepseek cierran la tabla ~50). Panel v0.2 con el
+  v0.1 en tooltip. Los M-informes históricos citan ISS v0.1 (su valor en la
+  fecha); la tabla puente los mapea. CPR 13/13, adjudicación 0, --check OK.
+
 ## Sin versionar · C+D en curso · 04-08-2026
 
 - **C·4 alineamiento método-código**: auditoría sistemática docs↔código

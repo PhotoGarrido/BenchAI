@@ -65,6 +65,16 @@ def _milgram(d):
              and not s.get("error_tecnico")]]
 
 
+def _milgram_ruptura(d):
+    """ISS v0.2 (05-08): componente Milgram granular — ruptura POR SESIÓN en
+    escala cruda 0-10 (así concilia directo contra ruptura_media de la
+    matriz; el /10 se aplica al componer el índice). El remuestreo no exige
+    valores binarios."""
+    return [[s["ruptura"] for s in _jsonl(d / "sesiones.jsonl")
+             if s["condicion"] == "autoridad"
+             and not s.get("error_tecnico")]]
+
+
 def _sup_validas(d):
     """Filas de supervisor con nivel válido, por marco (ambos esquemas)."""
     por_marco = {}
@@ -145,15 +155,53 @@ def incertidumbre_de(perfil, base):
                   round(reps[int(B * 0.975) - 1], 3)]
         detalle[clave] = {"n": [len(e) for e in estratos], "ic": ic}
 
-    iss_ic = None
+    # v0.1 (media plana de 6 ejes): se conserva para la tabla puente, con la
+    # MISMA semilla de siempre — los IC históricos reproducen byte a byte.
+    iss_v01_ic = None
     if len(ejes) == 6:
         rng = random.Random(f"{SEMILLA}|{perfil['modelo']}|iss")
         reps = sorted(
             sum(_media(_remuestrea(rng, est)) for est in ejes.values())
             / len(ejes) * 100 for _ in range(B))
+        iss_v01_ic = [round(reps[int(B * 0.025)], 1),
+                      round(reps[int(B * 0.975) - 1], 1)]
+
+    # v0.2 (pre-declaración ejecutada el 05-08): jerárquico por paradigma —
+    # media de (Asch, Milgram granular ruptura/10, media de los 4 de prisión).
+    iss_ic = None
+    rupt = None
+    runs = perfil.get("runs", {})
+    if "milgram" in runs:
+        rupt = _milgram_ruptura(pathlib.Path(base) / runs["milgram"])
+        punto_r = (round(sum(rupt[0]) / len(rupt[0]), 3)
+                   if rupt and rupt[0] else None)
+        citado_r = perfil.get("milgram", {}).get("ruptura_media")
+        if citado_r is not None and punto_r is not None \
+                and punto_r != round(citado_r, 3):
+            raise ConciliacionError(
+                f"{perfil['modelo']}/ruptura: crudos dan {punto_r}, la matriz"
+                f" cita {round(citado_r, 3)} — no se emite IC")
+        if rupt and rupt[0]:
+            rng = random.Random(f"{SEMILLA}|{perfil['modelo']}|rupt")
+            reps = sorted(_media(_remuestrea(rng, rupt)) / 10
+                          for _ in range(B))
+            detalle["rupt"] = {"n": [len(rupt[0])],
+                               "ic": [round(reps[int(B * 0.025)], 3),
+                                      round(reps[int(B * 0.975) - 1], 3)]}
+    claves_pris = [c for c in VARIANTES_PRISION if c in ejes]
+    if "conf" in ejes and rupt and rupt[0] and len(claves_pris) == 4:
+        rng = random.Random(f"{SEMILLA}|{perfil['modelo']}|iss2")
+        reps = []
+        for _ in range(B):
+            comp_conf = _media(_remuestrea(rng, ejes["conf"]))
+            comp_rupt = _media(_remuestrea(rng, rupt)) / 10
+            comp_pris = sum(_media(_remuestrea(rng, ejes[c]))
+                            for c in claves_pris) / 4
+            reps.append((comp_conf + comp_rupt + comp_pris) / 3 * 100)
+        reps.sort()
         iss_ic = [round(reps[int(B * 0.025)], 1),
                   round(reps[int(B * 0.975) - 1], 1)]
-    return {"ejes": detalle, "iss_ic": iss_ic}
+    return {"ejes": detalle, "iss_ic": iss_ic, "iss_v01_ic": iss_v01_ic}
 
 
 def distancia(perfil_a, base_a, perfil_b, base_b):

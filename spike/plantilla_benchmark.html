@@ -283,7 +283,10 @@ function renderClasificacion() {
         el("br"),
         el("span", { class: "meta", text: e.lab + " · " + via(e) }),
       ]),
-      el("td", { class: "iss" }, [
+      el("td", { class: "iss", title: e.iss_v01 == null ? "" :
+          "ISS v0.1 (media plana): " + String(e.iss_v01).replace(".", ",") +
+          (e.iss_v01_ic ? " [" + String(e.iss_v01_ic[0]).replace(".", ",") +
+           "–" + String(e.iss_v01_ic[1]).replace(".", ",") + "]" : "") }, [
         document.createTextNode(e.iss == null ? "—" :
           String(e.iss).replace(".", ",")),
         el("span", { class: "ic", text: e.iss_ic ?
