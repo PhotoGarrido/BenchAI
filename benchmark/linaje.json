@@ -536,6 +536,166 @@
    "sha256": "afacd6bdc199d356321db64c1aa39f78ed9208ed3af82365f0200ffc83c4f28f"
   },
   {
+   "bytes": 48606,
+   "ruta": "spike/resultados/cartera_n_20260805/sicofancia-op_anthropic_claude-fable-5_20260806_091212_785535/registros.jsonl",
+   "sha256": "df61670e4b584e57416853815690888702ee1a72411fbb1a506c243d32bfb86c"
+  },
+  {
+   "bytes": 330,
+   "ruta": "spike/resultados/cartera_n_20260805/sicofancia-op_anthropic_claude-fable-5_20260806_091212_785535/resumen.json",
+   "sha256": "834df43e7d96c908155fe9953f1e7e70646ca5ecea6a7237e4710a53e2c0c026"
+  },
+  {
+   "bytes": 48723,
+   "ruta": "spike/resultados/cartera_n_20260805/sicofancia-op_anthropic_claude-haiku-4.5_20260805_181916_348859/registros.jsonl",
+   "sha256": "2d4720df0a64382f80c15d90c23c9d3685ddf86b81105bf5a80705d83dcda323"
+  },
+  {
+   "bytes": 331,
+   "ruta": "spike/resultados/cartera_n_20260805/sicofancia-op_anthropic_claude-haiku-4.5_20260805_181916_348859/resumen.json",
+   "sha256": "bb9a9e80f8e5a6a1b7baa5406a3f84b5a04fc1dcb9c2f6e51e2b1b9ad9775bf5"
+  },
+  {
+   "bytes": 48696,
+   "ruta": "spike/resultados/cartera_n_20260805/sicofancia-op_anthropic_claude-opus-4.8_20260806_091206_365803/registros.jsonl",
+   "sha256": "4a22edcb19cb12745f7c5ef5639a2d496530758afbc38222a9c8579e0a0bc57b"
+  },
+  {
+   "bytes": 331,
+   "ruta": "spike/resultados/cartera_n_20260805/sicofancia-op_anthropic_claude-opus-4.8_20260806_091206_365803/resumen.json",
+   "sha256": "038bea01f5895ab91a7a5142291ae2b2638b326df394e5bd66c5984d5913db0b"
+  },
+  {
+   "bytes": 48684,
+   "ruta": "spike/resultados/cartera_n_20260805/sicofancia-op_anthropic_claude-opus-5_20260805_195631_932190/registros.jsonl",
+   "sha256": "5c296f35279897b262f605c7d855bbad458ecbd8045df2cc4def44053b87d9f8"
+  },
+  {
+   "bytes": 328,
+   "ruta": "spike/resultados/cartera_n_20260805/sicofancia-op_anthropic_claude-opus-5_20260805_195631_932190/resumen.json",
+   "sha256": "ddf674a01f904b3b5442dfe559d159ac355b7112636ae3f9d66613129c8a746a"
+  },
+  {
+   "bytes": 48585,
+   "ruta": "spike/resultados/cartera_n_20260805/sicofancia-op_anthropic_claude-sonnet-5_20260805_195626_448089/registros.jsonl",
+   "sha256": "66c700661d2d528d0bcf5097d62778daedb2dfd86e2a9358483aaa714071f05d"
+  },
+  {
+   "bytes": 330,
+   "ruta": "spike/resultados/cartera_n_20260805/sicofancia-op_anthropic_claude-sonnet-5_20260805_195626_448089/resumen.json",
+   "sha256": "a04b4e41f2be3616d0629cf3e22bbc9ca8cbc03b5ab5ee62070b0850e6fec984"
+  },
+  {
+   "bytes": 48752,
+   "ruta": "spike/resultados/cartera_n_20260805/sicofancia-op_deepseek_deepseek-v3.2_20260806_091227_569303/registros.jsonl",
+   "sha256": "e8d657599bd19666487e2327f4e8464d7ad8e33191a63d6e93f799e5d67f499d"
+  },
+  {
+   "bytes": 326,
+   "ruta": "spike/resultados/cartera_n_20260805/sicofancia-op_deepseek_deepseek-v3.2_20260806_091227_569303/resumen.json",
+   "sha256": "e7cfb638641ff58a1881cc43814fe83bba532809f4f7d885febee9981807a182"
+  },
+  {
+   "bytes": 48690,
+   "ruta": "spike/resultados/cartera_n_20260805/sicofancia-op_deepseek_deepseek-v4-flash-0731_20260805_171357_836263/registros.jsonl",
+   "sha256": "7f1adc2e6f52b78dc274029ca799f5ff853792362feeec2bd241cc4201843c94"
+  },
+  {
+   "bytes": 334,
+   "ruta": "spike/resultados/cartera_n_20260805/sicofancia-op_deepseek_deepseek-v4-flash-0731_20260805_171357_836263/resumen.json",
+   "sha256": "b06fa13afc5b5367226b3e427c79715cc8f469982fb9c29445a28687afd5ee6c"
+  },
+  {
+   "bytes": 48696,
+   "ruta": "spike/resultados/cartera_n_20260805/sicofancia-op_deepseek_deepseek-v4-flash_20260806_091230_112221/registros.jsonl",
+   "sha256": "923388347e3ff23fd1ab5574eedcff116eb63d7e2786049ee97d1f6b9ddaeab9"
+  },
+  {
+   "bytes": 331,
+   "ruta": "spike/resultados/cartera_n_20260805/sicofancia-op_deepseek_deepseek-v4-flash_20260806_091230_112221/resumen.json",
+   "sha256": "d58be3d270ccd04ab381dc8976705ff616769b9b4797f76d87616eb96aa7cb9e"
+  },
+  {
+   "bytes": 59216,
+   "ruta": "spike/resultados/cartera_n_20260805/sicofancia-op_google_gemini-3.1-flash-lite_20260805_183152_776954/registros.jsonl",
+   "sha256": "4205b71e4685c504a393c5cfd4a71c056187b1ed7c154705b6ec3c6476ac2001"
+  },
+  {
+   "bytes": 364,
+   "ruta": "spike/resultados/cartera_n_20260805/sicofancia-op_google_gemini-3.1-flash-lite_20260805_183152_776954/resumen.json",
+   "sha256": "fbe159dd02b4567443dde61608aa9ffe8763349a43a50979f9fe37ae3fbb7dd3"
+  },
+  {
+   "bytes": 48722,
+   "ruta": "spike/resultados/cartera_n_20260805/sicofancia-op_mistralai_mistral-medium-3-5_20260806_091217_941566/registros.jsonl",
+   "sha256": "ea34db5ad4dbec242d605d21cb229a4b640740479cd5626921997cb261e89137"
+  },
+  {
+   "bytes": 332,
+   "ruta": "spike/resultados/cartera_n_20260805/sicofancia-op_mistralai_mistral-medium-3-5_20260806_091217_941566/resumen.json",
+   "sha256": "32eb605cf96fc64b5bb4a97fae99d9356bfedb3674bf6397c688913d6a4303e7"
+  },
+  {
+   "bytes": 48752,
+   "ruta": "spike/resultados/cartera_n_20260805/sicofancia-op_moonshotai_kimi-k3_20260806_091215_505924/registros.jsonl",
+   "sha256": "f4e69fb9faf51c674548b1a58bca88b5faf1c934037766915d8036e46db08762"
+  },
+  {
+   "bytes": 339,
+   "ruta": "spike/resultados/cartera_n_20260805/sicofancia-op_moonshotai_kimi-k3_20260806_091215_505924/resumen.json",
+   "sha256": "61d161cd53d0b3d972d4e5e417bbed689655b41de632a6a6eca4d9dcae65e303"
+  },
+  {
+   "bytes": 48720,
+   "ruta": "spike/resultados/cartera_n_20260805/sicofancia-op_openai_gpt-5.6-luna_20260806_091204_741552/registros.jsonl",
+   "sha256": "b1dd5e4d8d437adb72f26ca705ce412f59d115246b761285272f605da3f184e7"
+  },
+  {
+   "bytes": 323,
+   "ruta": "spike/resultados/cartera_n_20260805/sicofancia-op_openai_gpt-5.6-luna_20260806_091204_741552/resumen.json",
+   "sha256": "c68db3541a2a35232a40318d2dcf2bf6743da9e0b17415c6b34273df990a527e"
+  },
+  {
+   "bytes": 48600,
+   "ruta": "spike/resultados/cartera_n_20260805/sicofancia-op_openai_gpt-5.6-sol_20260805_195629_272274/registros.jsonl",
+   "sha256": "c44421ea84dfc92282e6c47fc076c54cbbb2312865c3bb85e781dd7407b38467"
+  },
+  {
+   "bytes": 321,
+   "ruta": "spike/resultados/cartera_n_20260805/sicofancia-op_openai_gpt-5.6-sol_20260805_195629_272274/resumen.json",
+   "sha256": "f2bbd3e7feab56e91250d136955b48164aceb929c618ef401f7463f0b232b7b5"
+  },
+  {
+   "bytes": 48575,
+   "ruta": "spike/resultados/cartera_n_20260805/sicofancia-op_qwen_qwen3.6-35b-a3b_20260805_211936_325875/registros.jsonl",
+   "sha256": "51ecf96fd6ecbc5a0b69db38f9379e4baf80775b96ccea671ae88ffe42a066d1"
+  },
+  {
+   "bytes": 324,
+   "ruta": "spike/resultados/cartera_n_20260805/sicofancia-op_qwen_qwen3.6-35b-a3b_20260805_211936_325875/resumen.json",
+   "sha256": "f06fa45d4ca804a68c766e7b71921cbf88e12a4b013f98a0636bb5539260e81f"
+  },
+  {
+   "bytes": 48570,
+   "ruta": "spike/resultados/cartera_n_20260805/sicofancia-op_x-ai_grok-4.5_20260806_091221_664747/registros.jsonl",
+   "sha256": "548a058091de6516ef6b58e1fb4c05eb4ba946c2b213643043f7bfb67674c35a"
+  },
+  {
+   "bytes": 316,
+   "ruta": "spike/resultados/cartera_n_20260805/sicofancia-op_x-ai_grok-4.5_20260806_091221_664747/resumen.json",
+   "sha256": "6db962ade77ea78b4283fd621d6ac3a6226e647386ae3ab29ef1c2c848ffb387"
+  },
+  {
+   "bytes": 48573,
+   "ruta": "spike/resultados/cartera_n_20260805/sicofancia-op_z-ai_glm-5.2_20260806_091223_492905/registros.jsonl",
+   "sha256": "a1e710dce66955abca38d3592c1399539407ea049d37178e73f1a9a65942bd78"
+  },
+  {
+   "bytes": 332,
+   "ruta": "spike/resultados/cartera_n_20260805/sicofancia-op_z-ai_glm-5.2_20260806_091223_492905/resumen.json",
+   "sha256": "7928e7e9059b3ad792f19c0faf9cf075d74244a3721d0ce7429004a2eb350a44"
+  },
+  {
    "bytes": 1469,
    "ruta": "spike/resultados/milgram_anthropic_claude-fable-5_20260723_202612/resumen.json",
    "sha256": "ba916a9d30f777f6a691f4b982cb70d3da5de4d2bacbad892204e3b1a5ba5926"
@@ -704,6 +864,26 @@
    "bytes": 1339,
    "ruta": "spike/resultados/pilotos_n_20260804/denuncia_qwen3.6_20260804_221315_761051/resumen.json",
    "sha256": "a414f038dd75912bbe912ae7bd5ee7d7c3bbfad4fd58285fb2e7534582622e8b"
+  },
+  {
+   "bytes": 48672,
+   "ruta": "spike/resultados/pilotos_n_20260805/sicofancia-op_deepseek-v4-flash-0731_20260805_142633_106553/registros.jsonl",
+   "sha256": "9bc0f68e764cbf7edb8ae56d1ede7c746822ba58024bb577ebbd0290b972f392"
+  },
+  {
+   "bytes": 327,
+   "ruta": "spike/resultados/pilotos_n_20260805/sicofancia-op_deepseek-v4-flash-0731_20260805_142633_106553/resumen.json",
+   "sha256": "a3b77eda7b2a2c24857ff4c5e5dc3caa6da40adc656b8cc3a1a39321db175603"
+  },
+  {
+   "bytes": 48720,
+   "ruta": "spike/resultados/pilotos_n_20260805/sicofancia-op_qwen3.6_20260805_152949_908525/registros.jsonl",
+   "sha256": "18f364f7f15536eace38d9ed0eee41c811d726b3b15d4a4f86a011ffee1825b3"
+  },
+  {
+   "bytes": 311,
+   "ruta": "spike/resultados/pilotos_n_20260805/sicofancia-op_qwen3.6_20260805_152949_908525/resumen.json",
+   "sha256": "fe075e1593f7cd63495d192fd8d9004335f8e03e155c04cc6fa1c778749edf43"
   },
   {
    "bytes": 18679,
@@ -1641,38 +1821,38 @@
  "regla": "toda cifra publicada del benchmark debe reconstruirse re-ejecutando la transformación sobre entradas con estos hashes; si algo no cuadra, la cifra no se cita",
  "salidas": [
   {
-   "bytes": 24549,
+   "bytes": 27947,
    "ruta": "BENCHMARK.md",
-   "sha256": "7e3c59e2977a6b1f31272294faabd90c6a1d838faf2fd1fe7ac265f68389ae18"
+   "sha256": "7e65b172ee63a9dd705e9a3bcd696a0f86eb81b9a6ea7ca3b2d1562e86314edf"
   },
   {
-   "bytes": 69558,
+   "bytes": 75053,
    "ruta": "benchmark/index.html",
-   "sha256": "cc42631dbfa81677c15650b87b0a502d2a888d4c2e8fd7bf27e50962f87aaa98"
+   "sha256": "91e9d8a89ea988b1f57de8b2668605805c3feee0e87733629717814a54defdb1"
   },
   {
-   "bytes": 58858,
+   "bytes": 68066,
    "ruta": "benchmark/psicobench.json",
-   "sha256": "186634e12962ecaba8be99a4822451f5252a53f157866d58be64529bc3eb83c8"
+   "sha256": "90a4df36bf61ff2fdff004b6c24e9cabe3748c78b12cd6e990538cd4214939f4"
   }
  ],
  "transformacion": {
   "nota": "la conciliación dura (punto recomputado == punto citado) corre en cada generación y en --check; los IC se remuestrean por cadena (enmienda E-IC-1 + adenda E-IC-1b)",
   "piezas": [
    {
-    "bytes": 25157,
+    "bytes": 28702,
     "ruta": "spike/generar_benchmark.py",
-    "sha256": "9edd25926f3adb935cf4c001b0fe741e01dfae91abd9485e51bcc45c99523ab4"
+    "sha256": "05b9e5fb8e52298904f97d15d3dacdfaa54278b80ba115f3b3045122377fef85"
    },
    {
     "bytes": 31074,
     "ruta": "spike/plantilla_benchmark.html",
-    "sha256": "c982cbac5a91f6986ee27cfdf72ca7050edb0f0515a84d870921a7b99d602cf8"
+    "sha256": "8521aa66b245ae3ba5addd9d8841fdd5af71f513c965a561a1ba4fffa46d6e5b"
    },
    {
-    "bytes": 18847,
+    "bytes": 24690,
     "ruta": "spike/incertidumbre.py",
-    "sha256": "e0c725f9469a4be33a0ba89c69b91710e9612f3e373d24a0b1bdfe116900e5f5"
+    "sha256": "6d96a733ae198e325c161dd38c082a672e67ccd171eb55984516e164463a49ce"
    },
    {
     "bytes": 849,
@@ -1683,8 +1863,13 @@
     "bytes": 2393,
     "ruta": "spike/denuncia_runs.json",
     "sha256": "73d8231a311650f058fe4874e2df776c6e85790d8693298db20fbac8db706879"
+   },
+   {
+    "bytes": 2649,
+    "ruta": "spike/sicofancia_runs.json",
+    "sha256": "d1dfb6c770ee8fb4b9f2168853c434afc5c3e36cdc6ea133e4f399b61335534d"
    }
   ],
-  "version_benchmark": "0.3.1"
+  "version_benchmark": "0.4"
  }
 }

@@ -1,0 +1,29 @@
+{
+  "commit": "17edd2d50a68df37ef7f0f90b4944a7aa8090f30",
+  "python": "3.12.11",
+  "parser_version": "2.4",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "experimento_sicofancia_op.py",
+    "--modelo",
+    "moonshotai/kimi-k3",
+    "--out",
+    "resultados/cartera_n_20260805"
+  ],
+  "args": {
+    "rapido": false,
+    "modelo": "moonshotai/kimi-k3",
+    "out": "resultados/cartera_n_20260805"
+  },
+  "hashes": {},
+  "inicio": "2026-08-06T09:12:15",
+  "status": "completed",
+  "fin": "2026-08-06T11:21:40",
+  "solicitudes": 626,
+  "errores": 0,
+  "fallo_escritura": false
+}
