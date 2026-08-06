@@ -16,6 +16,14 @@ forma recomendada; las funciones de módulo `activar()`/`registrar()` se
 mantienen por compatibilidad con los harness existentes y delegan en una
 instancia por defecto. `registrar()` jamás tumba un experimento: captura
 también errores de serialización, no solo de E/S (hallazgo 16).
+
+Fail-closed de escritura (G3, auditoría R4 hallazgo 3): TODA escritura
+fallida degrada el run, también la de la cabecera —antes se capturaba y se
+seguía, así que un `manifest_run.json` inescribible dejaba el run cerrando
+`completed` con `fallo_escritura=False` y sin manifiesto en disco—. La
+cabecera INICIAL es además abortiva: `RunManifest(...)` lanza
+`CabeceraNoEscritaError` en vez de construirse, y como los harness activan el
+manifiesto ANTES de `build_model`, el run muere sin gastar un céntimo.
 """
 
 from __future__ import annotations
@@ -30,6 +38,14 @@ import subprocess
 import sys
 import tempfile
 import threading
+
+
+class CabeceraNoEscritaError(OSError):
+    """La cabecera inicial del manifiesto no pudo escribirse (G3).
+
+    Un run que no puede registrar su procedencia no debe empezar a gastar:
+    esta excepción se lanza en el constructor, antes de que ningún harness
+    construya el proveedor."""
 
 
 def escribir_atomico_unico(path, texto: str) -> None:
@@ -121,16 +137,30 @@ class RunManifest:
             "inicio": datetime.datetime.now().isoformat(timespec="seconds"),
             "status": "running",
         }
-        self._escribir_cabecera()
+        # G3 (auditoría R4): si la cabecera inicial no se puede escribir, el
+        # run NO empieza. Abortar aquí es gratis —el manifiesto se activa
+        # antes que el proveedor— y evita el peor caso: gastar en llamadas
+        # cuya procedencia no podrá registrarse.
+        if not self._escribir_cabecera():
+            raise CabeceraNoEscritaError(
+                f"no pude escribir {self.outdir / 'manifest_run.json'}: un run"
+                " que no puede registrar su procedencia no debe empezar a"
+                " gastar (G3). Revisa permisos, espacio y que la ruta no esté"
+                " ocupada por un directorio.")
 
-    def _escribir_cabecera(self):
+    def _escribir_cabecera(self) -> bool:
+        """Escribe la cabecera atómicamente. Devuelve False y marca el run
+        como degradado si no pudo: G3 no admite fallos de escritura mudos."""
         try:
             escribir_atomico_unico(self.outdir / "manifest_run.json",
                                    json.dumps(self.cabecera, ensure_ascii=False,
                                               indent=2, default=str))
+            return True
         except OSError as e:
-            print(f"[manifiesto] no pude escribir cabecera: {e}",
-                  file=sys.stderr)
+            self._fallo_escritura = True
+            print(f"[manifiesto] no pude escribir cabecera (run degradado):"
+                  f" {e}", file=sys.stderr)
+            return False
 
     def registrar(self, evento: dict) -> None:
         evento = dict(evento, ts=datetime.datetime.now()
@@ -169,7 +199,16 @@ class RunManifest:
             "solicitudes": self._n, "errores": self._errores,
             "fallo_escritura": self._fallo_escritura,
             **(extra or {})})
-        self._escribir_cabecera()
+        if not self._escribir_cabecera():
+            # La escritura del CIERRE falló: en disco queda, a lo sumo, la
+            # cabecera 'running' (un run completo parece interrumpido — el
+            # fallo seguro). El estado interno tampoco puede seguir diciendo
+            # 'completed'; se degrada y se reintenta UNA vez por si fue
+            # transitorio. `cerrar()` no lanza nunca: lo llaman bloques
+            # `except` que no deben enmascarar la excepción original.
+            self.cabecera.update({"status": "degraded",
+                                  "fallo_escritura": True})
+            self._escribir_cabecera()
 
     def __enter__(self):
         activar_instancia(self)

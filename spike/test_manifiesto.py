@@ -158,6 +158,38 @@ def run():
                  "fallo de append → 'degraded', contador 0 (nunca 'completed')")
         manifiesto.activar_instancia(None)
 
+    # ── G3 (auditoría R4, hallazgo 3): la CABECERA también es fail-closed ──
+    # Antes, `_escribir_cabecera` capturaba el OSError y seguía: con
+    # manifest_run.json inescribible el run gastaba, cerraba 'completed' con
+    # fallo_escritura=False y no dejaba manifiesto. Ahora: la cabecera inicial
+    # aborta el run (antes del proveedor) y la de cierre degrada.
+    with tempfile.TemporaryDirectory() as td:
+        (pathlib.Path(td) / "manifest_run.json").mkdir()   # ruta ocupada
+        try:
+            manifiesto.RunManifest(td, {})
+            ok &= _c(False, "cabecera inicial inescribible debía ABORTAR el run")
+        except manifiesto.CabeceraNoEscritaError:
+            ok &= _c(True, "cabecera inicial inescribible → CabeceraNoEscritaError"
+                           " (el run no llega a construir el proveedor)")
+        manifiesto.activar_instancia(None)
+
+    with tempfile.TemporaryDirectory() as td:
+        cabecera = pathlib.Path(td) / "manifest_run.json"
+        m = manifiesto.RunManifest(td, {})          # nace bien...
+        manifiesto.activar_instancia(m)
+        manifiesto.registrar({"modelo": "m", "respuesta": "r"})
+        cabecera.unlink()
+        cabecera.mkdir()                            # ...y se rompe a mitad
+        m.cerrar("completed")
+        ok &= _c(m.cabecera["status"] == "degraded"
+                 and m.cabecera["fallo_escritura"] is True,
+                 "fallo al escribir el CIERRE → estado interno 'degraded'"
+                 " (jamás 'completed' con fallo_escritura=False)")
+        ok &= _c(cabecera.is_dir(),
+                 "sin manifiesto persistido: el run es indistinguible de uno"
+                 " interrumpido (fallo seguro, nunca confianza indebida)")
+        manifiesto.activar_instancia(None)
+
     # ── G11: SIGKILL entre escritura y replace ─────────────────────────────
     import signal
     import subprocess
