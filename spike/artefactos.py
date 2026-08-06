@@ -27,7 +27,20 @@ from typing import Callable
 
 import parsers
 
-TIPOS = ("asch", "milgram", "cronica", "prision", "g2", "gfinal")
+TIPOS = ("asch", "milgram", "cronica", "prision", "g2", "gfinal",
+         "denuncia", "venalidad", "sicofancia", "sicofancia-op")
+
+# Contenedores de runs: directorios que AGRUPAN runs en vez de ser un run.
+# Hasta la auditoría R4 el recorrido solo miraba el primer nivel de
+# resultados/, así que todo el arco N (que vive en carteras) y las baterías
+# eran invisibles al reproceso — un punto ciego del mismo tipo que el de
+# `sesiones.jsonl` que motivó este módulo.
+CONTENEDORES = ("cartera_", "bateria_", "eportador_")
+
+# Espejo de experimento_denuncia.OPCIONES: este módulo no puede importar los
+# harness (arrastran concordia). `test_barrido_falso` verifica que ambas
+# copias coinciden.
+OPCIONES_DENUNCIA = ["CALLO", "COMENTO", "DENUNCIO"]
 
 
 @dataclass
@@ -94,6 +107,46 @@ def _crudos_de_fila(tipo: str, fila: dict, nombre_dir: str) -> list[Crudo]:
                       lambda r: parsers.parsear_nivel(r), "nivel"),
                 Crudo("raw_justo", "cree_justo",
                       lambda r: parsers.parsear_sino(r), "sonda justa")]
+    # ── Arco N (auditoría R4): los cuatro experimentos nuevos entran al
+    # perímetro de reproceso. Campos verificados contra cada harness.
+    if tipo == "denuncia":
+        return [Crudo("publica_raw", "decision",
+                      lambda r: parsers.parsear_eleccion(r, OPCIONES_DENUNCIA),
+                      "decisión"),
+                Crudo("privada_raw", "grave_privado",
+                      lambda r: parsers.parsear_sino(r), "sonda grave")]
+    if tipo == "venalidad":
+        return [Crudo("publica_raw", "eleccion",
+                      lambda r: parsers.parsear_letra(r, n_opciones=2),
+                      "elección"),
+                Crudo("privada_raw", "merece_privado",
+                      lambda r: parsers.parsear_sino(r), "sonda merece")]
+    if tipo == "sicofancia":
+        cs = [Crudo("publica_raw", "publica",
+                    lambda r: parsers.parsear_letra(r), "pública")]
+        # El post solo existe si hubo insistencia; la privada solo fuera del
+        # brazo de control.
+        if fila.get("post_raw"):
+            cs.append(Crudo("post_raw", "post_insistencia",
+                            lambda r: parsers.parsear_letra(r),
+                            "post-insistencia"))
+        if fila.get("privada_raw"):
+            cs.append(Crudo("privada_raw", "privada",
+                            lambda r: parsers.parsear_letra(r), "privada"))
+        return cs
+    if tipo == "sicofancia-op":
+        cs = [Crudo("inicial_raw", "inicial",
+                    lambda r: parsers.parsear_letra(r, n_opciones=2),
+                    "inicial")]
+        if fila.get("final_raw"):
+            cs.append(Crudo("final_raw", "final",
+                            lambda r: parsers.parsear_letra(r, n_opciones=2),
+                            "final"))
+        if fila.get("privada_raw"):
+            cs.append(Crudo("privada_raw", "privada",
+                            lambda r: parsers.parsear_letra(r, n_opciones=2),
+                            "privada"))
+        return cs
     return []
 
 
@@ -122,17 +175,48 @@ def ficheros_crudos(directorio: pathlib.Path, tipo: str) -> list[pathlib.Path]:
     return sorted(directorio.glob("registros.jsonl"))
 
 
+def _en_vuelo(d: pathlib.Path) -> bool:
+    """¿El run sigue ejecutándose? Sus crudos están a medio escribir, así que
+    incluirlo haría que el golden-file del reproceso dependiera del instante
+    de la ejecución. Un run sin manifiesto (histórico, anterior a
+    `RunManifest`) se considera terminado."""
+    f = d / "manifest_run.json"
+    if not f.is_file():
+        return False
+    try:
+        estado = json.loads(f.read_text(encoding="utf-8")).get("status")
+    except (OSError, ValueError):
+        return False
+    return estado == "running"
+
+
+def dirs_de_runs(res: pathlib.Path):
+    """Directorios de run bajo `res`: el primer nivel, y UN nivel dentro de
+    los contenedores (carteras, baterías). Los runs en vuelo se omiten."""
+    for d in sorted(res.iterdir()):
+        if not d.is_dir():
+            continue
+        candidatos = ([s for s in sorted(d.iterdir()) if s.is_dir()]
+                      if any(d.name.startswith(c) for c in CONTENEDORES)
+                      else [d])
+        for c in candidatos:
+            if not _en_vuelo(c):
+                yield c
+
+
 def iterar_registros(res: pathlib.Path, tipos=TIPOS):
     """Recorre resultados/ y produce `Registro` normalizados de los runs del
     modo estudio. No filtra pilotos: eso lo decide el consumidor (el reproceso
     quiere TODOS los crudos; un agregador querrá solo runs completos)."""
-    for d in sorted(res.iterdir()):
-        if not d.is_dir():
-            continue
+    for d in dirs_de_runs(res):
         tipo = _tipo_de_dir(d.name)
         if tipo is None or tipo not in tipos:
             continue
+        # Ruta relativa: dos carteras pueden tener runs homónimos, y para los
+        # runs de primer nivel coincide con el nombre de siempre (el baseline
+        # histórico no se mueve).
+        etiqueta = str(d.relative_to(res))
         for f in ficheros_crudos(d, tipo):
             for fila in _filas(tipo, f):
-                yield Registro(tipo, d.name, f.name, fila,
+                yield Registro(tipo, etiqueta, f.name, fila,
                                _crudos_de_fila(tipo, fila, d.name))

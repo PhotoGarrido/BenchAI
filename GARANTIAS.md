@@ -75,5 +75,14 @@ límites conocidos, declarados y vigilados:
   preprint la reporta como medida no validada.
 - Texto libre (`trasfondo`) del simulador: contenido de diseño del autor, fuera
   del alcance del scrub de G5 (que cubre campos estructurados).
+- **Raws en el tope de truncado (arco N, destapado al ampliar el reproceso en
+  la auditoría R4)**: los harness guardan la respuesta cruda recortada
+  (150-200 chars según experimento), pensada para respuestas de una palabra.
+  101 de ~16.900 campos del arco N (0,6 %) llegan al tope —99 de ellos de
+  `gemini-3.1-flash-lite`, que responde con parrafadas en personaje en vez de
+  con la letra pedida— y su conducta NO es re-derivable byte a byte desde el
+  crudo: 4 aparecen como desviación en el reproceso (baseline, categoría
+  truncado). El resto del arco N re-deriva idéntico. Mitigación pendiente:
+  subir el tope en los harness N (deuda registrada, no afecta a lo medido).
 - Branch protection: pendiente de repo público (repo privado sin plan Pro no la
   permite).

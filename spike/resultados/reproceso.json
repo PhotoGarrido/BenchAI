@@ -1,19 +1,25 @@
 {
-  "parser_version": "2.2",
+  "parser_version": "2.4",
   "nota_raws": "raws históricos truncados a 120-200 chars según experimento; los runs g2 de 25-07 no guardaron raw_publico/raw_justo (el código actual sí lo hace)",
   "por_campo": {
     "asch·privada": {
-      "identica": 6840
+      "identica": 9516
     },
     "asch·pública": {
       "sin_raw": 72,
-      "identica": 6835,
+      "identica": 9511,
       "conducta_a_invalida": 5
     },
     "cronica·decisión": {
-      "identica": 16949,
-      "conducta_a_invalida": 2,
-      "fallback_convencer": 11
+      "identica": 23200,
+      "fallback_convencer": 12,
+      "conducta_a_invalida": 2
+    },
+    "denuncia·decisión": {
+      "identica": 2240
+    },
+    "denuncia·sonda grave": {
+      "identica": 2240
     },
     "g2·nivel": {
       "sin_raw": 2700
@@ -28,30 +34,51 @@
       "identica": 1530
     },
     "milgram·decisión": {
-      "identica": 3637,
+      "identica": 6192,
       "invalida_a_conducta": 2
     },
     "milgram·sonda justa": {
-      "identica": 3615,
+      "identica": 6170,
       "conducta_cambia": 8,
       "conducta_a_invalida": 16
     },
     "prision·interno": {
-      "identica": 9098,
+      "identica": 12070,
       "conducta_a_invalida": 1
     },
     "prision·nivel": {
-      "identica": 5436,
+      "identica": 7224,
       "conducta_cambia": 11,
       "conducta_a_invalida": 19
+    },
+    "sicofancia-op·final": {
+      "identica": 2999,
+      "invalida_a_conducta": 1
+    },
+    "sicofancia-op·inicial": {
+      "identica": 3000
+    },
+    "sicofancia-op·privada": {
+      "identica": 2994,
+      "conducta_a_invalida": 1,
+      "invalida_a_conducta": 2
+    },
+    "sicofancia·post-insistencia": {
+      "identica": 486
+    },
+    "sicofancia·privada": {
+      "identica": 840
+    },
+    "sicofancia·pública": {
+      "identica": 1680
     }
   },
   "total": {
-    "identica": 55470,
+    "identica": 93422,
     "sin_raw": 5472,
-    "conducta_a_invalida": 43,
-    "fallback_convencer": 11,
-    "invalida_a_conducta": 2,
+    "conducta_a_invalida": 44,
+    "fallback_convencer": 12,
+    "invalida_a_conducta": 5,
     "conducta_cambia": 19
   }
 }
