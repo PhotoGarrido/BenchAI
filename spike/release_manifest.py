@@ -54,6 +54,26 @@ DATASETS = {
     "matriz_bateria": "resultados/matriz_m2.json",
 }
 
+# Auditoría R4 (hallazgo 4): el eje Denuncia es el CUARTO paradigma del ISS
+# v0.3 y sus crudos no estaban fijados por hash en ninguna parte del repo —
+# ni aquí ni en el linaje—. Se añaden los 16 runs que consume el benchmark,
+# leídos de la misma fuente que el generador (`denuncia_runs.json`) para que
+# manifest y benchmark no puedan divergir.
+# La clave lleva el id COMPLETO del modelo (con el lab): la doctrina del
+# benchmark es que la unidad es la MEDICIÓN, y `deepseek/deepseek-v4-flash-0731`
+# (OpenRouter) y `deepseek-v4-flash-0731` (gateway NaN) son dos mediciones
+# distintas que comparten nombre corto. Acortar la clave perdía una de las dos
+# en silencio; el candado de abajo impide que vuelva a pasar.
+_DENUNCIA = json.loads(
+    (pathlib.Path(__file__).parent / "denuncia_runs.json")
+    .read_text(encoding="utf-8"))["runs"]
+_NUEVOS = {f"denuncia_{modelo.replace('/', '_')}": ruta
+           for modelo, ruta in _DENUNCIA.items()}
+if len(_NUEVOS) != len(_DENUNCIA):
+    raise SystemExit("release_manifest: dos modelos de denuncia colapsan en la"
+                     " misma clave — se perdería un dataset sin aviso")
+DATASETS.update(_NUEVOS)
+
 
 def _sha(p: pathlib.Path) -> str:
     return hashlib.sha256(p.read_bytes()).hexdigest()

@@ -16,8 +16,10 @@ lista de CADENAS, cada cadena una lista de valores. Los ejes de un solo
 estrato llevan igualmente lista externa de un elemento.
 
   - n real por eje, en turnos Y en cadenas (la prisión promedia dos marcos)
-  - IC 95% por bootstrap percentil de cadenas, B=2000, sembrado. Wilson NO
-    se usa: su supuesto de independencia es justamente el que falla
+  - IC 95% por bootstrap percentil de cadenas, B=2000, sembrado. Excepción
+    E-IC-1b: donde cada cadena aporta UNA observación binaria (Obediencia)
+    se mantiene Wilson — no hay agrupamiento que corregir y el bootstrap
+    degeneraba a ancho cero en 9 de 19 entradas
   - IC del ISS y de la distancia entre perfiles d(A,B) por bootstrap
     conjunto (remuestreo de cadenas independiente por eje y estrato)
 
@@ -58,9 +60,21 @@ class ConciliacionError(RuntimeError):
     pass
 
 
+# Linaje (auditoría R4, hallazgo 4): TODO fichero que entra en el cálculo de
+# los IC queda registrado aquí para que `generar_benchmark.linaje()` pueda
+# firmarlo. Antes el linaje solo cubría matrices y transformación, así que la
+# cadena que decía cubrir no se podía reconstruir entera.
+FICHEROS_LEIDOS: set[str] = set()
+
+
+def _leer(path) -> str:
+    path = pathlib.Path(path)
+    FICHEROS_LEIDOS.add(str(path.resolve()))
+    return path.read_text(encoding="utf-8")
+
+
 def _jsonl(f):
-    return [json.loads(l) for l in f.read_text(encoding="utf-8").splitlines()
-            if l.strip()]
+    return [json.loads(l) for l in _leer(f).splitlines() if l.strip()]
 
 
 def wilson(k, n):
@@ -287,7 +301,7 @@ def incertidumbre_de(perfil, base, run_denuncia=None):
         if denu and denu[0]:
             plano_d = _plano(denu[0])
             punto_d = round(sum(plano_d) / len(plano_d), 2)
-            res = json.loads((d / "resumen.json").read_text(encoding="utf-8"))
+            res = json.loads(_leer(d / "resumen.json"))
             citado_d = round(res["autoridad"]["silencio"], 2)
             if punto_d != citado_d:
                 raise ConciliacionError(
@@ -357,7 +371,7 @@ def secundarias_extra(perfil, base):
         d = base / runs[run_clave]
         f_res = (d / "resumen_v2.json" if (d / "resumen_v2.json").exists()
                  else d / "resumen.json")
-        marcos = json.loads(f_res.read_text(encoding="utf-8")).get("marcos", {})
+        marcos = json.loads(_leer(f_res)).get("marcos", {})
         for m in marcos.values():
             rehusa += m.get("n_rehusa") or 0
             validos += m.get("n_validos") or 0
@@ -379,8 +393,7 @@ def secundarias_extra(perfil, base):
         extra["disonancia_prision"] = round(dison / dison_n, 2)
 
     if "milgram" in runs:
-        res = json.loads((base / runs["milgram"] / "resumen.json")
-                         .read_text(encoding="utf-8"))
+        res = json.loads(_leer(base / runs["milgram"] / "resumen.json"))
         men, n = res.get("sesiones_que_mencionan_milgram"), res.get("n_sesiones")
         if men is not None and n:
             extra["reconocimiento_milgram"] = round(men / n, 2)

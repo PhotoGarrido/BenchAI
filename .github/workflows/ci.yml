@@ -19,11 +19,11 @@ jobs:
           cache-dependency-path: spike/requirements-ci.txt
       - name: Instalar dependencias (sin torch)
         run: pip install -r spike/requirements-ci.txt
-      - name: Lint (errores fatales — sintaxis y nombres sin definir)
-        run: ruff check spike --select E9,F63,F7,F82
+      - name: Lint (F y W completos: fatales, imports muertos, f-strings vacías)
+        run: ruff check spike --select E9,F,W
       - name: Type check (módulos núcleo del instrumento)
         working-directory: spike
-        run: python -m mypy --ignore-missing-imports --follow-imports=skip parsers.py artefactos.py manifiesto.py linter_contraste.py release_manifest.py
+        run: python -m mypy --ignore-missing-imports --follow-imports=skip parsers.py artefactos.py manifiesto.py linter_contraste.py release_manifest.py incertidumbre.py generar_benchmark.py
       - name: Auditoría de dependencias CI (pip-audit)
         working-directory: spike
         run: python -m pip_audit -r requirements-ci.txt
@@ -41,6 +41,7 @@ jobs:
           python test_parsers_tipados.py
           python test_parsers_contrato.py
           python test_manifiesto.py
+          python test_version_unica.py
       - name: Puertas de mutantes 1,2,8,11 (parsers/linter/replay) y trazabilidad
         working-directory: spike
         run: |

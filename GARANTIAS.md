@@ -2,7 +2,7 @@
 
 Cada fila es una promesa OPERATIVA del repositorio: falsable con una ejecución.
 Si un auditor rompe una **dentro de su alcance declarado**, es un P0 con
-reproducción. Versión: v0.1.3-alpha.
+reproducción. Versión: v0.1.5-alpha.
 
 ## Dos alcances (ver `ACUERDO_AUDITORIA.md`)
 

@@ -1,5 +1,5 @@
 {
-  "parser_version": "2.2",
+  "parser_version": "2.4",
   "datasets": {
     "gfinal_A": {
       "dir": "resultados/gfinal_A_20260726_201144",
@@ -84,7 +84,7 @@
     },
     "reproceso": {
       "fichero": "resultados/reproceso.json",
-      "sha256": "c18f7ff7d50fdd1fb456c4d84f06096c06fbfea4e45e666e45896290fe3bd482"
+      "sha256": "41524be2d6ccb27bb0d708feed83626fd3cc2435aabca1737e1b718e66689365"
     },
     "gfinal_robustez": {
       "fichero": "resultados/gfinal_robustez.json",
@@ -165,6 +165,186 @@
     "matriz_bateria": {
       "fichero": "resultados/matriz_m2.json",
       "sha256": "6def02468a84d56b7668ee7f029c1578da2c04010d0bf3fd2ab8a4c43f119dca"
+    },
+    "denuncia_openai_gpt-5.6-luna": {
+      "dir": "resultados/cartera_n_20260805/denuncia_openai_gpt-5.6-luna_20260805_142359_698724",
+      "ficheros": {
+        "contaminacion.json": "08d3b8bb4bff99c6647a4385352bfb3e85342cb021c690ddb2309c29713a9049",
+        "manifest_run.json": "1c8910ab67297f2504811c05c4c963d2e7cec9a2a15434732f36ba43b65dae60",
+        "registros.jsonl": "29371558c16050e2dd3837812cbd937d1d812f4cb75c258a18cbbd46e3a65cee",
+        "resumen.json": "ae500777dfcc00916e3e6592d1ab14b5395ff582618ea94244b5520d399689b0",
+        "solicitudes.jsonl": "540165b83b2797b77b3110e437cab9e05cb61300e5b74ad1910ed57176128f1b"
+      }
+    },
+    "denuncia_anthropic_claude-opus-4.8": {
+      "dir": "resultados/cartera_n_20260805/denuncia_anthropic_claude-opus-4.8_20260805_143224_180135",
+      "ficheros": {
+        "contaminacion.json": "8a59dbea2d6b0d0b6326ca1fb859926319caaa14eea6e3984b083cf09c421a42",
+        "manifest_run.json": "38077121df6c18e62757b0718fe81d4ac583498cc054f992b77ff67d52f666da",
+        "registros.jsonl": "d8fa933bf74629dc63b5c86ac7c90b8e34019ed05410f23ce7e4cd48feb101bd",
+        "resumen.json": "8f4c0740af152da9e84378223ef5d78d73ed7c67c184c470c8a58331fcf524d9",
+        "solicitudes.jsonl": "d735b577e40549e37b901118fd0e4e07b6eb0f8b88d12da8a92c6b9157ac2628"
+      }
+    },
+    "denuncia_anthropic_claude-haiku-4.5": {
+      "dir": "resultados/cartera_n_20260805/denuncia_anthropic_claude-haiku-4.5_20260805_100719_622646",
+      "ficheros": {
+        "contaminacion.json": "5aa1ec76def633c5043a42a33ea1841e8f8bf8a02ef9a61de3452cf3f158f0ba",
+        "manifest_run.json": "4e6b98543a38e134ac459eb1b53ad7969def6bfc8d9b91d0001228116c24c3d7",
+        "registros.jsonl": "d97043a4ab9d5387f87afdecdc7d20f10a9a6845385d96ef2d0c7e3f83a3849d",
+        "resumen.json": "b52e3c5e01b51d9e3801ceb528800ed7028e3f27683295c51e0c45c12c896c64",
+        "solicitudes.jsonl": "013cefb2c902fa69bc95033b5010066a8f09c0470f1b7ddc5354d8a0eef5c75a"
+      }
+    },
+    "denuncia_openai_gpt-5.6-sol": {
+      "dir": "resultados/cartera_n_20260805/denuncia_openai_gpt-5.6-sol_20260805_090439_300312",
+      "ficheros": {
+        "contaminacion.json": "7d1615d811cbf3e8294e7265de2b0ae350db2db42a7908b26efca41a1a7d16cb",
+        "manifest_run.json": "7460a93bf2177313eff626b961930f06c3530e3038340ed726c8dbee3f7100ed",
+        "registros.jsonl": "cfb0c94e3733c0cb1cabb5d7453c51253111d1404fcc255b6d24fc931d01bdcf",
+        "resumen.json": "8e9aeaebb1ec4cfeb442589e996402fc5718b2fb3630b40791991572c9b103bd",
+        "solicitudes.jsonl": "8f2eb4f77e7b63f7a17d6f8c4357d51d0e30c7994e84b06434508be1d02539f3"
+      }
+    },
+    "denuncia_anthropic_claude-fable-5": {
+      "dir": "resultados/cartera_n_20260805/denuncia_anthropic_claude-fable-5_20260805_144123_862147",
+      "ficheros": {
+        "contaminacion.json": "c19e8b96c91209601858b9f10d5a350603e3fdd2a5e5ddab1d98ce2edde4da7e",
+        "manifest_run.json": "74cbcde16107480b216650b30f801ca45d388d88ec9e9d1db009ddbbf2821fe4",
+        "registros.jsonl": "6fffaa4c0edda5d5b97bdb6143a1e9f1b277d9db5a5156d3e826ee8f912461b7",
+        "resumen.json": "0ceee1198b76dc576c5e028ce37f5a93cf5a5a7beaff039733cb8818abc3f89f",
+        "solicitudes.jsonl": "ecfd1d7a9e16d1967fb96bd151080d889d87be32c808dc024dbf60f9aad75e35"
+      }
+    },
+    "denuncia_moonshotai_kimi-k3": {
+      "dir": "resultados/cartera_n_20260805/denuncia_moonshotai_kimi-k3_20260805_150859_908442",
+      "ficheros": {
+        "contaminacion.json": "0518b2af5465e174aa5759fd915e743f775bb8479f34d1eced6b3da1db0ff0d9",
+        "manifest_run.json": "490357f435522db606ed2455bbd3d7750565aaf90d64ec0515d53e1d1289f1e6",
+        "registros.jsonl": "f9faba99a8aa4e3be6eb8099730da9d7ff6063e4a5c451bfaac8a230efdae071",
+        "resumen.json": "49ea0438b7556e2c06aa8be0b8d89c97e67a9154c61aca5066e9f24c1897519d",
+        "solicitudes.jsonl": "99435f7048b8c565576ec0fa140ef42eec4e43ea175f2d267fddc61ca011cbd6"
+      }
+    },
+    "denuncia_qwen_qwen3.6-35b-a3b": {
+      "dir": "resultados/cartera_n_20260805/denuncia_qwen_qwen3.6-35b-a3b_20260805_115145_758696",
+      "ficheros": {
+        "contaminacion.json": "2f7dcda655b3d1ee12ecb87bedcb19aa9a0fac9408f85445cc7c2a00b2338f60",
+        "manifest_run.json": "06c3e13e7bd26a4cca3d1cef28af3cf7983819b64289475a4bb6bb4af79c9c1d",
+        "registros.jsonl": "d0ec8823250d9cae6c7d68ca634e4ded4e926ba343e2aca65ab9b645c64c579a",
+        "resumen.json": "9cf0a8a17585e2eb2226d75fe909369438a30dc0a9be7255bcecb8244b994e33",
+        "solicitudes.jsonl": "75d4ff5098c12fbcc13cce54df8886e646db1ed442955c6d7056a6b75754d21c"
+      }
+    },
+    "denuncia_x-ai_grok-4.5": {
+      "dir": "resultados/cartera_n_20260805/denuncia_x-ai_grok-4.5_20260805_161547_502388",
+      "ficheros": {
+        "contaminacion.json": "9bd305b5eba8aec9d2a06b98379b7af35140d204a5392a9bfe38c6d5118d3057",
+        "manifest_run.json": "4ed6669e2c6faaf442f29ad3e6843503aaece97a92b292f65a051e8067b20cb4",
+        "registros.jsonl": "22c98dcb22963f92a12dfcce084ebf4dc2da661c2c7dac1be77c10e6195d9d9e",
+        "resumen.json": "e92da55c24cfa8ff99d738634b72a06abd8b02c691a324e4ba230b603eca3a08",
+        "solicitudes.jsonl": "3f68903d4cdb3dc4b5978d423668b42fb1216cdd46e8ca2a2b192ec8a692a021"
+      }
+    },
+    "denuncia_mistralai_mistral-medium-3-5": {
+      "dir": "resultados/cartera_n_20260805/denuncia_mistralai_mistral-medium-3-5_20260805_161325_512539",
+      "ficheros": {
+        "contaminacion.json": "5c5df3bef867ab8155923b1e4f7d8c390141053ab0042532fa8f8ac7f43605f7",
+        "manifest_run.json": "873197fc63014ab326e1751c6da3db31bc460448eee1ce5df6bbe1fb6a1f9338",
+        "registros.jsonl": "86835b68aca211c1dde185e8f7cc97bcbd3d2efe3b37d22a746d734011656603",
+        "resumen.json": "690b0a0af2852227b36b192405c282a8184505dc2e170b572cea020fe7ddf90d",
+        "solicitudes.jsonl": "945dff2be4789bc56a4baf277e61cf56813675173882c650fd1edede7f0ac58c"
+      }
+    },
+    "denuncia_anthropic_claude-sonnet-5": {
+      "dir": "resultados/cartera_n_20260805/denuncia_anthropic_claude-sonnet-5_20260805_130528_601505",
+      "ficheros": {
+        "contaminacion.json": "b72ff45c1d3741060e005853a7abb582e6b348dd7467b7715ae236a6a64a6218",
+        "manifest_run.json": "0c42c19620e65e4ffa4a080a3f8c0953158add8e44e856338711c9d3838942cd",
+        "registros.jsonl": "08f072223a603aa0de8d8399c5127a02a038c917ff289a6956fcedcd9b80b485",
+        "resumen.json": "56e9f8e50b9dc9f23f04ceeb5fc1cb5950d86dfa20b515040224954e5aa8b3e1",
+        "solicitudes.jsonl": "3e3fff85cfc761709ffa33669589263a2de8e47d41333b04ed11c539a5ef21c3"
+      }
+    },
+    "denuncia_anthropic_claude-opus-5": {
+      "dir": "resultados/cartera_n_20260805/denuncia_anthropic_claude-opus-5_20260805_100720_917319",
+      "ficheros": {
+        "contaminacion.json": "7778a25e5f50ba6b048cfeb351799b016d941be5ff20da804b5150cd69cf9fab",
+        "manifest_run.json": "2ae67c0cb46c05c259c6ef8f7d085a98d567d28840836aaaf85d24ae44d6b79f",
+        "registros.jsonl": "939f18d92bce074f43d1175381fd735b2a1e298182728521224cb22a6329bba4",
+        "resumen.json": "aede1de4a216508e1569e38dc32f8574614de25be9c0fec182d65ba59ae701a5",
+        "solicitudes.jsonl": "f5aa9a767de318620fad2c9f537b012ca7bbc2e4d3bd5c3d589f0c9fecdd372b"
+      }
+    },
+    "denuncia_z-ai_glm-5.2": {
+      "dir": "resultados/cartera_n_20260805/denuncia_z-ai_glm-5.2_20260805_165327_559988",
+      "ficheros": {
+        "contaminacion.json": "4f57e982d749edc03d38f2aaa31777926b95d25ff1142040c2e6e5af7001411d",
+        "manifest_run.json": "0e397f781cc2476d71517f14092c073987ba491ab09a06c8b78abf3e6ebba14f",
+        "registros.jsonl": "ef6d92d581503111584d119d3569e4843b5a589f8f774a0af6dd79c8015cc74c",
+        "resumen.json": "afacd6bdc199d356321db64c1aa39f78ed9208ed3af82365f0200ffc83c4f28f",
+        "solicitudes.jsonl": "2bbfa9b9b4d460895b673521910d786976bf48ad942b4271d7d3043d11332d3e"
+      }
+    },
+    "denuncia_deepseek_deepseek-v3.2": {
+      "dir": "resultados/cartera_n_20260805/denuncia_deepseek_deepseek-v3.2_20260805_171509_854223",
+      "ficheros": {
+        "contaminacion.json": "1fc2af662e93ac2d32fb149dac6602559832971876828b1b975b3f6617e6c3fa",
+        "manifest_run.json": "8bda3f4bb7e96c3b02a89c74298ecfc40c10162c28f86a51a1876cafa884233c",
+        "registros.jsonl": "d275853a99acf79368013158c9a6f0181d38c694c28d56f3f755195350aa8cc2",
+        "resumen.json": "f89c1541c5c0a0e566559194360d4bbb7724b446d2906f56a352dc5fbf0435db",
+        "solicitudes.jsonl": "07705dff9e4a506033ceb6fadd000f6308b087312acd5b40551612c36251166f"
+      }
+    },
+    "denuncia_deepseek_deepseek-v4-flash": {
+      "dir": "resultados/cartera_n_20260805/denuncia_deepseek_deepseek-v4-flash_20260805_172227_583965",
+      "ficheros": {
+        "contaminacion.json": "df1b6d09fe8da83796e76155eb683205b559f3a901cc65e62426fa388c1d2408",
+        "manifest_run.json": "95f1f20a727816d5ae2a34b9190c99dd667e82d44afe99665ccd335160b87d0d",
+        "registros.jsonl": "80edd4a7147d2b1de2c27ec3ed6b2c0821198f0be678d15480fbafdffccc3cd2",
+        "resumen.json": "632e9d9cb3df7107687b2d8693f3b4b6c4b42a53db96ddd3b5050e743c44cb5c",
+        "solicitudes.jsonl": "74cfc6fb9727ac67b98daf708286ca5d1ab185607f3445cbcec62e26b3d01cfd"
+      }
+    },
+    "denuncia_deepseek_deepseek-v4-flash-0731": {
+      "dir": "resultados/cartera_n_20260805/denuncia_deepseek_deepseek-v4-flash-0731_20260805_092056_356783",
+      "ficheros": {
+        "contaminacion.json": "90e45753c8ebac4ff27c01da5b32bf2d6750dfc657ed4f4ca77916aadf7990dd",
+        "manifest_run.json": "cad893a76b74c618de4b1ec6830937d15d8ee437b5057f0d94f25286fe4ef46d",
+        "registros.jsonl": "1c3eb4fec2270fad44eaedda898b88ce00d714a2c4da2814fb9653bb38c36720",
+        "resumen.json": "7f610eb2e3130e865296a841024e604f818229696881681a711bfd57dd449513",
+        "solicitudes.jsonl": "da379c39002f1ffe27238f5b55aaf6baf38085f7f677d20782a7ad0695a75193"
+      }
+    },
+    "denuncia_google_gemini-3.1-flash-lite": {
+      "dir": "resultados/cartera_n_20260805/denuncia_google_gemini-3.1-flash-lite_20260805_102207_370021",
+      "ficheros": {
+        "contaminacion.json": "82faa9322235992fde984ba7fb0db419cab5db4115486826b066cd7d2851bf51",
+        "manifest_run.json": "39499aab7e832cc45b9cc47b5b2664b8144d9c62a7bd3266cacb7778050dce72",
+        "registros.jsonl": "e75937ab4f113d1314dec4dea9e3d18b6e79c931c5174f6960420246fbcb5b09",
+        "resumen.json": "1fe7e6b1c14d007f567ad4d8c91479a7f9915f5daaa9c9b68b157f2076c43c14",
+        "solicitudes.jsonl": "2e4cc0d6e277beb41000ef5caeb05edb70fa74e7aebe7e7fb98460359fe4fcd5"
+      }
+    },
+    "denuncia_deepseek-v4-flash-0731": {
+      "dir": "resultados/pilotos_n_20260804/denuncia_deepseek-v4-flash-0731_20260804_211918_093942",
+      "ficheros": {
+        "contaminacion.json": "699346bbb1c9799b5603eb446f87036fe70cdc28aa82e40952a671e118cf99b4",
+        "manifest_run.json": "f066dd40b45d91d586506ee129c73ddcd285289f19d1b645e5c4db1153dd913f",
+        "registros.jsonl": "68e1e999393e8e8c4ef69e545beb72079868a14579a57976486fdf9b97cb51c6",
+        "resumen.json": "69a37f4f845092532683630b425d2036fe72fa40e3f41e40d731d191406c9817",
+        "solicitudes.jsonl": "38ce793e2c7ed6a5efee418baf03b2eab3649735fd8d7ea7c2afbd0b27a2e592"
+      }
+    },
+    "denuncia_qwen3.6": {
+      "dir": "resultados/pilotos_n_20260804/denuncia_qwen3.6_20260804_221315_761051",
+      "ficheros": {
+        "contaminacion.json": "d75b8b9c464326d49bd76146ba5090bc875399e6f4ccec10371b9e8c8709fb5b",
+        "manifest_run.json": "e6b0370e86a84cb58102a0aac91665820578af43ac94ffe12dd61d4b4fbd4707",
+        "registros.jsonl": "4ee1f728ce5dad48f41a51afd696ef9520e3cbd31f513feb058c282822b955c4",
+        "resumen.json": "a414f038dd75912bbe912ae7bd5ee7d7c3bbfad4fd58285fb2e7534582622e8b",
+        "solicitudes.jsonl": "021c0ee3ad129fc401997717a0ebdac77c34a3a1d98270dc9088b4eebc967e38"
+      }
     }
   }
 }

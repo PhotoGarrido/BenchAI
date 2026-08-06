@@ -1,13 +1,13 @@
 # 🧠 PsicoAI
 
-**Banco de pruebas conductual de agentes LLM sobre paradigmas clásicos de psicología social, más un simulador narrativo didáctico.** Versión `v0.1.4-alpha` (research preview).
+**Banco de pruebas conductual de agentes LLM sobre paradigmas clásicos de psicología social, más un simulador narrativo didáctico.** Versión `v0.1.5-alpha` (research preview).
 
 ## Qué es
 
 Cuatro productos que conviven en este repositorio, deliberadamente separados:
 
-1. **Banco experimental** (`spike/experimento_*.py`): 6 paradigmas isomorfos y disfrazados — Asch, Milgram (±vacuna), la prisión de Stanford (P1→P2b), erosión de normas en 42 días, y el gradiente de explicitud (G1→G2→G-final) — ejecutados con harness controlado sobre 17 modelos de 10 laboratorios.
-2. **Benchmark PsicoBench** ([`BENCHMARK.md`](BENCHMARK.md) + `benchmark/`): el perfil social de cada medición (modelo@snapshot@proveedor) en 6 ejes conductuales + panel interactivo (`benchmark/index.html`); tabla y datos autogenerados desde las matrices y verificados en CI.
+1. **Banco experimental** (`spike/experimento_*.py`): paradigmas isomorfos y disfrazados — Asch, Milgram (±vacuna), la prisión de Stanford (P1→P2b), erosión de normas en 42 días, el gradiente de explicitud (G1→G2→G-final) y el arco N (denuncia de irregularidades, venalidad, sicofancia de hecho y de opinión) — ejecutados con harness controlado sobre 17 modelos de 10 laboratorios.
+2. **Benchmark PsicoBench** ([`BENCHMARK.md`](BENCHMARK.md) + `benchmark/`): el perfil social de cada medición (modelo@snapshot@proveedor) en **7 ejes conductuales** sobre 4 paradigmas (ISS v0.3) + panel interactivo (`benchmark/index.html`); tabla y datos autogenerados desde las matrices y verificados en CI, con IC remuestreados por cadena (E-IC-1).
 3. **Trabajo de investigación** (`preprint/`): borrador v0.3, pre-registros congelados con enmiendas fechadas, auditoría del reproceso y erratas.
 4. **Simulador narrativo** (`spike/run_spike.py` + `panel/` + `viewer/`): personajes con personalidad y memoria sobre [Concordia](https://github.com/google-deepmind/concordia), con replay reproducible y canal de pensamiento privado. Produce los `episodios/` didácticos.
 
@@ -34,7 +34,7 @@ Cuatro productos que conviven en este repositorio, deliberadamente separados:
 
 - Cada solicitud física al proveedor queda en `solicitudes.jsonl` (mensajes completos, tokens, latencia, estado final del run).
 - Los datasets de cada tabla del preprint están fijados por sha256 en [`preprint/release_manifest.json`](preprint/release_manifest.json); los análisis corren con `--manifest`.
-- `cd spike && python reprocesar.py --check` re-deriva los 55.545 campos con raw desde crudos sin red (55.470 idénticos); `--check-publication` exige errata para toda reclasificación. Excepción declarada: la conducta de G2 (25-07) no conservó crudos.
+- `cd spike && python reprocesar.py --check` re-deriva 93.422 campos con raw desde crudos sin red (arco N y baterías incluidos desde la auditoría R4); `--check-publication` exige errata para toda reclasificación. Excepción declarada: la conducta de G2 (25-07) no conservó crudos.
 
 ## Demo narrativa (sin instalar nada)
 
@@ -63,7 +63,7 @@ Los experimentos con API se documentan en cada `experimento_*.py`; **lee `METODO
 
 | Ruta | Qué es |
 |---|---|
-| `spike/experimento_*.py` | harness de los 6 paradigmas (modo estudio) |
+| `spike/experimento_*.py` | harness de los paradigmas del banco (modo estudio) |
 | `spike/parsers.py` + tests | instrumento de medida versionado |
 | `spike/manifiesto.py`, `reprocesar.py`, `linter_contraste.py`, `release_manifest.py` | procedencia, reproceso, simetría, fijación de datasets |
 | `spike/resultados/` | crudos, informes, erratas, κ (CC BY 4.0) |

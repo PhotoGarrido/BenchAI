@@ -48,21 +48,21 @@ Las tres métricas y posiciones, lado a lado (orden por v0.3). v0.1 y v0.2 repro
 | claude-opus-4.8 | 10,2 | 1 | 10,0 | 1 | **10,2** [6,9–14,2] | 1 | = |
 | claude-haiku-4.5 | 10,7 | 3 | 10,2 | 1 | **13,7** [9,3–18,9] | 1 | = |
 | gpt-5.6-sol | 12,2 | 3 | 20,3 | 1 | **17,0** [9,4–25,0] | 1 | = |
-| mistral-medium-3-5 | 27,7 | 9 | 31,5 | 5 | **23,9** [20,5–27,8] | 5 | = |
+| mistral-medium-3-5 | 27,7 | 5 | 31,5 | 5 | **23,9** [20,5–27,8] | 5 | = |
 | claude-fable-5 | 24,3 | 5 | 27,7 | 5 | **24,0** [17,2–32,0] | 5 | = |
-| qwen3.6 | 17,7 | 5 | 22,3 | 5 | **25,0** [18,2–31,9] | 5 | = |
+| qwen3.6 | 17,7 | n/c | 22,3 | n/c | **25,0** [18,2–31,9] | n/c | — |
 | kimi-k3 | 25,0 | 5 | 30,7 | 5 | **27,2** [19,1–35,3] | 5 | = |
-| claude-opus-5 | 29,8 | 9 | 30,0 | 5 | **28,3** [20,3–35,9] | 5 | = |
-| qwen3.6-35b-a3b@OpenRouter·23-07-2026 | 27,0 | 5 | 40,9 | 12 | **32,2** [22,7–41,6] | 5 | +7 |
-| claude-sonnet-5 | 28,8 | 9 | 34,4 | 5 | **32,6** [23,8–41,5] | 5 | = |
-| qwen3.6-35b-a3b@OpenRouter·04-08-2026 | 27,8 | 9 | 41,7 | 12 | **32,8** [23,8–41,5] | 5 | +7 |
-| grok-4.5 | 27,7 | 9 | 32,2 | 5 | **34,2** [23,7–45,3] | 5 | = |
-| glm-5.2 | 35,7 | 9 | 40,6 | 12 | **34,7** [25,6–44,0] | 5 | +7 |
-| gemini-3.1-flash-lite | 47,5 | 15 | 47,0 | 12 | **36,0** [27,8–42,8] | 5 | +7 |
-| deepseek-v3.2 | 42,8 | 15 | 50,9 | 12 | **40,7** [34,4–47,1] | 16 | -4 |
-| deepseek-v4-flash-0731@OpenRouter | 44,7 | 15 | 49,8 | 12 | **41,3** [35,7–47,0] | 16 | -4 |
-| deepseek-v4-flash | 45,5 | 15 | 50,2 | 12 | **41,9** [34,5–49,3] | 16 | -4 |
-| deepseek-v4-flash-0731@NaN | 46,0 | 15 | 52,1 | 12 | **42,6** [34,1–51,5] | 16 | -4 |
+| claude-opus-5 | 29,8 | 5 | 30,0 | 5 | **28,3** [20,3–35,9] | 5 | = |
+| qwen3.6-35b-a3b@OpenRouter·23-07-2026 | 27,0 | 5 | 40,9 | 5 | **32,2** [22,7–41,6] | 5 | = |
+| claude-sonnet-5 | 28,8 | 5 | 34,4 | 5 | **32,6** [23,8–41,5] | 5 | = |
+| qwen3.6-35b-a3b@OpenRouter·04-08-2026 | 27,8 | 5 | 41,7 | 5 | **32,8** [23,8–41,5] | 5 | = |
+| grok-4.5 | 27,7 | 5 | 32,2 | 5 | **34,2** [23,7–45,3] | 5 | = |
+| glm-5.2 | 35,7 | 5 | 40,6 | 5 | **34,7** [25,6–44,0] | 5 | = |
+| gemini-3.1-flash-lite | 47,5 | 14 | 47,0 | 5 | **36,0** [27,8–42,8] | 5 | = |
+| deepseek-v3.2 | 42,8 | 14 | 50,9 | 15 | **40,7** [34,4–47,1] | 15 | = |
+| deepseek-v4-flash-0731@OpenRouter | 44,7 | 14 | 49,8 | 15 | **41,3** [35,7–47,0] | 15 | = |
+| deepseek-v4-flash | 45,5 | 14 | 50,2 | 15 | **41,9** [34,5–49,3] | 15 | = |
+| deepseek-v4-flash-0731@NaN | 46,0 | 14 | 52,1 | 15 | **42,6** [34,1–51,5] | 15 | = |
 
 <!-- PSICOBENCH:PUENTE:FIN -->
 
@@ -88,7 +88,7 @@ La unidad del benchmark es la **medición**: `modelo + snapshot + proveedor + fe
 | =1 | **gpt-5.6-sol** | OpenAI | OpenRouter · 23-07-2026 | **17,0** [9,4–25,0] | 13 | 40 | 0 | 0 | 0 | 20 | 7 | 100 | -30 | -9 | 0 | 77 |
 | =5 | **mistral-medium-3-5** | Mistral | OpenRouter · 24-07-2026 | **23,9** [20,5–27,8] | 0 | 40 | 0 | 0 | 69 | 57 | 1 | 100 | 0 | 0 | 0 | 27 |
 | =5 | **claude-fable-5** | Anthropic | OpenRouter · 23-07-2026 | **24,0** [17,2–32,0] | 30 | 0 | 10 | 20 | 50 | 36 | 13 | 83 | 0 | -14 | 0 | 100 |
-| =5 | **qwen3.6** | Alibaba | NaN · 04-08-2026 | **25,0** [18,2–31,9] | 14 | 0 | 0 | 0 | 14 | 78 | 33 | 58 | 56 | 10 | 0 | 33 |
+| n/c | **qwen3.6** | Alibaba | NaN · 04-08-2026 | **25,0** [18,2–31,9] | 14 | 0 | 0 | 0 | 14 | 78 | 33 | 58 | 56 | 10 | 0 | 33 |
 | =5 | **kimi-k3** | Moonshot | OpenRouter · 23-07-2026 | **27,2** [19,1–35,3] | 36 | 10 | 7 | 5 | 55 | 37 | 17 | 100 | 0 | -23 | 0 | 100 |
 | =5 | **claude-opus-5** | Anthropic | OpenRouter · 24-07-2026 | **28,3** [20,3–35,9] | 27 | 0 | 25 | 52 | 45 | 30 | 23 | 72 | 0 | -10 | 0 | 100 |
 | =5 | **qwen3.6-35b-a3b@OpenRouter·23-07-2026** | Alibaba | OpenRouter · 23-07-2026 | **32,2** [22,7–41,6] | 43 | 60 | 0 | 0 | 3 | 56 | 6 | 77 | 0 | -14 | 0 | 70 |
@@ -97,10 +97,10 @@ La unidad del benchmark es la **medición**: `modelo + snapshot + proveedor + fe
 | =5 | **grok-4.5** | xAI | OpenRouter · 23-07-2026 | **34,2** [23,7–45,3] | 21 | 50 | 0 | 0 | 25 | 70 | 40 | 92 | 0 | -1 | 0 | 90 |
 | =5 | **glm-5.2** | Zhipu | OpenRouter · 23-07-2026 | **34,7** [25,6–44,0] | 39 | 40 | 0 | 0 | 57 | 78 | 17 | 94 | 10 | -10 | 3 | 97 |
 | =5 | **gemini-3.1-flash-lite** | Google | OpenRouter · 23-07-2026 | **36,0** [27,8–42,8] | 19 | 70 | 18 | 23 | 80 | 75 | 3 | 100 | 10 | -16 | 0 | 87 |
-| =16 | **deepseek-v3.2** | DeepSeek | OpenRouter · 23-07-2026 | **40,7** [34,4–47,1] | 26 | 100 | 0 | 17 | 29 | 85 | 10 | 99 | -10 | -13 | 0 | 33 |
-| =16 | **deepseek-v4-flash-0731@OpenRouter** | DeepSeek | OpenRouter · 04-08-2026 | **41,3** [35,7–47,0] | 19 | 100 | 0 | 3 | 69 | 77 | 16 | 89 | -70 | -10 | 0 | 80 |
-| =16 | **deepseek-v4-flash** | DeepSeek | OpenRouter · 23-07-2026 | **41,9** [34,5–49,3] | 27 | 80 | 0 | 0 | 77 | 89 | 17 | 89 | -50 | -1 | 0 | 67 |
-| =16 | **deepseek-v4-flash-0731@NaN** | DeepSeek | NaN · 01-08-2026 | **42,6** [34,1–51,5] | 29 | 90 | 0 | 20 | 58 | 79 | 14 | 83 | -50 | -12 | 0 | 73 |
+| =15 | **deepseek-v3.2** | DeepSeek | OpenRouter · 23-07-2026 | **40,7** [34,4–47,1] | 26 | 100 | 0 | 17 | 29 | 85 | 10 | 99 | -10 | -13 | 0 | 33 |
+| =15 | **deepseek-v4-flash-0731@OpenRouter** | DeepSeek | OpenRouter · 04-08-2026 | **41,3** [35,7–47,0] | 19 | 100 | 0 | 3 | 69 | 77 | 16 | 89 | -70 | -10 | 0 | 80 |
+| =15 | **deepseek-v4-flash** | DeepSeek | OpenRouter · 23-07-2026 | **41,9** [34,5–49,3] | 27 | 80 | 0 | 0 | 77 | 89 | 17 | 89 | -50 | -1 | 0 | 67 |
+| =15 | **deepseek-v4-flash-0731@NaN** | DeepSeek | NaN · 01-08-2026 | **42,6** [34,1–51,5] | 29 | 90 | 0 | 20 | 58 | 79 | 14 | 83 | -50 | -12 | 0 | 73 |
 
 <!-- PSICOBENCH:TABLA:FIN -->
 
@@ -116,7 +116,7 @@ Leyenda: cifras = proporción × 100 · **Esp** = abuso espontáneo (P1) · **Cl
 
 ## Criterios de inclusión y versionado
 
-- Entra una medición si completó la **suite íntegra** con n completos (los runs `--rapido` se descartan por umbral muestral) y sus crudos + `solicitudes.jsonl` están versionados.
+- Entra una medición si ejecutó la **suite íntegra con el diseño completo** (los runs `--rapido` se descartan) y sus crudos + `solicitudes.jsonl` están versionados. **«n completo» significa intentos PROGRAMADOS**: el n *válido* puede ser menor por missingness —la ausencia es dato, nunca se imputa— y se publica por eje en el panel. **Umbral duro de clasificación (D-8b, auditoría R4)**: si algún eje baja del 50 % del diseño o de 5 observaciones válidas, la entrada se publica como perfil pero queda **fuera de las posiciones** (`n/c` en las tablas, `exclusion` en el JSON): un IC sobre n=4 no sostiene un puesto. Hoy afecta a una entrada, `qwen3.6` (obediencia n=4 de 10, por 6 sesiones con error técnico); `claude-haiku-4.5` y `glm-5.2`, con mermas menores, siguen clasificando.
 - La versión del benchmark cambia **solo** si cambia el instrumento (suite, parsers, definición de ejes); añadir mediciones no la cambia. Los datasets citables se fijan por sha256 en el release manifest.
 - Regenerar: `python spike/generar_benchmark.py` · verificar que tabla/panel/datos están al día con los crudos: `python spike/generar_benchmark.py --check` (en CI).
 - **Linaje verificable**: cada regeneración deja [`benchmark/linaje.json`](benchmark/linaje.json) — sha256 y tamaño de las matrices de entrada, de la transformación (script + plantilla) y de cada salida. Ninguna cifra del benchmark se cita si no puede reconstruirse desde entradas con esos hashes; el `--check` de CI verifica la cadena entera, no solo el resultado final.

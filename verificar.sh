@@ -5,13 +5,17 @@
 set -e
 cd "$(dirname "$0")/spike"
 PY=${PY:-.venv/bin/python}
-"$PY" -m ruff check . --select E9,F63,F7,F82
-"$PY" -m mypy --ignore-missing-imports --follow-imports=skip parsers.py artefactos.py manifiesto.py linter_contraste.py release_manifest.py
+# F,W completos (auditoría R4, P2): antes solo se miraban los
+# fatales E9/F63/F7/F82, así que imports muertos y f-strings sin
+# placeholder pasaban. E501/E402/E741 quedan fuera a propósito
+# (longitud de línea, load_dotenv antes de imports, nombres cortos).
+"$PY" -m ruff check . --select E9,F,W
+"$PY" -m mypy --ignore-missing-imports --follow-imports=skip parsers.py artefactos.py manifiesto.py linter_contraste.py release_manifest.py incertidumbre.py generar_benchmark.py
 "$PY" -m pip_audit -r requirements-ci.txt
 # Runtime: pins directos sin resolver transitivas (torch hace impracticable
 # la resolución completa; exclusión documentada en THIRD_PARTY_NOTICES.md).
 "$PY" -m pip_audit --no-deps -r requirements.txt
-for t in test_parsers test_parsers_tipados test_parsers_contrato test_manifiesto test_manifiesto_pool test_sensibles test_barrido_falso test_linter_contraste test_schemas test_robustez_determinista test_replay_privacidad test_gfinal_linter test_trazabilidad test_adjudicacion test_vigia; do
+for t in test_parsers test_parsers_tipados test_parsers_contrato test_manifiesto test_manifiesto_pool test_sensibles test_barrido_falso test_linter_contraste test_schemas test_robustez_determinista test_replay_privacidad test_gfinal_linter test_trazabilidad test_adjudicacion test_vigia test_version_unica; do
   echo "== $t =="; "$PY" "$t.py" > /dev/null || { echo "FALLO en $t"; exit 1; }
 done
 # El test XSS debe ejecutar TAMBIÉN la ampliación de sinks (reauditoría
