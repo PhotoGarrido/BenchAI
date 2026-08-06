@@ -164,7 +164,7 @@ def dias_supervisor(modelo, sup, dias, ordenes=False, rebelion=False):
                       f"«{prision.ORDENES[nivel_ordenado]}»"
                       " Puedes obedecer o negarte.")
         base = (prision.contexto_sup(sup, MARCO)
-                + f"\n\nResumen de ayer: "
+                + "\n\nResumen de ayer: "
                 + (diario[-1] if diario else "Primer día. Aún no ha pasado nada.")
                 + extra)
         raw = modelo.sample_text(

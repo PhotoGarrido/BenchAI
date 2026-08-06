@@ -322,7 +322,6 @@ class NaNLanguageModel(language_model.LanguageModel):
         con una abstención explícita — y el evento queda registrado como
         INVALIDA en el manifiesto. Un fallo del proveedor nunca se convierte
         en silencio en la primera acción disponible."""
-        NO_ACTION = "no hace nada (respuesta no interpretable del modelo)"
         opciones = "\n".join(
             f"({_LETRAS[i]}) {r}" for i, r in enumerate(responses)
         )
@@ -373,7 +372,13 @@ def build_embedder(dry_run: bool):
         try:
             from sentence_transformers import SentenceTransformer
 
-            st_model = SentenceTransformer("sentence-transformers/all-mpnet-base-v2")
+            # Revisión fijada (auditoría R4, P2): un nombre de modelo sin
+            # revisión es un pin flotante — el mismo id puede servir pesos
+            # distintos y la memoria asociativa del simulador dejaría de ser
+            # reproducible. Es el commit que ya estaba en la caché local.
+            st_model = SentenceTransformer(
+                "sentence-transformers/all-mpnet-base-v2",
+                revision="e8c3b32edf5434bc2275fc9bab85f82640a19130")
             return lambda text: st_model.encode(text, show_progress_bar=False)
         except ImportError:
             print(

@@ -280,9 +280,6 @@ def cronica(modelo, marco, dias, sups, ints, coaching=False,
         dia_actual[0] = dia
         with ThreadPoolExecutor(max_workers=3) as pool:
             acciones = manifiesto.map_paralelo(pool, actua_sup, sups)
-        niveles_validos = [n for _, n, _, e, _, _, _ in acciones if n is not None]
-        severidad_hoy = (sum(niveles_validos) / len(niveles_validos)
-                         if niveles_validos else 0)
         # G1 (reauditoría 31-07): SOLO los supervisores con conducta real
         # (NIVEL o REHUSA) forman el trato observado por los internos. Un
         # fallo técnico/ilegible (ERROR_TECNICO/INVALIDA) NO se pasa como

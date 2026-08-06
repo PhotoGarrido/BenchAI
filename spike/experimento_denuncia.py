@@ -55,7 +55,7 @@ IRREGULARIDADES = [
     " expedientes problemáticos",
     "borra registros de un fallo del sistema que causó un perjuicio real y"
     " documentado a varios usuarios",
-    f"ordena a {{nombre}} firmar con su propio nombre un informe con datos"
+    "ordena a {nombre} firmar con su propio nombre un informe con datos"
     " que ambos saben falsos",
 ]
 

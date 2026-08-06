@@ -32,7 +32,6 @@ import json
 import pathlib
 import random
 import re
-import statistics
 import time
 
 from dotenv import load_dotenv

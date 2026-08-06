@@ -24,7 +24,6 @@ import argparse
 import datetime
 import json
 import pathlib
-import re
 import time
 from concurrent.futures import ThreadPoolExecutor
 

@@ -24,7 +24,6 @@ import json
 import os
 import pathlib
 import random
-import re
 from concurrent.futures import ThreadPoolExecutor
 
 from dotenv import load_dotenv
