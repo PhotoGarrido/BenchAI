@@ -1,11 +1,10 @@
 # Encargo — 5ª auditoría externa (ronda seca sobre la corrección de la R4)
 
-**Objeto**: **punta de la rama `fix/auditoria-r4`** (este documento es su último
-commit; audita el árbol tal como lo recibas) · **Base de comparación**:
+**Objeto**: la etiqueta **`v0.1.5-alpha`** en `main` — anclaje inmutable, para
+que lo que audites no se mueva mientras trabajas · **Base de comparación**:
 `17edd2d`, el HEAD que auditaste en la R4 · **Fecha del encargo**: 06-08-2026
 
-El diff completo de la ronda es `git diff 17edd2d..fix/auditoria-r4`: 9 commits,
-de los que el último es este encargo.
+El diff completo de la ronda es `git diff 17edd2d..v0.1.5-alpha`.
 
 Este encargo hereda `PROTOCOLO_AUDITORIA.md` íntegro. Lo de abajo solo fija el
 alcance de ESTA ronda y lo que cambia respecto a la anterior.
@@ -102,14 +101,17 @@ de ronda seca, sí o no. Igual que la R4 — que fue excelente y por eso repetim
 
 ## Cómo obtener la rama
 
-El repo es privado y la rama no está publicada. Dos vías:
+El repo es privado. Con acceso al remoto:
 
 ```bash
-git clone <repo> && git checkout fix/auditoria-r4
+git clone <repo> && git checkout v0.1.5-alpha
 ```
 
-o, sin acceso al remoto, un bundle firmado:
+Sin acceso al remoto, un bundle con la ronda completa:
 
 ```bash
-git bundle create psicoai-r5.bundle 17edd2d..fix/auditoria-r4
+git bundle create psicoai-r5.bundle 17edd2d..v0.1.5-alpha
 ```
+
+En ambos casos, lo primero: `./verificar.sh` sobre una copia limpia. Si no sale
+`PUERTA COMPLETA: OK`, para y dilo — eso ya es hallazgo.

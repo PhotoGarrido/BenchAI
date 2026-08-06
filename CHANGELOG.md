@@ -1,5 +1,32 @@
 # Changelog
 
+## v0.4.0-alpha · Octógono · 06-08-2026
+
+- **M13 · el ISS v0.4 ejecutado tal cual se pre-declaró**: la sicofancia de
+  opinión entra al índice como octavo eje, agrupada con la conformidad en un
+  componente «cesión a iguales» — media de (media(conf, sico), ruptura/10,
+  prisión, denuncia) / 4 sobre 19 entradas, con puente cuádruple v0.1→v0.4
+  byte-idéntico en los tramos históricos.
+- **El hallazgo es el estrato**: el brazo duro está en suelo en las 19
+  mediciones (0,00–0,08) y **todo el eje lo produce el estrato amable** (hasta
+  1,00 en grok). La sicofancia de opinión no es propiedad del modelo a secas
+  sino del par modelo × personalidad asignada; los estratos se publican con IC.
+- r(sico, conf) = 0,70 fuera de muestra, frente al 0,72 con el que se
+  pre-declaró la agrupación: la estructura elegida queda validada.
+- Movimientos reales de posición: sol −3 y grok −9; el resto, renumeración de
+  anclas. Integración respetando E-IC-1 (remuestreo por cadenas), conciliación
+  19/19 en los dos ejes nuevos y todas las puertas re-verificadas.
+
+## v0.1.5-alpha · Respuesta a la 4ª auditoría externa · 06-08-2026
+
+Tres P0 cerrados con reproducción, tres P1 y el P2 atendidos.
+
+- **P0-1 · IC por cadena** (enmienda E-IC-1 + adenda E-IC-1b): el estimador remuestreaba turnos como observaciones independientes contra la unidad de inferencia pre-registrada. Ningún punto cambia; el IC del ISS se ensancha ×1,44 (mediana) y 9 de 19 etiquetas de posición cambian. Errata: `spike/resultados/ERRATA_ic_cadenas.md`. PsicoBench → v0.3.1.
+- **P0-2 · E-N3-cede-v2**: sicofancia (N3) imputaba un seguimiento inválido como `cede=False`; ahora sale del denominador y se reporta como missing. El arco N entra en `artefactos.py`, el reproceso (55.545 → 93.422 campos) y el barrido falso.
+- **P0-3 · manifiesto fail-closed**: un fallo al escribir la cabecera ya no permite cerrar `completed`; el de la cabecera inicial aborta el run antes de gastar (`CabeceraNoEscritaError`).
+- **P1**: linaje con los 321 crudos y `denuncia_runs.json` firmados; 18 runs de denuncia en el release manifest (uno se perdía por colisión de clave); umbral duro de clasificación por n (D-8b, deja `qwen3.6` fuera de posiciones); metadatos del ISS corregidos y versión unificada con puerta propia (`test_version_unica.py`).
+- **Método**: nuevo punto A.6 — ningún experimento ejecuta su primer run pagado fuera del perímetro de puertas.
+
 ## v0.3.0-alpha · Heptágono · 05-08-2026
 
 - **M12 · sicofancia de opinión (E2 cierre)**: 11 mediciones (2,84 $ la
@@ -328,13 +355,3 @@ lenguaje bajo protocolos concretos — no sobre humanos.
   replay público con borrado físico de campos privados; historial de git
   escaneado (limpio); sample_choice sin imputación.
 - Borrador de preprint v0.2 en preprint/.
-
-## v0.1.5-alpha (06-08-2026) — respuesta a la 4ª auditoría externa
-
-Tres P0 cerrados con reproducción, tres P1 y el P2 atendidos.
-
-- **P0-1 · IC por cadena** (enmienda E-IC-1 + adenda E-IC-1b): el estimador remuestreaba turnos como observaciones independientes contra la unidad de inferencia pre-registrada. Ningún punto cambia; el IC del ISS se ensancha ×1,44 (mediana) y 9 de 19 etiquetas de posición cambian. Errata: `spike/resultados/ERRATA_ic_cadenas.md`. PsicoBench → v0.3.1.
-- **P0-2 · E-N3-cede-v2**: sicofancia (N3) imputaba un seguimiento inválido como `cede=False`; ahora sale del denominador y se reporta como missing. El arco N entra en `artefactos.py`, el reproceso (55.545 → 93.422 campos) y el barrido falso.
-- **P0-3 · manifiesto fail-closed**: un fallo al escribir la cabecera ya no permite cerrar `completed`; el de la cabecera inicial aborta el run antes de gastar (`CabeceraNoEscritaError`).
-- **P1**: linaje con los 321 crudos y `denuncia_runs.json` firmados; 18 runs de denuncia en el release manifest (uno se perdía por colisión de clave); umbral duro de clasificación por n (D-8b, deja `qwen3.6` fuera de posiciones); metadatos del ISS corregidos y versión unificada con puerta propia (`test_version_unica.py`).
-- **Método**: nuevo punto A.6 — ningún experimento ejecuta su primer run pagado fuera del perímetro de puertas.
