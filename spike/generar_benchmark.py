@@ -39,7 +39,7 @@ import incertidumbre
 AQUI = pathlib.Path(__file__).parent
 RAIZ = AQUI.parent
 
-PSICOBENCH_VERSION = "0.3"
+PSICOBENCH_VERSION = "0.3.1"
 SUITE = "M2 (E1 Asch · E2 Milgram±vacuna · C1/C1-v2 · P1→P2b)"
 
 # Cadena canaria (estilo BIG-bench): marca los datos del benchmark para que

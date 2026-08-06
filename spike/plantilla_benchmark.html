@@ -295,8 +295,11 @@ function renderClasificacion() {
       ...EJES.map(x => {
         const v = e.ejes[x.clave];
         const det = (e.ejes_ic || {})[x.clave];
-        const t = det ? "n=" + det.n.join("+") + " · IC95 " +
-          icTexto(det.ic) : "";
+        // E-IC-1: el IC se remuestrea por CADENA, así que el tooltip declara
+        // las dos n — turnos medidos y cadenas, que es la unidad de inferencia.
+        const t = det ? "n=" + det.n.join("+") + " turnos" +
+          (det.n_cadenas ? " · " + det.n_cadenas.join("+") + " cadenas" : "") +
+          " · IC95 " + icTexto(det.ic) : "";
         return el("td", { title: t }, [el("span",
           { class: "celda-calor", style: calor(v), text: pct(v) })]);
       }),

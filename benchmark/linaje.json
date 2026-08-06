@@ -34,38 +34,38 @@
  "regla": "toda cifra publicada del benchmark debe reconstruirse re-ejecutando la transformación sobre entradas con estos hashes; si algo no cuadra, la cifra no se cita",
  "salidas": [
   {
-   "bytes": 19760,
+   "bytes": 23935,
    "ruta": "BENCHMARK.md",
-   "sha256": "be9fcb0a23a3b29c94ecc010ec2030db276daec02170990a8e09322ee0cb4e87"
+   "sha256": "e0c7d75bbf979a937eb2dc168ea50f31c3632c7753cf06241657defdbc129d0a"
   },
   {
-   "bytes": 66445,
+   "bytes": 69302,
    "ruta": "benchmark/index.html",
-   "sha256": "f9193c07430566f291c79f159f7854523eb6e37c1fe8f25251446358db608930"
+   "sha256": "dc6efc7a576236664eb4c1ed8798f519450158da1f8ec9bb4683f79dcbad7b1b"
   },
   {
-   "bytes": 52356,
+   "bytes": 58530,
    "ruta": "benchmark/psicobench.json",
-   "sha256": "b193374d43111e8cd810232c6159016bc23b2b6c70270ac74152980cde8d9fd3"
+   "sha256": "261e4801d4f81a511e3009db85f3c40d0d19052a9abaf31c3b67ee071d4d7d84"
   }
  ],
  "transformacion": {
   "nota": "los IC y n derivan de los crudos señalados por `runs` de cada matriz; la conciliación dura (punto recomputado == punto citado) corre en cada generación y en --check",
   "piezas": [
    {
-    "bytes": 22204,
+    "bytes": 22206,
     "ruta": "spike/generar_benchmark.py",
-    "sha256": "4f62d4e233935c12e32bdc25e90c5aa86f6e31dd8db3ac94865754e6e9a88168"
+    "sha256": "a0b0923a207e9d3eefcbdd6e22dff7fc9b647e202c4191bba387d6265c0766d1"
    },
    {
-    "bytes": 30819,
+    "bytes": 31074,
     "ruta": "spike/plantilla_benchmark.html",
-    "sha256": "f0b50a18011e09aa1643283a55dce18acb3c10406db5d52e1ae6da8ae6bce8dc"
+    "sha256": "c982cbac5a91f6986ee27cfdf72ca7050edb0f0515a84d870921a7b99d602cf8"
    },
    {
-    "bytes": 14222,
+    "bytes": 18364,
     "ruta": "spike/incertidumbre.py",
-    "sha256": "a105ae428f5e71a89030e4e1aeaa4c76de383d3f6a49f7593ea9ce78fe4fb74e"
+    "sha256": "ed581a3bbf29a867da6f1bda23a9ccea60939a7d2cac82f8479248835dd9cf98"
    },
    {
     "bytes": 849,
@@ -73,6 +73,6 @@
     "sha256": "614508a47c3243f1cbc89098b50623c4c2a5bb4315aaa2bc9293ecd461cd7079"
    }
   ],
-  "version_benchmark": "0.3"
+  "version_benchmark": "0.3.1"
  }
 }

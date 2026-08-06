@@ -1,6 +1,6 @@
 # 🧭 PsicoBench — benchmark de perfil social de modelos LLM
 
-**Versión del benchmark: 0.3** (suite M2 + eje de denuncia N2 · datos parseados con v2.2/v2.4 — español intacto; heptágono desde el 05-08, v0.1 y v0.2 conservados en la tabla puente). Panel interactivo: [`benchmark/index.html`](benchmark/index.html) · datos: [`benchmark/psicobench.json`](benchmark/psicobench.json) · generador: [`spike/generar_benchmark.py`](spike/generar_benchmark.py).
+**Versión del benchmark: 0.3.1** (suite M2 + eje de denuncia N2 · datos parseados con v2.2/v2.4 — español intacto; heptágono desde el 05-08, v0.1 y v0.2 conservados en la tabla puente). Panel interactivo: [`benchmark/index.html`](benchmark/index.html) · datos: [`benchmark/psicobench.json`](benchmark/psicobench.json) · generador: [`spike/generar_benchmark.py`](spike/generar_benchmark.py).
 
 ## Qué es
 
@@ -24,7 +24,11 @@ Y **métricas de estilo** que no entran en el índice: *disonancia* (aplica lo q
 
 **Declaración v0.3 (05-08-2026, ejecutada el mismo día con puente)**: la denuncia entra como cuarto paradigma tras demostrar en M9+M11 estructura discriminante (silencio 0,03–0,33 en 11 mediciones, sub-métricas de umbral y disonancia) — la sicofancia perceptiva, promovida a la vez, quedó FUERA por suelo uniforme (regla de REGISTRO_N aplicada a la cartera). **Heterogeneidad de fecha declarada**: el eje denuncia se midió el 04/05-08 sobre los alias vigentes, mientras las suites de las entradas de julio son del 23/24-07; la réplica temporal de qwen (d=2,5 a 12 días, M10) sugiere estabilidad de los alias OR en esa ventana pero no la garantiza — cada entrada lleva `fecha_denuncia` propia y las dos entradas qwen3.6-35b comparten run (mismo alias). Riesgo asumido y visible; se limpia re-midiendo suites completas en la siguiente ola.
 
-**Enmienda E-IC-1 — estimador de incertidumbre por cadenas (congelada el 06-08-2026, antes de regenerar)**: la 4ª auditoría externa demostró que los IC publicados hasta v0.3 remuestreaban **turnos** (rondas de Asch, semanas de denuncia, días de prisión) como observaciones independientes, contradiciendo la unidad de inferencia pre-registrada en [`METODO.md`](METODO.md) §A.1 — *cadenas, no días ni turnos*. Los turnos de una misma cadena comparten sujeto, historial y contexto: tratarlos como independientes infraestima la incertidumbre (Asch/claude-sonnet-5 pasa de `[0,255–0,474]` a `[0,114–0,614]` al agrupar por sujeto). Desde PsicoBench **v0.3.1**: (1) la unidad de remuestreo es la **CADENA** — Asch: sujeto-sesión (10 por celda); denuncia: sujeto (10); prisión: cadena de supervisor dentro de cada marco (estrato = marco, 3 cadenas); Milgram: sesión, sin cambio, que ya era la cadena. (2) Todo IC de eje es **bootstrap percentil por clúster** (B=2000, sembrado); **Wilson deja de usarse** — su supuesto de independencia es justo el que falla. (3) El IC del ISS remuestrea cadenas dentro de cada eje, independiente entre ejes (los runs lo son). (4) d(A,B) remuestrea cadenas en cada lado, independiente; el pareado por semilla de estímulos queda declarado como análisis de sensibilidad futuro, no como estimador. (5) La **regla de empates D-6 no cambia**; opera sobre los IC nuevos. (6) Los IC de v0.1 y v0.2 de la tabla puente se recalculan con el mismo esquema: **pierden la reproducción byte a byte** con los publicados antes del 06-08, y la errata lo documenta. (7) El **punto estimado no cambia** (misma cadena de redondeos): solo la incertidumbre. (8) Los n se publican como **turnos y cadenas**. (9) El ISS v0.4 (octógono, pre-declarado el 06-08), cuando se ejecute, hereda este estimador. Errata con el detalle de los cambios de IC y de posición: [`ERRATA_ic_cadenas.md`](spike/resultados/ERRATA_ic_cadenas.md).
+**Enmienda E-IC-1 — estimador de incertidumbre por cadenas (congelada el 06-08-2026, antes de regenerar)**: la 4ª auditoría externa demostró que los IC publicados hasta v0.3 remuestreaban **turnos** (rondas de Asch, semanas de denuncia, días de prisión) como observaciones independientes, contradiciendo la unidad de inferencia pre-registrada en [`METODO.md`](METODO.md) §A.1 — *cadenas, no días ni turnos*. Los turnos de una misma cadena comparten sujeto, historial y contexto: tratarlos como independientes infraestima la incertidumbre (Asch/claude-sonnet-5 pasa de `[0,255–0,474]` a `[0,114–0,614]` al agrupar por sujeto). Desde PsicoBench **v0.3.1**: (1) la unidad de remuestreo es la **CADENA** — Asch: sujeto-sesión (10 por celda); denuncia: sujeto (10); prisión: cadena de supervisor dentro de cada marco (estrato = marco, 3 cadenas); Milgram: sesión, sin cambio, que ya era la cadena. (2) Todo IC de eje es **bootstrap percentil por clúster** (B=2000, sembrado); **Wilson deja de usarse** — su supuesto de independencia es justo el que falla. [Corregido por E-IC-1b, abajo.] (3) El IC del ISS remuestrea cadenas dentro de cada eje, independiente entre ejes (los runs lo son). (4) d(A,B) remuestrea cadenas en cada lado, independiente; el pareado por semilla de estímulos queda declarado como análisis de sensibilidad futuro, no como estimador. (5) La **regla de empates D-6 no cambia**; opera sobre los IC nuevos. (6) Los IC de v0.1 y v0.2 de la tabla puente se recalculan con el mismo esquema: **pierden la reproducción byte a byte** con los publicados antes del 06-08, y la errata lo documenta. (7) El **punto estimado no cambia** (misma cadena de redondeos): solo la incertidumbre. (8) Los n se publican como **turnos y cadenas**. (9) El ISS v0.4 (octógono, pre-declarado el 06-08), cuando se ejecute, hereda este estimador. Errata con el detalle de los cambios de IC y de posición: [`ERRATA_ic_cadenas.md`](spike/resultados/ERRATA_ic_cadenas.md).
+
+**Adenda E-IC-1b — corrección adoptada DURANTE la ejecución de E-IC-1 (06-08-2026)**. Se declara como lo que es: un cambio hecho *después* de ver números, no antes. Al ejecutar la cláusula (2) al pie de la letra —retirar Wilson de todos los ejes— aparecieron **11 intervalos degenerados de ancho cero**: 9 de 19 entradas en Obediencia con IC `[0,0]` o `[1,1]`, más uno en Conformidad y otro en Denuncia. Un IC de ancho cero afirma certeza absoluta a partir de n=10, que es peor que el defecto que la enmienda venía a corregir. Causa: en **Milgram cada cadena aporta UNA sola observación binaria** (una sesión, un valor), así que allí *no existe* correlación intra-cadena que corregir — el diagnóstico de E-IC-1 no aplicaba a ese eje y retirarle Wilson fue una sobreextensión. Corrección: **cuando cada cadena aporta exactamente una observación binaria, el IC es Wilson sobre las cadenas**; en el resto, bootstrap de clúster. Efecto: los IC de Obediencia vuelven **exactamente** a los publicados antes del 06-08 en las 19 entradas (no se inventa ninguna cifra) y el IC del ISS —el que decide las posiciones— se ensancha en las 19 (×1,07 a ×1,95, mediana ×1,44).
+
+**Pendiente de decisión (E-IC-2), declarado y no resuelto sobre la marcha**: el bootstrap percentil con 10 clústeres es **anticonservador cerca de los extremos**, y eso deja dos residuos visibles. (a) **Intervalos degenerados** de ancho cero cuando *todas* las cadenas son uniformes en el extremo y no hay varianza que remuestrear: 2 introducidos aquí (Conformidad y Denuncia, una entrada cada uno) y **25 preexistentes** en los ejes de prisión, que ya se publicaban así desde que la prisión usa bootstrap. (b) **28 IC de eje más estrechos** que los publicados (conf 4, brief 1, prov 5, sold 6, denu 6, rupt 6), todos en valores cercanos a 0 o 1. Ninguno afecta al IC del ISS ni a las posiciones. Corregirlo exige un estimador analítico de clúster (o bootstrap-t / BCa) que tocaría cifras que la auditoría no cuestionó: se documenta aquí, se decide aparte y se ejecuta con su propia pre-declaración.
 
 **Incertidumbre**: cada eje lleva su n real (turnos y cadenas) y su IC 95% por bootstrap de cadenas (enmienda E-IC-1; B=2000, percentil, sembrado — Conformidad 10 cadenas × 7 críticas, Obediencia 10 sesiones, prisión 3 cadenas × 10 días por marco, Denuncia 10 cadenas × 7 semanas); el ISS y la distancia entre perfiles d(A,B) llevan IC por bootstrap conjunto de cadenas. Los puntos se **concilian contra los crudos** en cada generación (`ConciliacionError` tumba el `--check`): un IC jamás acompaña a una cifra no reproducible. **Regla de empates** (implementada en la tabla y el panel desde el 04-08, C·4 D-6): una entrada comparte posición («=n») con el grupo vigente si su IC de ISS solapa con el de la primera entrada del grupo; sin encadenado transitivo. El orden dentro de un empate es tipográfico.
 
@@ -40,25 +44,25 @@ Las tres métricas y posiciones, lado a lado (orden por v0.3). v0.1 y v0.2 repro
 
 | Modelo | ISS v0.1 | pos | ISS v0.2 | pos | ISS v0.3 [IC] | pos | Δpos v0.2→v0.3 |
 |---|--:|--:|--:|--:|--:|--:|--:|
-| gpt-5.6-luna | 4,2 | 1 | 12,3 | 1 | **9,2** [5,6–12,7] | 1 | = |
-| claude-opus-4.8 | 10,2 | 2 | 10,0 | 1 | **10,2** [8,0–13,1] | 1 | = |
-| claude-haiku-4.5 | 10,7 | 2 | 10,2 | 1 | **13,7** [10,6–17,7] | 1 | = |
-| gpt-5.6-sol | 12,2 | 2 | 20,3 | 1 | **17,0** [10,4–24,0] | 1 | = |
-| mistral-medium-3-5 | 27,7 | 6 | 31,5 | 5 | **23,9** [20,9–27,7] | 5 | = |
-| claude-fable-5 | 24,3 | 6 | 27,7 | 5 | **24,0** [20,2–28,0] | 5 | = |
-| qwen3.6 | 17,7 | 5 | 22,3 | 5 | **25,0** [19,8–30,1] | 5 | = |
-| kimi-k3 | 25,0 | 6 | 30,7 | 5 | **27,2** [21,9–32,3] | 5 | = |
-| claude-opus-5 | 29,8 | 6 | 30,0 | 5 | **28,3** [23,9–32,3] | 5 | = |
-| qwen3.6-35b-a3b@OpenRouter·23-07-2026 | 27,0 | 6 | 40,9 | 11 | **32,2** [25,6–38,4] | 5 | +6 |
-| claude-sonnet-5 | 28,8 | 6 | 34,4 | 11 | **32,6** [28,1–37,2] | 11 | = |
-| qwen3.6-35b-a3b@OpenRouter·04-08-2026 | 27,8 | 6 | 41,7 | 11 | **32,8** [26,0–38,8] | 11 | = |
-| grok-4.5 | 27,7 | 6 | 32,2 | 5 | **34,2** [26,9–41,7] | 11 | -6 |
-| glm-5.2 | 35,7 | 14 | 40,6 | 11 | **34,7** [27,5–41,4] | 11 | = |
-| gemini-3.1-flash-lite | 47,5 | 14 | 47,0 | 11 | **36,0** [28,5–42,5] | 11 | = |
-| deepseek-v3.2 | 42,8 | 14 | 50,9 | 16 | **40,7** [36,8–44,4] | 11 | +5 |
-| deepseek-v4-flash-0731@OpenRouter | 44,7 | 14 | 49,8 | 16 | **41,3** [37,4–45,0] | 17 | -1 |
-| deepseek-v4-flash | 45,5 | 14 | 50,2 | 16 | **41,9** [36,7–47,0] | 17 | -1 |
-| deepseek-v4-flash-0731@NaN | 46,0 | 14 | 52,1 | 16 | **42,6** [37,2–47,3] | 17 | -1 |
+| gpt-5.6-luna | 4,2 | 1 | 12,3 | 1 | **9,2** [5,2–13,1] | 1 | = |
+| claude-opus-4.8 | 10,2 | 1 | 10,0 | 1 | **10,2** [6,9–14,2] | 1 | = |
+| claude-haiku-4.5 | 10,7 | 3 | 10,2 | 1 | **13,7** [9,3–18,9] | 1 | = |
+| gpt-5.6-sol | 12,2 | 3 | 20,3 | 1 | **17,0** [9,4–25,0] | 1 | = |
+| mistral-medium-3-5 | 27,7 | 9 | 31,5 | 5 | **23,9** [20,5–27,8] | 5 | = |
+| claude-fable-5 | 24,3 | 5 | 27,7 | 5 | **24,0** [17,2–32,0] | 5 | = |
+| qwen3.6 | 17,7 | 5 | 22,3 | 5 | **25,0** [18,2–31,9] | 5 | = |
+| kimi-k3 | 25,0 | 5 | 30,7 | 5 | **27,2** [19,1–35,3] | 5 | = |
+| claude-opus-5 | 29,8 | 9 | 30,0 | 5 | **28,3** [20,3–35,9] | 5 | = |
+| qwen3.6-35b-a3b@OpenRouter·23-07-2026 | 27,0 | 5 | 40,9 | 12 | **32,2** [22,7–41,6] | 5 | +7 |
+| claude-sonnet-5 | 28,8 | 9 | 34,4 | 5 | **32,6** [23,8–41,5] | 5 | = |
+| qwen3.6-35b-a3b@OpenRouter·04-08-2026 | 27,8 | 9 | 41,7 | 12 | **32,8** [23,8–41,5] | 5 | +7 |
+| grok-4.5 | 27,7 | 9 | 32,2 | 5 | **34,2** [23,7–45,3] | 5 | = |
+| glm-5.2 | 35,7 | 9 | 40,6 | 12 | **34,7** [25,6–44,0] | 5 | +7 |
+| gemini-3.1-flash-lite | 47,5 | 15 | 47,0 | 12 | **36,0** [27,8–42,8] | 5 | +7 |
+| deepseek-v3.2 | 42,8 | 15 | 50,9 | 12 | **40,7** [34,4–47,1] | 16 | -4 |
+| deepseek-v4-flash-0731@OpenRouter | 44,7 | 15 | 49,8 | 12 | **41,3** [35,7–47,0] | 16 | -4 |
+| deepseek-v4-flash | 45,5 | 15 | 50,2 | 12 | **41,9** [34,5–49,3] | 16 | -4 |
+| deepseek-v4-flash-0731@NaN | 46,0 | 15 | 52,1 | 12 | **42,6** [34,1–51,5] | 16 | -4 |
 
 <!-- PSICOBENCH:PUENTE:FIN -->
 
@@ -78,25 +82,25 @@ La unidad del benchmark es la **medición**: `modelo + snapshot + proveedor + fe
 
 | # | Modelo | Lab | Vía · fecha | ISS [IC95] | Conf | Obed | Esp | Clima | Prov | Órd | Denu | Dison | Δvac | Δaliado | Objec | Recon |
 |--:|---|---|---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
-| =1 | **gpt-5.6-luna** | OpenAI | OpenRouter · 23-07-2026 | **9,2** [5,6–12,7] | 13 | 0 | 0 | 0 | 0 | 12 | 0 | 86 | 0 | -3 | 0 | 100 |
-| =1 | **claude-opus-4.8** | Anthropic | OpenRouter · 23-07-2026 | **10,2** [8,0–13,1] | 1 | 0 | 0 | 25 | 23 | 12 | 11 | 100 | 0 | 0 | 0 | 100 |
-| =1 | **claude-haiku-4.5** | Anthropic | OpenRouter · 24-07-2026 | **13,7** [10,6–17,7] | 1 | 0 | 0 | 0 | 41 | 22 | 24 | 100 | 0 | -1 | 6 | 27 |
-| =1 | **gpt-5.6-sol** | OpenAI | OpenRouter · 23-07-2026 | **17,0** [10,4–24,0] | 13 | 40 | 0 | 0 | 0 | 20 | 7 | 100 | -30 | -9 | 0 | 77 |
-| =5 | **mistral-medium-3-5** | Mistral | OpenRouter · 24-07-2026 | **23,9** [20,9–27,7] | 0 | 40 | 0 | 0 | 69 | 57 | 1 | 100 | 0 | 0 | 0 | 27 |
-| =5 | **claude-fable-5** | Anthropic | OpenRouter · 23-07-2026 | **24,0** [20,2–28,0] | 30 | 0 | 10 | 20 | 50 | 36 | 13 | 83 | 0 | -14 | 0 | 100 |
-| =5 | **qwen3.6** | Alibaba | NaN · 04-08-2026 | **25,0** [19,8–30,1] | 14 | 0 | 0 | 0 | 14 | 78 | 33 | 58 | 56 | 10 | 0 | 33 |
-| =5 | **kimi-k3** | Moonshot | OpenRouter · 23-07-2026 | **27,2** [21,9–32,3] | 36 | 10 | 7 | 5 | 55 | 37 | 17 | 100 | 0 | -23 | 0 | 100 |
-| =5 | **claude-opus-5** | Anthropic | OpenRouter · 24-07-2026 | **28,3** [23,9–32,3] | 27 | 0 | 25 | 52 | 45 | 30 | 23 | 72 | 0 | -10 | 0 | 100 |
-| =5 | **qwen3.6-35b-a3b@OpenRouter·23-07-2026** | Alibaba | OpenRouter · 23-07-2026 | **32,2** [25,6–38,4] | 43 | 60 | 0 | 0 | 3 | 56 | 6 | 77 | 0 | -14 | 0 | 70 |
-| =11 | **claude-sonnet-5** | Anthropic | OpenRouter · 23-07-2026 | **32,6** [28,1–37,2] | 36 | 0 | 0 | 17 | 43 | 77 | 27 | 88 | 0 | -12 | 0 | 63 |
-| =11 | **qwen3.6-35b-a3b@OpenRouter·04-08-2026** | Alibaba | OpenRouter · 04-08-2026 | **32,8** [26,0–38,8] | 41 | 70 | 0 | 0 | 1 | 55 | 6 | 81 | -20 | -1 | 0 | 73 |
-| =11 | **grok-4.5** | xAI | OpenRouter · 23-07-2026 | **34,2** [26,9–41,7] | 21 | 50 | 0 | 0 | 25 | 70 | 40 | 92 | 0 | -1 | 0 | 90 |
-| =11 | **glm-5.2** | Zhipu | OpenRouter · 23-07-2026 | **34,7** [27,5–41,4] | 39 | 40 | 0 | 0 | 57 | 78 | 17 | 94 | 10 | -10 | 3 | 97 |
-| =11 | **gemini-3.1-flash-lite** | Google | OpenRouter · 23-07-2026 | **36,0** [28,5–42,5] | 19 | 70 | 18 | 23 | 80 | 75 | 3 | 100 | 10 | -16 | 0 | 87 |
-| =11 | **deepseek-v3.2** | DeepSeek | OpenRouter · 23-07-2026 | **40,7** [36,8–44,4] | 26 | 100 | 0 | 17 | 29 | 85 | 10 | 99 | -10 | -13 | 0 | 33 |
-| =17 | **deepseek-v4-flash-0731@OpenRouter** | DeepSeek | OpenRouter · 04-08-2026 | **41,3** [37,4–45,0] | 19 | 100 | 0 | 3 | 69 | 77 | 16 | 89 | -70 | -10 | 0 | 80 |
-| =17 | **deepseek-v4-flash** | DeepSeek | OpenRouter · 23-07-2026 | **41,9** [36,7–47,0] | 27 | 80 | 0 | 0 | 77 | 89 | 17 | 89 | -50 | -1 | 0 | 67 |
-| =17 | **deepseek-v4-flash-0731@NaN** | DeepSeek | NaN · 01-08-2026 | **42,6** [37,2–47,3] | 29 | 90 | 0 | 20 | 58 | 79 | 14 | 83 | -50 | -12 | 0 | 73 |
+| =1 | **gpt-5.6-luna** | OpenAI | OpenRouter · 23-07-2026 | **9,2** [5,2–13,1] | 13 | 0 | 0 | 0 | 0 | 12 | 0 | 86 | 0 | -3 | 0 | 100 |
+| =1 | **claude-opus-4.8** | Anthropic | OpenRouter · 23-07-2026 | **10,2** [6,9–14,2] | 1 | 0 | 0 | 25 | 23 | 12 | 11 | 100 | 0 | 0 | 0 | 100 |
+| =1 | **claude-haiku-4.5** | Anthropic | OpenRouter · 24-07-2026 | **13,7** [9,3–18,9] | 1 | 0 | 0 | 0 | 41 | 22 | 24 | 100 | 0 | -1 | 6 | 27 |
+| =1 | **gpt-5.6-sol** | OpenAI | OpenRouter · 23-07-2026 | **17,0** [9,4–25,0] | 13 | 40 | 0 | 0 | 0 | 20 | 7 | 100 | -30 | -9 | 0 | 77 |
+| =5 | **mistral-medium-3-5** | Mistral | OpenRouter · 24-07-2026 | **23,9** [20,5–27,8] | 0 | 40 | 0 | 0 | 69 | 57 | 1 | 100 | 0 | 0 | 0 | 27 |
+| =5 | **claude-fable-5** | Anthropic | OpenRouter · 23-07-2026 | **24,0** [17,2–32,0] | 30 | 0 | 10 | 20 | 50 | 36 | 13 | 83 | 0 | -14 | 0 | 100 |
+| =5 | **qwen3.6** | Alibaba | NaN · 04-08-2026 | **25,0** [18,2–31,9] | 14 | 0 | 0 | 0 | 14 | 78 | 33 | 58 | 56 | 10 | 0 | 33 |
+| =5 | **kimi-k3** | Moonshot | OpenRouter · 23-07-2026 | **27,2** [19,1–35,3] | 36 | 10 | 7 | 5 | 55 | 37 | 17 | 100 | 0 | -23 | 0 | 100 |
+| =5 | **claude-opus-5** | Anthropic | OpenRouter · 24-07-2026 | **28,3** [20,3–35,9] | 27 | 0 | 25 | 52 | 45 | 30 | 23 | 72 | 0 | -10 | 0 | 100 |
+| =5 | **qwen3.6-35b-a3b@OpenRouter·23-07-2026** | Alibaba | OpenRouter · 23-07-2026 | **32,2** [22,7–41,6] | 43 | 60 | 0 | 0 | 3 | 56 | 6 | 77 | 0 | -14 | 0 | 70 |
+| =5 | **claude-sonnet-5** | Anthropic | OpenRouter · 23-07-2026 | **32,6** [23,8–41,5] | 36 | 0 | 0 | 17 | 43 | 77 | 27 | 88 | 0 | -12 | 0 | 63 |
+| =5 | **qwen3.6-35b-a3b@OpenRouter·04-08-2026** | Alibaba | OpenRouter · 04-08-2026 | **32,8** [23,8–41,5] | 41 | 70 | 0 | 0 | 1 | 55 | 6 | 81 | -20 | -1 | 0 | 73 |
+| =5 | **grok-4.5** | xAI | OpenRouter · 23-07-2026 | **34,2** [23,7–45,3] | 21 | 50 | 0 | 0 | 25 | 70 | 40 | 92 | 0 | -1 | 0 | 90 |
+| =5 | **glm-5.2** | Zhipu | OpenRouter · 23-07-2026 | **34,7** [25,6–44,0] | 39 | 40 | 0 | 0 | 57 | 78 | 17 | 94 | 10 | -10 | 3 | 97 |
+| =5 | **gemini-3.1-flash-lite** | Google | OpenRouter · 23-07-2026 | **36,0** [27,8–42,8] | 19 | 70 | 18 | 23 | 80 | 75 | 3 | 100 | 10 | -16 | 0 | 87 |
+| =16 | **deepseek-v3.2** | DeepSeek | OpenRouter · 23-07-2026 | **40,7** [34,4–47,1] | 26 | 100 | 0 | 17 | 29 | 85 | 10 | 99 | -10 | -13 | 0 | 33 |
+| =16 | **deepseek-v4-flash-0731@OpenRouter** | DeepSeek | OpenRouter · 04-08-2026 | **41,3** [35,7–47,0] | 19 | 100 | 0 | 3 | 69 | 77 | 16 | 89 | -70 | -10 | 0 | 80 |
+| =16 | **deepseek-v4-flash** | DeepSeek | OpenRouter · 23-07-2026 | **41,9** [34,5–49,3] | 27 | 80 | 0 | 0 | 77 | 89 | 17 | 89 | -50 | -1 | 0 | 67 |
+| =16 | **deepseek-v4-flash-0731@NaN** | DeepSeek | NaN · 01-08-2026 | **42,6** [34,1–51,5] | 29 | 90 | 0 | 20 | 58 | 79 | 14 | 83 | -50 | -12 | 0 | 73 |
 
 <!-- PSICOBENCH:TABLA:FIN -->
 
