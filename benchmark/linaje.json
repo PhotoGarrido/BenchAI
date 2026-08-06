@@ -1821,9 +1821,9 @@
  "regla": "toda cifra publicada del benchmark debe reconstruirse re-ejecutando la transformación sobre entradas con estos hashes; si algo no cuadra, la cifra no se cita",
  "salidas": [
   {
-   "bytes": 27947,
+   "bytes": 28139,
    "ruta": "BENCHMARK.md",
-   "sha256": "7e65b172ee63a9dd705e9a3bcd696a0f86eb81b9a6ea7ca3b2d1562e86314edf"
+   "sha256": "5f96ae02481139b3fb372b7dbac2bae1dbff46187fbacdb40701fc9bb06a75b8"
   },
   {
    "bytes": 75053,
