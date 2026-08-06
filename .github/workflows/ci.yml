@@ -19,7 +19,7 @@ jobs:
           cache-dependency-path: spike/requirements-ci.txt
       - name: Instalar dependencias (sin torch)
         run: pip install -r spike/requirements-ci.txt
-      - name: Lint (F y W completos: fatales, imports muertos, f-strings vacías)
+      - name: Lint (F y W completos — fatales, imports muertos, f-strings vacías)
         run: ruff check spike --select E9,F,W
       - name: Type check (módulos núcleo del instrumento)
         working-directory: spike

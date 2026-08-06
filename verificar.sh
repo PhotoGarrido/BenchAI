@@ -9,6 +9,27 @@ PY=${PY:-.venv/bin/python}
 # fatales E9/F63/F7/F82, así que imports muertos y f-strings sin
 # placeholder pasaban. E501/E402/E741 quedan fuera a propósito
 # (longitud de línea, load_dotenv antes de imports, nombres cortos).
+# Sintaxis de los workflows de CI (06-08): un `name:` con dos puntos sin
+# comillas dejo la CI en rojo de arranque durante una ronda entera sin que la
+# puerta local se enterase — la puerta no vigilaba su propia infraestructura.
+# Sin dependencias nuevas: el parser YAML del propio Python si esta, y si no,
+# se avisa y se sigue (la CI real lo valida de todas formas).
+"$PY" - <<'EOF' || { echo "FALLO: workflow de CI con YAML invalido"; exit 1; }
+import pathlib, sys
+try:
+    import yaml
+except ImportError:
+    print("[aviso] PyYAML no instalado; salto la validacion de workflows")
+    sys.exit(0)
+for f in sorted(pathlib.Path("../.github/workflows").glob("*.yml")):
+    try:
+        yaml.safe_load(f.read_text(encoding="utf-8"))
+    except yaml.YAMLError as e:
+        print(f"{f}: {e}")
+        sys.exit(1)
+    print(f"  {f.name}: YAML valido")
+EOF
+
 "$PY" -m ruff check . --select E9,F,W
 "$PY" -m mypy --ignore-missing-imports --follow-imports=skip parsers.py artefactos.py manifiesto.py linter_contraste.py release_manifest.py incertidumbre.py generar_benchmark.py
 "$PY" -m pip_audit -r requirements-ci.txt
