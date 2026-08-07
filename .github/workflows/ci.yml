@@ -81,6 +81,8 @@ jobs:
       - name: PsicoBench al día con las matrices (tabla, panel y datos)
         working-directory: spike
         run: python generar_benchmark.py --check
+      - name: Sitio divulgativo al día con sus fuentes (web/datos.js)
+        run: python web/generar_datos.py --check
       - name: Citas verificadas y CPR del manuscrito (sin red, caché firmada)
         working-directory: spike
         run: |

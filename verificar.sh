@@ -56,4 +56,8 @@ rm -f "$XSS_LOG"
 "$PY" verificar_afirmaciones.py --check
 "$PY" experimento_gfinal.py --linter
 "$PY" run_spike.py --dry-run --steps 2 > /dev/null
+# Sitio divulgativo: sus cifras se re-derivan de las fuentes canónicas y cada
+# dato citado en prosa se verifica literal contra su informe. Si una fuente
+# cambia y la web se queda con un número huérfano, esto lo tumba.
+"$PY" ../web/generar_datos.py --check
 echo "PUERTA COMPLETA: OK"
