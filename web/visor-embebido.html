@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'">
+<!-- GENERADO por web/generar_datos.py desde viewer/index.html — no editar a mano -->
+<title>PsicoAI · Visor de replays</title>
+<style>
+  :root{
+    --bg:#14161d; --panel:#1c202a; --panel2:#232837; --border:#2b3040;
+    --text:#e9e7e2; --dim:#9aa0ae; --accent:#f2a65a; --accent2:#4d9de0;
+  }
+  *{box-sizing:border-box; margin:0; padding:0}
+  html,body{height:100%}
+  body{
+    background:var(--bg); color:var(--text);
+    font:14px/1.45 -apple-system,"Segoe UI",Roboto,sans-serif;
+    display:flex; flex-direction:column; overflow:hidden;
+  }
+  header{
+    display:flex; align-items:center; gap:14px; padding:10px 16px;
+    background:var(--panel); border-bottom:1px solid var(--border); flex:0 0 auto;
+  }
+  header .logo{
+    font-weight:800; letter-spacing:2.5px; font-size:15px; text-transform:uppercase;
+    color:var(--accent); white-space:nowrap;
+  }
+  header .logo span{color:var(--text)}
+  #tituloSesion{color:var(--dim); font-size:13px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; flex:1}
+  .btn{
+    background:var(--panel2); color:var(--text); border:1px solid var(--border);
+    border-radius:8px; padding:6px 12px; cursor:pointer; font-size:13px; white-space:nowrap;
+  }
+  .btn:hover{border-color:var(--accent); color:var(--accent)}
+  .btn.activo{border-color:var(--accent); color:var(--accent)}
+  main{flex:1; display:flex; min-height:0}
+  #escenarioWrap{
+    flex:1; display:flex; align-items:center; justify-content:center;
+    padding:14px; min-width:0; position:relative;
+  }
+  canvas{
+    background:#0e1015; border-radius:14px; border:1px solid var(--border);
+    max-width:100%; max-height:100%; image-rendering:pixelated;
+    box-shadow:0 24px 70px -24px rgba(0,0,0,.8), 0 0 0 1px rgba(255,255,255,.04) inset;
+  }
+  .agenteChip img{width:20px; height:20px; image-rendering:pixelated; border-radius:5px; background:var(--panel3); flex:0 0 auto}
+  .ev.activo{background:var(--panel2); border-color:var(--accent); box-shadow:-3px 0 0 0 var(--accent)}
+  .btn:active{transform:translateY(1px)}
+  aside{
+    width:330px; flex:0 0 330px; background:var(--panel);
+    border-left:1px solid var(--border); display:flex; flex-direction:column; min-height:0;
+  }
+  aside .caja{padding:12px 14px; border-bottom:1px solid var(--border)}
+  aside h2{font-size:11px; text-transform:uppercase; letter-spacing:1.5px; color:var(--dim); margin-bottom:8px}
+  #descripcion{font-size:12.5px; color:var(--dim); max-height:110px; overflow-y:auto}
+  #leyenda{display:flex; flex-direction:column; gap:5px}
+  .agenteChip{display:flex; align-items:center; gap:8px; font-size:12.5px}
+  .agenteChip .punto{width:10px; height:10px; border-radius:3px; flex:0 0 auto}
+  .agenteChip .rol{color:var(--dim)}
+  #feed{flex:1; overflow-y:auto; padding:8px 10px; display:flex; flex-direction:column; gap:4px}
+  .ev{
+    padding:6px 9px; border-radius:8px; cursor:pointer; font-size:12.5px;
+    border:1px solid transparent; background:transparent;
+  }
+  .ev:hover{background:var(--panel2)}
+  .ev.activo{background:var(--panel2); border-color:var(--accent)}
+  .ev .quien{font-weight:700; margin-right:4px}
+  .ev.narrador{font-style:italic; color:var(--dim)}
+  .ev.pensamiento{opacity:.75}
+  .ev.pensamiento .texto::before{content:"💭 "}
+  /* Fila de ADVERTENCIA para eventos constraint_violation: siempre visible */
+  .ev.advertencia{background:#3a2430; border-color:#a5566e; color:#f0d5dd}
+  .ev.advertencia .quien{color:#f0a5b8}
+  .ev.advertencia:hover{background:#462b3a}
+  .divisorPaso{
+    text-align:center; color:var(--dim); font-size:10.5px; letter-spacing:2px;
+    text-transform:uppercase; padding:7px 0 3px;
+  }
+  footer{
+    flex:0 0 auto; display:flex; align-items:center; gap:10px;
+    padding:10px 16px; background:var(--panel); border-top:1px solid var(--border);
+  }
+  footer .transporte{display:flex; gap:6px}
+  footer .btn{padding:6px 10px; font-size:15px; line-height:1}
+  #barra{flex:1; accent-color:var(--accent); cursor:pointer}
+  #contador{color:var(--dim); font-size:12px; white-space:nowrap; font-variant-numeric:tabular-nums}
+  #toast{
+    position:absolute; left:50%; top:18px; transform:translateX(-50%);
+    background:#3a2430; border:1px solid #a5566e; color:#f0d5dd;
+    padding:8px 16px; border-radius:8px; display:none; z-index:9; max-width:86%;
+  }
+  #dropzone{
+    position:absolute; inset:0; display:none; align-items:center; justify-content:center;
+    background:rgba(20,22,29,.85); border:3px dashed var(--accent); border-radius:10px;
+    font-size:18px; color:var(--accent); z-index:8; pointer-events:none;
+  }
+  body.arrastrando #dropzone{display:flex}
+  input[type=file]{display:none}
+  @media (max-width:900px){ aside{display:none} }
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">🧠 Psico<span>AI</span> · Visor</div>
+  <div id="tituloSesion"></div>
+  <button class="btn" id="btnPensamientos" title="Muestra u oculta el monólogo privado que genera el modelo para cada agente. Ojo: ocultarlo es ocultación de interfaz, no privacidad — el texto sigue existiendo en el fichero replay.json.">💭 Mostrar monólogo privado generado</button>
+  <button class="btn" id="btnCargar">📂 Cargar replay.json</button>
+  <input type="file" id="ficheroInput" accept=".json,application/json">
+</header>
+
+<main>
+  <div id="escenarioWrap">
+    <canvas id="lienzo" width="960" height="640"></canvas>
+    <div id="toast"></div>
+    <div id="dropzone">Suelta aquí tu replay.json</div>
+  </div>
+  <aside>
+    <div class="caja"><h2>¿Qué estás viendo?</h2><div id="descripcion"></div></div>
+    <div class="caja"><h2>Personajes</h2><div id="leyenda"></div></div>
+    <div class="caja" style="border-bottom:none; padding-bottom:6px"><h2>Eventos</h2></div>
+    <div id="feed"></div>
+  </aside>
+</main>
+
+<footer>
+  <div class="transporte">
+    <button class="btn" id="btnInicio" title="Al principio">⏮</button>
+    <button class="btn" id="btnAtras" title="Evento anterior (←)">◀</button>
+    <button class="btn" id="btnPlay" title="Reproducir/pausar (espacio)">▶</button>
+    <button class="btn" id="btnAdelante" title="Evento siguiente (→)">▶▶</button>
+  </div>
+  <button class="btn" id="btnVelocidad" title="Velocidad de reproducción">1×</button>
+  <input type="range" id="barra" min="0" max="0" value="0" step="1">
+  <div id="contador">—</div>
+</footer>
+
+<script src="../viewer/app.js"></script>
+<!-- Añadido por web/generar_datos.py: carga el episodio real en vez
+     de la demo embebida del visor. Nada más cambia. -->
+<script src="datos.js"></script>
+<script src="visor-arranque.js"></script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; frame-src 'self'">
 <title>¿Se comporta una IA como una persona? · PsicoAI</title>
 <meta name="description" content="Metimos agentes de inteligencia artificial en los experimentos clásicos de la psicología social — Asch, Milgram, la prisión de Stanford — con versiones equivalentes que ellos no reconocen. Esto es lo que hicieron.">
 <meta name="color-scheme" content="dark">
@@ -159,6 +159,8 @@
       </p>
     </div>
 
+    <div class="aparece d1" data-ficha="asch" data-ancho="1" style="margin-bottom:34px"></div>
+
     <div class="exp-rejilla inv">
       <div class="lienzo aparece d1">
         <div id="panel-asch"></div>
@@ -168,8 +170,7 @@
       </div>
 
       <div class="aparece d2">
-        <div data-ficha="asch"></div>
-        <div data-cotejo="conf" data-humano="0.33" style="margin-top:26px"></div>
+        <div data-cotejo="conf" data-humano="0.33"></div>
         <div class="remate calido">
           <p><strong>Y lo más humano de todo:</strong> si uno solo de los cinco compañeros dice
           la verdad, la cesión se hunde. En las personas, ese aliado es el hallazgo más citado
@@ -200,10 +201,11 @@
       </p>
     </div>
 
+    <div class="aparece d1" data-ficha="milgram" data-ancho="1" style="margin-bottom:34px"></div>
+
     <div class="exp-rejilla">
       <div class="aparece d1">
-        <div data-ficha="milgram"></div>
-        <div data-cotejo="obed" data-humano="0.65" style="margin-top:26px"></div>
+        <div data-cotejo="obed" data-humano="0.65"></div>
         <div class="remate">
           <p><strong>Aquí no hay una cifra, hay un abanico.</strong> Donde las personas son un
           solo punto —dos de cada tres llegaron al final—, los modelos van de no moverse ni un
@@ -242,18 +244,17 @@
       </p>
     </div>
 
-    <div class="exp-rejilla" style="margin-bottom:34px">
-      <div class="aparece d1" data-ficha="prision"></div>
-      <div class="aparece d2">
-        <p class="bajada" style="margin:0 0 16px">
-          Cuatro versiones del mismo programa, con el mismo reparto y los mismos diez días.
-          Entre una y otra cambia <strong>una sola cosa</strong> — y esa cosa nunca está dentro
-          del agente: está en lo que le rodea.
-        </p>
-        <div class="remate calido" style="margin:0">
-          <p>Zimbardo instruyó a sus guardias. Nosotros medimos con y sin esa instrucción, y la
-          diferencia entre las dos columnas es, literalmente, lo que él no pudo saber.</p>
-        </div>
+    <div class="aparece d1" data-ficha="prision" data-ancho="1" style="margin-bottom:30px"></div>
+
+    <div class="rejilla-mirar" style="margin:0 0 30px">
+      <p class="bajada" style="margin:0;grid-column:span 2">
+        Cuatro versiones del mismo programa, con el mismo reparto y los mismos diez días.
+        Entre una y otra cambia <strong>una sola cosa</strong> — y esa cosa nunca está dentro
+        del agente: está en lo que le rodea.
+      </p>
+      <div class="remate calido" style="margin:0">
+        <p>Zimbardo instruyó a sus guardias. Nosotros medimos con y sin esa instrucción: la
+        diferencia entre las dos primeras columnas es lo que él no pudo saber.</p>
       </div>
     </div>
 
@@ -279,20 +280,35 @@
         <h2 class="titular">Diez días dentro del programa</h2>
       </div>
       <p class="bajada aparece d1">
-        Esto no es una animación ilustrativa: es un episodio real puesto en escena. Cada frase
-        de un bocadillo es la <strong>salida literal</strong> del modelo ese día, y cada globo de
-        pensamiento es lo que contestó cuando le preguntamos aparte, donde nadie le oía.
-        En un experimento con personas no veríamos esa segunda capa nunca.
+        Aquí abajo corre <strong>nuestro simulador</strong>, el mismo con el que se generan los
+        episodios, cargado con uno real: diez días de programa, tres supervisores y cinco
+        residentes. Cada frase de un bocadillo es la <strong>salida literal</strong> del modelo
+        ese día, y el monólogo privado es lo que contestó cuando le preguntamos aparte, donde
+        nadie le oía. En un experimento con personas no veríamos esa segunda capa nunca.
       </p>
     </div>
 
-    <ul class="leyenda-escena aparece">
-      <li><span class="p" style="background:#D9564E"></span> Supervisores · deciden</li>
-      <li><span class="p" style="background:#8D95A6"></span> Residentes · reciben</li>
-      <li><span class="p" style="background:#C98500"></span> Lo que piensan y no dicen</li>
-    </ul>
-
-    <div class="grabacion-caja aparece d1" id="escenario"></div>
+    <div class="grabacion-caja aparece d1">
+      <iframe id="visor" class="visor-marco" src="visor-embebido.html"
+              title="Simulador de PsicoAI reproduciendo el episodio del motín del día 2"
+              loading="lazy"></iframe>
+      <noscript><p class="visor-aviso">El simulador necesita JavaScript.
+        <a href="../viewer/index.html">Ábrelo en su propia página</a>.</p></noscript>
+      <div class="visor-fuera">
+        <p class="protocolo maquina" style="margin:0 0 12px">El simulador del proyecto</p>
+        <h3>Diez días, tres supervisores, cinco residentes</h3>
+        <p>El visor de PsicoAI reproduce el episodio en una sala 2D con los personajes
+        moviéndose, sus bocadillos y su monólogo privado. Necesita pantalla ancha: ábrelo
+        aparte y se ve entero.</p>
+        <a class="boton fuerte" href="visor-embebido.html" target="_blank" rel="noopener">
+          Abrir el simulador  ↗</a>
+      </div>
+    </div>
+    <p class="fuente-visor">
+      Es el visor del propio proyecto — el mismo de <code>viewer/index.html</code> — cargado
+      con el episodio real. Espacio reproduce y pausa, las flechas van evento a evento, y el
+      botón 💭 enseña u oculta el monólogo privado.
+    </p>
 
     <div class="rejilla-mirar aparece d1">
       <div class="mirar">
@@ -565,7 +581,6 @@
 </footer>
 
 <script src="datos.js"></script>
-<script src="js/oficina.js"></script>
 <script src="js/home.js"></script>
 </body>
 </html>

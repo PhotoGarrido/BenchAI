@@ -33,7 +33,7 @@ REPO = "https://github.com/PhotoGarrido/PsicoAI/blob/main/"
 SCRIPTS = {
     "index.html": ["datos.js", "js/graficas.js", "js/reproductor.js",
                    "js/pagina.js", "js/escena.js"],
-    "home.html": ["datos.js", "js/oficina.js", "js/home.js"],
+    "home.html": ["datos.js", "js/home.js"],
 }
 HOJAS = {"index.html": ["css/estilo.css"], "home.html": ["css/home.css"]}
 
@@ -67,6 +67,15 @@ def construir(pagina: str, sin_envoltorio: bool = False,
     if enlace_detalle:
         cuerpo = re.sub(r'href="index\.html(#[\w-]+)?"',
                         lambda mm: f'href="{enlace_detalle}{mm.group(1) or ""}"', cuerpo)
+
+    # El visor va en un <iframe> a una página hermana: en un fichero suelto no
+    # hay hermanas, así que se retira el marco y queda la tarjeta de respaldo
+    # —la misma que ya se usa en móvil— apuntando al visor del repositorio.
+    if "visor-marco" in cuerpo:
+        cuerpo = re.sub(r'\s*<iframe id="visor".*?</iframe>', "", cuerpo, flags=re.S)
+        cuerpo = cuerpo.replace('href="visor-embebido.html" target="_blank"',
+                                f'href="{REPO}viewer/index.html" target="_blank"')
+        cuerpo = cuerpo.replace('class="visor-fuera"', 'class="visor-fuera suelto"')
 
     # Los enlaces al repositorio son relativos («../BENCHMARK.md»).
     cuerpo = re.sub(r'href="\.\./([^"]+)"', lambda mm: f'href="{REPO}{mm.group(1)}"', cuerpo)

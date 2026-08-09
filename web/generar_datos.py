@@ -523,6 +523,47 @@ def bloque_corpus() -> dict:
     }
 
 
+# ── 5-quater. La página del visor para incrustar ───────────────────────────
+
+VISOR_EMBEBIDO = RAIZ / "web" / "visor-embebido.html"
+
+
+def generar_visor_embebido() -> str:
+    """Deriva `web/visor-embebido.html` de `viewer/index.html`.
+
+    La home enseña el simulador **real** del proyecto, no una reimplementación:
+    esta página es el visor tal cual —mismo marcado, mismo `viewer/app.js`, sin
+    tocar ni una línea— con dos añadidos al final del cuerpo: los datos y tres
+    líneas que le piden cargar el episodio en vez de la demo.
+
+    Va en un `<iframe>` y no incrustado en la home porque el visor captura la
+    barra espaciadora y las flechas a nivel de documento (para su transporte) y
+    aplica un `*{margin:0}` global: dentro del marco eso queda contenido, y
+    fuera rompería el scroll y la maquetación de la página.
+    """
+    html = (RAIZ / "viewer" / "index.html").read_text(encoding="utf-8")
+
+    if '<script src="app.js"></script>' not in html:
+        raise SystemExit("[generar_datos] viewer/index.html ya no carga app.js "
+                         "como se esperaba; revisa el visor embebido.")
+
+    extra = (
+        '<script src="app.js"></script>\n'
+        '<!-- Añadido por web/generar_datos.py: carga el episodio real en vez\n'
+        '     de la demo embebida del visor. Nada más cambia. -->\n'
+        '<script src="datos.js"></script>\n'
+        '<script src="visor-arranque.js"></script>'
+    )
+    html = html.replace('<script src="app.js"></script>', extra)
+    # el visor vive en viewer/; desde web/ hay que reapuntar su script
+    html = html.replace('<script src="app.js">', '<script src="../viewer/app.js">')
+    html = html.replace("<title>", "<!-- GENERADO por web/generar_datos.py desde "
+                                   "viewer/index.html — no editar a mano -->\n<title>")
+
+    VISOR_EMBEBIDO.write_text(html, encoding="utf-8")
+    return html
+
+
 # ── 6. Las grabaciones (episodios del simulador narrativo) ──────────────────
 
 def bloque_episodios() -> list:
@@ -620,6 +661,7 @@ def construir() -> str:
         "metodo": bloque_metodo(),
         "episodios": bloque_episodios(),
     }
+    generar_visor_embebido()
     cuerpo = json.dumps(datos, ensure_ascii=False, indent=1, sort_keys=False)
     return (
         "// Generado por web/generar_datos.py — NO EDITAR A MANO.\n"

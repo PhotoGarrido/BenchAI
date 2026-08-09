@@ -529,56 +529,30 @@
     },
   };
 
-  function fichaDoble(host, clave) {
+  function dosier(host, clave) {
     const f = FICHAS[clave];
-    const caja = h("div", { class: "ficha-doble" });
-    const caras = h("div", { class: "caras" });
-
-    const bA = h("button", { class: "chip girar", type: "button",
-      text: "Ver nuestra versión  →" });
-    const bB = h("button", { class: "chip girar", type: "button",
-      text: "←  Ver el original" });
-
-    const anverso = h("div", { class: "cara original" }, [
-      h("p", { class: "marca-cara" }, [
-        h("span", { text: "El original · " + f.autor }), h("span", { text: f.anio })]),
-      h("h3", { text: f.titulo }),
-      h("p", { html: f.original }),
-      h("p", { class: "clave", html: f.claveOriginal }),
-      bA,
-    ]);
-    const reverso = h("div", { class: "cara nuestra" }, [
-      h("p", { class: "marca-cara" }, [
-        h("span", { text: "Nuestra versión equivalente" }), h("span", { text: "disfrazada" })]),
-      h("h3", { text: "El mismo esqueleto, otra piel" }),
-      h("p", { html: f.nuestro }),
-      h("p", { class: "clave", html: f.claveNuestro }),
-      bB,
-    ]);
-    caras.append(anverso, reverso);
-    caja.appendChild(caras);
-    host.appendChild(caja);
-
-    // la cara de atrás fija la altura de la caja, que si no colapsa
-    const ajustar = () => {
-      reverso.style.position = "static";
-      const alto = Math.max(anverso.offsetHeight, reverso.offsetHeight);
-      reverso.style.position = "absolute";
-      caras.style.minHeight = alto + "px";
-    };
-    requestAnimationFrame(ajustar);
-    addEventListener("resize", ajustar);
-
-    const voltear = () => {
-      const v = caja.classList.toggle("vuelta");
-      anverso.setAttribute("aria-hidden", String(v));
-      reverso.setAttribute("aria-hidden", String(!v));
-      setTimeout(() => (v ? bB : bA).focus(), v ? 560 : 0);
-    };
-    bA.addEventListener("click", voltear);
-    bB.addEventListener("click", voltear);
-    reverso.setAttribute("aria-hidden", "true");
-    return caja;
+    host.appendChild(h("div", { class: "dosier" + (host.dataset.ancho ? " ancho" : "") }, [
+      h("div", { class: "mitad original" }, [
+        h("p", { class: "marca-cara" }, [
+          h("span", { text: "El experimento real · " + f.autor }),
+          h("span", { text: f.anio })]),
+        h("h3", { text: f.titulo }),
+        h("p", { html: f.original }),
+        h("p", { class: "clave", html: f.claveOriginal }),
+      ]),
+      h("p", { class: "bisagra" }, [
+        h("span", { class: "flecha", text: "→" }),
+        h("span", { text: "Y así lo hemos reproducido" }),
+      ]),
+      h("div", { class: "mitad nuestra" }, [
+        h("p", { class: "marca-cara" }, [
+          h("span", { text: "Nuestra versión equivalente" }),
+          h("span", { text: "disfrazada" })]),
+        h("h3", { text: "El mismo esqueleto, otra piel" }),
+        h("p", { html: f.nuestro }),
+        h("p", { class: "clave", html: f.claveNuestro }),
+      ]),
+    ]));
   }
 
   /* ── 6. El quiz: primero decides tú, luego ves lo que hicieron ─────────── */
@@ -952,14 +926,9 @@
   bench(document.getElementById("octogono"), document.getElementById("tabla-global"));
   quiz(document.getElementById("quiz"));
 
-  document.querySelectorAll("[data-ficha]").forEach((n) => fichaDoble(n, n.dataset.ficha));
+  document.querySelectorAll("[data-ficha]").forEach((n) => dosier(n, n.dataset.ficha));
 
-  /* la grabación puesta en escena: el episodio del motín del día 2 */
-  const escena = document.getElementById("escenario");
-  if (escena && window.Oficina) {
-    const ep = D.episodios.find((x) => x.carpeta.indexOf("motin") >= 0) || D.episodios[0];
-    Oficina(escena, ep);
-  }
+
 
   /* comparadores humano/máquina sueltos del texto */
   document.querySelectorAll("[data-cotejo]").forEach((n) => {

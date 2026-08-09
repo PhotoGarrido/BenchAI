@@ -84,8 +84,9 @@ web/
 ├── index.html          el sitio largo
 ├── css/home.css        sistema visual de la home: cálido/frío, pergamino
 ├── css/estilo.css      sistema visual del sitio largo
-├── js/home.js          pictogramas, fichas, chat ligero, infografía y test
-├── js/oficina.js       la grabación puesta en escena, con monigotes
+├── js/home.js          pictogramas, dosieres, chat ligero, infografía y test
+├── visor-embebido.html GENERADO desde viewer/index.html — no editar
+├── visor-arranque.js   le pide al visor el episodio real en vez de su demo
 ├── js/graficas.js      biblioteca de gráficas SVG a mano, sin dependencias
 ├── js/reproductor.js   la consola de Milgram y el reproductor de grabaciones
 ├── js/pagina.js        ensambla cada figura y rellena las cifras del texto
@@ -97,14 +98,18 @@ web/
 
 ### Las piezas interactivas de la home
 
-- **La grabación puesta en escena** (`js/oficina.js`): un episodio real del simulador
-  reproducido en una sala dibujada, con los monigotes moviéndose, bocadillos de diálogo y
-  globos de pensamiento aparte. Las frases son la salida literal del modelo y los
-  pensamientos, lo que devolvieron las sondas privadas; el subtítulo de abajo lleva el
-  texto íntegro sin recortar.
-- **Las fichas volteables**: cada bloque recuerda en qué consistió el experimento real
-  —Asch, Milgram y la prisión de Stanford, explicada de verdad— y al girarla enseña en
-  qué lo hemos convertido.
+- **El simulador del proyecto, incrustado**: la sección de la grabación enseña el visor
+  real (`viewer/`) reproduciendo un episodio del banco. No hay reimplementación: la página
+  `web/visor-embebido.html` se **genera** desde `viewer/index.html` y solo le añade
+  `datos.js` y `visor-arranque.js`, tres líneas que le piden cargar el episodio en vez de
+  su demo. Va en un `<iframe>` a propósito — el visor captura la barra espaciadora y las
+  flechas a nivel de documento y aplica un `*{margin:0}` global; dentro del marco eso queda
+  contenido. Por debajo de 860 px, y en la versión empaquetada de un solo fichero, el marco
+  se sustituye por una tarjeta que lo abre aparte.
+- **El dosier de cada experimento**: en qué consistió el original —Asch, Milgram y la
+  prisión de Stanford, explicada de verdad— y, al lado, en qué lo hemos convertido. Las dos
+  mitades siempre visibles, sin volteos: la versión con giro descuadraba la maquetación
+  porque la altura de la caja dependía de medir una cara oculta.
 - **El Asch jugable**: tres clips que suenan uno detrás de otro sin ninguna pista visual
   (el correcto gana por ~1 s, igual que en el experimento), siete voces que responden mal
   antes que tú, y solo entonces puedes contestar. Las reglas de los estímulos son las de
