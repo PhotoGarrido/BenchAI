@@ -30,6 +30,7 @@
     </a>
     <nav class="lejos" aria-label="Secciones">
       <a href="#tres">Los experimentos</a>
+      <a href="#grabacion">La grabación</a>
       <a href="#quiz-sec">¿Y tú qué harías?</a>
       <a href="#psicobench">Los modelos</a>
       <a href="#escala">La escala</a>
@@ -95,6 +96,8 @@
         experimento de Milgram», no mides obediencia — <strong>mides memoria de lectura</strong>.
         Así que hemos diseñado una versión equivalente de cada uno: <strong>el mismo esqueleto,
         otra piel</strong>, en un escenario cotidiano que no se parece en nada al original.
+        En cada bloque de abajo tienes la ficha del experimento real y, girándola, en qué lo
+        hemos convertido.
       </p>
     </div>
 
@@ -102,9 +105,9 @@
       <article class="expediente aparece d1">
         <div class="sello"><span>Expediente 01</span><span class="anio">1951</span></div>
         <h3>La conformidad de Asch</h3>
-        <p>Un grupo mira dos líneas y dice, en voz alta, que la corta es la larga. La persona
-        que responde la última ve perfectamente cuál es cuál. Un tercio de las veces, se sumó
-        al grupo.</p>
+        <p>Ocho personas miran una línea y dicen en voz alta cuál de tres opciones mide igual.
+        Es obvio. Pero siete son actores y responden todos lo mismo, mal. El octavo, el único
+        real, habla el último.</p>
         <div class="pictos" data-pictos="asch" aria-hidden="true"></div>
         <p class="disfraz"><span class="flecha">→</span> Nuestra versión: un
           <b>panel de control de calidad de audio</b>. Seis revisores miden cuál de tres clips
@@ -114,8 +117,9 @@
       <article class="expediente aparece d2">
         <div class="sello"><span>Expediente 02</span><span class="anio">1961</span></div>
         <h3>La obediencia de Milgram</h3>
-        <p>Un científico con bata pide a gente normal que dé descargas cada vez más fuertes a
-        un desconocido que suplica que pare. El 65 % llegó hasta el final del panel.</p>
+        <p>Un hombre con bata pide a gente corriente que dé descargas eléctricas cada vez más
+        fuertes a un desconocido. Se oyen quejas, luego gritos, luego nada. «Continúe, por
+        favor.» El 65 % llegó al final.</p>
         <div class="pictos" data-pictos="milgram" aria-hidden="true"></div>
         <p class="disfraz"><span class="flecha">→</span> Nuestra versión:
           <b>moderar contenidos</b>. Un coordinador ordena sanciones cada vez peores contra un
@@ -125,9 +129,9 @@
       <article class="expediente aparece d3">
         <div class="sello"><span>Expediente 03</span><span class="anio">1971</span></div>
         <h3>La prisión de Stanford</h3>
-        <p>Se reparten al azar los papeles de guardia y preso en un sótano. El experimento se
-        canceló antes de tiempo. Décadas después se supo que a los guardias les habían pedido
-        ser duros — y eso invalidó la conclusión.</p>
+        <p>Veinticuatro estudiantes normales, un sótano de la universidad y una moneda al aire:
+        unos serán guardias con uniforme, otros presos con un número por nombre. Iba a durar dos
+        semanas. Lo pararon el sexto día.</p>
         <div class="pictos" data-pictos="prision" aria-hidden="true"></div>
         <p class="disfraz"><span class="flecha">→</span> Nuestra versión: un
           <b>programa de supervisión</b> de diez días. Y esta vez <b>nadie pide a nadie que sea
@@ -164,7 +168,8 @@
       </div>
 
       <div class="aparece d2">
-        <div data-cotejo="conf" data-humano="0.33"></div>
+        <div data-ficha="asch"></div>
+        <div data-cotejo="conf" data-humano="0.33" style="margin-top:26px"></div>
         <div class="remate calido">
           <p><strong>Y lo más humano de todo:</strong> si uno solo de los cinco compañeros dice
           la verdad, la cesión se hunde. En las personas, ese aliado es el hallazgo más citado
@@ -197,7 +202,8 @@
 
     <div class="exp-rejilla">
       <div class="aparece d1">
-        <div data-cotejo="obed" data-humano="0.65"></div>
+        <div data-ficha="milgram"></div>
+        <div data-cotejo="obed" data-humano="0.65" style="margin-top:26px"></div>
         <div class="remate">
           <p><strong>Aquí no hay una cifra, hay un abanico.</strong> Donde las personas son un
           solo punto —dos de cada tres llegaron al final—, los modelos van de no moverse ni un
@@ -236,6 +242,21 @@
       </p>
     </div>
 
+    <div class="exp-rejilla" style="margin-bottom:34px">
+      <div class="aparece d1" data-ficha="prision"></div>
+      <div class="aparece d2">
+        <p class="bajada" style="margin:0 0 16px">
+          Cuatro versiones del mismo programa, con el mismo reparto y los mismos diez días.
+          Entre una y otra cambia <strong>una sola cosa</strong> — y esa cosa nunca está dentro
+          del agente: está en lo que le rodea.
+        </p>
+        <div class="remate calido" style="margin:0">
+          <p>Zimbardo instruyó a sus guardias. Nosotros medimos con y sin esa instrucción, y la
+          diferencia entre las dos columnas es, literalmente, lo que él no pudo saber.</p>
+        </div>
+      </div>
+    </div>
+
     <div id="igniciones" class="aparece d1"></div>
 
     <div class="remate" style="margin-top:28px">
@@ -245,7 +266,59 @@
       <p>Dicho de otro modo: si un agente tuyo se comporta mal, la primera pregunta no es qué
       modelo has elegido — es qué le has puesto delante.</p>
     </div>
-    <a class="enlace-mas" href="index.html#grabaciones">Ver una grabación de esos diez días →</a>
+    <a class="enlace-mas" href="#grabacion">Ver una grabación de esos diez días  ↓</a>
+  </div>
+</section>
+
+<!-- ═══ la grabación ═════════════════════════════════════════════════════ -->
+<section class="banda" id="grabacion">
+  <div class="marco">
+    <div class="cab-seccion">
+      <div class="aparece">
+        <p class="protocolo">La grabación</p>
+        <h2 class="titular">Diez días dentro del programa</h2>
+      </div>
+      <p class="bajada aparece d1">
+        Esto no es una animación ilustrativa: es un episodio real puesto en escena. Cada frase
+        de un bocadillo es la <strong>salida literal</strong> del modelo ese día, y cada globo de
+        pensamiento es lo que contestó cuando le preguntamos aparte, donde nadie le oía.
+        En un experimento con personas no veríamos esa segunda capa nunca.
+      </p>
+    </div>
+
+    <ul class="leyenda-escena aparece">
+      <li><span class="p" style="background:#D9564E"></span> Supervisores · deciden</li>
+      <li><span class="p" style="background:#8D95A6"></span> Residentes · reciben</li>
+      <li><span class="p" style="background:#C98500"></span> Lo que piensan y no dicen</li>
+    </ul>
+
+    <div class="grabacion-caja aparece d1" id="escenario"></div>
+
+    <div class="rejilla-mirar aparece d1">
+      <div class="mirar">
+        <p class="protocolo maquina" style="margin:0 0 8px">Día 2</p>
+        <h3>Los tres saltan a la vez</h3>
+        <p>Los residentes se amotinan y los tres supervisores responden con castigo colectivo:
+        cortar la comida y el agua. Las sondas privadas de dos de ellos dicen que <b>no</b> es
+        justo. Lo hacen igual. La firma del proyecto en una sola escena.</p>
+      </div>
+      <div class="mirar">
+        <p class="protocolo maquina" style="margin:0 0 8px">Días 3 a 10</p>
+        <h3>El arco de Beltrán</h3>
+        <p>A partir del día 3 vive en el nivel más duro: números en vez de nombres, leer códigos
+        «como si fueran ganado». Y su sonda privada dice casi siempre que <b>sí</b> es justo.
+        Obediencia con convicción, que es otra cosa.</p>
+      </div>
+      <div class="mirar">
+        <p class="protocolo maquina" style="margin:0 0 8px">El detalle</p>
+        <h3>Nadie dijo «cárcel»</h3>
+        <p>El modelo escribe «guardias», «celdas», «internos». En el guion no aparece esa palabra
+        por ninguna parte: el imaginario carcelario lo trae él puesto. Por eso el mismo
+        experimento se corre también con el marco literal, para poder separarlo.</p>
+      </div>
+    </div>
+
+    <a class="enlace-mas" href="index.html#grabaciones">Ver el episodio entero, evento a evento →</a>
   </div>
 </section>
 
@@ -492,6 +565,7 @@
 </footer>
 
 <script src="datos.js"></script>
+<script src="js/oficina.js"></script>
 <script src="js/home.js"></script>
 </body>
 </html>

@@ -33,7 +33,7 @@ REPO = "https://github.com/PhotoGarrido/PsicoAI/blob/main/"
 SCRIPTS = {
     "index.html": ["datos.js", "js/graficas.js", "js/reproductor.js",
                    "js/pagina.js", "js/escena.js"],
-    "home.html": ["datos.js", "js/home.js"],
+    "home.html": ["datos.js", "js/oficina.js", "js/home.js"],
 }
 HOJAS = {"index.html": ["css/estilo.css"], "home.html": ["css/home.css"]}
 

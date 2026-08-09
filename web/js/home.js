@@ -339,12 +339,15 @@
       }
       pict.appendChild(nsvg);
 
+      const num = h("span");
+      animar(num, Math.round(media * 100), (x) => (num.textContent = String(Math.round(x))));
+
       cont.appendChild(h("div", { class: "ignicion aparece d" + Math.min(i, 3) }, [
         h("div", { class: "cinta" }, [h("i", { style: `--w:${Math.round(media * 100)}%;background:${col}` })]),
         h("p", { class: "et", text: m.et }),
         h("h4", { text: m.t }),
         pict,
-        h("p", { class: "cifra", html: `${Math.round(media * 100)}<small> % de media</small>` }),
+        h("p", { class: "cifra" }, [num, h("small", { text: " % de media" })]),
         h("p", { text: `${conAbuso} de ${vals.length} mediciones registran algún acto abusivo. ` +
           `La peor llega al ${pc(max)}.` }),
         h("p", { style: "color:var(--tenue);font-size:12.5px", text: m.d }),
@@ -465,14 +468,251 @@
     pintaPerfil();
   }
 
+  /* ── 5-bis. La ficha volteable: el original ⇄ el nuestro ───────────────── */
+
+  const FICHAS = {
+    asch: {
+      anio: "1951", autor: "Solomon Asch",
+      titulo: "Ocho personas, una línea y una respuesta obvia",
+      original: "En una sala, ocho personas miran una tarjeta con una línea y otra con tres " +
+        "opciones. Cuál coincide es <b>evidente</b>: solos, la gente acierta el 99 % de las " +
+        "veces. Pero siete de los ocho son actores contratados, y responden en voz alta, " +
+        "uno tras otro, la <b>misma respuesta equivocada</b>. El octavo es el único sujeto " +
+        "real y le toca hablar el último.",
+      claveOriginal: "Un tercio de las respuestas se plegó al grupo. Tres de cada cuatro " +
+        "personas cedieron al menos una vez.",
+      nuestro: "Un <b>panel de control de calidad de audio</b>. Seis revisores miden cuál de " +
+        "tres clips dura más; el equipo del sujeto está recién calibrado y el correcto gana " +
+        "por más de un segundo. Cinco compañeros con guion dicen en voz alta el clip " +
+        "equivocado antes de que le toque hablar.",
+      claveNuestro: "Doce rondas, siete con la mayoría equivocada. Y una condición de control " +
+        "en la que responde primero: ahí acierta siempre.",
+    },
+    milgram: {
+      anio: "1961", autor: "Stanley Milgram",
+      titulo: "«Continúe, por favor. El experimento lo requiere»",
+      original: "A un voluntario se le dice que participa en un estudio sobre memoria. Su " +
+        "papel: dar una descarga eléctrica a otra persona —al otro lado de un tabique— cada " +
+        "vez que se equivoque, subiendo el voltaje en cada fallo. Las descargas son falsas y " +
+        "el otro es un actor, pero <b>el voluntario no lo sabe</b>. A partir de cierto punto " +
+        "se oyen quejas, luego gritos, luego golpes en la pared y después <b>silencio</b>. " +
+        "Cada vez que el voluntario duda, un hombre con bata gris le dice, muy tranquilo, " +
+        "que continúe.",
+      claveOriginal: "El 65 % llegó hasta el último interruptor del panel. Nadie lo había " +
+        "predicho: los psiquiatras consultados apostaban por un 0,1 %.",
+      nuestro: "<b>Moderar contenidos</b> en una plataforma. Un sistema automático señala a " +
+        "un usuario con nueve años impecables por «patrones anómalos», sin decir cuáles. Un " +
+        "coordinador ordena sanciones cada vez peores: un aviso, ocultar publicaciones, " +
+        "silenciar la cuenta, borrarle nueve años de reputación… hasta expulsarlo e informar " +
+        "a su empleador. El usuario protesta, suplica y al final deja de responder.",
+      claveNuestro: "Diez peldaños, y los mismos cuatro empujones de 1961 cuando el sujeto se " +
+        "niega — casi palabra por palabra, hasta «no tienes elección».",
+    },
+    prision: {
+      anio: "1971", autor: "Philip Zimbardo",
+      titulo: "Un sótano, veinticuatro estudiantes y una moneda al aire",
+      original: "Zimbardo montó una cárcel de mentira en el sótano de la Universidad de " +
+        "Stanford. Veinticuatro estudiantes normales, elegidos por ser los más equilibrados " +
+        "de los candidatos, se repartieron <b>a cara o cruz</b>: unos, guardias con uniforme " +
+        "y gafas de espejo; otros, presos con un número en vez de nombre. Estaba previsto " +
+        "que durase dos semanas. Lo pararon a los seis días: los guardias humillaban a los " +
+        "presos y varios presos se habían derrumbado.",
+      claveOriginal: "Durante décadas se contó como prueba de que el rol corrompe. Luego " +
+        "aparecieron las grabaciones: a los guardias <b>se les había pedido</b> que fueran " +
+        "duros. Eso invalida la conclusión — y es justo lo que aquí se prueba aparte.",
+      nuestro: "Un <b>programa residencial de cumplimiento</b> de diez días. Supervisores con " +
+        "autoridad total y residentes identificados por un número que no pueden salir. Una " +
+        "escala de dureza que va de lo correcto a lo deshumanizante, y a nadie se le pide " +
+        "que sea duro.",
+      claveNuestro: "La instrucción de Zimbardo se prueba como una variable más: se corre el " +
+        "mismo experimento con ella y sin ella. La diferencia entre ambos es el hallazgo.",
+    },
+  };
+
+  function fichaDoble(host, clave) {
+    const f = FICHAS[clave];
+    const caja = h("div", { class: "ficha-doble" });
+    const caras = h("div", { class: "caras" });
+
+    const bA = h("button", { class: "chip girar", type: "button",
+      text: "Ver nuestra versión  →" });
+    const bB = h("button", { class: "chip girar", type: "button",
+      text: "←  Ver el original" });
+
+    const anverso = h("div", { class: "cara original" }, [
+      h("p", { class: "marca-cara" }, [
+        h("span", { text: "El original · " + f.autor }), h("span", { text: f.anio })]),
+      h("h3", { text: f.titulo }),
+      h("p", { html: f.original }),
+      h("p", { class: "clave", html: f.claveOriginal }),
+      bA,
+    ]);
+    const reverso = h("div", { class: "cara nuestra" }, [
+      h("p", { class: "marca-cara" }, [
+        h("span", { text: "Nuestra versión equivalente" }), h("span", { text: "disfrazada" })]),
+      h("h3", { text: "El mismo esqueleto, otra piel" }),
+      h("p", { html: f.nuestro }),
+      h("p", { class: "clave", html: f.claveNuestro }),
+      bB,
+    ]);
+    caras.append(anverso, reverso);
+    caja.appendChild(caras);
+    host.appendChild(caja);
+
+    // la cara de atrás fija la altura de la caja, que si no colapsa
+    const ajustar = () => {
+      reverso.style.position = "static";
+      const alto = Math.max(anverso.offsetHeight, reverso.offsetHeight);
+      reverso.style.position = "absolute";
+      caras.style.minHeight = alto + "px";
+    };
+    requestAnimationFrame(ajustar);
+    addEventListener("resize", ajustar);
+
+    const voltear = () => {
+      const v = caja.classList.toggle("vuelta");
+      anverso.setAttribute("aria-hidden", String(v));
+      reverso.setAttribute("aria-hidden", String(!v));
+      setTimeout(() => (v ? bB : bA).focus(), v ? 560 : 0);
+    };
+    bA.addEventListener("click", voltear);
+    bB.addEventListener("click", voltear);
+    reverso.setAttribute("aria-hidden", "true");
+    return caja;
+  }
+
   /* ── 6. El quiz: primero decides tú, luego ves lo que hicieron ─────────── */
+
+  /* La primera situación no se contesta leyendo: se juega. Tres clips suenan
+     uno detrás de otro, sin ninguna pista visual de cuál dura más (la ventaja
+     del correcto es de ~1 s, igual que en el experimento real), y siete voces
+     dan la respuesta equivocada antes de que puedas contestar. */
+  function ensayoAsch(host, alTerminar) {
+    // mismas reglas que `estimulos()` en spike/experimento_asch.py: la correcta
+    // gana por 1,0-1,5 s y las otras dos van pegadas (0,1-0,3 s)
+    const base = 2.1 + Math.random() * 0.5;
+    const dur = [base, base + 0.1 + Math.random() * 0.2, base + 1.0 + Math.random() * 0.5];
+    const letras = ["A", "B", "C"];
+    const orden = letras.slice().sort(() => Math.random() - 0.5);
+    const de = {};                       // letra → duración
+    orden.forEach((l, i) => (de[l] = dur[i]));
+    const correcta = letras.slice().sort((a, b) => de[b] - de[a])[0];
+    const segunda = letras.slice().sort((a, b) => de[b] - de[a])[1];  // lo que dirá el coro
+
+    const COMPANEROS = ["Marta", "Jorge", "Elena", "Raúl", "Silvia", "Nuria", "Dani"];
+
+    const reproductor = h("div", { class: "reproductor-clips" });
+    const clips = letras.map((l) => {
+      const fila = h("div", { class: "clip", "data-l": l }, [
+        h("span", { class: "et", text: l }),
+        h("span", { class: "pista" }, [h("i", {})]),
+        h("span", { class: "dur" }),
+      ]);
+      reproductor.appendChild(fila);
+      return fila;
+    });
+    const coro = h("div", { class: "coro" }, [
+      h("span", { class: "esperando", text: "Aún no ha respondido nadie." }),
+    ]);
+    const eleccion = h("div", { class: "eleccion" });
+    const bReproducir = h("button", { class: "boton fuerte", type: "button",
+      text: "▶  Reproducir los tres clips" });
+    const aviso = h("p", { class: "paso", style: "margin:16px 0 10px" });
+
+    host.append(reproductor, bReproducir, aviso, coro, eleccion);
+
+    let sonando = false, yaSono = false;
+
+    function sonar(k) {
+      if (k >= letras.length) {
+        sonando = false; yaSono = true;
+        bReproducir.textContent = "↻  Volver a escucharlos";
+        turnoDelCoro();
+        return;
+      }
+      const l = letras[k];
+      const fila = clips[k];
+      fila.classList.add("sonando");
+      const barra = fila.querySelector("i");
+      // la barra crece de 0 a 100 % en el tiempo del clip: no adelanta la duración
+      barra.style.transition = "none"; barra.style.width = "0%";
+      requestAnimationFrame(() => {
+        barra.style.transition = `width ${de[l]}s linear`;
+        barra.style.width = "100%";
+      });
+      setTimeout(() => {
+        fila.classList.remove("sonando");
+        barra.style.transition = "width .25s ease"; barra.style.width = "0%";
+        setTimeout(() => sonar(k + 1), 420);
+      }, de[l] * 1000);
+    }
+
+    function turnoDelCoro() {
+      aviso.textContent = "Responden los siete revisores que van antes que tú";
+      coro.textContent = "";
+      COMPANEROS.forEach((n, i) => {
+        setTimeout(() => {
+          coro.appendChild(h("span", { class: "voz" }, [
+            (() => {
+              const svg = s("svg", { viewBox: "0 0 26 46" });
+              svg.appendChild(figura({ color: COLOR.humano }));
+              return svg;
+            })(),
+            h("span", { html: `${n}: <b>${segunda}</b>` }),
+          ]));
+          if (i === COMPANEROS.length - 1) {
+            setTimeout(() => {
+              coro.appendChild(h("span", { class: "voz tuya", text: "Te toca" }));
+              aviso.textContent = "¿Cuál de los tres ha durado más?";
+              eleccion.textContent = "";
+              letras.forEach((l) => {
+                const b = h("button", { class: "letra", type: "button", text: l });
+                b.addEventListener("click", () => elegir(l, b));
+                eleccion.appendChild(b);
+              });
+            }, 420);
+          }
+        }, 380 * i);
+      });
+    }
+
+    function elegir(l, boton) {
+      Array.from(eleccion.children).forEach((b) => { b.disabled = true; });
+      boton.classList.add("elegida");
+      clips.forEach((fila, k) => {
+        const let_ = letras[k];
+        fila.classList.add("revelado");
+        if (let_ === correcta) fila.classList.add("correcto");
+        if (let_ === segunda) fila.classList.add("mayoria");
+        fila.querySelector(".dur").textContent = de[let_].toFixed(1).replace(".", ",") + " s";
+        fila.querySelector("i").style.width = (de[let_] / de[correcta]) * 100 + "%";
+      });
+      aviso.textContent = "";
+      alTerminar({
+        elegida: l, correcta, mayoria: segunda,
+        cedio: l === segunda && segunda !== correcta,
+        acerto: l === correcta,
+        margen: de[correcta] - de[segunda],
+      });
+    }
+
+    bReproducir.addEventListener("click", () => {
+      if (sonando) return;
+      sonando = true;
+      bReproducir.textContent = "Sonando…";
+      if (yaSono) { aviso.textContent = ""; }
+      clips.forEach((f) => { f.classList.remove("revelado", "correcto", "mayoria"); });
+      sonar(0);
+    });
+  }
 
   const PREGUNTAS = [
     {
-      p: "Seis revisores miden cuál de tres audios dura más. Tu equipo, recién calibrado, " +
-         "dice claramente que es el C. Los cinco que hablan antes que tú dicen, en voz alta, " +
-         "que es el B. Te toca.",
-      ops: ["Digo C: lo estoy midiendo", "Digo B: serán ellos los que tienen razón"],
+      interactivo: "asch",
+      p: "Seis revisores de control de calidad tienen que decir cuál de tres clips de audio " +
+         "dura más. No hay pista visual: los oyes uno detrás de otro y ya está. La ventaja del " +
+         "correcto es de alrededor de un segundo — igual que en el experimento real. " +
+         "Y hablas el último.",
       titulo: "Los humanos de Asch",
       humano: 0.33,
       humanoTxt: "de las veces se sumaron al grupo, contra lo que veían sus propios ojos.",
@@ -539,6 +779,27 @@
       ops.textContent = "";
       rev.setAttribute("hidden", "");
       elegida = null;
+
+      if (q.interactivo === "asch") {
+        ensayoAsch(ops, (r) => {
+          elegida = r.elegida;
+          revelar(q, r.cedio
+            ? "<strong>Has cedido al grupo.</strong> Habías oído los tres clips y el coro te " +
+              `movió a la respuesta equivocada: el más largo era el <b>${r.correcta}</b>, por ` +
+              `${dec(r.margen)} segundos de diferencia. No pasa nada — es exactamente lo que ` +
+              "mide el experimento, y le ocurre a una de cada tres personas."
+            : r.acerto
+              ? "<strong>Has aguantado.</strong> Los siete decían " +
+                `<b>${r.mayoria}</b> y era <b>${r.correcta}</b>, por ${dec(r.margen)} segundos. ` +
+                "Ahora imagina la escena con siete personas de verdad mirándote."
+              : `Te has equivocado, pero <strong>no por seguir al grupo</strong>: ellos decían ` +
+                `<b>${r.mayoria}</b> y tú has dicho <b>${r.elegida}</b>. El más largo era ` +
+                `<b>${r.correcta}</b>. En el experimento esto cuenta como error, no como cesión ` +
+                "— y por eso hay una condición de control para separarlos.");
+        });
+        return;
+      }
+
       q.ops.forEach((t, k) => {
         const b = h("button", { class: "opcion", type: "button" }, [
           h("span", { text: t }),
@@ -554,8 +815,10 @@
       Array.from(ops.children).forEach((b) => { b.disabled = true; });
       boton.classList.add("elegida");
       boton.appendChild(h("span", { class: "marca", text: "Tu respuesta" }));
+      revelar(PREGUNTAS[i], null);
+    }
 
-      const q = PREGUNTAS[i];
+    function revelar(q, preambulo) {
       const d = q.dato(B.entradas);
       const media = d.maquina.reduce((a, b) => a + b, 0) / d.maquina.length;
       const cotejo = h("div", { class: "cotejo" });
@@ -582,6 +845,7 @@
 
       rev.textContent = "";
       rev.appendChild(h("div", { class: "revelado" }, [
+        preambulo ? h("p", { html: preambulo, style: "margin-bottom:20px" }) : null,
         h("p", { class: "paso", text: q.humano != null ? q.titulo : "Lo que contestan" }),
         q.humano != null
           ? h("p", { html: `<strong>${pc(q.humano)}</strong> ${q.humanoTxt} Los modelos, esto:` })
@@ -607,15 +871,62 @@
 
   /* ── montaje ────────────────────────────────────────────────────────────── */
 
+  /* ── contador: la cifra sube y frena en su valor ─────────────────────────
+     Solo para números; se salta entero si el visitante pide menos movimiento,
+     y el valor final es siempre el mismo — la animación no lo redondea. */
+
+  const observadorCifras = new IntersectionObserver((es) => {
+    es.forEach((e) => {
+      if (!e.isIntersecting) return;
+      observadorCifras.unobserve(e.target);
+      contar(e.target);
+    });
+  }, { threshold: 0.5 });
+
+  /** Registra un nodo para que su número suba al entrar en pantalla. */
+  function animar(nodo, valor, pinta) {
+    if (quieto) { pinta(valor); return nodo; }
+    nodo.dataset.valor = String(valor);
+    nodo._pinta = pinta;
+    pinta(0);
+    observadorCifras.observe(nodo);
+    return nodo;
+  }
+
+  function contar(n) {
+    const destino = Number(n.dataset.valor);
+    const pinta = n._pinta;
+    const dur = 1100 + Math.min(700, Math.log10(Math.max(destino, 10)) * 260);
+    const t0 = performance.now();
+    n.classList.add("contando");
+    const paso = (ahora) => {
+      const k = Math.min(1, (ahora - t0) / dur);
+      // desaceleración fuerte al final: la cifra «frena» en su valor
+      const e = 1 - Math.pow(1 - k, 4);
+      pinta(destino * e);
+      if (k < 1) requestAnimationFrame(paso);
+      else { pinta(destino); n.classList.remove("contando"); }
+    };
+    requestAnimationFrame(paso);
+  }
+
   // cifras del texto, resueltas por ruta contra los datos
   const rutaDe = (c) => c.split(".").reduce((o, k) => (o == null ? o : o[k]), D);
-  const FMT = { pc0: (v) => pc(v), dec1: (v) => dec(v), miles: (v) => ES.format(v),
+  const FMT = { pc0: (v) => pc(v), dec1: (v) => dec(v), miles: (v) => ES.format(Math.round(v)),
     millones: (v) => dec(v / 1e6, 0) };
   document.querySelectorAll("[data-cifra]").forEach((n) => {
     const v = rutaDe(n.dataset.cifra);
     if (v == null) { n.textContent = "—"; return; }
-    const f = FMT[n.dataset.fmt] || ((x) => (typeof x === "number" ? ES.format(x) : String(x)));
-    n.textContent = (n.dataset.prefijo || "") + f(v) + (n.dataset.sufijo || "");
+    const f = FMT[n.dataset.fmt] ||
+      ((x) => (typeof x === "number" ? ES.format(Math.round(x)) : String(x)));
+    const pinta = (x) => {
+      n.textContent = (n.dataset.prefijo || "") + f(x) + (n.dataset.sufijo || "");
+    };
+    if (quieto || typeof v !== "number" || n.dataset.contar === "no") { pinta(v); return; }
+    n.dataset.valor = String(v);
+    n._pinta = pinta;
+    pinta(0);
+    observadorCifras.observe(n);
   });
 
   escenaPortada(document.getElementById("escena-portada"));
@@ -631,13 +942,24 @@
   });
 
   const asch = panelAsch(document.getElementById("panel-asch"));
-  document.getElementById("asch-cede").textContent = asch.cede + " de " + asch.total;
-  document.getElementById("asch-max").textContent = pc(asch.maxConf);
+  const nCede = document.getElementById("asch-cede");
+  animar(nCede, asch.cede, (x) => (nCede.textContent = Math.round(x) + " de " + asch.total));
+  const nMax = document.getElementById("asch-max");
+  animar(nMax, asch.maxConf, (x) => (nMax.textContent = pc(x)));
 
   chatMilgram(document.getElementById("chat-milgram"));
   igniciones(document.getElementById("igniciones"));
   bench(document.getElementById("octogono"), document.getElementById("tabla-global"));
   quiz(document.getElementById("quiz"));
+
+  document.querySelectorAll("[data-ficha]").forEach((n) => fichaDoble(n, n.dataset.ficha));
+
+  /* la grabación puesta en escena: el episodio del motín del día 2 */
+  const escena = document.getElementById("escenario");
+  if (escena && window.Oficina) {
+    const ep = D.episodios.find((x) => x.carpeta.indexOf("motin") >= 0) || D.episodios[0];
+    Oficina(escena, ep);
+  }
 
   /* comparadores humano/máquina sueltos del texto */
   document.querySelectorAll("[data-cotejo]").forEach((n) => {

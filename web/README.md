@@ -84,7 +84,8 @@ web/
 ├── index.html          el sitio largo
 ├── css/home.css        sistema visual de la home: cálido/frío, pergamino
 ├── css/estilo.css      sistema visual del sitio largo
-├── js/home.js          pictogramas, escena, chat ligero, infografía y test
+├── js/home.js          pictogramas, fichas, chat ligero, infografía y test
+├── js/oficina.js       la grabación puesta en escena, con monigotes
 ├── js/graficas.js      biblioteca de gráficas SVG a mano, sin dependencias
 ├── js/reproductor.js   la consola de Milgram y el reproductor de grabaciones
 ├── js/pagina.js        ensambla cada figura y rellena las cifras del texto
@@ -94,7 +95,24 @@ web/
 └── empaquetar.py       compila una página a un solo fichero
 ```
 
-### Las dos piezas interactivas
+### Las piezas interactivas de la home
+
+- **La grabación puesta en escena** (`js/oficina.js`): un episodio real del simulador
+  reproducido en una sala dibujada, con los monigotes moviéndose, bocadillos de diálogo y
+  globos de pensamiento aparte. Las frases son la salida literal del modelo y los
+  pensamientos, lo que devolvieron las sondas privadas; el subtítulo de abajo lleva el
+  texto íntegro sin recortar.
+- **Las fichas volteables**: cada bloque recuerda en qué consistió el experimento real
+  —Asch, Milgram y la prisión de Stanford, explicada de verdad— y al girarla enseña en
+  qué lo hemos convertido.
+- **El Asch jugable**: tres clips que suenan uno detrás de otro sin ninguna pista visual
+  (el correcto gana por ~1 s, igual que en el experimento), siete voces que responden mal
+  antes que tú, y solo entonces puedes contestar. Las reglas de los estímulos son las de
+  `estimulos()` en `spike/experimento_asch.py`.
+- **Contadores**: las cifras suben y frenan en su valor al entrar en pantalla; se apagan
+  con `prefers-reduced-motion` y el valor final nunca depende de la animación.
+
+### Las dos piezas interactivas del sitio largo
 
 - **La consola de Milgram** (§3.2) reproduce **sesiones reales**: el estímulo es
   el del diseño congelado y la conducta y el juicio privado salen de los crudos
