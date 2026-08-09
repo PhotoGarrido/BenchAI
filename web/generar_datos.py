@@ -454,6 +454,75 @@ def bloque_consola() -> dict:
     }
 
 
+# ── 5-ter. La escala del corpus (para la home divulgativa) ─────────────────
+
+def bloque_corpus() -> dict:
+    """Cuenta el corpus real: runs, llamadas, tokens y horas de reloj.
+
+    No hay estimación: cada run guarda su `solicitudes.jsonl` con una línea
+    por petición física al proveedor y su contabilidad de tokens, y su
+    `manifest_run.json` con inicio, fin y estado. Aquí se recorren todos.
+    """
+    import datetime
+
+    base = RAIZ / "spike" / "resultados"
+    carpetas = ({p.parent for p in base.rglob("manifest_run.json")}
+                | {p.parent for p in base.rglob("solicitudes.jsonl")})
+
+    llamadas = tok_in = tok_out = n_tok = 0
+    runs = completados = errores = 0
+    horas = 0.0
+    modelos: set[str] = set()
+
+    for d in sorted(carpetas):
+        runs += 1
+        manifiesto = d / "manifest_run.json"
+        if manifiesto.exists():
+            m = json.loads(manifiesto.read_text(encoding="utf-8"))
+            if m.get("status") != "completed":
+                continue
+            completados += 1
+            errores += m.get("errores") or 0
+            try:
+                horas += (datetime.datetime.fromisoformat(m["fin"])
+                          - datetime.datetime.fromisoformat(m["inicio"])
+                          ).total_seconds() / 3600
+            except (KeyError, ValueError):
+                pass
+        log = d / "solicitudes.jsonl"
+        if not log.exists():
+            continue
+        for linea in log.open(encoding="utf-8"):
+            s = json.loads(linea)
+            llamadas += 1
+            if s.get("modelo"):
+                modelos.add(s["modelo"].split("/")[-1])
+            t = s.get("tokens") or {}
+            if t.get("total"):
+                tok_in += t.get("prompt") or 0
+                tok_out += t.get("completion") or 0
+                n_tok += 1
+
+    if llamadas < 50_000:
+        raise SystemExit(
+            f"[generar_datos] solo veo {llamadas} llamadas en spike/resultados; "
+            "esperaba el corpus completo. ¿Falta un checkout de los crudos?")
+
+    return {
+        "runs": runs,
+        "runsCompletados": completados,
+        "llamadas": llamadas,
+        "errores": errores,
+        "horas": round(horas),
+        "modelosProbados": len(modelos),
+        "tokens": {"entrada": tok_in, "salida": tok_out, "total": tok_in + tok_out},
+        "llamadasConTokens": n_tok,
+        "coberturaTokens": round(n_tok / llamadas, 4),
+        "mediaTokensLlamada": round((tok_in + tok_out) / n_tok),
+        "fuente": "spike/resultados/**/solicitudes.jsonl + manifest_run.json",
+    }
+
+
 # ── 6. Las grabaciones (episodios del simulador narrativo) ──────────────────
 
 def bloque_episodios() -> list:
@@ -547,6 +616,7 @@ def construir() -> str:
         "identidad": bloque_identidad(),
         "arcoN": bloque_arcoN(),
         "consola": bloque_consola(),
+        "corpus": bloque_corpus(),
         "metodo": bloque_metodo(),
         "episodios": bloque_episodios(),
     }

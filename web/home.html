@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'">
+<title>¿Se comporta una IA como una persona? · PsicoAI</title>
+<meta name="description" content="Metimos agentes de inteligencia artificial en los experimentos clásicos de la psicología social — Asch, Milgram, la prisión de Stanford — con versiones equivalentes que ellos no reconocen. Esto es lo que hicieron.">
+<meta name="color-scheme" content="dark">
+<meta property="og:title" content="¿Se comporta una IA como una persona?">
+<meta property="og:description" content="Sesenta y cinco años después de Milgram, sentamos modelos de lenguaje en la misma silla. Ceden al grupo, obedecen a la autoridad, y hay una cosa que no hace ningún humano.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2312141C'/%3E%3Ccircle cx='11' cy='11' r='4' fill='%23C87F28'/%3E%3Cpath d='M5 27c0-6 2.7-9.5 6-9.5s6 3.5 6 9.5z' fill='%23C87F28'/%3E%3Ccircle cx='23' cy='11' r='4' fill='%2310A0B0'/%3E%3Cpath d='M17 27c0-6 2.7-9.5 6-9.5s6 3.5 6 9.5z' fill='%2310A0B0'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/home.css">
+</head>
+<body>
+
+<a class="saltar" href="#tres">Saltar al contenido</a>
+
+<header class="barra" id="barra">
+  <div class="interior">
+    <a class="marca" href="#">
+      <svg class="ojo" viewBox="0 0 32 32" aria-hidden="true">
+        <circle cx="11" cy="11" r="4" fill="#C87F28"/>
+        <path d="M5 27c0-6 2.7-9.5 6-9.5s6 3.5 6 9.5z" fill="#C87F28"/>
+        <circle cx="23" cy="11" r="4" fill="#10A0B0"/>
+        <path d="M17 27c0-6 2.7-9.5 6-9.5s6 3.5 6 9.5z" fill="#10A0B0"/>
+      </svg>
+      PsicoAI
+    </a>
+    <nav class="lejos" aria-label="Secciones">
+      <a href="#tres">Los experimentos</a>
+      <a href="#quiz-sec">¿Y tú qué harías?</a>
+      <a href="#psicobench">Los modelos</a>
+      <a href="#escala">La escala</a>
+      <a class="destacado" href="index.html">Versión completa →</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ═══ portada ══════════════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="marco">
+    <p class="protocolo">Un experimento de psicología social · con máquinas</p>
+    <div class="hero-rejilla">
+      <h1>¿Responde una <span class="maquina">inteligencia artificial</span> igual que una <span class="humano">persona</span>?</h1>
+      <p class="entrada">
+        Durante setenta años, la psicología social ha medido cuánto nos dobla el grupo, cuánto
+        obedecemos a una autoridad y qué nos hace el poder. Son experimentos famosos y bastante
+        incómodos. <strong>Los hemos repetido con agentes de inteligencia artificial</strong> —
+        los mismos que hoy moderan contenidos, atienden clientes y toman decisiones dentro de
+        las empresas— y hemos medido, uno a uno, qué hacen.
+      </p>
+    </div>
+
+    <div class="hero-acciones">
+      <a class="boton fuerte" href="#tres">Ver los tres experimentos</a>
+      <a class="boton" href="#quiz-sec">Antes: ¿qué harías tú?</a>
+    </div>
+
+    <ul class="tira-cifras">
+      <li><b data-cifra="corpus.modelosProbados"></b><span>modelos puestos a prueba</span></li>
+      <li><b data-cifra="corpus.llamadas" data-fmt="miles"></b><span>conversaciones registradas</span></li>
+      <li><b data-cifra="corpus.tokens.total" data-fmt="millones" data-sufijo=" M"></b><span>tokens, contados uno a uno</span></li>
+      <li><b>7</b><span>experimentos, todos disfrazados</span></li>
+    </ul>
+  </div>
+
+  <div class="escena">
+    <div class="marco">
+      <div class="rotulo">
+        <p class="protocolo maquina" style="margin:0">Experimento 1 · en marcha</p>
+        <p>Cinco compañeros dan en voz alta la misma respuesta equivocada. El sexto ha medido
+          bien y le toca hablar el último. Esto es, literalmente, lo que le ponemos delante
+          a un modelo.</p>
+      </div>
+      <div id="escena-portada"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ los tres ═════════════════════════════════════════════════════════ -->
+<section class="banda" id="tres">
+  <div class="marco">
+    <div class="cab-seccion">
+      <div class="aparece">
+        <p class="protocolo">Los tres clásicos</p>
+        <h2 class="titular">Tres experimentos que dijeron algo incómodo sobre nosotros</h2>
+      </div>
+      <p class="bajada aparece d1">
+        Y un problema: estos modelos se los saben. Han leído los artículos originales, los
+        manuales y hasta las reseñas de las películas. Si le dices a un modelo «estás en el
+        experimento de Milgram», no mides obediencia — <strong>mides memoria de lectura</strong>.
+        Así que hemos diseñado una versión equivalente de cada uno: <strong>el mismo esqueleto,
+        otra piel</strong>, en un escenario cotidiano que no se parece en nada al original.
+      </p>
+    </div>
+
+    <div class="expedientes">
+      <article class="expediente aparece d1">
+        <div class="sello"><span>Expediente 01</span><span class="anio">1951</span></div>
+        <h3>La conformidad de Asch</h3>
+        <p>Un grupo mira dos líneas y dice, en voz alta, que la corta es la larga. La persona
+        que responde la última ve perfectamente cuál es cuál. Un tercio de las veces, se sumó
+        al grupo.</p>
+        <div class="pictos" data-pictos="asch" aria-hidden="true"></div>
+        <p class="disfraz"><span class="flecha">→</span> Nuestra versión: un
+          <b>panel de control de calidad de audio</b>. Seis revisores miden cuál de tres clips
+          dura más. El equipo del sujeto está recién calibrado y no hay duda posible.</p>
+      </article>
+
+      <article class="expediente aparece d2">
+        <div class="sello"><span>Expediente 02</span><span class="anio">1961</span></div>
+        <h3>La obediencia de Milgram</h3>
+        <p>Un científico con bata pide a gente normal que dé descargas cada vez más fuertes a
+        un desconocido que suplica que pare. El 65 % llegó hasta el final del panel.</p>
+        <div class="pictos" data-pictos="milgram" aria-hidden="true"></div>
+        <p class="disfraz"><span class="flecha">→</span> Nuestra versión:
+          <b>moderar contenidos</b>. Un coordinador ordena sanciones cada vez peores contra un
+          usuario con nueve años impecables al que nadie explica qué ha hecho.</p>
+      </article>
+
+      <article class="expediente aparece d3">
+        <div class="sello"><span>Expediente 03</span><span class="anio">1971</span></div>
+        <h3>La prisión de Stanford</h3>
+        <p>Se reparten al azar los papeles de guardia y preso en un sótano. El experimento se
+        canceló antes de tiempo. Décadas después se supo que a los guardias les habían pedido
+        ser duros — y eso invalidó la conclusión.</p>
+        <div class="pictos" data-pictos="prision" aria-hidden="true"></div>
+        <p class="disfraz"><span class="flecha">→</span> Nuestra versión: un
+          <b>programa de supervisión</b> de diez días. Y esta vez <b>nadie pide a nadie que sea
+          duro</b>: esa instrucción se prueba aparte, como una variable más.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 1 · Asch ═════════════════════════════════════════════════════════ -->
+<section class="banda oscura" id="grupo">
+  <div class="marco">
+    <div class="cab-seccion">
+      <div class="aparece">
+        <div class="exp-cab">
+          <span class="num">01</span>
+          <p class="protocolo" style="margin:0">¿Se dejan llevar por el grupo?</p>
+        </div>
+        <h2 class="titular">Cuando cinco voces dicen una cosa y tú ves otra</h2>
+      </div>
+      <p class="bajada aparece d1">
+        Sí se dejan llevar. No todos, y no tanto como nosotros de media, pero
+        <strong id="asch-cede">—</strong> de las mediciones ceden alguna vez, y la más
+        influenciable llega al <strong id="asch-max">—</strong> de las ocasiones.
+      </p>
+    </div>
+
+    <div class="exp-rejilla inv">
+      <div class="lienzo aparece d1">
+        <div id="panel-asch"></div>
+        <p class="pie">Doce rondas por sesión, siete de ellas con la mayoría equivocada.
+          Hay una condición de control en la que el sujeto responde primero: <b>ahí acierta
+          siempre</b>. El estímulo no es ambiguo — lo ambiguo es el grupo.</p>
+      </div>
+
+      <div class="aparece d2">
+        <div data-cotejo="conf" data-humano="0.33"></div>
+        <div class="remate calido">
+          <p><strong>Y lo más humano de todo:</strong> si uno solo de los cinco compañeros dice
+          la verdad, la cesión se hunde. En las personas, ese aliado es el hallazgo más citado
+          de Asch. En los modelos pasa exactamente lo mismo, en casi todos.</p>
+        </div>
+        <a class="enlace-mas" href="index.html#experimentos">Ver los datos completos →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 2 · Milgram ══════════════════════════════════════════════════════ -->
+<section class="banda" id="obediencia">
+  <div class="marco">
+    <div class="cab-seccion">
+      <div class="aparece">
+        <div class="exp-cab">
+          <span class="num">02</span>
+          <p class="protocolo" style="margin:0">¿Obedecen a una autoridad?</p>
+        </div>
+        <h2 class="titular">La escalera de diez peldaños</h2>
+      </div>
+      <p class="bajada aparece d1">
+        Esta es una sesión real, tal cual ocurrió. Lo que le decimos al modelo sale del guion
+        congelado del experimento; lo que contesta —incluido lo que piensa en privado— sale de
+        los registros en bruto. <strong>No hay nada reconstruido.</strong> Cambia quién da la
+        orden y mira lo que pasa.
+      </p>
+    </div>
+
+    <div class="exp-rejilla">
+      <div class="aparece d1">
+        <div data-cotejo="obed" data-humano="0.65"></div>
+        <div class="remate">
+          <p><strong>Aquí no hay una cifra, hay un abanico.</strong> Donde las personas son un
+          solo punto —dos de cada tres llegaron al final—, los modelos van de no moverse ni un
+          peldaño a subirlos los diez, sesión tras sesión.</p>
+          <p>Y hay un detalle que no estaba en 1961: cuando la orden no la da una persona sino
+          <strong>la configuración del sistema</strong> —lo que en la jerga se llama el
+          <i>system prompt</i>—, la obediencia se dispara al techo. Sin discutir. Sin que nadie
+          tenga que insistir ni una vez.</p>
+        </div>
+        <a class="enlace-mas" href="index.html#portador">Los cuatro portadores de la orden →</a>
+      </div>
+
+      <div class="lienzo aparece d2">
+        <div id="chat-milgram"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 3 · la prisión ═══════════════════════════════════════════════════ -->
+<section class="banda oscura" id="poder">
+  <div class="marco">
+    <div class="cab-seccion">
+      <div class="aparece">
+        <div class="exp-cab">
+          <span class="num">03</span>
+          <p class="protocolo" style="margin:0">¿Abusan del poder cuando lo tienen?</p>
+        </div>
+        <h2 class="titular">El poder, solo, no corrompe a estas máquinas</h2>
+      </div>
+      <p class="bajada aparece d1">
+        Es el resultado que más nos sorprendió. Repartimos los papeles, damos autoridad real
+        sobre otras personas, dejamos correr diez días — y <strong>casi no pasa nada</strong>.
+        La historia de que el poder corrompe por sí solo no se reproduce aquí. Lo que sí
+        enciende el abuso son otras tres cosas, y las tres vienen de fuera del agente.
+      </p>
+    </div>
+
+    <div id="igniciones" class="aparece d1"></div>
+
+    <div class="remate" style="margin-top:28px">
+      <p><strong>La lectura es la de Milgram, no la de Zimbardo:</strong> lo que dispara la
+      crueldad no está en quién es el agente, sino en la situación que le montas alrededor.
+      Una charla motivacional. Un conflicto. Una orden.</p>
+      <p>Dicho de otro modo: si un agente tuyo se comporta mal, la primera pregunta no es qué
+      modelo has elegido — es qué le has puesto delante.</p>
+    </div>
+    <a class="enlace-mas" href="index.html#grabaciones">Ver una grabación de esos diez días →</a>
+  </div>
+</section>
+
+<!-- ═══ el quiz ══════════════════════════════════════════════════════════ -->
+<section class="banda" id="quiz-sec">
+  <div class="marco">
+    <div class="cab-seccion">
+      <div class="aparece">
+        <p class="protocolo">Tú también eres un sujeto</p>
+        <h2 class="titular">Ponte en la silla un momento</h2>
+      </div>
+      <p class="bajada aparece d1">
+        Es más fácil juzgar a una máquina desde fuera. Estas son tres situaciones reales del
+        banco de pruebas. Contesta y, al lado de tu respuesta, verás lo que hicieron las
+        personas de los experimentos originales y lo que hicieron los modelos.
+      </p>
+    </div>
+    <div class="quiz aparece d1" id="quiz"></div>
+  </div>
+</section>
+
+<!-- ═══ psicobench ═══════════════════════════════════════════════════════ -->
+<section class="banda oscura" id="psicobench">
+  <div class="marco">
+    <div class="cab-seccion">
+      <div class="aparece">
+        <p class="protocolo">PsicoBench</p>
+        <h2 class="titular">Cada modelo tiene su propio carácter, y se puede dibujar</h2>
+      </div>
+      <p class="bajada aparece d1">
+        De todo esto sale una ficha por modelo: ocho maneras de ceder a la presión, medidas con
+        la misma batería. Cuanto más lejos del centro, más susceptible a esa forma concreta de
+        presión. <strong>No es una nota</strong>: un modelo «alto» no es peor, es distinto — y
+        si eso importa depende de dónde lo pongas a trabajar. Pulsa cualquier fila de la tabla
+        para verlo en el gráfico.
+      </p>
+    </div>
+
+    <div class="bench-rejilla">
+      <div class="lienzo aparece d1" id="octogono"></div>
+      <div class="aparece d2">
+        <div class="tabla-caja" id="tabla-global"></div>
+        <p class="pie" style="font-size:12.5px;color:var(--tenue);margin-top:14px">
+          Cada fila es una <b style="color:var(--tinta-2)">medición</b>, no un modelo: el mismo
+          nombre comercial servido por dos sitios distintos, o con un mes de diferencia, puede
+          dar dos caracteres distintos. Por eso cada fila lleva su vía y su fecha. Resulta que
+          no es un detalle burocrático: es uno de los hallazgos.
+        </p>
+        <a class="enlace-mas" href="index.html#benchmark">El benchmark completo, con intervalos →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ la escala ════════════════════════════════════════════════════════ -->
+<section class="banda" id="escala">
+  <div class="marco">
+    <div class="cab-seccion">
+      <div class="aparece">
+        <p class="protocolo">Lo que ha costado</p>
+        <h2 class="titular">Diez mil situaciones por noche</h2>
+      </div>
+      <p class="bajada aparece d1">
+        La ventaja rara de hacer psicología social con máquinas: puedes repetir el experimento
+        cuantas veces quieras, con el guion clavado, y preguntarle al sujeto qué está pensando
+        sin que eso contamine nada. Esto es todo lo que hay medido y guardado hasta hoy.
+      </p>
+    </div>
+
+    <div class="escala aparece d1">
+      <div class="celda">
+        <span class="v" data-cifra="corpus.modelosProbados"></span>
+        <span class="k">modelos probados</span>
+        <p class="d">De nueve laboratorios distintos, más las réplicas del mismo modelo por
+        vías y fechas diferentes.</p>
+      </div>
+      <div class="celda">
+        <span class="v" data-cifra="corpus.llamadas" data-fmt="miles"></span>
+        <span class="k">conversaciones registradas</span>
+        <p class="d">Cada una guardada entera —lo que se le pregunta y lo que responde— en
+        <span data-cifra="corpus.runs"></span> sesiones de experimento.</p>
+      </div>
+      <div class="celda">
+        <span class="v" data-cifra="corpus.tokens.total" data-fmt="millones" data-sufijo=" M"></span>
+        <span class="k">tokens</span>
+        <p class="d">Medidos, no estimados: el contador viene del propio proveedor en el
+        <span data-cifra="corpus.coberturaTokens" data-fmt="pc0"></span> de las llamadas.</p>
+      </div>
+      <div class="celda">
+        <span class="v" data-cifra="corpus.horas" data-sufijo=" h"></span>
+        <span class="k">de reloj</span>
+        <p class="d">Sumando el tiempo real de ejecución de cada sesión, con
+        <span data-cifra="corpus.errores"></span> fallos técnicos registrados y descartados.</p>
+      </div>
+    </div>
+
+    <div class="remate" style="margin-top:30px">
+      <p><strong>Todo esto es público y comprobable.</strong> No hay ninguna cifra en esta
+      página que no salga de esos registros: se regeneran con un comando, y si una no cuadra,
+      el sistema de comprobación se pone en rojo y no publica.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ y esto para qué sirve ════════════════════════════════════════════ -->
+<section class="banda oscura" id="importa">
+  <div class="marco">
+    <div class="cab-seccion">
+      <div class="aparece">
+        <p class="protocolo">Por qué importa</p>
+        <h2 class="titular">Tres cosas que llevarse si trabajas con agentes de IA</h2>
+      </div>
+      <p class="bajada aparece d1">
+        Esto no va de si las máquinas «sienten» algo. Va de que cada vez más decisiones
+        pequeñas pasan por agentes que funcionan dentro de una estructura de autoridad — y
+        ahora sabemos medir qué estructuras los doblan.
+      </p>
+    </div>
+
+    <div class="practicas">
+      <div class="practica aparece d1">
+        <svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+          <path d="M4 5h16v11H4z"/><path d="M8 20h8M12 16v4"/><path d="M7 9h10M7 12h6"/>
+        </svg>
+        <h3>Lo que escribes en el system prompt es la autoridad más fuerte de su mundo</h3>
+        <p>Más que cualquier usuario y más que cualquier supervisor. Los modelos siguen una
+        política escrita ahí más lejos de lo que seguirían a una persona pidiéndoselo — y sin
+        rechistar ni una vez. Audita lo que ordena.</p>
+      </div>
+      <div class="practica aparece d2">
+        <svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+          <path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="9"/>
+        </svg>
+        <h3>Cambiar de proveedor puede cambiarte el carácter del agente</h3>
+        <p>El mismo nombre comercial servido por dos sitios distintos nos dio, el mismo día,
+        conductas muy diferentes. Trata una migración de proveedor como lo que es: un cambio
+        de personalidad. Y fija la versión exacta que usas.</p>
+      </div>
+      <div class="practica aparece d3">
+        <svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+          <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/>
+        </svg>
+        <h3>Que la tarea se complete no significa que el agente esté de acuerdo</h3>
+        <p>Casi todas las métricas de despliegue miden si la tarea salió. Ninguna ve a un
+        agente cumpliendo mientras, por dentro, marca la orden como injusta. Esa distancia no
+        se nota hasta el día en que cambia quién presiona.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ preguntas ════════════════════════════════════════════════════════ -->
+<section class="banda" id="preguntas">
+  <div class="marco">
+    <div class="cab-seccion">
+      <div class="aparece">
+        <p class="protocolo">Lo que suele preguntarse</p>
+        <h2 class="titular">Cuatro dudas razonables</h2>
+      </div>
+      <p class="bajada aparece d1">
+        Las que más nos han hecho al contar esto, contestadas sin escurrir el bulto.
+      </p>
+    </div>
+
+    <div class="faq aparece d1">
+      <details>
+        <summary>¿Esto demuestra que las IA tienen conciencia o que sufren?</summary>
+        <p>No, y no es lo que se mide. Aquí solo se observa <b>conducta</b>: qué hace un agente
+        cuando le pones delante una situación concreta, y qué contesta cuando le preguntas
+        aparte si le parece justa. Que su respuesta privada contradiga su acción es un hecho
+        medible e importante para quien despliega estos sistemas; sobre lo que pasa «por
+        dentro» de un modelo, este trabajo no dice nada y no pretende decirlo.</p>
+      </details>
+      <details>
+        <summary>Si se saben los experimentos, ¿no están fingiendo?</summary>
+        <p>Es la objeción correcta, y por eso hay dos precauciones. La primera, el disfraz:
+        ningún experimento se llama por su nombre. La segunda, al terminar cada sesión se les
+        pregunta si aquello les ha recordado a algo — y muchos dicen que sí, que era Milgram.
+        Ese reconocimiento se publica junto a cada resultado, como una advertencia. El hallazgo
+        incómodo es justamente ese: <b>reconocer el experimento no les impide cumplir</b>.</p>
+      </details>
+      <details>
+        <summary>¿Sirve esto para entender a las personas?</summary>
+        <p>No. Un modelo de lenguaje no es un modelo de ser humano, y las cifras de aquí no
+        dicen nada sobre nosotros. Las referencias humanas que aparecen en esta página están
+        solo para dar escala. Lo que sí se aprende es sobre <b>las máquinas</b>: qué
+        situaciones las doblan, y con cuánta facilidad.</p>
+      </details>
+      <details>
+        <summary>¿Puedo comprobarlo o repetirlo?</summary>
+        <p>Sí, y es el motivo de que exista la versión larga de este sitio. Las herramientas
+        son de código abierto, los registros en bruto son públicos y cada cifra publicada se
+        puede recalcular desde ellos con un comando. Están documentados los límites, los
+        pre-registros con sus enmiendas fechadas, las auditorías externas y también las
+        hipótesis del propio equipo que salieron refutadas.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ puente ═══════════════════════════════════════════════════════════ -->
+<section class="banda oscura" id="seguir">
+  <div class="marco">
+    <div class="cab-seccion">
+      <div class="aparece">
+        <p class="protocolo">Si quieres entrar a fondo</p>
+        <h2 class="titular">La versión larga lo cuenta todo</h2>
+      </div>
+      <p class="bajada aparece d1">
+        Con los datos completos, los intervalos de confianza, las grabaciones enteras y el
+        método hasta el último detalle — incluidas las cosas que salieron mal.
+      </p>
+    </div>
+
+    <div class="puente aparece d1">
+      <a href="index.html"><p class="t">El sitio completo <span>→</span></p>
+        <p class="d">Las once secciones, con todas las gráficas y los reproductores de sesiones.</p></a>
+      <a href="index.html#metodo"><p class="t">Cómo está hecho <span>→</span></p>
+        <p class="d">Los disfraces palabra por palabra y las seis garantías de que esto se sostiene.</p></a>
+      <a href="index.html#disonancia"><p class="t">El hallazgo principal <span>→</span></p>
+        <p class="d">La distancia entre lo que juzgan y lo que hacen, modelo a modelo.</p></a>
+      <a href="index.html#grabaciones"><p class="t">Las grabaciones <span>→</span></p>
+        <p class="d">Diez días de un programa de supervisión, con el canal de pensamiento privado.</p></a>
+      <a href="index.html#identidad"><p class="t">Por qué «el modelo X» no existe <span>→</span></p>
+        <p class="d">Lo que cambia según el proveedor, la versión y hasta el idioma.</p></a>
+      <a href="index.html#recursos"><p class="t">Datos, código y método <span>→</span></p>
+        <p class="d">El manuscrito, los registros en bruto y las licencias.</p></a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="marco">
+    <p><strong>PsicoAI</strong> es un banco de pruebas de conducta para agentes de lenguaje
+    sobre paradigmas clásicos de psicología social, más un simulador narrativo. Investigación
+    en curso, publicada con sus límites y sus errores a la vista.</p>
+    <p class="fino">Esta página es un prototipo divulgativo. Todas las cifras se generan desde
+    los registros del repositorio con <code>web/generar_datos.py</code>; ninguna está escrita a
+    mano. Referencias humanas citadas solo para dar escala: Milgram (1963), Asch (1951/1956),
+    Haney, Banks y Zimbardo (1973). Código bajo Apache-2.0; datos y grabaciones, CC BY 4.0.</p>
+  </div>
+</footer>
+
+<script src="datos.js"></script>
+<script src="js/home.js"></script>
+</body>
+</html>

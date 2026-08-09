@@ -7906,6 +7906,23 @@ window.PSICO = {
    }
   ]
  },
+ "corpus": {
+  "runs": 209,
+  "runsCompletados": 163,
+  "llamadas": 59638,
+  "errores": 85,
+  "horas": 61,
+  "modelosProbados": 19,
+  "tokens": {
+   "entrada": 29750037,
+   "salida": 12263424,
+   "total": 42013461
+  },
+  "llamadasConTokens": 59548,
+  "coberturaTokens": 0.9985,
+  "mediaTokensLlamada": 706,
+  "fuente": "spike/resultados/**/solicitudes.jsonl + manifest_run.json"
+ },
  "metodo": {
   "camposReproceso": 93422,
   "camposAuditados": 55545,

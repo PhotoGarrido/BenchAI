@@ -1,18 +1,24 @@
-# 🌐 `web/` — sitio divulgativo (prototipo v0.1)
+# 🌐 `web/` — sitio divulgativo (prototipo v0.2)
 
-Primer prototipo de la web pública del proyecto: una sola página de scroll que
-cuenta PsicoAI de arriba abajo — portada, método, experimentos, disonancia,
-portador, benchmark, identidad, modelos, grabaciones, cierre y recursos —
-siguiendo el hilo conductor del guion del pódcast, pero **con las cifras
-vigentes del repositorio**, no las del día de la grabación.
+Dos páginas, dos públicos, los mismos datos:
+
+| Página | Para quién | Qué cuenta |
+|---|---|---|
+| **`home.html`** | público interesado en IA | La pregunta, los tres experimentos con su versión disfrazada, un test para ponerse en la silla, el perfil de cada modelo y la escala del corpus. Enlaza a la versión larga en cada bloque. |
+| **`index.html`** | quien quiere el detalle | Las once secciones completas: método, los cuatro paradigmas, la disonancia, el portador, el benchmark con intervalos, la identidad, las grabaciones y los recursos. |
+
+La home sigue el planteamiento divulgativo; el sitio largo sigue el hilo del
+guion del pódcast. Los dos leen **las cifras vigentes del repositorio**, no las
+del día de la grabación.
 
 ## Cómo verlo
 
 ```bash
-open web/index.html          # doble clic también vale: no necesita servidor
+open web/home.html           # doble clic también vale: no necesita servidor
+open web/index.html          # la versión larga
 ```
 
-No hay build, ni npm, ni CDN. Tres ficheros JS propios, una hoja de estilo y un
+No hay build, ni npm, ni CDN: JavaScript propio, dos hojas de estilo y un
 módulo de datos generado. Los datos van como `datos.js` (un `window.PSICO = {…}`)
 en lugar de un `.json` con `fetch` precisamente para que funcione con `file://`.
 
@@ -23,19 +29,22 @@ python3 -m http.server 8000     # desde la raíz del repo
 # → http://localhost:8000/web/
 ```
 
-Y para **compartirlo como un solo fichero** (adjuntarlo, pegarlo en un visor,
-mandárselo a alguien sin el repo detrás):
+Y para **compartir cualquiera de las dos como un solo fichero** (adjuntarla,
+pegarla en un visor, mandársela a alguien sin el repo detrás):
 
 ```bash
-python3 web/empaquetar.py                  # → web/psicoai-una-pagina.html
-python3 web/empaquetar.py --sin-envoltorio # solo el contenido, para visores
-                                           # que ya ponen su propio <head>
+python3 web/empaquetar.py                        # home.html
+python3 web/empaquetar.py --pagina index.html    # el sitio largo
+python3 web/empaquetar.py --sin-envoltorio       # solo el contenido, para
+                                                 # visores con su propio <head>
+python3 web/empaquetar.py --enlace-detalle URL   # a dónde apuntan los enlaces
+                                                 # de la home a la versión larga
 ```
 
 Incrusta el CSS y el JS y reescribe los enlaces relativos al repositorio a URLs
 de GitHub. El resultado es un artefacto de compilación: se regenera y no se
-versiona (está en `.gitignore`). Si algún día cambia la lista de scripts de
-`index.html`, el empaquetador falla en vez de publicar una página coja.
+versiona (está en `.gitignore`). Si cambia la lista de scripts de una página, el
+empaquetador falla en vez de publicar una página coja.
 
 ## La regla de la casa: ninguna cifra escrita a mano
 
@@ -55,6 +64,7 @@ python3 web/generar_datos.py --check    # falla si está desfasado (corre en CI)
 | Tabla de portadores | `spike/resultados/informe_eportador_cartera.md` (se parsea; si deja de tener 5 filas, falla) |
 | Cotas de identidad, idioma, arco N, garantías de método | `EXPERIMENTOS.md`, `BENCHMARK.md`, `README.md` |
 | Grabaciones | `episodios/*/replay.json` |
+| Escala del corpus (llamadas, tokens, horas) | recuento de todos los `solicitudes.jsonl` y `manifest_run.json` |
 
 Las cifras que viven en informes en prosa se declaran en el generador **con su
 aguja de verificación**: si la frase exacta desaparece de su fichero, el
@@ -70,14 +80,18 @@ prosa no puede desincronizarse de la tabla.
 
 ```
 web/
-├── index.html          la página entera (estructura y prosa)
-├── css/estilo.css      sistema visual: tema oscuro único, tipografía, retícula
+├── home.html           la home divulgativa
+├── index.html          el sitio largo
+├── css/home.css        sistema visual de la home: cálido/frío, pergamino
+├── css/estilo.css      sistema visual del sitio largo
+├── js/home.js          pictogramas, escena, chat ligero, infografía y test
 ├── js/graficas.js      biblioteca de gráficas SVG a mano, sin dependencias
 ├── js/reproductor.js   la consola de Milgram y el reproductor de grabaciones
 ├── js/pagina.js        ensambla cada figura y rellena las cifras del texto
 ├── js/escena.js        scroll: aparición, progreso, sección activa, portada
 ├── datos.js            GENERADO — no editar a mano
-└── generar_datos.py    el generador y su puerta --check
+├── generar_datos.py    el generador y su puerta --check
+└── empaquetar.py       compila una página a un solo fichero
 ```
 
 ### Las dos piezas interactivas
@@ -94,6 +108,22 @@ web/
   conmutable. Ningún texto de personaje está inventado.
 
 ## Decisiones de diseño
+
+### En la home
+
+- **La codificación cálido/frío es el argumento**, no una decoración: lo humano
+  en ocre `#C87F28`, lo que hace la máquina en turquesa `#10A0B0`. Par validado
+  contra la superficie `#1A1D27` (ΔE CVD 17,1 · visión normal 22,8 · ≥3:1).
+- **Un repertorio de pictogramas** dibujado una vez y reutilizado en los tres
+  experimentos, como una señalética de aeropuerto para psicología social. Es lo
+  que da identidad sin recurrir al aspecto genérico de landing de producto.
+- **Tarjetas de pergamino** para los tres expedientes de 1951, 1961 y 1971: un
+  salto claro/oscuro dentro de una página oscura, para que la distancia de
+  sesenta y cinco años se vea en lugar de enunciarse.
+- **El test es funcional, no un adorno**: cada respuesta revela el dato humano y
+  el abanico de los modelos, leídos de `datos.js`.
+
+### En las dos
 
 - **Tema oscuro único y deliberado** (documental). No hay modo claro: el panel
   del benchmark (`benchmark/index.html`) ya cubre la lectura de trabajo en claro.
