@@ -23,6 +23,20 @@ python3 -m http.server 8000     # desde la raíz del repo
 # → http://localhost:8000/web/
 ```
 
+Y para **compartirlo como un solo fichero** (adjuntarlo, pegarlo en un visor,
+mandárselo a alguien sin el repo detrás):
+
+```bash
+python3 web/empaquetar.py                  # → web/psicoai-una-pagina.html
+python3 web/empaquetar.py --sin-envoltorio # solo el contenido, para visores
+                                           # que ya ponen su propio <head>
+```
+
+Incrusta el CSS y el JS y reescribe los enlaces relativos al repositorio a URLs
+de GitHub. El resultado es un artefacto de compilación: se regenera y no se
+versiona (está en `.gitignore`). Si algún día cambia la lista de scripts de
+`index.html`, el empaquetador falla en vez de publicar una página coja.
+
 ## La regla de la casa: ninguna cifra escrita a mano
 
 Todo lo que la página presenta como dato sale de las fuentes canónicas y se
