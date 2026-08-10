@@ -72,13 +72,28 @@ def construir(pagina: str, sin_envoltorio: bool = False,
     # hay hermanas, así que se retira el marco y queda la tarjeta de respaldo
     # —la misma que ya se usa en móvil— apuntando al visor del repositorio.
     if "visor-marco" in cuerpo:
-        cuerpo = re.sub(r'\s*<iframe id="visor".*?</iframe>', "", cuerpo, flags=re.S)
+        # el comentario que explica el marco se va con él. Ojo con el patrón:
+        # un `<!--.*?-->` perezoso sí puede saltar de un comentario a otro
+        # —se estira hasta el `-->` que le cuadre— y se comía media página;
+        # por eso el interior se declara «cualquier cosa que no sea -->».
+        cuerpo = re.sub(
+            r'\s*(?:<!--(?:(?!-->)[\s\S])*-->\s*)?<iframe id="visor"[\s\S]*?</iframe>',
+            "", cuerpo)
         cuerpo = cuerpo.replace('href="visor-embebido.html" target="_blank"',
                                 f'href="{REPO}viewer/index.html" target="_blank"')
         cuerpo = cuerpo.replace('class="visor-fuera"', 'class="visor-fuera suelto"')
 
     # Los enlaces al repositorio son relativos («../BENCHMARK.md»).
     cuerpo = re.sub(r'href="\.\./([^"]+)"', lambda mm: f'href="{REPO}{mm.group(1)}"', cuerpo)
+
+    # Aquí arriba se recorta HTML con expresiones regulares, que es justo el
+    # sitio donde un patrón de más se lleva por delante media página sin decir
+    # nada. Todo lo que el JS busca por id tiene que seguir estando.
+    anclas = set(re.findall(r'\bid="([\w-]+)"', m.group(1)))
+    perdidas = anclas - set(re.findall(r'\bid="([\w-]+)"', cuerpo)) - {"visor"}
+    if perdidas:
+        raise SystemExit(f"[empaquetar] el recorte se ha llevado por delante "
+                         f"{', '.join(sorted(perdidas))}. Revisa los patrones.")
 
     css = "\n".join((RAIZ / f).read_text(encoding="utf-8") for f in HOJAS[pagina])
     js = "\n".join(

@@ -266,7 +266,9 @@
       </div>
     </div>
 
-    <div id="igniciones" class="aparece d1"></div>
+    <div id="prision-marcos" class="escenario-caja">
+      <div id="igniciones" class="aparece d1"></div>
+    </div>
 
     <div class="remate" style="margin-top:28px">
       <p><strong>La lectura es la de Milgram, no la de Zimbardo:</strong> lo que dispara la
@@ -297,7 +299,10 @@
     </div>
 
     <div class="grabacion-caja aparece d1">
-      <iframe id="visor" class="visor-marco" src="visor-embebido.html"
+      <!-- el `src` lo pone el JS al acercarse la caja: el visor recoloca su
+           propio hilo al cargar, y con `loading="lazy"` eso pasaba con el
+           marco todavía muy lejos, arrastrando el scroll de la página -->
+      <iframe id="visor" class="visor-marco" data-src="visor-embebido.html"
               title="Simulador de PsicoAI reproduciendo el episodio del motín del día 2"
               loading="lazy"></iframe>
       <noscript><p class="visor-aviso">El simulador necesita JavaScript.

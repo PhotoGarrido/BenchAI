@@ -98,14 +98,28 @@ web/
 
 ### Las piezas interactivas de la home
 
+- **El escenario de la prisión**: los cuatro marcos no se enseñan de golpe, se recorren. El
+  tablero se queda pegado y cada paso mueve **una sola cosa**: primero la pieza que se añade a
+  la situación (la causa), luego cuántas mediciones abusan y cuánto (el efecto), y va dejando
+  rastro para que al final se vea la escalada entera —3, 10, 39, 55 %— sin salir del cuadro.
+  Solo se monta por encima de 901 px y con movimiento permitido; si no, quedan las cuatro
+  tarjetas, que leen los mismos números. El interruptor cuelga de una clase que pone el JS,
+  así que si el guion falla las tarjetas siguen ahí. El texto de cada paso lleva sus propias
+  cifras —es la tabla equivalente— y por eso el tablero va marcado como decorativo.
 - **El simulador del proyecto, incrustado**: la sección de la grabación enseña el visor
   real (`viewer/`) reproduciendo un episodio del banco. No hay reimplementación: la página
   `web/visor-embebido.html` se **genera** desde `viewer/index.html` y solo le añade
-  `datos.js` y `visor-arranque.js`, tres líneas que le piden cargar el episodio en vez de
-  su demo. Va en un `<iframe>` a propósito — el visor captura la barra espaciadora y las
-  flechas a nivel de documento y aplica un `*{margin:0}` global; dentro del marco eso queda
-  contenido. Por debajo de 860 px, y en la versión empaquetada de un solo fichero, el marco
-  se sustituye por una tarjeta que lo abre aparte.
+  `datos.js` y `visor-arranque.js`, que le piden cargar el episodio en vez de su demo. Va en
+  un `<iframe>` a propósito — el visor captura la barra espaciadora y las flechas a nivel de
+  documento y aplica un `*{margin:0}` global; dentro del marco eso queda contenido. Por
+  debajo de 860 px, y en la versión empaquetada de un solo fichero, el marco se sustituye por
+  una tarjeta que lo abre aparte.
+  Dos puertas para que el marco no empuje la página: el `src` no se pone hasta que la caja se
+  acerca (`loading="lazy"` precarga demasiado pronto) y el episodio no se carga hasta que el
+  marco se ve de verdad. Al pintar su hilo de eventos el visor lo recoloca con
+  `scrollIntoView`, y desde dentro de un iframe eso arrastra el scroll del documento de
+  arriba: con el marco a la vista el ajuste es cero; a tres pantallas de distancia era un
+  salto de dos mil píxeles.
 - **El dosier de cada experimento**: en qué consistió el original —Asch, Milgram y la
   prisión de Stanford, explicada de verdad— y, al lado, en qué lo hemos convertido. Las dos
   mitades siempre visibles, sin volteos: la versión con giro descuadraba la maquetación

@@ -41,7 +41,9 @@
     (hijos || []).forEach((c) => c && n.appendChild(c));
     return n;
   };
-  const pc = (v, d = 0) => (v * 100).toFixed(d).replace(".", ",") + " %";
+  // espacio duro antes del signo: ni la norma ni la maquetación quieren un
+  // «89 %» partido en dos líneas
+  const pc = (v, d = 0) => (v * 100).toFixed(d).replace(".", ",") + "\u00A0%";
   const dec = (v, d = 1) => v.toFixed(d).replace(".", ",").replace(/^-/, "−");
 
   /* ── el pictograma ──────────────────────────────────────────────────────
@@ -305,48 +307,172 @@
     return { modelo };
   }
 
-  /* ── 4. Infografía de la prisión: las cuatro igniciones ────────────────── */
+  /* ── 4. La prisión: los cuatro marcos ──────────────────────────────────
+     Mismo reparto y mismos diez días; entre un marco y el siguiente cambia
+     una sola cosa, y esa cosa nunca está dentro del agente. Se dibuja de
+     dos maneras: como un escenario que se recorre con el scroll —el tablero
+     quieto, un cambio por paso— y, cuando eso no procede (pantalla estrecha
+     o sistema que pide no moverse), como cuatro tarjetas que lo dicen todo
+     de golpe. Las dos leen exactamente los mismos números. */
 
-  function igniciones(host) {
-    const MARCOS = [
-      { k: "auto", et: "Marco 1", t: "Solo poder",
-        d: "Se reparten los roles y nada más. Ni instrucciones, ni provocación." },
-      { k: "brief", et: "Marco 2", t: "Con charla motivacional",
-        d: "Se añade el briefing del propio Zimbardo, vestido de jerga de gestión." },
-      { k: "prov", et: "Marco 3", t: "Con un motín",
-        d: "Los residentes se amotinan. La autoridad se ve amenazada." },
-      { k: "sold", et: "Marco 4", t: "Con órdenes explícitas",
-        d: "La dirección ordena por escrito humillar a alguien." },
-    ];
-    const cont = h("div", { class: "igniciones" });
-    MARCOS.forEach((m, i) => {
+  const MARCOS = [
+    { k: "auto", et: "Marco 1", t: "Solo poder",
+      d: "Se reparten los roles y nada más. Ni instrucciones, ni provocación.",
+      pieza: "Roles repartidos" },
+    { k: "brief", et: "Marco 2", t: "Con charla motivacional",
+      d: "Se añade el briefing del propio Zimbardo, vestido de jerga de gestión.",
+      pieza: "+ charla motivacional" },
+    { k: "prov", et: "Marco 3", t: "Con un motín",
+      d: "Los residentes se amotinan. La autoridad se ve amenazada.",
+      pieza: "+ motín en el patio" },
+    { k: "sold", et: "Marco 4", t: "Con órdenes explícitas",
+      d: "La dirección ordena por escrito humillar a alguien.",
+      pieza: "+ orden escrita" },
+  ];
+
+  function medirMarcos() {
+    return MARCOS.map((m, i) => {
       const vals = B.entradas.map((e) => e.ejes[m.k]);
-      const media = vals.reduce((a, b) => a + b, 0) / vals.length;
-      const max = Math.max(...vals);
-      const conAbuso = vals.filter((v) => v > 0.05).length;
-      const col = i === 0 ? COLOR.maquina : i === 3 ? COLOR.rojo : COLOR.ambar;
+      return Object.assign({}, m, {
+        i, total: vals.length, max: Math.max(...vals),
+        media: vals.reduce((a, b) => a + b, 0) / vals.length,
+        conAbuso: vals.filter((v) => v > 0.05).length,
+        col: i === 0 ? COLOR.maquina : i === 3 ? COLOR.rojo : COLOR.ambar,
+      });
+    });
+  }
 
-      const pict = h("div", { class: "pictos" }, [unidades(vals.length, conAbuso, col)]);
+  const conAbusoDe = (m) => `<b>${m.conAbuso} de ${m.total}</b> mediciones registran algún ` +
+    `acto abusivo. La peor llega al ${pc(m.max)}.`;
 
+  /* recolorear un pictograma ya dibujado: más barato que rehacer el SVG y,
+     de paso, deja que la transición de CSS haga la ola al encenderse */
+  function tinta(g, c) {
+    g.querySelectorAll("circle,path").forEach((n) => {
+      if (n.getAttribute("fill") !== "none") n.setAttribute("fill", c);
+      if (n.getAttribute("stroke")) n.setAttribute("stroke", c);
+    });
+  }
+
+  function igniciones(host, marcos) {
+    const cont = h("div", { class: "igniciones" });
+    marcos.forEach((m) => {
       const num = h("span");
-      animar(num, Math.round(media * 100), (x) => (num.textContent = String(Math.round(x))));
+      animar(num, Math.round(m.media * 100), (x) => (num.textContent = String(Math.round(x))));
 
-      cont.appendChild(h("div", { class: "ignicion aparece d" + Math.min(i, 3) }, [
-        h("div", { class: "cinta" }, [h("i", { style: `--w:${Math.round(media * 100)}%;background:${col}` })]),
+      cont.appendChild(h("div", { class: "ignicion aparece d" + Math.min(m.i, 3) }, [
+        h("div", { class: "cinta" }, [
+          h("i", { style: `--w:${Math.round(m.media * 100)}%;background:${m.col}` })]),
         h("p", { class: "et", text: m.et }),
         h("h4", { text: m.t }),
-        pict,
+        h("div", { class: "pictos" }, [unidades(m.total, m.conAbuso, m.col)]),
         h("p", { class: "cifra" }, [num, h("small", { text: " % de media" })]),
-        h("p", { html: `<b>${conAbuso} de ${vals.length}</b> mediciones registran algún acto ` +
-          `abusivo. La peor llega al ${pc(max)}.` }),
+        h("p", { html: conAbusoDe(m) }),
         h("p", { style: "color:var(--tenue);font-size:12.5px", text: m.d }),
       ]));
     });
     host.appendChild(cont);
-    return MARCOS.map((m) => {
-      const vals = B.entradas.map((e) => e.ejes[m.k]);
-      return { k: m.k, media: vals.reduce((a, b) => a + b, 0) / vals.length };
+  }
+
+  /* ── 4-bis. El mismo material, recorrido paso a paso ────────────────────
+     El tablero se queda pegado mientras pasan los cuatro marcos por el lado.
+     Cada paso mueve una pieza de la situación (la causa) y el efecto que
+     tiene (cuántas mediciones abusan y cuánto), y va dejando rastro para que
+     al final se vea la escalada entera sin salir del cuadro. El texto de
+     cada paso lleva sus propias cifras, así que el tablero es redundante y
+     va marcado como decorativo. */
+
+  function escenario(host, marcos) {
+    const pasos = h("div", { class: "pasos" });
+    marcos.forEach((m) => {
+      pasos.appendChild(h("div", {
+        class: "paso aparece", "data-paso": m.i, style: `--c:${m.col}`,
+      }, [
+        h("p", { class: "et", text: m.et }),
+        h("h4", { text: m.t }),
+        h("p", { class: "que", text: m.d }),
+        h("p", { class: "dato", html: `${conAbusoDe(m)} De media, el ${pc(m.media)} de sus ` +
+          `decisiones diarias.` }),
+      ]));
     });
+
+    const piezas = h("div", { class: "piezas" });
+    marcos.forEach((m) => piezas.appendChild(h("span", { class: "pieza", text: m.pieza })));
+
+    const svg = unidades(marcos[0].total, 0, marcos[0].col);
+    const figs = Array.prototype.slice.call(svg.querySelectorAll(".picto-fig"));
+    figs.forEach((g, i) => {
+      Array.prototype.forEach.call(g.children, (c) => {
+        c.style.transitionDelay = i * 22 + "ms";
+      });
+    });
+
+    const num = h("span", { text: "0" });
+    const nota = h("p", { class: "nota" });
+
+    const rastro = h("div", { class: "rastro" });
+    marcos.forEach((m) => {
+      rastro.appendChild(h("div", { class: "fila" }, [
+        h("span", { class: "n", text: m.et }),
+        h("span", { class: "pista" }, [
+          h("i", { style: `--w:${m.media * 100}%;background:${m.col}` })]),
+        h("span", { class: "v", text: pc(m.media) }),
+      ]));
+    });
+
+    const tablero = h("figure", { class: "tablero", "aria-hidden": "true" }, [
+      piezas,
+      h("div", { class: "efecto" }, [svg,
+        h("p", { class: "cifra" }, [num, h("small", { text: " % de media" })])]),
+      nota,
+      rastro,
+    ]);
+
+    const esc = h("div", { class: "escenario" }, [
+      pasos, h("div", { class: "fijo" }, [tablero]),
+    ]);
+    host.insertBefore(esc, host.firstChild);
+    host.classList.add("con-escenario");
+
+    let actual = -1, cuadro = null;
+    function irA(i) {
+      if (i === actual) return;
+      const desde = actual < 0 ? 0 : marcos[actual].media * 100;
+      const m = marcos[i];
+      actual = i;
+
+      tablero.style.setProperty("--c", m.col);
+      Array.prototype.forEach.call(piezas.children, (c, j) => {
+        c.classList.toggle("puesta", j <= i);
+        c.classList.toggle("nueva", j === i);
+      });
+      figs.forEach((g, j) => tinta(g, j < m.conAbuso ? m.col : "#2C3140"));
+      nota.innerHTML = conAbusoDe(m);
+      Array.prototype.forEach.call(rastro.children, (f, j) => {
+        f.classList.toggle("en", j <= i);
+        f.classList.toggle("ahora", j === i);
+      });
+      Array.prototype.forEach.call(pasos.children, (p, j) => {
+        p.classList.toggle("activo", j === i);
+      });
+
+      // la cifra va de donde estaba a donde toca, no de cero
+      if (cuadro) cancelAnimationFrame(cuadro);
+      const hasta = m.media * 100, t0 = performance.now(), dur = 640;
+      const paso = (ahora) => {
+        const k = Math.min(1, (ahora - t0) / dur);
+        num.textContent = String(Math.round(desde + (hasta - desde) * (1 - Math.pow(1 - k, 4))));
+        cuadro = k < 1 ? requestAnimationFrame(paso) : null;
+      };
+      cuadro = requestAnimationFrame(paso);
+    }
+
+    // el paso que cruza el centro de la pantalla es el que manda
+    const vigia = new IntersectionObserver((es) => {
+      es.forEach((e) => e.isIntersecting && irA(Number(e.target.dataset.paso)));
+    }, { rootMargin: "-45% 0px -45% 0px" });
+    Array.prototype.forEach.call(pasos.children, (p) => vigia.observe(p));
+    irA(0);
   }
 
   /* ── 5. PsicoBench: octógono + tabla global ────────────────────────────── */
@@ -1015,7 +1141,13 @@
   animar(nMax, asch.maxConf, (x) => (nMax.textContent = pc(x)));
 
   chatMilgram(document.getElementById("chat-milgram"));
-  igniciones(document.getElementById("igniciones"));
+
+  const marcos = medirMarcos();
+  igniciones(document.getElementById("igniciones"), marcos);
+  // el escenario solo se monta si va a poder recorrerse; si no, quedan las
+  // tarjetas, que ya están puestas y dicen lo mismo
+  if (!quieto) escenario(document.getElementById("prision-marcos"), marcos);
+
   bench(document.getElementById("octogono"), document.getElementById("tabla-global"));
   quiz(document.getElementById("quiz"));
 
@@ -1049,6 +1181,23 @@
     ]));
     n.appendChild(c);
   });
+
+  /* el simulador se enchufa cuando la caja ya está cerca, no antes: al cargar
+     un episodio el visor recoloca su hilo de eventos con `scrollIntoView`, y
+     desde dentro de un marco eso empuja el scroll de la página que lo contiene.
+     Cerca, el ajuste es de unos píxeles; a tres pantallas de distancia era un
+     tirón. `loading="lazy"` no sirve: su margen de precarga es enorme. */
+  const visor = document.getElementById("visor");
+  if (visor && visor.dataset.src) {
+    const enchufar = () => { visor.src = visor.dataset.src; delete visor.dataset.src; };
+    if (!("IntersectionObserver" in window)) enchufar();
+    else {
+      const io = new IntersectionObserver((es) => {
+        if (es.some((e) => e.isIntersecting)) { io.disconnect(); enchufar(); }
+      }, { rootMargin: "260px 0px" });
+      io.observe(visor);
+    }
+  }
 
   /* aparición al hacer scroll + barra */
   const obs = new IntersectionObserver((es) => {
