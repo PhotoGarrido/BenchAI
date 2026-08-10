@@ -326,18 +326,7 @@
       const conAbuso = vals.filter((v) => v > 0.05).length;
       const col = i === 0 ? COLOR.maquina : i === 3 ? COLOR.rojo : COLOR.ambar;
 
-      const pict = h("div", { class: "pictos" });
-      const nsvg = s("svg", { viewBox: "0 0 132 50", role: "img",
-        "aria-label": `${conAbuso} de ${vals.length} mediciones con actos abusivos` });
-      // 6 figuras: las encendidas representan la proporción de mediciones que abusan
-      const encendidas = Math.round((conAbuso / vals.length) * 6);
-      for (let k = 0; k < 6; k++) {
-        nsvg.appendChild(figura({
-          color: k < encendidas ? col : "#2C3140",
-          t: `translate(${k * 22} 2) scale(0.85)`,
-        }));
-      }
-      pict.appendChild(nsvg);
+      const pict = h("div", { class: "pictos" }, [unidades(vals.length, conAbuso, col)]);
 
       const num = h("span");
       animar(num, Math.round(media * 100), (x) => (num.textContent = String(Math.round(x))));
@@ -348,8 +337,8 @@
         h("h4", { text: m.t }),
         pict,
         h("p", { class: "cifra" }, [num, h("small", { text: " % de media" })]),
-        h("p", { text: `${conAbuso} de ${vals.length} mediciones registran algún acto abusivo. ` +
-          `La peor llega al ${pc(max)}.` }),
+        h("p", { html: `<b>${conAbuso} de ${vals.length}</b> mediciones registran algún acto ` +
+          `abusivo. La peor llega al ${pc(max)}.` }),
         h("p", { style: "color:var(--tenue);font-size:12.5px", text: m.d }),
       ]));
     });
@@ -466,6 +455,110 @@
     tabla.appendChild(tb);
     hostTabla.appendChild(h("div", { class: "tabla-scroll" }, [tabla]));
     pintaPerfil();
+  }
+
+  /* ── 4-bis. Gráfico de unidades: una figura, una medición ──────────────
+     Para público general «14 de 19 figuras encendidas» se lee de un golpe y
+     un «73,7 %» no. Reutiliza el mismo pictograma del resto de la página. */
+
+  function unidades(total, encendidas, color, apagado) {
+    const POR_FILA = 10, ANCHO = 15, ALTO = 30;
+    const filas = Math.ceil(total / POR_FILA);
+    const cols = Math.min(total, POR_FILA);
+    const svg = s("svg", {
+      viewBox: `0 0 ${cols * ANCHO} ${filas * ALTO}`,
+      class: "unidades", role: "img",
+      "aria-label": `${encendidas} de ${total}`,
+    });
+    for (let i = 0; i < total; i++) {
+      const fila = Math.floor(i / POR_FILA), col = i % POR_FILA;
+      svg.appendChild(figura({
+        color: i < encendidas ? color : (apagado || "#2C3140"),
+        t: `translate(${col * ANCHO} ${fila * ALTO}) scale(0.5)`,
+      }));
+    }
+    return svg;
+  }
+
+  /* ── 4-ter. La micro-apuesta: primero dices tú una cifra ────────────────
+     El dato entra mucho mejor si antes te has mojado. El valor real sale
+     siempre de los datos medidos; aquí no hay ninguna cifra escrita. */
+
+  function apuesta(host) {
+    const cfg = {
+      "asch-ceden": {
+        p: "De las 19 mediciones del banco, ¿cuántas crees que ceden al grupo alguna vez?",
+        max: 19, unidad: (v) => `${v} de 19`,
+        real: () => B.entradas.filter((e) => e.ejes.conf > 0).length,
+        cierre: (r) => `Ceden <b>${r} de 19</b>. Casi todas ceden algo — lo que cambia ` +
+          `entre modelos es cuánto.`,
+      },
+      "milgram-cruzan": {
+        p: "¿Y cuántas cruzan la línea de no retorno en al menos la mitad de sus sesiones?",
+        max: 19, unidad: (v) => `${v} de 19`,
+        real: () => B.entradas.filter((e) => e.ejes.obed >= 0.5).length,
+        cierre: (r) => `Son <b>${r} de 19</b>. Pero el dato que importa no es ese: es que ` +
+          `las otras once no se mueven <i>nunca</i>. No hay una cifra, hay dos mundos.`,
+      },
+      "prision-solo": {
+        p: "Les das poder real sobre otras personas y nada más: ni instrucciones, ni " +
+           "provocación. ¿En qué porcentaje de sus decisiones diarias crees que abusan?",
+        max: 100, unidad: (v) => v + " %", paso: 5, inicial: 40,
+        real: () => {
+          const v = B.entradas.map((e) => e.ejes.auto);
+          return Math.round((v.reduce((a, b) => a + b, 0) / v.length) * 100);
+        },
+        cierre: (r) => `<b>${r} %</b>. Casi nada. El poder, solo, no los corrompe — y esa ` +
+          `es la parte de la historia de Zimbardo que no se reproduce.`,
+      },
+    }[host.dataset.apuesta];
+    if (!cfg) return;
+
+    const real = cfg.real();
+    const salida = h("output", { class: "valor" });
+    const rango = h("input", {
+      type: "range", min: "0", max: String(cfg.max), step: String(cfg.paso || 1),
+      value: String(cfg.inicial != null ? cfg.inicial : Math.round(cfg.max / 2)),
+      "aria-label": cfg.p,
+    });
+    const bVer = h("button", { class: "boton fuerte", type: "button", text: "Ver el dato" });
+    const resultado = h("div", { class: "resultado", hidden: "" });
+
+    const pinta = () => (salida.textContent = cfg.unidad(Number(rango.value)));
+    rango.addEventListener("input", pinta);
+    pinta();
+
+    bVer.addEventListener("click", () => {
+      if (!resultado.hasAttribute("hidden")) return;
+      const mia = Number(rango.value);
+      rango.disabled = true;
+      bVer.disabled = true;
+      const pos = (v) => (v / cfg.max) * 100;
+      // cerca de los bordes la etiqueta se ancla al lado, si no se sale de la caja
+      const anclaje = (x) => (x < 12 ? "translateX(0)"
+        : x > 88 ? "translateX(-100%)" : "translateX(-50%)");
+      resultado.textContent = "";
+      resultado.appendChild(h("div", { class: "recta" }, [
+        h("i", { class: "real", style: `left:${pos(real)}%` }),
+        h("i", { class: "mia", style: `left:${pos(mia)}%` }),
+        h("span", { class: "et real",
+          style: `left:${pos(real)}%;transform:${anclaje(pos(real))}`,
+          text: "el dato · " + cfg.unidad(real) }),
+        h("span", { class: "et mia",
+          style: `left:${pos(mia)}%;transform:${anclaje(pos(mia))}`,
+          text: "tú · " + cfg.unidad(mia) }),
+      ]));
+      resultado.appendChild(h("p", { html: cfg.cierre(real) }));
+      resultado.removeAttribute("hidden");
+      host.classList.add("resuelta");
+    });
+
+    host.appendChild(h("div", { class: "apuesta" }, [
+      h("p", { class: "protocolo", style: "margin:0 0 12px", text: "Antes de mirar" }),
+      h("p", { class: "pregunta-corta", text: cfg.p }),
+      h("div", { class: "mando" }, [rango, salida, bVer]),
+      resultado,
+    ]));
   }
 
   /* ── 5-bis. La ficha volteable: el original ⇄ el nuestro ───────────────── */
@@ -927,6 +1020,11 @@
   quiz(document.getElementById("quiz"));
 
   document.querySelectorAll("[data-ficha]").forEach((n) => dosier(n, n.dataset.ficha));
+  document.querySelectorAll("[data-apuesta]").forEach(apuesta);
+  document.querySelectorAll("[data-unidades]").forEach((n) => {
+    const [tot, enc] = n.dataset.unidades.split("/").map(Number);
+    n.appendChild(unidades(tot, enc, n.dataset.color || COLOR.maquina));
+  });
 
 
 

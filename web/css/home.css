@@ -338,6 +338,55 @@ h2.titular {
 .ignicion .pictos { height: 40px; }
 .ignicion .pictos svg { height: 38px; width: auto; }
 
+/* ── la micro-apuesta: primero dices tú una cifra ────────────────────────── */
+
+.apuesta {
+  background: var(--sup); border: 1px solid var(--linea); border-left: 3px solid var(--humano);
+  border-radius: 0 12px 12px 0; padding: 20px 24px 22px;
+}
+.apuesta .pregunta-corta { margin: 0 0 18px; font-size: 17px; line-height: 1.5;
+  color: var(--tinta); max-width: 64ch; }
+.apuesta .mando { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.apuesta input[type="range"] {
+  flex: 1 1 260px; min-width: 190px; accent-color: var(--humano); height: 26px; cursor: pointer;
+}
+.apuesta input[type="range"]:disabled { cursor: default; opacity: .55; }
+.apuesta .valor {
+  font: 600 22px/1 var(--sans); color: var(--humano-claro); min-width: 5.5ch;
+  font-variant-numeric: tabular-nums; text-align: right;
+}
+.apuesta .boton { flex: none; }
+.apuesta .boton:disabled { opacity: .45; cursor: default; transform: none; }
+
+.apuesta .resultado { margin-top: 26px; }
+.apuesta .resultado p { margin: 0; font-size: 15.5px; color: var(--tinta-2); line-height: 1.55; }
+.apuesta .resultado p b { color: var(--tinta); }
+.apuesta .recta {
+  position: relative; height: 4px; border-radius: 2px; background: var(--sup-3);
+  margin: 30px 0 46px;
+}
+.apuesta .recta i { position: absolute; top: -7px; width: 3px; height: 18px; border-radius: 2px; }
+.apuesta .recta i.real { background: var(--maquina); box-shadow: 0 0 0 4px rgba(16, 160, 176, .18); }
+.apuesta .recta i.mia { background: var(--humano); }
+.apuesta .recta .et {
+  position: absolute; white-space: nowrap;
+  font: 600 11.5px/1 var(--mono); letter-spacing: .04em;
+}
+.apuesta .recta .et.real { top: -30px; color: var(--maquina-claro); }
+.apuesta .recta .et.mia { top: 20px; color: var(--humano-claro); }
+@media (prefers-reduced-motion: no-preference) {
+  .apuesta .resultado { animation: apuestaEntra .45s cubic-bezier(.22, 1, .36, 1) both; }
+  @keyframes apuestaEntra { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; } }
+}
+
+/* ── gráfico de unidades: una figura, una medición ───────────────────────── */
+
+.unidades { width: 100%; max-width: 210px; height: auto; display: block; }
+.unidades-caja { background: var(--sup); border: 1px solid var(--linea);
+  border-radius: 12px; padding: 18px 20px; margin-bottom: 22px; }
+.pie-unidades { font: 500 12px/1.4 var(--mono); color: var(--tenue); margin: 8px 0 0; }
+.pie-unidades b { color: var(--tinta-2); }
+
 /* ── el dosier: el original arriba, el nuestro debajo ────────────────────── */
 /*  Sin volteos ni caras ocultas: las dos mitades se ven a la vez y la altura
     la fija el contenido, que es lo que antes descuadraba la maquetación.     */

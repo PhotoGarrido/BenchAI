@@ -110,6 +110,14 @@ web/
   prisión de Stanford, explicada de verdad— y, al lado, en qué lo hemos convertido. Las dos
   mitades siempre visibles, sin volteos: la versión con giro descuadraba la maquetación
   porque la altura de la caja dependía de medir una cara oculta.
+- **La apuesta antes de cada bloque**: antes de enseñar el resultado, la página pregunta.
+  Un deslizador, tu número, y solo entonces el dato — con las dos marcas en la misma recta
+  para que la distancia entre lo que creías y lo que salió sea la propia figura. Las tres
+  cifras que revela (18 de 19, 8 de 19, 3 %) se **calculan** desde `datos.js`, no se escriben.
+- **Gráficas de unidades**: cuando la cifra es «N de 19», se dibujan las 19. Un pictograma es
+  una medición del banco, y contarlos con el dedo es más honesto que un porcentaje —
+  especialmente cuando el denominador es pequeño y el porcentaje sugiere una precisión que no
+  hay.
 - **El Asch jugable**: tres clips que suenan uno detrás de otro sin ninguna pista visual
   (el correcto gana por ~1 s, igual que en el experimento), siete voces que responden mal
   antes que tú, y solo entonces puedes contestar. Las reglas de los estímulos son las de
