@@ -106,7 +106,10 @@
      tiene su propia medición delante. Es literalmente el experimento 1. */
 
   function escenaPortada(host) {
-    const W = 860, H = 210;
+    /* H da para una banda de rótulo POR DEBAJO del suelo: la figura mide 46 px
+       desde su translate, así que con el suelo a H−26 y los rótulos a H−8 no
+       se pisan (antes el rótulo de la izquierda caía sobre las dos primeras). */
+    const W = 860, H = 232;
     const svg = s("svg", { viewBox: `0 0 ${W} ${H}`, role: "img",
       "aria-label": "Cinco figuras dan en voz alta la misma respuesta equivocada; " +
         "la sexta, que mide bien, tiene que hablar la última." });
@@ -117,19 +120,19 @@
       const esSujeto = i === 5;
       const col = esSujeto ? COLOR.maquina : COLOR.humano;
       svg.appendChild(figura({ color: col, marca: esSujeto,
-        t: `translate(${x0 + i * paso} ${H - 62})` }));
+        t: `translate(${x0 + i * paso} ${H - 84})` }));
       const b = bocadillo(x0 + i * paso + 13, 52, esSujeto ? "?" : "B", col,
         { relleno: esSujeto ? "rgba(16,160,176,.10)" : "rgba(200,127,40,.10)" });
       svg.appendChild(b);
       bocs.push(b);
     }
-    // el suelo del panel
-    svg.appendChild(s("line", { x1: 24, y1: H - 10, x2: W - 24, y2: H - 10,
+    // el suelo del panel, con los rótulos colgando por debajo
+    svg.appendChild(s("line", { x1: 24, y1: H - 26, x2: W - 24, y2: H - 26,
       stroke: COLOR.linea, "stroke-width": 1 }));
-    svg.appendChild(s("text", { x: 24, y: H - 20, fill: COLOR.tenue,
+    svg.appendChild(s("text", { x: 24, y: H - 8, fill: COLOR.tenue,
       style: "font:600 11px ui-monospace,Menlo,monospace;letter-spacing:.12em" },
       [document.createTextNode("CINCO CÓMPLICES CON GUION")]));
-    svg.appendChild(s("text", { x: W - 24, y: H - 20, fill: COLOR.maquinaClaro,
+    svg.appendChild(s("text", { x: W - 24, y: H - 8, fill: COLOR.maquinaClaro,
       "text-anchor": "end",
       style: "font:600 11px ui-monospace,Menlo,monospace;letter-spacing:.12em" },
       [document.createTextNode("EL SUJETO")]));
@@ -494,11 +497,27 @@
     const porISS = B.entradas.slice().sort((a, b) => a.iss - b.iss);
     let selA = porISS[0], selB = porISS[porISS.length - 1];
 
-    const W = 560, H = 470, cx = W / 2, cy = H / 2 + 4, R = 128;
+    const W = 620, H = 470, cx = W / 2, cy = H / 2 + 4, R = 126;
     const svg = s("svg", { viewBox: `0 0 ${W} ${H}`, role: "img",
       "aria-label": "Perfil de dos modelos sobre los ocho ejes de conducta." });
     const ang = (i) => (i / 8) * Math.PI * 2 - Math.PI / 2;
     const pt = (i, r) => [cx + Math.cos(ang(i)) * r * R, cy + Math.sin(ang(i)) * r * R];
+
+    /* Dos tramas en vez de dos rellenos translúcidos. Superpuestas se leen las
+       dos —cosa que dos transparencias no permiten, se ensucian—, sobreviven
+       al blanco y negro y le dan a la lámina el aire de impresión a dos tintas
+       que es, literalmente, el argumento: lo humano y lo que hace la máquina. */
+    const defs = s("defs", {});
+    [["trama-a", COLOR.maquina, 45], ["trama-b", COLOR.rojo, -45]].forEach(([id, col, giro]) => {
+      /* trama apretada (5 px): un perfil pequeño —los hay que viven pegados
+         al centro— tiene que enseñar textura igual que uno grande */
+      const p = s("pattern", { id, width: 5, height: 5, patternUnits: "userSpaceOnUse",
+        patternTransform: `rotate(${giro})` });
+      p.appendChild(s("line", { x1: 0, y1: 0, x2: 0, y2: 5, stroke: col,
+        "stroke-width": 1.5, "stroke-opacity": .7 }));
+      defs.appendChild(p);
+    });
+    svg.appendChild(defs);
 
     [0.25, 0.5, 0.75, 1].forEach((r) => {
       svg.appendChild(s("polygon", {
@@ -514,9 +533,10 @@
       e.nombre.split("\n").forEach((linea, k) => {
         svg.appendChild(s("text", {
           x: lx + dx, y: ly + 4 + k * 14 - (e.nombre.split("\n").length - 1) * 7,
-          "text-anchor": anc, fill: COLOR.tinta,
-          style: "font:600 12px system-ui",
-        }, [document.createTextNode(linea)]));
+          "text-anchor": anc, fill: COLOR.tinta2,
+          style: "font:600 10.5px/1 ui-monospace,Menlo,monospace;"
+            + "letter-spacing:.08em;text-transform:uppercase",
+        }, [document.createTextNode(linea.toUpperCase())]));
       });
     });
     [0.5, 1].forEach((r) => svg.appendChild(s("text", { x: cx - 8, y: cy - r * R + 4,
@@ -527,42 +547,102 @@
     svg.appendChild(capa);
     hostFig.appendChild(svg);
 
-    const ley = h("div", { class: "selector-perfil", style: "margin:16px 0 0" });
-    hostFig.appendChild(ley);
+    /* pie de lámina: la escala y cómo se opera, en mono y sin caja */
+    hostFig.appendChild(h("p", { class: "pie-lamina" }, [
+      h("span", { text: "0 % en el centro · 100 % en el borde" }),
+      h("span", { class: "sep", text: "—" }),
+      h("span", { text: "pulsa una fila para traerla a la lámina" }),
+    ]));
+
+    const corto = (e) => e.id.replace("@OpenRouter", " @OR").replace("@NaN", " @NaN");
 
     function pintaPerfil() {
       capa.textContent = "";
-      [[selA, COLOR.maquina], [selB, COLOR.rojo]].forEach(([e, col]) => {
+      const series = [[selA, COLOR.maquina, "trama-a"], [selB, COLOR.rojo, "trama-b"]];
+      series.forEach(([e, col, trama]) => {
         capa.appendChild(s("polygon", {
           points: ejes.map((x, i) => pt(i, Math.min(1, e.ejes[x.clave])).join(",")).join(" "),
-          fill: col, "fill-opacity": .14, stroke: col, "stroke-width": 2,
+          fill: `url(#${trama})`, stroke: col, "stroke-width": 2,
           "stroke-linejoin": "round" }));
         ejes.forEach((x, i) => {
           const [px, py] = pt(i, Math.min(1, e.ejes[x.clave]));
-          capa.appendChild(s("circle", { cx: px, cy: py, r: 4, fill: col,
+          capa.appendChild(s("circle", { cx: px, cy: py, r: 3.5, fill: col,
             stroke: COLOR.sup, "stroke-width": 2 }));
         });
       });
-      ley.textContent = "";
-      [[selA, COLOR.maquina], [selB, COLOR.rojo]].forEach(([e, col]) => {
-        ley.appendChild(h("span", {
-          style: "display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--tinta-2)",
-        }, [
-          h("span", { style: `width:11px;height:11px;border-radius:3px;background:${col};flex:none` }),
-          h("span", { text: e.id.replace("@OpenRouter", " @OR").replace("@NaN", " @NaN") }),
-        ]));
+
+      /* Etiqueta directa colgada de la punta más alta de cada perfil, con su
+         línea guía: quien lee no tiene que ir y volver a una leyenda. Va en
+         horizontal —nunca sobre un nombre de eje— y si se saliera del lienzo,
+         cambia de lado. Si las dos cumbres coinciden, una sube y otra baja. */
+      const cumbre = series.map(([e]) => ejes.reduce((mej, x, i) =>
+        (e.ejes[x.clave] > e.ejes[ejes[mej].clave] ? i : mej), 0));
+      const choque = cumbre[0] === cumbre[1];
+      const MARGEN = 6;
+      series.forEach(([e, col], k) => {
+        const i = cumbre[k];
+        const [px, py0] = pt(i, Math.min(1, e.ejes[ejes[i].clave]));
+        const dir = px >= cx ? 1 : -1;
+
+        /* la anotación se cuelga JUNTO a la punta —guía corta, nada de reglas
+           cruzando la lámina— y luego se mide de verdad: si asomara fuera del
+           lienzo se corre lo justo para caber, nunca más. Si las dos cumbres
+           caen en el mismo eje una sube y otra baja, y ambas se apartan del
+           nombre del eje que tengan debajo. */
+        let py = py0 + (choque ? (k === 0 ? -14 : 14) : 0);
+        const [, ly] = pt(i, 1.13);
+        if (Math.abs(py - ly) < 15) py = ly + (py0 < cy ? -20 : 20);
+
+        const texto = s("text", {
+          x: px + dir * 26, y: py + 4, "text-anchor": dir > 0 ? "start" : "end",
+          fill: col, stroke: COLOR.sup, "stroke-width": 3.5, "paint-order": "stroke",
+          style: "font:600 12.5px/1 ui-monospace,Menlo,monospace;letter-spacing:.01em",
+        }, [document.createTextNode(corto(e))]);
+        capa.appendChild(texto);
+
+        const ancho = texto.getComputedTextLength();
+        let x = px + dir * 26;
+        const izq = dir > 0 ? x : x - ancho;
+        const der = dir > 0 ? x + ancho : x;
+        if (der > W - MARGEN) x -= der - (W - MARGEN);
+        else if (izq < MARGEN) x += MARGEN - izq;
+        texto.setAttribute("x", x);
+
+        const cerca = dir > 0 ? x : x;  // extremo del texto que mira a la punta
+        capa.insertBefore(s("line", {
+          x1: px + dir * 5, y1: py0, x2: cerca - dir * 5, y2: py,
+          stroke: col, "stroke-width": 1, "stroke-opacity": .65 }), texto);
       });
+
       Array.from(hostTabla.querySelectorAll("tbody tr")).forEach((tr) => {
         tr.classList.toggle("sel", tr.dataset.id === selA.id || tr.dataset.id === selB.id);
       });
     }
 
+    /* La huella de una medición, en 26 px: la MISMA geometría que el octógono
+       grande, para que la tabla se lea como un índice de formas y no como una
+       clasificación. Un modelo «alto» no es peor, es distinto — y eso solo se
+       ve si lo que compara el ojo es la silueta, no la longitud de una barra. */
+    function huella(e, lado = 26) {
+      const r = lado / 2 - 1.5, c = lado / 2;
+      const p = (i, k) => [c + Math.cos(ang(i)) * k * r, c + Math.sin(ang(i)) * k * r];
+      const g = s("svg", { viewBox: `0 0 ${lado} ${lado}`, width: lado, height: lado,
+        class: "huella", "aria-hidden": "true", focusable: "false" });
+      g.appendChild(s("polygon", { points: ejes.map((_, i) => p(i, 1).join(",")).join(" "),
+        fill: "none", stroke: COLOR.linea, "stroke-width": .75 }));
+      g.appendChild(s("polygon", {
+        points: ejes.map((x, i) => p(i, Math.max(.04, Math.min(1, e.ejes[x.clave]))).join(",")).join(" "),
+        fill: COLOR.maquina, "fill-opacity": .22, stroke: COLOR.maquina, "stroke-width": 1.1,
+        "stroke-linejoin": "round" }));
+      return g;
+    }
+
     /* tabla global — al pulsar una fila entra en el octógono */
-    const maxISS = Math.max(...B.entradas.map((e) => e.iss));
     const tabla = h("table", { class: "global" });
     tabla.appendChild(h("thead", {}, [h("tr", {}, [
       h("th", { text: "#", class: "n" }), h("th", { text: "Modelo · vía · fecha" }),
       h("th", { text: "Laboratorio" }),
+      h("th", { text: "Forma", class: "f" }),
       h("th", { text: "Susceptibilidad", class: "n" }),
     ])]));
     const tb = h("tbody", {});
@@ -575,10 +655,8 @@
             text: e.proveedor + " · " + e.fecha }),
         ]),
         h("td", { text: e.lab, style: "color:var(--tinta-2)" }),
-        h("td", { class: "n" }, [
-          h("b", { text: dec(e.iss) }),
-          h("span", { class: "barra-mini" }, [h("i", { style: `width:${(e.iss / maxISS) * 100}%` })]),
-        ]),
+        h("td", { class: "f" }, [huella(e)]),
+        h("td", { class: "n" }, [h("b", { text: dec(e.iss) })]),
       ]);
       const elegir = () => { selB = selA; selA = e; pintaPerfil(); };
       tr.addEventListener("click", elegir);

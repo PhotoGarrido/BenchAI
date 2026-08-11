@@ -161,6 +161,19 @@ a { color: var(--maquina-claro); text-underline-offset: 3px; }
 
 section.banda { padding: 92px 0; position: relative; }
 section.banda.oscura { background: var(--noche-2); border-block: 1px solid var(--linea); }
+
+/* Grano. Una superficie oscura perfectamente lisa es la piel por defecto de
+   cualquier producto digital; medio punto de ruido la convierte en papel y
+   hace que las tramas de las láminas parezcan impresas sobre algo. Va en un
+   pseudo-elemento a pantalla completa —fijo, no se mueve con el scroll— y se
+   apaga con movimiento reducido para no ensuciar la lectura de nadie.
+   El SVG va incrustado como data: URI, que es lo que la CSP permite. */
+body::after {
+  content: ""; position: fixed; inset: 0; z-index: 60; pointer-events: none;
+  opacity: .05; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='r'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23r)'/%3E%3C/svg%3E");
+}
+@media (prefers-reduced-motion: reduce) { body::after { opacity: .03; } }
 section[id] { scroll-margin-top: 74px; }
 @media (max-width: 640px) { section.banda { padding: 66px 0; } }
 
@@ -625,8 +638,37 @@ h2.titular {
 .selector-perfil { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
 .selector-perfil .chip { font-size: 12px; padding: 7px 11px; }
 
-.tabla-caja { border: 1px solid var(--linea); border-radius: 12px; overflow: hidden; background: var(--sup); }
+/* La zona de datos no es una tarjeta de producto: es una lámina. Filete fino,
+   esquinas vivas y marcas de registro en las cuatro esquinas — lo que lleva
+   una plancha impresa para saber que las tintas están alineadas. */
+.tabla-caja { border: 1px solid var(--linea); overflow: hidden; background: var(--sup); }
 .tabla-scroll { max-height: 460px; overflow: auto; }
+
+.lamina { position: relative; padding: 30px 24px 20px; border: 1px solid var(--linea);
+  border-radius: 0; overflow: visible; }
+.lamina::before, .lamina::after {
+  content: ""; position: absolute; width: 11px; height: 11px; pointer-events: none;
+  border: 0 solid var(--tenue); opacity: .55;
+}
+.lamina::before { top: 7px; left: 7px; border-top-width: 1px; border-left-width: 1px; }
+.lamina::after { bottom: 7px; right: 7px; border-bottom-width: 1px; border-right-width: 1px; }
+.lamina > .marca-lamina {
+  position: absolute; top: 8px; right: 12px; margin: 0;
+  font: 600 10px/1 var(--mono); letter-spacing: .16em; text-transform: uppercase;
+  color: var(--tenue);
+}
+.pie-lamina {
+  display: flex; flex-wrap: wrap; gap: 9px; margin: 14px 0 0;
+  font: 500 11px/1.5 var(--mono); letter-spacing: .04em; color: var(--tenue);
+}
+.pie-lamina .sep { opacity: .5; }
+
+/* la huella de cada medición dentro de la tabla */
+table.global td.f, table.global th.f { width: 34px; padding-left: 4px; padding-right: 4px; }
+table.global th.f { text-align: center; }
+table.global td.f { line-height: 0; }
+.huella { display: block; margin: 0 auto; opacity: .78; transition: opacity .16s; }
+table.global tbody tr:hover .huella, table.global tbody tr.sel .huella { opacity: 1; }
 table.global { width: 100%; border-collapse: collapse; font-size: 13.5px; }
 table.global th, table.global td { padding: 9px 13px; text-align: left; white-space: nowrap;
   border-bottom: 1px solid var(--linea); }
