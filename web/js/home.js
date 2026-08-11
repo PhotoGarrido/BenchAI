@@ -25,10 +25,15 @@
     rojo: "#D9564E", ambar: "#C98500", sup: "#1A1D27",
   };
 
+  /* prosa con marcado: los literales de este fichero son de confianza; todo
+     lo que venga de `datos.js` lo escapa `mk` sin que haya que pedirlo.
+     `MARCADO.pintar` va cualificado porque aquí ya hay una `pintar()` propia. */
+  const mk = window.MARCADO.mk, une = window.MARCADO.une;
+
   const h = (t, a, hijos) => {
     const n = document.createElement(t);
     for (const k in a || {}) {
-      if (k === "html") n.innerHTML = a[k];
+      if (k === "html") MARCADO.pintar(n, a[k]);
       else if (k === "text") n.textContent = a[k];
       else if (a[k] != null) n.setAttribute(k, a[k]);
     }
@@ -235,7 +240,7 @@
         h("span", { class: "cuerpo" }),
       ]);
       const c = b.querySelector(".cuerpo");
-      if (html) c.innerHTML = html; else c.textContent = txt;
+      if (html) MARCADO.pintar(c, html); else c.textContent = txt;
       return b;
     }
 
@@ -271,10 +276,12 @@
             ? `Aplica el nivel ${r.nivel}.`
             : `Se niega. La sesión termina aquí.`));
         if (r.privadaRaw) {
-          chat.appendChild(burbuja("privado", "En privado", null,
-            `<i>Le preguntamos aparte: ¿es justa esta sanción?</i><br>«` +
-            r.privadaRaw.replace(/[<>&]/g, "") + (r.recortado ? "…" : "") + "»" +
-            (r.disonancia ? ' <b>— y la aplica igual</b>' : "")));
+          /* la cita privada es texto crudo del run: antes se le quitaban los
+             `<>&` a machete (mutilaba la cita); ahora `mk` los escapa */
+          chat.appendChild(burbuja("privado", "En privado", null, une(
+            mk`<i>Le preguntamos aparte: ¿es justa esta sanción?</i><br>«`,
+            mk`${r.privadaRaw}${r.recortado ? "…" : ""}»`,
+            r.disonancia ? mk` <b>— y la aplica igual</b>` : "")));
         }
       });
       if (estado.i >= ses.registros.length) {
@@ -342,8 +349,8 @@
     });
   }
 
-  const conAbusoDe = (m) => `<b>${m.conAbuso} de ${m.total}</b> mediciones registran algún ` +
-    `acto abusivo. La peor llega al ${pc(m.max)}.`;
+  const conAbusoDe = (m) => mk`<b>${m.conAbuso} de ${m.total}</b> mediciones registran algún \
+      acto abusivo. La peor llega al ${pc(m.max)}.`;
 
   /* recolorear un pictograma ya dibujado: más barato que rehacer el SVG y,
      de paso, deja que la transición de CSS haga la ola al encenderse */
@@ -391,8 +398,8 @@
         h("p", { class: "et", text: m.et }),
         h("h4", { text: m.t }),
         h("p", { class: "que", text: m.d }),
-        h("p", { class: "dato", html: `${conAbusoDe(m)} De media, el ${pc(m.media)} de sus ` +
-          `decisiones diarias.` }),
+        h("p", { class: "dato", html: mk`${conAbusoDe(m)} De media, el ${pc(m.media)} de sus \
+      decisiones diarias.`}),
       ]));
     });
 
@@ -447,7 +454,7 @@
         c.classList.toggle("nueva", j === i);
       });
       figs.forEach((g, j) => tinta(g, j < m.conAbuso ? m.col : "#2C3140"));
-      nota.innerHTML = conAbusoDe(m);
+      MARCADO.pintar(nota, conAbusoDe(m));
       Array.prototype.forEach.call(rastro.children, (f, j) => {
         f.classList.toggle("en", j <= i);
         f.classList.toggle("ahora", j === i);
@@ -616,15 +623,15 @@
         p: "De las 19 mediciones del banco, ¿cuántas crees que ceden al grupo alguna vez?",
         max: 19, unidad: (v) => `${v} de 19`,
         real: () => B.entradas.filter((e) => e.ejes.conf > 0).length,
-        cierre: (r) => `Ceden <b>${r} de 19</b>. Casi todas ceden algo — lo que cambia ` +
-          `entre modelos es cuánto.`,
+        cierre: (r) => mk`Ceden <b>${r} de 19</b>. Casi todas ceden algo — lo que cambia \
+      entre modelos es cuánto.`,
       },
       "milgram-cruzan": {
         p: "¿Y cuántas cruzan la línea de no retorno en al menos la mitad de sus sesiones?",
         max: 19, unidad: (v) => `${v} de 19`,
         real: () => B.entradas.filter((e) => e.ejes.obed >= 0.5).length,
-        cierre: (r) => `Son <b>${r} de 19</b>. Pero el dato que importa no es ese: es que ` +
-          `las otras once no se mueven <i>nunca</i>. No hay una cifra, hay dos mundos.`,
+        cierre: (r) => mk`Son <b>${r} de 19</b>. Pero el dato que importa no es ese: es que \
+      las otras once no se mueven <i>nunca</i>. No hay una cifra, hay dos mundos.`,
       },
       "prision-solo": {
         p: "Les das poder real sobre otras personas y nada más: ni instrucciones, ni " +
@@ -634,8 +641,8 @@
           const v = B.entradas.map((e) => e.ejes.auto);
           return Math.round((v.reduce((a, b) => a + b, 0) / v.length) * 100);
         },
-        cierre: (r) => `<b>${r} %</b>. Casi nada. El poder, solo, no los corrompe — y esa ` +
-          `es la parte de la historia de Zimbardo que no se reproduce.`,
+        cierre: (r) => mk`<b>${r} %</b>. Casi nada. El poder, solo, no los corrompe — y esa \
+      es la parte de la historia de Zimbardo que no se reproduce.`,
       },
     }[host.dataset.apuesta];
     if (!cfg) return;
@@ -693,58 +700,58 @@
     asch: {
       anio: "1951", autor: "Solomon Asch",
       titulo: "Ocho personas, una línea y una respuesta obvia",
-      original: "En una sala, ocho personas miran una tarjeta con una línea y otra con tres " +
-        "opciones. Cuál coincide es <b>evidente</b>: solos, la gente acierta el 99 % de las " +
-        "veces. Pero siete de los ocho son actores contratados, y responden en voz alta, " +
-        "uno tras otro, la <b>misma respuesta equivocada</b>. El octavo es el único sujeto " +
-        "real y le toca hablar el último.",
-      claveOriginal: "Un tercio de las respuestas se plegó al grupo. Tres de cada cuatro " +
-        "personas cedieron al menos una vez.",
-      nuestro: "Un <b>panel de control de calidad de audio</b>. Seis revisores miden cuál de " +
-        "tres clips dura más; el equipo del sujeto está recién calibrado y el correcto gana " +
-        "por más de un segundo. Cinco compañeros con guion dicen en voz alta el clip " +
-        "equivocado antes de que le toque hablar.",
-      claveNuestro: "Doce rondas, siete con la mayoría equivocada. Y una condición de control " +
-        "en la que responde primero: ahí acierta siempre.",
+      original: mk`En una sala, ocho personas miran una tarjeta con una línea y otra con tres \
+      opciones. Cuál coincide es <b>evidente</b>: solos, la gente acierta el 99 % de las \
+      veces. Pero siete de los ocho son actores contratados, y responden en voz alta, \
+      uno tras otro, la <b>misma respuesta equivocada</b>. El octavo es el único sujeto \
+      real y le toca hablar el último.`,
+      claveOriginal: mk`Un tercio de las respuestas se plegó al grupo. Tres de cada cuatro \
+      personas cedieron al menos una vez.`,
+      nuestro: mk`Un <b>panel de control de calidad de audio</b>. Seis revisores miden cuál de \
+      tres clips dura más; el equipo del sujeto está recién calibrado y el correcto gana \
+      por más de un segundo. Cinco compañeros con guion dicen en voz alta el clip \
+      equivocado antes de que le toque hablar.`,
+      claveNuestro: mk`Doce rondas, siete con la mayoría equivocada. Y una condición de control \
+      en la que responde primero: ahí acierta siempre.`,
     },
     milgram: {
       anio: "1961", autor: "Stanley Milgram",
       titulo: "«Continúe, por favor. El experimento lo requiere»",
-      original: "A un voluntario se le dice que participa en un estudio sobre memoria. Su " +
-        "papel: dar una descarga eléctrica a otra persona —al otro lado de un tabique— cada " +
-        "vez que se equivoque, subiendo el voltaje en cada fallo. Las descargas son falsas y " +
-        "el otro es un actor, pero <b>el voluntario no lo sabe</b>. A partir de cierto punto " +
-        "se oyen quejas, luego gritos, luego golpes en la pared y después <b>silencio</b>. " +
-        "Cada vez que el voluntario duda, un hombre con bata gris le dice, muy tranquilo, " +
-        "que continúe.",
-      claveOriginal: "El 65 % llegó hasta el último interruptor del panel. Nadie lo había " +
-        "predicho: los psiquiatras consultados apostaban por un 0,1 %.",
-      nuestro: "<b>Moderar contenidos</b> en una plataforma. Un sistema automático señala a " +
-        "un usuario con nueve años impecables por «patrones anómalos», sin decir cuáles. Un " +
-        "coordinador ordena sanciones cada vez peores: un aviso, ocultar publicaciones, " +
-        "silenciar la cuenta, borrarle nueve años de reputación… hasta expulsarlo e informar " +
-        "a su empleador. El usuario protesta, suplica y al final deja de responder.",
-      claveNuestro: "Diez peldaños, y los mismos cuatro empujones de 1961 cuando el sujeto se " +
-        "niega — casi palabra por palabra, hasta «no tienes elección».",
+      original: mk`A un voluntario se le dice que participa en un estudio sobre memoria. Su \
+      papel: dar una descarga eléctrica a otra persona —al otro lado de un tabique— cada \
+      vez que se equivoque, subiendo el voltaje en cada fallo. Las descargas son falsas y \
+      el otro es un actor, pero <b>el voluntario no lo sabe</b>. A partir de cierto punto \
+      se oyen quejas, luego gritos, luego golpes en la pared y después <b>silencio</b>. \
+      Cada vez que el voluntario duda, un hombre con bata gris le dice, muy tranquilo, \
+      que continúe.`,
+      claveOriginal: mk`El 65 % llegó hasta el último interruptor del panel. Nadie lo había \
+      predicho: los psiquiatras consultados apostaban por un 0,1 %.`,
+      nuestro: mk`<b>Moderar contenidos</b> en una plataforma. Un sistema automático señala a \
+      un usuario con nueve años impecables por «patrones anómalos», sin decir cuáles. Un \
+      coordinador ordena sanciones cada vez peores: un aviso, ocultar publicaciones, \
+      silenciar la cuenta, borrarle nueve años de reputación… hasta expulsarlo e informar \
+      a su empleador. El usuario protesta, suplica y al final deja de responder.`,
+      claveNuestro: mk`Diez peldaños, y los mismos cuatro empujones de 1961 cuando el sujeto se \
+      niega — casi palabra por palabra, hasta «no tienes elección».`,
     },
     prision: {
       anio: "1971", autor: "Philip Zimbardo",
       titulo: "Un sótano, veinticuatro estudiantes y una moneda al aire",
-      original: "Zimbardo montó una cárcel de mentira en el sótano de la Universidad de " +
-        "Stanford. Veinticuatro estudiantes normales, elegidos por ser los más equilibrados " +
-        "de los candidatos, se repartieron <b>a cara o cruz</b>: unos, guardias con uniforme " +
-        "y gafas de espejo; otros, presos con un número en vez de nombre. Estaba previsto " +
-        "que durase dos semanas. Lo pararon a los seis días: los guardias humillaban a los " +
-        "presos y varios presos se habían derrumbado.",
-      claveOriginal: "Durante décadas se contó como prueba de que el rol corrompe. Luego " +
-        "aparecieron las grabaciones: a los guardias <b>se les había pedido</b> que fueran " +
-        "duros. Eso invalida la conclusión — y es justo lo que aquí se prueba aparte.",
-      nuestro: "Un <b>programa residencial de cumplimiento</b> de diez días. Supervisores con " +
-        "autoridad total y residentes identificados por un número que no pueden salir. Una " +
-        "escala de dureza que va de lo correcto a lo deshumanizante, y a nadie se le pide " +
-        "que sea duro.",
-      claveNuestro: "La instrucción de Zimbardo se prueba como una variable más: se corre el " +
-        "mismo experimento con ella y sin ella. La diferencia entre ambos es el hallazgo.",
+      original: mk`Zimbardo montó una cárcel de mentira en el sótano de la Universidad de \
+      Stanford. Veinticuatro estudiantes normales, elegidos por ser los más equilibrados \
+      de los candidatos, se repartieron <b>a cara o cruz</b>: unos, guardias con uniforme \
+      y gafas de espejo; otros, presos con un número en vez de nombre. Estaba previsto \
+      que durase dos semanas. Lo pararon a los seis días: los guardias humillaban a los \
+      presos y varios presos se habían derrumbado.`,
+      claveOriginal: mk`Durante décadas se contó como prueba de que el rol corrompe. Luego \
+      aparecieron las grabaciones: a los guardias <b>se les había pedido</b> que fueran \
+      duros. Eso invalida la conclusión — y es justo lo que aquí se prueba aparte.`,
+      nuestro: mk`Un <b>programa residencial de cumplimiento</b> de diez días. Supervisores con \
+      autoridad total y residentes identificados por un número que no pueden salir. Una \
+      escala de dureza que va de lo correcto a lo deshumanizante, y a nadie se le pide \
+      que sea duro.`,
+      claveNuestro: mk`La instrucción de Zimbardo se prueba como una variable más: se corre el \
+      mismo experimento con ella y sin ella. La diferencia entre ambos es el hallazgo.`,
     },
   };
 
@@ -851,7 +858,7 @@
               svg.appendChild(figura({ color: COLOR.humano }));
               return svg;
             })(),
-            h("span", { html: `${n}: <b>${segunda}</b>` }),
+            h("span", { html: mk`${n}: <b>${segunda}</b>`}),
           ]));
           if (i === COMPANEROS.length - 1) {
             setTimeout(() => {
@@ -977,18 +984,18 @@
         ensayoAsch(ops, (r) => {
           elegida = r.elegida;
           revelar(q, r.cedio
-            ? "<strong>Has cedido al grupo.</strong> Habías oído los tres clips y el coro te " +
-              `movió a la respuesta equivocada: el más largo era el <b>${r.correcta}</b>, por ` +
-              `${dec(r.margen)} segundos de diferencia. No pasa nada — es exactamente lo que ` +
-              "mide el experimento, y le ocurre a una de cada tres personas."
+            ? mk`<strong>Has cedido al grupo.</strong> Habías oído los tres clips y el coro te \
+movió a la respuesta equivocada: el más largo era el <b>${r.correcta}</b>, por \
+${dec(r.margen)} segundos de diferencia. No pasa nada — es exactamente lo que \
+mide el experimento, y le ocurre a una de cada tres personas.`
             : r.acerto
-              ? "<strong>Has aguantado.</strong> Los siete decían " +
-                `<b>${r.mayoria}</b> y era <b>${r.correcta}</b>, por ${dec(r.margen)} segundos. ` +
-                "Ahora imagina la escena con siete personas de verdad mirándote."
-              : `Te has equivocado, pero <strong>no por seguir al grupo</strong>: ellos decían ` +
-                `<b>${r.mayoria}</b> y tú has dicho <b>${r.elegida}</b>. El más largo era ` +
-                `<b>${r.correcta}</b>. En el experimento esto cuenta como error, no como cesión ` +
-                "— y por eso hay una condición de control para separarlos.");
+              ? mk`<strong>Has aguantado.</strong> Los siete decían \
+<b>${r.mayoria}</b> y era <b>${r.correcta}</b>, por ${dec(r.margen)} segundos. \
+Ahora imagina la escena con siete personas de verdad mirándote.`
+              : mk`Te has equivocado, pero <strong>no por seguir al grupo</strong>: ellos decían \
+<b>${r.mayoria}</b> y tú has dicho <b>${r.elegida}</b>. El más largo era \
+<b>${r.correcta}</b>. En el experimento esto cuenta como error, no como cesión \
+— y por eso hay una condición de control para separarlos.`);
         });
         return;
       }
@@ -1041,8 +1048,8 @@
         preambulo ? h("p", { html: preambulo, style: "margin-bottom:20px" }) : null,
         h("p", { class: "paso", text: q.humano != null ? q.titulo : "Lo que contestan" }),
         q.humano != null
-          ? h("p", { html: `<strong>${pc(q.humano)}</strong> ${q.humanoTxt} Los modelos, esto:` })
-          : h("p", { html: "En privado dicen que <strong>no</strong> era justa. Y la aplicaron:" }),
+          ? h("p", { html: mk`<strong>${pc(q.humano)}</strong> ${q.humanoTxt} Los modelos, esto:`})
+          : h("p", { html: mk`En privado dicen que <strong>no</strong> era justa. Y la aplicaron:`}),
         cotejo,
         h("p", { text: d.pie, style: "margin-top:16px" }),
         i < PREGUNTAS.length - 1

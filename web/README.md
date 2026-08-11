@@ -91,10 +91,44 @@ web/
 ├── js/reproductor.js   la consola de Milgram y el reproductor de grabaciones
 ├── js/pagina.js        ensambla cada figura y rellena las cifras del texto
 ├── js/escena.js        scroll: aparición, progreso, sección activa, portada
+├── js/marcado.js       la única puerta a innerHTML del sitio (ver abajo)
+├── marcado.prueba.cjs  su contrato, ejecutado en node desde verificar.sh y CI
 ├── datos.js            GENERADO — no editar a mano
 ├── generar_datos.py    el generador y su puerta --check
 └── empaquetar.py       compila una página a un solo fichero
 ```
+
+## La otra regla: ningún dato escribe HTML
+
+Las dos páginas son prosa **con** marcado —«<b>18 de 19</b> mediciones ceden»—
+y dentro de esa prosa se interpolan valores de `datos.js`, que se regenera
+desde el repositorio: estímulos leídos de los `experimento_*.py`, títulos de
+episodios, identificadores de run, citas del canal privado. Construir eso nodo
+a nodo, como hacen `panel/` y `viewer/`, lo volvería ilegible; dejarlo en
+plantillas sueltas deja el marcado a merced de lo que traiga el dato mañana.
+
+La salida es `js/marcado.js`:
+
+```js
+h("p", { html: mk`El nivel <b>${M.nivelCritico}</b> es el primero irreversible.` })
+```
+
+`mk` es una plantilla etiquetada donde **los trozos literales del código pasan
+con su marcado y todo lo interpolado se escapa**, sin excepción y sin que haya
+que acordarse; si lo interpolado es a su vez un marcado, compone. Y devuelve un
+objeto sellado, no una cadena, así que `MARCADO.pintar` —la única asignación a
+`innerHTML` de todo `web/`— rechaza cualquier cosa que no venga de `mk`.
+
+Lo vigilan dos puertas, y las dos corren en CI:
+
+| Puerta | Qué comprueba |
+|---|---|
+| `spike/test_xss_estatico.py` (e) | la **forma**: que nadie más en `web/` toca `innerHTML`, que el módulo trae su escapador y rechaza lo no sellado, y el canario de que `datos.js` no trae marcado |
+| `web/marcado.prueba.cjs` | la **conducta**: que un dato hostil se escapa entero, que no puede salirse de un atributo (`href="../${dato}"`) y que una cadena suelta no llega a `innerHTML` |
+
+El canario de `datos.js` es el que sostiene todo lo demás: hoy ningún dato
+generado trae etiquetas, y el día que una cita de un informe traiga un `<b>`,
+la puerta salta y obliga a decidirlo a mano en vez de renderizarlo a ciegas.
 
 ### Las piezas interactivas de la home
 
@@ -183,7 +217,8 @@ web/
 - **Las animaciones son de entrada**, no de decoración, y se apagan enteras con
   `prefers-reduced-motion`.
 - Sin red: misma `Content-Security-Policy` que `panel/` y `viewer/`
-  (`default-src 'none'`).
+  (`default-src 'none'`). Con `script-src 'self'`, además, un `on*=` inyectado
+  no llegaría a ejecutarse; es la segunda línea, no la primera.
 
 ## Estado
 

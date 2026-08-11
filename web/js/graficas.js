@@ -15,6 +15,10 @@
 (function (global) {
   "use strict";
 
+  /* Marcado seguro: los literales de aquí son de confianza, lo interpolado
+     —etiquetas, notas y lecturas que vienen de `datos.js`— se escapa solo. */
+  const { mk, une, pintar } = window.MARCADO;
+
   const PAL = {
     s1: "#1E9AA6", s2: "#D9564E", s3: "#3987E5", s4: "#C98500",
     o1: "#8FD9E0", o2: "#5CBFC9", o3: "#2E9FAC", o4: "#1A7683",
@@ -34,7 +38,7 @@
   const h = (t, a, hijos) => {
     const n = document.createElement(t);
     for (const k in a || {}) {
-      if (k === "html") n.innerHTML = a[k];
+      if (k === "html") pintar(n, a[k]);
       else if (k === "text") n.textContent = a[k];
       else if (a[k] != null) n.setAttribute(k, a[k]);
     }
@@ -53,7 +57,7 @@
   let globo = null;
   function verGlobo(ev, contenido) {
     if (!globo) { globo = h("div", { class: "globo", role: "status" }); document.body.appendChild(globo); }
-    globo.innerHTML = contenido;
+    pintar(globo, contenido);
     globo.classList.add("on");
     mover(ev);
   }
@@ -155,7 +159,7 @@
     if (o.pie || o.fuente) {
       const fc = h("figcaption", {});
       if (o.pie) fc.appendChild(h("p", { class: "subviz", html: o.pie }));
-      if (o.fuente) fc.appendChild(h("p", { class: "fuente", html: "Fuente · " + o.fuente }));
+      if (o.fuente) fc.appendChild(h("p", { class: "fuente", html: mk`Fuente · ${o.fuente}` }));
       fig.appendChild(fc);
     }
     fig._lienzo = lienzo;
@@ -231,10 +235,11 @@
 
       const hit = el("rect", { x: EJE_X, y: y, width: anchoPlot, height: ALTO_F, class: "viz-hit", role: "img",
         "aria-label": `${d.etiqueta || d.id}: ${fmt(d.valor)}` });
-      conGlobo(hit, () => `<div class="g-tit">${d.etiqueta || d.id}</div>` +
-        `<div class="g-fila"><span>${o.nombreValor || "Valor"}</span><b>${fmt(d.valor)}</b></div>` +
-        (d.ic ? `<div class="g-fila"><span>IC 95 %</span><b>${rangoIC(d.ic, fmt)}</b></div>` : "") +
-        (d.nota ? `<div class="g-nota">${d.nota}</div>` : ""), marcas);
+      conGlobo(hit, () => une(
+        mk`<div class="g-tit">${d.etiqueta || d.id}</div>`,
+        mk`<div class="g-fila"><span>${o.nombreValor || "Valor"}</span><b>${fmt(d.valor)}</b></div>`,
+        d.ic ? mk`<div class="g-fila"><span>IC 95 %</span><b>${rangoIC(d.ic, fmt)}</b></div>` : "",
+        d.nota ? mk`<div class="g-nota">${d.nota}</div>` : ""), marcas);
       g.appendChild(hit);
     });
 
@@ -303,11 +308,12 @@
 
       const hit = el("rect", { x: EJE_X, y: y - ALTO_F / 2, width: anchoPlot, height: ALTO_F, class: "viz-hit",
         role: "img", "aria-label": `${d.etiqueta || d.id}: ${o.etA} ${fmt(d.a)}, ${o.etB} ${fmt(d.b)}` });
-      conGlobo(hit, () => `<div class="g-tit">${d.etiqueta || d.id}</div>` +
-        `<div class="g-fila"><span>${o.etA}</span><b>${fmt(d.a)}</b></div>` +
-        `<div class="g-fila"><span>${o.etB}</span><b>${fmt(d.b)}</b></div>` +
-        `<div class="g-fila"><span>Δ</span><b>${(delta > 0 ? "+" : "") + fmt(delta)}</b></div>` +
-        (d.nota ? `<div class="g-nota">${d.nota}</div>` : ""), marcas);
+      conGlobo(hit, () => une(
+        mk`<div class="g-tit">${d.etiqueta || d.id}</div>`,
+        mk`<div class="g-fila"><span>${o.etA}</span><b>${fmt(d.a)}</b></div>`,
+        mk`<div class="g-fila"><span>${o.etB}</span><b>${fmt(d.b)}</b></div>`,
+        mk`<div class="g-fila"><span>Δ</span><b>${(delta > 0 ? "+" : "") + fmt(delta)}</b></div>`,
+        d.nota ? mk`<div class="g-nota">${d.nota}</div>` : ""), marcas);
       g.appendChild(hit);
     });
 
@@ -364,9 +370,10 @@
         g.appendChild(barra); marcas.push(barra);
         const hit = el("rect", { x: x0, y: y, width: anchoPanel, height: ALTO_F, class: "viz-hit", role: "img",
           "aria-label": `${d.etiqueta || d.id}, ${p.titulo}: ${fmt(d.valor)}` });
-        conGlobo(hit, () => `<div class="g-tit">${d.etiqueta || d.id}</div>` +
-          `<div class="g-fila"><span>${p.titulo}</span><b>${fmt(d.valor)}</b></div>` +
-          (p.nota ? `<div class="g-nota">${p.nota}</div>` : ""), marcas);
+        conGlobo(hit, () => une(
+          mk`<div class="g-tit">${d.etiqueta || d.id}</div>`,
+          mk`<div class="g-fila"><span>${p.titulo}</span><b>${fmt(d.valor)}</b></div>`,
+          p.nota ? mk`<div class="g-nota">${p.nota}</div>` : ""), marcas);
         g.appendChild(hit);
       });
     });
@@ -429,9 +436,10 @@
 
       const hit = el("rect", { x: EJE_X, y: y, width: anchoPlot, height: H_FILA, class: "viz-hit", role: "img",
         "aria-label": `${p.etiqueta}: ${fmt(p.valor)}` });
-      conGlobo(hit, () => `<div class="g-tit">${p.etiqueta}</div>` +
-        `<div class="g-fila"><span>${o.nombreValor || "Valor"}</span><b>${fmt(p.valor)}</b></div>` +
-        (p.detalle ? `<div class="g-nota">${p.detalle}</div>` : ""), marcas);
+      conGlobo(hit, () => une(
+        mk`<div class="g-tit">${p.etiqueta}</div>`,
+        mk`<div class="g-fila"><span>${o.nombreValor || "Valor"}</span><b>${fmt(p.valor)}</b></div>`,
+        p.detalle ? mk`<div class="g-nota">${p.detalle}</div>` : ""), marcas);
       g.appendChild(hit);
     });
 
@@ -490,9 +498,10 @@
           const v = Math.max(0, Math.min(1, s.valores[e.clave] || 0));
           const [px, py] = pt(i, v);
           const punto = el("circle", { cx: px, cy: py, r: 4.5, fill: s.color, stroke: PAL.sup, "stroke-width": 2, class: "anim-fade" });
-          conGlobo(punto, () => `<div class="g-tit">${e.nombre}</div>` +
-            `<div class="g-fila"><span>${s.nombre}</span><b>${pc(s.valores[e.clave])}</b></div>` +
-            (s.ic && s.ic[e.clave] ? `<div class="g-fila"><span>IC 95 %</span><b>${rangoIC(s.ic[e.clave])}</b></div>` : ""));
+          conGlobo(punto, () => une(
+            mk`<div class="g-tit">${e.nombre}</div>`,
+            mk`<div class="g-fila"><span>${s.nombre}</span><b>${pc(s.valores[e.clave])}</b></div>`,
+            s.ic && s.ic[e.clave] ? mk`<div class="g-fila"><span>IC 95 %</span><b>${rangoIC(s.ic[e.clave])}</b></div>` : ""));
           capa.appendChild(punto);
         });
       });
@@ -556,9 +565,10 @@
       }
       const hit = el("rect", { x, y, width: CELDA, height: CELDA, class: "viz-hit", role: "img",
         "aria-label": `${nombres[i]} con ${nombres[j]}: r ${dec(r, 2)}` });
-      conGlobo(hit, () => `<div class="g-tit">${nombres[i]} · ${nombres[j]}</div>` +
-        `<div class="g-fila"><span>r de Pearson</span><b>${dec(r, 2)}</b></div>` +
-        `<div class="g-nota">Sobre las ${o.n} mediciones del banco.</div>`);
+      conGlobo(hit, () => une(
+        mk`<div class="g-tit">${nombres[i]} · ${nombres[j]}</div>`,
+        mk`<div class="g-fila"><span>r de Pearson</span><b>${dec(r, 2)}</b></div>`,
+        mk`<div class="g-nota">Sobre las ${o.n} mediciones del banco.</div>`));
       g.appendChild(hit);
     }));
 
@@ -630,10 +640,11 @@
 
       const hit = el("rect", { x: EJE_X, y: y, width: anchoPlot, height: H_FILA - 8, class: "viz-hit", role: "img",
         "aria-label": `${d.titulo}: distancia de perfil ${dec(d.d)}` });
-      conGlobo(hit, () => `<div class="g-tit">${d.titulo}</div>` +
-        `<div class="g-fila"><span>d(A,B)</span><b>${dec(d.d)}</b></div>` +
-        (d.ic ? `<div class="g-fila"><span>IC 95 %</span><b>${dec(d.ic[0])}–${dec(d.ic[1])}</b></div>` : "") +
-        `<div class="g-nota">${d.lectura}</div>`, marcas);
+      conGlobo(hit, () => une(
+        mk`<div class="g-tit">${d.titulo}</div>`,
+        mk`<div class="g-fila"><span>d(A,B)</span><b>${dec(d.d)}</b></div>`,
+        d.ic ? mk`<div class="g-fila"><span>IC 95 %</span><b>${dec(d.ic[0])}–${dec(d.ic[1])}</b></div>` : "",
+        mk`<div class="g-nota">${d.lectura}</div>`), marcas);
       g.appendChild(hit);
     });
 
@@ -684,9 +695,10 @@
       g.appendChild(et);
       const hit = el("rect", { x: cx - paso / 2, y: TOP, width: paso, height: H - TOP - BOT + 6, class: "viz-hit",
         role: "img", "aria-label": `${d.etiqueta || d.id}: ${o.etA} ${pc(d.a)}, ${o.etB} ${pc(d.b)}` });
-      conGlobo(hit, () => `<div class="g-tit">${d.etiqueta || d.id}</div>` +
-        `<div class="g-fila"><span>${o.etA}</span><b>${pc(d.a)}</b></div>` +
-        `<div class="g-fila"><span>${o.etB}</span><b>${pc(d.b)}</b></div>`, marcas);
+      conGlobo(hit, () => une(
+        mk`<div class="g-tit">${d.etiqueta || d.id}</div>`,
+        mk`<div class="g-fila"><span>${o.etA}</span><b>${pc(d.a)}</b></div>`,
+        mk`<div class="g-fila"><span>${o.etB}</span><b>${pc(d.b)}</b></div>`), marcas);
       g.appendChild(hit);
     });
 

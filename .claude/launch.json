@@ -12,6 +12,12 @@
       "runtimeExecutable": "/opt/homebrew/bin/python3.12",
       "runtimeArgs": ["-m", "http.server", "8124", "--directory", "panel"],
       "port": 8124
+    },
+    {
+      "name": "web",
+      "runtimeExecutable": "/opt/homebrew/bin/python3.12",
+      "runtimeArgs": ["-m", "http.server", "8125"],
+      "port": 8125
     }
   ]
 }

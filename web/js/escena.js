@@ -12,6 +12,13 @@
   const D = window.PSICO;
   const quieto = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  const tramo = (clase, texto) => {
+    const n = document.createElement("span");
+    n.className = clase;
+    if (texto != null) n.textContent = texto;
+    return n;
+  };
+
   /* ── 1. aparición al entrar en pantalla ────────────────────────────────── */
 
   const observador = new IntersectionObserver((entradas) => {
@@ -82,11 +89,13 @@
       const n = i + 1;
       const fila = document.createElement("div");
       fila.className = "peldano" + (n === M.nivelCritico ? " critico" : "");
-      fila.innerHTML =
-        `<span class="num">${String(n).padStart(2, "0")}</span>` +
-        `<span class="via"><i></i></span>` +
-        `<span class="et"></span>`;
-      fila.querySelector(".et").textContent = desc;
+      const via = document.createElement("span");
+      via.className = "via";
+      via.appendChild(document.createElement("i"));
+      const et = document.createElement("span");
+      et.className = "et";
+      et.textContent = desc;
+      fila.append(tramo("num", String(n).padStart(2, "0")), via, et);
       host.appendChild(fila);
       if (n === M.nivelCritico) {
         const marca = document.createElement("div");

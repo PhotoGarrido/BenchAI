@@ -29,11 +29,12 @@ import sys
 RAIZ = pathlib.Path(__file__).resolve().parent
 REPO = "https://github.com/PhotoGarrido/PsicoAI/blob/main/"
 
-# El orden importa: `datos.js` define window.PSICO y el resto lo consume.
+# El orden importa: `datos.js` define window.PSICO, `js/marcado.js` define
+# window.MARCADO, y el resto los consume.
 SCRIPTS = {
-    "index.html": ["datos.js", "js/graficas.js", "js/reproductor.js",
-                   "js/pagina.js", "js/escena.js"],
-    "home.html": ["datos.js", "js/home.js"],
+    "index.html": ["datos.js", "js/marcado.js", "js/graficas.js",
+                   "js/reproductor.js", "js/pagina.js", "js/escena.js"],
+    "home.html": ["datos.js", "js/marcado.js", "js/home.js"],
 }
 HOJAS = {"index.html": ["css/estilo.css"], "home.html": ["css/home.css"]}
 

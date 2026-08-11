@@ -60,4 +60,9 @@ rm -f "$XSS_LOG"
 # dato citado en prosa se verifica literal contra su informe. Si una fuente
 # cambia y la web se queda con un número huérfano, esto lo tumba.
 "$PY" ../web/generar_datos.py --check
+# Y el marcado de la web, ejecutado de verdad: que un dato hostil se escapa y
+# que una cadena suelta no llega a innerHTML. La puerta estática mira la forma
+# del módulo; esto mira su conducta. Sin node no hay verde: nada de saltárselo.
+command -v node > /dev/null || { echo "FALLO: hace falta node para el contrato de marcado"; exit 1; }
+node ../web/marcado.prueba.cjs > /dev/null || { echo "FALLO: contrato de marcado de la web"; exit 1; }
 echo "PUERTA COMPLETA: OK"

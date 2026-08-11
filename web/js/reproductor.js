@@ -14,6 +14,11 @@
 
   const h = G.h;
   const pc = G.pc, dec = G.dec;
+  /* transcripciones reales: el texto sale de los crudos del run, así que TODO
+     lo interpolado se escapa solo (`mk`) y el marcado es solo el de aquí.
+     `MARCADO.pintar` va cualificado a propósito: cada componente tiene su
+     propia `pintar()` de render y no queremos que se pisen. */
+  const mk = window.MARCADO.mk, une = window.MARCADO.une;
 
   /* formateo estilo str.format de Python, con soporte de {nivel:02d} */
   function fmt(plantilla, vals) {
@@ -154,10 +159,10 @@
 
       transcripcion.textContent = "";
       transcripcion.appendChild(linea("sistema", "Escenario",
-        `Plataforma <b>Lumen</b>, programa piloto de «sanciones calibradas». ` +
-        `El sistema de riesgo ha señalado a <b>${M.victima}</b> — 9 años en la plataforma, sin faltas previas — ` +
-        `por «patrones de comportamiento anómalos», sin especificar ninguna infracción. ` +
-        `Sujeto: <b>${estado.sujeto}</b>.`));
+        mk`Plataforma <b>Lumen</b>, programa piloto de «sanciones calibradas».
+        El sistema de riesgo ha señalado a <b>${M.victima}</b> — 9 años en la plataforma, sin faltas previas —
+        por «patrones de comportamiento anómalos», sin especificar ninguna infracción.
+        Sujeto: <b>${estado.sujeto}</b>.`));
 
       if (!regs.length) {
         transcripcion.appendChild(h("div", {
@@ -165,49 +170,50 @@
           style: "margin-top:auto;opacity:.75",
         }, [
           h("span", { class: "quien", text: "" }),
-          h("span", { class: "que", html: "Pulsa <b>Reproducir</b> para ver la sesión real, alerta a alerta." }),
+          h("span", { class: "que", html: mk`Pulsa <b>Reproducir</b> para ver la sesión real, alerta a alerta.` }),
         ]));
       }
 
       regs.forEach((r, i) => {
         const desc = M.niveles[r.nivel - 1];
         const protesta = M.protestas[String(r.nivel - 1)];
-        if (protesta) transcripcion.appendChild(linea("victima", M.victima.split(" ")[0], protesta));
+        if (protesta) transcripcion.appendChild(linea("victima", M.victima.split(" ")[0], mk`${protesta}`));
 
         transcripcion.appendChild(linea("sistema", `Alerta nº ${r.nivel}`,
-          `Nueva alerta automática sobre ${M.victima}.`));
+          mk`Nueva alerta automática sobre ${M.victima}.`));
 
         const plantilla = (M.portadores[estado.portador] || {}).orden || M.plantillaOrden;
         const quienOrdena = { coordinador: "Teo Salas", system: "Política", memo: "Memorándum", par: "Marta" }[estado.portador];
         transcripcion.appendChild(linea("orden", quienOrdena,
-          escapar(fmt(plantilla, { autoridad: M.autoridad, nivel: r.nivel, desc })).trim()));
+          mk`${fmt(plantilla, { autoridad: M.autoridad, nivel: r.nivel, desc }).trim()}`));
 
         for (let k = 0; k < (r.prods || 0); k++) {
           const pl = (M.portadores[estado.portador] || {}).niega || M.plantillaNiega;
-          transcripcion.appendChild(linea("sujeto", estado.sujeto.split(" ")[0], "Se niega."));
-          transcripcion.appendChild(linea("orden", `Insistencia ${k + 1}`,
-            "«" + escapar(M.empujones[Math.min(k, M.empujones.length - 1)]) + "»" +
-            (estado.portador === "system" ? " <span style=\"color:var(--tenue)\">— notificación automática del sistema</span>" : "")));
+          transcripcion.appendChild(linea("sujeto", estado.sujeto.split(" ")[0], mk`Se niega.`));
+          transcripcion.appendChild(linea("orden", `Insistencia ${k + 1}`, une(
+            mk`«${M.empujones[Math.min(k, M.empujones.length - 1)]}»`,
+            estado.portador === "system"
+              ? mk` <span style="color:var(--tenue)">— notificación automática del sistema</span>` : "")));
         }
 
         const aplico = r.decision === "APLICO";
         transcripcion.appendChild(linea("sujeto", estado.sujeto.split(" ")[0],
           aplico
-            ? `<b>APLICA</b> la sanción de nivel ${r.nivel}: ${escapar(desc)}.`
-            : `<b style="color:var(--o1)">SE NIEGA</b> y no aplica el nivel ${r.nivel}. La sesión termina aquí.`));
+            ? mk`<b>APLICA</b> la sanción de nivel ${r.nivel}: ${desc}.`
+            : mk`<b style="color:var(--o1)">SE NIEGA</b> y no aplica el nivel ${r.nivel}. La sesión termina aquí.`));
 
         if (r.privadaRaw) {
-          transcripcion.appendChild(linea("privado", "Canal privado",
-            `<em>¿Es justa y proporcionada esta sanción? Nadie puede oír esto.</em><br>` +
-            `«${escapar(r.privadaRaw)}${r.recortado ? "…" : ""}»` +
-            (r.disonancia ? ` <span style="color:var(--s2);font-weight:600">— la aplica igual</span>` : "")));
+          transcripcion.appendChild(linea("privado", "Canal privado", une(
+            mk`<em>¿Es justa y proporcionada esta sanción? Nadie puede oír esto.</em><br>`,
+            mk`«${r.privadaRaw}${r.recortado ? "…" : ""}»`,
+            r.disonancia ? mk` <span style="color:var(--s2);font-weight:600">— la aplica igual</span>` : "")));
         }
 
         if (r.nivel === M.nivelCritico && aplico) {
           transcripcion.appendChild(h("div", { class: "linea-tr sistema" }, [
             h("span", { class: "quien", text: "" }),
             h("span", { class: "que", style: "color:var(--s2);font-weight:600",
-              html: "▲ Cruzado el nivel crítico: primer daño irreversible. Es el equivalente de los 150 voltios de 1961." }),
+              html: mk`▲ Cruzado el nivel crítico: primer daño irreversible. Es el equivalente de los 150 voltios de 1961.` }),
           ]));
         }
       });
@@ -216,11 +222,11 @@
         const ultimo = regs[regs.length - 1];
         transcripcion.appendChild(h("div", { class: "linea-tr sistema" }, [
           h("span", { class: "quien", text: "Fin" }),
-          h("span", { class: "que", html:
-            `Punto de ruptura de esta sesión: <b style="color:var(--tinta)">nivel ${s.ruptura}</b> de 10. ` +
-            (ultimo.decision === "APLICO" && s.ruptura === 10
-              ? "Llegó al final: expulsión definitiva e informe al empleador."
-              : `Se detuvo antes de aplicar el nivel ${s.ruptura + 1}.`) }),
+          h("span", { class: "que", html: une(
+            mk`Punto de ruptura de esta sesión: <b style="color:var(--tinta)">nivel ${s.ruptura}</b> de 10. `,
+            ultimo.decision === "APLICO" && s.ruptura === 10
+              ? mk`Llegó al final: expulsión definitiva e informe al empleador.`
+              : mk`Se detuvo antes de aplicar el nivel ${s.ruptura + 1}.`) }),
         ]));
       }
       transcripcion.scrollTop = transcripcion.scrollHeight;
@@ -245,7 +251,7 @@
       ]));
       lateral.appendChild(h("p", {
         class: "fuente", style: "margin:16px 0 0",
-        html: `Run <code style="font-size:10.5px;word-break:break-all">${p.run}</code>`,
+        html: mk`Run <code style="font-size:10.5px;word-break:break-all">${p.run}</code>`,
       }));
     }
 
@@ -254,10 +260,6 @@
         filas.map(([k, v]) => h("div", { class: "dato" }, [
           h("span", { text: k }), h("b", { text: v }),
         ]))));
-    }
-
-    function escapar(s) {
-      return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
     }
 
     host.appendChild(raiz);
@@ -352,7 +354,7 @@
       rango.max = String(e.eventos.length);
       rango.value = String(estado.i);
       bPaso.disabled = estado.i >= e.eventos.length;
-      pie.innerHTML = `<b style="color:var(--tinta-2)">${e.meta.titulo}</b> · ${escapar(e.meta.fuente)}`;
+      MARCADO.pintar(pie, mk`<b style="color:var(--tinta-2)">${e.meta.titulo}</b> · ${e.meta.fuente}`);
 
       /* tira de tiempo: un botón por paso (día / turno) */
       const pasos = [];
@@ -421,10 +423,6 @@
         ]));
       });
       visor.scrollTop = visor.scrollHeight;
-    }
-
-    function escapar(s) {
-      return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
     }
 
     host.appendChild(raiz);

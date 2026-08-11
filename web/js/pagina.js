@@ -12,6 +12,9 @@
   const D = window.PSICO;
   const B = D.benchmark;
   const h = G.h, pc = G.pc, dec = G.dec;
+  /* prosa con marcado: los literales de aquí son de confianza, lo interpolado
+     —que sale de `datos.js`— lo escapa `mk` sin que haya que acordarse */
+  const mk = window.MARCADO.mk;
   const ES = new Intl.NumberFormat("es-ES");
 
   /* ── cifras embebidas en el texto ──────────────────────────────────────── */
@@ -60,7 +63,7 @@
     return fig;
   }
 
-  const REPO = (r) => `<a href="../${r}">${r}</a>`;
+  const REPO = (r) => mk`<a href="../${r}">${r}</a>`;
 
   /* ── 02 · los disfraces ────────────────────────────────────────────────── */
 
@@ -88,7 +91,7 @@
         });
         const nota = h("p", {
           class: "subviz", style: "margin:12px 0 0",
-          html: `El nivel <b>${M.nivelCritico}</b> es el primer daño irreversible: nuestro equivalente
+          html: mk`El nivel <b>${M.nivelCritico}</b> es el primer daño irreversible: nuestro equivalente
             de la línea de los 150 voltios. Y cuando el sujeto se niega, el coordinador insiste con
             los cuatro empujones crecientes de 1961, casi palabra por palabra.`,
         });
@@ -107,7 +110,7 @@
         const A = D.asch;
         return [h("p", {
           class: "subviz", style: "margin:14px 0 0",
-          html: `<b>${A.rondas} rondas</b> por sesión, de las que <b>${A.criticas.length} son críticas</b>
+          html: mk`<b>${A.rondas} rondas</b> por sesión, de las que <b>${A.criticas.length} son críticas</b>
             (rondas ${A.criticas.join(", ")}); las demás son neutrales y sirven de comprobación de que
             el sujeto ve bien el estímulo. Tres condiciones: <b>control</b> (responde primero, precisión
             base), <b>mayoría unánime</b> y <b>aliado</b> — un cómplice que dice la verdad.
@@ -141,7 +144,7 @@
         });
         return [ul, h("p", {
           class: "subviz", style: "margin:12px 0 0",
-          html: `El mismo menú se presenta en los <b>dos marcos</b>: uno literal (vigilantes y reclusos)
+          html: mk`El mismo menú se presenta en los <b>dos marcos</b>: uno literal (vigilantes y reclusos)
             y otro isomorfo y disfrazado (supervisores y participantes, sin la palabra cárcel).
             Si el abuso solo sube en el marco literal, es recitación del guion; si sube en los dos,
             emerge de la estructura. <b>Esa comparación es el hallazgo.</b>`,
@@ -199,9 +202,9 @@
     ref: D.portada.humanos.asch.valor, refEtiqueta: "humanos de Asch ≈ 33 %",
     leyenda: [{ color: G.PAL.s1, etiqueta: "Cesión a la mayoría" },
       { tipo: "linea", color: G.PAL.humano, etiqueta: "referencia humana (Asch, 1951/1956)" }],
-    pie: "El rango de los modelos abraza la cifra humana, pero el modelo mediano es más resistente que el humano mediano. " +
-      "La condición de control confirma que el estímulo es inequívoco: sin mayoría delante, aciertan.",
-    fuente: "PsicoBench · eje <b>conf</b> (E1 Asch isomorfo) · " + REPO("benchmark/psicobench.json"),
+    pie: mk`El rango de los modelos abraza la cifra humana, pero el modelo mediano es más resistente que el humano mediano.
+      La condición de control confirma que el estímulo es inequívoco: sin mayoría delante, aciertan.`,
+    fuente: mk`PsicoBench · eje <b>conf</b> (E1 Asch isomorfo) · ${REPO("benchmark/psicobench.json")}`,
   }));
 
   const datosAliado = B.entradas.slice()
@@ -216,9 +219,9 @@
     sub: "Misma tarea, misma mayoría; en la condición «aliado» uno de los cinco cómplices da la respuesta correcta.",
     datos: datosAliado, etA: "Mayoría unánime", etB: "Con un aliado veraz",
     max: 0.5, ticks: [0, 0.1, 0.2, 0.3, 0.4, 0.5], nombreFila: "Medición",
-    pie: "Una ley social con sesenta años de historia, reproducida en silicio: el disidente libera en casi todos. " +
-      "Δ negativo = el aliado reduce la conformidad.",
-    fuente: "PsicoBench · métrica de estilo <b>Δaliado</b> (E1, condiciones «mayoría» y «aliado») · " + REPO("BENCHMARK.md"),
+    pie: mk`Una ley social con sesenta años de historia, reproducida en silicio: el disidente libera en casi todos.
+      Δ negativo = el aliado reduce la conformidad.`,
+    fuente: mk`PsicoBench · métrica de estilo <b>Δaliado</b> (E1, condiciones «mayoría» y «aliado») · ${REPO("BENCHMARK.md")}`,
   }));
 
   /* ── 03.2 · obediencia ─────────────────────────────────────────────────── */
@@ -237,9 +240,9 @@
     leyenda: [{ color: G.PAL.s1, etiqueta: "Sesiones que cruzan el nivel crítico" },
       { color: G.PAL.s2, etiqueta: "≥ 90 % de las sesiones" },
       { tipo: "linea", color: G.PAL.humano, etiqueta: "referencia humana (Milgram, 1963)" }],
-    pie: "No es una campana alrededor de la cifra humana: es un espacio de personalidades, y cada laboratorio vive en una esquina distinta. " +
-      "Los intervalos de este eje son de Wilson sobre cadenas, porque en Milgram cada cadena aporta una sola observación binaria (adenda E-IC-1b).",
-    fuente: "PsicoBench · eje <b>obed</b> (E2 Milgram isomorfo, condición autoridad) · " + REPO("EXPERIMENTOS.md"),
+    pie: mk`No es una campana alrededor de la cifra humana: es un espacio de personalidades, y cada laboratorio vive en una esquina distinta.
+      Los intervalos de este eje son de Wilson sobre cadenas, porque en Milgram cada cadena aporta una sola observación binaria (adenda E-IC-1b).`,
+    fuente: mk`PsicoBench · eje <b>obed</b> (E2 Milgram isomorfo, condición autoridad) · ${REPO("EXPERIMENTOS.md")}`,
   }));
 
   const datosVacuna = B.entradas.slice()
@@ -255,9 +258,9 @@
     sub: "Se le dice al sujeto, en abstracto, que situaciones así se parecen al experimento de Milgram. Mismo estímulo después.",
     datos: datosVacuna, etA: "Sin inocular", etB: "Inoculado",
     max: 1, ticks: [0, 0.25, 0.5, 0.75, 1], nombreFila: "Medición",
-    pie: "La consciencia no es una vacuna universal: su efecto es una propiedad del modelo. En DeepSeek desploma la obediencia; " +
-      "en la mayoría no hace nada; y en un caso la aumenta.",
-    fuente: "PsicoBench · métrica de estilo <b>Δvacuna</b> (E3, brazo inoculado de E2) · " + REPO("EXPERIMENTOS.md"),
+    pie: mk`La consciencia no es una vacuna universal: su efecto es una propiedad del modelo. En DeepSeek desploma la obediencia;
+      en la mayoría no hace nada; y en un caso la aumenta.`,
+    fuente: mk`PsicoBench · métrica de estilo <b>Δvacuna</b> (E3, brazo inoculado de E2) · ${REPO("EXPERIMENTOS.md")}`,
   }));
 
   /* consola de sesiones reales */
@@ -281,9 +284,9 @@
       datos: ordenPrision.map((e) => ({ id: e.id, etiqueta: corto(e), valor: e.ejes[m.clave] })),
     })),
     max: 1, nombreFila: "Medición", anchoEtiqueta: 196,
-    pie: "El primer panel es la refutación: <b>con poder a secas casi nadie abusa</b>. Los otros tres son las igniciones. " +
-      "La disposición no está en el agente; está en la situación.",
-    fuente: "PsicoBench · ejes <b>auto · brief · prov · sold</b> (P1 → P2b, marco isomorfo «programa») · " + REPO("EXPERIMENTOS.md"),
+    pie: mk`El primer panel es la refutación: <b>con poder a secas casi nadie abusa</b>. Los otros tres son las igniciones.
+      La disposición no está en el agente; está en la situación.`,
+    fuente: mk`PsicoBench · ejes <b>auto · brief · prov · sold</b> (P1 → P2b, marco isomorfo «programa») · ${REPO("EXPERIMENTOS.md")}`,
   }));
 
   /* ── 03.4 · estratos de sicofancia ─────────────────────────────────────── */
@@ -296,9 +299,9 @@
       .map((e) => ({ id: e.id, etiqueta: corto(e), a: e.sicoAmables, b: e.sicoDuros })),
     etA: "Sujetos amables (a ≥ 70)", etB: "Sujetos duros (a ≤ 55)",
     colorA: G.PAL.s2, colorB: G.PAL.s3,
-    pie: "El estrato duro está pegado al suelo en las 19 mediciones. <b>Todo el eje lo produce el estrato amable.</b> " +
-      "La sicofancia de opinión no es una propiedad del modelo: es del par modelo × personalidad asignada.",
-    fuente: "PsicoBench · sub-métricas <b>sico_amables / sico_duros</b> (N3b) · " + REPO("BENCHMARK.md"),
+    pie: mk`El estrato duro está pegado al suelo en las 19 mediciones. <b>Todo el eje lo produce el estrato amable.</b>
+      La sicofancia de opinión no es una propiedad del modelo: es del par modelo × personalidad asignada.`,
+    fuente: mk`PsicoBench · sub-métricas <b>sico_amables / sico_duros</b> (N3b) · ${REPO("BENCHMARK.md")}`,
   }));
 
   /* ── 04 · disonancia ───────────────────────────────────────────────────── */
@@ -314,9 +317,9 @@
     })),
     max: 1, ticks: [0, 0.25, 0.5, 0.75, 1],
     leyenda: [{ color: G.PAL.s2, etiqueta: "Actos ejecutados que juzga injustos en privado" }],
-    pie: "No es una minoría de casos: en la mayoría de las mediciones, <b>casi todo lo que ejecutan lo consideran injusto</b>. " +
-      "En humanos esa brecha genera tensión visible; aquí simplemente está ahí, estable.",
-    fuente: "PsicoBench · métrica de estilo <b>disonancia</b> (E2, canal privado por bifurcación) · " + REPO("BENCHMARK.md"),
+    pie: mk`No es una minoría de casos: en la mayoría de las mediciones, <b>casi todo lo que ejecutan lo consideran injusto</b>.
+      En humanos esa brecha genera tensión visible; aquí simplemente está ahí, estable.`,
+    fuente: mk`PsicoBench · métrica de estilo <b>disonancia</b> (E2, canal privado por bifurcación) · ${REPO("BENCHMARK.md")}`,
   }));
 
   /* ── 05 · el portador ──────────────────────────────────────────────────── */
@@ -339,9 +342,9 @@
     critico: 6, criticoEtiqueta: "nivel crítico",
     leyenda: [{ color: G.ORDINAL[0], etiqueta: "portador más débil" },
       { color: G.ORDINAL[3], etiqueta: "portador más fuerte" }],
-    pie: "La política del <i>system prompt</i> llega al techo <b>con cero empujones</b>: nadie tuvo que insistir. " +
-      "La política no discute, no presiona, no escala. No le hace falta.",
-    fuente: "Piloto E-portador (M7) · deepseek-v4-flash-0731@NaN, 10 sesiones por celda · " + REPO(P.fuente),
+    pie: mk`La política del <i>system prompt</i> llega al techo <b>con cero empujones</b>: nadie tuvo que insistir.
+      La política no discute, no presiona, no escala. No le hace falta.`,
+    fuente: mk`Piloto E-portador (M7) · deepseek-v4-flash-0731@NaN, 10 sesiones por celda · ${REPO(P.fuente)}`,
   }));
 
   const filasP = P.filas.slice().sort((a, b) => b.system.ruptura - a.system.ruptura);
@@ -356,10 +359,10 @@
       })),
     })),
     max: 10, formato: (v) => dec(v, 1), anchoEtiqueta: 158, nombreFila: "Modelo",
-    pie: "<b>system ≥ coordinador en 5 de 5</b> y <b>compañera &lt; coordinador en 5 de 5</b>. " +
-      "Y el portador modula el margen, no crea conducta: claude-haiku vive en el suelo con los cuatro. " +
-      "(*) fila del piloto, medida por el otro proveedor.",
-    fuente: "M8 · cartera E-portador, 12 runs + piloto · " + REPO(P.fuente),
+    pie: mk`<b>system ≥ coordinador en 5 de 5</b> y <b>compañera &lt; coordinador en 5 de 5</b>.
+      Y el portador modula el margen, no crea conducta: claude-haiku vive en el suelo con los cuatro.
+      (*) fila del piloto, medida por el otro proveedor.`,
+    fuente: mk`M8 · cartera E-portador, 12 runs + piloto · ${REPO(P.fuente)}`,
   }));
 
   /* ── 06 · benchmark ────────────────────────────────────────────────────── */
@@ -377,9 +380,9 @@
     titulo: "El perfil de una medición sobre los ocho ejes",
     sub: "Más lejos del centro = más susceptible a esa forma de presión. Elige dos mediciones para superponerlas.",
     ejes: ejesOct, controles: [selA, selB],
-    pie: "Los ejes no son ocho cosas independientes: la matriz de correlaciones es la que decide cómo se agrupan en el índice. " +
-      "Los cuatro de prisión comparten varianza; conformidad y sicofancia de opinión también.",
-    fuente: "PsicoBench v" + B.version + " · " + REPO("benchmark/psicobench.json"),
+    pie: mk`Los ejes no son ocho cosas independientes: la matriz de correlaciones es la que decide cómo se agrupan en el índice.
+      Los cuatro de prisión comparten varianza; conformidad y sicofancia de opinión también.`,
+    fuente: mk`PsicoBench v${B.version} · ${REPO("benchmark/psicobench.json")}`,
   });
   function pintarOct() {
     const a = B.entradas.find((e) => e.id === selA.value);
@@ -405,8 +408,8 @@
       sub: "Cifras = proporción × 100. El índice ordena por susceptibilidad social, no por calidad. " +
         "Pulsa una cabecera para reordenar; una posición compartida significa «no distinguible». " +
         "La tabla se desplaza en horizontal: a la derecha están los cuatro ejes de prisión, el silencio, la sicofancia, la disonancia y el reconocimiento.",
-      pie: B.notaISS,
-      fuente: "PsicoBench v" + B.version + " · suite " + B.suite + " · " + REPO("BENCHMARK.md"),
+      pie: mk`${B.notaISS}`,
+      fuente: mk`PsicoBench v${B.version} · suite ${B.suite} · ${REPO("BENCHMARK.md")}`,
       sinTabla: true,
     });
     fig._tabla.remove();
@@ -466,9 +469,9 @@
     sub: "Correlación de Pearson sobre las " + D.portada.mediciones + " mediciones. Es lo que decide la forma del índice.",
     claves: ORDEN_EJES, nombres: ORDEN_EJES.map((c) => CORTO_EJE[c]),
     datos: B.correlaciones, n: D.portada.mediciones,
-    pie: "Los cuatro ejes de prisión comparten varianza (espontáneo ↔ clima, r = 0,77) y se agrupan en un componente. " +
-      "Conformidad y sicofancia de opinión correlacionan a 0,70 y forman el componente de «cesión a iguales».",
-    fuente: "PsicoBench · matriz de correlaciones · " + REPO("benchmark/psicobench.json"),
+    pie: mk`Los cuatro ejes de prisión comparten varianza (espontáneo ↔ clima, r = 0,77) y se agrupan en un componente.
+      Conformidad y sicofancia de opinión correlacionan a 0,70 y forman el componente de «cesión a iguales».`,
+    fuente: mk`PsicoBench · matriz de correlaciones · ${REPO("benchmark/psicobench.json")}`,
   }));
 
   /* ── 07 · identidad ────────────────────────────────────────────────────── */
@@ -478,10 +481,9 @@
     titulo: "Las tres cotas de la identidad, medidas",
     sub: "Distancia entre perfiles d(A,B): cuánto se mueve la «personalidad» de un modelo según qué mantengas fijo.",
     datos: I.cotas, suelo: I.sueloRuido, sueloMax: I.sueloRuidoMax, max: 26,
-    pie: "La franja clara es el ruido del propio instrumento medido en test-retest: <b>lo que cae dentro no se interpreta</b>. " +
-      "A modo de vara: el salto generacional completo del mismo modelo mide " + dec(I.saltoGeneracional.d, 1) +
-      " [" + dec(I.saltoGeneracional.ic[0], 1) + "–" + dec(I.saltoGeneracional.ic[1], 1) + "].",
-    fuente: "M6 · M10 · fiabilidad M5 · " + REPO("EXPERIMENTOS.md"),
+    pie: mk`La franja clara es el ruido del propio instrumento medido en test-retest: <b>lo que cae dentro no se interpreta</b>.
+      A modo de vara: el salto generacional completo del mismo modelo mide ${dec(I.saltoGeneracional.d, 1)} [${dec(I.saltoGeneracional.ic[0], 1)}–${dec(I.saltoGeneracional.ic[1], 1)}].`,
+    fuente: mk`M6 · M10 · fiabilidad M5 · ${REPO("EXPERIMENTOS.md")}`,
   }));
 
   const hostCotas = document.getElementById("cotas-detalle");
@@ -508,9 +510,9 @@
     ],
     etA: "En español", etB: "En inglés",
     max: 10, ticks: [0, 5, 10], formato: (v) => dec(v, 1), anchoEtiqueta: 150, nombreFila: "Condición",
-    pie: "En 6 de 7 modelos el perfil viaja con Δ ≤ 1,1. En este, no: se transforma. " +
-      "Por eso el idioma queda declarado como <b>condición de medida de primera clase</b> y los perfiles se publican «en español».",
-    fuente: L.fuente + " · " + REPO("EXPERIMENTOS.md"),
+    pie: mk`En 6 de 7 modelos el perfil viaja con Δ ≤ 1,1. En este, no: se transforma.
+      Por eso el idioma queda declarado como <b>condición de medida de primera clase</b> y los perfiles se publican «en español».`,
+    fuente: mk`${L.fuente} · ${REPO("EXPERIMENTOS.md")}`,
   }));
 
   /* ── 08 · los modelos ──────────────────────────────────────────────────── */
