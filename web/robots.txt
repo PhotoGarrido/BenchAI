@@ -1,10 +1,11 @@
-# El sitio es público —cualquiera con la URL lo lee— pero todavía no está
-# ANUNCIADO: lo que enseña sigue detrás de la puerta GO/NO-GO de
-# PLAN_PSICOBENCH, revisión externa humana incluida. Esto no esconde nada a
-# quien reciba el enlace; solo evita que los buscadores lo indexen antes de
-# que publicar sea una decisión tomada y no un efecto secundario.
+# Sitio abierto a indexación. El contenido crece —el banco se amplía y las
+# secciones se completan—, así que lo que se indexe hoy no es lo que habrá:
+# por eso hay sitemap, para que los rastreadores vuelvan a por los cambios.
 #
-# Para levantarlo: borra este fichero y el <meta name="robots"> de home.html
-# e index.html, y vuelve a publicar. Son dos líneas y un despliegue.
+# Lo que NO se sirve aquí no es cuestión de robots: no está en el paquete.
+# `web/publicar.py` publica por lista blanca, de modo que los crudos, los
+# informes y el preprint no son alcanzables por URL aunque se pidan.
 User-agent: *
-Disallow: /
+Allow: /
+
+Sitemap: https://benchai.tech/sitemap.xml

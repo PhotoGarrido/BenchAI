@@ -32,6 +32,7 @@ SALIDA = RAIZ / "publicacion"
 PIEZAS: list[tuple[str, str]] = [
     ("web/vercel.json", "vercel.json"),
     ("web/robots.txt", "robots.txt"),
+    ("web/sitemap.xml", "sitemap.xml"),
     ("web/home.html", "index.html"),
     ("web/index.html", "completo.html"),
     ("web/visor-embebido.html", "visor-embebido.html"),
