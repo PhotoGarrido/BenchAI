@@ -14,51 +14,62 @@
 :root {
   color-scheme: dark;
 
-  /* planos */
-  --plano:      #0A0B0D;   /* fondo de página */
-  --plano-alt:  #0E1013;   /* bandas alternas */
-  --sup:        #14161A;   /* superficie de gráfica y tarjeta */
-  --sup-2:      #1B1E24;   /* superficie elevada */
-  --sup-3:      #23272E;
-
-  /* tinta */
-  --tinta:      #F4F3EE;
-  --tinta-2:    #ADB2BC;
-  --tenue:      #7B818D;   /* ejes y etiquetas */
-  --linea:      #262A31;
-  --reja:       #1E222A;   /* retícula capilar */
-  --base:       #333941;   /* línea base / eje */
-  --anillo:     rgba(244, 243, 238, .10);
-
-  /* series categóricas (orden fijo, nunca cíclico) */
-  --s1: #1E9AA6;   /* identidad del proyecto */
-  --s2: #D9564E;
-  --s3: #3987E5;
-  --s4: #C98500;
-
-  /* rampa ordinal (magnitud ordenada: portadores, cotas de identidad) */
-  --o1: #8FD9E0;
-  --o2: #5CBFC9;
-  --o3: #2E9FAC;
-  --o4: #1A7683;
-
-  /* estado (reservado; nunca como serie) */
-  --bien:   #0CA30C;
-  --aviso:  #FAB219;
-  --grave:  #EC835A;
-  --critico:#D03B3B;
-
-  /* referencia humana */
-  --humano: #C7B8A4;
-
-  --serif: "Iowan Old Style", "Palatino Nova", Palatino, "Palatino Linotype", Georgia, serif;
-  --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  /* ── tipografía ─────────────────────────────────────────────────────────
+     La misma voz que la home: condensada en los titulares, mono para el
+     dato y el metadato. Una sola familia de display en todo el sitio. */
+  --display: "Avenir Next Condensed", "Futura Condensed", "Arial Narrow", system-ui, sans-serif;
+  --sans:    "Avenir Next", Avenir, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono:    ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --serif:   "Iowan Old Style", "Palatino Nova", Palatino, Georgia, serif;
 
   --medida: 68ch;
   --marco: 1180px;
-  --radio: 12px;
+  --radio: 0;
 }
+
+/* ═══ LOS DOS REGISTROS ═════════════════════════════════════════════════════
+   El mismo sistema que la home, y por los mismos motivos: dos lecturas de un
+   solo sistema —grafito y papel de registro— alternando bloque a bloque, y un
+   único portador de color, la escala de dureza en diez peldaños.
+
+   Aquí las series categóricas (`--s1`…`--s4`) y la rampa ordinal (`--o1`…`--o4`)
+   se conservan como nombres, pero dejan de ser colores propios: son peldaños.
+   Así una gráfica no puede introducir un color que signifique otra cosa.      */
+
+body, section:nth-of-type(odd) {
+  --plano: #222623; --plano-alt: #1B1F1C;
+  --sup: #2B302C; --sup-2: #252A26; --sup-3: #343A35;
+  --tinta: #F2EFE6; --tinta-2: #BFC5BC; --tenue: #8A928A;
+  --linea: #3A403B; --reja: #2C322D; --base: #5A625B;
+  --anillo: rgba(242, 239, 230, .10);
+
+  --e0:#6E7A70; --e1:#8E9A70; --e2:#C0B463; --e3:#DDA950; --e4:#E98F3C;
+  --e5:#EE7633; --e6:#EF5E2E; --e7:#EC4A2C; --e8:#E23A2B; --e9:#D42F2A;
+  --sobre-grave: #20241F;
+}
+
+section:nth-of-type(even) {
+  --plano: #E4E7DE; --plano-alt: #DBDFD4;
+  --sup: #EFF1EA; --sup-2: #DDE2D6; --sup-3: #CFD5C7;
+  --tinta: #191C18; --tinta-2: #454C43; --tenue: #6B7268;
+  --linea: #AFBBA8; --reja: #CCD5C6; --base: #8D9A87;
+  --anillo: rgba(25, 28, 24, .12);
+
+  --e0:#A9B7AC; --e1:#C2C68C; --e2:#E0C25A; --e3:#DFA047; --e4:#D9853C;
+  --e5:#C9642F; --e6:#B14A2A; --e7:#963424; --e8:#7C241D; --e9:#5E1512;
+  --sobre-grave: #F6F1E7;
+}
+
+/* Alias: los nombres de siempre, apuntando al sistema nuevo. Lo humano es la
+   REFERENCIA y se dibuja con la tinta del registro —nunca con un color de
+   serie—; lo medido toma peldaños. */
+body, section:nth-of-type(odd), section:nth-of-type(even) {
+  --s1: var(--e4); --s2: var(--e7); --s3: var(--e2); --s4: var(--e6);
+  --o1: var(--e1); --o2: var(--e3); --o3: var(--e5); --o4: var(--e7);
+  --humano: var(--tinta-2);
+  --bien: var(--e0); --aviso: var(--e3); --grave: var(--e6); --critico: var(--e8);
+}
+
 
 * { box-sizing: border-box; }
 
@@ -79,7 +90,9 @@ a:hover { text-decoration-color: currentColor; }
 
 :focus-visible { outline: 2px solid var(--o1); outline-offset: 3px; border-radius: 3px; }
 
-h1, h2, h3, h4 { font-family: var(--serif); font-weight: 600; text-wrap: balance; margin: 0; }
+h1, h2, h3, h4 { font-family: var(--display); font-weight: 600; text-wrap: balance;
+  margin: 0; text-transform: uppercase; letter-spacing: .012em; }
+h1, h2 { line-height: .94; }
 
 @media (max-width: 640px) {
   body { font-size: 16px; line-height: 1.6; }
@@ -248,8 +261,18 @@ h1, h2, h3, h4 { font-family: var(--serif); font-weight: 600; text-wrap: balance
 
 /* ── secciones ───────────────────────────────────────────────────────────── */
 
+section { background: var(--plano); color: var(--tinta); }
 section.bloque { padding: 96px 0; position: relative; }
-section.bloque.alt { background: var(--plano-alt); border-block: 1px solid var(--linea); }
+/* la clase `.alt` del marcado ya no decide el registro: lo decide la posición,
+   igual que en la home. Se conserva sin efecto para no tocar el HTML. */
+section.bloque.alt { background: var(--plano); }
+section + section { border-top: 1px solid rgba(0, 0, 0, .22); }
+/* la reja del papel de registro, solo en el registro claro */
+section:nth-of-type(even) {
+  background-image: linear-gradient(var(--reja) 1px, transparent 1px),
+                    linear-gradient(90deg, var(--reja) 1px, transparent 1px);
+  background-size: 100% 28px, 28px 100%;
+}
 section[id], .portada { scroll-margin-top: 76px; }
 @media (max-width: 900px) { section[id], .portada { scroll-margin-top: 62px; } }
 
@@ -458,7 +481,7 @@ table.datos td.destaca { color: var(--o1); font-weight: 600; }
 .linea-tr.orden .quien { color: var(--o2); }
 .linea-tr.orden .que { color: var(--tinta); }
 .linea-tr.victima .quien { color: var(--s2); }
-.linea-tr.victima .que { font-family: var(--serif); font-style: italic; color: var(--tinta-2); }
+.linea-tr.victima .que { font-family: var(--mono); color: var(--tinta-2); }
 .linea-tr.sujeto .quien { color: var(--tinta); }
 .linea-tr.sujeto .que { color: var(--tinta); font-weight: 500; }
 .linea-tr.privado .quien { color: var(--s4); }

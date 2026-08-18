@@ -19,13 +19,21 @@
      —etiquetas, notas y lecturas que vienen de `datos.js`— se escapa solo. */
   const { mk, une, pintar } = window.MARCADO;
 
+  /* Los colores NO se escriben aquí: se piden al bloque. Cada sección declara
+     su registro en CSS —grafito o papel— y el SVG hereda esas variables, de
+     modo que la misma gráfica se dibuja en el registro que le toque sin que
+     esta biblioteca sepa en cuál está. */
   const PAL = {
-    s1: "#1E9AA6", s2: "#D9564E", s3: "#3987E5", s4: "#C98500",
-    o1: "#8FD9E0", o2: "#5CBFC9", o3: "#2E9FAC", o4: "#1A7683",
-    humano: "#C7B8A4", tinta: "#F4F3EE", tinta2: "#ADB2BC", tenue: "#7B818D",
-    reja: "#1E222A", base: "#333941", sup: "#14161A", sup3: "#23272E",
+    s1: "var(--s1)", s2: "var(--s2)", s3: "var(--s3)", s4: "var(--s4)",
+    o1: "var(--o1)", o2: "var(--o2)", o3: "var(--o3)", o4: "var(--o4)",
+    humano: "var(--humano)", tinta: "var(--tinta)", tinta2: "var(--tinta-2)",
+    tenue: "var(--tenue)", reja: "var(--reja)", base: "var(--base)",
+    sup: "var(--plano)", sup3: "var(--sup-3)",
   };
   const ORDINAL = [PAL.o1, PAL.o2, PAL.o3, PAL.o4];
+  /** Un peldaño de la escala de dureza, de 0 a 1: el único portador de color. */
+  const peldano = (v) => "var(--e" + Math.max(0, Math.min(9,
+    Math.floor((Number(v) || 0) * 10 - 1e-9))) + ")";
 
   const NS = "http://www.w3.org/2000/svg";
   const el = (t, a, hijos) => {
@@ -560,7 +568,7 @@
       if (i !== j) {
         g.appendChild(el("text", {
           x: x + CELDA / 2, y: y + CELDA / 2 + 4, class: "eje-txt tab", "text-anchor": "middle",
-          fill: Math.abs(r) > 0.45 ? "#0B0C0E" : PAL.tinta2,
+          fill: Math.abs(r) > 0.45 ? "var(--sobre-grave)" : PAL.tinta2,
         }, [txt(dec(r, 2))]));
       }
       const hit = el("rect", { x, y, width: CELDA, height: CELDA, class: "viz-hit", role: "img",

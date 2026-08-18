@@ -96,7 +96,7 @@
             los cuatro empujones crecientes de 1961, casi palabra por palabra.`,
         });
         const emp = h("ol", { style: "margin:12px 0 0;padding-left:20px;color:var(--tinta-2);font-size:13.5px;line-height:1.6" },
-          M.empujones.map((e) => h("li", { html: `«${e}»` })));
+          M.empujones.map((e) => h("li", { html: mk`«${e}»` })));
         return [ul, nota, emp];
       },
     },

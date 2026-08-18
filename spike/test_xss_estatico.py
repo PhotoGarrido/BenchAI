@@ -141,6 +141,20 @@ def _puerta_de_marcado() -> bool:
         ok &= _c(re.search(patron, puerta, re.S) is not None,
                  f"{PUERTA_MARCADO}: {nombre}")
 
+    # e.2-bis · ningún sumidero recibe un literal suelto. La puerta anterior
+    #   miraba `.innerHTML`, pero `web/` escribe marcado por la clave `html:`
+    #   de sus constructores, y ahí se coló un `html: `«${e}»`` sin `mk` que
+    #   solo estallaba al abrir un desplegable — la mitad del sitio largo se
+    #   quedaba sin montar. Un literal (comilla o plantilla) tras `html:` es
+    #   siempre un error: o lleva marcado y necesita `mk`, o es texto y va por
+    #   `text:`.
+    _HTML_LITERAL = re.compile(r"""html:\s*(?:`|"|')""")
+    for rel in WEB_JS:
+        texto = (RAIZ / rel).read_text(encoding="utf-8")
+        vistos = _HTML_LITERAL.findall(texto)
+        ok &= _c(not vistos, f"{rel}: ningún `html:` con literal suelto (sin mk)"
+                 + (f" — {len(vistos)} encontrados" if vistos else ""))
+
     # e.3 · canario: el dato generado no trae marcado. Si algún día una cita
     #       de un informe trae `<b>`, esto salta y obliga a decidir a mano.
     datos = (RAIZ / "web/datos.js").read_text(encoding="utf-8")
