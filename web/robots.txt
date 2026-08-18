@@ -1,0 +1,10 @@
+# El sitio es público —cualquiera con la URL lo lee— pero todavía no está
+# ANUNCIADO: lo que enseña sigue detrás de la puerta GO/NO-GO de
+# PLAN_PSICOBENCH, revisión externa humana incluida. Esto no esconde nada a
+# quien reciba el enlace; solo evita que los buscadores lo indexen antes de
+# que publicar sea una decisión tomada y no un efecto secundario.
+#
+# Para levantarlo: borra este fichero y el <meta name="robots"> de home.html
+# e index.html, y vuelve a publicar. Son dos líneas y un despliegue.
+User-agent: *
+Disallow: /

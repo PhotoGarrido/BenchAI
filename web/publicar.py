@@ -31,6 +31,7 @@ SALIDA = RAIZ / "publicacion"
 # (origen, destino). Directorios enteros con `/` al final.
 PIEZAS: list[tuple[str, str]] = [
     ("web/vercel.json", "vercel.json"),
+    ("web/robots.txt", "robots.txt"),
     ("web/home.html", "index.html"),
     ("web/index.html", "completo.html"),
     ("web/visor-embebido.html", "visor-embebido.html"),
