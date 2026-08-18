@@ -122,7 +122,9 @@ h1, h2 { line-height: .94; }
   display: flex; align-items: center; gap: 22px;
 }
 .marca { display: flex; align-items: center; gap: 9px; font: 600 15px/1 var(--sans); letter-spacing: .01em; color: var(--tinta); text-decoration: none; }
-.marca .punto { width: 9px; height: 9px; border-radius: 50%; background: var(--s1); box-shadow: 0 0 0 4px rgba(30, 154, 166, .16); flex: none; }
+.marca .punto { width: 16px; height: 16px; flex: none; border-radius: 2px;
+  background: linear-gradient(180deg, var(--e9) 0 25%, var(--e6) 25% 50%,
+    var(--e3) 50% 75%, var(--e1) 75% 100%); }
 .marca .v { font: 500 11px/1 var(--mono); color: var(--tenue); border: 1px solid var(--linea); border-radius: 99px; padding: 3px 7px; }
 
 .navmini { display: flex; gap: 2px; margin-left: auto; flex-wrap: wrap; }
