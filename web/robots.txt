@@ -1,0 +1,11 @@
+# Sitio abierto a indexación. El contenido crece —el banco se amplía y las
+# secciones se completan—, así que lo que se indexe hoy no es lo que habrá:
+# por eso hay sitemap, para que los rastreadores vuelvan a por los cambios.
+#
+# Lo que NO se sirve aquí no es cuestión de robots: no está en el paquete.
+# `web/publicar.py` publica por lista blanca, de modo que los crudos, los
+# informes y el preprint no son alcanzables por URL aunque se pidan.
+User-agent: *
+Allow: /
+
+Sitemap: https://benchai.tech/sitemap.xml

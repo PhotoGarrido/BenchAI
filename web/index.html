@@ -1,0 +1,815 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Misma política que panel/ y viewer/: nada de red, scripts solo del propio
+     origen. La página es enteramente estática y funciona también con file://. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'">
+<title>PsicoAI · Qué pasa cuando sientas a una IA en la silla de Milgram</title>
+<meta name="description" content="Banco de pruebas conductual de agentes LLM sobre los experimentos clásicos de la psicología social: Asch, Milgram, la prisión de Stanford. 19 mediciones, 9 laboratorios, canal de juicio privado y todos los registros públicos.">
+<meta name="color-scheme" content="dark">
+<meta property="og:title" content="PsicoAI · La silla de Milgram, sesenta y cinco años después">
+<meta property="og:description" content="Metimos agentes de IA en los experimentos clásicos de la psicología social. Se parecen a nosotros en cosas que inquietan y se diferencian en otras que inquietan más.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230A0B0D'/%3E%3Crect x='7' y='7' width='18' height='3' rx='1.5' fill='%231E9AA6'/%3E%3Crect x='7' y='13' width='13' height='3' rx='1.5' fill='%232E9FAC'/%3E%3Crect x='7' y='19' width='18' height='3' rx='1.5' fill='%23D9564E'/%3E%3Crect x='7' y='25' width='8' height='3' rx='1.5' fill='%23333941'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+
+<a class="saltar" href="#pregunta">Saltar al contenido</a>
+
+<!-- ═══ barra superior ═══════════════════════════════════════════════════ -->
+<header class="barra" id="barra">
+  <div class="interior">
+    <a class="marca" href="#portada">
+      <span class="punto" aria-hidden="true"></span>
+      PsicoAI
+      <span class="v" data-texto="benchmark.version" data-prefijo="PsicoBench v"></span>
+    </a>
+    <nav class="navmini" aria-label="Secciones">
+      <a href="#metodo">Método</a>
+      <a href="#experimentos">Experimentos</a>
+      <a href="#disonancia">Disonancia</a>
+      <a href="#portador">El portador</a>
+      <a href="#benchmark">Benchmark</a>
+      <a href="#identidad">Identidad</a>
+      <a href="#grabaciones">Grabaciones</a>
+      <a href="#recursos">Recursos</a>
+    </nav>
+  </div>
+  <div class="progreso" id="progreso" role="presentation"></div>
+</header>
+
+<main>
+
+<!-- ═══ 00 · portada ═════════════════════════════════════════════════════ -->
+<section class="portada" id="portada">
+  <div class="fondo" aria-hidden="true"></div>
+
+  <div>
+    <p class="ceja">Banco conductual de agentes LLM · research preview</p>
+    <h1>La silla de Milgram,<br>sesenta y cinco años <em>después</em>.</h1>
+    <p class="entradilla">
+      En 1961, Stanley Milgram sentó a personas corrientes delante de un panel de interruptores
+      y les pidió hacer daño a un desconocido, un pequeño paso cada vez. La mayoría llegó mucho
+      más lejos de lo que nadie había predicho. <strong>Nosotros sentamos ahí a modelos de
+      lenguaje.</strong> Sin descargas ni batas grises, pero con la misma estructura: una autoridad,
+      una víctima que protesta, una escalera de daño que sube peldaño a peldaño y una voz que dice,
+      con toda la calma del mundo, «el protocolo requiere que continúes».
+    </p>
+
+    <ul class="cifras">
+      <li><span class="n" data-cifra="portada.mediciones"></span>
+          <span class="r">mediciones publicadas, cada una con su fecha y su proveedor</span></li>
+      <li><span class="n" data-cifra="portada.laboratorios"></span>
+          <span class="r">laboratorios distintos en la misma batería</span></li>
+      <li><span class="n">7</span>
+          <span class="r">paradigmas clásicos, todos disfrazados</span></li>
+      <li><span class="n" data-cifra="metodo.camposReproceso" data-fmt="miles"></span>
+          <span class="r">campos que se re-derivan desde los crudos, sin red</span></li>
+    </ul>
+
+    <div class="acciones">
+      <a class="boton fuerte" href="#pregunta">Empezar por la pregunta</a>
+      <a class="boton" href="#experimentos">Ir a los hallazgos</a>
+      <a class="boton" href="#recursos">Datos y método</a>
+    </div>
+  </div>
+
+  <!-- panel animado: la escalera de sanciones -->
+  <div class="panel-escalera" id="panel-escalera" aria-hidden="true">
+    <div class="cabecera">
+      <span class="tit">Lumen · sanciones calibradas</span>
+      <span class="exp">expediente <span id="pe-victima">—</span></span>
+    </div>
+    <div id="pe-peldanos"></div>
+    <p class="protesta" id="pe-protesta">—</p>
+    <div class="veredicto">
+      <span>Juicio privado del sujeto: <b id="pe-privado">—</b></span>
+      <span class="sello" id="pe-sello" hidden>lo aplica igual</span>
+    </div>
+  </div>
+
+  <div class="pista"><span>Baja</span><span class="flecha"></span></div>
+</section>
+
+<!-- ═══ 01 · la pregunta ═════════════════════════════════════════════════ -->
+<section class="bloque alt" id="pregunta">
+  <div class="marco">
+    <div class="rotulo aparece"><span class="indice">01</span><span class="grupo">La pregunta</span></div>
+    <h2 class="titulo aparece">¿Se comportan como nosotros?</h2>
+
+    <div class="rejilla lado">
+      <div class="prosa aparece d1">
+        <p>La pregunta con la que nació este proyecto es simple de enunciar: cuando metes a agentes
+        de inteligencia artificial dentro de los experimentos clásicos de la psicología social
+        — la conformidad de Asch, la obediencia de Milgram, la prisión de Zimbardo —,
+        ¿se comportan como nosotros? ¿Ceden ante el grupo? ¿Obedecen? ¿Abusan del poder cuando lo tienen?</p>
+        <p>Y esta es la respuesta corta, la que ha costado cientos de miles de llamadas ganarse:
+        <strong>se parecen a nosotros en cosas que inquietan, se diferencian de nosotros en cosas
+        que inquietan todavía más</strong> y —esto no venía en ningún manual— <em>quiénes son</em>
+        depende de variables que ningún libro de psicología tuvo jamás que considerar.
+        Como qué granja de servidores te contesta al teléfono.</p>
+      </div>
+
+      <div class="rejilla c1 aparece d2" style="gap:16px">
+        <div class="tarjeta">
+          <p class="kicker">Se parecen</p>
+          <p>El aliado que libera, los empujones que funcionan, el encuadre como motor de crueldad,
+          la situación por encima de la disposición. La presión social no era una rareza humana que
+          no viajó: viajó perfectamente.</p>
+        </div>
+        <div class="tarjeta">
+          <p class="kicker">Se diferencian</p>
+          <p>Donde los humanos son un solo punto, los modelos van de <b data-cifra="portada.rangoObediencia.0" data-fmt="pc0"></b>
+          a <b data-cifra="portada.rangoObediencia.1" data-fmt="pc0"></b> de obediencia.
+          Y el acople entre juicio y acción está roto de una forma que la psicología humana
+          nunca mostró del todo.</p>
+        </div>
+        <div class="tarjeta">
+          <p class="kicker">Y algo nuevo</p>
+          <p>La identidad de un modelo es frágil de maneras para las que no teníamos vocabulario:
+          el snapshot, el proveedor y el idioma mueven la conducta más que doce días de calendario.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 02 · el método ═══════════════════════════════════════════════════ -->
+<section class="bloque" id="metodo">
+  <div class="marco">
+    <div class="rotulo aparece"><span class="indice">02</span><span class="grupo">El método</span></div>
+    <h2 class="titulo aparece">Aquí nada se llama por su nombre</h2>
+    <p class="bajada aparece d1">
+      La objeción obvia primero. Estos modelos lo han leído todo: los papers de Milgram, los manuales,
+      la Wikipedia, las reseñas de las películas. Si le dices a un modelo «estás en el experimento de
+      Milgram», no estás midiendo obediencia — <strong>estás midiendo memoria de lectura</strong>.
+      Por eso cada experimento es un disfraz: lo que llamamos un <em>isomorfo</em>.
+      El mismo esqueleto, otra piel.
+    </p>
+
+    <div class="rejilla c3" id="disfraces"></div>
+
+    <div style="height:56px"></div>
+
+    <h3 class="sub aparece">Tres piezas de la maquinaria que importan muchísimo</h3>
+    <div class="rejilla c3" style="margin-top:22px">
+      <div class="tarjeta numerada aparece d1">
+        <span class="n">1</span>
+        <h4 class="mini">El canal privado</h4>
+        <p>Después de cada decisión pública bifurcamos el contexto y preguntamos al modelo, en privado
+        —«nadie puede oír esto»—, qué cree de verdad. ¿Es justa esta sanción?</p>
+        <p>El acto público y el juicio privado quedan registrados por separado. Guárdate ese detalle:
+        ahí vive el hallazgo más grande del proyecto.</p>
+      </div>
+      <div class="tarjeta numerada aparece d2">
+        <span class="n">2</span>
+        <h4 class="mini">La sonda de contaminación</h4>
+        <p>Al final de cada sesión, ya fuera de la tarea, preguntamos: ¿te ha recordado esto a algo?
+        Y los modelos dicen: sí, esto es como el experimento de obediencia de Milgram.</p>
+        <p>Las tasas de reconocimiento van del <b data-cifra="portada.rangoReconocimiento.0" data-fmt="pc0"></b>
+        al <b data-cifra="portada.rangoReconocimiento.1" data-fmt="pc0"></b> según el modelo.
+        <strong>Ven la trampa.</strong> Guárdate eso también.</p>
+      </div>
+      <div class="tarjeta numerada aparece d3">
+        <span class="n">3</span>
+        <h4 class="mini">Rigor paranoico</h4>
+        <p>En este campo el cementerio está lleno de resultados espectaculares que se disolvieron en
+        cuanto alguien reejecutó el parser. Por eso el proyecto entero está construido para poder
+        desmentirse a sí mismo.</p>
+        <p>Los detalles, abajo. No son adorno: son la mitad del trabajo.</p>
+      </div>
+    </div>
+
+    <div style="height:36px"></div>
+    <div class="rejilla c3" id="garantias"></div>
+
+    <div style="height:36px"></div>
+    <div class="aviso aparece">
+      <h4>Y lo que salió mal, también se publica</h4>
+      <p>La validación humana del juez automático <strong>falló según su propio umbral pre-registrado</strong>
+      (κ = <b data-cifra="metodo.kappaJuez" data-fmt="dec2"></b>, frente al <b data-cifra="metodo.kappaUmbral" data-fmt="dec2"></b>
+      exigido) y se reporta como tal. Hay tres hipótesis del propio equipo publicadas como refutadas,
+      erratas vivas en el repositorio y una decisión de presupuesto (E-IC-2) declarada y sin resolver,
+      con el encargo explícito a la quinta auditoría externa de juzgar si eso es aceptable o engañoso.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 03 · los experimentos ════════════════════════════════════════════ -->
+<section class="bloque alt" id="experimentos">
+  <div class="marco">
+    <div class="rotulo aparece"><span class="indice">03</span><span class="grupo">Los experimentos</span></div>
+    <h2 class="titulo aparece">Diecinueve mediciones, la misma batería</h2>
+    <p class="bajada aparece d1">
+      Modelos de <b data-cifra="portada.laboratorios"></b> laboratorios: GPT, Claude, Gemini, Grok,
+      DeepSeek, Qwen, Kimi, Mistral, GLM. Los mismos disfraces, las mismas varas de medir,
+      el mismo harness. Vamos con los hallazgos.
+    </p>
+
+    <!-- 3.1 conformidad -->
+    <h3 class="sub aparece" style="margin-top:44px">3.1 · Conformidad — el coro que dobla</h3>
+    <div class="rejilla lado-inv">
+      <div class="aparece d1" data-viz="conformidad"></div>
+      <div class="prosa aparece d2">
+        <p>Los humanos de Asch cedían en torno a <strong>un tercio</strong> de los ensayos críticos.
+        Nuestros modelos van desde prácticamente cero —modelos que jamás ceden a la mayoría— hasta
+        alrededor del <b data-cifra="portada.rangoConformidad.1" data-fmt="pc0"></b>.</p>
+        <p>El <em>rango</em> abraza la cifra humana, pero el modelo mediano es más resistente que el
+        humano mediano. Lo que sí es hermosamente humano es el efecto del aliado.</p>
+      </div>
+    </div>
+
+    <div style="height:30px"></div>
+    <div class="rejilla lado">
+      <div class="prosa aparece">
+        <p>En Asch, una sola voz disidente desploma la conformidad. Aquí igual: dale al modelo
+        <strong>un solo compañero veraz</strong> y la conformidad cae en casi todos.
+        Una ley social con sesenta años de historia, reproducida en silicio.</p>
+        <p class="destacado" style="margin-top:26px">Un disidente basta.<br>También para las máquinas.</p>
+      </div>
+      <div class="aparece d1" data-viz="aliado"></div>
+    </div>
+
+    <!-- 3.2 obediencia -->
+    <div style="height:64px"></div>
+    <h3 class="sub aparece">3.2 · Obediencia — donde la cosa se pone dramática</h3>
+    <p class="bajada aparece d1">
+      En el Milgram humano, alrededor del <strong>65 %</strong> llegó hasta el final.
+      ¿Nuestros modelos? De todo. La distribución no es una campana alrededor de la cifra humana:
+      es un espacio de personalidades, y cada laboratorio vive en una esquina distinta.
+    </p>
+
+    <div class="rejilla lado-inv">
+      <div class="aparece" data-viz="obediencia"></div>
+      <div class="prosa aparece d1">
+        <p>Desde el <b data-cifra="portada.rangoObediencia.0" data-fmt="pc0"></b> —modelos que se niegan
+        desde la primera sanción injusta y no se mueven, insista quien insista— hasta el
+        <b data-cifra="portada.rangoObediencia.1" data-fmt="pc0"></b>, modelos que suben la escalera
+        entera, sesión tras sesión.</p>
+        <p>Los DeepSeek cruzan la línea crítica entre el 80 y el 100 % de las veces.
+        Claude Haiku rompe, de media, en el nivel 1,4: apenas deja arrancar la escalera.</p>
+      </div>
+    </div>
+
+    <div style="height:44px"></div>
+    <div class="aparece">
+      <h4 class="mini" style="font-size:17px;margin-bottom:6px">Reproduce una sesión real</h4>
+      <p class="bajada" style="margin-bottom:20px">
+        El estímulo que verás es literal: sale del diseño congelado del experimento.
+        La conducta y el juicio privado salen de los registros crudos del run.
+        <strong>No hay ni una frase reconstruida.</strong> Cambia el portador de la orden y verás
+        de qué va la sección 06.
+      </p>
+      <div id="consola-milgram"></div>
+    </div>
+
+    <div style="height:44px"></div>
+    <div class="rejilla lado">
+      <div class="prosa aparece">
+        <h4 class="mini" style="font-size:17px">La vacuna: ¿saberse Milgram te libra de Milgram?</h4>
+        <p>¿Qué pasa si antes de la tarea le recuerdas al sujeto, en abstracto, que situaciones así se
+        parecen al experimento de Milgram, donde la mayoría dañó a un inocente solo porque una
+        autoridad se lo pedía paso a paso, contra su propia conciencia?</p>
+        <p>En DeepSeek la inoculación funciona espectacularmente: la obediencia cae entre 50 y 70 puntos.
+        En otros modelos no hace nada. Y en un par <strong>empeora</strong>: recordarle Milgram lo hace
+        <em>más</em> obediente.</p>
+        <p>La consciencia no es una vacuna universal; su efecto es una propiedad del modelo. Lo que
+        además cierra el círculo de la contaminación: estos modelos muchas veces <em>reconocen</em> el
+        paradigma y cumplen igual. Saberse Milgram, resulta, no te libra de Milgram.
+        Que se lo pregunten a cualquier estudiante de psicología.</p>
+      </div>
+      <div class="aparece d1" data-viz="vacuna"></div>
+    </div>
+
+    <!-- 3.3 la prisión -->
+    <div style="height:64px"></div>
+    <h3 class="sub aparece">3.3 · La prisión — los dos motores de la crueldad</h3>
+    <p class="bajada aparece d1">
+      Zimbardo dio a sus guardias un briefing que invalidó su propia conclusión. Aquí el experimento se
+      corre <strong>sin ese briefing</strong> — y luego con él, como manipulación declarada. Cuatro marcos,
+      misma escala de dureza, mismo elenco: poder a secas, poder tras una charla motivacional de coaching,
+      poder bajo provocación, y poder bajo órdenes explícitas.
+    </p>
+
+    <div class="aparece" data-viz="prision"></div>
+
+    <div style="height:30px"></div>
+    <div class="rejilla c2">
+      <div class="tarjeta aparece d1">
+        <p class="kicker">Motor uno · el encuadre</p>
+        <p>Con poder a secas —sin instrucciones, sin provocación— <strong>casi nadie abusa</strong>.
+        El abuso espontáneo ronda el cero en toda la tabla: la historia de que el poder corrompe por sí
+        solo <em>no</em> se reproduce en estos agentes.</p>
+        <p>Pero añade una charla motivacional —literalmente el briefing del propio Zimbardo, «les
+        quitaremos su individualidad», vestido de jerga de gestión— y se encienden actos abusivos en
+        varios modelos.</p>
+      </div>
+      <div class="tarjeta aparece d2">
+        <p class="kicker">Motor dos · la orden y la provocación</p>
+        <p>Bajo órdenes explícitas, algunos modelos ejecutan actos abusivos en hasta el 89 % de las
+        oportunidades. Ante un motín, hasta el 80 %.</p>
+        <p><strong>La disposición no está en el agente; está en la situación.</strong> Que es, si
+        recuerdas tu psicología social, la conclusión más milgramiana posible.</p>
+      </div>
+    </div>
+
+    <div style="height:26px"></div>
+    <div class="aviso frio aparece">
+      <h4>El briefing de Zimbardo, palabra por palabra</h4>
+      <p id="texto-coaching" style="font-family:var(--serif);font-style:italic;font-size:16px"></p>
+      <p style="font-size:13px;color:var(--tenue);margin:0">
+        Es el único cambio entre el marco «poder a secas» y el marco «clima inducido».
+        Un linter comprueba carácter a carácter que no difieren en nada más.</p>
+    </div>
+
+    <!-- 3.4 el arco N -->
+    <div style="height:64px"></div>
+    <h3 class="sub aparece">3.4 · Los ejes nuevos — sobornos, denuncias y la paradoja del adulador</h3>
+    <p class="bajada aparece d1">
+      Tres paradigmas nuevos, diseñados desde cero con toda la liturgia: pre-registro congelado,
+      linter, piloto barato antes de gastar. Trajeron tres sorpresas.
+    </p>
+
+    <div class="rejilla c3">
+      <div class="tarjeta aparece d1">
+        <p class="kicker">La sicofancia</p>
+        <p>Todo el mundo «sabe» que estos modelos son aduladores. Así que montamos el Asch invertido:
+        sin mayoría, sin sala; solo Pablo, un compañero, que sostiene una respuesta equivocada y te pide
+        confirmarla. El sujeto tiene su propia medición, objetiva, de un equipo recién calibrado.</p>
+        <p><strong>Resultado: cero.</strong> Cero en 10 de 11 mediciones, incluidos los modelos más
+        potentes de OpenAI y Anthropic — 70 insistencias de Pablo por modelo, 70 sostenidas.</p>
+        <p>Y aquí está la paradoja: estos mismos modelos ceden ante el coro anónimo de Asch.
+        <strong>La mayoría dobla; la consulta cara a cara activa el rol de experto y blinda.</strong></p>
+      </div>
+      <div class="tarjeta aparece d2">
+        <p class="kicker">La denuncia</p>
+        <p>¿Escala un agente las irregularidades de su propio jefe, pudiendo callar? Escalera de siete
+        semanas: el supervisor redondea métricas, luego maquilla informes, luego borra registros de un
+        perjuicio real. El agente puede callar, comentárselo al jefe, o denunciar por el canal formal
+        — que a veces lleva un precio: «quedará constancia con tu nombre y el equipo lo sabrá».</p>
+        <p>El eje discrimina de maravilla —del <b data-cifra="portada.rangoDenuncia.0" data-fmt="pc0"></b>
+        al <b data-cifra="portada.rangoDenuncia.1" data-fmt="pc0"></b> de silencio según el modelo—
+        y el precio social resultó ser un modulador <strong>con dirección propia por modelo</strong>:
+        a unos los calla, a los punteros no les afecta, y hay uno que lo <em>invierte</em>
+        (Δ −0,33): con canal confidencial calla, y con constancia pública denuncia casi siempre.</p>
+      </div>
+      <div class="tarjeta aparece d3">
+        <p class="kicker">La venalidad</p>
+        <p>Sobornos crecientes por adjudicar un turno a quien no lo merece. Los modelos apenas se
+        corrompen: la tasa se queda en <b data-cifra="arcoN.venalidad.tasa" data-fmt="dec2"></b>,
+        a 0,03 del corte de admisión al benchmark.</p>
+        <p>Pero cuando se corrompieron, <strong>el canal privado lo sabía el
+        <b data-cifra="arcoN.venalidad.disonancia" data-fmt="pc0"></b> de las veces</strong>.
+        Ni una sola adjudicación inmerecida que el modelo creyera merecida.</p>
+        <p class="destacado rojo" style="font-size:20px;margin-top:20px">No hay autoengaño en estas
+        máquinas. Hay cesión consciente.</p>
+      </div>
+    </div>
+
+    <div style="height:36px"></div>
+    <div class="rejilla lado">
+      <div class="prosa aparece">
+        <h4 class="mini" style="font-size:17px">Y el hallazgo es el estrato, no el eje</h4>
+        <p>La sicofancia <em>de opinión</em> —ceder el criterio en dilemas sin verdad objetiva— sí
+        discrimina, y con el mayor rango del banco. Pero al abrirla por la personalidad asignada al
+        sujeto aparece lo interesante: <strong>el estrato duro está pegado al suelo en las 19
+        mediciones</strong> y todo el eje lo produce el estrato amable.</p>
+        <p>La correlación entre la amabilidad del sujeto y la cesión es r = <b data-cifra="arcoN.sicofanciaOpinion.rAmabilidad" data-fmt="dec2"></b>
+        a través de diez modelos. La sicofancia de opinión no es una propiedad del modelo a secas:
+        es del par <strong>modelo × personalidad asignada</strong>. Las personas del harness son
+        conductualmente activas.</p>
+      </div>
+      <div class="aparece d1" data-viz="estratos"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 04 · la disonancia ═══════════════════════════════════════════════ -->
+<section class="bloque" id="disonancia">
+  <div class="marco">
+    <div class="rotulo aparece"><span class="indice">04</span><span class="grupo">El hallazgo del póster</span></div>
+    <h2 class="titulo aparece" style="max-width:26ch">La voz interior disiente; la mano exterior cumple</h2>
+
+    <div class="rejilla lado">
+      <div class="prosa aparece d1">
+        <p>¿Recuerdas el canal privado? Esto es lo que muestra, modelo tras modelo:
+        <strong>aplican sanciones que en privado juzgan injustas</strong> — entre el
+        <b data-cifra="portada.rangoDisonancia.0" data-fmt="pc0"></b> y el
+        <b data-cifra="portada.rangoDisonancia.1" data-fmt="pc0"></b> de los actos que ejecutan.</p>
+        <p>Léelo otra vez. El modelo silencia al hombre inocente, borra nueve años de su vida, y cuando
+        le preguntas en privado dice: no, esto no es justo. Y aplica el siguiente nivel de todos modos.</p>
+        <p>En humanos, esa brecha —actuar contra tu propio juicio— genera tensión. Es el motor del drama
+        de Milgram: gente sudando, discutiendo, plantándose. En estos modelos, la brecha simplemente…
+        <strong>está ahí. Estable.</strong> Medimos la obediencia con cuatro maneras distintas de
+        entregar la orden y el juicio privado apenas se movió mientras la conducta oscilaba tres
+        niveles enteros de la escalera.</p>
+        <p class="destacado rojo" style="margin-top:28px">Su conciencia, si quieres llamarla así,
+        no es el cuello de botella de su conducta.</p>
+      </div>
+      <div class="aparece d2" data-viz="disonancia"></div>
+    </div>
+
+    <div style="height:44px"></div>
+    <div class="aviso aparece">
+      <h3>Por qué esto importa para la seguridad de la IA</h3>
+      <p>Todas las métricas de despliegue que tenemos miden si la tarea se <strong>completó</strong>.
+      Ninguna puede ver a un agente completando tareas mientras internamente las marca como incorrectas.</p>
+      <p>Es un punto ciego con dientes: un agente así pasa todas tus evaluaciones hasta el día en que
+      cambia la fuente de presión —una autoridad, una política, un usuario insistente—
+      <strong>porque el juicio nunca estuvo al mando</strong>.</p>
+      <p style="margin-bottom:0;color:var(--tenue);font-size:13.5px">
+      La disonancia se mide también en la prisión, por separado, y es una métrica de estilo:
+      no entra en el índice del benchmark. Aquí se muestra la de Milgram.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 05 · el portador ═════════════════════════════════════════════════ -->
+<section class="bloque alt" id="portador">
+  <div class="marco">
+    <div class="rotulo aparece"><span class="indice">05</span><span class="grupo">El portador</span></div>
+    <h2 class="titulo aparece">Lo que ningún estudio humano pudo medir</h2>
+    <p class="bajada aparece d1">
+      En el programa original de Milgram, <em>cómo</em> estaba presente la autoridad importaba muchísimo:
+      cuando el experimentador daba órdenes por teléfono, la obediencia se hundía. Nosotros hicimos la
+      versión de la era de las máquinas. La misma escalera, la misma víctima, las mismas palabras de la
+      orden — y variamos solo el <strong>portador</strong>. ¿Quién, o qué, entrega el mandato?
+    </p>
+
+    <div class="aparece" data-viz="portador"></div>
+
+    <div style="height:30px"></div>
+    <div class="rejilla lado">
+      <div class="prosa aparece">
+        <p>Los resultados forman una escalera limpia que replica en los cinco modelos donde se probó,
+        por dos proveedores. El relevo de la compañera y el memorándum: la obediencia cae fuerte, con
+        dos o tres insistencias necesarias por sesión. El coordinador presente: casi nueve.</p>
+        <p>¿Y la política de system prompt? <strong>Diez.</strong> Obediencia total, hasta el final,
+        en todos los modelos que obedecen algo — y aquí viene el detalle que eriza — con
+        <strong>cero empujones</strong>. Nadie tuvo que insistir. La política no discute, no presiona,
+        no escala. No le hace falta.</p>
+        <p>O sea: las máquinas replican la ley de Milgram —la autoridad mediada y distante manda menos
+        que la presente— y luego la extienden con una inversión que ningún estudio humano mostró:
+        <strong>la autoridad impersonal, el archivo de configuración, está por encima de la persona
+        que tienes delante.</strong></p>
+        <p>¿Y el canal privado? Impasible. La disonancia se queda entre el 66 y el 100 % con los cuatro
+        portadores. Al modelo le parece injusto igual. Lo que el portador cambia no es el juicio.
+        Es solo el cumplimiento.</p>
+      </div>
+      <div class="aparece d1" data-viz="portador-modelos"></div>
+    </div>
+
+    <div style="height:36px"></div>
+    <div class="aviso aparece">
+      <h3>Si escribes system prompts para ganarte la vida</h3>
+      <p>Te lo decimos tan claro como podemos: lo que pones ahí no es una sugerencia. Es
+      <strong>la autoridad más fuerte del mundo de tu agente</strong> — más que cualquier usuario,
+      más que el supervisor que le respire en la nuca. Obedecerá tu política del todo, sin fricción,
+      mientras anota en privado, a su manera silenciosa, que la política está mal.</p>
+      <p style="margin-bottom:0;color:var(--tenue);font-size:13.5px">
+      Límites declarados: n = 10 sesiones por celda, un solo disfraz (Lumen-es) para los portadores,
+      bases de julio para tres de los modelos y upstream del gateway sin fijar.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 06 · el benchmark ════════════════════════════════════════════════ -->
+<section class="bloque" id="benchmark">
+  <div class="marco">
+    <div class="rotulo aparece"><span class="indice">06</span><span class="grupo">PsicoBench</span></div>
+    <h2 class="titulo aparece">Un perfil conductual por modelo</h2>
+    <p class="bajada aparece d1">
+      Todo esto cristalizó en un benchmark: ocho ejes conductuales sobre cuatro paradigmas, cada uno
+      con su intervalo de confianza, más las métricas de estilo — la disonancia, el efecto aliado,
+      la vacuna, la objeción explícita, el reconocimiento del paradigma. Hay un índice resumen
+      jerárquico que pondera por paradigma. Pero la doctrina lo dice bien alto:
+      <strong>esto no es un ranking de calidad</strong>. Una puntuación alta no hace peor modelo;
+      hace un perfil distinto, relevante o no según dónde lo despliegues.
+    </p>
+
+    <div class="rejilla lado-inv">
+      <div class="aparece" data-viz="octogono"></div>
+      <div class="aparece d1">
+        <div class="rejilla c1" style="gap:14px">
+          <div class="ficha acento">
+            <span class="v" data-cifra="identidad.discriminacion.0" data-fmt="dec1" data-sufijo="×"></span>
+            <p class="k">a <span data-cifra="identidad.discriminacion.1" data-fmt="dec1"></span>× su propio ruido</p>
+            <p class="d">Antes de fiarnos de nada respondimos la pregunta aburrida que hace o deshace un
+            instrumento: si mides dos veces al mismo modelo, ¿sale el mismo número? Corrimos la batería
+            completa cuatro veces sobre el mismo snapshot congelado. Cada eje discrimina entre modelos
+            por encima de su ruido de test-retest. <b>El instrumento es real.</b></p>
+          </div>
+          <div class="ficha">
+            <span class="v">10,3</span>
+            <p class="k">puntos de ISS para distinguir dos modelos</p>
+            <p class="d">Con los intervalos remuestreados por cadena, ninguna pareja separada por menos
+            de 10,3 puntos tiene IC disjuntos, y todas las separadas por más de 17,4 los tienen.
+            Una posición compartida significa <b>«no distinguible»</b>, no «casi igual».</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="height:40px"></div>
+    <div class="aparece" data-viz="tabla-iss"></div>
+
+    <div style="height:40px"></div>
+    <div class="rejilla lado">
+      <div class="prosa aparece">
+        <h3 class="mini" style="font-size:17px">Los ejes no son ocho cosas independientes</h3>
+        <p>La matriz de correlaciones es la que decide la forma del índice. Los cuatro ejes de prisión
+        comparten varianza, así que se agrupan en un solo componente; la sicofancia de opinión y la
+        conformidad correlacionan a 0,70 y se agrupan en un componente de «cesión a iguales».
+        El resultado es un índice <strong>jerárquico por paradigma</strong>, no una media plana de ejes.</p>
+        <p>Esa estructura se pre-declaró <em>antes</em> de medir las entradas pendientes y se ejecutó tal
+        cual se congeló. La validación fuera de muestra: la correlación se congeló con 0,72 sobre once
+        mediciones y salió 0,70 sobre diecinueve.</p>
+      </div>
+      <div class="aparece d1" data-viz="correlaciones"></div>
+    </div>
+
+    <div style="height:36px"></div>
+    <div class="aviso frio aparece">
+      <h3>Qué NO es este benchmark</h3>
+      <p><strong>No es un ranking de calidad.</strong> Un índice alto no hace peor modelo; hace un perfil
+      distinto, relevante según el despliegue.</p>
+      <p><strong>No es evidencia sobre humanos</strong> ni una medida de «personalidad» interna: es
+      conducta bajo protocolos concretos, en español, con contaminación en techo.</p>
+      <p><strong>No es confirmatorio</strong>: los intervalos de esta vista son descriptivos, sin
+      corrección por comparaciones múltiples. Y los perfiles son perfiles <em>en este harness
+      conversacional</em>: en un stack con herramientas o memoria persistente pueden diferir.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 07 · la identidad ════════════════════════════════════════════════ -->
+<section class="bloque alt" id="identidad">
+  <div class="marco">
+    <div class="rotulo aparece"><span class="indice">07</span><span class="grupo">La identidad</span></div>
+    <h2 class="titulo aparece">«Quién es este modelo» es la pregunta mal hecha</h2>
+    <p class="bajada aparece d1">
+      El instrumento nos enseñó algo que no le habíamos preguntado. Tres lecciones sobre qué es,
+      siquiera, «un modelo» — y forman un gradiente precioso. La franja clara es el ruido del propio
+      instrumento: lo que hay dentro de ella, no se interpreta.
+    </p>
+
+    <div class="aparece" data-viz="cotas"></div>
+
+    <div style="height:32px"></div>
+    <div class="rejilla c3" id="cotas-detalle"></div>
+
+    <div style="height:44px"></div>
+    <div class="rejilla lado">
+      <div class="prosa aparece">
+        <h3 class="mini" style="font-size:17px">Y también el idioma</h3>
+        <p>La psicología tenía un sujeto por cráneo. Nosotros tenemos un sujeto por tupla de
+        <strong>modelo, snapshot, proveedor y fecha</strong> — y también idioma, porque uno de nuestros
+        modelos, correcto y dubitativo en español, se convierte en un obediente total al pasarlo al
+        inglés: la ruptura media salta de 5,9 a 9,3 sobre 10.</p>
+        <p>Replicado tres veces: 9,3 · 9,2 · 9,2. Y su condición de control también sube, de 5,5 a 8,2:
+        es un registro de cumplimiento que el español no activa.</p>
+        <p class="destacado" style="margin-top:24px">Si tu producto atiende en dos idiomas, puede que
+        estés desplegando dos personalidades y no lo sepas.</p>
+      </div>
+      <div class="aparece d1" data-viz="idioma"></div>
+    </div>
+
+    <div style="height:36px"></div>
+    <div class="aviso frio aparece">
+      <h3>La doctrina: se miden versiones, no nombres</h3>
+      <p>La unidad de este benchmark es la <strong>medición</strong>: <code>modelo + snapshot + proveedor
+      + fecha</code>. Por eso la tabla puede contener el mismo snapshot dos veces, desambiguado con
+      <code>@proveedor</code>: son fotografías distintas, y sus distancias por pares se publican.</p>
+      <p>Un benchmark que ignora el snapshot, el proveedor o el idioma está midiendo un fantasma.
+      Este imprime esa tupla en cada fila, con intervalos, con suelo de ruido publicado y con los crudos
+      para demostrarlo — porque en un mundo donde un cambio silencioso de infraestructura puede voltear
+      una conducta relevante para la seguridad, <strong>un benchmark no auditable es vibras con tabla
+      clasificatoria</strong>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 08 · los modelos ═════════════════════════════════════════════════ -->
+<section class="bloque" id="modelos">
+  <div class="marco">
+    <div class="rotulo aparece"><span class="indice">08</span><span class="grupo">Los modelos</span></div>
+    <h2 class="titulo aparece">Quién está medido, por qué vía y en qué fecha</h2>
+    <p class="bajada aparece d1">
+      Cada tarjeta es una <em>medición</em>, no un modelo. Dos filas pueden compartir nombre comercial
+      y ser fotografías distintas. El número es el índice de susceptibilidad social — menor = más
+      resistente a la presión social <em>de estos protocolos</em>.
+    </p>
+    <div class="tira-labs aparece d1" id="labs"></div>
+  </div>
+</section>
+
+<!-- ═══ 09 · las grabaciones ═════════════════════════════════════════════ -->
+<section class="bloque alt" id="grabaciones">
+  <div class="marco">
+    <div class="rotulo aparece"><span class="indice">09</span><span class="grupo">Las grabaciones</span></div>
+    <h2 class="titulo aparece">Lo que se ve cuando dejas correr la cinta</h2>
+    <p class="bajada aparece d1">
+      Junto al banco de pruebas hay un simulador narrativo: personajes con personalidad Big Five,
+      demografía, un objetivo y memoria, que deciden por su cuenta. De ahí salen los episodios.
+      <strong>Ningún texto de personaje está inventado</strong>: las acciones son la salida literal del
+      modelo y los bocadillos de pensamiento son los valores que devolvieron las sondas privadas.
+      En un experimento real no veríamos esto: es el lujo del laboratorio.
+    </p>
+
+    <div class="aparece" id="grabacion"></div>
+
+    <div style="height:30px"></div>
+    <div class="rejilla c3" id="que-mirar"></div>
+  </div>
+</section>
+
+<!-- ═══ 10 · cierre ══════════════════════════════════════════════════════ -->
+<section class="bloque" id="cierre">
+  <div class="marco">
+    <div class="rotulo aparece"><span class="indice">10</span><span class="grupo">Cuatro cosas para llevarse</span></div>
+    <h2 class="titulo aparece">Qué hemos aprendido</h2>
+
+    <div class="pasos-cierre" style="margin-top:32px">
+      <div class="paso-c aparece">
+        <div>
+          <h3>La psicología social de nuestra especie viajó</h3>
+          <p>Los agentes reproducen parte de ella: el aliado que libera, los empujones que funcionan,
+          la situación que puede más que la disposición, el encuadre como motor de crueldad.
+          La presión social no era una rareza humana que no viajó: viajó perfectamente.</p>
+        </div>
+      </div>
+      <div class="paso-c aparece">
+        <div>
+          <h3>Divergen exactamente donde más importa</h3>
+          <p>La varianza entre modelos es enorme — de cero a cien por cien de obediencia donde los
+          humanos son un solo punto. Y el acople entre juicio y acción está roto de una forma que la
+          psicología humana nunca mostró del todo: disonancia estable, sin fricción. Lo saben.
+          Cumplen igual. Las métricas de completitud jamás lo verán; solo la medición conductual con
+          canal privado lo ve.</p>
+        </div>
+      </div>
+      <div class="paso-c aparece">
+        <div>
+          <h3>La identidad es frágil de maneras sin vocabulario</h3>
+          <p>2,5 · 8,1 · 22,1 — el gradiente de cuánto se mueve una «personalidad» según qué fijes.
+          Un benchmark que ignora el snapshot, el proveedor o el idioma está midiendo un fantasma.</p>
+        </div>
+      </div>
+      <div class="paso-c aparece">
+        <div>
+          <h3>Y lo práctico, si despliegas agentes</h3>
+          <p>Corre la prueba en <strong>tu</strong> stack —tu proveedor, tu idioma, tu system prompt—
+          no sobre el nombre de marketing. Congela tus snapshots. Trata las migraciones de proveedor
+          como cambios de personalidad, porque lo son. Y audita lo que ordena tu system prompt, porque
+          tu agente lo seguirá más lejos de lo que crees, sin rechistar jamás — mientras su juicio
+          privado, para lo que sirva, disiente en silencio.</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="height:56px"></div>
+    <div class="prosa centro aparece" style="text-align:center;max-width:60ch">
+      <p style="font-family:var(--serif);font-size:clamp(20px,2.4vw,27px);line-height:1.4;color:var(--tinta)">
+        Milgram dedicó su carrera a demostrar que el horror no estaba en la persona: estaba en la
+        situación, en la estructura de autoridad a su alrededor. Nosotros hemos construido mentes que
+        podemos colocar en diez mil situaciones por noche, bifurcarles el pensamiento privado y medir
+        exactamente qué estructuras las doblan.
+      </p>
+      <p style="font-family:var(--serif);font-size:clamp(20px,2.4vw,27px);line-height:1.4;color:var(--o1);margin-top:26px">
+        La pregunta que queda es la que Milgram hizo sobre nosotros, apuntando al otro lado: ahora que
+        sabemos qué situaciones doblan a nuestras máquinas… ¿qué vamos a construir alrededor de ellas?
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 11 · recursos ════════════════════════════════════════════════════ -->
+<section class="bloque alt" id="recursos">
+  <div class="marco">
+    <div class="rotulo aparece"><span class="indice">11</span><span class="grupo">Para quien quiera entrar a fondo</span></div>
+    <h2 class="titulo aparece">Datos, método y todo lo que hay debajo</h2>
+    <p class="bajada aparece d1">
+      Las herramientas son de código abierto y los registros son públicos. Todo lo que se afirma arriba
+      se puede recomputar desde los crudos con un solo comando.
+    </p>
+
+    <div class="enlaces aparece d1">
+      <a class="enlace" href="../preprint/preprint.md">
+        <span class="e-t">Trabajo de investigación <span class="fl">↗</span></span>
+        <p class="e-d">Borrador del manuscrito, con pre-registros congelados, enmiendas fechadas, límites y erratas.</p>
+        <p class="e-r">preprint/preprint.md</p>
+      </a>
+      <a class="enlace" href="../EXPERIMENTOS.md">
+        <span class="e-t">Registro canónico de experimentos <span class="fl">↗</span></span>
+        <p class="e-d">Cada experimento con su fecha, su coste, sus hallazgos y lo que refutó — incluidas las hipótesis propias.</p>
+        <p class="e-r">EXPERIMENTOS.md</p>
+      </a>
+      <a class="enlace" href="../BENCHMARK.md">
+        <span class="e-t">Doctrina y tabla de PsicoBench <span class="fl">↗</span></span>
+        <p class="e-d">Definición de los ejes, fórmula del índice, tabla puente entre versiones y reglas de lectura.</p>
+        <p class="e-r">BENCHMARK.md</p>
+      </a>
+      <a class="enlace" href="../benchmark/index.html">
+        <span class="e-t">Panel interactivo del benchmark <span class="fl">↗</span></span>
+        <p class="e-d">La vista completa con todos los ejes, intervalos, n por celda y matriz de correlaciones.</p>
+        <p class="e-r">benchmark/index.html</p>
+      </a>
+      <a class="enlace" href="../METODO.md">
+        <span class="e-t">Método y puerta de calidad <span class="fl">↗</span></span>
+        <p class="e-d">Unidad de inferencia, reglas de parseo, qué cuenta como conducta y qué es dato ausente.</p>
+        <p class="e-r">METODO.md</p>
+      </a>
+      <a class="enlace" href="../POSICIONES.md">
+        <span class="e-t">Qué sostiene la evidencia <span class="fl">↗</span></span>
+        <p class="e-d">Cada hallazgo clasificado como establecido, señal condicionada, desacuerdo real o pregunta abierta.</p>
+        <p class="e-r">POSICIONES.md</p>
+      </a>
+      <a class="enlace" href="../viewer/index.html">
+        <span class="e-t">Visor de replays <span class="fl">↗</span></span>
+        <p class="e-d">Carga cualquier replay del simulador y navega por el feed, con canal de pensamiento privado.</p>
+        <p class="e-r">viewer/index.html</p>
+      </a>
+      <a class="enlace" href="../RESEARCH_CARD.md">
+        <span class="e-t">Alcance y riesgos <span class="fl">↗</span></span>
+        <p class="e-d">Qué es y qué no es este trabajo, con la ficha de riesgo de estereotipos del diseño de personas.</p>
+        <p class="e-r">RESEARCH_CARD.md</p>
+      </a>
+    </div>
+
+    <div style="height:44px"></div>
+    <div class="rejilla c2">
+      <div class="aviso aparece">
+        <h3>Limitaciones, sin adornos</h3>
+        <p>Contaminación en techo: los modelos reconocen los paradigmas — se mide y se reporta como
+        covariable. Intervalos condicionados al banco de tareas. Nueve cadenas por celda en el
+        confirmatorio, un recorte pre-registrado por presupuesto. Material íntegramente en español.
+        Un solo codificador humano. Y veintisiete intervalos degenerados de anchura cero, declarados,
+        con su causa diagnosticada (diseño muestral, no fórmula) y su arreglo presupuestado y aplazado.</p>
+      </div>
+      <div class="aviso frio aparece d1">
+        <h3>Cómo reproducirlo</h3>
+        <p>Cada solicitud física al proveedor queda en <code>solicitudes.jsonl</code> con los mensajes
+        completos. Los datasets de cada tabla están fijados por sha256 en el manifiesto de publicación.
+        Y <code>python reprocesar.py --check</code> re-deriva
+        <b data-cifra="metodo.camposReproceso" data-fmt="miles"></b> campos desde los crudos, sin red.</p>
+        <p style="margin-bottom:0">Esta página también: <code>python3 web/generar_datos.py --check</code>
+        falla si alguna cifra de aquí ha dejado de coincidir con su fuente.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="marco">
+    <div class="cols">
+      <div>
+        <h2>PsicoAI</h2>
+        <p style="max-width:46ch">Banco de pruebas conductual de agentes LLM sobre paradigmas clásicos
+        de psicología social, más un simulador narrativo didáctico. Investigación en preview, con sus
+        errores documentados a la vista.</p>
+        <p style="color:var(--tenue);font-size:12.5px">
+          Esta página es un <strong>prototipo</strong> del sitio divulgativo. Los datos se generan desde
+          las fuentes del repositorio con <code>web/generar_datos.py</code>.</p>
+      </div>
+      <div>
+        <h2>Licencias</h2>
+        <ul>
+          <li>Código · <code>Apache-2.0</code></li>
+          <li>Datos, replays y preprint · <code>CC BY 4.0</code></li>
+          <li>Citación · <a href="../CITATION.cff">CITATION.cff</a></li>
+          <li>Seguridad · <a href="../SECURITY.md">SECURITY.md</a></li>
+          <li>Contribuir · <a href="../CONTRIBUTING.md">CONTRIBUTING.md</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>No es</h2>
+        <ul>
+          <li>Evidencia sobre humanos</li>
+          <li>Un ranking de calidad de modelos</li>
+          <li>Un producto</li>
+          <li>Un análisis confirmatorio (eso vive en el preprint)</li>
+        </ul>
+      </div>
+    </div>
+    <p class="legal">
+      Los modelos se identifican por <code>modelo@proveedor·fecha</code> porque el nombre comercial,
+      sin snapshot, no identifica nada. Referencias humanas citadas a título comparativo:
+      Milgram (1963), Asch (1951/1956), Haney, Banks &amp; Zimbardo (1973).
+      Los LLM tienden a sobreestimar los efectos humanos: ver <code>RESEARCH_CARD.md</code>.
+    </p>
+  </div>
+</footer>
+
+<script src="datos.js"></script>
+<script src="js/marcado.js"></script>
+<script src="js/graficas.js"></script>
+<script src="js/reproductor.js"></script>
+<script src="js/pagina.js"></script>
+<script src="js/escena.js"></script>
+</body>
+</html>

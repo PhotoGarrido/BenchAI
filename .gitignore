@@ -8,3 +8,7 @@ spike/runs/
 viewer/ultima_sesion.json
 *.log
 .DS_Store
+web/psicoai-*-una-pagina.html
+web/psicoai-una-pagina.html
+publicacion/
+.publicacion_check/

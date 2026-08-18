@@ -1,22 +1,40 @@
 """Test estático anti-XSS (offline, sin navegador ni dependencias).
 
-Hallazgos 3 y 7 de la revisión de seguridad: analiza panel/app.js,
-viewer/app.js, panel/index.html y viewer/index.html y falla si
+Cubre TODAS las superficies HTML del repositorio: el diseñador (`panel/`),
+el visor (`viewer/`), el panel del benchmark (`benchmark/`) y el sitio
+divulgativo (`web/`). Falla si
   (a) hay asignaciones .innerHTML cuyo lado derecho contenga ${ o
       concatenación con variables (se permiten literales estáticos
       puros y la cadena vacía "" para vaciar),
   (b) hay atributos inline onclick= / onerror= / oninput= en los HTML,
-  (c) falta la meta Content-Security-Policy en alguno de los dos HTML,
+  (c) falta la meta Content-Security-Policy en alguno de los HTML,
   (d) el visor no declara las constantes de límites de carga
       (20 MB, 200 agentes, 50000 eventos, 10000 caracteres, lista
-      blanca de tipos con constraint_violation).
+      blanca de tipos con constraint_violation),
+  (e) `web/` escribe HTML fuera de su única puerta (`web/js/marcado.js`),
+      esa puerta pierde el escapador, o los datos generados
+      (`web/datos.js`) traen marcado — el canario que sostiene que la
+      prosa con `<b>` de la web es siempre del código y nunca del dato.
+
+El apartado (e) es el que hace que la web pueda escribir prosa con marcado
+sin abrir un agujero: `mk` escapa TODO lo interpolado y devuelve un objeto
+marcado, así que una cadena suelta no puede llegar a innerHTML ni por
+descuido ni por refactor. Ver la cabecera de `web/js/marcado.js`.
 """
 import pathlib
 import re
 
 RAIZ = pathlib.Path(__file__).resolve().parent.parent
-JS = ["panel/app.js", "viewer/app.js"]
-HTML = ["panel/index.html", "viewer/index.html"]
+# `web/datos.js` es dato generado, no código: entra por su propio canario.
+WEB_JS = sorted(
+    str(p.relative_to(RAIZ)) for p in (RAIZ / "web").rglob("*.js")
+    if p.name != "datos.js"
+)
+JS = ["panel/app.js", "viewer/app.js"] + WEB_JS
+HTML = ["panel/index.html", "viewer/index.html", "benchmark/index.html",
+        "web/home.html", "web/index.html", "web/visor-embebido.html"]
+# La única puerta a innerHTML de `web/`, con su nombre por escrito.
+PUERTA_MARCADO = "web/js/marcado.js"
 
 # Literal puro: una única cadena ("...", '...' o `...` sin ${ ni $).
 _LITERAL_PURO = re.compile(
@@ -45,8 +63,12 @@ def _innerhtml_dinamicos(texto: str) -> list[str]:
 def run() -> bool:
     ok = True
 
-    # (a) innerHTML dinámico en JS y HTML
+    # (a) innerHTML dinámico en JS y HTML. La puerta de marcado se juzga
+    #     aparte, en (e): ahí el lado derecho es dinámico A PROPÓSITO y lo
+    #     que hay que exigir es que venga sellado por `mk`.
     for rel in JS + HTML:
+        if rel == PUERTA_MARCADO:
+            continue
         texto = (RAIZ / rel).read_text(encoding="utf-8")
         malos = _innerhtml_dinamicos(texto)
         ok &= _c(not malos, f"{rel}: sin innerHTML dinámico"
@@ -81,7 +103,64 @@ def run() -> bool:
         ok &= _c(re.search(patron, visor, re.S) is not None,
                  f"viewer/app.js: constante {nombre}")
 
+    # (e) el sitio divulgativo: una sola puerta a innerHTML, con escapador,
+    #     y el canario de que el dato generado no trae marcado.
+    ok &= _puerta_de_marcado()
+
     print("\n" + ("TODOS OK" if ok else "HAY FALLOS"))
+    return ok
+
+
+# Marcado dentro de los datos generados: `<b>`, `<a href=…`, `<script`…
+# (`a < b` o «d < 0,5» en prosa NO son marcado y no deben dar falso positivo).
+_ETIQUETA = re.compile(r"<\s*/?\s*[a-zA-Z][a-zA-Z0-9]*(?:\s[^<>]*)?>")
+
+
+def _puerta_de_marcado() -> bool:
+    ok = True
+
+    # e.1 · nadie de `web/` escribe HTML salvo la puerta
+    fuera = [rel for rel in WEB_JS if rel != PUERTA_MARCADO
+             and ".innerHTML" in (RAIZ / rel).read_text(encoding="utf-8")]
+    ok &= _c(not fuera, "web/: innerHTML solo en la puerta de marcado"
+             + (f" — LO USAN TAMBIÉN: {fuera}" if fuera else ""))
+
+    # e.2 · la puerta escapa, sella y solo escribe lo sellado
+    puerta = (RAIZ / PUERTA_MARCADO).read_text(encoding="utf-8")
+    for nombre, patron in [
+        ("escapa & < > \" '", r'"&":\s*"&amp;".*"<":\s*"&lt;".*">":\s*"&gt;"'
+                             r'.*\'"\':\s*"&quot;".*"\'":\s*"&#39;"'),
+        ("aplica el escapado a lo interpolado",
+         r"esMarcado\(v\)\s*\?\s*v\[MARCA\]\s*:\s*escapar\(v\)"),
+        ("rechaza lo que no venga sellado",
+         r"if\s*\(!esMarcado\(marcado\)\)\s*\{\s*\n\s*throw"),
+        ("una sola asignación a innerHTML",
+         r"\A(?:(?!\.innerHTML\s*=).)*\.innerHTML\s*=\s*marcado\[MARCA\];"
+         r"(?:(?!\.innerHTML\s*=).)*\Z"),
+    ]:
+        ok &= _c(re.search(patron, puerta, re.S) is not None,
+                 f"{PUERTA_MARCADO}: {nombre}")
+
+    # e.2-bis · ningún sumidero recibe un literal suelto. La puerta anterior
+    #   miraba `.innerHTML`, pero `web/` escribe marcado por la clave `html:`
+    #   de sus constructores, y ahí se coló un `html: `«${e}»`` sin `mk` que
+    #   solo estallaba al abrir un desplegable — la mitad del sitio largo se
+    #   quedaba sin montar. Un literal (comilla o plantilla) tras `html:` es
+    #   siempre un error: o lleva marcado y necesita `mk`, o es texto y va por
+    #   `text:`.
+    _HTML_LITERAL = re.compile(r"""html:\s*(?:`|"|')""")
+    for rel in WEB_JS:
+        texto = (RAIZ / rel).read_text(encoding="utf-8")
+        vistos = _HTML_LITERAL.findall(texto)
+        ok &= _c(not vistos, f"{rel}: ningún `html:` con literal suelto (sin mk)"
+                 + (f" — {len(vistos)} encontrados" if vistos else ""))
+
+    # e.3 · canario: el dato generado no trae marcado. Si algún día una cita
+    #       de un informe trae `<b>`, esto salta y obliga a decidir a mano.
+    datos = (RAIZ / "web/datos.js").read_text(encoding="utf-8")
+    etiquetas = _ETIQUETA.findall(datos)
+    ok &= _c(not etiquetas, "web/datos.js: los datos generados no traen marcado"
+             + (f" — VISTAS: {sorted(set(etiquetas))[:3]}" if etiquetas else ""))
     return ok
 
 

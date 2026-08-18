@@ -3,6 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- El panel es un fichero suelto que se abre con doble clic y no pide NADA
+     por red: los datos van dentro y el guion también. `default-src 'none'` lo
+     deja por escrito — nada que se cuele por los datos puede llamar a casa.
+     El guion y los estilos son inline por diseño (un solo fichero), así que
+     esas dos fuentes se declaran; no hay ninguna otra. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:">
 <title>PsicoBench · Perfil social de modelos LLM</title>
 <style>
   :root {
