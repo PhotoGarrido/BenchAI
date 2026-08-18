@@ -190,9 +190,27 @@ la puerta salta y obliga a decidirlo a mano en vez de renderizarlo a ciegas.
 
 ### En la home
 
-- **La codificación cálido/frío es el argumento**, no una decoración: lo humano
-  en ocre `#C87F28`, lo que hace la máquina en turquesa `#10A0B0`. Par validado
-  contra la superficie `#1A1D27` (ΔE CVD 17,1 · visión normal 22,8 · ≥3:1).
+- **Dos registros del mismo sistema**, alternando bloque a bloque: grafito
+  verdoso `#222623` y papel de registro `#E4E7DE`. Comparten familia de tono y
+  se oponen en valor, así que la alternancia se lee como ritmo y no como dos
+  plantillas pegadas. La impone la POSICIÓN (`nth-of-type`), no la clase
+  `.oscura` del marcado: hay dos bloques `.banda` seguidos y el ritmo se
+  rompía justo ahí.
+- **Una sola cosa lleva color: la escala de dureza**, en diez peldaños
+  (`--e0`…`--e9`). Lo humano se dibuja con la tinta del registro —es la
+  referencia, no una serie— y la rampa se reserva para lo que se mide. Los
+  nombres antiguos (`--humano`, `--maquina`, `--s1`…`--s4`) siguen ahí como
+  alias de esa decisión.
+- **La rampa cambia de dirección según el registro**: sobre papel la dureza
+  oscurece hacia la tinta; sobre grafito no puede —el extremo grave
+  desaparecería contra el fondo— y enciende hacia la brasa. Mismo orden, otra
+  dirección de luz.
+- **Los controles se salen del sistema de color**: van en tinta. Un botón
+  naranja competía con el naranja que significa «peldaño alto».
+- **El color no se escribe en el JavaScript**: `js/home.js` pide `var(--…)` y
+  el SVG hereda las variables del bloque donde vive, así que el mismo
+  componente se dibuja en el registro que le toque sin que el guion sepa en
+  cuál está.
 - **Un repertorio de pictogramas** dibujado una vez y reutilizado en los tres
   experimentos, como una señalética de aeropuerto para psicología social. Es lo
   que da identidad sin recurrir al aspecto genérico de landing de producto.

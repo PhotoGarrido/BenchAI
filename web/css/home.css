@@ -16,36 +16,82 @@
 :root {
   color-scheme: dark;
 
-  --noche:    #12141C;
-  --noche-2:  #0D0F15;
-  --sup:      #1A1D27;
-  --sup-2:    #222633;
-  --sup-3:    #2C3140;
+  /* ── tipografía ──────────────────────────────────────────────────────────
+     La condensada lleva los titulares en los dos registros: el peso lo pone
+     el ancho, no el contraste del trazo. La mono es para todo lo que es
+     metadato o dato, y la de placa solo para los rótulos grabados. */
+  --display: "Avenir Next Condensed", "Futura Condensed", "Arial Narrow", system-ui, sans-serif;
+  --sans:    "Avenir Next", Avenir, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono:    ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --placas:  Copperplate, "Copperplate Gothic Light", "Avenir Next Condensed", system-ui, sans-serif;
+  --serif:   "Iowan Old Style", "Palatino Nova", Palatino, Georgia, serif;
 
+  --marco: 1120px;
+
+  /* el papel de los expedientes es el mismo en los dos registros: es un
+     material, no un color de interfaz */
   --papel:      #E9E4D7;
   --papel-2:    #DDD7C6;
   --tinta-papel:#221F19;
   --tenue-papel:#6B6558;
-
-  --tinta:   #F2F0E9;
-  --tinta-2: #A9AEBC;
-  --tenue:   #767C8C;
-  --linea:   #262B37;
-  --base:    #39404F;
-
-  --humano:  #C87F28;
-  --maquina: #10A0B0;
-  --humano-claro: #E8A44A;
-  --maquina-claro:#4FC2D0;
-
-  --s1: #1E9AA6; --s2: #D9564E; --s3: #3987E5; --s4: #C98500;
-
-  --serif: "Iowan Old Style", "Palatino Nova", Palatino, "Palatino Linotype", Georgia, serif;
-  --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-
-  --marco: 1120px;
 }
+
+/* ═══ LOS DOS REGISTROS ═════════════════════════════════════════════════════
+   Un solo sistema leído de dos maneras. Comparten familia de tono (verde
+   grisáceo) y se oponen en valor, así que la alternancia se lee como ritmo y
+   no como dos plantillas pegadas.
+
+   El color lo lleva UNA sola cosa: la escala de dureza, en diez peldaños
+   (`--e0`…`--e9`). Lo humano se dibuja con la tinta del registro —es la
+   referencia, no una serie— y la rampa queda para lo que se mide.
+
+   Sobre papel la dureza OSCURECE hacia la tinta; sobre grafito no puede
+   —el extremo grave desaparecería contra el fondo— y ENCIENDE hacia la
+   brasa. Mismo orden, otra dirección de luz.                                */
+
+section:nth-of-type(odd), body {
+  --noche: #222623; --noche-2: #1B1F1C;
+  --sup: #2B302C; --sup-2: #252A26; --sup-3: #343A35;
+  --linea: #3A403B; --base: #5A625B;
+  --tinta: #F2EFE6; --tinta-2: #BFC5BC; --tenue: #8A928A;
+
+  --e0:#6E7A70; --e1:#8E9A70; --e2:#C0B463; --e3:#DDA950; --e4:#E98F3C;
+  --e5:#EE7633; --e6:#EF5E2E; --e7:#EC4A2C; --e8:#E23A2B; --e9:#D42F2A;
+  --grave: #E23A2B;
+  /* la tinta que va ENCIMA de un peldaño alto */
+  --sobre-grave: #20241F;
+
+  /* Alias de los nombres antiguos. No son un parche: son la decisión. Lo
+     humano deja de tener color propio —es la referencia, se dibuja con la
+     tinta del registro— y lo que hace la máquina toma un peldaño de la
+     rampa. Las cuatro series de gráfica pasan a ser peldaños, no colores
+     nuevos, para que el color siga significando una sola cosa. */
+  --humano: var(--tinta); --humano-claro: #F0EBDB;
+  --maquina: var(--e4); --maquina-claro: var(--e3);
+  --s1: var(--e4); --s2: var(--e7); --s3: var(--e2); --s4: var(--e6);
+}
+
+section:nth-of-type(even) {
+  --noche: #E4E7DE; --noche-2: #DBDFD4;
+  --sup: #EFF1EA; --sup-2: #DDE2D6; --sup-3: #CFD5C7;
+  --linea: #AFBBA8; --base: #8D9A87;
+  --tinta: #191C18; --tinta-2: #454C43; --tenue: #6B7268;
+
+  --e0:#A9B7AC; --e1:#C2C68C; --e2:#E0C25A; --e3:#DFA047; --e4:#D9853C;
+  --e5:#C9642F; --e6:#B14A2A; --e7:#963424; --e8:#7C241D; --e9:#5E1512;
+  --grave: #B14A2A;
+  --sobre-grave: #F6F1E7;
+
+  --humano: var(--tinta); --humano-claro: #4A5147;
+  --maquina: var(--e6); --maquina-claro: var(--e5);
+  --s1: var(--e6); --s2: var(--e8); --s3: var(--e4); --s4: var(--e7);
+}
+
+/* La alternancia se impone por POSICIÓN y no por la clase `.oscura` del
+   marcado: hay dos bloques `.banda` seguidos y el ritmo se rompía justo ahí.
+   Impares en grafito, pares en papel — empezando por la portada. */
+section:nth-of-type(odd) { --registro: oscuro; }
+section:nth-of-type(even) { --registro: claro; }
 
 * { box-sizing: border-box; }
 /* Sin esto, una tabla ancha ensancha su columna de rejilla y arrastra la
@@ -60,9 +106,11 @@ body {
   margin: 0; background: var(--noche); color: var(--tinta);
   font: 17px/1.62 var(--sans); -webkit-font-smoothing: antialiased;
 }
-h1, h2, h3, h4 { font-family: var(--serif); font-weight: 600; margin: 0; text-wrap: balance; }
-a { color: var(--maquina-claro); text-underline-offset: 3px; }
-:focus-visible { outline: 2px solid var(--maquina-claro); outline-offset: 3px; border-radius: 3px; }
+h1, h2, h3, h4 { font-family: var(--display); font-weight: 600; margin: 0;
+  text-transform: uppercase; letter-spacing: .012em; text-wrap: balance; }
+h1, h2 { line-height: .94; }
+a { color: var(--tinta); text-underline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--tinta); outline-offset: 3px; border-radius: 0; }
 
 .marco { max-width: var(--marco); margin: 0 auto; padding: 0 26px; }
 @media (max-width: 640px) { .marco { padding: 0 18px; } }
@@ -80,7 +128,9 @@ a { color: var(--maquina-claro); text-underline-offset: 3px; }
 
 .barra {
   position: fixed; inset: 0 0 auto 0; z-index: 70;
-  background: rgba(18, 20, 28, .82); backdrop-filter: blur(14px) saturate(1.25);
+  background: rgba(27, 31, 28, .88); backdrop-filter: blur(14px) saturate(1.25);
+  --tinta: #F2EFE6; --tinta-2: #BFC5BC; --linea: #3A403B; --base: #5A625B;
+  --sup-2: #252A26; color: var(--tinta);
   border-bottom: 1px solid transparent; transition: border-color .3s;
 }
 .barra.pegada { border-bottom-color: var(--linea); }
@@ -103,9 +153,7 @@ a { color: var(--maquina-claro); text-underline-offset: 3px; }
 .hero { position: relative; padding: 106px 0 0; overflow: hidden; }
 .hero::before {
   content: ""; position: absolute; inset: 0 -30% 40% -30%; z-index: 0; pointer-events: none;
-  background:
-    radial-gradient(46% 52% at 26% 12%, rgba(200, 127, 40, .15), transparent 70%),
-    radial-gradient(44% 50% at 76% 26%, rgba(16, 160, 176, .16), transparent 70%);
+  background: radial-gradient(58% 62% at 30% 8%, rgba(255, 255, 255, .04), transparent 70%);
 }
 .hero .marco { position: relative; z-index: 1; }
 
@@ -138,12 +186,14 @@ a { color: var(--maquina-claro); text-underline-offset: 3px; }
 .tira-cifras span { font: 500 12.5px/1.35 var(--sans); color: var(--tenue); max-width: 17ch; }
 .boton {
   display: inline-flex; align-items: center; gap: 9px; text-decoration: none;
-  font: 600 14.5px/1 var(--sans); padding: 13px 19px; border-radius: 10px;
+  font: 600 14.5px/1 var(--sans); padding: 13px 19px; border-radius: 0;
   border: 1px solid var(--linea); background: var(--sup-2); color: var(--tinta); transition: .18s;
 }
 .boton:hover { background: var(--sup-3); border-color: var(--base); transform: translateY(-1px); }
-.boton.fuerte { background: var(--maquina); border-color: var(--maquina); color: #04191C; }
-.boton.fuerte:hover { background: var(--maquina-claro); border-color: var(--maquina-claro); }
+/* Los controles se salen del sistema de color a propósito: un botón naranja
+   competía con el naranja que significa «peldaño alto». Van en tinta. */
+.boton.fuerte { background: var(--tinta); border-color: var(--tinta); color: var(--noche); }
+.boton.fuerte:hover { background: var(--tinta-2); border-color: var(--tinta-2); }
 
 /* escena de pictogramas de la portada */
 .escena {
@@ -159,8 +209,19 @@ a { color: var(--maquina-claro); text-underline-offset: 3px; }
 
 /* ── bandas ──────────────────────────────────────────────────────────────── */
 
+section { background: var(--noche); color: var(--tinta); }
 section.banda { padding: 92px 0; position: relative; }
-section.banda.oscura { background: var(--noche-2); border-block: 1px solid var(--linea); }
+/* la clase `.oscura` del marcado ya no decide el registro: lo decide la
+   posición. Se conserva sin efecto para no tocar el HTML. */
+section.banda.oscura { background: var(--noche); }
+/* costura entre registros: un filete, nunca una sombra */
+section + section { border-top: 1px solid rgba(0, 0, 0, .22); }
+/* la reja del papel de registro, solo en el registro claro */
+section:nth-of-type(even) {
+  background-image: linear-gradient(#CCD5C6 1px, transparent 1px),
+                    linear-gradient(90deg, #CCD5C6 1px, transparent 1px);
+  background-size: 100% 28px, 28px 100%;
+}
 
 /* Grano. Una superficie oscura perfectamente lisa es la piel por defecto de
    cualquier producto digital; medio punto de ruido la convierte en papel y
@@ -258,20 +319,20 @@ h2.titular {
 .lienzo .pie b { color: var(--tinta-2); }
 
 .remate {
-  margin-top: 26px; padding: 18px 22px; border-radius: 12px;
-  background: rgba(16, 160, 176, .07); border-left: 3px solid var(--maquina);
+  margin-top: 26px; padding: 18px 22px; border-radius: 0;
+  background: transparent; border-left: 2px solid var(--tinta);
 }
-.remate.calido { background: rgba(200, 127, 40, .07); border-left-color: var(--humano); }
+.remate.calido { background: transparent; border-left-color: var(--tinta); }
 .remate p { margin: 0; font-size: 15.5px; color: var(--tinta-2); }
 .remate p + p { margin-top: .7em; }
 .remate strong { color: var(--tinta); font-weight: 600; }
 
 .enlace-mas {
   display: inline-flex; align-items: center; gap: 8px; margin-top: 20px;
-  font: 600 14px/1 var(--sans); text-decoration: none; color: var(--maquina-claro);
-  padding: 11px 15px; border: 1px solid var(--linea); border-radius: 9px; transition: .18s;
+  font: 600 14px/1 var(--sans); text-decoration: none; color: var(--tinta);
+  padding: 11px 15px; border: 1px solid var(--linea); border-radius: 0; transition: .18s;
 }
-.enlace-mas:hover { border-color: var(--maquina); background: rgba(16, 160, 176, .08); }
+.enlace-mas:hover { border-color: var(--tinta); background: transparent; }
 
 /* comparador humano/máquina */
 .cotejo { display: grid; gap: 12px; margin: 22px 0 0; }
@@ -776,3 +837,58 @@ footer.pie code { font-family: var(--mono); font-size: 12px; }
 .picto-bocadillo { opacity: 0; transition: opacity .45s ease; }
 .picto-bocadillo.on { opacity: 1; }
 @media (prefers-reduced-motion: reduce) { .picto-bocadillo { opacity: 1; } }
+
+
+/* ── los pictogramas, a tamaño de figura ───────────────────────────────────
+   La unidad es una medición y contarlas con el dedo ES el argumento; a 40 px
+   quedaban en viñeta. Donde la cifra es «N de 19», mandan en su tarjeta. */
+.ignicion .pictos { margin: 6px 0 10px; }
+.ignicion .pictos svg.unidades { width: 100%; height: auto; max-height: 92px; }
+.paso .pictos svg.unidades { width: 100%; height: auto; max-height: 78px; }
+.expediente svg.unidades { width: 100%; height: auto; max-height: 64px; }
+
+/* ── la apuesta, sobre la propia escala ────────────────────────────────────
+   El carril del deslizador ES la rampa de dureza, y al revelar, tu número y
+   el dato caen como dos marcas sobre esa misma recta: la distancia entre lo
+   que creías y lo que salió se lee en la escala en la que se mide. */
+[data-apuesta] {
+  --carril: linear-gradient(90deg,
+    var(--e0) 0 10%, var(--e1) 10% 20%, var(--e2) 20% 30%, var(--e3) 30% 40%,
+    var(--e4) 40% 50%, var(--e5) 50% 60%, var(--e6) 60% 70%, var(--e7) 70% 80%,
+    var(--e8) 80% 90%, var(--e9) 90% 100%);
+}
+[data-apuesta] input[type=range] { -webkit-appearance: none; appearance: none;
+  height: 16px; background: transparent; }
+[data-apuesta] input[type=range]::-webkit-slider-runnable-track {
+  height: 16px; background: var(--carril); border: 1px solid var(--linea); }
+[data-apuesta] input[type=range]::-moz-range-track {
+  height: 16px; background: var(--carril); border: 1px solid var(--linea); }
+[data-apuesta] input[type=range]::-webkit-slider-thumb { -webkit-appearance: none;
+  width: 6px; height: 26px; margin-top: -6px; background: var(--tinta);
+  border: 1px solid var(--noche); cursor: ew-resize; }
+[data-apuesta] input[type=range]::-moz-range-thumb { width: 6px; height: 26px; border-radius: 0;
+  background: var(--tinta); border: 1px solid var(--noche); cursor: ew-resize; }
+[data-apuesta] .recta { background: var(--carril); height: 16px;
+  border: 1px solid var(--linea); }
+[data-apuesta] .recta i { width: 3px; height: 26px; top: -6px; border-radius: 0; }
+[data-apuesta] .recta i.real { background: var(--tinta); }
+[data-apuesta] .recta i.mia { background: var(--noche); box-shadow: 0 0 0 1px var(--tinta); }
+[data-apuesta] .et { font-family: var(--mono); letter-spacing: .08em; }
+
+/* ── el expediente se invierte respecto a su bloque ────────────────────────
+   Sobre papel, las tres fichas de 1951/1961/1971 pasan a ser objetos oscuros:
+   documentos sobre la mesa, en vez de un papel encima de otro papel. */
+section:nth-of-type(even) .expediente {
+  background: #2E332C; color: #EDEAE0;
+  --tinta: #F4F1E8; --tinta-2: #D6D3C8; --tenue: #9AA096; --linea: #4A5147;
+  --e0:#6E7A70; --e1:#8E9A70; --e2:#C0B463; --e3:#DDA950; --e4:#E98F3C;
+  --e5:#EE7633; --e6:#EF5E2E; --e7:#EC4A2C; --e8:#E23A2B; --e9:#D42F2A;
+  --humano: var(--tinta); --maquina: var(--e4);
+}
+section:nth-of-type(even) .expediente h3 { color: var(--tinta); }
+section:nth-of-type(even) .expediente p { color: var(--tinta-2); }
+section:nth-of-type(even) .expediente b,
+section:nth-of-type(even) .expediente strong { color: var(--tinta); }
+section:nth-of-type(even) .expediente .anio { color: var(--e3); }
+section:nth-of-type(even) .expediente .disfraz { border-top-color: var(--linea); }
+section:nth-of-type(even) .expediente .disfraz .flecha { color: var(--e3); }

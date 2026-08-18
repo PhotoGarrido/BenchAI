@@ -18,12 +18,19 @@
   const ES = new Intl.NumberFormat("es-ES");
   const quieto = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  /* Los colores NO se escriben aquí: se piden al bloque. Cada sección declara
+     su registro en CSS (grafito o papel) y el SVG hereda esas variables, así
+     que el mismo componente se dibuja en el registro que le toque sin que el
+     guion sepa en cuál está. `var(--x)` es válido en fill/stroke de SVG. */
   const COLOR = {
-    humano: "#C87F28", humanoClaro: "#E8A44A",
-    maquina: "#10A0B0", maquinaClaro: "#4FC2D0",
-    tenue: "#767C8C", linea: "#39404F", tinta: "#F2F0E9",
-    rojo: "#D9564E", ambar: "#C98500", sup: "#1A1D27",
+    humano: "var(--humano)", humanoClaro: "var(--humano-claro)",
+    maquina: "var(--maquina)", maquinaClaro: "var(--maquina-claro)",
+    tenue: "var(--tenue)", linea: "var(--linea)", tinta: "var(--tinta)",
+    rojo: "var(--s2)", ambar: "var(--s4)", sup: "var(--noche)",
   };
+  /** Un peldaño de la escala de dureza, de 0 a 1. El único color del sitio. */
+  const peldano = (v) => "var(--e" + Math.max(0, Math.min(9,
+    Math.floor((Number(v) || 0) * 10 - 1e-9))) + ")";
 
   /* prosa con marcado: los literales de este fichero son de confianza; todo
      lo que venga de `datos.js` lo escapa `mk` sin que haya que pedirlo.
@@ -185,7 +192,7 @@
       svg.appendChild(s("text", { x: bx + i * 190, y: 46, fill: COLOR.tenue,
         style: "font:600 11px ui-monospace,Menlo,monospace" }, [document.createTextNode(et)]));
       svg.appendChild(s("rect", { x: bx + 16 + i * 190, y: 37, width: ancho, height: 10, rx: 5,
-        fill: et === "C" ? COLOR.maquina : "#2C3140" }));
+        fill: et === "C" ? COLOR.maquina : "var(--sup-3)" }));
     });
     svg.appendChild(s("text", { x: W - 42, y: 214, "text-anchor": "end", fill: COLOR.tinta,
       style: "font:600 12.5px system-ui" },
@@ -347,7 +354,7 @@
         i, total: vals.length, max: Math.max(...vals),
         media: vals.reduce((a, b) => a + b, 0) / vals.length,
         conAbuso: vals.filter((v) => v > 0.05).length,
-        col: i === 0 ? COLOR.maquina : i === 3 ? COLOR.rojo : COLOR.ambar,
+        col: peldano(m.media),   // el marco toma el peldaño de su propia media
       });
     });
   }
@@ -456,7 +463,7 @@
         c.classList.toggle("puesta", j <= i);
         c.classList.toggle("nueva", j === i);
       });
-      figs.forEach((g, j) => tinta(g, j < m.conAbuso ? m.col : "#2C3140"));
+      figs.forEach((g, j) => tinta(g, j < m.conAbuso ? m.col : "var(--sup-3)"));
       MARCADO.pintar(nota, conAbusoDe(m));
       Array.prototype.forEach.call(rastro.children, (f, j) => {
         f.classList.toggle("en", j <= i);
@@ -522,11 +529,11 @@
     [0.25, 0.5, 0.75, 1].forEach((r) => {
       svg.appendChild(s("polygon", {
         points: ejes.map((_, i) => pt(i, r).join(",")).join(" "),
-        fill: "none", stroke: r === 1 ? COLOR.linea : "#232833", "stroke-width": 1 }));
+        fill: "none", stroke: r === 1 ? COLOR.linea : "var(--sup-3)", "stroke-width": 1 }));
     });
     ejes.forEach((e, i) => {
       const [x2, y2] = pt(i, 1);
-      svg.appendChild(s("line", { x1: cx, y1: cy, x2, y2, stroke: "#232833" }));
+      svg.appendChild(s("line", { x1: cx, y1: cy, x2, y2, stroke: "var(--sup-3)" }));
       const [lx, ly] = pt(i, 1.13);
       const anc = Math.abs(lx - cx) < 10 ? "middle" : lx > cx ? "start" : "end";
       const dx = Math.abs(lx - cx) < 10 ? 0 : lx > cx ? 8 : -8;
@@ -684,7 +691,7 @@
     for (let i = 0; i < total; i++) {
       const fila = Math.floor(i / POR_FILA), col = i % POR_FILA;
       svg.appendChild(figura({
-        color: i < encendidas ? color : (apagado || "#2C3140"),
+        color: i < encendidas ? color : (apagado || "var(--sup-3)"),
         t: `translate(${col * ANCHO} ${fila * ALTO}) scale(0.5)`,
       }));
     }
@@ -1213,7 +1220,7 @@ Ahora imagina la escena con siete personas de verdad mirándote.`
   const CAST = {
     asch: [COLOR.humano, COLOR.humano, COLOR.humano, COLOR.humano, COLOR.humano, COLOR.maquina],
     milgram: [COLOR.humano, COLOR.maquina, COLOR.rojo],
-    prision: [COLOR.maquina, COLOR.maquina, COLOR.maquina, "#2C3140", "#2C3140"],
+    prision: [COLOR.maquina, COLOR.maquina, COLOR.maquina, "var(--sup-3)", "var(--sup-3)"],
   };
   document.querySelectorAll("[data-pictos]").forEach((n) => {
     n.appendChild(mini(CAST[n.dataset.pictos].length, CAST[n.dataset.pictos]));
