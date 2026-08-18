@@ -209,6 +209,7 @@ for (const spec of RUTAS) {
 }
 
 chrome.kill();
-rmSync(perfil, { recursive: true, force: true });
+await new Promise((r) => { chrome.on("exit", r); setTimeout(r, 3000); });
+rmSync(perfil, { recursive: true, force: true, maxRetries: 5, retryDelay: 200 });
 console.log(total === 0 ? "\nSMOKE: OK" : `\nSMOKE: ${total} fallo(s)`);
 process.exit(total === 0 ? 0 : 1);
