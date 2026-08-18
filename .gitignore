@@ -10,3 +10,5 @@ viewer/ultima_sesion.json
 .DS_Store
 web/psicoai-*-una-pagina.html
 web/psicoai-una-pagina.html
+publicacion/
+.publicacion_check/

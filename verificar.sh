@@ -65,4 +65,7 @@ rm -f "$XSS_LOG"
 # del módulo; esto mira su conducta. Sin node no hay verde: nada de saltárselo.
 command -v node > /dev/null || { echo "FALLO: hace falta node para el contrato de marcado"; exit 1; }
 node ../web/marcado.prueba.cjs > /dev/null || { echo "FALLO: contrato de marcado de la web"; exit 1; }
+# Lo que se publica es una LISTA BLANCA, no el repo con exclusiones: si el
+# paquete se desfasa de sus fuentes, esto lo tumba antes de subir nada.
+"$PY" ../web/publicar.py --check
 echo "PUERTA COMPLETA: OK"
