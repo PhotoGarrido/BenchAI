@@ -188,6 +188,20 @@ async function probarRuta(spec) {
     (result.value || []).forEach((f) => fallos.push(`${etiqueta}: ${f}`));
   }
   await evalua(spec.aserciones, "aserción");
+
+  // móvil: a 390px ninguna página puede desbordar el viewport
+  await c.enviar("Emulation.setDeviceMetricsOverride",
+    { width: 390, height: 844, deviceScaleFactor: 2, mobile: true });
+  const recargada = new Promise((res) => c.on((m) => m.method === "Page.loadEventFired" && res()));
+  await c.enviar("Page.reload");
+  await recargada;
+  await new Promise((r) => setTimeout(r, 900));
+  await evalua(`(() => {
+    const d = document.documentElement;
+    const extra = d.scrollWidth - d.clientWidth;
+    return extra > 2 ? ["desborde horizontal a 390px: " + extra + "px"] : [];
+  })()`, "móvil");
+  await c.enviar("Emulation.clearDeviceMetricsOverride");
   if (spec.preparar) {
     await c.enviar("Runtime.evaluate", { expression: spec.preparar });
     await new Promise((r) => setTimeout(r, 500));

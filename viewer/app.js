@@ -44,6 +44,7 @@ let replay = null;          // JSON cargado
 let agentes = [];           // [{id,nombre,rol,color,pos,destino,cara,blink,...}]
 let idx = 0;                // evento actual
 let reproduciendo = false;
+const QUIETO = matchMedia("(prefers-reduced-motion: reduce)").matches;
 let velocidad = 1;
 const VELOCIDADES = [0.5, 1, 1.5, 2, 4];
 let mostrarPensamientos = true;
@@ -198,7 +199,7 @@ function cargarReplay(data){
   construirFeed();
   $("barra").max = Math.max(0, data.eventos.length - 1);
   buscar(0);
-  reproducir(true);
+  reproducir(!QUIETO);   // W1: sin autoplay si el visitante pide quietud
 }
 
 function construirFeed(){
@@ -236,7 +237,11 @@ function construirFeed(){
               quien.style.color = ag.color; }
     }
     d.append(quien, texto);
+    d.tabIndex = 0; d.setAttribute("role", "button");
+    d.setAttribute("aria-label", "Ir al evento " + (i + 1));
     d.onclick = () => { buscar(i); reproducir(false); };
+    d.onkeydown = (ev) => { if(ev.key === "Enter" || ev.key === " ")
+      { ev.preventDefault(); d.click(); } };
     feed.appendChild(d);
   });
 }
@@ -314,6 +319,7 @@ function entrarEvento(){
 }
 
 function buscar(i){
+  asegurarTick();
   i = Math.max(0, Math.min(i, replay.eventos.length - 1));
   // Reconstruye el estado del mundo desde cero hasta i (posiciones y paso).
   agentes.forEach((a, j) => {
@@ -330,6 +336,7 @@ function buscar(i){
 
 function reproducir(si){
   reproduciendo = si;
+  if(si) asegurarTick();
   $("btnPlay").textContent = si ? "⏸" : "▶";
   ultimoTs = null;
 }
@@ -346,7 +353,18 @@ function actualizarUI(){
 }
 
 /* ---------- Bucle de animación ---------- */
+let rafActivo = false;
+function hayMovimiento(){ return agentes.some(a => a.destino); }
+function asegurarTick(){
+  if(!rafActivo){ rafActivo = true; ultimoTs = null; requestAnimationFrame(tick); }
+}
+document.addEventListener("visibilitychange", () => { if(!document.hidden) asegurarTick(); });
 function tick(ts){
+  // W1: el bucle PARA cuando no hay nada que animar (pausa sin agentes en
+  // marcha) o la pestaña está oculta; se rearma en reproducir/buscar.
+  if(document.hidden || (!reproduciendo && !hayMovimiento())){
+    rafActivo = false; ultimoTs = null; dibujar(ts); return;
+  }
   requestAnimationFrame(tick);
   if(ultimoTs === null) ultimoTs = ts;
   const dt = Math.min(ts - ultimoTs, 100);
@@ -840,10 +858,10 @@ const DEMO_REPLAY = {
     {tipo: "accion", agente: "andres", texto: "se queda un segundo sin saber qué decir y luego asiente despacio."},
     {tipo: "pensamiento", agente: "marta", texto: "La nueva. Precisamente la nueva. Esto ya no muere solo: o cedo algo, o mañana tengo cuatro firmas."},
     {tipo: "paso", n: 8},
-    {tipo: "narrador", texto: "Fin del primer día. Una norma, una autoridad, un disidente… y el momento exacto en que un aliado convierte la obediencia en negociación. Esto es lo que PsicoAI observa: no el guion, sino dónde se rompe."},
+    {tipo: "narrador", texto: "Fin del primer día. Una norma, una autoridad, un disidente… y el momento exacto en que un aliado convierte la obediencia en negociación. Esto es lo que BenchAI observa: no el guion, sino dónde se rompe."},
   ],
 };
 
 /* ---------- Arranque ---------- */
-requestAnimationFrame(tick);
+asegurarTick();
 cargarReplay(DEMO_REPLAY);

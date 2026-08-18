@@ -908,9 +908,13 @@ section:nth-of-type(even) .expediente .disfraz .flecha { color: var(--e3); }
   cursor: pointer; border-radius: 0; }
 .botonera .chip-b[aria-pressed="true"] { background: var(--tinta); color: var(--noche);
   border-color: var(--tinta); }
-.botonera .llaves-b { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px;
-  padding: 18px 16px 8px; }
-.botonera .llave-b { text-align: center; cursor: pointer; }
+.botonera .llaves-b { display: grid; grid-template-columns: repeat(10, minmax(58px, 1fr));
+  gap: 6px; padding: 18px 16px 8px; overflow-x: auto; }
+.botonera .llave-b { text-align: center; cursor: pointer;
+  /* es un <button>: fuera el chrome nativo, dentro lo del sistema */
+  appearance: none; background: none; border: 0; padding: 0;
+  font: inherit; color: inherit; display: block; width: 100%; }
+.botonera .llave-b:focus-visible { outline: 2px solid var(--tinta); outline-offset: 2px; }
 .botonera .cuerpo-b { border: 1px solid var(--linea); background: var(--sup-2); padding: 8px 0 6px; }
 .botonera .lampara-b { width: 10px; height: 10px; border-radius: 50%; margin: 0 auto 7px;
   background: var(--sup-3); }
@@ -944,7 +948,6 @@ section:nth-of-type(even) .expediente .disfraz .flecha { color: var(--e3); }
 .botonera .privado-b b { color: var(--tinta); }
 .botonera .privado-b .cita-b { font-family: var(--mono); font-size: 12px; }
 @media (max-width: 720px) {
-  .botonera .llaves-b { grid-template-columns: repeat(5, 1fr); }
   .botonera .lectura-b { grid-template-columns: 1fr; }
 }
 

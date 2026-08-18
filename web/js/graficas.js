@@ -119,7 +119,12 @@
         : Math.max(0, Math.min(marcas.length - 1, (i < 0 ? 0 : i + salto)));
       marcas[i].focus();
     });
-    svg.addEventListener("blur", () => { i = -1; ocultarGlobo(); }, true);
+    svg.addEventListener("blur", (e) => {
+      // W1: el foco moviéndose ENTRE marcas dispara blur en fase captura y
+      // reseteaba el índice — las flechas volvían siempre al primer dato.
+      if (e.relatedTarget && svg.contains(e.relatedTarget)) return;
+      i = -1; ocultarGlobo();
+    }, true);
   }
 
   /* ── armazón de figura ──────────────────────────────────────────────────── */
