@@ -87,6 +87,8 @@ def _copiar(destino: pathlib.Path) -> None:
         else:
             shutil.copy2(origen, dest)
 
+    _reescribir_enlaces(destino)
+
     # `completo.html` enlaza a la home como `home.html`; en la publicación la
     # home vive en la raíz.
     comp = destino / "completo.html"
@@ -96,6 +98,46 @@ def _copiar(destino: pathlib.Path) -> None:
     idx = destino / "index.html"
     idx.write_text(idx.read_text(encoding="utf-8")
                    .replace('href="index.html', 'href="/completo'), encoding="utf-8")
+
+
+REPO_WEB = "https://github.com/PhotoGarrido/PsicoAI/blob/main/"
+
+
+def _reescribir_enlaces(destino: pathlib.Path) -> None:
+    """Los `../algo` del sitio apuntan al REPOSITORIO, no a la web.
+
+    Las páginas viven en `web/` y enlazan a los ficheros del repo con rutas
+    relativas: `../BENCHMARK.md`, `../preprint/preprint.md`. Servidas desde la
+    raíz del dominio eso resuelve a `/BENCHMARK.md` — un 404 en cada «Fuente ·»
+    del sitio largo. Aquí se reescriben una vez, al publicar:
+
+      · lo que SÍ está en el paquete (benchmark, visor) → su ruta absoluta;
+      · lo demás → su URL en GitHub, que es donde vive de verdad.
+
+    Mientras el repositorio sea privado esos enlaces piden login: es la
+    respuesta honesta —el documento existe y no es público todavía— y quedan
+    correctos el día que se abra, sin tocar nada.
+    """
+    for f in sorted(destino.rglob("*.html")):
+        t = f.read_text(encoding="utf-8")
+        antes = t
+        t = t.replace('href="../benchmark/index.html"', 'href="/benchmark"')
+        t = t.replace('href="../benchmark/', 'href="/benchmark/')
+        t = t.replace('href="../viewer/index.html"', 'href="/viewer/index.html"')
+        t = t.replace('href="../', f'href="{REPO_WEB}')
+        if t != antes:
+            f.write_text(t, encoding="utf-8")
+
+    # Y los que construye el guion: `REPO()` de pagina.js arma cada «Fuente ·»
+    # en caliente, así que la reescritura del HTML no los alcanzaba.
+    js = destino / "js" / "pagina.js"
+    viejo = 'const REPO = (r) => mk`<a href="../${r}">${r}</a>`;'
+    nuevo = ('const REPO = (r) => mk`<a href="' + REPO_WEB
+             + '${r}" target="_blank" rel="noopener">${r}</a>`;')
+    texto = js.read_text(encoding="utf-8")
+    if viejo not in texto:
+        raise SystemExit("[publicar] REPO() ha cambiado de forma: revisa la reescritura")
+    js.write_text(texto.replace(viejo, nuevo), encoding="utf-8")
 
 
 def _iguales(a: pathlib.Path, b: pathlib.Path) -> bool:
