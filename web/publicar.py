@@ -103,6 +103,16 @@ def _copiar(destino: pathlib.Path) -> None:
                    .replace('href="index.html', 'href="/completo'), encoding="utf-8")
 
 
+FAVICON_RAMPA = (
+    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' "
+    "viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' "
+    "fill='%23222623'/%3E%3Crect x='5' y='21' width='4.2' height='6' "
+    "rx='1' fill='%238E9A70'/%3E%3Crect x='11' y='16' width='4.2' "
+    "height='11' rx='1' fill='%23DDA950'/%3E%3Crect x='17' y='11' "
+    "width='4.2' height='16' rx='1' fill='%23EE7633'/%3E%3Crect "
+    "x='23' y='5' width='4.2' height='22' rx='1' "
+    "fill='%23D42F2A'/%3E%3C/svg%3E")
+
 REPO_WEB = "https://github.com/PhotoGarrido/BenchAI/blob/main/"
 
 
@@ -130,6 +140,21 @@ def _reescribir_enlaces(destino: pathlib.Path) -> None:
         t = t.replace('href="../', f'href="{REPO_WEB}')
         if t != antes:
             f.write_text(t, encoding="utf-8")
+
+    # B1 (auditoría W1): el visor del repo usa `src="app.js"` relativo para
+    # seguir funcionando con file:// (doble clic). Servido en /viewer SIN
+    # barra final (cleanUrls), ese relativo resuelve a /app.js → 404 y el
+    # visor queda vacío. La copia publicada usa la ruta absoluta.
+    visor = destino / "viewer" / "index.html"
+    tv = visor.read_text(encoding="utf-8")
+    if 'src="app.js"' not in tv:
+        raise SystemExit("[publicar] viewer/index.html ya no carga app.js "
+                         "relativo: revisa la reescritura B1")
+    tv = tv.replace('src="app.js"', 'src="/viewer/app.js"')
+    if 'rel="icon"' not in tv:
+        tv = tv.replace(
+            "<title>", '<link rel="icon" href="' + FAVICON_RAMPA + '">\n<title>', 1)
+        visor.write_text(tv, encoding="utf-8")
 
     # Y los que construye el guion: `REPO()` de pagina.js arma cada «Fuente ·»
     # en caliente, así que la reescritura del HTML no los alcanzaba.

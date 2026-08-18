@@ -502,6 +502,15 @@ def parchear_benchmark_md(datos):
 
 def html(datos):
     plantilla = (AQUI / "plantilla_benchmark.html").read_text(encoding="utf-8")
+    # Canarios de la auditoría W1: dos regresiones que el --check byte a byte
+    # no puede ver porque viven en la GEOMETRÍA y la SEMÁNTICA del guion.
+    if "Math.PI / 3" in plantilla:
+        raise SystemExit("plantilla: paso de radar fijo (hexágono); debe "
+                         "derivarse del número de ejes (PASO_RADAR)")
+    if '"n/c"' not in plantilla:
+        raise SystemExit("plantilla: falta el n/c para entradas fuera de la "
+                         "clasificación (D-8b); un puesto inventado por índice "
+                         "de fila tergiversa el resultado")
     carga = json.dumps(datos, ensure_ascii=False, sort_keys=True,
                        separators=(",", ":"))
     # </script> dentro del JSON rompería el bloque; no ocurre con estos datos,
