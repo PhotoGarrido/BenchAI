@@ -10,6 +10,33 @@
      esas dos fuentes se declaran; no hay ninguna otra. -->
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:">
 <title>PsicoBench · Perfil social de modelos LLM</title>
+<meta name="description" content="PsicoBench, el índice conductual de BenchAI: 19 mediciones de modelos LLM en 8 ejes de presión social (conformidad, obediencia, abuso de poder, denuncia, sicofancia), con intervalos y linaje verificado.">
+<link rel="canonical" href="https://benchai.tech/benchmark">
+<meta property="og:title" content="PsicoBench · Perfil social de modelos LLM">
+<meta property="og:description" content="19 mediciones, 8 ejes de presión social, intervalos por cadena y linaje verificado. El benchmark auditable de BenchAI.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://benchai.tech/benchmark">
+<meta property="og:image" content="https://benchai.tech/og.png">
+<meta property="og:site_name" content="BenchAI">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://benchai.tech/og.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "PsicoBench",
+  "description": "Perfil conductual de modelos de lenguaje sobre paradigmas clásicos de psicología social: 19 mediciones (modelo, snapshot, proveedor y fecha) en 8 ejes, con intervalos de confianza y linaje sha256.",
+  "url": "https://benchai.tech/benchmark",
+  "creator": { "@type": "Person", "name": "David Garrido", "url": "https://github.com/PhotoGarrido" },
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "isPartOf": { "@type": "WebSite", "name": "BenchAI", "url": "https://benchai.tech" },
+  "distribution": {
+    "@type": "DataDownload",
+    "encodingFormat": "application/json",
+    "contentUrl": "https://benchai.tech/benchmark/psicobench.json"
+  }
+}
+</script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23222623'/%3E%3Crect x='5' y='21' width='4.2' height='6' rx='1' fill='%238E9A70'/%3E%3Crect x='11' y='16' width='4.2' height='11' rx='1' fill='%23DDA950'/%3E%3Crect x='17' y='11' width='4.2' height='16' rx='1' fill='%23EE7633'/%3E%3Crect x='23' y='5' width='4.2' height='22' rx='1' fill='%23D42F2A'/%3E%3C/svg%3E">
 <style>
   :root {
@@ -150,7 +177,7 @@
 <body>
 <div class="marco">
   <header>
-    <p class="ceja">Banco conductual PsicoAI</p>
+    <p class="ceja">BenchAI · banco conductual</p>
     <h1>PsicoBench<span class="version" id="version"></span></h1>
     <p class="sub" id="subtitulo"></p>
   </header>
@@ -234,6 +261,8 @@ document.getElementById("subtitulo").textContent =
   "Perfil social medido de " + E.length + " modelos·snapshot — suite " +
   DATOS.suite + ". La unidad es la medición (modelo + snapshot + proveedor + " +
   "fecha): el mismo nombre comercial puede cambiar de conducta entre versiones.";
+document.getElementById("subtitulo").insertAdjacentText("beforeend",
+  " PsicoBench es el instrumento; BenchAI, el proyecto que lo publica.");
 document.getElementById("pie").textContent =
   "Generado por spike/generar_benchmark.py desde las matrices versionadas · " +
   "PsicoBench v" + DATOS.version + " · datos CC BY 4.0 · código Apache-2.0";
@@ -655,7 +684,7 @@ function renderMetodo() {
         document.createTextNode(" · datos en "),
         el("code", { text: "benchmark/psicobench.json" }),
         document.createTextNode(" · registro completo en EXPERIMENTOS.md y " +
-          "BENCHMARK.md del repositorio PsicoAI."),
+          "BENCHMARK.md del repositorio BenchAI."),
       ]),
     ]));
 }

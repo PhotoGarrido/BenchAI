@@ -1,0 +1,71 @@
+name: Desplegar web
+
+# W1 fase 3: el despliegue deja de ser un comando a mano. Cuando la CI queda
+# verde en main, se publica el paquete y se ejecuta el smoke CONTRA PRODUCCIÓN
+# — la crítica de la auditoría era exacta: la CI comparaba lo generado con lo
+# generado y nadie verificaba lo desplegado.
+#
+# Requiere el secreto VERCEL_TOKEN (Account Settings → Tokens en Vercel;
+# `gh secret set VERCEL_TOKEN` en el repo). Sin él, el job se salta con aviso.
+
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: despliegue-produccion
+  cancel-in-progress: false
+
+jobs:
+  desplegar:
+    runs-on: ubuntu-latest
+    if: github.event.workflow_run.conclusion == 'success'
+    env:
+      VERCEL_ORG_ID: team_FFqBZS9hZSnb8jMveSc2KC62
+      VERCEL_PROJECT_ID: prj_ojdoh7IWnXoNMlglRvjuu2LEIZwB
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+      - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+        with:
+          node-version: 22
+
+      - name: ¿Hay token de Vercel?
+        id: token
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          if [ -z "$VERCEL_TOKEN" ]; then
+            echo "hay=no" >> "$GITHUB_OUTPUT"
+            echo "::warning::Sin secreto VERCEL_TOKEN: el despliegue se salta. Configúralo con 'gh secret set VERCEL_TOKEN'."
+          else
+            echo "hay=si" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Construir el paquete (lista blanca, con sello de commit)
+        if: steps.token.outputs.hay == 'si'
+        run: |
+          python3 web/publicar.py
+          python3 web/publicar.py --check
+
+      - name: Desplegar a producción
+        if: steps.token.outputs.hay == 'si'
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          cd publicacion
+          npx --yes vercel deploy --prod --yes --token "$VERCEL_TOKEN"
+
+      - name: Smoke contra producción
+        if: steps.token.outputs.hay == 'si'
+        env:
+          CHROME: /usr/bin/google-chrome
+        run: |
+          sleep 15
+          node web/smoke.mjs https://benchai.tech

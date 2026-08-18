@@ -23,6 +23,7 @@ import argparse
 import filecmp
 import pathlib
 import shutil
+import subprocess
 import sys
 
 RAIZ = pathlib.Path(__file__).resolve().parent.parent
@@ -34,6 +35,8 @@ PIEZAS: list[tuple[str, str]] = [
     ("web/robots.txt", "robots.txt"),
     ("web/sitemap.xml", "sitemap.xml"),
     ("web/og.png", "og.png"),
+    ("web/favicon.svg", "favicon.svg"),
+    ("web/favicon.ico", "favicon.ico"),
     ("web/home.html", "index.html"),
     ("web/index.html", "completo.html"),
     ("web/visor-embebido.html", "visor-embebido.html"),
@@ -91,6 +94,22 @@ def _copiar(destino: pathlib.Path) -> None:
             shutil.copy2(origen, dest)
 
     _reescribir_enlaces(destino)
+
+    # Sello de despliegue: SHA corto + fecha del COMMIT (no reloj de pared,
+    # para que dos generaciones del mismo árbol sean byte-idénticas).
+    try:
+        sha = subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=RAIZ,
+                             capture_output=True, text=True, timeout=10).stdout.strip()
+        fecha = subprocess.run(["git", "show", "-s", "--format=%cs", "HEAD"], cwd=RAIZ,
+                               capture_output=True, text=True, timeout=10).stdout.strip()
+        sello = f"{sha} · {fecha}" if sha else "desconocido"
+    except OSError:
+        sello = "desconocido"
+    for f in sorted(destino.rglob("*.html")):
+        tx = f.read_text(encoding="utf-8")
+        if "data-despliegue" in tx:
+            f.write_text(tx.replace(">copia local<", ">" + sello + "<"),
+                         encoding="utf-8")
 
     # `completo.html` enlaza a la home como `home.html`; en la publicación la
     # home vive en la raíz.
@@ -154,6 +173,12 @@ def _reescribir_enlaces(destino: pathlib.Path) -> None:
     if 'rel="icon"' not in tv:
         tv = tv.replace(
             "<title>", '<link rel="icon" href="' + FAVICON_RAMPA + '">\n<title>', 1)
+    if 'rel="canonical"' not in tv:
+        tv = tv.replace("<title>",
+            '<link rel="canonical" href="https://benchai.tech/viewer">\n'
+            '<meta name="description" content="Visor de replays de BenchAI: '
+            'reproduce los episodios del simulador narrativo con su canal de '
+            'pensamiento privado conmutable.">\n<title>', 1)
         visor.write_text(tv, encoding="utf-8")
 
     # Y los que construye el guion: `REPO()` de pagina.js arma cada «Fuente ·»
