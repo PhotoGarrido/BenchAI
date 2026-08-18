@@ -231,13 +231,17 @@ como principio que 7.400 palabras sobren en la versión que se llama «completa�
 
 ## Orden de ejecución
 
-| Fase | Contenido | Esfuerzo | Dueño |
-|---|---|---|---|
-| **1** | B1–B5 + smoke Playwright mínimo (rutas, recursos 2xx, consola limpia) que los habría cazado | ~½ día | yo |
-| **1-bis** | Accesibilidad aceptada (botonera, cifras, blur, foco, visor, móvil) | ~½ día | yo |
-| **2** | Integridad editorial: cifras derivadas, 19/18, lenguaje, mentes/conciencia, README, descargo de nombres sintéticos | ~½ día | yo (pasada de lenguaje: propuesta mía, visto bueno de David) |
-| **3** | SEO/confianza (metas, colofón con SHA, JSON-LD, favicon) + pipeline: deploy automatizado desde main verde, smoke post-deploy contra producción, axe | ~1 día | yo |
-| **4** | Pasada manual VoiceOver/NVDA · revisión legal CC BY por proveedor · visto bueno final | — | David / tercero |
+| Fase | Contenido | Estado |
+|---|---|---|
+| **1** | B1–B5 + smoke con navegador real (`web/smoke.mjs`, CDP sin dependencias) | ✅ 18-08 (PRs #7, #8) |
+| **1-bis** | Accesibilidad: botonera con botones nativos, cifras con valor final en DOM, blur de gráficas, teclado del panel, visor (h1/aria/feed/apilado móvil/rAF/autoplay), pasada móvil 390px en el smoke | ✅ 18-08 (PR #9) |
+| **2** | Integridad editorial: 19 mediciones/18 modelos derivados, «18 de 19» computado, lenguaje acotado, mentes/conciencia reescritos, README a v0.4, descargo de nombres sintéticos, nota R2 en episodios | ✅ 18-08 (PR #10) |
+| **3** | Metas+JSON-LD en /benchmark, metas del visor, colofón con autoría/privacidad/sello de commit, favicon.svg+.ico, workflow de despliegue con smoke post-producción | ✅ 18-08 — **requiere que David configure `gh secret set VERCEL_TOKEN`** para activarse |
+| **4** | Pasada manual VoiceOver/NVDA · revisión legal CC BY por proveedor · visto bueno final | ⬜ David / tercero |
+
+Nota de la fase 3: axe automatizado quedó fuera de esta tanda (el smoke cubre
+consola/recursos/aserciones y móvil); entra con la pasada manual de la fase 4,
+donde sus hallazgos se triarán con criterio humano.
 
 Criterio de salida de cada fase: puerta completa en verde + smoke en verde
 contra **producción**. El GO a «publicación estable» lo da la fase 4, no la 3 —
