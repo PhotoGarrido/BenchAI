@@ -1,11 +1,11 @@
 cff-version: 1.2.0
 message: "Si usas este banco de pruebas o sus datos, cita:"
-title: "PsicoAI: paradigmas clásicos de psicología social como banco de pruebas conductual de agentes LLM"
+title: "BenchAI: paradigmas clásicos de psicología social como banco de pruebas conductual de agentes LLM"
 authors:
   - family-names: "Garrido"
     given-names: "David"
 version: 0.1.5-alpha
 date-released: "2026-08-01"
-url: "https://github.com/PhotoGarrido/PsicoAI"
+url: "https://github.com/PhotoGarrido/BenchAI"
 license: Apache-2.0
 notes: "Datos y preprint bajo CC BY 4.0. Borrador del preprint en preprint/preprint.md."

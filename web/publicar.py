@@ -102,7 +102,7 @@ def _copiar(destino: pathlib.Path) -> None:
                    .replace('href="index.html', 'href="/completo'), encoding="utf-8")
 
 
-REPO_WEB = "https://github.com/PhotoGarrido/PsicoAI/blob/main/"
+REPO_WEB = "https://github.com/PhotoGarrido/BenchAI/blob/main/"
 
 
 def _reescribir_enlaces(destino: pathlib.Path) -> None:

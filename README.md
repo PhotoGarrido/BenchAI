@@ -1,4 +1,9 @@
-# 🧠 PsicoAI
+# 🧠 BenchAI
+
+> Antes **PsicoAI**: el proyecto se renombró al unificar la marca con
+> [benchai.tech](https://benchai.tech). Los nombres internos congelados —el
+> índice **PsicoBench**, los canarios `PSICOAI-…`, los identificadores de
+> run— no cambian: son artefactos citados y con hash.
 
 **Banco de pruebas conductual de agentes LLM sobre paradigmas clásicos de psicología social, más un simulador narrativo didáctico.** Versión `v0.1.5-alpha` (research preview).
 
