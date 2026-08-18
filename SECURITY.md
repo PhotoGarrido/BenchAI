@@ -16,5 +16,5 @@
 - **Protección de rama**: los checks `tests` y `secretos` deben ser
   obligatorios para fusionar. En repo privado sin Pro GitHub no lo permite
   (verificado 29-07-2026); al hacer el repo público, activar con:
-  `gh api -X PUT repos/PhotoGarrido/PsicoAI/branches/main/protection`
+  `gh api -X PUT repos/PhotoGarrido/BenchAI/branches/main/protection`
   (required_status_checks: strict, contexts [tests, secretos]).
