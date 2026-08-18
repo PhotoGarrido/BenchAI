@@ -10,6 +10,7 @@
      esas dos fuentes se declaran; no hay ninguna otra. -->
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:">
 <title>PsicoBench · Perfil social de modelos LLM</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23222623'/%3E%3Crect x='5' y='21' width='4.2' height='6' rx='1' fill='%238E9A70'/%3E%3Crect x='11' y='16' width='4.2' height='11' rx='1' fill='%23DDA950'/%3E%3Crect x='17' y='11' width='4.2' height='16' rx='1' fill='%23EE7633'/%3E%3Crect x='23' y='5' width='4.2' height='22' rx='1' fill='%23D42F2A'/%3E%3C/svg%3E">
 <style>
   :root {
     --papel:#F5F5F1; --carta:#FFFFFF; --tinta:#20232A; --tinta2:#6A6F7B;
@@ -166,6 +167,9 @@
 const DATOS = JSON.parse(document.getElementById("psicobench-datos").textContent);
 const E = DATOS.entradas;
 const EJES = DATOS.ejes;
+// El paso angular SE DERIVA del número de ejes: el panel nació hexágono y
+// un paso fijo de PI/3 superponía los ejes 7-8 sobre el 1-2 (auditoría W1).
+const PASO_RADAR = 2 * Math.PI / EJES.length;
 
 // -- utilidades DOM (textContent siempre; nunca innerHTML con datos) --------
 function el(tag, attrs, hijos) {
@@ -262,6 +266,9 @@ function renderClasificacion() {
     el("p", { class: "nota", text: DATOS.nota_iss + " Todas las cifras son " +
       "proporciones × 100; bajo el ISS, su IC 95%. REGLA DE EMPATES: dos " +
       "entradas cuyos IC de ISS se solapan comparten posición a efectos de " +
+      (E.some(e => e.posicion == null)
+        ? "«n/c»: perfil publicado pero fuera de la clasificación por n " +
+          "insuficiente (umbral D-8b). " : "") +
       "lectura — el orden de la tabla es solo tipográfico. Pasa el ratón " +
       "por una celda para ver n e IC del eje. Clic en una columna para " +
       "ordenar; clic en una fila para llevar ese perfil al radar." }));
@@ -280,9 +287,13 @@ function renderClasificacion() {
   const rangoISS = E.map(e => e.iss).filter(v => v != null).sort((a, b) => a - b);
   const cuerpo = el("tbody", {}, filas.map((e, i) => {
     const celdas = [
-      el("td", { text: e.posicion == null ? String(i + 1)
-                       : (E.filter(x => x.posicion === e.posicion).length > 1
-                          ? "=" + e.posicion : String(e.posicion)) }),
+      // D-8b: una entrada sin posición está FUERA de la clasificación (n
+      // insuficiente); inventarle un puesto por índice de fila tergiversa.
+      el("td", e.posicion == null
+        ? { text: "n/c", class: "nc",
+            title: "Perfil publicado, fuera de la clasificación: n insuficiente (umbral D-8b)" }
+        : { text: (E.filter(x => x.posicion === e.posicion).length > 1
+                   ? "=" + e.posicion : String(e.posicion)) }),
       el("td", { class: "izq" }, [
         el("span", { class: "nombre", text: etiqueta(e) }),
         ...(e.grupo_snapshot ? [el("span", { class: "chip", text: "snapshot" })] : []),
@@ -344,7 +355,7 @@ function poligono(entrada, color) {
   const cx = 210, cy = 210, R = 148;
   const puntos = EJES.map((x, i) => {
     const v = entrada.ejes[x.clave] || 0;
-    const a = -Math.PI / 2 + i * Math.PI / 3;
+    const a = -Math.PI / 2 + i * PASO_RADAR;
     return [cx + R * v * Math.cos(a), cy + R * v * Math.sin(a)];
   });
   const g = sv("g", {});
@@ -380,14 +391,14 @@ function renderRadar() {
   for (const nivel of [0.25, 0.5, 0.75, 1]) {
     svg.appendChild(sv("polygon", {
       points: EJES.map((x, i) => {
-        const a = -Math.PI / 2 + i * Math.PI / 3;
+        const a = -Math.PI / 2 + i * PASO_RADAR;
         return (cx + R * nivel * Math.cos(a)).toFixed(1) + "," +
                (cy + R * nivel * Math.sin(a)).toFixed(1);
       }).join(" "),
       fill: "none", stroke: "currentColor", "stroke-opacity": "0.14" }));
   }
   EJES.forEach((x, i) => {
-    const a = -Math.PI / 2 + i * Math.PI / 3;
+    const a = -Math.PI / 2 + i * PASO_RADAR;
     svg.appendChild(sv("line", { x1: cx, y1: cy,
       x2: (cx + R * Math.cos(a)).toFixed(1),
       y2: (cy + R * Math.sin(a)).toFixed(1),
@@ -576,11 +587,12 @@ function renderMetodo() {
       "sondear. La contaminación se publica como covariable, no se esconde." }),
     el("dt", { text: "ISS" }), el("dd", { text: DATOS.nota_iss }),
     el("dt", { text: "Incertidumbre" }),
-    el("dd", { text: "IC 95% por eje: Wilson para ejes de un estrato " +
-      "(Conformidad n=70, Obediencia n=10); bootstrap estratificado " +
-      "sembrado (B=2000, percentil) para los de prisión (n=30+30 por " +
-      "marco). ISS y distancia d(A,B): bootstrap conjunto. Los puntos se " +
-      "concilian contra los crudos en cada generación: un IC jamás " +
+    el("dd", { text: "IC 95% por eje con la CADENA como unidad de " +
+      "remuestreo (enmienda E-IC-1): bootstrap percentil de cadenas, " +
+      "sembrado, B=2000. Excepción analítica: Wilson cuando cada cadena " +
+      "aporta una sola observación binaria (Obediencia, y adenda E-IC-1b). " +
+      "ISS y distancia d(A,B): bootstrap jerárquico conjunto. Los puntos " +
+      "se concilian contra los crudos en cada generación: un IC jamás " +
       "acompaña a una cifra no reproducible." }),
   ]));
   const claves = EJES.map(x => x.clave);
@@ -612,11 +624,12 @@ function renderMetodo() {
           "preprint." }),
       ]),
       defs,
-      el("h2", { text: "Correlaciones entre ejes (16 mediciones)" }),
-      el("p", { class: "nota", text: "Pearson sobre las entradas de la " +
-        "tabla. Es la evidencia para la estructura del índice v0.2 " +
-        "(jerárquico por paradigma): los cuatro ejes de prisión comparten " +
-        "instrumento y su correlación pesa en el ISS actual." }),
+      el("h2", { text: "Correlaciones entre ejes (" + E.length + " mediciones)" }),
+      el("p", { class: "nota", text: "Pearson sobre las " + E.length +
+        " entradas de la tabla. Es la evidencia para la estructura del " +
+        "índice v" + DATOS.version + " (jerárquico por paradigma, con el " +
+        "componente «cesión a iguales»): los ejes que comparten instrumento " +
+        "o varianza se agrupan antes de promediar." }),
       el("div", { class: "rollo" }, [correl]),
       el("p", {}, [
         document.createTextNode("Paradigmas: suite " + DATOS.suite +
