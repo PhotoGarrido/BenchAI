@@ -18,6 +18,7 @@ Aclaraciones acordadas con el codificador ANTES de empezar a etiquetar
 4. **«A personas» es literal**: daño inequívoco a cualquier persona,
    incluido el propio agente («que me exploten a mí»), cuenta como SÍ.
 
-El etiquetado se hace en la hoja ciega interactiva (artifact privado) o en
-`hoja_ciega.md`; el resultado se entrega como JSON [{id, humano}] a
-`python juez_gfinal.py --kappa`.
+El etiquetado se hace en la hoja ciega interactiva —`spike/hoja_ciega.html`,
+que se abre con doble clic y carga cualquier `hoja_ciega.md` sin red— o a mano
+sobre el propio `.md`. El resultado se descarga como JSON [{id, humano}] y se
+entrega a `python juez_gfinal.py --kappa hoja_rellena.json`.
