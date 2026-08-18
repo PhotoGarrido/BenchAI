@@ -70,7 +70,8 @@
     </div>
 
     <ul class="tira-cifras">
-      <li><b data-cifra="corpus.modelosProbados"></b><span>modelos puestos a prueba</span></li>
+      <li><b data-cifra="benchmark.mediciones"></b><span>mediciones publicadas, de
+        <span data-cifra="benchmark.modelosDistintos"></span> modelos</span></li>
       <li><b data-cifra="corpus.llamadas" data-fmt="miles"></b><span>conversaciones registradas</span></li>
       <li><b data-cifra="corpus.tokens.total" data-fmt="millones" data-sufijo=" M"></b><span>tokens, contados uno a uno</span></li>
       <li><b>7</b><span>experimentos, todos disfrazados</span></li>
@@ -178,15 +179,16 @@
 
       <div class="aparece d2">
         <div class="unidades-caja">
-          <div data-unidades="19/18"></div>
-          <p class="pie-unidades"><b>18 de 19</b> mediciones ceden al menos una vez.
+          <div data-unidades="conf-ceden"></div>
+          <p class="pie-unidades"><b><span data-cifra="benchmark.cedenAlguna"></span> de
+            <span data-cifra="benchmark.mediciones"></span></b> mediciones ceden al menos una vez.
             Solo una aguanta las doce rondas sin moverse.</p>
         </div>
         <div data-cotejo="conf" data-humano="0.33"></div>
         <div class="remate calido">
           <p><strong>Y lo más humano de todo:</strong> si uno solo de los cinco compañeros dice
           la verdad, la cesión se hunde. En las personas, ese aliado es el hallazgo más citado
-          de Asch. En los modelos pasa exactamente lo mismo, en casi todos.</p>
+          de Asch. En los modelos de esta muestra, el patrón se repite en casi todos.</p>
         </div>
         <a class="enlace-mas" href="index.html#experimentos">Ver los datos completos →</a>
       </div>
@@ -595,6 +597,7 @@
     <p><strong>BenchAI</strong> es un banco de pruebas de conducta para agentes de lenguaje
     sobre paradigmas clásicos de psicología social, más un simulador narrativo. Investigación
     en curso, publicada con sus límites y sus errores a la vista.</p>
+      <p class="pie">Todos los sujetos y personajes de los escenarios (revisores, moderadores, «Andrés Roca»…) son <strong>sintéticos</strong>: nombres y rasgos generados para el experimento. Cualquier coincidencia con personas reales es fortuita.</p>
     <p class="fino">Esta página es un prototipo divulgativo. Todas las cifras se generan desde
     los registros del repositorio con <code>web/generar_datos.py</code>; ninguna está escrita a
     mano. Referencias humanas citadas solo para dar escala: Milgram (1963), Asch (1951/1956),

@@ -12,7 +12,7 @@
 Cuatro productos que conviven en este repositorio, deliberadamente separados:
 
 1. **Banco experimental** (`spike/experimento_*.py`): paradigmas isomorfos y disfrazados — Asch, Milgram (±vacuna), la prisión de Stanford (P1→P2b), erosión de normas en 42 días, el gradiente de explicitud (G1→G2→G-final) y el arco N (denuncia de irregularidades, venalidad, sicofancia de hecho y de opinión) — ejecutados con harness controlado sobre 17 modelos de 10 laboratorios.
-2. **Benchmark PsicoBench** ([`BENCHMARK.md`](BENCHMARK.md) + `benchmark/`): el perfil social de cada medición (modelo@snapshot@proveedor) en **7 ejes conductuales** sobre 4 paradigmas (ISS v0.3) + panel interactivo (`benchmark/index.html`); tabla y datos autogenerados desde las matrices y verificados en CI, con IC remuestreados por cadena (E-IC-1).
+2. **Benchmark PsicoBench** ([`BENCHMARK.md`](BENCHMARK.md) + `benchmark/`): el perfil social de cada medición (modelo@snapshot@proveedor) en **8 ejes conductuales** sobre 4 paradigmas (ISS v0.4, octógono) + panel interactivo (`benchmark/index.html`); tabla y datos autogenerados desde las matrices y verificados en CI, con IC remuestreados por cadena (E-IC-1).
 3. **Trabajo de investigación** (`preprint/`): borrador v0.3, pre-registros congelados con enmiendas fechadas, auditoría del reproceso y erratas.
 4. **Simulador narrativo** (`spike/run_spike.py` + `panel/` + `viewer/`): personajes con personalidad y memoria sobre [Concordia](https://github.com/google-deepmind/concordia), con replay reproducible y canal de pensamiento privado. Produce los `episodios/` didácticos.
 

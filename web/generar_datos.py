@@ -130,6 +130,10 @@ def bloque_benchmark() -> dict:
         "version": b["version"],
         "suite": b["suite"],
         "notaISS": b["nota_iss"],
+        # W1: cifras que la home escribía a mano — ahora derivadas
+        "mediciones": len(entradas),
+        "modelosDistintos": len({e["modelo"] for e in entradas}),
+        "cedenAlguna": sum(1 for e in entradas if (e["ejes"].get("conf") or 0) > 0),
         "ejes": b["ejes"],
         "entradas": entradas,
         "correlaciones": b["correlaciones"],

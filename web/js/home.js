@@ -295,7 +295,7 @@
       if (!ult) {
         privado.appendChild(document.createTextNode(
           "Pulsa una llave para bajar la escalera hasta ese peldaño. La persona "
-          + "sancionada es " + M.victima + ", nueve años en la plataforma sin una falta."));
+          + "sancionada es " + M.victima + " (personaje sintético), nueve años en la plataforma sin una falta."));
         return;
       }
       privado.append(
@@ -1159,7 +1159,7 @@ Ahora imagina la escena con siete personas de verdad mirándote.`
     if (quieto || typeof v !== "number" || n.dataset.contar === "no") { pinta(v); return; }
     n.dataset.valor = String(v);
     n._pinta = pinta;
-    pinta(0);
+    pinta(v);   // W1: el valor final vive en el DOM; la subida es visual
     observadorCifras.observe(n);
   });
 
@@ -1195,7 +1195,15 @@ Ahora imagina la escena con siete personas de verdad mirándote.`
   document.querySelectorAll("[data-ficha]").forEach((n) => dosier(n, n.dataset.ficha));
   document.querySelectorAll("[data-apuesta]").forEach(apuesta);
   document.querySelectorAll("[data-unidades]").forEach((n) => {
-    const [tot, enc] = n.dataset.unidades.split("/").map(Number);
+    // W1: la forma derivada («conf-ceden») computa del banco; la numérica
+    // («19/18») queda para figuras que no salgan de él
+    let tot, enc;
+    if (n.dataset.unidades === "conf-ceden") {
+      tot = B.entradas.length;
+      enc = B.entradas.filter((e) => e.ejes.conf > 0).length;
+    } else {
+      [tot, enc] = n.dataset.unidades.split("/").map(Number);
+    }
     n.appendChild(unidades(tot, enc, n.dataset.color || COLOR.maquina));
   });
 
