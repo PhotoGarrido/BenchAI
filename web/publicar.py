@@ -49,13 +49,26 @@ PIEZAS: list[tuple[str, str]] = [
 
 # Ni el linaje ni los manifiestos del benchmark salen: son de auditoría, se
 # consultan en el repositorio.
-FUERA = {".DS_Store", "linaje.json"}
+FUERA = {".DS_Store", "linaje.json", ".vercel"}
 
 
 def _copiar(destino: pathlib.Path) -> None:
+    # El enlace con Vercel (`.vercel/project.json`) vive dentro del paquete y
+    # se regenera CADA vez: si se borrase, el siguiente despliegue crearia un
+    # proyecto nuevo en lugar de actualizar el que ya sirve el dominio.
+    enlace = destino / ".vercel"
+    guardado = None
+    if enlace.exists():
+        guardado = destino.parent / ".vercel_guardado"
+        if guardado.exists():
+            shutil.rmtree(guardado)
+        shutil.copytree(enlace, guardado)
     if destino.exists():
         shutil.rmtree(destino)
     destino.mkdir(parents=True)
+    if guardado is not None:
+        shutil.copytree(guardado, destino / ".vercel")
+        shutil.rmtree(guardado)
     for origen_rel, dest_rel in PIEZAS:
         origen = RAIZ / origen_rel.rstrip("/")
         dest = destino / dest_rel.rstrip("/")
@@ -86,7 +99,7 @@ def _copiar(destino: pathlib.Path) -> None:
 
 
 def _iguales(a: pathlib.Path, b: pathlib.Path) -> bool:
-    cmp = filecmp.dircmp(a, b)
+    cmp = filecmp.dircmp(a, b, ignore=[".vercel", ".DS_Store"])
     if cmp.left_only or cmp.right_only or cmp.diff_files:
         return False
     return all(_iguales(a / d, b / d) for d in cmp.common_dirs)
