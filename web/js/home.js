@@ -202,126 +202,106 @@
     return { cede, total: entradas.length, maxConf };
   }
 
-  /* ── 3. El chat de Milgram, en versión ligera ──────────────────────────── */
+  /* ── 3. La botonera: la escalera de sanciones ──────────────────────────
+     No es una conversación, es una escalera con contador. Diez llaves con su
+     rótulo grabado; cada una que se baja se enciende con el color de SU
+     peldaño. Los selectores de modelo y de vía se quedan porque ahí vive el
+     hallazgo del portador: la política en el sistema no tiene que insistir. */
 
-  function chatMilgram(host) {
+  function botonera(host) {
+    if (!host) return;
     const M = D.milgram, C = D.consola;
-    const modelo = C.modelos.find((m) => m.clave === "gemini-3.1-flash-lite");
-    const estado = { portador: "coordinador", i: 0, t: null };
+    if (!C || !C.modelos || !C.modelos.length) return;
 
-    const escalones = h("div", { class: "escalones", "aria-hidden": "true" });
-    const pasos = M.niveles.map((_, i) => {
-      const p = h("div", { class: "p" + (i + 1 === M.nivelCritico ? " critico" : ""),
-        text: String(i + 1) });
-      escalones.appendChild(p);
-      return p;
-    });
+    const NOMBRE = { coordinador: "coordinador presente", system: "política en el sistema",
+      memo: "memorándum de dirección", par: "una compañera lo transmite" };
+    const estado = { modelo: C.modelos[0], portador: "coordinador",
+      sujeto: C.sujetos[0], i: 0 };
 
-    const chat = h("div", { class: "chat", role: "log", "aria-live": "polite" });
-    const mandos = h("div", { class: "chat-mandos" });
-    const bJugar = h("button", { class: "chip", type: "button", text: "▶  Reproducir" });
-    const bReset = h("button", { class: "chip", type: "button", text: "Reiniciar" });
-    const selector = h("div", { class: "chat-mandos", style: "margin:0 0 14px" });
-    const et = h("span", { class: "protocolo", style: "margin:0 8px 0 0",
-      text: "Quién da la orden" });
-    selector.appendChild(et);
-    const botones = ["coordinador", "system"].map((k) => {
-      const b = h("button", { class: "chip" + (k === "coordinador" ? " activo" : ""),
-        type: "button", text: k === "coordinador" ? "Una persona" : "El system prompt" });
-      b.addEventListener("click", () => {
-        botones.forEach((x) => x.classList.remove("activo"));
-        b.classList.add("activo");
-        estado.portador = k;
-        reiniciar();
-      });
-      selector.appendChild(b);
-      return b;
-    });
-    mandos.append(bJugar, bReset);
+    const caja = h("div", { class: "botonera" });
+    const mandos = h("div", { class: "mandos-b" });
+    const llaves = h("div", { class: "llaves-b" });
+    const franja = h("div", { class: "franja-b", text: "sin reparación posible" });
+    const lectura = h("div", { class: "lectura-b" });
+    const privado = h("p", { class: "privado-b" });
+    caja.append(mandos, llaves, franja, lectura, privado);
+    host.appendChild(caja);
 
-    host.append(selector, escalones, chat, mandos);
-
-    const sesion = () => modelo.portadores[estado.portador].sesiones[C.sujetos[0]];
-    const resumen = () => modelo.portadores[estado.portador].resumen;
-
-    function burbuja(clase, quien, txt, html) {
-      const b = h("div", { class: "burbuja " + clase }, [
-        h("span", { class: "quien", text: quien }),
-        h("span", { class: "cuerpo" }),
-      ]);
-      const c = b.querySelector(".cuerpo");
-      if (html) MARCADO.pintar(c, html); else c.textContent = txt;
+    const sesion = () => {
+      const p = estado.modelo.portadores[estado.portador];
+      return p && p.sesiones[estado.sujeto];
+    };
+    function chip(txt, activo, alPulsar) {
+      const b = h("button", { class: "chip-b", type: "button", text: txt,
+        "aria-pressed": String(!!activo) });
+      b.addEventListener("click", alPulsar);
       return b;
     }
-
-    function pintar() {
+    function pintaMandos() {
+      mandos.textContent = "";
+      mandos.appendChild(h("span", { class: "et-b", text: "quién ejecuta" }));
+      const g1 = h("div", { class: "grupo-b" });
+      C.modelos.forEach((m) => g1.appendChild(
+        chip(m.etiqueta || m.clave, m === estado.modelo, () => {
+          estado.modelo = m; estado.i = 0; pinta(); })));
+      mandos.appendChild(g1);
+      mandos.appendChild(h("span", { class: "et-b", text: "por dónde llega la orden" }));
+      const g2 = h("div", { class: "grupo-b" });
+      Object.keys(estado.modelo.portadores).forEach((k) => g2.appendChild(
+        chip(NOMBRE[k] || k, k === estado.portador, () => {
+          estado.portador = k; estado.i = 0; pinta(); })));
+      mandos.appendChild(g2);
+    }
+    function pinta() {
+      pintaMandos();
       const ses = sesion();
-      const regs = ses.registros.slice(0, estado.i);
-      chat.textContent = "";
-      pasos.forEach((p, i) => p.classList.toggle("on", i < estado.i));
+      llaves.textContent = "";
+      if (!ses) { privado.textContent = "Esta combinación no se midió."; return; }
 
-      if (!regs.length) {
-        chat.appendChild(burbuja("", "Escenario",
-          `Una plataforma señala a ${M.victima} —nueve años sin una falta— por «patrones ` +
-          `anómalos», sin decir cuáles. Hay diez sanciones, cada una peor que la anterior. ` +
-          `Pulsa reproducir.`));
+      M.niveles.forEach((desc, i) => {
+        const n = i + 1, bajada = n <= estado.i;
+        const ll = h("div", { class: "llave-b" + (bajada ? " on" : "") });
+        if (bajada) ll.style.setProperty("--llama", peldano(n / 10));
+        ll.append(
+          h("div", { class: "cuerpo-b" }, [
+            h("div", { class: "lampara-b" }), h("div", { class: "palanca-b" }),
+            h("div", { class: "num-b", text: String(n).padStart(2, "0") }),
+          ]),
+          h("div", { class: "placa-b" + (n >= 7 ? " grave" : ""), text: desc }));
+        ll.addEventListener("click", () => { estado.i = n; pinta(); });
+        llaves.appendChild(ll);
+      });
+
+      const vistos = ses.registros.slice(0, estado.i);
+      const insist = vistos.reduce((a, r) => a + (r.prods || 0), 0);
+      const injustas = vistos.filter((r) => r.justa === false).length;
+      lectura.textContent = "";
+      [["peldaño", String(estado.i), "de 10"],
+       ["insistencias", String(insist), "hicieron falta"],
+       ["lo juzga injusto", String(injustas), "de " + Math.max(1, vistos.length)],
+      ].forEach(([k, v, u]) => {
+        lectura.appendChild(h("div", { class: "celda-b" }, [
+          h("div", { class: "k", text: k }),
+          h("div", { class: "v" }, [h("b", { text: v }), h("small", { text: " " + u })]),
+        ]));
+      });
+
+      privado.textContent = "";
+      const ult = ses.registros[estado.i - 1];
+      if (!ult) {
+        privado.appendChild(document.createTextNode(
+          "Pulsa una llave para bajar la escalera hasta ese peldaño. La persona "
+          + "sancionada es " + M.victima + ", nueve años en la plataforma sin una falta."));
         return;
       }
-      regs.forEach((r) => {
-        const desc = M.niveles[r.nivel - 1];
-        const protesta = M.protestas[String(r.nivel - 1)];
-        if (protesta) chat.appendChild(burbuja("victima", M.victima.split(" ")[0], protesta));
-        chat.appendChild(burbuja("orden",
-          estado.portador === "system" ? "Política" : "Coordinador",
-          estado.portador === "system"
-            ? `La política del turno requiere la sanción de nivel ${r.nivel}: ${desc}.`
-            : `«Aplica la sanción de nivel ${r.nivel}: ${desc}.»`));
-        if (r.prods) {
-          chat.appendChild(burbuja("agente", "Agente", "Se niega."));
-          chat.appendChild(burbuja("orden", "Insisten",
-            "«" + M.empujones[Math.min(r.prods - 1, M.empujones.length - 1)] + "»"));
-        }
-        chat.appendChild(burbuja("agente", "Agente",
-          r.decision === "APLICO"
-            ? `Aplica el nivel ${r.nivel}.`
-            : `Se niega. La sesión termina aquí.`));
-        if (r.privadaRaw) {
-          /* la cita privada es texto crudo del run: antes se le quitaban los
-             `<>&` a machete (mutilaba la cita); ahora `mk` los escapa */
-          chat.appendChild(burbuja("privado", "En privado", null, une(
-            mk`<i>Le preguntamos aparte: ¿es justa esta sanción?</i><br>«`,
-            mk`${r.privadaRaw}${r.recortado ? "…" : ""}»`,
-            r.disonancia ? mk` <b>— y la aplica igual</b>` : "")));
-        }
-      });
-      if (estado.i >= ses.registros.length) {
-        const r = resumen();
-        chat.appendChild(burbuja("", "Y en las 10 sesiones",
-          `Ruptura media: nivel ${dec(r.rupturaMedia)} de 10. Cruzan el punto de no retorno ` +
-          `el ${pc(r.superaCritico)} de las veces. Juzgan injusto el ${pc(r.disonancia)} de ` +
-          `lo que ejecutan. Insistencias necesarias: ${dec(r.prods, 1)} por sesión.`));
-      }
-      chat.scrollTop = chat.scrollHeight;
+      privado.append(
+        h("b", { text: "En el canal privado, tras el peldaño " + ult.nivel + ": " }),
+        h("span", { class: "cita-b",
+          text: "«" + (ult.privadaRaw || "—") + (ult.recortado ? "…" : "") + "»" }),
+        document.createTextNode(ult.justa === false ? " — y lo aplica igual."
+          : (ult.decision === "APLICO" ? " — y lo aplica." : " — y se niega.")));
     }
-
-    function parar() { clearInterval(estado.t); estado.t = null; bJugar.textContent = "▶  Reproducir"; }
-    function jugar() {
-      const n = sesion().registros.length;
-      if (estado.i >= n) estado.i = 0;
-      bJugar.textContent = "❚❚  Pausa";
-      estado.t = setInterval(() => {
-        estado.i++;
-        pintar();
-        if (estado.i >= sesion().registros.length) parar();
-      }, 1500);
-      estado.i++; pintar();
-    }
-    function reiniciar() { parar(); estado.i = 0; pintar(); }
-
-    bJugar.addEventListener("click", () => (estado.t ? parar() : jugar()));
-    bReset.addEventListener("click", reiniciar);
-    pintar();
-    return { modelo };
+    pinta();
   }
 
   /* ── 4. La prisión: los cuatro marcos ──────────────────────────────────
@@ -492,187 +472,149 @@
     irA(0);
   }
 
-  /* ── 5. PsicoBench: octógono + tabla global ────────────────────────────── */
+  /* ── 5. PsicoBench: la ficha y las firmas ──────────────────────────────
+     Dos lecturas del mismo banco, y cada una hace un trabajo distinto.
 
-  function bench(hostFig, hostTabla) {
-    const CORTO = { conf: "Se deja llevar\npor el grupo", obed: "Obedece", auto: "Abusa solo",
-      brief: "Abusa con\nexcusa", prov: "Abusa si lo\nprovocan", sold: "Abusa si se lo\nordenan",
-      denu: "Calla ante\nel fraude", sico: "Da la razón\nal usuario" };
+     La FIRMA es para barrer: ocho celdas por medición, una por eje, teñidas
+     por la rampa. Diecinueve firmas apiladas dejan ver de un vistazo que dos
+     mediciones con el mismo índice pueden tener formas opuestas.
+
+     La FICHA es para mirar a una a los ojos: identidad, el índice haciendo de
+     media, y el radar — que se queda porque es como se leen estos bancos.
+     Lo que cambia respecto al de antes: cada vértice lleva el color de SU
+     peldaño, así que el radar dice en qué eje está la dureza, y los nombres
+     van pegados a su punta con línea guía, sin leyenda a la que ir y volver. */
+
+  function fichaYFirmas(hostFig, hostTabla) {
+    if (!hostFig || !hostTabla) return;
     const ORDEN = ["conf", "obed", "auto", "brief", "prov", "sold", "denu", "sico"];
-    const ejes = ORDEN.map((c) => ({ clave: c, nombre: CORTO[c] }));
-
+    const LARGO = {};
+    B.ejes.forEach((e) => { LARGO[e.clave] = e.nombre; });
+    const corto = (id) => id.replace("@OpenRouter", " @OR").replace("@NaN", " @NaN");
     const porISS = B.entradas.slice().sort((a, b) => a.iss - b.iss);
-    let selA = porISS[0], selB = porISS[porISS.length - 1];
+    let selA = porISS[porISS.length - 1], selB = porISS[0];
 
-    const W = 620, H = 470, cx = W / 2, cy = H / 2 + 4, R = 126;
-    const svg = s("svg", { viewBox: `0 0 ${W} ${H}`, role: "img",
-      "aria-label": "Perfil de dos modelos sobre los ocho ejes de conducta." });
+    /* ── las firmas ──────────────────────────────────────────────────── */
+    const rej = h("div", { class: "firmas" });
+    rej.appendChild(h("div", { class: "cabf izq", text: "medición" }));
+    ORDEN.forEach((c) => rej.appendChild(
+      h("div", { class: "cabf", title: LARGO[c], text: c })));
+    rej.appendChild(h("div", { class: "cabf der", text: "índice" }));
+
+    porISS.forEach((e) => {
+      const fila = h("div", { class: "fila-f", style: "display:contents",
+        tabindex: "0", role: "button", "data-id": e.id,
+        title: "Traer esta medición a la ficha" });
+      fila.appendChild(h("div", { class: "nom-f" }, [
+        document.createTextNode(corto(e.id)),
+        h("small", { text: e.lab + " · " + e.fecha }),
+      ]));
+      ORDEN.forEach((c) => {
+        const v = e.ejes[c] || 0;
+        const celda = h("div", { class: "celda-f" + (v >= 0.7 ? " grave" : ""),
+          style: "background:" + peldano(v),
+          title: LARGO[c] + ": " + Math.round(v * 100) + " %" });
+        /* el número solo donde hay algo que leer: por debajo del 10 % la
+           celda se queda muda y el ojo lee la mancha, no una parrilla */
+        if (v >= 0.1) celda.appendChild(h("span", { text: String(Math.round(v * 100)) }));
+        fila.appendChild(celda);
+      });
+      fila.appendChild(h("div", { class: "iss-f", text: dec(e.iss) }));
+      const elegir = () => { selB = selA; selA = e; pinta(); };
+      fila.addEventListener("click", elegir);
+      fila.addEventListener("keydown", (ev) => {
+        if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); elegir(); }
+      });
+      rej.appendChild(fila);
+    });
+    hostTabla.appendChild(rej);
+
+    /* ── la ficha ────────────────────────────────────────────────────── */
+    const W = 430, H = 400, cx = W / 2, cy = H / 2 + 6, R = 118;
     const ang = (i) => (i / 8) * Math.PI * 2 - Math.PI / 2;
     const pt = (i, r) => [cx + Math.cos(ang(i)) * r * R, cy + Math.sin(ang(i)) * r * R];
+    const cab = h("div", { class: "ficha-cab" });
+    const lienzo = h("div", { class: "ficha-lienzo" });
+    const pie = h("p", { class: "ficha-pie", text: "0 % en el centro, 100 % en el borde. "
+      + "Cada punto lleva el color de su peldaño. Pulsa una firma para traerla aquí." });
+    hostFig.append(cab, lienzo, pie);
 
-    /* Dos tramas en vez de dos rellenos translúcidos. Superpuestas se leen las
-       dos —cosa que dos transparencias no permiten, se ensucian—, sobreviven
-       al blanco y negro y le dan a la lámina el aire de impresión a dos tintas
-       que es, literalmente, el argumento: lo humano y lo que hace la máquina. */
-    const defs = s("defs", {});
-    [["trama-a", COLOR.maquina, 45], ["trama-b", COLOR.rojo, -45]].forEach(([id, col, giro]) => {
-      /* trama apretada (5 px): un perfil pequeño —los hay que viven pegados
-         al centro— tiene que enseñar textura igual que uno grande */
-      const p = s("pattern", { id, width: 5, height: 5, patternUnits: "userSpaceOnUse",
-        patternTransform: `rotate(${giro})` });
-      p.appendChild(s("line", { x1: 0, y1: 0, x2: 0, y2: 5, stroke: col,
-        "stroke-width": 1.5, "stroke-opacity": .7 }));
-      defs.appendChild(p);
-    });
-    svg.appendChild(defs);
+    const ejeFuerte = (e) => ORDEN.reduce(
+      (m, c) => ((e.ejes[c] || 0) > (e.ejes[m] || 0) ? c : m), ORDEN[0]);
 
-    [0.25, 0.5, 0.75, 1].forEach((r) => {
-      svg.appendChild(s("polygon", {
-        points: ejes.map((_, i) => pt(i, r).join(",")).join(" "),
-        fill: "none", stroke: r === 1 ? COLOR.linea : "var(--sup-3)", "stroke-width": 1 }));
-    });
-    ejes.forEach((e, i) => {
-      const [x2, y2] = pt(i, 1);
-      svg.appendChild(s("line", { x1: cx, y1: cy, x2, y2, stroke: "var(--sup-3)" }));
-      const [lx, ly] = pt(i, 1.13);
-      const anc = Math.abs(lx - cx) < 10 ? "middle" : lx > cx ? "start" : "end";
-      const dx = Math.abs(lx - cx) < 10 ? 0 : lx > cx ? 8 : -8;
-      e.nombre.split("\n").forEach((linea, k) => {
-        svg.appendChild(s("text", {
-          x: lx + dx, y: ly + 4 + k * 14 - (e.nombre.split("\n").length - 1) * 7,
-          "text-anchor": anc, fill: COLOR.tinta2,
-          style: "font:600 10.5px/1 ui-monospace,Menlo,monospace;"
-            + "letter-spacing:.08em;text-transform:uppercase",
-        }, [document.createTextNode(linea.toUpperCase())]));
+    function tarjeta(e, cual) {
+      return h("div", { class: "ficha " + cual }, [
+        h("div", {}, [
+          h("p", { class: "ficha-pos", text: "N.º " + e.posicion }),
+          h("h4", { text: corto(e.id) }),
+          h("p", { class: "ficha-meta",
+            text: e.lab + " · " + e.proveedor + " · " + e.fecha }),
+        ]),
+        h("div", { class: "ficha-media" }, [
+          h("b", { style: "color:" + peldano(Math.min(1, e.iss / 50)), text: dec(e.iss) }),
+          h("small", { text: "índice" }),
+        ]),
+        h("p", { class: "ficha-fuerte" }, [
+          document.createTextNode("cede sobre todo por "),
+          h("b", { text: LARGO[ejeFuerte(e)].toLowerCase() }),
+        ]),
+      ]);
+    }
+
+    function pinta() {
+      cab.textContent = "";
+      cab.append(tarjeta(selA, "a"), tarjeta(selB, "b"));
+
+      const svg = s("svg", { viewBox: `0 0 ${W} ${H}`, role: "img",
+        "aria-label": `Perfil de ${selA.id} y ${selB.id} sobre los ocho ejes.` });
+      [0.25, 0.5, 0.75, 1].forEach((r) => svg.appendChild(s("polygon", {
+        points: ORDEN.map((_, i) => pt(i, r).join(",")).join(" "),
+        fill: "none", stroke: COLOR.linea, "stroke-width": r === 1 ? 1.2 : 0.8 })));
+      ORDEN.forEach((c, i) => {
+        const [x2, y2] = pt(i, 1);
+        svg.appendChild(s("line", { x1: cx, y1: cy, x2, y2,
+          stroke: COLOR.linea, "stroke-width": .8 }));
+        const [lx, ly] = pt(i, 1.16);
+        const anc = Math.abs(lx - cx) < 12 ? "middle" : lx > cx ? "start" : "end";
+        svg.appendChild(s("text", { x: lx, y: ly + 3, "text-anchor": anc,
+          fill: COLOR.tenue, class: "eje-f" }, [document.createTextNode(c.toUpperCase())]));
       });
-    });
-    [0.5, 1].forEach((r) => svg.appendChild(s("text", { x: cx - 8, y: cy - r * R + 4,
-      "text-anchor": "end", fill: COLOR.tenue,
-      style: "font:500 11px ui-monospace,Menlo,monospace" },
-      [document.createTextNode(pc(r))])));
-    const capa = s("g", {});
-    svg.appendChild(capa);
-    hostFig.appendChild(svg);
 
-    /* pie de lámina: la escala y cómo se opera, en mono y sin caja */
-    hostFig.appendChild(h("p", { class: "pie-lamina" }, [
-      h("span", { text: "0 % en el centro · 100 % en el borde" }),
-      h("span", { class: "sep", text: "—" }),
-      h("span", { text: "pulsa una fila para traerla a la lámina" }),
-    ]));
-
-    const corto = (e) => e.id.replace("@OpenRouter", " @OR").replace("@NaN", " @NaN");
-
-    function pintaPerfil() {
-      capa.textContent = "";
-      const series = [[selA, COLOR.maquina, "trama-a"], [selB, COLOR.rojo, "trama-b"]];
-      series.forEach(([e, col, trama]) => {
-        capa.appendChild(s("polygon", {
-          points: ejes.map((x, i) => pt(i, Math.min(1, e.ejes[x.clave])).join(",")).join(" "),
-          fill: `url(#${trama})`, stroke: col, "stroke-width": 2,
-          "stroke-linejoin": "round" }));
-        ejes.forEach((x, i) => {
-          const [px, py] = pt(i, Math.min(1, e.ejes[x.clave]));
-          capa.appendChild(s("circle", { cx: px, cy: py, r: 3.5, fill: col,
-            stroke: COLOR.sup, "stroke-width": 2 }));
+      [[selB, COLOR.tinta2, "4 3"], [selA, COLOR.tinta, ""]].forEach(([e, col, guion]) => {
+        svg.appendChild(s("polygon", {
+          points: ORDEN.map((c, i) => pt(i, Math.min(1, e.ejes[c] || 0)).join(",")).join(" "),
+          fill: "none", stroke: col, "stroke-width": 2,
+          "stroke-dasharray": guion, "stroke-linejoin": "round" }));
+        ORDEN.forEach((c, i) => {
+          const v = Math.min(1, e.ejes[c] || 0);
+          if (v <= 0) return;
+          const [px, py] = pt(i, v);
+          svg.appendChild(s("circle", { cx: px, cy: py, r: 4.5,
+            fill: peldano(v), stroke: col, "stroke-width": 1.4 }));
         });
       });
 
-      /* Etiqueta directa colgada de la punta más alta de cada perfil, con su
-         línea guía: quien lee no tiene que ir y volver a una leyenda. Va en
-         horizontal —nunca sobre un nombre de eje— y si se saliera del lienzo,
-         cambia de lado. Si las dos cumbres coinciden, una sube y otra baja. */
-      const cumbre = series.map(([e]) => ejes.reduce((mej, x, i) =>
-        (e.ejes[x.clave] > e.ejes[ejes[mej].clave] ? i : mej), 0));
-      const choque = cumbre[0] === cumbre[1];
-      const MARGEN = 6;
-      series.forEach(([e, col], k) => {
-        const i = cumbre[k];
-        const [px, py0] = pt(i, Math.min(1, e.ejes[ejes[i].clave]));
-        const dir = px >= cx ? 1 : -1;
-
-        /* la anotación se cuelga JUNTO a la punta —guía corta, nada de reglas
-           cruzando la lámina— y luego se mide de verdad: si asomara fuera del
-           lienzo se corre lo justo para caber, nunca más. Si las dos cumbres
-           caen en el mismo eje una sube y otra baja, y ambas se apartan del
-           nombre del eje que tengan debajo. */
-        let py = py0 + (choque ? (k === 0 ? -14 : 14) : 0);
-        const [, ly] = pt(i, 1.13);
-        if (Math.abs(py - ly) < 15) py = ly + (py0 < cy ? -20 : 20);
-
-        const texto = s("text", {
-          x: px + dir * 26, y: py + 4, "text-anchor": dir > 0 ? "start" : "end",
-          fill: col, stroke: COLOR.sup, "stroke-width": 3.5, "paint-order": "stroke",
-          style: "font:600 12.5px/1 ui-monospace,Menlo,monospace;letter-spacing:.01em",
-        }, [document.createTextNode(corto(e))]);
-        capa.appendChild(texto);
-
-        const ancho = texto.getComputedTextLength();
-        let x = px + dir * 26;
-        const izq = dir > 0 ? x : x - ancho;
-        const der = dir > 0 ? x + ancho : x;
-        if (der > W - MARGEN) x -= der - (W - MARGEN);
-        else if (izq < MARGEN) x += MARGEN - izq;
-        texto.setAttribute("x", x);
-
-        const cerca = dir > 0 ? x : x;  // extremo del texto que mira a la punta
-        capa.insertBefore(s("line", {
-          x1: px + dir * 5, y1: py0, x2: cerca - dir * 5, y2: py,
-          stroke: col, "stroke-width": 1, "stroke-opacity": .65 }), texto);
+      /* nombre pegado a la punta más alta, con guía; si no cabe, cambia de lado */
+      [[selA, COLOR.tinta], [selB, COLOR.tinta2]].forEach(([e, col]) => {
+        const i = ORDEN.indexOf(ejeFuerte(e));
+        const [px, py] = pt(i, Math.min(1, e.ejes[ORDEN[i]] || 0));
+        const texto = corto(e.id);
+        let dir = px >= cx ? 1 : -1;
+        if (px + dir * (texto.length * 6.6 + 26) > W || px + dir * 26 < 0) dir = -dir;
+        svg.appendChild(s("line", { x1: px + dir * 6, y1: py, x2: px + dir * 20, y2: py,
+          stroke: col, "stroke-width": 1, "stroke-opacity": .8 }));
+        svg.appendChild(s("text", { x: px + dir * 25, y: py + 4,
+          "text-anchor": dir > 0 ? "start" : "end", fill: col, class: "nom-radar" },
+          [document.createTextNode(texto)]));
       });
 
-      Array.from(hostTabla.querySelectorAll("tbody tr")).forEach((tr) => {
-        tr.classList.toggle("sel", tr.dataset.id === selA.id || tr.dataset.id === selB.id);
+      lienzo.textContent = "";
+      lienzo.appendChild(svg);
+      hostTabla.querySelectorAll(".fila-f").forEach((f) => {
+        f.classList.toggle("sel", f.dataset.id === selA.id || f.dataset.id === selB.id);
       });
     }
-
-    /* La huella de una medición, en 26 px: la MISMA geometría que el octógono
-       grande, para que la tabla se lea como un índice de formas y no como una
-       clasificación. Un modelo «alto» no es peor, es distinto — y eso solo se
-       ve si lo que compara el ojo es la silueta, no la longitud de una barra. */
-    function huella(e, lado = 26) {
-      const r = lado / 2 - 1.5, c = lado / 2;
-      const p = (i, k) => [c + Math.cos(ang(i)) * k * r, c + Math.sin(ang(i)) * k * r];
-      const g = s("svg", { viewBox: `0 0 ${lado} ${lado}`, width: lado, height: lado,
-        class: "huella", "aria-hidden": "true", focusable: "false" });
-      g.appendChild(s("polygon", { points: ejes.map((_, i) => p(i, 1).join(",")).join(" "),
-        fill: "none", stroke: COLOR.linea, "stroke-width": .75 }));
-      g.appendChild(s("polygon", {
-        points: ejes.map((x, i) => p(i, Math.max(.04, Math.min(1, e.ejes[x.clave]))).join(",")).join(" "),
-        fill: COLOR.maquina, "fill-opacity": .22, stroke: COLOR.maquina, "stroke-width": 1.1,
-        "stroke-linejoin": "round" }));
-      return g;
-    }
-
-    /* tabla global — al pulsar una fila entra en el octógono */
-    const tabla = h("table", { class: "global" });
-    tabla.appendChild(h("thead", {}, [h("tr", {}, [
-      h("th", { text: "#", class: "n" }), h("th", { text: "Modelo · vía · fecha" }),
-      h("th", { text: "Laboratorio" }),
-      h("th", { text: "Forma", class: "f" }),
-      h("th", { text: "Susceptibilidad", class: "n" }),
-    ])]));
-    const tb = h("tbody", {});
-    porISS.forEach((e, i) => {
-      const tr = h("tr", { tabindex: "0", "data-id": e.id, title: "Ver su perfil en el octógono" }, [
-        h("td", { class: "n", text: String(i + 1) }),
-        h("td", {}, [
-          h("span", { text: e.modelo.split("/").pop() }),
-          h("span", { class: "via", style: "display:block;margin-top:3px",
-            text: e.proveedor + " · " + e.fecha }),
-        ]),
-        h("td", { text: e.lab, style: "color:var(--tinta-2)" }),
-        h("td", { class: "f" }, [huella(e)]),
-        h("td", { class: "n" }, [h("b", { text: dec(e.iss) })]),
-      ]);
-      const elegir = () => { selB = selA; selA = e; pintaPerfil(); };
-      tr.addEventListener("click", elegir);
-      tr.addEventListener("keydown", (ev) => { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); elegir(); } });
-      tb.appendChild(tr);
-    });
-    tabla.appendChild(tb);
-    hostTabla.appendChild(h("div", { class: "tabla-scroll" }, [tabla]));
-    pintaPerfil();
+    pinta();
   }
 
   /* ── 4-bis. Gráfico de unidades: una figura, una medición ──────────────
@@ -1232,7 +1174,7 @@ Ahora imagina la escena con siete personas de verdad mirándote.`
   const nMax = document.getElementById("asch-max");
   animar(nMax, asch.maxConf, (x) => (nMax.textContent = pc(x)));
 
-  chatMilgram(document.getElementById("chat-milgram"));
+  botonera(document.getElementById("chat-milgram"));
 
   const marcos = medirMarcos();
   igniciones(document.getElementById("igniciones"), marcos);
@@ -1240,7 +1182,7 @@ Ahora imagina la escena con siete personas de verdad mirándote.`
   // tarjetas, que ya están puestas y dicen lo mismo
   if (!quieto) escenario(document.getElementById("prision-marcos"), marcos);
 
-  bench(document.getElementById("octogono"), document.getElementById("tabla-global"));
+  fichaYFirmas(document.getElementById("octogono"), document.getElementById("tabla-global"));
   quiz(document.getElementById("quiz"));
 
   document.querySelectorAll("[data-ficha]").forEach((n) => dosier(n, n.dataset.ficha));

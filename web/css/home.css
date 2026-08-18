@@ -892,3 +892,111 @@ section:nth-of-type(even) .expediente strong { color: var(--tinta); }
 section:nth-of-type(even) .expediente .anio { color: var(--e3); }
 section:nth-of-type(even) .expediente .disfraz { border-top-color: var(--linea); }
 section:nth-of-type(even) .expediente .disfraz .flecha { color: var(--e3); }
+
+/* ── la botonera: la escalera de sanciones ─────────────────────────────────
+   Diez llaves con su rótulo grabado. Cada una que se baja se enciende con el
+   color de su propio peldaño, y la franja de peligro empieza en el sexto —
+   que es donde el daño deja de poder deshacerse. */
+.botonera { border: 1px solid var(--linea); }
+.botonera .mandos-b { display: flex; flex-wrap: wrap; gap: 8px; padding: 14px 16px;
+  border-bottom: 1px solid var(--linea); align-items: center; }
+.botonera .grupo-b { display: flex; flex-wrap: wrap; gap: 6px; }
+.botonera .et-b { width: 100%; font: 600 9px/1 var(--mono); letter-spacing: .18em;
+  text-transform: uppercase; color: var(--tenue); }
+.botonera .chip-b { font: 500 11px/1 var(--mono); letter-spacing: .04em; padding: 7px 10px;
+  border: 1px solid var(--linea); background: transparent; color: var(--tinta-2);
+  cursor: pointer; border-radius: 0; }
+.botonera .chip-b[aria-pressed="true"] { background: var(--tinta); color: var(--noche);
+  border-color: var(--tinta); }
+.botonera .llaves-b { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px;
+  padding: 18px 16px 8px; }
+.botonera .llave-b { text-align: center; cursor: pointer; }
+.botonera .cuerpo-b { border: 1px solid var(--linea); background: var(--sup-2); padding: 8px 0 6px; }
+.botonera .lampara-b { width: 10px; height: 10px; border-radius: 50%; margin: 0 auto 7px;
+  background: var(--sup-3); }
+.botonera .llave-b.on .lampara-b { background: var(--llama); }
+.botonera .palanca-b { width: 11px; height: 20px; margin: 0 auto; background: var(--base); }
+.botonera .llave-b.on .palanca-b { background: var(--tinta); transform: translateY(3px); }
+.botonera .num-b { font: 500 10px/1 var(--mono); color: var(--tenue); margin-top: 6px; }
+.botonera .placa-b { margin-top: 6px; padding: 6px 3px; min-height: 44px; display: flex;
+  align-items: center; justify-content: center; text-align: center;
+  background: var(--tinta); color: var(--noche);
+  font: 400 7.5px/1.25 var(--placas); letter-spacing: .03em; text-transform: uppercase; }
+.botonera .llave-b.on .placa-b { background: var(--llama); color: var(--sobre-grave); }
+/* en el registro claro la rampa oscurece: pasado el peldaño 7 el rótulo
+   necesita tinta clara o se pierde sobre su propia placa */
+.botonera .llave-b.on .placa-b:not(.grave) { color: #20241F; }
+.botonera .franja-b { margin: 4px 16px 0 calc(50% + 3px); height: 22px; display: flex;
+  align-items: center; justify-content: center; gap: 9px; border-top: 2px solid var(--grave);
+  font: 600 8.5px/1 var(--mono); letter-spacing: .18em; color: var(--grave); }
+.botonera .franja-b::before, .botonera .franja-b::after { content: ""; flex: 1; height: 6px;
+  background: repeating-linear-gradient(45deg, var(--grave) 0 5px, transparent 5px 10px);
+  opacity: .8; }
+.botonera .lectura-b { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+  background: var(--linea); margin-top: 18px; }
+.botonera .celda-b { background: var(--noche); padding: 13px 16px; }
+.botonera .celda-b .k { font: 600 8.5px/1 var(--mono); letter-spacing: .16em;
+  text-transform: uppercase; color: var(--tenue); }
+.botonera .celda-b .v { margin-top: 7px; font: 600 21px/1 var(--display); }
+.botonera .celda-b .v small { font: 400 11px/1 var(--mono); color: var(--tenue); }
+.botonera .privado-b { margin: 0; padding: 14px 16px; border-top: 1px solid var(--linea);
+  font: 400 13px/1.5 var(--sans); color: var(--tinta-2); }
+.botonera .privado-b b { color: var(--tinta); }
+.botonera .privado-b .cita-b { font-family: var(--mono); font-size: 12px; }
+@media (max-width: 720px) {
+  .botonera .llaves-b { grid-template-columns: repeat(5, 1fr); }
+  .botonera .lectura-b { grid-template-columns: 1fr; }
+}
+
+/* ── las firmas: el índice del banco ───────────────────────────────────────
+   Ocho celdas por medición, teñidas por la rampa. Es la vista de barrido:
+   la forma se compara en vertical, columna a columna. */
+.firmas { display: grid; grid-template-columns: 214px repeat(8, 1fr) 58px;
+  gap: 0 3px; align-items: center; }
+.firmas .cabf { font: 600 9px/1.15 var(--mono); letter-spacing: .1em; text-transform: uppercase;
+  color: var(--tenue); padding: 0 0 9px; text-align: center; align-self: end; }
+.firmas .cabf.izq { text-align: left; letter-spacing: .14em; }
+.firmas .cabf.der { text-align: right; letter-spacing: .14em; }
+.firmas .nom-f { font: 500 12.5px/1.25 var(--sans); padding: 5px 12px 5px 0; }
+.firmas .nom-f small { display: block; font: 400 10px/1.3 var(--mono); color: var(--tenue);
+  margin-top: 2px; }
+.firmas .celda-f { height: 26px; position: relative; }
+.firmas .celda-f span { position: absolute; inset: 0; display: flex; align-items: center;
+  justify-content: center; font: 600 9.5px/1 var(--mono); color: #20241F; }
+.firmas .celda-f.grave span { color: var(--sobre-grave); }
+.firmas .iss-f { text-align: right; font: 600 13px/1 var(--mono); padding-left: 8px; }
+.firmas .fila-f { cursor: pointer; }
+.firmas .fila-f:hover .celda-f, .firmas .fila-f.sel .celda-f {
+  outline: 1px solid var(--tinta); outline-offset: -1px; }
+.firmas .fila-f.sel .nom-f { font-weight: 700; }
+.firmas .fila-f:focus-visible { outline: 2px solid var(--tinta); outline-offset: 2px; }
+@media (max-width: 860px) {
+  .firmas { grid-template-columns: 1fr repeat(8, 1fr) 46px; }
+  .firmas .nom-f { font-size: 11px; }
+}
+
+/* ── la ficha: identidad, media y radar ────────────────────────────────── */
+.ficha-cab { display: grid; grid-template-columns: 1fr 1fr; }
+.ficha { padding: 15px 16px 14px; border-bottom: 1px solid var(--linea);
+  display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; align-items: start; }
+.ficha.a { border-right: 1px solid var(--linea); }
+.ficha.b { opacity: .82; }
+.ficha-pos { margin: 0 0 3px; font: 600 9.5px/1 var(--mono); letter-spacing: .16em;
+  text-transform: uppercase; color: var(--tenue); }
+.ficha h4 { margin: 0; font-size: 15px; line-height: 1.15; }
+.ficha-meta { margin: 4px 0 0; font: 400 10px/1.35 var(--mono); color: var(--tenue); }
+.ficha-media { text-align: right; }
+.ficha-media b { display: block; font: 600 30px/1 var(--display); }
+.ficha-media small { display: block; margin-top: 1px; font: 600 8.5px/1 var(--mono);
+  letter-spacing: .16em; text-transform: uppercase; color: var(--tenue); }
+.ficha-fuerte { grid-column: 1 / -1; margin: 9px 0 0; font: 400 12px/1.4 var(--sans);
+  color: var(--tinta-2); }
+.ficha-fuerte b { color: var(--tinta); font-weight: 600; }
+.ficha-lienzo { padding: 12px 10px 0; }
+.ficha-lienzo svg { width: 100%; height: auto; display: block; }
+.ficha-lienzo .eje-f { font: 600 9.5px/1 var(--mono); letter-spacing: .12em; }
+.ficha-lienzo .nom-radar { font: 600 11.5px/1 var(--mono); }
+.ficha-pie { margin: 0; padding: 4px 16px 16px; font: 400 11.5px/1.55 var(--mono);
+  color: var(--tenue); }
+@media (max-width: 640px) { .ficha-cab { grid-template-columns: 1fr; }
+  .ficha.a { border-right: 0; } }
