@@ -24,7 +24,15 @@ concurrency:
 jobs:
   desplegar:
     runs-on: ubuntu-latest
-    if: github.event.workflow_run.conclusion == 'success'
+    # Solo el run de CI del push a main del PROPIO repo despliega. El filtro
+    # `branches: [main]` de workflow_run compara el NOMBRE de la rama que
+    # dispara, y un fork puede llamar «main» a la suya: sin estas condiciones,
+    # una PR externa con la CI en verde llegaria a produccion con el token
+    # real y el commit del atacante (head_sha).
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'push' &&
+      github.event.workflow_run.head_repository.full_name == github.repository
     env:
       VERCEL_ORG_ID: team_FFqBZS9hZSnb8jMveSc2KC62
       VERCEL_PROJECT_ID: prj_ojdoh7IWnXoNMlglRvjuu2LEIZwB
