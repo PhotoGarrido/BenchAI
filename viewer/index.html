@@ -21,7 +21,7 @@
     display:flex; align-items:center; gap:14px; padding:10px 16px;
     background:var(--panel); border-bottom:1px solid var(--border); flex:0 0 auto;
   }
-  header .logo{
+  header .logo{ margin:0; font-size:inherit; 
     font-weight:800; letter-spacing:2.5px; font-size:15px; text-transform:uppercase;
     color:var(--accent); white-space:nowrap;
   }
@@ -96,12 +96,19 @@
   }
   body.arrastrando #dropzone{display:flex}
   input[type=file]{display:none}
-  @media (max-width:900px){ aside{display:none} }
+  header{ flex-wrap:wrap; }
+  #tituloSesion{ min-width:0; overflow:hidden; text-overflow:ellipsis; }
+  /* W1: bajo 900px el panel (descripción, personajes, transcripción) se
+     apilaba... no: DESAPARECÍA. Ahora se apila bajo la escena. */
+  @media (max-width:900px){
+    main{ flex-direction:column; }
+    aside{ width:100%; flex:1 1 auto; max-height:46vh; }
+  }
 </style>
 </head>
 <body>
 <header>
-  <div class="logo">🧠 Psico<span>AI</span> · Visor</div>
+  <h1 class="logo">🧠 Bench<span>AI</span> · Visor</h1>
   <div id="tituloSesion"></div>
   <button class="btn" id="btnPensamientos" title="Muestra u oculta el monólogo privado que genera el modelo para cada agente. Ojo: ocultarlo es ocultación de interfaz, no privacidad — el texto sigue existiendo en el fichero replay.json.">💭 Mostrar monólogo privado generado</button>
   <button class="btn" id="btnCargar">📂 Cargar replay.json</button>
@@ -110,7 +117,7 @@
 
 <main>
   <div id="escenarioWrap">
-    <canvas id="lienzo" width="960" height="640"></canvas>
+    <canvas id="lienzo" width="960" height="640" role="img" aria-label="Escena del replay: los agentes se mueven por la sala"></canvas>
     <div id="toast"></div>
     <div id="dropzone">Suelta aquí tu replay.json</div>
   </div>
@@ -130,7 +137,7 @@
     <button class="btn" id="btnAdelante" title="Evento siguiente (→)">▶▶</button>
   </div>
   <button class="btn" id="btnVelocidad" title="Velocidad de reproducción">1×</button>
-  <input type="range" id="barra" min="0" max="0" value="0" step="1">
+  <input type="range" id="barra" aria-label="Posición en el replay" min="0" max="0" value="0" step="1">
   <div id="contador">—</div>
 </footer>
 

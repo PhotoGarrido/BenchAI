@@ -214,7 +214,17 @@ function irA(clave) {
       String(c === clave));
   }
 }
-document.getElementById("pestanas").append(...PESTANAS.map(([c, nombre]) =>
+const navPestanas = document.getElementById("pestanas");
+navPestanas.addEventListener("keydown", ev => {
+  const salto = { ArrowRight: 1, ArrowLeft: -1 }[ev.key];
+  if (salto == null) return;
+  ev.preventDefault();
+  const tabs = Array.from(navPestanas.querySelectorAll("button"));
+  const i = tabs.indexOf(document.activeElement);
+  const destino = tabs[(i + salto + tabs.length) % tabs.length];
+  destino.focus(); destino.click();
+});
+navPestanas.append(...PESTANAS.map(([c, nombre]) =>
   el("button", { id: "tab-" + c, role: "tab", "aria-selected": "false",
     text: nombre, onclick: () => irA(c) })));
 
@@ -330,14 +340,19 @@ function renderClasificacion() {
     ];
     return el("tr", { class: "fila", tabindex: "0",
       onclick: () => { selA = E.indexOf(e); renderRadar(); irA("radar"); },
-      onkeydown: ev => { if (ev.key === "Enter") ev.currentTarget.click(); } },
+      onkeydown: ev => { if (ev.key === "Enter" || ev.key === " ")
+        { ev.preventDefault(); ev.currentTarget.click(); } } },
       celdas);
   }));
   const cab = el("thead", {}, [el("tr", {}, COLS.map(c =>
     el("th", { class: c.izq ? "izq" : "", title: c.title || "",
+      "aria-label": c.title ? c.titulo + ". " + c.title : null,
+      ...(c.k === "pos" ? {} : { tabindex: "0", role: "button" }),
       "aria-sort": orden.k === c.k ? (orden.asc ? "ascending" : "descending")
         : "none",
       text: c.titulo,
+      onkeydown: ev => { if (ev.key === "Enter" || ev.key === " ")
+        { ev.preventDefault(); ev.currentTarget.click(); } },
       onclick: () => {
         if (c.k === "pos") return;
         orden = { k: c.k, asc: orden.k === c.k ? !orden.asc : true };

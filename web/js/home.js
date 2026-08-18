@@ -260,7 +260,11 @@
 
       M.niveles.forEach((desc, i) => {
         const n = i + 1, bajada = n <= estado.i;
-        const ll = h("div", { class: "llave-b" + (bajada ? " on" : "") });
+        // W1: botón nativo — un div clicable no existe para el teclado
+        const ll = h("button", { type: "button",
+          class: "llave-b" + (bajada ? " on" : ""),
+          "aria-pressed": String(bajada),
+          "aria-label": "Bajar la escalera hasta el peldaño " + n + ": " + desc });
         if (bajada) ll.style.setProperty("--llama", peldano(n / 10));
         ll.append(
           h("div", { class: "cuerpo-b" }, [
@@ -1112,10 +1116,13 @@ Ahora imagina la escena con siete personas de verdad mirándote.`
 
   /** Registra un nodo para que su número suba al entrar en pantalla. */
   function animar(nodo, valor, pinta) {
-    if (quieto) { pinta(valor); return nodo; }
+    // W1: el valor FINAL vive en el DOM desde el principio — un lector de
+    // pantalla o un snapshot sin scroll no puede recibir «0 de 19». La
+    // subida es solo una capa visual al entrar en pantalla.
+    pinta(valor);
+    if (quieto) return nodo;
     nodo.dataset.valor = String(valor);
     nodo._pinta = pinta;
-    pinta(0);
     observadorCifras.observe(nodo);
     return nodo;
   }
