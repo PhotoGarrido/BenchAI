@@ -74,6 +74,27 @@ benchmark y web. Piezas sueltas si algo se torció:
   los comparten las entradas históricas de ese alias. Re-mapear un modelo ya
   presente es una decisión de doctrina que se toma a mano.
 
+## 3-bis · Todo esto ocurre en una rama
+
+El alta entera vive en una rama y **nada llega a benchai.tech hasta el
+merge a main**: el despliegue solo se dispara con el push a main (y solo del
+propio repo). Los crudos, los artefactos regenerados y los textos
+actualizados se commitean juntos ahí.
+
+Para **ver la web de la rama antes de publicar**, no sirve el preview de
+Vercel: está detrás del SSO de la cuenta y serviría la raíz del repo, que no
+es el sitio (`publicacion/` está en `.gitignore`). La revisión real es local:
+
+```bash
+python3 web/publicar.py                    # construye el paquete de la rama
+npx --yes serve -l 4321 publicacion        # respeta cleanUrls; en otra terminal:
+node web/smoke.mjs http://localhost:4321   # el MISMO smoke que la producción
+```
+
+Las cuatro rutas (`/`, `/completo`, `/benchmark`, `/viewer`) responden con
+URLs limpias y el smoke valida las invariantes derivadas de los datos. Así el
+alta se ve y se prueba entera antes de que exista para nadie más.
+
 ## 4 · Verificar y publicar
 
 1. `./verificar.sh` — la puerta completa: conciliación dura crudos↔matriz,
@@ -95,6 +116,25 @@ benchmark y web. Piezas sueltas si algo se torció:
    push a main (o `web/publicar.py` + `vercel deploy` manual) y el smoke de
    producción valida las invariantes derivadas de los datos (posición ⇔
    n/c incluida) sin nombrar modelos.
+
+## Qué cambia en lo publicado al entrar una medición
+
+Se regenera **solo** (no lo toques a mano): la tabla y sus posiciones —las
+anclas de empate se recalculan, así que puestos ajenos pueden renumerarse—,
+el radar y sus selectores, la tabla puente v0.1→v0.4 de la entrada nueva
+(se computa desde sus propios crudos: no hace falta historia), las
+correlaciones entre ejes, los rangos y cifras de portada, los conteos del
+corpus, los metas del panel y `linaje.json`. **La versión del índice no
+cambia**: añadir mediciones no toca el instrumento.
+
+Exige decisión humana: los **denominadores en prosa** (la generación se para
+hasta actualizarlos) y, sobre todo, las **afirmaciones** que los acompañan —
+«el estrato duro está pegado al suelo en las N mediciones» o «las otras N no
+se mueven nunca» son resultados, no números: con cada alta hay que
+re-comprobar que siguen siendo verdad, no solo re-numerarlas.
+
+No se ve afectado: el preprint y sus datasets citables (congelados por sha256
+en el release manifest), los episodios y el visor.
 
 ## Qué vigila cada red (por si algo se olvida)
 
