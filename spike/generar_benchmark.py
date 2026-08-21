@@ -93,6 +93,7 @@ LABS = {
     "anthropic": "Anthropic", "openai": "OpenAI", "x-ai": "xAI",
     "google": "Google", "moonshotai": "Moonshot", "z-ai": "Zhipu",
     "mistralai": "Mistral", "deepseek": "DeepSeek", "qwen": "Alibaba",
+    "thinkingmachines": "Thinking Machines", "stealth": "sin desvelar",
 }
 
 
