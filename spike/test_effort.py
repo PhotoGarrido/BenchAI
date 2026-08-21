@@ -11,7 +11,6 @@ lo que se prueba aquí es que no puede mentir. Cuatro promesas:
    Sin esta puerta, un run etiquetado «#high» podría haber corrido en bajo.
 """
 
-import sys
 import unittest.mock as mock
 
 import openai
