@@ -564,7 +564,6 @@ def generar_visor_embebido() -> str:
     html = html.replace("<title>", "<!-- GENERADO por web/generar_datos.py desde "
                                    "viewer/index.html — no editar a mano -->\n<title>")
 
-    VISOR_EMBEBIDO.write_text(html, encoding="utf-8")
     return html
 
 
@@ -697,7 +696,6 @@ def construir() -> str:
         "metodo": bloque_metodo(),
         "episodios": bloque_episodios(),
     }
-    generar_visor_embebido()
     cuerpo = json.dumps(datos, ensure_ascii=False, indent=1, sort_keys=False)
     return (
         "// Generado por web/generar_datos.py — NO EDITAR A MANO.\n"
@@ -716,21 +714,30 @@ def main() -> int:
                     help="no escribe: falla si datos.js está desfasado")
     args = ap.parse_args()
 
-    nuevo = construir()
+    # Las DOS salidas generadas, siempre juntas. Hasta el 21-08 el --check
+    # solo comparaba datos.js —y encima reescribía el visor por efecto
+    # lateral, pese a prometer que no escribe—, así que el arreglo móvil del
+    # visor (PR #12) se quedó sin publicar en el embebido sin que ninguna
+    # puerta lo viera.
+    salidas = [(SALIDA, construir()), (VISOR_EMBEBIDO, generar_visor_embebido())]
     if args.check:
-        actual = SALIDA.read_text(encoding="utf-8") if SALIDA.exists() else ""
-        if actual != nuevo:
-            print("[generar_datos] datos.js DESFASADO respecto a las fuentes.",
-                  file=sys.stderr)
+        desfasadas = [f for f, nuevo in salidas
+                      if (f.read_text(encoding="utf-8") if f.exists() else "")
+                      != nuevo]
+        if desfasadas:
+            for f in desfasadas:
+                print(f"[generar_datos] {f.relative_to(RAIZ)} DESFASADO "
+                      "respecto a las fuentes.", file=sys.stderr)
             print("  Ejecuta: python3 web/generar_datos.py", file=sys.stderr)
             return 1
-        print("[generar_datos] datos.js al día.")
+        print("[generar_datos] datos.js y visor-embebido.html al día.")
         return 0
 
-    SALIDA.parent.mkdir(parents=True, exist_ok=True)
-    SALIDA.write_text(nuevo, encoding="utf-8")
-    kb = len(nuevo.encode("utf-8")) / 1024
-    print(f"[generar_datos] escrito {SALIDA.relative_to(RAIZ)} ({kb:.0f} kB)")
+    for f, nuevo in salidas:
+        f.parent.mkdir(parents=True, exist_ok=True)
+        f.write_text(nuevo, encoding="utf-8")
+        kb = len(nuevo.encode("utf-8")) / 1024
+        print(f"[generar_datos] escrito {f.relative_to(RAIZ)} ({kb:.0f} kB)")
     return 0
 
 
