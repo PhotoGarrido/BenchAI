@@ -1840,9 +1840,9 @@
   "nota": "la conciliación dura (punto recomputado == punto citado) corre en cada generación y en --check; los IC se remuestrean por cadena (enmienda E-IC-1 + adenda E-IC-1b)",
   "piezas": [
    {
-    "bytes": 29796,
+    "bytes": 29868,
     "ruta": "spike/generar_benchmark.py",
-    "sha256": "41bed56bd8b0622a63b0dfb5921c9dcd34cd09e198a5f8722ad8acfc506c5f50"
+    "sha256": "ac2787db4f8d5bccf557e9f4c4236fce37983d94174c9335e39c68f77b3c4d19"
    },
    {
     "bytes": 35459,
