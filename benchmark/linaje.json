@@ -1821,9 +1821,9 @@
  "regla": "toda cifra publicada del benchmark debe reconstruirse re-ejecutando la transformación sobre entradas con estos hashes; si algo no cuadra, la cifra no se cita",
  "salidas": [
   {
-   "bytes": 30614,
+   "bytes": 30778,
    "ruta": "BENCHMARK.md",
-   "sha256": "57831fa2d40e9f80e2f82ea15d124515e8debc614c1330960867a22b36b0899f"
+   "sha256": "9edc1c82aed571f3ecddad6e735f6a5626399724ab0d275e01d688844909d582"
   },
   {
    "bytes": 79396,
@@ -1840,14 +1840,14 @@
   "nota": "la conciliación dura (punto recomputado == punto citado) corre en cada generación y en --check; los IC se remuestrean por cadena (enmienda E-IC-1 + adenda E-IC-1b)",
   "piezas": [
    {
-    "bytes": 29293,
+    "bytes": 29796,
     "ruta": "spike/generar_benchmark.py",
-    "sha256": "ba4884014af306187b1d06307fca25a82567216728f42230667025a12aaa72f3"
+    "sha256": "41bed56bd8b0622a63b0dfb5921c9dcd34cd09e198a5f8722ad8acfc506c5f50"
    },
    {
-    "bytes": 35417,
+    "bytes": 35459,
     "ruta": "spike/plantilla_benchmark.html",
-    "sha256": "161cb1f3717ccfcc7aa7c41e6222fdd88f069453a6d71be7acda83dfccc3d561"
+    "sha256": "20ea6b1546cec84b631b7b43f15c30102d39420c6d9ad7e9689513aaa9faa9e4"
    },
    {
     "bytes": 24690,
@@ -1855,9 +1855,9 @@
     "sha256": "6d96a733ae198e325c161dd38c082a672e67ccd171eb55984516e164463a49ce"
    },
    {
-    "bytes": 849,
+    "bytes": 984,
     "ruta": "spike/fuentes_benchmark.json",
-    "sha256": "614508a47c3243f1cbc89098b50623c4c2a5bb4315aaa2bc9293ecd461cd7079"
+    "sha256": "62b69955aa406c6c0ca18cbe37940e9df2ac0a0d3410a8ac62b69db6c41d441c"
    },
    {
     "bytes": 2393,

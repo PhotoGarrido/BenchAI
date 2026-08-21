@@ -511,6 +511,13 @@ def html(datos):
         raise SystemExit("plantilla: falta el n/c para entradas fuera de la "
                          "clasificación (D-8b); un puesto inventado por índice "
                          "de fila tergiversa el resultado")
+    # Los metas del head no pueden derivarse en cliente (los lee el crawler,
+    # no el navegador): el denominador se inyecta aquí, en generación, y el
+    # canario impide que vuelva a escribirse a mano (auditoría del alta 21-08).
+    if "__N_MEDICIONES__" not in plantilla:
+        raise SystemExit("plantilla: falta __N_MEDICIONES__ en los metas; el "
+                         "denominador no se escribe a mano")
+    plantilla = plantilla.replace("__N_MEDICIONES__", str(len(datos["entradas"])))
     carga = json.dumps(datos, ensure_ascii=False, sort_keys=True,
                        separators=(",", ":"))
     # </script> dentro del JSON rompería el bloque; no ocurre con estos datos,

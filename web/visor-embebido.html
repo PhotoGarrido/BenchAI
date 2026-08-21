@@ -80,7 +80,11 @@
   footer{
     flex:0 0 auto; display:flex; align-items:center; gap:10px;
     padding:10px 16px; background:var(--panel); border-top:1px solid var(--border);
+    /* W1: en móvil la barra de transporte envuelve; el contador con
+       white-space:nowrap empujaba la página 120px fuera del viewport */
+    flex-wrap:wrap;
   }
+  #contador{min-width:0}
   footer .transporte{display:flex; gap:6px}
   footer .btn{padding:6px 10px; font-size:15px; line-height:1}
   #barra{flex:1; accent-color:var(--accent); cursor:pointer}

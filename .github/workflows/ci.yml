@@ -42,6 +42,7 @@ jobs:
           python test_parsers_contrato.py
           python test_manifiesto.py
           python test_version_unica.py
+          python test_alta.py
       - name: Puertas de mutantes 1,2,8,11 (parsers/linter/replay) y trazabilidad
         working-directory: spike
         run: |

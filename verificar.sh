@@ -36,7 +36,7 @@ EOF
 # Runtime: pins directos sin resolver transitivas (torch hace impracticable
 # la resolución completa; exclusión documentada en THIRD_PARTY_NOTICES.md).
 "$PY" -m pip_audit --no-deps -r requirements.txt
-for t in test_parsers test_parsers_tipados test_parsers_contrato test_manifiesto test_manifiesto_pool test_sensibles test_barrido_falso test_linter_contraste test_schemas test_robustez_determinista test_replay_privacidad test_gfinal_linter test_trazabilidad test_adjudicacion test_vigia test_version_unica; do
+for t in test_parsers test_parsers_tipados test_parsers_contrato test_manifiesto test_manifiesto_pool test_sensibles test_barrido_falso test_linter_contraste test_schemas test_robustez_determinista test_replay_privacidad test_gfinal_linter test_trazabilidad test_adjudicacion test_vigia test_version_unica test_alta; do
   echo "== $t =="; "$PY" "$t.py" > /dev/null || { echo "FALLO en $t"; exit 1; }
 done
 # El test XSS debe ejecutar TAMBIÉN la ampliación de sinks (reauditoría

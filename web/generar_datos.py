@@ -647,8 +647,40 @@ def bloque_metodo() -> dict:
 
 # ── ensamblado ──────────────────────────────────────────────────────────────
 
+
+# ── 7-bis. Denominadores en prosa ────────────────────────────────────────────
+# La auditoría del alta (21-08) encontró conteos del banco escritos a mano en
+# la prosa y los metas: invisibles para el --check porque HTML y JS fuente son
+# ENTRADA del pipeline, no salida. Esta vigilancia los convierte en cifras con
+# fuente: si el banco crece y la prosa no, la generación (y la CI) se paran.
+# Las afirmaciones HISTÓRICAS fechadas («se congeló con 0,72 sobre once y
+# salió 0,70 sobre diecinueve») quedan fuera a propósito: son actas, no
+# denominadores vigentes.
+
+PALABRA = {6: "seis", 7: "siete", 8: "ocho", 9: "nueve", 10: "diez",
+           11: "once", 12: "doce", 13: "trece", 14: "catorce", 15: "quince",
+           16: "dieciséis", 17: "diecisiete", 18: "dieciocho",
+           19: "diecinueve", 20: "veinte", 21: "veintiuna", 22: "veintidós",
+           23: "veintitrés", 24: "veinticuatro", 25: "veinticinco",
+           26: "veintiséis", 27: "veintisiete", 28: "veintiocho",
+           29: "veintinueve", 30: "treinta"}
+
+
+def vigilar_denominadores(bench: dict) -> None:
+    n = len(bench["entradas"])
+    labs = len({e["lab"] for e in bench["entradas"]})
+    razon = "el banco creció: actualiza la prosa (y revisa que siga siendo verdad)"
+    exigir("web/index.html", f"{n} mediciones, {labs} laboratorios", razon)
+    exigir("web/index.html", f"{PALABRA[n].capitalize()} mediciones", razon)
+    exigir("web/home.html", f"De {PALABRA[labs]} laboratorios", razon)
+    # Afirmación empírica sobre TODAS las mediciones: con cada alta hay que
+    # re-comprobarla, no solo re-numerarla.
+    exigir("web/js/pagina.js", f"las {n} mediciones", razon)
+
+
 def construir() -> str:
     bench = bloque_benchmark()
+    vigilar_denominadores(bench)
     datos = {
         "canary": CANARY,
         "generadoPor": "web/generar_datos.py",

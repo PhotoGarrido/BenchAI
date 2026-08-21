@@ -1,5 +1,8 @@
 # Contribuir a PsicoAI
 
+¿Quieres **añadir un modelo al benchmark**? El manual de operación completo
+(pasos, costes, puertas) es [ALTA_MODELO.md](ALTA_MODELO.md).
+
 1. **Lee `METODO.md` primero.** Toda contribución al modo estudio pasa por la
    puerta de calidad: pre-registro si hay hipótesis, linter de contraste,
    barrido con modelo falso, y reproceso en verde (`reprocesar.py --check`).
