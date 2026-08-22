@@ -115,6 +115,12 @@ alta se ve y se prueba entera antes de que exista para nadie más.
    afirmaciones históricas fechadas («se congeló con 0,72 sobre once…») no
    se tocan: son actas.
 3. Coste real auditado: `python coste_run.py 'resultados/bateria_X/*'`.
+   Y **durante** la tanda, `python proyectar_coste.py resultados/bateria_X
+   --tope 8`: proyecta desde los registros del propio modelo, que es la
+   única forma honesta. La verbosidad varía ×5 entre modelos (211 tokens
+   de salida por llamada en ox-alpha, 1.038 en Muse Spark 1.2), así que
+   una referencia ajena puede errar por el triple — le pasó a Muse, cuya
+   batería costaba 22 $ donde la referencia predecía 7.
 4. Narración: entrada M-n en CHANGELOG.md y EXPERIMENTOS.md con fechas por
    eje, coste real y lo que se vio. Crudos + `solicitudes.jsonl` van
    versionados (criterio de inclusión).
