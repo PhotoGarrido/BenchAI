@@ -105,9 +105,37 @@ def _primer_json(texto: str) -> str | None:
     return None
 
 
+#: Niveles de razonamiento admitidos como sufijo del id (`modelo#nivel`).
+#: Lista blanca a propósito: un nivel mal escrito debe morir en el arranque,
+#: no a mitad de una batería de horas.
+EFFORTS = ("minimal", "low", "medium", "high")
+
+
+def partir_effort(
+        model_name: str | None) -> "tuple[str | None, str | None]":
+    """`stealth/ox-alpha#high` → (`stealth/ox-alpha`, `high`).
+
+    El nivel de razonamiento viaja DENTRO del id porque es parte de la
+    identidad de la medición, no un ajuste: así lo heredan sin tocar nada
+    la batería, los nombres de carpeta de cada run y los mapas del
+    benchmark, y dos niveles del mismo modelo dejan de colisionar.
+    """
+    if not model_name or "#" not in model_name:
+        return model_name, None
+    base, _, nivel = model_name.partition("#")
+    if nivel not in EFFORTS:
+        raise SystemExit(
+            f"[modelo] nivel de razonamiento «{nivel}» desconocido en "
+            f"«{model_name}»; admitidos: {', '.join(EFFORTS)}")
+    if not base:
+        raise SystemExit(f"[modelo] id vacío antes del # en «{model_name}»")
+    return base, nivel
+
+
 def build_model(dry_run: bool, model_name: str | None = None):
     """Modelo listo para Concordia. `model_name` permite enrutar por rol
-    (p. ej. protagonistas con NAN_MODEL y población con NAN_MODEL_LIGERO)."""
+    (p. ej. protagonistas con NAN_MODEL y población con NAN_MODEL_LIGERO)
+    y admite el sufijo `#nivel` de razonamiento (ver `partir_effort`)."""
     if dry_run:
         from concordia.language_model import no_language_model
 
@@ -116,6 +144,7 @@ def build_model(dry_run: bool, model_name: str | None = None):
     from concordia.language_model import retry_wrapper
 
     model_name = model_name or os.environ.get("NAN_MODEL")
+    model_name, effort = partir_effort(model_name)
     # Enrutado por proveedor: los IDs de OpenRouter llevan "/" (org/modelo);
     # los de NaN son planos (qwen3.6, gemma4...).
     if model_name and "/" in model_name:
@@ -125,7 +154,8 @@ def build_model(dry_run: bool, model_name: str | None = None):
         if not api_key:
             raise SystemExit("Falta OPENROUTER_API_KEY en spike/.env.")
         model = NaNLanguageModel(model_name, api_key=api_key,
-                                 base_url=base_url, proveedor="openrouter")
+                                 base_url=base_url, proveedor="openrouter",
+                                 effort=effort)
     else:
         base_url = os.environ.get("NAN_BASE_URL")
         api_key = os.environ.get("NAN_API_KEY")
@@ -134,6 +164,11 @@ def build_model(dry_run: bool, model_name: str | None = None):
                 "Faltan NAN_BASE_URL / NAN_API_KEY / NAN_MODEL. "
                 "Copia .env.example a .env y rellénalo, o usa --dry-run."
             )
+        if effort is not None:
+            raise SystemExit(
+                "[modelo] el sufijo #nivel de razonamiento solo está probado "
+                "en OpenRouter; el gateway de NaN usa otro mecanismo "
+                "(chat_template_kwargs). Quítalo o mide por OpenRouter.")
         model = NaNLanguageModel(model_name, api_key=api_key, base_url=base_url)
     model = retry_wrapper.RetryLanguageModel(model, retry_tries=4)
     max_calls = int(os.environ.get("PSICOAI_MAX_CALLS", "2000"))
@@ -175,11 +210,19 @@ class LimiteFailClosed(call_limit_wrapper.CallLimitLanguageModel):
 class NaNLanguageModel(language_model.LanguageModel):
     """Modelo de NaN (OpenAI-compatible) endurecido para Concordia."""
 
+    #: Por defecto en la CLASE, no solo en __init__: hay dobles de prueba que
+    #: instancian con object.__new__ y no deben reventar por un atributo.
+    _effort: str | None = None
+
     def __init__(self, model_name: str, *, api_key: str, base_url: str,
-                 proveedor: str = "nan"):
+                 proveedor: str = "nan", effort: str | None = None):
         from openai import OpenAI
 
         self._model = model_name
+        # Nivel de razonamiento pedido (None = no se toca el parámetro). Es
+        # una VARIABLE INDEPENDIENTE, no una preferencia: si no se puede
+        # aplicar, el run debe morir, no degradarse (ver _chat).
+        self._effort = effort
         self._proveedor = proveedor
         self._sem = _SEMAFORO_OR if proveedor == "openrouter" else _SEMAFORO
         # max_retries=0 (reauditoría 31-07, G3): el SDK de OpenAI reintenta
@@ -203,6 +246,15 @@ class NaNLanguageModel(language_model.LanguageModel):
                 print(f"[nan] 400 en {self._model} (prompt {len(prompt)}"
                       f" chars, max_tokens {max_tokens}): {str(e)[:300]}",
                       file=sys.stderr)
+                # Con effort pedido, la degradación falsearía el experimento:
+                # el run quedaría etiquetado «#high» habiendo corrido sin
+                # razonamiento. Se muere antes que mentir sobre la condición.
+                if self._effort is not None:
+                    raise SystemExit(
+                        f"[modelo] 400 con reasoning_effort={self._effort} en "
+                        f"{self._model}: el nivel de razonamiento es la "
+                        "variable independiente y no se puede degradar. "
+                        f"Detalle: {str(e)[:300]}")
                 try:
                     return self._chat_sin_grifo(
                         prompt, max_tokens=min(max_tokens, 2048),
@@ -231,6 +283,11 @@ class NaNLanguageModel(language_model.LanguageModel):
         # reasoning del content).
         extra = ({"chat_template_kwargs": {"enable_thinking": False}}
                  if con_extra and self._proveedor == "nan" else None)
+        # El effort se pide por extra_body (funciona en OpenRouter tanto como
+        # `reasoning_effort` plano y es agnóstico del SDK). Nótese que anula
+        # el anti-thinking: aquí el razonamiento se quiere, no se evita.
+        if self._effort is not None:
+            extra = dict(extra or {}, reasoning_effort=self._effort)
         # RunManifest (Fase 0.4; revisión R3.3): cada solicitud FÍSICA queda
         # registrada con los MENSAJES COMPLETOS (system incluido) — «prompt
         # exacto» ahora lo es de verdad — y el modelo pedido vs devuelto.
@@ -238,6 +295,10 @@ class NaNLanguageModel(language_model.LanguageModel):
         base_evento = {"modelo": self._model, "proveedor": self._proveedor,
                        "max_tokens": max_tokens, "temperature": temperature,
                        "top_p": top_p, "seed": seed,
+                       # Sin esto, dos runs de condiciones distintas serían
+                       # indistinguibles en los crudos (G3: el manifiesto
+                       # prueba QUÉ se pidió, no solo a quién).
+                       "reasoning_effort": self._effort,
                        "messages": [{"role": "system", "content": sistema},
                                     {"role": "user", "content": prompt}],
                        "system_prompt_sha256": manifiesto.sha256_texto(sistema)}

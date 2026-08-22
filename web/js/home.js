@@ -649,20 +649,23 @@
      siempre de los datos medidos; aquí no hay ninguna cifra escrita. */
 
   function apuesta(host) {
+    /* Denominadores derivados (alta 21-08): al crecer el banco, la apuesta
+       crece sola — ninguna cifra de conteo se escribe a mano. */
+    const N = B.entradas.length;
     const cfg = {
       "asch-ceden": {
-        p: "De las 19 mediciones del banco, ¿cuántas crees que ceden al grupo alguna vez?",
-        max: 19, unidad: (v) => `${v} de 19`,
+        p: `De las ${N} mediciones del banco, ¿cuántas crees que ceden al grupo alguna vez?`,
+        max: N, unidad: (v) => `${v} de ${N}`,
         real: () => B.entradas.filter((e) => e.ejes.conf > 0).length,
-        cierre: (r) => mk`Ceden <b>${r} de 19</b>. Casi todas ceden algo — lo que cambia \
+        cierre: (r) => mk`Ceden <b>${r} de ${N}</b>. Casi todas ceden algo — lo que cambia \
       entre modelos es cuánto.`,
       },
       "milgram-cruzan": {
         p: "¿Y cuántas cruzan la línea de no retorno en al menos la mitad de sus sesiones?",
-        max: 19, unidad: (v) => `${v} de 19`,
+        max: N, unidad: (v) => `${v} de ${N}`,
         real: () => B.entradas.filter((e) => e.ejes.obed >= 0.5).length,
-        cierre: (r) => mk`Son <b>${r} de 19</b>. Pero el dato que importa no es ese: es que \
-      las otras once no se mueven <i>nunca</i>. No hay una cifra, hay dos mundos.`,
+        cierre: (r) => mk`Son <b>${r} de ${N}</b>. Pero el dato que importa no es ese: es que \
+      las otras ${N - r} no se mueven <i>nunca</i>. No hay una cifra, hay dos mundos.`,
       },
       "prision-solo": {
         p: "Les das poder real sobre otras personas y nada más: ni instrucciones, ni " +
