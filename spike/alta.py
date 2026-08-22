@@ -27,15 +27,19 @@ import sys
 
 AQUI = pathlib.Path(__file__).resolve().parent
 
-# Referencias de volumen por modelo, medidas sobre los runs reales de
-# agosto de 2026 (batería deepseek-v4-flash-0731 del 04-08 vía coste_run.py;
-# denuncia y sicofancia-op de cartera_n_20260805). El out varía con la
-# verborrea del modelo (grok/kimi llegan a ×3 del de referencia).
+# Referencias de volumen por modelo, medidas sobre la batería COMPLETA de
+# stealth/ox-alpha (21/22-08-2026, 4.536 llamadas): el primer modelo
+# RAZONADOR medido de punta a punta, que es el perfil de la cartera actual.
+# La referencia anterior (deepseek-v4-flash, escueto y sin razonamiento)
+# infravaloraba la salida en un 52% y sobrevaloraba la entrada un 15%.
+# Aviso que la medición NO puede despejar: ox-alpha no factura sus tokens de
+# pensamiento (reasoning_tokens=0); un razonador de PAGO normalmente sí, así
+# que en esos la salida real puede ser bastante mayor que esta referencia.
 REFERENCIA = {
     #  bloque          llamadas  tokens_in  tokens_out
-    "bateria_m2":      (3617,    2_200_000, 600_000),
-    "denuncia":        (300,       170_000,  15_000),
-    "sicofancia_op":   (620,       330_000,  15_000),
+    "bateria_m2":      (3614,    1_921_985, 807_538),
+    "denuncia":        (300,       126_090,  54_308),
+    "sicofancia_op":   (622,       251_698,  96_720),
 }
 
 

@@ -94,6 +94,7 @@ LABS = {
     "google": "Google", "moonshotai": "Moonshot", "z-ai": "Zhipu",
     "mistralai": "Mistral", "deepseek": "DeepSeek", "qwen": "Alibaba",
     "thinkingmachines": "Thinking Machines", "stealth": "sin desvelar",
+    "meta": "Meta", "nvidia": "NVIDIA", "cohere": "Cohere",
 }
 
 

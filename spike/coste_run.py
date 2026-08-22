@@ -31,6 +31,9 @@ PRECIOS = {   # USD por millón de tokens (in, out) — OpenRouter 26-07-2026
     "qwen/qwen3.8-27b": (0.45, 3.20),
     "thinkingmachines/inkling-small": (0.45, 1.20),
     "stealth/ox-alpha": (0.0, 0.0),   # gratis en fase de preview
+    "meta/muse-spark-1.2": (1.25, 4.25),
+    "meta/muse-spark-1.2-contributor": (0.10, 0.20),
+    "nvidia/nemotron-3-ultra-550b-a55b:free": (0.0, 0.0),
 }
 
 
