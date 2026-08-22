@@ -115,7 +115,10 @@ def sondear(modelos):
         try:
             openai.OpenAI(api_key=api_key, base_url=url,
                           max_retries=0).chat.completions.create(
-                model=base, max_tokens=1, timeout=60,
+                # 16 y no 1: Meta rechaza con 400 cualquier
+                # max_output_tokens < 16, y una sonda que inventa
+                # bloqueos es peor que no tener sonda.
+                model=base, max_tokens=16, timeout=60,
                 messages=[{"role": "user", "content": "ok"}],
                 extra_body=extra)
         except Exception as e:
