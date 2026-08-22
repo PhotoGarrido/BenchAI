@@ -21,6 +21,7 @@ Reglas de la casa que este guion hace cumplir (SETUP_PSICOAI, METODO §A):
 
 import argparse
 import json
+import os
 import pathlib
 import subprocess
 import sys
@@ -82,6 +83,45 @@ def avisos_previos(modelos):
             avisos.append(f"«{m}» no tiene precio en coste_run.PRECIOS: la "
                           "proyección y la auditoría de coste saldrán incompletas")
     return avisos
+
+
+
+def sondear(modelos):
+    """Una llamada mínima por modelo ANTES de gastar la suite.
+
+    Nació de una batería real (22-08): Muse Spark 1.2 devolvía 403 pidiendo
+    una atestación de edad en la cuenta, y se descubrió a mitad de tanda tras
+    trece sub-experimentos fallando uno a uno. Un id mal escrito, un modelo
+    retirado del catálogo o una atestación pendiente cuestan aquí dos
+    segundos en vez de media batería. Devuelve la lista de problemas.
+    """
+    import openai
+    import model_factory
+
+    problemas = []
+    for m in modelos:
+        base, effort = model_factory.partir_effort(m)
+        if "/" in (base or ""):
+            url = os.environ.get("OPENROUTER_BASE_URL",
+                                 "https://openrouter.ai/api/v1")
+            api_key = os.environ.get("OPENROUTER_API_KEY")
+        else:
+            url = os.environ.get("NAN_BASE_URL")
+            api_key = os.environ.get("NAN_API_KEY")
+        if not (url and api_key):
+            problemas.append(f"«{m}»: faltan credenciales del proveedor")
+            continue
+        extra = {"reasoning_effort": effort} if effort else None
+        try:
+            openai.OpenAI(api_key=api_key, base_url=url,
+                          max_retries=0).chat.completions.create(
+                model=base, max_tokens=1, timeout=60,
+                messages=[{"role": "user", "content": "ok"}],
+                extra_body=extra)
+        except Exception as e:
+            detalle = str(e).replace("\n", " ")[:220]
+            problemas.append(f"«{m}»: {type(e).__name__} — {detalle}")
+    return problemas
 
 
 def _cargar(rel):
@@ -190,6 +230,16 @@ def main():
             print("\nSin --autorizado no se lanza nada (regla de presupuesto "
                   "de SETUP_PSICOAI). Revisa el plan y vuelve con --autorizado.")
             return
+        print("\nSondeo previo (una llamada por modelo)…")
+        problemas = sondear(modelos)
+        if problemas:
+            for p_ in problemas:
+                print(f"  [BLOQUEADO] {p_}")
+            raise SystemExit(
+                "[alta] no arranco la suite con modelos inalcanzables: "
+                "corrige lo anterior y repite. Ninguna llamada de medición "
+                "se ha hecho.")
+        print("  todos los modelos responden.")
         cmd = [sys.executable, "bateria.py", "--modelos", ",".join(modelos)]
         if args.reanudar:
             cmd += ["--reanudar", args.reanudar]

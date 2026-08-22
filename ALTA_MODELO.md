@@ -61,6 +61,12 @@ del dueño. Referencias reales (cartera de agosto 2026):
 python alta.py --modelos <id1>,<id2> --autorizado
 ```
 
+Antes de gastar una sola llamada de medición hace un **sondeo**: una
+petición mínima por modelo. Si alguno no responde —id mal escrito, modelo
+retirado, o una atestación pendiente en tu cuenta (Muse Spark 1.2 exige
+confirmación de edad en `openrouter.ai/settings/preferences`)— aborta ahí,
+en dos segundos, en vez de a mitad de tanda.
+
 Una sola orden: lanza `bateria.py` (los 13 sub-experimentos del octógono,
 con reanudación por `progreso.jsonl`, timeout por sub-experimento y exit ≠ 0
 si algo falla), y al terminar hace el cableado que antes eran cuatro ediciones
