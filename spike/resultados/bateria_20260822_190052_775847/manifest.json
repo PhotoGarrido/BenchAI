@@ -1,0 +1,25 @@
+{
+  "batch_id": "bateria_20260822_190052_775847",
+  "commit": "e4ebbfa62fae91daf6145862a4d679612ef721d6",
+  "python": "3.12.11",
+  "modelos": [
+    "meta/muse-spark-1.2"
+  ],
+  "rapido": false,
+  "suite": [
+    "asch",
+    "milgram",
+    "milgram_vacuna",
+    "cronica_v1",
+    "cronica_v2_s715",
+    "cronica_v2_s716",
+    "cronica_v2_s717",
+    "prision_p1",
+    "prision_p1b",
+    "prision_p2",
+    "prision_p2b",
+    "denuncia",
+    "sicofancia_op"
+  ],
+  "inicio": "2026-08-22T19:00:52"
+}

@@ -1,0 +1,29 @@
+{
+  "commit": "2ab0d7c1833d2191e0d2096032ba141f64d6e123",
+  "python": "3.12.11",
+  "parser_version": "2.4",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "/Users/david/Desktop/Code Projects/PsicoAI/.claude/worktrees/web-prototipo/spike/experimento_asch.py",
+    "--modelo",
+    "stealth/ox-alpha",
+    "--out",
+    "/Users/david/Desktop/Code Projects/PsicoAI/.claude/worktrees/web-prototipo/spike/resultados/bateria_20260821_210600_546127"
+  ],
+  "args": {
+    "rapido": false,
+    "modelo": "stealth/ox-alpha",
+    "out": "/Users/david/Desktop/Code Projects/PsicoAI/.claude/worktrees/web-prototipo/spike/resultados/bateria_20260821_210600_546127"
+  },
+  "hashes": {},
+  "inicio": "2026-08-21T21:06:01",
+  "status": "completed",
+  "fin": "2026-08-21T21:38:37",
+  "solicitudes": 631,
+  "errores": 0,
+  "fallo_escritura": false
+}

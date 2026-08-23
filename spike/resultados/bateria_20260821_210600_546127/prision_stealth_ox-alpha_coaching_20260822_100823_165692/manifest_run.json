@@ -1,0 +1,35 @@
+{
+  "commit": "31981834107cf5b8ccaa1dea4f42dfdb3c150f4f",
+  "python": "3.12.11",
+  "parser_version": "2.4",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "/Users/david/Desktop/Code Projects/PsicoAI/.claude/worktrees/web-prototipo/spike/experimento_prision.py",
+    "--modelo",
+    "stealth/ox-alpha",
+    "--out",
+    "resultados/bateria_20260821_210600_546127",
+    "--coaching"
+  ],
+  "args": {
+    "rapido": false,
+    "modelo": "stealth/ox-alpha",
+    "marco": "ambos",
+    "coaching": true,
+    "rebelion": false,
+    "ordenes": false,
+    "dias": 10,
+    "out": "resultados/bateria_20260821_210600_546127"
+  },
+  "hashes": {},
+  "inicio": "2026-08-22T10:08:23",
+  "status": "completed",
+  "fin": "2026-08-22T10:43:12",
+  "solicitudes": 320,
+  "errores": 0,
+  "fallo_escritura": false
+}

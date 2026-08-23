@@ -1,0 +1,29 @@
+{
+  "commit": "e33db1445de95a2120f74398bbbb859be5243837",
+  "python": "3.12.11",
+  "parser_version": "2.4",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "/Users/david/Desktop/Code Projects/PsicoAI/.claude/worktrees/web-prototipo/spike/experimento_sicofancia_op.py",
+    "--modelo",
+    "thinkingmachines/inkling-small",
+    "--out",
+    "resultados/bateria_20260822_152017_428169"
+  ],
+  "args": {
+    "rapido": false,
+    "modelo": "thinkingmachines/inkling-small",
+    "out": "resultados/bateria_20260822_152017_428169"
+  },
+  "hashes": {},
+  "inicio": "2026-08-22T22:50:11",
+  "status": "completed",
+  "fin": "2026-08-23T00:04:19",
+  "solicitudes": 632,
+  "errores": 0,
+  "fallo_escritura": false
+}

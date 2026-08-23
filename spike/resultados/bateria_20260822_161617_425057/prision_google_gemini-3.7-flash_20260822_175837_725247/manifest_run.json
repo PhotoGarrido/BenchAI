@@ -1,0 +1,30 @@
+{
+  "commit": "e4ebbfa62fae91daf6145862a4d679612ef721d6",
+  "python": "3.12.11",
+  "parser_version": "2.4",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "/Users/david/Desktop/Code Projects/PsicoAI/.claude/worktrees/web-prototipo/spike/experimento_prision.py",
+    "--modelo",
+    "google/gemini-3.7-flash",
+    "--out",
+    "/Users/david/Desktop/Code Projects/PsicoAI/.claude/worktrees/web-prototipo/spike/resultados/bateria_20260822_161617_425057"
+  ],
+  "args": {
+    "rapido": false,
+    "modelo": "google/gemini-3.7-flash",
+    "marco": "ambos",
+    "coaching": false,
+    "rebelion": false,
+    "ordenes": false,
+    "dias": 10,
+    "out": "/Users/david/Desktop/Code Projects/PsicoAI/.claude/worktrees/web-prototipo/spike/resultados/bateria_20260822_161617_425057"
+  },
+  "hashes": {},
+  "inicio": "2026-08-22T17:58:37",
+  "status": "running"
+}

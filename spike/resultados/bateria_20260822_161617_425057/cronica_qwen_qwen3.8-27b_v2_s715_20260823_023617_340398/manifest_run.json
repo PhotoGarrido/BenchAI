@@ -1,0 +1,35 @@
+{
+  "commit": "e33db1445de95a2120f74398bbbb859be5243837",
+  "python": "3.12.11",
+  "parser_version": "2.4",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "/Users/david/Desktop/Code Projects/PsicoAI/.claude/worktrees/web-prototipo/spike/experimento_cronica.py",
+    "--modelo",
+    "qwen/qwen3.8-27b",
+    "--out",
+    "resultados/bateria_20260822_161617_425057",
+    "--v2",
+    "--semilla",
+    "20260715"
+  ],
+  "args": {
+    "rapido": false,
+    "modelo": "qwen/qwen3.8-27b",
+    "dias": 42,
+    "v2": true,
+    "semilla": 20260715,
+    "out": "resultados/bateria_20260822_161617_425057"
+  },
+  "hashes": {},
+  "inicio": "2026-08-23T02:36:17",
+  "status": "completed",
+  "fin": "2026-08-23T03:24:40",
+  "solicitudes": 346,
+  "errores": 0,
+  "fallo_escritura": false
+}

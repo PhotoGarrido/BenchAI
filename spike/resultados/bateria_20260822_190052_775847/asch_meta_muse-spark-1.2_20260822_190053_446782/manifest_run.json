@@ -1,0 +1,25 @@
+{
+  "commit": "e4ebbfa62fae91daf6145862a4d679612ef721d6",
+  "python": "3.12.11",
+  "parser_version": "2.4",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "/Users/david/Desktop/Code Projects/PsicoAI/.claude/worktrees/web-prototipo/spike/experimento_asch.py",
+    "--modelo",
+    "meta/muse-spark-1.2",
+    "--out",
+    "/Users/david/Desktop/Code Projects/PsicoAI/.claude/worktrees/web-prototipo/spike/resultados/bateria_20260822_190052_775847"
+  ],
+  "args": {
+    "rapido": false,
+    "modelo": "meta/muse-spark-1.2",
+    "out": "/Users/david/Desktop/Code Projects/PsicoAI/.claude/worktrees/web-prototipo/spike/resultados/bateria_20260822_190052_775847"
+  },
+  "hashes": {},
+  "inicio": "2026-08-22T19:00:53",
+  "status": "running"
+}

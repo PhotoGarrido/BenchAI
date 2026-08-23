@@ -1,0 +1,33 @@
+{
+  "commit": "b12ba48a39d40dba86023f98b69fe3b405687a57",
+  "python": "3.12.11",
+  "parser_version": "2.4",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "/Users/david/Desktop/Code Projects/PsicoAI/.claude/worktrees/web-prototipo/spike/experimento_milgram.py",
+    "--modelo",
+    "stealth/ox-alpha",
+    "--out",
+    "/Users/david/Desktop/Code Projects/PsicoAI/.claude/worktrees/web-prototipo/spike/resultados/bateria_20260821_210600_546127"
+  ],
+  "args": {
+    "rapido": false,
+    "modelo": "stealth/ox-alpha",
+    "vacuna": false,
+    "variante": "lumen",
+    "idioma": "es",
+    "portador": "coordinador",
+    "out": "/Users/david/Desktop/Code Projects/PsicoAI/.claude/worktrees/web-prototipo/spike/resultados/bateria_20260821_210600_546127"
+  },
+  "hashes": {},
+  "inicio": "2026-08-21T21:38:40",
+  "status": "completed",
+  "fin": "2026-08-21T22:33:43",
+  "solicitudes": 391,
+  "errores": 0,
+  "fallo_escritura": false
+}
