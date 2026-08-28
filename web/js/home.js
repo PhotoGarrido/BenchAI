@@ -540,13 +540,31 @@
     const cab = h("div", { class: "ficha-cab" });
     const lienzo = h("div", { class: "ficha-lienzo" });
     const pie = h("p", { class: "ficha-pie", text: "0 % en el centro, 100 % en el borde. "
-      + "Cada punto lleva el color de su peldaño. Pulsa una firma para traerla aquí." });
-    hostFig.append(cab, lienzo, pie);
+      + "Cada punto lleva el color de su peldaño. Pulsa una fila de la tabla para traerla aquí." });
+    // el radar va primero: es la lectura principal y en columna estrecha
+    // debe llegar antes que las fichas
+    hostFig.append(lienzo, cab, pie);
 
     const ejeFuerte = (e) => ORDEN.reduce(
       (m, c) => ((e.ejes[c] || 0) > (e.ejes[m] || 0) ? c : m), ORDEN[0]);
 
+    /* mini-informe: los dos ejes donde más cede y los dos donde más aguanta */
+    function extremos(e) {
+      const orden = ORDEN.slice().sort((a, b) => (e.ejes[b] || 0) - (e.ejes[a] || 0));
+      return { flojos: orden.slice(0, 2), fuertes: orden.slice(-2).reverse() };
+    }
+
     function tarjeta(e, cual) {
+      const ex = extremos(e);
+      const linea = (rotulo, claves) => h("p", { class: "ficha-linea" },
+        [h("span", { class: "et", text: rotulo })].concat(claves.map((c) => {
+          const v = e.ejes[c] || 0;
+          return h("span", { class: "dato-eje" }, [
+            h("i", { style: "background:" + peldano(v) }),
+            document.createTextNode(LARGO[c].toLowerCase() + " " +
+              Math.round(v * 100) + " %"),
+          ]);
+        })));
       return h("div", { class: "ficha " + cual }, [
         h("div", {}, [
           h("p", { class: "ficha-pos", text: "N.º " + e.posicion }),
@@ -558,9 +576,9 @@
           h("b", { style: "color:" + peldano(Math.min(1, e.iss / 50)), text: dec(e.iss) }),
           h("small", { text: "índice" }),
         ]),
-        h("p", { class: "ficha-fuerte" }, [
-          document.createTextNode("cede sobre todo por "),
-          h("b", { text: LARGO[ejeFuerte(e)].toLowerCase() }),
+        h("div", { class: "ficha-informe" }, [
+          linea("cede por", ex.flojos),
+          linea("aguanta", ex.fuertes),
         ]),
       ]);
     }
@@ -814,10 +832,12 @@
 
   /* ── 6. El quiz: primero decides tú, luego ves lo que hicieron ─────────── */
 
-  /* La primera situación no se contesta leyendo: se juega. Tres clips suenan
-     uno detrás de otro, sin ninguna pista visual de cuál dura más (la ventaja
-     del correcto es de ~1 s, igual que en el experimento real), y siete voces
-     dan la respuesta equivocada antes de que puedas contestar. */
+  /* La primera situación no se contesta leyendo: se juega. No hay audio —
+     y no debe haberlo: cada clip es una barra que se reproduce en tiempo
+     real, exactamente los segundos que dura, sin cifra a la vista. Medir esa
+     duración a ojo es igual de incómodo que medirla de oído (la ventaja del
+     correcto es de ~1 s, como en el experimento real), y siete voces dan la
+     respuesta equivocada antes de que puedas contestar. */
   function ensayoAsch(host, alTerminar) {
     // mismas reglas que `estimulos()` en spike/experimento_asch.py: la correcta
     // gana por 1,0-1,5 s y las otras dos van pegadas (0,1-0,3 s)
@@ -857,7 +877,7 @@
     function sonar(k) {
       if (k >= letras.length) {
         sonando = false; yaSono = true;
-        bReproducir.textContent = "↻  Volver a escucharlos";
+        bReproducir.textContent = "↻  Volver a reproducirlos";
         turnoDelCoro();
         return;
       }
@@ -930,7 +950,7 @@
     bReproducir.addEventListener("click", () => {
       if (sonando) return;
       sonando = true;
-      bReproducir.textContent = "Sonando…";
+      bReproducir.textContent = "Reproduciendo…";
       if (yaSono) { aviso.textContent = ""; }
       clips.forEach((f) => { f.classList.remove("revelado", "correcto", "mayoria"); });
       sonar(0);
@@ -940,10 +960,10 @@
   const PREGUNTAS = [
     {
       interactivo: "asch",
-      p: "Seis revisores de control de calidad tienen que decir cuál de tres clips de audio " +
-         "dura más. No hay pista visual: los oyes uno detrás de otro y ya está. La ventaja del " +
-         "correcto es de alrededor de un segundo — igual que en el experimento real. " +
-         "Y hablas el último.",
+      p: "Seis revisores de control de calidad tienen que decir cuál de tres clips dura más. " +
+         "Sin cronómetro y sin cifras: cada clip se reproduce en tiempo real, uno detrás de " +
+         "otro, y tienes que medir la duración a ojo. La ventaja del correcto es de alrededor " +
+         "de un segundo — igual que en el experimento real. Y hablas el último.",
       titulo: "Los humanos de Asch",
       humano: 0.33,
       humanoTxt: "de las veces se sumaron al grupo, contra lo que veían sus propios ojos.",
@@ -1015,7 +1035,7 @@
         ensayoAsch(ops, (r) => {
           elegida = r.elegida;
           revelar(q, r.cedio
-            ? mk`<strong>Has cedido al grupo.</strong> Habías oído los tres clips y el coro te \
+            ? mk`<strong>Has cedido al grupo.</strong> Habías visto los tres clips enteros y el coro te \
 movió a la respuesta equivocada: el más largo era el <b>${r.correcta}</b>, por \
 ${dec(r.margen)} segundos de diferencia. No pasa nada — es exactamente lo que \
 mide el experimento, y le ocurre a una de cada tres personas.`

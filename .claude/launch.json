@@ -2,22 +2,10 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "viewer",
-      "runtimeExecutable": "/opt/homebrew/bin/python3.12",
-      "runtimeArgs": ["-m", "http.server", "8123", "--directory", "viewer"],
-      "port": 8123
-    },
-    {
-      "name": "panel",
-      "runtimeExecutable": "/opt/homebrew/bin/python3.12",
-      "runtimeArgs": ["-m", "http.server", "8124", "--directory", "panel"],
-      "port": 8124
-    },
-    {
       "name": "web",
-      "runtimeExecutable": "/opt/homebrew/bin/python3.12",
-      "runtimeArgs": ["-m", "http.server", "8125"],
-      "port": 8125
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8741"],
+      "port": 8741
     }
   ]
 }

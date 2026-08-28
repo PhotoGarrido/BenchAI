@@ -97,7 +97,7 @@ section:nth-of-type(even) { --registro: claro; }
 /* Sin esto, una tabla ancha ensancha su columna de rejilla y arrastra la
    página entera: el track de grid mide por el contenido, no por el hueco. */
 .hero-rejilla > *, .cab-seccion > *, .expedientes > *, .exp-rejilla > *,
-.bench-rejilla > *, .igniciones > *, .practicas > *, .puente > *,
+#octogono > *, .igniciones > *, .practicas > *, .puente > *,
 .escala > *, .quiz .opciones > * { min-width: 0; }
 html { scroll-behavior: smooth; overflow-x: clip; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
@@ -409,8 +409,11 @@ h2.titular {
 .ignicion .cifra { font: 600 40px/1 var(--sans); letter-spacing: -.028em; font-variant-numeric: tabular-nums; }
 .ignicion .cifra small { font-size: 18px; font-weight: 500; color: var(--tenue); }
 .ignicion p { margin: 0; font-size: 13.5px; color: var(--tinta-2); line-height: 1.5; }
-.ignicion .pictos { height: 40px; }
-.ignicion .pictos svg { height: 38px; width: auto; }
+/* altura libre: con la fija de antes, el SVG de unidades (84 px con 19
+   figuras en dos filas) se salía del hueco y la cifra grande se pintaba
+   encima de los pictogramas en las tarjetas de móvil */
+.ignicion .pictos { height: auto; }
+.ignicion .pictos svg { width: auto; }
 
 /* ── el escenario de la prisión: los cuatro marcos, recorridos ─────────────
    El tablero se queda quieto y cambia una sola cosa por paso. Solo entra en
@@ -694,15 +697,27 @@ h2.titular {
 
 /* ── PsicoBench ──────────────────────────────────────────────────────────── */
 
-.bench-rejilla { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 34px; align-items: start; }
-@media (max-width: 960px) { .bench-rejilla { grid-template-columns: 1fr; } }
+/* El gráfico manda: la lámina ocupa el ancho entero con el radar a un lado y
+   los dos mini-informes al otro; la tabla completa va debajo, también a todo
+   lo ancho, para que quepa sin recortes ni scroll interno. */
+.bench-tabla { margin-top: 30px; }
+@media (min-width: 861px) {
+  #octogono { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr);
+    gap: 0 34px; align-items: center; }
+  #octogono .ficha-lienzo { grid-row: 1; grid-column: 1; }
+  #octogono .ficha-cab { grid-row: 1; grid-column: 2; grid-template-columns: 1fr;
+    align-content: center; }
+  #octogono .ficha.a { border-right: 0; }
+  #octogono .ficha-pie { grid-column: 1 / -1; }
+}
 .selector-perfil { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
 .selector-perfil .chip { font-size: 12px; padding: 7px 11px; }
 
 /* La zona de datos no es una tarjeta de producto: es una lámina. Filete fino,
    esquinas vivas y marcas de registro en las cuatro esquinas — lo que lleva
    una plancha impresa para saber que las tintas están alineadas. */
-.tabla-caja { border: 1px solid var(--linea); overflow: hidden; background: var(--sup); }
+.tabla-caja { border: 1px solid var(--linea); overflow: hidden; background: var(--sup);
+  padding: 16px 18px 12px; }
 .tabla-scroll { max-height: 460px; overflow: auto; }
 
 .lamina { position: relative; padding: 30px 24px 20px; border: 1px solid var(--linea);
@@ -954,15 +969,16 @@ section:nth-of-type(even) .expediente .disfraz .flecha { color: var(--e3); }
 /* ── las firmas: el índice del banco ───────────────────────────────────────
    Ocho celdas por medición, teñidas por la rampa. Es la vista de barrido:
    la forma se compara en vertical, columna a columna. */
-.firmas { display: grid; grid-template-columns: 214px repeat(8, 1fr) 58px;
+.firmas { display: grid; grid-template-columns: minmax(150px, 230px) repeat(8, minmax(0, 1fr)) 56px;
   gap: 0 3px; align-items: center; }
 .firmas .cabf { font: 600 9px/1.15 var(--mono); letter-spacing: .1em; text-transform: uppercase;
   color: var(--tenue); padding: 0 0 9px; text-align: center; align-self: end; }
 .firmas .cabf.izq { text-align: left; letter-spacing: .14em; }
 .firmas .cabf.der { text-align: right; letter-spacing: .14em; }
-.firmas .nom-f { font: 500 12.5px/1.25 var(--sans); padding: 5px 12px 5px 0; }
+.firmas .nom-f { font: 500 12.5px/1.25 var(--sans); padding: 5px 12px 5px 0; min-width: 0;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .firmas .nom-f small { display: block; font: 400 10px/1.3 var(--mono); color: var(--tenue);
-  margin-top: 2px; }
+  margin-top: 2px; overflow: hidden; text-overflow: ellipsis; }
 .firmas .celda-f { height: 26px; position: relative; }
 .firmas .celda-f span { position: absolute; inset: 0; display: flex; align-items: center;
   justify-content: center; font: 600 9.5px/1 var(--mono); color: #20241F; }
@@ -973,9 +989,26 @@ section:nth-of-type(even) .expediente .disfraz .flecha { color: var(--e3); }
   outline: 1px solid var(--tinta); outline-offset: -1px; }
 .firmas .fila-f.sel .nom-f { font-weight: 700; }
 .firmas .fila-f:focus-visible { outline: 2px solid var(--tinta); outline-offset: 2px; }
+/* En estrecho la tabla se aprieta pero entra entera: nombre en una línea con
+   elipsis, celdas flexibles y, por debajo de 560px, solo la mancha de color
+   (el número exacto sigue en el title y en la ficha de arriba). */
 @media (max-width: 860px) {
-  .firmas { grid-template-columns: 1fr repeat(8, 1fr) 46px; }
-  .firmas .nom-f { font-size: 11px; }
+  .firmas { grid-template-columns: minmax(0, 2.6fr) repeat(8, minmax(0, 1fr)) auto; gap: 0 2px; }
+  .firmas .nom-f { font-size: 11px; padding-right: 8px; }
+  .firmas .iss-f { font-size: 11px; padding-left: 6px; }
+  .tabla-caja { padding: 12px 12px 8px; }
+}
+/* En móvil el nombre pasa a su propia línea, encima de sus ocho celdas: se
+   lee entero en vez de truncado a media palabra, y las celdas ganan ancho. */
+@media (max-width: 560px) {
+  .firmas { grid-template-columns: repeat(8, minmax(0, 1fr)) auto; gap: 0 2px; }
+  .firmas .cabf.izq { display: none; }
+  .firmas .nom-f { grid-column: 1 / -1; padding: 9px 0 4px; font-size: 11.5px;
+    border-top: 1px dashed var(--linea); margin-top: 3px; }
+  .firmas .nom-f small { display: inline; margin: 0 0 0 7px; }
+  .firmas .celda-f span { display: none; }
+  .firmas .celda-f { height: 20px; }
+  .firmas .cabf { font-size: 8px; letter-spacing: .02em; }
 }
 
 /* ── la ficha: identidad, media y radar ────────────────────────────────── */
@@ -992,11 +1025,18 @@ section:nth-of-type(even) .expediente .disfraz .flecha { color: var(--e3); }
 .ficha-media b { display: block; font: 600 30px/1 var(--display); }
 .ficha-media small { display: block; margin-top: 1px; font: 600 8.5px/1 var(--mono);
   letter-spacing: .16em; text-transform: uppercase; color: var(--tenue); }
-.ficha-fuerte { grid-column: 1 / -1; margin: 9px 0 0; font: 400 12px/1.4 var(--sans);
-  color: var(--tinta-2); }
-.ficha-fuerte b { color: var(--tinta); font-weight: 600; }
+/* el mini-informe de la ficha: dónde cede y dónde aguanta, con su peldaño */
+.ficha-informe { grid-column: 1 / -1; margin: 10px 0 0; display: grid; gap: 5px; }
+.ficha-linea { margin: 0; display: flex; flex-wrap: wrap; align-items: baseline;
+  gap: 4px 10px; font: 400 12px/1.4 var(--sans); color: var(--tinta-2); }
+.ficha-linea .et { font: 600 9px/1 var(--mono); letter-spacing: .14em;
+  text-transform: uppercase; color: var(--tenue); flex: 0 0 62px; }
+.ficha-linea .dato-eje { display: inline-flex; align-items: baseline; gap: 5px;
+  white-space: nowrap; font-variant-numeric: tabular-nums; }
+.ficha-linea .dato-eje i { width: 8px; height: 8px; border-radius: 2px; flex: none;
+  align-self: center; }
 .ficha-lienzo { padding: 12px 10px 0; }
-.ficha-lienzo svg { width: 100%; height: auto; display: block; }
+.ficha-lienzo svg { width: 100%; max-width: 520px; margin: 0 auto; height: auto; display: block; }
 .ficha-lienzo .eje-f { font: 600 9.5px/1 var(--mono); letter-spacing: .12em; }
 .ficha-lienzo .nom-radar { font: 600 11.5px/1 var(--mono); }
 .ficha-pie { margin: 0; padding: 4px 16px 16px; font: 400 11.5px/1.55 var(--mono);
