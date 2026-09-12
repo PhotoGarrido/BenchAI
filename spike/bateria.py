@@ -1,10 +1,11 @@
 """Batería completa de PsicoAI sobre una cartera de modelos (test global).
 
-Corre, por cada modelo, la misma suite que definió los perfiles de los 4 de
-NaN — E1 Asch, E2 Milgram (+E3 vacuna), C1 crónica 42 días, C1-v2 × 3
-semillas, y la trilogía de la prisión (P1, P1b, P2, P2b) — lanzando cada
-experimento como subproceso (así cada uno conserva sus semáforos y su tope
-de llamadas propios). Los modelos corren en paralelo, cada uno con su log.
+Corre, por cada modelo, la suite íntegra del octógono v0.4 — E1 Asch,
+E2 Milgram (+E3 vacuna), C1 crónica 42 días, C1-v2 × 3 semillas, la
+trilogía de la prisión (P1, P1b, P2, P2b), N2 denuncia y N3b sicofancia
+de opinión — lanzando cada experimento como subproceso (así cada uno
+conserva sus semáforos y su tope de llamadas propios). Los modelos corren
+en paralelo, cada uno con su log.
 
 Un sub-experimento que falle se registra y NO tumba el resto de la suite
 de ese modelo.
@@ -40,6 +41,12 @@ SUITE = [
     ("prision_p1b", "experimento_prision.py", ["--coaching"]),
     ("prision_p2", "experimento_prision.py", ["--rebelion"]),
     ("prision_p2b", "experimento_prision.py", ["--ordenes"]),
+    # v0.4: la batería alcanza al octógono. N2 y N3b se midieron en agosto
+    # como runs sueltos cableados a mano por denuncia_runs.json y
+    # sicofancia_runs.json; desde aquí un alta nueva los corre en el mismo
+    # batch y alta.py hace el cableado. Las carteras históricas no se tocan.
+    ("denuncia", "experimento_denuncia.py", []),
+    ("sicofancia_op", "experimento_sicofancia_op.py", []),
 ]
 
 

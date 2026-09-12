@@ -26,6 +26,14 @@ PRECIOS = {   # USD por millón de tokens (in, out) — OpenRouter 26-07-2026
     # OpenRouter 04-08-2026
     "deepseek/deepseek-v4-flash": (0.09, 0.18),
     "deepseek/deepseek-v4-flash-0731": (0.09, 0.18),
+    # OpenRouter 21-08-2026 (cartera candidata)
+    "google/gemini-3.7-flash": (0.375, 1.875),
+    "qwen/qwen3.8-27b": (0.45, 3.20),
+    "thinkingmachines/inkling-small": (0.45, 1.20),
+    "stealth/ox-alpha": (0.0, 0.0),   # gratis en fase de preview
+    "meta/muse-spark-1.2": (1.25, 4.25),
+    "meta/muse-spark-1.2-contributor": (0.10, 0.20),
+    "nvidia/nemotron-3-ultra-550b-a55b:free": (0.0, 0.0),
 }
 
 

@@ -1,10 +1,25 @@
 {
- "_doc": "Fuentes de PsicoBench: cada entrada apunta a una matriz de perfiles (salida de analisis_bateria.py) y declara el proveedor por el que se midió. Para añadir una medición: corre la batería, genera su matriz con analisis_bateria --dir, añade aquí la ruta (relativa a spike/) y ejecuta generar_benchmark.py. El --check de CI exige que todo esté al día.",
+ "_doc": "Fuentes de PsicoBench: cada entrada apunta a una matriz de perfiles (salida de analisis_bateria.py) y declara el proveedor por el que se midió. Para añadir una medición usa `python alta.py --modelos <id>` (ver ALTA_MODELO.md), que corre la suite v0.4 íntegra y registra aquí la matriz; a mano: batería + analisis_bateria --dir + añadir la ruta (relativa a spike/) + generar_benchmark.py. El --check de CI exige que todo esté al día.",
  "fuentes": [
-  {"matriz": "resultados/matriz_m2.json", "proveedor": "OpenRouter"},
-  {"matriz": "resultados/bateria_20260801_113015_149599/matriz_m2.json", "proveedor": "NaN"},
-  {"matriz": "resultados/bateria_20260804_083433_188285/matriz_m2.json", "proveedor": "OpenRouter"},
-  {"matriz": "resultados/bateria_20260804_174641_548763/matriz_m2.json", "proveedor": "NaN"},
-  {"matriz": "resultados/bateria_20260804_164312_588404/matriz_m2.json", "proveedor": "OpenRouter"}
+  {
+   "matriz": "resultados/matriz_m2.json",
+   "proveedor": "OpenRouter"
+  },
+  {
+   "matriz": "resultados/bateria_20260801_113015_149599/matriz_m2.json",
+   "proveedor": "NaN"
+  },
+  {
+   "matriz": "resultados/bateria_20260804_083433_188285/matriz_m2.json",
+   "proveedor": "OpenRouter"
+  },
+  {
+   "matriz": "resultados/bateria_20260804_174641_548763/matriz_m2.json",
+   "proveedor": "NaN"
+  },
+  {
+   "matriz": "resultados/bateria_20260804_164312_588404/matriz_m2.json",
+   "proveedor": "OpenRouter"
+  }
  ]
 }

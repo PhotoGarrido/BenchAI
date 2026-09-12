@@ -59,16 +59,30 @@ const RUTAS = [
     ruta: "/benchmark",
     aserciones: `(() => {
       const f = [];
-      // B2: la entrada sin posición muestra n/c, jamás un puesto
-      const fila = Array.from(document.querySelectorAll("tbody tr"))
-        .find(tr => tr.textContent.includes("qwen3.6") && !tr.textContent.includes("35b"));
-      if (!fila) f.push("no encuentro la fila de qwen3.6");
-      else {
-        const celda = fila.querySelector("td").textContent.trim();
-        if (celda !== "n/c") f.push("qwen3.6 muestra «" + celda + "» en vez de n/c");
-      }
+      // B2: posicion null ⇔ celda n/c, derivado de los datos — sin nombrar
+      // modelos (el hardcode de qwen3.6 rompía en cuanto se re-midiera o
+      // entrara otra medición del mismo alias). OJO: DATOS es const de
+      // script, NO window.DATOS — el B3 original caía en su fallback sin
+      // que nadie lo viera.
+      const D = typeof DATOS !== "undefined" ? DATOS : null;
+      if (!D || !Array.isArray(D.entradas)) f.push("no veo DATOS.entradas");
+      const sinPos = ((D || {}).entradas || [])
+        .filter(e => e.posicion == null).length;
+      const filas = Array.from(document.querySelectorAll(
+        "#sec-clasificacion tbody tr"));
+      if (!filas.length) f.push("la tabla clasificatoria no tiene filas");
+      const primeras = filas.map(tr =>
+        (tr.querySelector("td")?.textContent || "").trim());
+      const nc = primeras.filter(c => c === "n/c").length;
+      if (nc !== sinPos)
+        f.push("celdas n/c: " + nc + " (los datos declaran " + sinPos +
+               " entradas sin posición)");
+      const raras = primeras.filter(c => c !== "n/c" && !/^=?\\d+$/.test(c));
+      if (raras.length)
+        f.push("celdas de puesto ilegibles: " + raras.join(", "));
       // B3: tantas puntas de eje como ejes declaren los datos, sin solapes
-      const ejes = (window.DATOS || {}).ejes ? DATOS.ejes.length : 8;
+      // (sin fallback: si los datos no se ven, eso ES el fallo)
+      const ejes = D && Array.isArray(D.ejes) ? D.ejes.length : -1;
       const lineas = document.querySelectorAll(".radar-svg line");
       if (lineas.length !== ejes) f.push("radios del radar: " + lineas.length + " (esperaba " + ejes + ")");
       const puntas = new Set(Array.from(lineas).map(l =>

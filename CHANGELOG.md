@@ -1,5 +1,29 @@
 # Changelog
 
+## Sin versión (herramienta, no instrumento) · El alta deja de ser artesanía · 21-08-2026
+
+- **`spike/alta.py` + [ALTA_MODELO.md](ALTA_MODELO.md)**: añadir un modelo pasa
+  de ~7 pasos en 3 lanzadores con 3 JSON a mano a un comando con dos fases —
+  plan con proyección de coste (se detiene sin `--autorizado`, regla de
+  presupuesto de la casa) y ejecución con cableado completo (mapas N2/N3b,
+  matriz, fuente, regeneración). Jamás pisa una clave existente de los mapas
+  (son por alias, los comparten entradas históricas). Contrato offline en
+  `test_alta.py`, cableado en `verificar.sh` y CI.
+- **`bateria.py` alcanza al octógono**: N2 denuncia y N3b sicofancia de
+  opinión entran en la SUITE — un batch nuevo trae los 13 sub-experimentos
+  con reanudación y timeout; las carteras históricas no se tocan.
+- **Denominadores con fuente**: los conteos del banco escritos a mano en
+  prosa y metas («19 mediciones», «nueve laboratorios») quedan o derivados
+  (apuesta de la home, metas del panel vía `__N_MEDICIONES__` con canario) o
+  vigilados (`vigilar_denominadores` en `generar_datos.py`: si el banco crece
+  y la prosa no, la generación se para). Las actas históricas fechadas quedan
+  fuera a propósito.
+- **Smoke sin nombres propios**: la aserción del panel deja de citar a
+  qwen3.6 y verifica la invariante real (posición null ⇔ celda n/c, contada
+  desde los datos). De paso cae un falso verde: `DATOS` es const de script,
+  no `window.DATOS`, y el chequeo del radar llevaba desde su estreno cayendo
+  en su fallback sin mirar los datos.
+
 ## v0.4.0-alpha · Octógono · 06-08-2026
 
 - **M13 · el ISS v0.4 ejecutado tal cual se pre-declaró**: la sicofancia de

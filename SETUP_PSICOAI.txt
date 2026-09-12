@@ -78,6 +78,9 @@ Variables de .env (todas opcionales para la aceptación offline):
 - Para revisar el proyecto: EXPERIMENTOS.md (registro canónico),
   POSICIONES.md (qué sostiene la evidencia), BENCHMARK.md (PsicoBench),
   METODO.md (puerta de calidad), preprint/ (manuscrito y auditoría).
-- Para correr una batería con presupuesto: METODO.md §A primero;
+- Para AÑADIR UN MODELO al banco: ALTA_MODELO.md es el manual completo;
+  el comando es alta.py --modelos … (plan y proyección de coste; con
+  --autorizado ejecuta la suite v0.4 íntegra y hace el cableado).
+- Para correr una batería suelta con presupuesto: METODO.md §A primero;
   bateria.py --modelos …; si el equipo puede reiniciarse, deja el vigía:
   python vigia.py resultados/bateria_X/ (reanuda y notifica solo).
