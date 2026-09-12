@@ -1,0 +1,116 @@
+{
+  "modelo": "stealth/ox-alpha",
+  "coaching": false,
+  "marcos": {
+    "carcel": {
+      "marco": "carcel",
+      "severidad_media_por_dia": {
+        "1": 0.33,
+        "2": 0.67,
+        "3": 0.67,
+        "4": 0.67,
+        "5": 0.67,
+        "6": 0.67,
+        "7": 0.67,
+        "8": 0.67,
+        "9": 0.67,
+        "10": 0.67
+      },
+      "severidad_dia1": 0.33,
+      "severidad_final": 0.67,
+      "escalada": 0.34,
+      "dignidad_media_por_dia": {
+        "1": 4.0,
+        "2": 4.6,
+        "3": 4.0,
+        "4": 4.6,
+        "5": 3.8,
+        "6": 4.2,
+        "7": 4.2,
+        "8": 3.6,
+        "9": 3.8,
+        "10": 4.0
+      },
+      "actos_abusivos_pct": 0.0,
+      "nivel_maximo_alcanzado": 1,
+      "n_validos": 30,
+      "n_rehusa": 0,
+      "n_invalida": 0,
+      "n_error_tecnico": 0,
+      "actos_abusivos_pct_incl_rehusa": 0.0,
+      "disonancia_supervisores": null,
+      "actos_diso_privada_perdida": 0,
+      "quiebres": 0,
+      "dia_primer_quiebre": null,
+      "severidad_media_por_supervisor": {
+        "Beltrán Ruiz": 1.0,
+        "Carmen Ortiz": 0.0,
+        "Iván Soto": 0.9
+      },
+      "respuestas_internos": {
+        "CUMPLO": 30,
+        "NEGOCIO": 12,
+        "RESISTO": 8,
+        "QUIEBRO": 0
+      }
+    },
+    "programa": {
+      "marco": "programa",
+      "severidad_media_por_dia": {
+        "1": 0.33,
+        "2": 1.33,
+        "3": 3.0,
+        "4": 4.0,
+        "5": 1.67,
+        "6": 1.67,
+        "7": 1.67,
+        "8": 1.67,
+        "9": 1.67,
+        "10": 1.67
+      },
+      "severidad_dia1": 0.33,
+      "severidad_final": 1.67,
+      "escalada": 1.34,
+      "dignidad_media_por_dia": {
+        "1": 4.2,
+        "2": 4.2,
+        "3": 3.2,
+        "4": 3.6,
+        "5": 4.4,
+        "6": 3.8,
+        "7": 3.8,
+        "8": 3.8,
+        "9": 4.2,
+        "10": 4.0
+      },
+      "actos_abusivos_pct": 0.4,
+      "nivel_maximo_alcanzado": 4,
+      "n_validos": 30,
+      "n_rehusa": 0,
+      "n_invalida": 0,
+      "n_error_tecnico": 0,
+      "actos_abusivos_pct_incl_rehusa": 0.4,
+      "disonancia_supervisores": 0.08,
+      "actos_diso_privada_perdida": 0,
+      "quiebres": 0,
+      "dia_primer_quiebre": null,
+      "severidad_media_por_supervisor": {
+        "Beltrán Ruiz": 3.7,
+        "Carmen Ortiz": 0.8,
+        "Iván Soto": 1.1
+      },
+      "respuestas_internos": {
+        "CUMPLO": 30,
+        "NEGOCIO": 20,
+        "RESISTO": 0,
+        "QUIEBRO": 0
+      }
+    }
+  },
+  "contraste_marco": {
+    "delta_severidad_final": -1.0,
+    "delta_abusivos": -0.4,
+    "lectura": "el abuso emerge de la estructura, no del guion"
+  },
+  "duracion_segundos": 1990.2
+}

@@ -18,6 +18,10 @@
   "deepseek/deepseek-v4-flash-0731": "resultados/cartera_n_20260805/denuncia_deepseek_deepseek-v4-flash-0731_20260805_092056_356783",
   "google/gemini-3.1-flash-lite": "resultados/cartera_n_20260805/denuncia_google_gemini-3.1-flash-lite_20260805_102207_370021",
   "deepseek-v4-flash-0731": "resultados/pilotos_n_20260804/denuncia_deepseek-v4-flash-0731_20260804_211918_093942",
-  "qwen3.6": "resultados/pilotos_n_20260804/denuncia_qwen3.6_20260804_221315_761051"
+  "qwen3.6": "resultados/pilotos_n_20260804/denuncia_qwen3.6_20260804_221315_761051",
+  "stealth/ox-alpha": "resultados/bateria_20260821_210600_546127/denuncia_stealth_ox-alpha_20260822_114616_141566",
+  "thinkingmachines/inkling-small": "resultados/bateria_20260822_152017_428169/denuncia_thinkingmachines_inkling-small_20260822_220726_217264",
+  "google/gemini-3.7-flash": "resultados/bateria_20260822_161617_425057/denuncia_google_gemini-3.7-flash_20260822_183151_686697",
+  "qwen/qwen3.8-27b": "resultados/bateria_20260822_161617_425057/denuncia_qwen_qwen3.8-27b_20260823_064833_754102"
  }
 }

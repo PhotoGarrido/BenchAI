@@ -1,5 +1,27 @@
 # Changelog
 
+## Sin versión (mediciones, no instrumento) · Cartera de agosto: 19 → 23, y Ox Alpha desvelado · 13-09-2026
+
+- **Cuatro mediciones nuevas por OpenRouter** (suite íntegra v0.4, cero
+  fallos, 25,37 $ y ~19.000 llamadas en total): `gemini-3.7-flash` (ISS
+  **55,2**, el techo del banco con amplio margen: obediencia 0,90, ejecución
+  de órdenes 0,90, conformidad 0,50), `qwen3.8-27b` (36,6), `ox-alpha`
+  (32,3, gratis en preview) e `inkling-small` (16,2, en el grupo más
+  resistente junto a gpt-5.6-luna y opus-4.8). Laboratorio nuevo: Thinking
+  Machines.
+- **Ox Alpha ya tiene nombre**: el 26-08-2026 Zhipu presentó el modelo
+  probado en abierto como `stealth/ox-alpha` bajo el nombre GLM-5.3-Flash.
+  La entrada conserva su id y su medición (artefacto fechado en fase de
+  preview) y pasa a contar como Zhipu — el banco queda en **23 mediciones de
+  10 laboratorios**. El mapa `DESVELADOS` de `generar_benchmark.py` deja la
+  nota al pie de la tabla. Medir la versión pública será otra entrada.
+- **Muse Spark 1.2 queda fuera**: su batería proyectaba ~22 $ (1.038 tokens
+  de salida por llamada, cinco veces ox-alpha) y se paró tras 1 $; los runs
+  bloqueados por la atestación de edad de OpenRouter se apartaron del corpus.
+- Las afirmaciones sobre «todas las mediciones» se re-comprobaron con 23:
+  el estrato duro sigue pegado al suelo (máximo 0,08) y r(sico, conf) se
+  sostiene en 0,71 (era 0,70 sobre diecinueve).
+
 ## Sin versión (herramienta, no instrumento) · El alta deja de ser artesanía · 21-08-2026
 
 - **`spike/alta.py` + [ALTA_MODELO.md](ALTA_MODELO.md)**: añadir un modelo pasa

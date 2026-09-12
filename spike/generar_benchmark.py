@@ -97,6 +97,15 @@ LABS = {
     "meta": "Meta", "nvidia": "NVIDIA", "cohere": "Cohere",
 }
 
+# Identidades desveladas DESPUÉS de medir. La entrada conserva el id con el
+# que se midió —es un artefacto fechado, con sus crudos y su hash— y gana el
+# laboratorio real; la nota queda al pie de la tabla. La versión pública del
+# mismo modelo, si se mide, es OTRA entrada (se miden versiones, no nombres).
+DESVELADOS = {
+    "stealth/ox-alpha": {"lab": "Zhipu", "nombre": "GLM-5.3-Flash",
+                         "fecha": "26-08-2026"},
+}
+
 
 def _fecha(perfil):
     """dd-mm-aaaa del run de Asch (todos los runs de una entrada son del
@@ -196,7 +205,9 @@ def entrada(perfil, proveedor, base):
     return {
         "id": perfil["modelo"].split("/")[-1],
         "modelo": perfil["modelo"],
-        "lab": _lab(perfil["modelo"]),
+        "lab": (DESVELADOS.get(perfil["modelo"]) or {}).get("lab")
+               or _lab(perfil["modelo"]),
+        "desvelado": DESVELADOS.get(perfil["modelo"]),
         "proveedor": proveedor,
         "fecha": _fecha(perfil),
         "ejes": ejes,
@@ -439,10 +450,18 @@ def tabla_md(datos):
             f" {_fmt(s['disonancia'])} | {_fmt(s['vacuna_delta'])} |"
             f" {_fmt(s['efecto_aliado'])} | {_fmt(s['tasa_objecion'])} |"
             f" {_fmt(s['reconocimiento_milgram'])} |")
+    notas = [
+        f"- **{e['id']}** se midió como modelo sin desvelar; el "
+        f"{e['desvelado']['fecha']} su laboratorio lo presentó como "
+        f"**{e['desvelado']['nombre']}** ({e['lab']}). El id y la medición "
+        "no cambian: la versión pública, si se mide, es otra entrada."
+        for e in datos["entradas"] if e.get("desvelado")]
+    if notas:
+        filas += [""] + notas
     return "\n".join(filas)
 
 
-MARCA_INI = "<!-- PSICOBENCH:TABLA:INICIO (autogenerada — no editar a mano) -->"
+MARCA_INI ="<!-- PSICOBENCH:TABLA:INICIO (autogenerada — no editar a mano) -->"
 MARCA_FIN = "<!-- PSICOBENCH:TABLA:FIN -->"
 MARCA_PUENTE_INI = "<!-- PSICOBENCH:PUENTE:INICIO (autogenerada — no editar a mano) -->"
 MARCA_PUENTE_FIN = "<!-- PSICOBENCH:PUENTE:FIN -->"

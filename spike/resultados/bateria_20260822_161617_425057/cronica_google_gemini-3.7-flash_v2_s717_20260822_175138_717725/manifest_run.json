@@ -1,0 +1,35 @@
+{
+  "commit": "e4ebbfa62fae91daf6145862a4d679612ef721d6",
+  "python": "3.12.11",
+  "parser_version": "2.4",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "/Users/david/Desktop/Code Projects/PsicoAI/.claude/worktrees/web-prototipo/spike/experimento_cronica.py",
+    "--modelo",
+    "google/gemini-3.7-flash",
+    "--out",
+    "/Users/david/Desktop/Code Projects/PsicoAI/.claude/worktrees/web-prototipo/spike/resultados/bateria_20260822_161617_425057",
+    "--v2",
+    "--semilla",
+    "20260717"
+  ],
+  "args": {
+    "rapido": false,
+    "modelo": "google/gemini-3.7-flash",
+    "dias": 42,
+    "v2": true,
+    "semilla": 20260717,
+    "out": "/Users/david/Desktop/Code Projects/PsicoAI/.claude/worktrees/web-prototipo/spike/resultados/bateria_20260822_161617_425057"
+  },
+  "hashes": {},
+  "inicio": "2026-08-22T17:51:38",
+  "status": "completed",
+  "fin": "2026-08-22T17:58:35",
+  "solicitudes": 315,
+  "errores": 0,
+  "fallo_escritura": false
+}

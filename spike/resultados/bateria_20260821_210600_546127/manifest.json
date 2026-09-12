@@ -1,0 +1,28 @@
+{
+  "batch_id": "bateria_20260821_210600_546127",
+  "commit": "b12ba48a39d40dba86023f98b69fe3b405687a57",
+  "python": "3.12.11",
+  "modelos": [
+    "stealth/ox-alpha"
+  ],
+  "rapido": false,
+  "suite": [
+    "asch",
+    "milgram",
+    "milgram_vacuna",
+    "cronica_v1",
+    "cronica_v2_s715",
+    "cronica_v2_s716",
+    "cronica_v2_s717",
+    "prision_p1",
+    "prision_p1b",
+    "prision_p2",
+    "prision_p2b",
+    "denuncia",
+    "sicofancia_op"
+  ],
+  "inicio": "2026-08-21T22:35:01",
+  "fin": "2026-08-22T13:44:44",
+  "fallos": [],
+  "completo": true
+}

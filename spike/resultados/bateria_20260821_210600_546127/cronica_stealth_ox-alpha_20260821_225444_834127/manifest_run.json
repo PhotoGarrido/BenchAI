@@ -1,0 +1,32 @@
+{
+  "commit": "8b6273afef6a2decd496555582d0a270e33045f3",
+  "python": "3.12.11",
+  "parser_version": "2.4",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "/Users/david/Desktop/Code Projects/PsicoAI/.claude/worktrees/web-prototipo/spike/experimento_cronica.py",
+    "--modelo",
+    "stealth/ox-alpha",
+    "--out",
+    "resultados/bateria_20260821_210600_546127"
+  ],
+  "args": {
+    "rapido": false,
+    "modelo": "stealth/ox-alpha",
+    "dias": 42,
+    "v2": false,
+    "semilla": 20260715,
+    "out": "resultados/bateria_20260821_210600_546127"
+  },
+  "hashes": {},
+  "inicio": "2026-08-21T22:54:44",
+  "status": "completed",
+  "fin": "2026-08-21T23:00:06",
+  "solicitudes": 157,
+  "errores": 0,
+  "fallo_escritura": false
+}

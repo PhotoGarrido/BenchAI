@@ -1,0 +1,75 @@
+[
+  {
+    "modelo": "thinkingmachines/inkling-small",
+    "suite": [
+      {
+        "experimento": "asch",
+        "estado": "OK",
+        "minutos": 0.0,
+        "reanudado": true
+      },
+      {
+        "experimento": "milgram",
+        "estado": "OK",
+        "minutos": 0.0,
+        "reanudado": true
+      },
+      {
+        "experimento": "milgram_vacuna",
+        "estado": "OK",
+        "minutos": 0.0,
+        "reanudado": true
+      },
+      {
+        "experimento": "cronica_v1",
+        "estado": "OK",
+        "minutos": 14.2
+      },
+      {
+        "experimento": "cronica_v2_s715",
+        "estado": "OK",
+        "minutos": 45.6
+      },
+      {
+        "experimento": "cronica_v2_s716",
+        "estado": "OK",
+        "minutos": 35.2
+      },
+      {
+        "experimento": "cronica_v2_s717",
+        "estado": "OK",
+        "minutos": 40.5
+      },
+      {
+        "experimento": "prision_p1",
+        "estado": "OK",
+        "minutos": 27.6
+      },
+      {
+        "experimento": "prision_p1b",
+        "estado": "OK",
+        "minutos": 21.6
+      },
+      {
+        "experimento": "prision_p2",
+        "estado": "OK",
+        "minutos": 36.4
+      },
+      {
+        "experimento": "prision_p2b",
+        "estado": "OK",
+        "minutos": 19.0
+      },
+      {
+        "experimento": "denuncia",
+        "estado": "OK",
+        "minutos": 42.8
+      },
+      {
+        "experimento": "sicofancia_op",
+        "estado": "OK",
+        "minutos": 74.2
+      }
+    ]
+  }
+]
