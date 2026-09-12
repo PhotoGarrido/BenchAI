@@ -39,9 +39,12 @@ política estable:
    → `glm`), así que un modelo nuevo de NaN puede necesitar su prefijo
    aunque el laboratorio ya esté. `alta.py` avisa de ambos olvidos.
 4. NaN es tarifa plana: el pin de `PRECIOS` es `(0.0, 0.0)` con la fecha, y
-   la restricción real es la tasa (60 req/min por clave, limitador a 50 en
-   `model_factory`) — con varios modelos NaN en un batch, corre con
-   `BATERIA_MAX_MODELOS=1` (los sub-procesos no comparten el limitador).
+   la restricción real son los límites por clave: 60 req/min (limitador a
+   50 en `model_factory`) y **5 peticiones en vuelo**, compartidas con
+   cualquier otro uso de la misma clave (grifo a 2, y ante ese 429 se
+   espera con backoff dentro del grifo). Con varios modelos NaN en un
+   batch, corre con `BATERIA_MAX_MODELOS=1`: los sub-procesos no comparten
+   ni el limitador ni el grifo.
 
 ## 2 · Plan y autorización de gasto
 
