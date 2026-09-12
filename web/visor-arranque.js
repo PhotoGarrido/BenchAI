@@ -36,6 +36,24 @@
     setTimeout(() => {
       if (play && play.textContent.indexOf("▶") >= 0) play.click();
     }, 900);
+    vigilar(play);
+  }
+
+  /* La reproducción se pausa cuando el marco sale de pantalla y se reanuda
+     al volver — solo si la pausa fue nuestra. Un visor reproduciéndose fuera
+     de la vista no aporta nada y sigue moviendo su hilo de eventos. */
+  function vigilar(play) {
+    if (!play || !("IntersectionObserver" in window)) return;
+    let pausadoAqui = false;
+    new IntersectionObserver((es) => {
+      const enPantalla = es.some((e) => e.isIntersecting);
+      const sonando = play.textContent.indexOf("⏸") >= 0;
+      if (!enPantalla && sonando) { play.click(); pausadoAqui = true; }
+      else if (enPantalla && pausadoAqui) {
+        if (!sonando) play.click();
+        pausadoAqui = false;
+      }
+    }, { threshold: 0.05 }).observe(document.documentElement);
   }
 
   // abierto en su propia pestaña, o sin observador: va directo
