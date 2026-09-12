@@ -2224,23 +2224,23 @@
    "sha256": "17dafc1afec9f247a6de5224e83fb5413b2d2e13530139c2f6088109912ed6e1"
   },
   {
-   "bytes": 88686,
+   "bytes": 88962,
    "ruta": "benchmark/index.html",
-   "sha256": "9f22253f56781b3ec8074bdfaf03864907305754fe66dbfdcaedc6ab00c7170a"
+   "sha256": "eb9acd0643851e557323f927b660516c77f897f628cb87ab5e307881d0290bd8"
   },
   {
-   "bytes": 82377,
+   "bytes": 82768,
    "ruta": "benchmark/psicobench.json",
-   "sha256": "f7bf8ce6bf4a253f26a4569f5be2f73b0be058290314e599511d94cf2c32ed09"
+   "sha256": "98418a8313f344f681970e01e5d81ac19b1ff01e428ad65de7aca82f1086c9cd"
   }
  ],
  "transformacion": {
   "nota": "la conciliación dura (punto recomputado == punto citado) corre en cada generación y en --check; los IC se remuestrean por cadena (enmienda E-IC-1 + adenda E-IC-1b)",
   "piezas": [
    {
-    "bytes": 31035,
+    "bytes": 32092,
     "ruta": "spike/generar_benchmark.py",
-    "sha256": "afa5cfc96c042ddec67d1a8918ce889ba69a26015a93d8728b94cdde566c09d7"
+    "sha256": "c2eb7cbee72b031de9f958ee893ea8154b4914d2f6fdfe728d99dbd3bb5233e6"
    },
    {
     "bytes": 35459,

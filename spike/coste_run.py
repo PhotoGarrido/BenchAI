@@ -41,6 +41,7 @@ PRECIOS = {   # USD por millón de tokens (in, out) — OpenRouter 26-07-2026
     "mimo-v2.5": (0.0, 0.0),
     "gemma4": (0.0, 0.0),
     "qwen3.8-flash": (0.0, 0.0),
+    "deepseek-v4-flash": (0.0, 0.0),   # sirve la 4.1 (panel de NaN, 13-09)
 }
 
 
