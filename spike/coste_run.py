@@ -34,6 +34,13 @@ PRECIOS = {   # USD por millón de tokens (in, out) — OpenRouter 26-07-2026
     "meta/muse-spark-1.2": (1.25, 4.25),
     "meta/muse-spark-1.2-contributor": (0.10, 0.20),
     "nvidia/nemotron-3-ultra-550b-a55b:free": (0.0, 0.0),
+    # NaN 13-09-2026 (ids planos): tarifa plana por suscripción con cuota
+    # mensual de tokens por modelo (0,5-3 B; una suite gasta ~3,3 M). Coste
+    # marginal cero: la auditoría cuenta llamadas y tokens, no dólares.
+    "glm5.3-flash": (0.0, 0.0),
+    "mimo-v2.5": (0.0, 0.0),
+    "gemma4": (0.0, 0.0),
+    "qwen3.8-flash": (0.0, 0.0),
 }
 
 

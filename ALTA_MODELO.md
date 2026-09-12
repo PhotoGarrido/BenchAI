@@ -34,7 +34,14 @@ política estable:
    auditoría de coste salen «SIN PRECIO».
 3. Laboratorio en `LABS` de
    [spike/generar_benchmark.py](spike/generar_benchmark.py) si el prefijo es
-   nuevo — sin él, la tabla publica «?». `alta.py` avisa de ambos olvidos.
+   nuevo — sin él, la tabla publica «?». Los ids con `/` resuelven por su
+   org (`z-ai/…`); los planos de NaN, por prefijo del nombre (`glm5.3-flash`
+   → `glm`), así que un modelo nuevo de NaN puede necesitar su prefijo
+   aunque el laboratorio ya esté. `alta.py` avisa de ambos olvidos.
+4. NaN es tarifa plana: el pin de `PRECIOS` es `(0.0, 0.0)` con la fecha, y
+   la restricción real es la tasa (60 req/min por clave, limitador a 50 en
+   `model_factory`) — con varios modelos NaN en un batch, corre con
+   `BATERIA_MAX_MODELOS=1` (los sub-procesos no comparten el limitador).
 
 ## 2 · Plan y autorización de gasto
 

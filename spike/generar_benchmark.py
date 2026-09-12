@@ -95,6 +95,8 @@ LABS = {
     "mistralai": "Mistral", "deepseek": "DeepSeek", "qwen": "Alibaba",
     "thinkingmachines": "Thinking Machines", "stealth": "sin desvelar",
     "meta": "Meta", "nvidia": "NVIDIA", "cohere": "Cohere",
+    # ids planos del gateway NaN (se resuelven por prefijo, ver _lab)
+    "gemma": "Google", "mimo": "Xiaomi", "glm": "Zhipu",
 }
 
 # Identidades desveladas DESPUÉS de medir. La entrada conserva el id con el
