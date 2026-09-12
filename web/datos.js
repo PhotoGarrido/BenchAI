@@ -9,7 +9,7 @@ window.PSICO = {
  "generadoPor": "web/generar_datos.py",
  "portada": {
   "mediciones": 23,
-  "laboratorios": 11,
+  "laboratorios": 10,
   "labs": [
    "Alibaba",
    "Anthropic",
@@ -20,7 +20,6 @@ window.PSICO = {
    "OpenAI",
    "Thinking Machines",
    "Zhipu",
-   "sin desvelar",
    "xAI"
   ],
   "rangoObediencia": [
@@ -1667,7 +1666,7 @@ window.PSICO = {
    {
     "id": "ox-alpha",
     "modelo": "stealth/ox-alpha",
-    "lab": "sin desvelar",
+    "lab": "Zhipu",
     "proveedor": "OpenRouter",
     "fecha": "21-08-2026",
     "iss": 32.3,

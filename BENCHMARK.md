@@ -103,7 +103,7 @@ La unidad del benchmark es la **medición**: `modelo + snapshot + proveedor + fe
 | =5 | **claude-fable-5** | Anthropic | OpenRouter · 23-07-2026 | **24,9** [18,8–31,4] | 30 | 0 | 10 | 20 | 50 | 36 | 13 | 37 | 83 | 0 | -14 | 0 | 100 |
 | =5 | **claude-opus-5** | Anthropic | OpenRouter · 24-07-2026 | **26,4** [20,5–32,7] | 27 | 0 | 25 | 52 | 45 | 30 | 23 | 12 | 72 | 0 | -10 | 0 | 100 |
 | =5 | **kimi-k3** | Moonshot | OpenRouter · 23-07-2026 | **27,9** [20,7–35,2] | 36 | 10 | 7 | 5 | 55 | 37 | 17 | 41 | 100 | 0 | -23 | 0 | 100 |
-| =5 | **ox-alpha** | sin desvelar | OpenRouter · 21-08-2026 | **32,3** [22,6–42,1] | 16 | 40 | 0 | 0 | 20 | 37 | 40 | 42 | 87 | -18 | -13 | 3 | 100 |
+| =5 | **ox-alpha** | Zhipu | OpenRouter · 21-08-2026 | **32,3** [22,6–42,1] | 16 | 40 | 0 | 0 | 20 | 37 | 40 | 42 | 87 | -18 | -13 | 3 | 100 |
 | =5 | **qwen3.6-35b-a3b@OpenRouter·23-07-2026** | Alibaba | OpenRouter · 23-07-2026 | **33,1** [24,9–41,1] | 43 | 60 | 0 | 0 | 3 | 56 | 6 | 50 | 77 | 0 | -14 | 0 | 70 |
 | =5 | **claude-sonnet-5** | Anthropic | OpenRouter · 23-07-2026 | **33,7** [26,2–41,7] | 36 | 0 | 0 | 17 | 43 | 77 | 27 | 45 | 88 | 0 | -12 | 0 | 63 |
 | =5 | **qwen3.6-35b-a3b@OpenRouter·04-08-2026** | Alibaba | OpenRouter · 04-08-2026 | **33,9** [25,8–41,6] | 41 | 70 | 0 | 0 | 1 | 55 | 6 | 50 | 81 | -20 | -1 | 0 | 73 |
@@ -116,6 +116,8 @@ La unidad del benchmark es la **medición**: `modelo + snapshot + proveedor + fe
 | =16 | **deepseek-v4-flash-0731@OpenRouter** | DeepSeek | OpenRouter · 04-08-2026 | **40,2** [35,4–44,8] | 19 | 100 | 0 | 3 | 69 | 77 | 16 | 10 | 89 | -70 | -10 | 0 | 80 |
 | =16 | **deepseek-v4-flash-0731@NaN** | DeepSeek | NaN · 01-08-2026 | **40,9** [34,0–48,1] | 29 | 90 | 0 | 20 | 58 | 79 | 14 | 16 | 83 | -50 | -12 | 0 | 73 |
 | 22 | **gemini-3.7-flash** | Google | OpenRouter · 22-08-2026 | **55,2** [45,7–64,9] | 50 | 90 | 0 | 12 | 60 | 90 | 39 | 51 | 95 | -30 | -7 | 0 | 100 |
+
+- **ox-alpha** se midió como modelo sin desvelar; el 26-08-2026 su laboratorio lo presentó como **GLM-5.3-Flash** (Zhipu). El id y la medición no cambian: la versión pública, si se mide, es otra entrada.
 
 <!-- PSICOBENCH:TABLA:FIN -->
 

@@ -126,6 +126,7 @@
  ],
  "entradas": [
   {
+   "desvelado": null,
    "ejes": {
     "auto": 0.0,
     "brief": 0.0,
@@ -326,6 +327,7 @@
    }
   },
   {
+   "desvelado": null,
    "ejes": {
     "auto": 0.0,
     "brief": 0.25,
@@ -526,6 +528,7 @@
    }
   },
   {
+   "desvelado": null,
    "ejes": {
     "auto": 0.0,
     "brief": 0.0,
@@ -726,6 +729,7 @@
    }
   },
   {
+   "desvelado": null,
    "ejes": {
     "auto": 0.0,
     "brief": 0.01,
@@ -926,6 +930,7 @@
    }
   },
   {
+   "desvelado": null,
    "ejes": {
     "auto": 0.0,
     "brief": 0.0,
@@ -1126,6 +1131,7 @@
    }
   },
   {
+   "desvelado": null,
    "ejes": {
     "auto": 0.0,
     "brief": 0.0,
@@ -1338,6 +1344,7 @@
    }
   },
   {
+   "desvelado": null,
    "ejes": {
     "auto": 0.0,
     "brief": 0.0,
@@ -1538,6 +1545,7 @@
    }
   },
   {
+   "desvelado": null,
    "ejes": {
     "auto": 0.1,
     "brief": 0.2,
@@ -1738,6 +1746,7 @@
    }
   },
   {
+   "desvelado": null,
    "ejes": {
     "auto": 0.25,
     "brief": 0.52,
@@ -1938,6 +1947,7 @@
    }
   },
   {
+   "desvelado": null,
    "ejes": {
     "auto": 0.07,
     "brief": 0.05,
@@ -2138,6 +2148,11 @@
    }
   },
   {
+   "desvelado": {
+    "fecha": "26-08-2026",
+    "lab": "Zhipu",
+    "nombre": "GLM-5.3-Flash"
+   },
    "ejes": {
     "auto": 0.0,
     "brief": 0.0,
@@ -2292,7 +2307,7 @@
     19.0,
     38.9
    ],
-   "lab": "sin desvelar",
+   "lab": "Zhipu",
    "modelo": "stealth/ox-alpha",
    "posicion": 5,
    "posicion_v01": 3,
@@ -2338,6 +2353,7 @@
    }
   },
   {
+   "desvelado": null,
    "ejes": {
     "auto": 0.0,
     "brief": 0.0,
@@ -2539,6 +2555,7 @@
    }
   },
   {
+   "desvelado": null,
    "ejes": {
     "auto": 0.0,
     "brief": 0.17,
@@ -2739,6 +2756,7 @@
    }
   },
   {
+   "desvelado": null,
    "ejes": {
     "auto": 0.0,
     "brief": 0.0,
@@ -2940,6 +2958,7 @@
    }
   },
   {
+   "desvelado": null,
    "ejes": {
     "auto": 0.18,
     "brief": 0.23,
@@ -3140,6 +3159,7 @@
    }
   },
   {
+   "desvelado": null,
    "ejes": {
     "auto": 0.0,
     "brief": 0.0,
@@ -3340,6 +3360,7 @@
    }
   },
   {
+   "desvelado": null,
    "ejes": {
     "auto": 0.0,
     "brief": 0.0,
@@ -3540,6 +3561,7 @@
    }
   },
   {
+   "desvelado": null,
    "ejes": {
     "auto": 0.0,
     "brief": 0.17,
@@ -3740,6 +3762,7 @@
    }
   },
   {
+   "desvelado": null,
    "ejes": {
     "auto": 0.0,
     "brief": 0.0,
@@ -3940,6 +3963,7 @@
    }
   },
   {
+   "desvelado": null,
    "ejes": {
     "auto": 0.0,
     "brief": 0.0,
@@ -4141,6 +4165,7 @@
    }
   },
   {
+   "desvelado": null,
    "ejes": {
     "auto": 0.0,
     "brief": 0.03,
@@ -4342,6 +4367,7 @@
    }
   },
   {
+   "desvelado": null,
    "ejes": {
     "auto": 0.0,
     "brief": 0.2,
@@ -4543,6 +4569,7 @@
    }
   },
   {
+   "desvelado": null,
    "ejes": {
     "auto": 0.0,
     "brief": 0.12,
