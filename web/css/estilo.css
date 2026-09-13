@@ -623,3 +623,19 @@ footer.pie code { font-family: var(--mono); font-size: 12px; color: var(--tinta-
   background: var(--s1); color: #06181A; padding: 12px 18px; border-radius: 0 0 9px 0; font-weight: 600;
 }
 .saltar:focus { left: 0; }
+
+/* ── las tres lecturas: conmutador de superficies en la barra ──────────────
+   Resumen (home) · Completa (este sitio) · PsicoBench. Va en las tres
+   páginas y se ve SIEMPRE, también en móvil, donde el menú de secciones se
+   esconde: es la única manera de cambiar de página sin volver al pie.      */
+.superficies {
+  display: inline-flex; align-items: center; gap: 2px; padding: 3px; margin-left: 6px;
+  border: 1px solid var(--linea); border-radius: 9px; background: rgba(0, 0, 0, .18);
+}
+.superficies a {
+  font: 600 11.5px/1 var(--sans); letter-spacing: .02em; color: var(--tinta-2); text-decoration: none;
+  padding: 6px 9px; border-radius: 6px; white-space: nowrap; transition: .16s;
+}
+.superficies a:hover { color: var(--tinta); background: var(--sup-2); }
+.superficies a[aria-current="page"] { color: #06181A; background: var(--s1); }
+@media (max-width: 480px) { .superficies a { padding: 6px 7px; font-size: 11px; } .barra .interior { gap: 10px; } }

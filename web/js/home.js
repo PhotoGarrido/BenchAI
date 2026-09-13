@@ -1280,6 +1280,33 @@ Ahora imagina la escena con siete personas de verdad mirándote.`
   observar();
   new MutationObserver(observar).observe(document.body, { childList: true, subtree: true });
 
+  /* barra pegada, progreso de lectura y sección activa en el menú: lo mismo
+     que hace escena.js en el sitio largo, con los nombres de aquí */
   const barra = document.getElementById("barra");
-  addEventListener("scroll", () => barra.classList.toggle("pegada", scrollY > 16), { passive: true });
+  const progreso = document.getElementById("progreso");
+  const enlaces = Array.from(document.querySelectorAll('.barra .lejos a[href^="#"]'));
+  const secciones = enlaces.map((a) => document.querySelector(a.getAttribute("href")));
+  let pendiente = false;
+  function alScroll() {
+    if (pendiente) return;
+    pendiente = true;
+    requestAnimationFrame(() => {
+      pendiente = false;
+      const y = scrollY;
+      barra.classList.toggle("pegada", y > 16);
+      if (progreso) {
+        const total = document.documentElement.scrollHeight - innerHeight;
+        progreso.style.width = (total > 0 ? Math.min(1, y / total) * 100 : 0) + "%";
+      }
+      let activa = -1;
+      secciones.forEach((s, i) => { if (s && s.getBoundingClientRect().top <= innerHeight * 0.36) activa = i; });
+      enlaces.forEach((a, i) => {
+        if (i === activa) a.setAttribute("aria-current", "true");
+        else a.removeAttribute("aria-current");
+      });
+    });
+  }
+  addEventListener("scroll", alScroll, { passive: true });
+  addEventListener("resize", alScroll);
+  alScroll();
 })();

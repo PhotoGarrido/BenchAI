@@ -121,7 +121,8 @@ def _copiar(destino: pathlib.Path) -> None:
     # y la home enlaza al sitio largo como `index.html`
     idx = destino / "index.html"
     idx.write_text(idx.read_text(encoding="utf-8")
-                   .replace('href="index.html', 'href="/completo'), encoding="utf-8")
+                   .replace('href="index.html', 'href="/completo')
+                   .replace('href="home.html"', 'href="/"'), encoding="utf-8")
     # la página del benchmark enlaza a sus hermanas por nombre de fichero
     ps = destino / "psicobench.html"
     ps.write_text(ps.read_text(encoding="utf-8")

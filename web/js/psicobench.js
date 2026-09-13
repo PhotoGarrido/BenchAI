@@ -295,7 +295,6 @@
     });
     hostRanking.textContent = "";
     hostRanking.appendChild(fig);
-    fig.classList.add("visible");
     G.navegable(fig, fig.querySelector(".titviz").textContent);
 
     // la prosa del eje: qué mide, de dónde sale, y tres cifras derivadas
@@ -538,7 +537,6 @@
     fuente: mk`PsicoBench v${B.version} · ${REPO("benchmark/psicobench.json")}`,
   });
   document.getElementById("radar-ab").appendChild(figRadar);
-  figRadar.classList.add("visible");
   const hostDeltas = document.getElementById("deltas-ab");
   const solapan = (ia, ib) => !!(ia && ib) && ia[0] <= ib[1] && ib[0] <= ia[1];
   const conSigno = (v100) => (v100 > 0 ? "+" : v100 < 0 ? "−" : "") + String(Math.abs(v100));
@@ -624,7 +622,8 @@
     const marcas = [];
     datos.forEach((e, i) => {
       const jx = ((i % 3) - 1) * 2, jy = ((Math.floor(i / 3) % 3) - 1) * 2;
-      const c = G.el("circle", { cx: px(o.x.fn(e)) + jx, cy: py(o.y.fn(e)) + jy, r: 5.5, class: "punto marca", "fill-opacity": 0.8 });
+      // sin la clase `marca`: en estilo.css es la marca de la barra (display flex…)
+      const c = G.el("circle", { cx: px(o.x.fn(e)) + jx, cy: py(o.y.fn(e)) + jy, r: 5.5, class: "punto anim-fade", "fill-opacity": 0.8 });
       G.conGlobo(c, () => window.MARCADO.une(
         mk`<div class="g-tit">${e.id}</div>`,
         mk`<div class="g-fila"><span>${o.x.nombre}</span><b>${pc(o.x.fn(e))}</b></div>`,
@@ -635,7 +634,7 @@
       marcas.push(c);
       if (etiquetar.has(e.id)) {
         const der = px(o.x.fn(e)) < W * 0.72;
-        g.appendChild(G.el("text", { x: px(o.x.fn(e)) + (der ? 9 : -9), y: py(o.y.fn(e)) - 7, class: "punto-et", "text-anchor": der ? "start" : "end" },
+        g.appendChild(G.el("text", { x: px(o.x.fn(e)) + (der ? 9 : -9), y: py(o.y.fn(e)) - 7, class: "punto-et anim-fade", "text-anchor": der ? "start" : "end" },
           [document.createTextNode(e.id)]));
       }
     });
@@ -643,7 +642,6 @@
     fig._lienzo.appendChild(svg);
     fig._tabla.appendChild(G.tabla([{ t: "Medición" }, { t: o.x.nombre, n: true }, { t: o.y.nombre, n: true }],
       datos.slice().sort((a, b) => o.x.fn(b) - o.x.fn(a)).map((e) => [e.id, pc(o.x.fn(e)), pc(o.y.fn(e))])));
-    fig.classList.add("visible");
     return fig;
   }
 
@@ -692,7 +690,6 @@
     pie: mk`Con los intervalos por cadena, solo el salto generacional completo (d = ${dec(I.saltoGeneracional.d, 1)}, IC ${G.rangoIC(I.saltoGeneracional.ic, (v) => dec(v, 1))}) queda por encima del suelo típico: la dirección de los demás se sostiene; la magnitud, no. Por eso la unidad del banco es la medición, no el nombre.`,
     fuente: mk`PsicoBench v${B.version} · réplicas · ${REPO("BENCHMARK.md")}`,
   });
-  figRep.classList.add("visible");
   G.navegable(figRep, "Distancias entre réplicas");
   hostMapas.appendChild(figRep);
 
@@ -741,7 +738,6 @@
     const figO = G.octogono({ titulo: "Perfil sobre los ocho ejes", sub: "Pasa el ratón por un vértice para ver el intervalo.", ejes: ejesOct, sinTabla: false });
     figO._pinta([{ nombre: e.id, valores: e.ejes, ic: e.ejesIC, color: G.PAL.s1 }]);
     figO._tablaEjes([{ nombre: e.id, valores: e.ejes, ic: e.ejesIC }]);
-    figO.classList.add("visible");
 
     const lista = h("ul", { class: "ficha-ejes" }, ORDEN_EJES.map((c) => {
       const v = e.ejes[c], ic = e.ejesIC[c], n = e.ejesN[c];
@@ -840,11 +836,11 @@
       g.appendChild(linea); grupo.push(linea);
       pts.forEach(([x, y, v]) => {
         if (v.ic) { const w = G.el("line", { x1: x, y1: cy(v.ic[0]), x2: x, y2: cy(v.ic[1]), class: "ic-v" }); g.appendChild(w); grupo.push(w); }
-        const c = G.el("circle", { cx: x, cy: y, r: 3.5, class: "punto-v" }); g.appendChild(c); grupo.push(c);
+        const c = G.el("circle", { cx: x, cy: y, r: 3.5, class: "punto-v anim-fade" }); g.appendChild(c); grupo.push(c);
       });
       const ult = pts[pts.length - 1];
       const guia = G.el("line", { x1: ult[0] + 5, y1: ult[1], x2: W - P.r + 10, y2: ys[k], class: "reja-l" });
-      const et = G.el("text", { x: W - P.r + 14, y: ys[k] + 3.5, class: "et-v" }, [document.createTextNode(e.id)]);
+      const et = G.el("text", { x: W - P.r + 14, y: ys[k] + 3.5, class: "et-v anim-fade" }, [document.createTextNode(e.id)]);
       g.appendChild(guia); g.appendChild(et); grupo.push(guia, et);
       porId[e.id] = grupo;
       const hit = G.el("rect", { x: W - P.r + 10, y: ys[k] - 5.5, width: P.r - 14, height: 11, class: "viz-hit", role: "img",
@@ -868,7 +864,6 @@
     fig._lienzo.appendChild(svg);
     fig._tabla.appendChild(G.tabla([{ t: "Medición" }].concat(vers.map((v) => ({ t: "ISS v" + v + " [IC] · pos", n: true }))),
       orden.map((e) => [e.id].concat(e.versiones.map((v) => (v.iss == null ? "—" : `${dec(v.iss, 1)} [${v.ic ? dec(v.ic[0], 1) + "–" + dec(v.ic[1], 1) : "—"}] · ${v.pos == null ? "n/c" : "=" + v.pos}`))))));
-    fig.classList.add("visible");
     G.navegable(fig, "Escalera de versiones");
     return fig;
   }
@@ -943,6 +938,9 @@
       const y = H_TOP + i * (ALTO_F + GAP), cy = y + ALTO_F / 2;
       g.appendChild(G.el("text", { x: EJE_X - 12, y: cy + 4, class: "eje-txt", "text-anchor": "end" },
         [document.createTextNode(`${rango(e)}  ·  ${e.id}`)]));
+      // la fila entera crece desde la izquierda al entrar en pantalla, como
+      // las barras del sitio largo (escalonado por fila)
+      const gf = G.el("g", { class: "anim-barra fila-anim", style: `transition-delay:${Math.min(i * 26, 420)}ms` });
       const fila = [];
       if (formulaCuadra) {
         let acc = 0;
@@ -950,15 +948,16 @@
           const aporta = (c.fn(e) / COMPONENTES.length) * 100;
           if (aporta <= 0) return;
           const r = G.el("rect", { x: EJE_X + x(acc), y: y + (ALTO_F - 13) / 2, width: Math.max(x(aporta), 0.5), height: 13, fill: c.color, class: "segmento marca" });
-          g.appendChild(r); fila.push(r); acc += aporta;
+          gf.appendChild(r); fila.push(r); acc += aporta;
         });
       } else {
         const r = G.el("rect", { x: EJE_X, y: y + (ALTO_F - 13) / 2, width: Math.max(x(e.iss), 3), height: 13, rx: 4, fill: G.PAL.s1, class: "marca" });
-        g.appendChild(r); fila.push(r);
+        gf.appendChild(r); fila.push(r);
       }
+      g.appendChild(gf);
       marcas.push(...fila);
-      g.appendChild(G.el("line", { x1: EJE_X + x(e.issIC[0]), x2: EJE_X + x(e.issIC[1]), y1: cy, y2: cy, class: "ic-l" }));
-      g.appendChild(G.el("text", { x: EJE_X + x(Math.max(e.iss, e.issIC[1])) + 9, y: cy + 4, class: "et-val" }, [document.createTextNode(dec(e.iss, 1))]));
+      g.appendChild(G.el("line", { x1: EJE_X + x(e.issIC[0]), x2: EJE_X + x(e.issIC[1]), y1: cy, y2: cy, class: "ic-l anim-fade" }));
+      g.appendChild(G.el("text", { x: EJE_X + x(Math.max(e.iss, e.issIC[1])) + 9, y: cy + 4, class: "et-val anim-fade" }, [document.createTextNode(dec(e.iss, 1))]));
       const hit = G.el("rect", { x: EJE_X, y, width: anchoPlot, height: ALTO_F, class: "viz-hit", role: "img",
         "aria-label": `${e.id}: ISS ${dec(e.iss, 1)}, posición ${rango(e)}` });
       G.conGlobo(hit, () => window.MARCADO.une(
@@ -983,7 +982,6 @@
     fig._tabla.appendChild(G.tabla(
       [{ t: "Medición" }, { t: "Posición", n: true }, { t: "ISS", n: true }, { t: "IC 95 %", n: true }].concat(COMPONENTES.map((c) => ({ t: c.nombre, n: true }))),
       datos.map((e) => [e.id, rango(e), { v: dec(e.iss, 1), destaca: true }, `${dec(e.issIC[0], 1)}–${dec(e.issIC[1], 1)}`].concat(COMPONENTES.map((c) => pc(c.fn(e)))))));
-    fig.classList.add("visible");
     G.navegable(fig, "Ranking por índice");
     return fig;
   }
@@ -992,6 +990,40 @@
     índice se solapan comparten posición, y <b>n/c</b> es un perfil publicado pero fuera de la clasificación por falta de observaciones
     válidas en algún eje. Las métricas secundarias (disonancia, vacuna, aliado, objeción, reconocimiento) no entran en el índice: se
     publican al lado, no dentro. Un índice alto no hace peor modelo; hace un perfil distinto, relevante según dónde vaya a trabajar.`);
+
+  /* ══ el panel de la portada: el índice de cada medición, componente a
+     componente, en bucle (como la escalera animada del sitio largo) ═══════ */
+  (function panelIndice() {
+    const host = document.getElementById("pi-componentes");
+    if (!host) return;
+    const quieto = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const filas = COMPONENTES.map((c) => {
+      const via = h("span", { class: "via" }, [h("i", {})]);
+      const val = h("span", { class: "val" });
+      host.appendChild(h("div", { class: "pi-fila", style: `--c:${c.color}` }, [h("span", { class: "nom", text: c.nombre }), via, val]));
+      return { c, barra: via.firstChild, val };
+    });
+    const elNombre = document.getElementById("pi-nombre"), elVia = document.getElementById("pi-via");
+    const elISS = document.getElementById("pi-iss"), elIC = document.getElementById("pi-ic"), elPos = document.getElementById("pi-pos");
+    function pinta(e) {
+      elNombre.textContent = e.id;
+      elVia.textContent = `${e.lab} · ${e.proveedor} · ${e.fecha}`;
+      elISS.textContent = dec(e.iss, 1);
+      elIC.textContent = `[${dec(e.issIC[0], 1)}–${dec(e.issIC[1], 1)}]`;
+      elPos.textContent = "posición " + rango(e);
+      filas.forEach((f) => {
+        const v = Math.max(0, Math.min(1, f.c.fn(e)));
+        f.barra.style.width = (v * 100).toFixed(1) + "%";
+        f.val.textContent = pc(f.c.fn(e));
+      });
+    }
+    // de más a menos, para que la primera imagen sea la que más llena el panel
+    const ciclo = porISS.slice().reverse();
+    let k = 0;
+    pinta(ciclo[0]);
+    if (quieto) return;
+    setInterval(() => { k = (k + 1) % ciclo.length; pinta(ciclo[k]); }, 1700);
+  })();
 
   /* ══ arranque ════════════════════════════════════════════════════════════ */
   pintarSesiones();
