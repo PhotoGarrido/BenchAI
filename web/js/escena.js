@@ -41,7 +41,10 @@
 
   const barra = document.getElementById("barra");
   const progreso = document.getElementById("progreso");
-  const enlaces = Array.from(document.querySelectorAll(".navmini a"));
+  // solo los enlaces a secciones de ESTA página: el menú también lleva
+  // enlaces a otras páginas (`/psicobench`), y un href sin almohadilla no es
+  // un selector válido — la excepción abortaba todo el guion en producción
+  const enlaces = Array.from(document.querySelectorAll('.navmini a[href^="#"]'));
   const secciones = enlaces
     .map((a) => document.querySelector(a.getAttribute("href")))
     .filter(Boolean);
