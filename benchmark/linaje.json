@@ -2711,9 +2711,9 @@
    "sha256": "3be9bd4813cb51e561d09d63fea36c374e0542fc1cb6088e07d7313da9b9f280"
   },
   {
-   "bytes": 99861,
+   "bytes": 99619,
    "ruta": "benchmark/index.html",
-   "sha256": "04e1a07715e2de677a06c3fb2042612749da7c6734635cf9d32b63881090ae3e"
+   "sha256": "711f8934dcbcae78a02bf318ba233a36db4ac4ce880928ecf3c01f0029cec7fb"
   },
   {
    "bytes": 99552,
@@ -2730,9 +2730,9 @@
     "sha256": "c2eb7cbee72b031de9f958ee893ea8154b4914d2f6fdfe728d99dbd3bb5233e6"
    },
    {
-    "bytes": 35701,
+    "bytes": 35459,
     "ruta": "spike/plantilla_benchmark.html",
-    "sha256": "7dc76d9c76123178f0afdbb6a8f72cf7d9d8cb49cbf9eb7780e57277bac15d59"
+    "sha256": "20ea6b1546cec84b631b7b43f15c30102d39420c6d9ad7e9689513aaa9faa9e4"
    },
    {
     "bytes": 24690,
