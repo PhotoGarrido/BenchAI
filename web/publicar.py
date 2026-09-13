@@ -11,7 +11,8 @@ despliega la raíz del repo con exclusiones — se copia lo permitido y punto.
 Lo que sale:
   /                     web/home.html          la home divulgativa
   /completo             web/index.html         el sitio largo
-  /benchmark            benchmark/index.html   el panel del benchmark
+  /psicobench           web/psicobench.html    la superficie propia del benchmark
+  /benchmark            benchmark/index.html   el panel del instrumento
   /visor                viewer/index.html      el visor de replays
   … y los estáticos que esas cuatro necesitan, incluidos los episodios que
   el visor reproduce.
@@ -39,6 +40,7 @@ PIEZAS: list[tuple[str, str]] = [
     ("web/favicon.ico", "favicon.ico"),
     ("web/home.html", "index.html"),
     ("web/index.html", "completo.html"),
+    ("web/psicobench.html", "psicobench.html"),
     ("web/visor-embebido.html", "visor-embebido.html"),
     ("web/visor-arranque.js", "visor-arranque.js"),
     ("web/datos.js", "datos.js"),
@@ -120,6 +122,15 @@ def _copiar(destino: pathlib.Path) -> None:
     idx = destino / "index.html"
     idx.write_text(idx.read_text(encoding="utf-8")
                    .replace('href="index.html', 'href="/completo'), encoding="utf-8")
+    # la página del benchmark enlaza a sus hermanas por nombre de fichero
+    ps = destino / "psicobench.html"
+    ps.write_text(ps.read_text(encoding="utf-8")
+                  .replace('href="home.html"', 'href="/"')
+                  .replace('href="index.html', 'href="/completo'), encoding="utf-8")
+    # y las tres se enlazan entre sí por la ruta limpia
+    for f in (destino / "index.html", comp, ps):
+        f.write_text(f.read_text(encoding="utf-8")
+                     .replace('href="psicobench.html', 'href="/psicobench'), encoding="utf-8")
 
 
 FAVICON_RAMPA = (
@@ -155,6 +166,7 @@ def _reescribir_enlaces(destino: pathlib.Path) -> None:
         antes = t
         t = t.replace('href="../benchmark/index.html"', 'href="/benchmark"')
         t = t.replace('href="../benchmark/', 'href="/benchmark/')
+        t = t.replace('href="../web/psicobench.html"', 'href="/psicobench"')
         t = t.replace('href="../viewer/index.html"', 'href="/viewer/index.html"')
         t = t.replace('href="../', f'href="{REPO_WEB}')
         if t != antes:
@@ -183,14 +195,15 @@ def _reescribir_enlaces(destino: pathlib.Path) -> None:
 
     # Y los que construye el guion: `REPO()` de pagina.js arma cada «Fuente ·»
     # en caliente, así que la reescritura del HTML no los alcanzaba.
-    js = destino / "js" / "pagina.js"
     viejo = 'const REPO = (r) => mk`<a href="../${r}">${r}</a>`;'
     nuevo = ('const REPO = (r) => mk`<a href="' + REPO_WEB
              + '${r}" target="_blank" rel="noopener">${r}</a>`;')
-    texto = js.read_text(encoding="utf-8")
-    if viejo not in texto:
-        raise SystemExit("[publicar] REPO() ha cambiado de forma: revisa la reescritura")
-    js.write_text(texto.replace(viejo, nuevo), encoding="utf-8")
+    for nombre in ("pagina.js", "psicobench.js"):
+        js = destino / "js" / nombre
+        texto = js.read_text(encoding="utf-8")
+        if viejo not in texto:
+            raise SystemExit(f"[publicar] REPO() ha cambiado de forma en {nombre}: revisa la reescritura")
+        js.write_text(texto.replace(viejo, nuevo), encoding="utf-8")
 
 
 def _iguales(a: pathlib.Path, b: pathlib.Path) -> bool:

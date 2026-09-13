@@ -56,6 +56,72 @@ const RUTAS = [
     })()`,
   },
   {
+    ruta: "/psicobench",
+    aserciones: `(() => {
+      const f = [];
+      if (!window.PSICO) f.push("window.PSICO no cargó");
+      const n = (window.PSICO || { benchmark: { entradas: [] } }).benchmark.entradas.length;
+      const filas = Array.from(document.querySelectorAll("table.mapa tbody tr.fila"));
+      if (filas.length !== n) f.push("filas del mapa: " + filas.length + " (los datos declaran " + n + ")");
+      // el rango de posición sale de los datos: tantas n/c como entradas sin posición
+      const sinPos = (window.PSICO || { benchmark: { entradas: [] } }).benchmark.entradas
+        .filter(e => e.posicion == null).length;
+      const nc = filas.filter(tr => (tr.querySelector("td.pos")?.textContent || "").trim() === "n/c").length;
+      if (nc !== sinPos) f.push("celdas n/c: " + nc + " (esperaba " + sinPos + ")");
+      const raras = filas.map(tr => (tr.querySelector("td.pos")?.textContent || "").trim())
+        .filter(c => c !== "n/c" && !/^\\d+(–\\d+)?$/.test(c));
+      if (raras.length) f.push("rangos de posición ilegibles: " + raras.join(", "));
+      const celdas = document.querySelectorAll("table.mapa td.c").length;
+      if (celdas < n * 8) f.push("celdas de eje: " + celdas + " (esperaba ≥ " + (n * 8) + ")");
+      if (!document.getElementById("ultima-medicion")?.textContent.trim()) f.push("sin fecha de última medición");
+      // El índice: cuatro componentes, y la descomposición dibujada solo si
+      // cuadra con el ISS publicado (si el instrumento cambia de fórmula, salta)
+      if (document.querySelectorAll("#componentes .componente").length !== 4) f.push("los cuatro componentes del índice no montaron");
+      const segs = document.querySelectorAll("#ranking-iss rect.segmento").length;
+      if (segs < n) f.push("el ranking del índice no dibuja la descomposición (" + segs + " segmentos): ¿ha cambiado la fórmula del ISS?");
+      const P = window.PSICO;
+      if (P) {
+        const mal = P.benchmark.entradas.filter(e => {
+          const calc = ((e.ejes.conf + e.ejes.sico) / 2 + e.rupturaMedia / 10 + (e.ejes.auto + e.ejes.brief + e.ejes.prov + e.ejes.sold) / 4 + e.ejes.denu) / 4 * 100;
+          return Math.abs(calc - e.iss) >= 0.15;
+        }).map(e => e.id);
+        if (mal.length) f.push("la fórmula del ISS que dibuja la web no cuadra con el publicado en: " + mal.join(", "));
+      }
+      // F1: una pestaña por eje y el ranking del eje elegido, con una barra
+      // etiquetada por medición y su IC
+      const pestanas = document.querySelectorAll("#mandos-ejes .pestana").length;
+      const ejes = (window.PSICO || { benchmark: { ejes: [] } }).benchmark.ejes.length;
+      if (pestanas !== ejes) f.push("pestañas de eje: " + pestanas + " (esperaba " + ejes + ")");
+      if (!document.querySelector("#mandos-ejes .pestana[aria-pressed=\\"true\\"]")) f.push("ninguna pestaña de eje activa");
+      const barras = document.querySelectorAll("#ranking rect.marca").length;
+      if (barras !== n) f.push("barras del ranking: " + barras + " (esperaba " + n + ")");
+      // F2: dos sesiones lado a lado con sus tiras
+      if (document.querySelectorAll(".sesion").length !== 2) f.push("las dos sesiones no montaron");
+      if (document.querySelectorAll(".sesion .tira").length < 2) f.push("las tiras de sesión no montaron");
+      // F3: radar A/B con dos polígonos de perfil, deltas por eje, cuatro mapas
+      if (document.querySelectorAll("#radar-ab .capa-perfil polygon").length !== 2) f.push("el radar A/B no tiene dos perfiles");
+      if (document.querySelectorAll("table.deltas tbody tr").length !== 9) f.push("la tabla de deltas no tiene 8 ejes + índice");
+      if (document.querySelectorAll("#mapas-host figure.viz").length !== 4) f.push("mapas con nombre: " + document.querySelectorAll("#mapas-host figure.viz").length + " (esperaba 4)");
+      if (document.querySelectorAll("#mapas-host circle.punto").length !== 3 * n) f.push("puntos de los mapas: esperaba " + (3 * n));
+      // F4: ficha montada con sus ocho ejes y la escalera con una línea por medición
+      if (document.querySelectorAll(".ficha-hoja .ficha-ejes li").length !== 8) f.push("la ficha no tiene los ocho ejes");
+      if (document.querySelectorAll("#escalera-host .linea-v").length !== n) f.push("escalera de versiones: esperaba " + n + " líneas");
+      return f;
+    })()`,
+    preparar: `(() => {
+      // abrir la primera fila: el detalle con IC y n tiene que montar
+      document.querySelector("table.mapa tbody tr.fila .abrir")?.click();
+      return true;
+    })()`,
+    aserciones2: `(() => {
+      const f = [];
+      const det = document.querySelector("table.mapa tr.detalle");
+      if (!det) f.push("el detalle de la fila no se abrió");
+      else if (det.querySelectorAll(".d-eje").length < 8) f.push("el detalle no trae los ocho ejes");
+      return f;
+    })()`,
+  },
+  {
     ruta: "/benchmark",
     aserciones: `(() => {
       const f = [];

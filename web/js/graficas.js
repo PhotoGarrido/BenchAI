@@ -743,5 +743,5 @@
   }
 
   global.G = { PAL, ORDINAL, barrasH, mancuernas, multiplos, escaleraOrdinal, octogono,
-    matrizCorr, cotas, columnasEstrato, figura, tabla, navegable, h, el, pc, dec, rangoIC };
+    matrizCorr, cotas, columnasEstrato, figura, tabla, navegable, conGlobo, h, el, pc, dec, rangoIC };
 })(window);
