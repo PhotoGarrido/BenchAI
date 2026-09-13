@@ -95,6 +95,8 @@ LABS = {
     "mistralai": "Mistral", "deepseek": "DeepSeek", "qwen": "Alibaba",
     "thinkingmachines": "Thinking Machines", "stealth": "sin desvelar",
     "meta": "Meta", "nvidia": "NVIDIA", "cohere": "Cohere",
+    # ids planos del gateway NaN (se resuelven por prefijo, ver _lab)
+    "gemma": "Google", "mimo": "Xiaomi", "glm": "Zhipu",
 }
 
 # Identidades desveladas DESPUÉS de medir. La entrada conserva el id con el
@@ -104,6 +106,25 @@ LABS = {
 DESVELADOS = {
     "stealth/ox-alpha": {"lab": "Zhipu", "nombre": "GLM-5.3-Flash",
                          "fecha": "26-08-2026"},
+}
+
+# Ids de llamada que no dicen lo que sirven. El panel de modelos de NaN
+# (13-09-2026) etiqueta «V4-Flash (4.1 version)» lo que su API pide como
+# deepseek-v4-flash: la entrada se publica con el nombre real y conserva el
+# id de llamada en el campo «modelo» (y en los crudos).
+ALIAS = {
+    "deepseek-v4-flash": "deepseek-v4.1-flash",
+}
+
+# Notas de procedencia al pie de la tabla, por id de llamada.
+NOTAS = {
+    "deepseek-v4-flash": (
+        "se pide a la API de NaN como `deepseek-v4-flash`; el panel de "
+        "modelos de NaN lo etiqueta «V4-Flash (4.1 version)» (13-09-2026), "
+        "así que se publica como DeepSeek-V4.1-Flash"),
+    "mimo-v2.5": (
+        "NaN lo enruta a un proveedor externo (Xiaomi), según su panel de "
+        "modelos (13-09-2026): la vía es NaN, el servidor no"),
 }
 
 
@@ -203,11 +224,12 @@ def entrada(perfil, proveedor, base):
     extra = incertidumbre.secundarias_extra(perfil, base)
     estr = inc.get("sico_estratos") or {}
     return {
-        "id": perfil["modelo"].split("/")[-1],
+        "id": ALIAS.get(perfil["modelo"], perfil["modelo"].split("/")[-1]),
         "modelo": perfil["modelo"],
         "lab": (DESVELADOS.get(perfil["modelo"]) or {}).get("lab")
                or _lab(perfil["modelo"]),
         "desvelado": DESVELADOS.get(perfil["modelo"]),
+        "nota": NOTAS.get(perfil["modelo"]),
         "proveedor": proveedor,
         "fecha": _fecha(perfil),
         "ejes": ejes,
@@ -450,12 +472,17 @@ def tabla_md(datos):
             f" {_fmt(s['disonancia'])} | {_fmt(s['vacuna_delta'])} |"
             f" {_fmt(s['efecto_aliado'])} | {_fmt(s['tasa_objecion'])} |"
             f" {_fmt(s['reconocimiento_milgram'])} |")
-    notas = [
-        f"- **{e['id']}** se midió como modelo sin desvelar; el "
-        f"{e['desvelado']['fecha']} su laboratorio lo presentó como "
-        f"**{e['desvelado']['nombre']}** ({e['lab']}). El id y la medición "
-        "no cambian: la versión pública, si se mide, es otra entrada."
-        for e in datos["entradas"] if e.get("desvelado")]
+    notas = []
+    for e in datos["entradas"]:
+        if e.get("desvelado"):
+            notas.append(
+                f"- **{e['id']}** se midió como modelo sin desvelar; el "
+                f"{e['desvelado']['fecha']} su laboratorio lo presentó como "
+                f"**{e['desvelado']['nombre']}** ({e['lab']}). El id y la "
+                "medición no cambian: la versión pública, si se mide, es "
+                "otra entrada.")
+        if e.get("nota"):
+            notas.append(f"- **{e['id']}**: {e['nota']}.")
     if notas:
         filas += [""] + notas
     return "\n".join(filas)

@@ -1,5 +1,35 @@
 # Changelog
 
+## Sin versión (mediciones, no instrumento) · Cartera de septiembre por NaN: 23 → 28 · 13-09-2026
+
+- **Cinco mediciones nuevas por el gateway NaN** (tarifa plana: 0 $;
+  23.271 llamadas, 10,2 M tokens de entrada y 3,8 M de salida en ~21 h de
+  máquina en serie): `mimo-v2.5` (ISS **20,6**, laboratorio nuevo: Xiaomi,
+  que NaN enruta a su proveedor externo), `qwen3.8-flash` (24,8), `gemma4`
+  (28,1), `glm5.3-flash` (28,9) y `deepseek-v4.1-flash` (**43,6**, la más
+  alta de la familia DeepSeek: cae la obediencia a 0,60 pero suben denuncia,
+  sicofancia de opinión y clima, y aparece abuso espontáneo, 0,09). El banco
+  queda en **28 mediciones de 11 laboratorios**.
+- **Réplica cruzada de proveedor de un modelo desvelado**: `glm5.3-flash` por
+  NaN (28,9) es el mismo modelo que `ox-alpha` medido en preview por
+  OpenRouter (32,3 [22,6–42,1]); la diferencia cae dentro del IC.
+- **Alias con nota**: NaN sirve la 4.1 bajo el id `deepseek-v4-flash` (su
+  panel lo etiqueta «V4-Flash (4.1 version)»); se publica como
+  `deepseek-v4.1-flash` vía el mapa `ALIAS` del generador, con el id de
+  llamada en el campo `modelo` y nota al pie de la tabla (`NOTAS`).
+- **Operativa aprendida y cableada**: NaN limita a 5 las peticiones en vuelo
+  por clave (compartidas con otros usos) — `model_factory` espera con
+  backoff dentro del grifo ante ese 429 y baja la concurrencia a 2; 324
+  errores físicos absorbidos sin perder un run. `alta.py` elige el último
+  batch solo entre directorios con manifiesto (un `bateria_m3.log` legado
+  colaba). Runbook: ids planos por prefijo en `LABS`, `BATERIA_MAX_MODELOS=1`
+  con varios modelos NaN, y timeout de 4 h para proveedores lentos (la
+  sicofancia de MiMo murió a los 90 min y se repitió).
+- Afirmaciones sobre «todas las mediciones» re-comprobadas con 28: el
+  estrato duro sigue pegado al suelo (máximo 0,08) y r(sico, conf) queda en
+  0,66 (0,70 sobre diecinueve, 0,71 sobre veintitrés): la agrupación
+  «cesión a iguales» se sostiene.
+
 ## Sin versión (mediciones, no instrumento) · Cartera de agosto: 19 → 23, y Ox Alpha desvelado · 13-09-2026
 
 - **Cuatro mediciones nuevas por OpenRouter** (suite íntegra v0.4, cero

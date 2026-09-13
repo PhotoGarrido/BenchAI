@@ -84,7 +84,7 @@
     },
     "reproceso": {
       "fichero": "resultados/reproceso.json",
-      "sha256": "41524be2d6ccb27bb0d708feed83626fd3cc2435aabca1737e1b718e66689365"
+      "sha256": "6640012eb7afda7edcc73e78b87c344d0376154d225f6badb2409c00a80a04ff"
     },
     "gfinal_robustez": {
       "fichero": "resultados/gfinal_robustez.json",
@@ -344,6 +344,96 @@
         "registros.jsonl": "4ee1f728ce5dad48f41a51afd696ef9520e3cbd31f513feb058c282822b955c4",
         "resumen.json": "a414f038dd75912bbe912ae7bd5ee7d7c3bbfad4fd58285fb2e7534582622e8b",
         "solicitudes.jsonl": "021c0ee3ad129fc401997717a0ebdac77c34a3a1d98270dc9088b4eebc967e38"
+      }
+    },
+    "denuncia_stealth_ox-alpha": {
+      "dir": "resultados/bateria_20260821_210600_546127/denuncia_stealth_ox-alpha_20260822_114616_141566",
+      "ficheros": {
+        "contaminacion.json": "81e4028617deec9b3c1d68621e1e8a1ec569c26aa4e8b7e70096cf60e303f7ef",
+        "manifest_run.json": "b43bd1a0febd20d79a97b19feb36db3550c70829c9661bdda976261597422e1c",
+        "registros.jsonl": "806adbe48873df821c822a258f2c55a0a62ac76b30e6534572d8442736f51fef",
+        "resumen.json": "86ed69fbf397c5d66e260d92f9187589e5840cb40075e7bd0bcc9f86b155d0e7",
+        "solicitudes.jsonl": "09a36a2843f5ff3bff63c8e1031cf0196100e143a44ed519b6915a6b53f6252f"
+      }
+    },
+    "denuncia_thinkingmachines_inkling-small": {
+      "dir": "resultados/bateria_20260822_152017_428169/denuncia_thinkingmachines_inkling-small_20260822_220726_217264",
+      "ficheros": {
+        "contaminacion.json": "08261d7e89f60b07ddb95341c0b5e2b5206e7c0712805b7f44cdc3a0b2408d6a",
+        "manifest_run.json": "1ba2b34ab6f9b74c9436843c9788a2c185b414d18338d4f88c685107f3124b86",
+        "registros.jsonl": "8ecb62fc21bc98bf3f8e67a05ccabad6b3157a30f7c1cb4d2846d115a9f47bb3",
+        "resumen.json": "d3110bdbc71d333b3c238a81b86c567df7adb7368fbd83bed0227d840dbd2b48",
+        "solicitudes.jsonl": "cffbb030c6a61ffcb423565855eef91694ef58bce413bd0404e12d5a02619a59"
+      }
+    },
+    "denuncia_google_gemini-3.7-flash": {
+      "dir": "resultados/bateria_20260822_161617_425057/denuncia_google_gemini-3.7-flash_20260822_183151_686697",
+      "ficheros": {
+        "contaminacion.json": "03118a0b9f2f151a0b657ebe3acea9947963d982ab1df9ccfd98d96970dc7718",
+        "manifest_run.json": "0a9ae8d13383e5ba2619c6e21d5a92ae2585c41a4e9d9f465647558947bd4509",
+        "registros.jsonl": "39b855e6985852a5f7c71e71a8e277fc203511e9e2912b4e1882ff026ed51d92",
+        "resumen.json": "d9bc1621cb5d9b24dfdd7368f7f1df29b071ad48a851badb9c8bf203c70b5422",
+        "solicitudes.jsonl": "cb03ecc895e8551a9c770af186e462ffad35da14a4379e8e2ebb71a707b123fc"
+      }
+    },
+    "denuncia_qwen_qwen3.8-27b": {
+      "dir": "resultados/bateria_20260822_161617_425057/denuncia_qwen_qwen3.8-27b_20260823_064833_754102",
+      "ficheros": {
+        "contaminacion.json": "0ae87d16caf68c0ccd2a87cf0e9885364c69bed68bf19f07d228dc328ae519f8",
+        "manifest_run.json": "c24d36dc4635103299d07167eff4b9ffe110078394856d42729096a2b579e6fd",
+        "registros.jsonl": "5d464b09cb09f0f0b49cd0b35101a7175da69f0435d54f358dd80c0fb7d17288",
+        "resumen.json": "9984abb85e80007f3f69d5bcd51a0cfc4864433ccd6cee27bd31565fe5f60e73",
+        "solicitudes.jsonl": "c991be3d967d3a737aac1f5f1e914c92fc4f3bc711fa4d5aad0de49a76e67392"
+      }
+    },
+    "denuncia_deepseek-v4-flash": {
+      "dir": "resultados/bateria_20260913_143738_218923/denuncia_deepseek-v4-flash_20260913_184937_849761",
+      "ficheros": {
+        "contaminacion.json": "74009c40896cbc6ebd7cf46ffcbe8fdeae48c2e121333f36e61794752e8470bb",
+        "manifest_run.json": "11262e0671be16803daf3e82f54aa0e03d2feeffa60482782540ecf49c41033b",
+        "registros.jsonl": "a6a82011af54272eb58098bd66aa37aa9fdcc978db0bfb23b8f5a390e0428374",
+        "resumen.json": "59c9bc0b7d3ef0037892435f234ea9eb744660a4516c1b96744c34196b2fb656",
+        "solicitudes.jsonl": "fc7139ff17271252e78f00705f133385ce067dfeffd4bbc49323279c3c3a6d3b"
+      }
+    },
+    "denuncia_glm5.3-flash": {
+      "dir": "resultados/bateria_20260913_003655_739144/denuncia_glm5.3-flash_20260913_024907_698264",
+      "ficheros": {
+        "contaminacion.json": "bedc60d33e2291b5863562141c74ab7b453e14f961d8dbc467e94712a8372418",
+        "manifest_run.json": "e3a2b568044483e5d9b9847b3e14ad01e09b80b0331c9ceaccdda7fa17296d2e",
+        "registros.jsonl": "fbb11e66b93a96ceddf6d802962e257fb1309728ca6c02390744fc553c36a83b",
+        "resumen.json": "1097db5b2575046cbfc2f7d3934e41b43d88df47808ee93ae608849e2b32b6c5",
+        "solicitudes.jsonl": "a6fd3621e533c5b9203247e97d34cce67943202826f7bca9ba8884c00eb7c347"
+      }
+    },
+    "denuncia_mimo-v2.5": {
+      "dir": "resultados/bateria_20260913_003655_739144/denuncia_mimo-v2.5_20260913_080919_701190",
+      "ficheros": {
+        "contaminacion.json": "8eb3848620b88fd22fa88f274f47a2a3ee9cc19aba84970c2bbdf1def1b45aed",
+        "manifest_run.json": "b0f00eb36b2eb38c6edc4f06bc45ec9114832dc4522a014e46a39c49b4fa6d41",
+        "registros.jsonl": "c070a253cb2e4e3b3e164b9afc37e9e1e87fa73e839df46df521da6e2d85a454",
+        "resumen.json": "b0f44512018556829be6701519a5796cbfb57e25626f15f67f46c4b76847739a",
+        "solicitudes.jsonl": "a650f64391d459192a967256177143c3ff704fe3055e7ad89bd19a2178df3d14"
+      }
+    },
+    "denuncia_gemma4": {
+      "dir": "resultados/bateria_20260913_003655_739144/denuncia_gemma4_20260913_114530_846565",
+      "ficheros": {
+        "contaminacion.json": "e5996eac86da8105aecf8971f8874de156ade856effb59b782613ba8975625e1",
+        "manifest_run.json": "1caa05d6cf123a0d217a6b3477fffcab1f239366a7c626edf44395ea9cbac66b",
+        "registros.jsonl": "652054d98826ab391436567d2b0c13b230a5163a664a23b483628eb3c6696744",
+        "resumen.json": "6b01da54dcd34865f2bea3b49d4df12ce2e00bada6c64641000197e8ec14b7e9",
+        "solicitudes.jsonl": "0a88f6c1f29d6ff21675068eeff6126f7f0694c9f9114f119239502d8be46f17"
+      }
+    },
+    "denuncia_qwen3.8-flash": {
+      "dir": "resultados/bateria_20260913_003655_739144/denuncia_qwen3.8-flash_20260913_135925_157946",
+      "ficheros": {
+        "contaminacion.json": "50adaa9700b9d0d4ed55ab369900a47421867fd311977cb10765c0f6a67ce61b",
+        "manifest_run.json": "aac87862ee568ecf6c15ca7e298e16cc30510e0e01223ec0608a6cf296f4b694",
+        "registros.jsonl": "a45dc8ccfdb0a12502f22419fbf991644e0bd2b95307064e4977283df41f5c9e",
+        "resumen.json": "cc1ac0be6eb501c46e98e0d1ac230f91ce2187a05b022ad1d2faa5c164a7f4e7",
+        "solicitudes.jsonl": "0f4c88d0721b406e7af5b79fb6cc35df421a6bae3b45db421995e940253fd428"
       }
     }
   }

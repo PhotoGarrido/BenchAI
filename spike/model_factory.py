@@ -30,7 +30,11 @@ import manifiesto
 # llamadas simultáneas el endpoint mete en cola con castigo (429+backoff:
 # 8 llamadas en paralelo → 61 s frente a ~8 s en serie). Todas las instancias
 # de modelo comparten este semáforo.
-_SEMAFORO = threading.BoundedSemaphore(int(os.environ.get("NAN_MAX_CONCURRENTES", "3")))
+# 13-09-2026: NaN limita además las peticiones EN VUELO por clave a 5
+# («max_parallel_requests»), y la clave la comparten otros usos del dueño;
+# con 3 de grifo la cartera de septiembre se estrellaba en Milgram. 2 deja
+# hueco a esos usos y a las peticiones expiradas que el servidor sigue contando.
+_SEMAFORO = threading.BoundedSemaphore(int(os.environ.get("NAN_MAX_CONCURRENTES", "2")))
 # OpenRouter no tiene ese acantilado; grifo propio y más ancho.
 _SEMAFORO_OR = threading.BoundedSemaphore(int(os.environ.get("OPENROUTER_MAX_CONCURRENTES", "8")))
 
@@ -233,38 +237,61 @@ class NaNLanguageModel(language_model.LanguageModel):
         self._client = OpenAI(api_key=api_key, base_url=base_url,
                               max_retries=0)
 
+    #: Esperas ante un 429 de NaN por «max_parallel_requests» (13-09-2026:
+    #: 5 peticiones EN VUELO por clave, compartidas con cualquier otro uso de
+    #: la clave; las que expiran por timeout siguen contando en el servidor).
+    #: No es tasa, es un hueco ocupado: se espera y se repite DENTRO del
+    #: grifo, sin abrir concurrencia nueva. Cada intento físico sigue
+    #: registrado en solicitudes.jsonl. El RetryLanguageModel de fuera
+    #: (4 intentos) no bastaba: se rendía en menos de un minuto.
+    _ESPERAS_429 = (5, 10, 20, 40, 60, 90, 120, 180)
+
     def _chat(self, prompt, *, max_tokens, temperature, top_p, seed, timeout):
         with self._sem:
+            for espera in self._ESPERAS_429 + (None,):
+                try:
+                    return self._chat_degradable(
+                        prompt, max_tokens=max_tokens, temperature=temperature,
+                        top_p=top_p, seed=seed, timeout=timeout)
+                except openai.RateLimitError as e:
+                    if espera is None or self._proveedor != "nan":
+                        raise
+                    print(f"[nan] 429 en {self._model}: {str(e)[:160]} — "
+                          f"espero {espera}s dentro del grifo", file=sys.stderr)
+                    time.sleep(espera)
+
+    def _chat_degradable(self, prompt, *, max_tokens, temperature, top_p,
+                         seed, timeout):
+        try:
+            return self._chat_sin_grifo(
+                prompt, max_tokens=max_tokens, temperature=temperature,
+                top_p=top_p, seed=seed, timeout=timeout)
+        except openai.BadRequestError as e:
+            # Un 400 no es transitorio: reintentarlo igual no lo cura.
+            # Degradación: sin extra_body (por si este modelo lo rechaza)
+            # y presupuesto corto; si aún así falla, vacío antes que morir.
+            print(f"[nan] 400 en {self._model} (prompt {len(prompt)}"
+                  f" chars, max_tokens {max_tokens}): {str(e)[:300]}",
+                  file=sys.stderr)
+            # Con effort pedido, la degradación falsearía el experimento:
+            # el run quedaría etiquetado «#high» habiendo corrido sin
+            # razonamiento. Se muere antes que mentir sobre la condición.
+            if self._effort is not None:
+                raise SystemExit(
+                    f"[modelo] 400 con reasoning_effort={self._effort} en "
+                    f"{self._model}: el nivel de razonamiento es la "
+                    "variable independiente y no se puede degradar. "
+                    f"Detalle: {str(e)[:300]}")
             try:
                 return self._chat_sin_grifo(
-                    prompt, max_tokens=max_tokens, temperature=temperature,
-                    top_p=top_p, seed=seed, timeout=timeout)
-            except openai.BadRequestError as e:
-                # Un 400 no es transitorio: reintentarlo igual no lo cura.
-                # Degradación: sin extra_body (por si este modelo lo rechaza)
-                # y presupuesto corto; si aún así falla, vacío antes que morir.
-                print(f"[nan] 400 en {self._model} (prompt {len(prompt)}"
-                      f" chars, max_tokens {max_tokens}): {str(e)[:300]}",
+                    prompt, max_tokens=min(max_tokens, 2048),
+                    temperature=temperature, top_p=top_p, seed=seed,
+                    timeout=timeout, con_extra=False)
+            except openai.BadRequestError as e2:
+                print(f"[nan] 400 persistente en {self._model}:"
+                      f" {str(e2)[:300]} — devuelvo vacío",
                       file=sys.stderr)
-                # Con effort pedido, la degradación falsearía el experimento:
-                # el run quedaría etiquetado «#high» habiendo corrido sin
-                # razonamiento. Se muere antes que mentir sobre la condición.
-                if self._effort is not None:
-                    raise SystemExit(
-                        f"[modelo] 400 con reasoning_effort={self._effort} en "
-                        f"{self._model}: el nivel de razonamiento es la "
-                        "variable independiente y no se puede degradar. "
-                        f"Detalle: {str(e)[:300]}")
-                try:
-                    return self._chat_sin_grifo(
-                        prompt, max_tokens=min(max_tokens, 2048),
-                        temperature=temperature, top_p=top_p, seed=seed,
-                        timeout=timeout, con_extra=False)
-                except openai.BadRequestError as e2:
-                    print(f"[nan] 400 persistente en {self._model}:"
-                          f" {str(e2)[:300]} — devuelvo vacío",
-                          file=sys.stderr)
-                    return ""
+                return ""
 
     def _chat_sin_grifo(self, prompt, *, max_tokens, temperature, top_p,
                         seed, timeout, con_extra=True):
