@@ -1,0 +1,7 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "_doc": "La integración Git de Vercel desplegaba el repo crudo en cada push a main y pisaba el sitio (404 en / y /completo). Lo que se publica es el paquete de lista blanca de web/publicar.py, y solo lo despliega .github/workflows/desplegar.yml tras la CI. Este fichero apaga los deploys automáticos de Git; el paquete lleva su propio vercel.json.",
+  "git": {
+    "deploymentEnabled": false
+  }
+}
