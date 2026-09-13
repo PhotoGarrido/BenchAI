@@ -35,10 +35,10 @@ SCRIPTS = {
     "index.html": ["datos.js", "js/marcado.js", "js/graficas.js",
                    "js/reproductor.js", "js/pagina.js", "js/escena.js"],
     "home.html": ["datos.js", "js/marcado.js", "js/home.js"],
-    "psicobench.html": ["datos.js", "js/marcado.js", "js/graficas.js", "js/psicobench.js"],
+    "psicobench.html": ["datos.js", "js/marcado.js", "js/graficas.js", "js/psicobench.js", "js/escena.js"],
 }
 HOJAS = {"index.html": ["css/estilo.css"], "home.html": ["css/home.css"],
-         "psicobench.html": ["css/psicobench.css"]}
+         "psicobench.html": ["css/estilo.css", "css/psicobench.css"]}
 
 
 def blindar(js: str) -> str:

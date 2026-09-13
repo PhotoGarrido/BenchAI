@@ -42,6 +42,10 @@ const RUTAS = [
       if (!window.PSICO) f.push("window.PSICO no cargó");
       if (!document.querySelector(".botonera .llave-b")) f.push("la botonera no montó");
       if (!document.querySelector(".firmas .fila-f")) f.push("las firmas no montaron");
+      // las tres lecturas, siempre a mano, con la actual marcada; y el progreso de lectura
+      if (document.querySelectorAll(".superficies a").length !== 3) f.push("falta el conmutador de superficies");
+      if (!document.querySelector('.superficies a[aria-current="page"]')) f.push("el conmutador no marca la página actual");
+      if (!document.getElementById("progreso")) f.push("sin barra de progreso");
       return f;
     })()`,
   },
@@ -74,6 +78,10 @@ const RUTAS = [
       const celdas = document.querySelectorAll("table.mapa td.c").length;
       if (celdas < n * 8) f.push("celdas de eje: " + celdas + " (esperaba ≥ " + (n * 8) + ")");
       if (!document.getElementById("ultima-medicion")?.textContent.trim()) f.push("sin fecha de última medición");
+      if (document.querySelectorAll(".superficies a").length !== 3) f.push("falta el conmutador de superficies");
+      if (!document.querySelector('.superficies a[aria-current="page"]')) f.push("el conmutador no marca la página actual");
+      if (!document.getElementById("progreso")) f.push("sin barra de progreso");
+      if (!document.querySelectorAll("#pi-componentes .pi-fila").length) f.push("el panel del índice de la portada no montó");
       // El índice: cuatro componentes, y la descomposición dibujada solo si
       // cuadra con el ISS publicado (si el instrumento cambia de fórmula, salta)
       if (document.querySelectorAll("#componentes .componente").length !== 4) f.push("los cuatro componentes del índice no montaron");

@@ -1,6 +1,8 @@
 # 🌐 `web/` — sitio divulgativo (prototipo v0.2)
 
-Dos páginas, dos públicos, los mismos datos:
+Tres páginas, tres lecturas, los mismos datos, y un conmutador «Resumen ·
+Completa · PsicoBench» en la barra de las tres para pasar de una a otra
+(visible también en móvil, donde el menú de secciones se esconde):
 
 | Página | Para quién | Qué cuenta |
 |---|---|---|
@@ -87,7 +89,7 @@ web/
 ├── psicobench.html     la superficie propia del benchmark (/psicobench)
 ├── css/home.css        sistema visual de la home: cálido/frío, pergamino
 ├── css/estilo.css      sistema visual del sitio largo
-├── css/psicobench.css  un solo registro (papel) con los mismos tokens que estilo.css
+├── css/psicobench.css  solo los componentes de PsicoBench; va ENCIMA de estilo.css
 ├── js/home.js          pictogramas, dosieres, chat ligero, infografía y test
 ├── js/psicobench.js    el mapa mediciones × ejes y las cifras de la página del benchmark
 ├── visor-embebido.html GENERADO desde viewer/index.html — no editar
