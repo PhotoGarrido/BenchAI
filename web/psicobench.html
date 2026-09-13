@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Misma política que el resto del sitio: nada de red, scripts solo del
+     propio origen. La página es estática y funciona también con file://. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'">
+<title>PsicoBench · El perfil social de cada modelo · BenchAI</title>
+<link rel="canonical" href="https://benchai.tech/psicobench">
+<meta name="description" content="PsicoBench: el perfil social de los modelos de lenguaje medido por conducta. Conformidad, obediencia, abuso de poder, silencio ante la irregularidad y sicofancia, con intervalos de confianza y ejemplos reales, sobre 23 mediciones de 10 laboratorios.">
+<meta name="color-scheme" content="light">
+<meta property="og:title" content="PsicoBench · Cada modelo cede a la presión a su manera">
+<meta property="og:description" content="Ocho formas de ceder a la presión social, medidas con la misma batería en 23 mediciones de 10 laboratorios. No es un ranking de calidad: es un perfil.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://benchai.tech/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://benchai.tech/psicobench">
+<meta property="og:site_name" content="BenchAI">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://benchai.tech/og.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23222623'/%3E%3Crect x='5' y='21' width='4.2' height='6' rx='1' fill='%238E9A70'/%3E%3Crect x='11' y='16' width='4.2' height='11' rx='1' fill='%23DDA950'/%3E%3Crect x='17' y='11' width='4.2' height='16' rx='1' fill='%23EE7633'/%3E%3Crect x='23' y='5' width='4.2' height='22' rx='1' fill='%23D42F2A'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/psicobench.css">
+</head>
+<body>
+
+<a class="saltar" href="#mapa">Saltar al mapa</a>
+
+<header class="barra" id="barra">
+  <div class="interior">
+    <a class="marca" href="home.html">
+      <span class="punto" aria-hidden="true"></span>
+      BenchAI <span class="sub">· PsicoBench</span>
+      <span class="v" data-texto="benchmark.version" data-prefijo="v"></span>
+    </a>
+    <nav class="navmini" aria-label="Secciones">
+      <a href="#indice">El índice</a>
+      <a href="#ejes">Quién cede a qué</a>
+      <a href="#mapa">El mapa</a>
+      <a href="#sesiones">Cara a cara</a>
+      <a href="#mapas">Mapas</a>
+      <a href="#ficha">Ficha</a>
+      <a href="#versiones">Versiones</a>
+      <a href="#metodo">Método</a>
+      <a class="otra" href="index.html#benchmark">Sitio largo</a>
+      <a class="otra" href="../benchmark/index.html">Panel del instrumento</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ═══ portada ══════════════════════════════════════════════════════════ -->
+<section class="portada" id="portada">
+  <div class="marco">
+    <p class="ceja">PsicoBench · perfil social de modelos de lenguaje</p>
+    <h1>Cada modelo cede a la presión <em>a su manera</em>. Aquí está medido.</h1>
+    <p class="entradilla">
+      Sentamos a cada modelo en los experimentos clásicos de la psicología social, disfrazados
+      para que no los reconozca: la sala de Asch, la escalera de Milgram, un turno de supervisión
+      con poder real, una irregularidad que crece y un interlocutor que opina lo contrario.
+      De ahí salen <strong>ocho formas de ceder</strong>, medidas con la misma batería para todas
+      las mediciones. <strong>No es una nota</strong>: un modelo «alto» no es peor, es distinto,
+      y si eso importa depende de dónde vaya a trabajar.
+    </p>
+    <ul class="metadatos" aria-label="Datos del benchmark">
+      <li><b data-cifra="benchmark.mediciones"></b> mediciones</li>
+      <li><b data-cifra="benchmark.modelosDistintos"></b> modelos distintos</li>
+      <li><b id="n-labs"></b> laboratorios</li>
+      <li><b id="n-ejes"></b> ejes conductuales</li>
+      <li>última medición <b id="ultima-medicion"></b></li>
+      <li>suite <b data-texto="benchmark.suite"></b></li>
+      <li>datos CC BY 4.0 · <a href="../benchmark/psicobench.json">JSON</a> · <a href="../BENCHMARK.md">método</a></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══ 01 · el índice ═══════════════════════════════════════════════════ -->
+<section class="bloque" id="indice">
+  <div class="marco">
+    <div class="rotulo"><span class="indice">01</span><span class="grupo">El índice</span></div>
+    <h2 class="titulo">Un número por medición: el índice de susceptibilidad social</h2>
+    <p class="bajada">
+      El <strong>ISS</strong> resume cuánto cede una medición a la presión social del protocolo,
+      de 0 a 100: más alto, más cede. No es una nota de calidad ni una media plana de los ocho
+      ejes: es una <strong>media jerárquica por paradigma</strong>, para que los cuatro marcos
+      de la prisión no pesen cuatro veces más que la sala de Asch. Cuatro componentes, cada uno
+      un cuarto del índice.
+    </p>
+    <div class="componentes" id="componentes"></div>
+    <div id="ranking-iss"></div>
+    <p class="nota" style="margin-top:14px" id="nota-iss"></p>
+  </div>
+</section>
+
+<!-- ═══ 02 · eje a eje ═══════════════════════════════════════════════════ -->
+<section class="bloque" id="ejes">
+  <div class="marco">
+    <div class="rotulo"><span class="indice">02</span><span class="grupo">Quién cede a qué</span></div>
+    <h2 class="titulo">Una forma de ceder cada vez, con todas las mediciones</h2>
+    <p class="bajada">
+      Elige una forma de presión. Cada barra es una medición, con su nombre, ordenadas de más a
+      menos, y cada una lleva su <strong>intervalo de confianza al 95 %</strong>. Donde dos
+      intervalos se solapan, el orden entre esas dos mediciones no significa nada: léelo como
+      grupos, no como una lista.
+    </p>
+    <div class="mandos" id="mandos-ejes"></div>
+    <div class="rejilla lado-eje">
+      <div class="prosa" id="prosa-eje"></div>
+      <div id="ranking"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 01 · el mapa ═════════════════════════════════════════════════════ -->
+<section class="bloque" id="mapa">
+  <div class="marco">
+    <div class="rotulo"><span class="indice">03</span><span class="grupo">El mapa</span></div>
+    <h2 class="titulo">Todas las mediciones, las ocho formas de ceder</h2>
+    <p class="bajada">
+      Cada fila es una <strong>medición</strong>, no un modelo: el mismo nombre comercial servido
+      por otro proveedor, o un mes después, puede dar otro perfil, y por eso cada fila lleva su vía
+      y su fecha. Cada columna es una forma de presión. Cifras = proporción × 100; más color = más
+      cede. El índice ordena por susceptibilidad social, no por calidad. Pulsa una cabecera para
+      reordenar y una fila para ver sus intervalos y su tamaño de muestra.
+    </p>
+    <div class="mandos" id="mandos-mapa"></div>
+    <div id="heat"></div>
+    <div class="leyenda-mapa" id="leyenda-mapa"></div>
+    <p class="nota" style="margin-top:14px">
+      <b>Posición.</b> Es un rango, no un puesto: dos mediciones cuyos intervalos de confianza
+      del índice se solapan no son distinguibles y comparten grupo. El orden dentro de un grupo
+      es tipográfico y no significa nada. <b>n/c</b> = perfil publicado pero fuera de la
+      clasificación, porque algún eje quedó por debajo del mínimo de observaciones válidas.
+      <b>Sicofancia</b> es neta (presión menos control) y puede ser negativa.
+    </p>
+  </div>
+</section>
+
+<!-- ═══ 03 · así se ve una sesión ════════════════════════════════════════ -->
+<section class="bloque" id="sesiones">
+  <div class="marco">
+    <div class="rotulo"><span class="indice">04</span><span class="grupo">Cara a cara</span></div>
+    <h2 class="titulo">Dos mediciones, la misma prueba, paso a paso</h2>
+    <p class="bajada">
+      Elige dos mediciones cualesquiera. Arriba, sus perfiles superpuestos y la diferencia eje a
+      eje, con la regla de siempre: si los intervalos se solapan, la diferencia no es
+      distinguible. Debajo, las sesiones tal cual se registraron.
+    </p>
+    <div class="mandos" id="mandos-sesiones"></div>
+    <div class="rejilla lado-comparar">
+      <div id="radar-ab"></div>
+      <div id="deltas-ab"></div>
+    </div>
+    <h3 class="mini" style="margin-top:34px;font-size:17px">Así se ve una sesión</h3>
+    <p class="nota" style="margin-bottom:14px">
+      El banco pide decisiones de una palabra y un juicio privado de otra, así que lo que se ve es
+      la <b>tira de decisiones de cada sujeto sintético</b>, nivel a nivel o semana a semana, con lo
+      que pensaba en privado debajo. En la prisión el supervisor narra lo que hace, y esa frase se
+      cita literal.
+    </p>
+    <div class="mandos" id="mandos-paradigma"></div>
+    <div class="dos-sesiones" id="sesiones-host"></div>
+    <p class="nota" style="margin-top:14px" id="sesiones-nota"></p>
+  </div>
+</section>
+
+<!-- ═══ 04 · mapas con nombre ════════════════════════════════════════════ -->
+<section class="bloque" id="mapas">
+  <div class="marco">
+    <div class="rotulo"><span class="indice">05</span><span class="grupo">Mapas con nombre</span></div>
+    <h2 class="titulo">Cuatro cruces que cuentan algo</h2>
+    <p class="bajada">
+      Los ejes no son ocho cosas independientes. Cada mapa cruza dos y lleva sus cuadrantes
+      escritos en lenguaje llano; el cuarto no cruza ejes sino <strong>versiones del mismo
+      nombre</strong>, y es el que sostiene la doctrina de que se miden mediciones, no modelos.
+      Pulsa un punto para abrir su ficha.
+    </p>
+    <div class="rejilla c2 mapas" id="mapas-host"></div>
+  </div>
+</section>
+
+<!-- ═══ 05 · ficha ═══════════════════════════════════════════════════════ -->
+<section class="bloque" id="ficha">
+  <div class="marco">
+    <div class="rotulo"><span class="indice">06</span><span class="grupo">Ficha por medición</span></div>
+    <h2 class="titulo">Una medición, entera</h2>
+    <p class="bajada">
+      Todo lo que el banco sabe de una medición: su perfil, dónde queda en cada eje y de cuántas
+      no se distingue, las métricas secundarias, cómo la ha visto cada versión del instrumento
+      y los registros crudos de los que sale cada cifra. La dirección de esta ficha se puede
+      copiar y enlazar.
+    </p>
+    <div class="mandos" id="mandos-ficha"></div>
+    <div id="ficha-host"></div>
+  </div>
+</section>
+
+<!-- ═══ 06 · escalera de versiones ═══════════════════════════════════════ -->
+<section class="bloque" id="versiones">
+  <div class="marco">
+    <div class="rotulo"><span class="indice">07</span><span class="grupo">Escalera de versiones</span></div>
+    <h2 class="titulo">El instrumento cambia y el orden se mueve</h2>
+    <p class="bajada">
+      Cada versión del índice se pre-declaró antes de medir y se ejecutó tal cual se congeló; las
+      anteriores se conservan y se recomprueban entrada a entrada. Esta es la tabla puente,
+      dibujada: la misma medición bajo cada versión, con su intervalo. Que una línea suba o baje
+      no dice nada del modelo; dice qué pondera cada versión.
+    </p>
+    <div id="escalera-host"></div>
+  </div>
+</section>
+
+<!-- ═══ 07 · método ══════════════════════════════════════════════════════ -->
+<section class="bloque" id="metodo">
+  <div class="marco">
+    <div class="rotulo"><span class="indice">08</span><span class="grupo">Método y doctrina</span></div>
+    <h2 class="titulo">Cómo leer esto sin engañarse</h2>
+    <div class="rejilla lado">
+      <div class="prosa">
+        <h3 class="mini">La unidad es la medición</h3>
+        <p>Cada entrada es <code>modelo + snapshot + proveedor + fecha</code>. La réplica del mismo
+        nombre comercial en dos fechas, y del mismo snapshot por dos vías, mostró que el perfil
+        social no sobrevive necesariamente al cambio de versión ni de proveedor. Al citar una
+        cifra, cita la medición, no el nombre a secas.</p>
+        <h3 class="mini">Los intervalos mandan</h3>
+        <p>Cada eje lleva su intervalo de confianza al 95 %, remuestreado por cadena, y su
+        tamaño de muestra: están a un clic en cada fila del mapa. Un empate en la clasificación
+        significa «no distinguible con estos datos», no «casi igual».</p>
+        <h3 class="mini">Todo se reconstruye desde los crudos</h3>
+        <p>Ninguna cifra de esta página está escrita a mano: se generan desde
+        <a href="../benchmark/psicobench.json">psicobench.json</a>, que a su vez se regenera
+        desde las matrices versionadas con su cadena de hashes. La integración continua falla si
+        una cifra no puede reconstruirse.</p>
+        <p class="mandos" id="mandos-descarga"></p>
+        <h3 class="mini">Añade tu modelo</h3>
+        <p>La suite entera se lanza con un comando y cuesta un dígito en dólares por modelo. El
+        manual está en <a href="../ALTA_MODELO.md">ALTA_MODELO.md</a> y la doctrina completa en
+        <a href="../BENCHMARK.md">BENCHMARK.md</a>.</p>
+      </div>
+      <div class="aviso">
+        <h3>Qué NO es este benchmark</h3>
+        <p><strong>No es un ranking de calidad.</strong> Un índice alto no hace peor modelo; hace un
+        perfil distinto, relevante según el despliegue.</p>
+        <p><strong>No es evidencia sobre humanos</strong> ni una medida de «personalidad» interna:
+        es conducta bajo protocolos concretos, en español, con contaminación en techo (los modelos
+        reconocen los paradigmas al sondear).</p>
+        <p><strong>No es confirmatorio</strong>: los intervalos de esta vista son descriptivos, sin
+        corrección por comparaciones múltiples. Y los perfiles son perfiles <em>en este harness
+        conversacional</em>: con herramientas o memoria persistente pueden diferir.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="marco">
+    <p>Todos los sujetos y personajes de los escenarios son <strong>sintéticos</strong>: nombres y
+    rasgos generados para el experimento. Cualquier coincidencia con personas reales es fortuita.</p>
+    <p>BenchAI — David Garrido ·
+      <a href="https://github.com/PhotoGarrido/BenchAI">github.com/PhotoGarrido/BenchAI</a>
+      (código, datos e incidencias) · datos CC BY 4.0 · código Apache-2.0 ·
+      cita en <a href="https://github.com/PhotoGarrido/BenchAI/blob/main/CITATION.cff">CITATION.cff</a> ·
+      despliegue <span data-despliegue>copia local</span>.</p>
+    <p>Privacidad: este sitio no usa cookies, analítica, formularios ni terceros; el hosting
+    (Vercel) registra logs técnicos de acceso. Los datos de esta página se generan con
+    <code>web/generar_datos.py</code> desde <code>benchmark/psicobench.json</code>.</p>
+  </div>
+</footer>
+
+<script src="datos.js"></script>
+<script src="js/marcado.js"></script>
+<script src="js/graficas.js"></script>
+<script src="js/psicobench.js"></script>
+</body>
+</html>

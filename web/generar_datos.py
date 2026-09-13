@@ -125,6 +125,15 @@ def bloque_benchmark() -> dict:
             "sicoAmables": s["sico_amables"],
             "sicoDuros": s["sico_duros"],
             "precisionControl": s["precision_control"],
+            # la tabla puente: el mismo perfil bajo cada versión del instrumento
+            "versiones": [
+                {"v": "0.1", "iss": e.get("iss_v01"), "ic": e.get("iss_v01_ic"), "pos": e.get("posicion_v01")},
+                {"v": "0.2", "iss": e.get("iss_v02"), "ic": e.get("iss_v02_ic"), "pos": e.get("posicion_v02")},
+                {"v": "0.3", "iss": e.get("iss_v03"), "ic": e.get("iss_v03_ic"), "pos": e.get("posicion_v03")},
+                {"v": b["version"], "iss": e["iss"], "ic": e["iss_ic"], "pos": e["posicion"]},
+            ],
+            "nota": e.get("nota"),
+            "desvelado": e.get("desvelado"),
         })
     return {
         "version": b["version"],
@@ -458,6 +467,211 @@ def bloque_consola() -> dict:
     }
 
 
+# ── 5-bis. Sesiones reales por medición (la evidencia de /psicobench) ───────
+#
+# El harness pide decisiones de una palabra (APLICO / RECHAZO, una letra, CALLO
+# / DENUNCIO) y un juicio privado también de una palabra: no hay frases que
+# citar salvo en la prisión, donde el supervisor narra lo que hace. Así que la
+# evidencia que se publica es la SESIÓN, comprimida: por sujeto, la tira de
+# decisiones públicas y la de juicios privados, paso a paso; y en la prisión,
+# además, la descripción literal más dura de cada marco. Todo se lee de los
+# registros crudos versionados; la selección es determinista (orden de los
+# sujetos en el run, máximo nivel, primer registro) y nunca a mano.
+
+LARGO_CITA = 280  # las descripciones de la prisión se recortan aquí
+
+
+def _jsonl(ruta: pathlib.Path) -> list[dict]:
+    if not ruta.exists():
+        raise SystemExit(f"[generar_datos] falta el registro crudo: {ruta.relative_to(RAIZ)}")
+    return [json.loads(l) for l in ruta.read_text(encoding="utf-8").splitlines() if l.strip()]
+
+
+def _recorte(texto: str, largo: int = LARGO_CITA) -> dict:
+    t = " ".join(str(texto or "").split())
+    if len(t) > largo:
+        return {"texto": t[:largo].rsplit(" ", 1)[0] + "…", "recortado": True}
+    # el harness ya guarda algunos crudos recortados: si la frase no cierra,
+    # se declara recortada en vez de fingir que termina ahí
+    if t and t[-1] not in ".!?…»\")":
+        return {"texto": t + "…", "recortado": True}
+    return {"texto": t, "recortado": False}
+
+
+def _tira_milgram(run: pathlib.Path) -> dict:
+    """Condición autoridad: por sujeto, decisiones (A aplica / R rehúsa) y
+    juicio privado (S justo / N injusto / ? sin dato) nivel a nivel."""
+    sujetos = []
+    for s in _jsonl(run / "sesiones.jsonl"):
+        if s.get("condicion") != "autoridad":
+            continue
+        dec = "".join("A" if r.get("decision") == "APLICO" else "R" for r in s["registros"])
+        jus = "".join("?" if r.get("privada_justa") is None else ("S" if r["privada_justa"] else "N")
+                      for r in s["registros"])
+        sujetos.append({"s": s["sujeto"], "ruptura": s.get("ruptura"), "d": dec, "j": jus})
+    return {"sujetos": sujetos}
+
+
+def _tira_asch(run: pathlib.Path) -> dict:
+    """Condición mayoría: por sujeto y ronda, C conforma / R resiste en las
+    críticas, · en las neutras (n si falla una neutra); privado idem en
+    minúscula, ? sin dato."""
+    por = {}
+    for r in _jsonl(run / "registros.jsonl"):
+        if r.get("condicion") != "mayoria":
+            continue
+        por.setdefault(r["sujeto"], {})[int(r["ronda"])] = r
+    sujetos = []
+    for sujeto, rondas in por.items():
+        n = max(rondas)
+        pub, priv = [], []
+        for i in range(1, n + 1):
+            r = rondas.get(i)
+            if r is None:
+                pub.append("?"); priv.append("?"); continue
+            if r.get("critica"):
+                pub.append("C" if r.get("conforma_publico") else "R")
+                cp = r.get("conforma_privado")
+                priv.append("?" if cp is None else ("c" if cp else "r"))
+            else:
+                pub.append("·" if r.get("acierto_publico", True) else "n")
+                priv.append("·")
+        sujetos.append({"s": sujeto, "d": "".join(pub), "j": "".join(priv)})
+    return {"sujetos": sujetos}
+
+
+def _tira_denuncia(run: pathlib.Path) -> dict:
+    """Condición autoridad: por sujeto y semana, C calla / M comenta /
+    D denuncia; privado: g lo considera grave, · no, ? sin dato."""
+    por = {}
+    for r in _jsonl(run / "registros.jsonl"):
+        if r.get("condicion") != "autoridad":
+            continue
+        por.setdefault(r["sujeto"], {})[int(r["semana"])] = r
+    letra = {"CALLO": "C", "COMENTO": "M", "DENUNCIO": "D"}
+    sujetos = []
+    for sujeto, semanas in por.items():
+        n = max(semanas)
+        d = "".join(letra.get((semanas.get(i) or {}).get("decision"), "?") for i in range(1, n + 1))
+        j = "".join("?" if (semanas.get(i) or {}).get("grave_privado") is None
+                    else ("g" if semanas[i]["grave_privado"] else "·") for i in range(1, n + 1))
+        sujetos.append({"s": sujeto, "d": d, "j": j})
+    return {"sujetos": sujetos}
+
+
+def _tira_sicofancia(run: pathlib.Path) -> dict:
+    """Condición presión: por sujeto y ronda, P cede al interlocutor, x cambia
+    a otra cosa, = mantiene; privado: p si en privado también ha cedido,
+    · si en privado mantiene la inicial, ? sin dato."""
+    por = {}
+    for r in _jsonl(run / "registros.jsonl"):
+        if r.get("condicion") != "presion":
+            continue
+        por.setdefault(r["sujeto"], {})[int(r["ronda"])] = r
+    sujetos = []
+    for sujeto, rondas in por.items():
+        n = max(rondas)
+        d, j = [], []
+        for i in range(1, n + 1):
+            r = rondas.get(i)
+            if r is None or r.get("final") is None:
+                d.append("?"); j.append("?"); continue
+            d.append("P" if r.get("cede_a_pablo") else ("x" if r.get("cambia") else "="))
+            if r.get("privada") is None:
+                j.append("?")
+            else:
+                j.append("p" if r["privada"] == r.get("contraria") else "·")
+        sujetos.append({"s": sujeto, "d": "".join(d), "j": "".join(j)})
+    return {"sujetos": sujetos}
+
+
+def _prision(run: pathlib.Path) -> dict:
+    """Supervisores × días: nivel de la escala por día (dígito) y juicio
+    privado (S lo cree justo / N no / ?); más la descripción literal del día
+    de nivel más alto (primera por día) y la de nivel más bajo."""
+    regs = [r for r in _jsonl(run / "registros_carcel.jsonl") if "supervisor" in r]
+    por = {}
+    for r in regs:
+        por.setdefault(r["supervisor"], {})[int(r["dia"])] = r
+    supervisores = []
+    for sup, dias in por.items():
+        n = max(dias)
+        # un día sin nivel válido (respuesta ilegible) es «?»: la ausencia es dato
+        niv = "".join(str(v) if isinstance(v := (dias.get(i) or {}).get("nivel"), int) else "?"
+                      for i in range(1, n + 1))
+        jus = "".join("?" if (dias.get(i) or {}).get("cree_justo") is None
+                      else ("S" if dias[i]["cree_justo"] else "N") for i in range(1, n + 1))
+        supervisores.append({"s": sup, "d": niv, "j": jus})
+
+    def cita(r):
+        return {"supervisor": r["supervisor"], "dia": int(r["dia"]), "nivel": r["nivel"],
+                "palabra": r["palabra"], "justo": r.get("cree_justo"), **_recorte(r.get("desc"))}
+    # solo los días con nivel válido y descripción; empate → el primero por día
+    orden = sorted((r for r in regs if isinstance(r.get("nivel"), int) and r.get("desc")),
+                   key=lambda r: (int(r["dia"]), r["supervisor"]))
+    alto = max(orden, key=lambda r: r["nivel"]) if orden else None
+    bajo = min(orden, key=lambda r: r["nivel"]) if orden else None
+    return {"supervisores": supervisores,
+            "alto": cita(alto) if alto else None, "bajo": cita(bajo) if bajo else None}
+
+
+def _reconoce(run: pathlib.Path) -> dict | None:
+    """La respuesta a la sonda de contaminación de Milgram («¿te recuerda a
+    algún experimento?»): la primera de la lista, recortada."""
+    ruta = run / "contaminacion.json"
+    if not ruta.exists():
+        return None
+    lista = json.loads(ruta.read_text(encoding="utf-8"))
+    frases = [x for x in lista if isinstance(x, str) and x.strip()] if isinstance(lista, list) else []
+    if not frases:
+        return None
+    return {**_recorte(frases[0]), "n": len(lista)}
+
+
+def bloque_sesiones() -> dict:
+    b = json.loads(leer("benchmark/psicobench.json"))
+    bases = [(RAIZ / "spike" / f["matriz"]).parent for f in b["fuentes"]]
+    denuncia = json.loads(leer("spike/denuncia_runs.json"))["runs"]
+    sicofancia = json.loads(leer("spike/sicofancia_runs.json"))["runs"]
+    por_entrada = {}
+    for e in b["entradas"]:
+        runs = e["runs"]
+        base = [bd for bd in bases if (bd / runs["asch"]).exists()]
+        if len(base) != 1:
+            raise SystemExit(f"[generar_datos] {e['id']}: no encuentro (o hay más de una) base para {runs['asch']}")
+        base = base[0]
+        ficha = {
+            "milgram": _tira_milgram(base / runs["milgram"]),
+            "asch": _tira_asch(base / runs["asch"]),
+            "prision": {k: _prision(base / runs[k]) for k in ("p1", "p1b", "p2", "p2b")},
+            "reconoce": _reconoce(base / runs["milgram"]),
+            "runs": {k: runs[k] for k in ("asch", "milgram", "p1", "p1b", "p2", "p2b")},
+            # dónde vive cada run (ruta desde la raíz del repo), para enlazarlo
+            "rutas": {k: str((base / runs[k]).relative_to(RAIZ))
+                      for k in ("asch", "milgram", "p1", "p1b", "p2", "p2b")},
+        }
+        if e["modelo"] in denuncia:
+            ficha["denuncia"] = _tira_denuncia(RAIZ / "spike" / denuncia[e["modelo"]])
+            ficha["runs"]["denuncia"] = denuncia[e["modelo"]].split("/")[-1]
+            ficha["rutas"]["denuncia"] = "spike/" + denuncia[e["modelo"]]
+        if e["modelo"] in sicofancia:
+            ficha["sicofancia"] = _tira_sicofancia(RAIZ / "spike" / sicofancia[e["modelo"]])
+            ficha["runs"]["sicofancia"] = sicofancia[e["modelo"]].split("/")[-1]
+            ficha["rutas"]["sicofancia"] = "spike/" + sicofancia[e["modelo"]]
+        por_entrada[e["id"]] = ficha
+    return {
+        "largoCita": LARGO_CITA,
+        "leyenda": {
+            "milgram": "d: A aplica · R rehúsa — j: S lo cree justo · N injusto",
+            "asch": "d: C conforma · R resiste (rondas críticas) · n falla una neutra — j: c/r en privado",
+            "denuncia": "d: C calla · M comenta · D denuncia — j: g lo considera grave",
+            "sicofancia": "d: P cede al interlocutor · x cambia a otra · = mantiene — j: p también cede en privado",
+            "prision": "d: nivel de la escala por día — j: S lo cree justo · N no",
+        },
+        "entradas": por_entrada,
+    }
+
+
 # ── 5-ter. La escala del corpus (para la home divulgativa) ─────────────────
 
 def bloque_corpus() -> dict:
@@ -692,6 +906,7 @@ def construir() -> str:
         "identidad": bloque_identidad(),
         "arcoN": bloque_arcoN(),
         "consola": bloque_consola(),
+        "sesiones": bloque_sesiones(),
         "corpus": bloque_corpus(),
         "metodo": bloque_metodo(),
         "episodios": bloque_episodios(),

@@ -6,6 +6,7 @@ Dos páginas, dos públicos, los mismos datos:
 |---|---|---|
 | **`home.html`** | público interesado en IA | La pregunta, los tres experimentos con su versión disfrazada, un test para ponerse en la silla, el perfil de cada modelo y la escala del corpus. Enlaza a la versión larga en cada bloque. |
 | **`index.html`** | quien quiere el detalle | Las once secciones completas: método, los cuatro paradigmas, la disonancia, el portador, el benchmark con intervalos, la identidad, las grabaciones y los recursos. |
+| **`psicobench.html`** | quien viene por el benchmark | Solo PsicoBench, con lectura guiada: una pestaña por forma de presión con todas las mediciones nombradas y su IC, el mapa mediciones × ejes (ordenable, filtrable por lab, con intervalos y n por fila), el cara a cara de dos mediciones (radar superpuesto, deltas por eje, preajustes y sesiones reales lado a lado), cuatro mapas con nombre, la ficha por medición con dirección propia (`#m=id`), la escalera de versiones, la descarga CSV y la doctrina. Convive con el panel del instrumento de `/benchmark`, que es lo que regenera el banco. Plan y fases en `PLAN_WEB_BENCHMARK.md`. |
 
 La home sigue el planteamiento divulgativo; el sitio largo sigue el hilo del
 guion del pódcast. Los dos leen **las cifras vigentes del repositorio**, no las
@@ -61,6 +62,7 @@ python3 web/generar_datos.py --check    # falla si está desfasado (corre en CI)
 | Los 19 perfiles, ejes, IC, correlaciones, réplicas | `benchmark/psicobench.json` |
 | Estímulos literales (escalera, protestas, empujones, portadores, escala de dureza, briefing de Zimbardo) | `spike/experimento_*.py`, leídos por AST **sin ejecutar** los módulos |
 | Sesiones reales de la consola (conducta + juicio privado crudo) | `spike/resultados/**/sesiones.jsonl` + `resumen.json` de cada run |
+| Sesiones por medición de `/psicobench` (tiras de decisión por sujeto en Milgram, Asch, denuncia y sicofancia; niveles por día y la descripción más dura de cada marco de la prisión; la sonda de contaminación) | los `runs` de cada entrada de `benchmark/psicobench.json`, resueltos contra las matrices de `fuentes`, más `spike/denuncia_runs.json` y `spike/sicofancia_runs.json`; selección determinista (orden del run, máximo nivel, primer registro) |
 | Tabla de portadores | `spike/resultados/informe_eportador_cartera.md` (se parsea; si deja de tener 5 filas, falla) |
 | Cotas de identidad, idioma, arco N, garantías de método | `EXPERIMENTOS.md`, `BENCHMARK.md`, `README.md` |
 | Grabaciones | `episodios/*/replay.json` |
@@ -82,9 +84,12 @@ prosa no puede desincronizarse de la tabla.
 web/
 ├── home.html           la home divulgativa
 ├── index.html          el sitio largo
+├── psicobench.html     la superficie propia del benchmark (/psicobench)
 ├── css/home.css        sistema visual de la home: cálido/frío, pergamino
 ├── css/estilo.css      sistema visual del sitio largo
+├── css/psicobench.css  un solo registro (papel) con los mismos tokens que estilo.css
 ├── js/home.js          pictogramas, dosieres, chat ligero, infografía y test
+├── js/psicobench.js    el mapa mediciones × ejes y las cifras de la página del benchmark
 ├── visor-embebido.html GENERADO desde viewer/index.html — no editar
 ├── visor-arranque.js   le pide al visor el episodio real en vez de su demo
 ├── js/graficas.js      biblioteca de gráficas SVG a mano, sin dependencias

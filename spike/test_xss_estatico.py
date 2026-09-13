@@ -32,7 +32,8 @@ WEB_JS = sorted(
 )
 JS = ["panel/app.js", "viewer/app.js"] + WEB_JS
 HTML = ["panel/index.html", "viewer/index.html", "benchmark/index.html",
-        "web/home.html", "web/index.html", "web/visor-embebido.html"]
+        "web/home.html", "web/index.html", "web/psicobench.html",
+        "web/visor-embebido.html"]
 # La única puerta a innerHTML de `web/`, con su nombre por escrito.
 PUERTA_MARCADO = "web/js/marcado.js"
 
