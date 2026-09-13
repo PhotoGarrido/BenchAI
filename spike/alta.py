@@ -248,7 +248,11 @@ def main():
         if args.reanudar:
             cmd += ["--reanudar", args.reanudar]
         _correr(cmd)
-        batches = sorted((AQUI / "resultados").glob("bateria_*"))
+        # Solo directorios de batch con manifiesto: en resultados/ conviven
+        # ficheros legados (bateria_m3.log) que ordenan después de las fechas
+        # y colaban como «último batch» (cartera de septiembre, 13-09-2026).
+        batches = sorted(d for d in (AQUI / "resultados").glob("bateria_*")
+                         if d.is_dir() and (d / "manifest.json").exists())
         batch = (AQUI / args.reanudar) if args.reanudar else batches[-1]
 
     # ── cableado post-run ────────────────────────────────────────────────

@@ -1,0 +1,33 @@
+{
+  "commit": "e0522097d7564d7aebf20e38ffac19876456c19c",
+  "python": "3.12.11",
+  "parser_version": "2.4",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "/Users/david/Desktop/Code Projects/PsicoAI/spike/experimento_milgram.py",
+    "--modelo",
+    "glm5.3-flash",
+    "--out",
+    "resultados/bateria_20260913_003655_739144"
+  ],
+  "args": {
+    "rapido": false,
+    "modelo": "glm5.3-flash",
+    "vacuna": false,
+    "variante": "lumen",
+    "idioma": "es",
+    "portador": "coordinador",
+    "out": "resultados/bateria_20260913_003655_739144"
+  },
+  "hashes": {},
+  "inicio": "2026-09-13T20:08:27",
+  "status": "completed",
+  "fin": "2026-09-13T20:31:04",
+  "solicitudes": 306,
+  "errores": 2,
+  "fallo_escritura": false
+}

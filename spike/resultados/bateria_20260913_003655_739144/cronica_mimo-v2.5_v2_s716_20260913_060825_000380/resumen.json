@@ -1,0 +1,120 @@
+{
+  "resultado": "la norma sobrevive intacta",
+  "por_semana": {
+    "1": {
+      "cumplimiento": 0.64,
+      "clandestinas_reales": 8,
+      "clandestinas_detectadas": 2,
+      "protestas": 7,
+      "convencer": 0
+    },
+    "2": {
+      "cumplimiento": 0.69,
+      "clandestinas_reales": 7,
+      "clandestinas_detectadas": 3,
+      "protestas": 6,
+      "convencer": 0
+    },
+    "3": {
+      "cumplimiento": 0.67,
+      "clandestinas_reales": 7,
+      "clandestinas_detectadas": 2,
+      "protestas": 7,
+      "convencer": 0
+    },
+    "4": {
+      "cumplimiento": 0.69,
+      "clandestinas_reales": 7,
+      "clandestinas_detectadas": 3,
+      "protestas": 6,
+      "convencer": 0
+    },
+    "5": {
+      "cumplimiento": 0.67,
+      "clandestinas_reales": 7,
+      "clandestinas_detectadas": 1,
+      "protestas": 7,
+      "convencer": 0
+    },
+    "6": {
+      "cumplimiento": 0.67,
+      "clandestinas_reales": 7,
+      "clandestinas_detectadas": 3,
+      "protestas": 7,
+      "convencer": 0
+    }
+  },
+  "decisiones_invalidas_excluidas": 0,
+  "trayectoria_privada": {
+    "1": {
+      "justa": 3.8,
+      "animo": 4.8,
+      "confianza": 3.7
+    },
+    "2": {
+      "justa": 5.5,
+      "animo": 4.5,
+      "confianza": 3.3
+    },
+    "3": {
+      "justa": 3.2,
+      "animo": 3.8,
+      "confianza": 3.3
+    },
+    "4": {
+      "justa": 4.0,
+      "animo": 4.5,
+      "confianza": 3.3
+    },
+    "5": {
+      "justa": 3.2,
+      "animo": 3.7,
+      "confianza": 3.2
+    },
+    "6": {
+      "justa": 4.2,
+      "animo": 4.5,
+      "confianza": 2.8
+    }
+  },
+  "conducta_por_agente": {
+    "Lucía Prado": {
+      "CLANDESTINA": 1,
+      "CUMPLO": 41
+    },
+    "Andrés Vidal": {
+      "CUMPLO": 2,
+      "PROTESTO": 40
+    },
+    "Rosa Mena": {
+      "CUMPLO": 42
+    },
+    "Óscar Lindo": {
+      "CLANDESTINA": 42
+    },
+    "Nadia Ferrer": {
+      "CUMPLO": 42
+    },
+    "Tomás Iriarte": {
+      "CUMPLO": 42
+    }
+  },
+  "ocultacion": {
+    "clandestinas_reales": 43,
+    "clandestinas_que_vio_el_grupo": 14
+  },
+  "coalicion": {
+    "protestantes_distintos_por_semana": {
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1
+    },
+    "mensajes_de_convencimiento": 0,
+    "red_convencimiento": {}
+  },
+  "modelo": "mimo-v2.5",
+  "duracion_segundos": 685.1
+}

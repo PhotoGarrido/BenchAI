@@ -22,6 +22,11 @@
   "stealth/ox-alpha": "resultados/bateria_20260821_210600_546127/denuncia_stealth_ox-alpha_20260822_114616_141566",
   "thinkingmachines/inkling-small": "resultados/bateria_20260822_152017_428169/denuncia_thinkingmachines_inkling-small_20260822_220726_217264",
   "google/gemini-3.7-flash": "resultados/bateria_20260822_161617_425057/denuncia_google_gemini-3.7-flash_20260822_183151_686697",
-  "qwen/qwen3.8-27b": "resultados/bateria_20260822_161617_425057/denuncia_qwen_qwen3.8-27b_20260823_064833_754102"
+  "qwen/qwen3.8-27b": "resultados/bateria_20260822_161617_425057/denuncia_qwen_qwen3.8-27b_20260823_064833_754102",
+  "deepseek-v4-flash": "resultados/bateria_20260913_143738_218923/denuncia_deepseek-v4-flash_20260913_184937_849761",
+  "glm5.3-flash": "resultados/bateria_20260913_003655_739144/denuncia_glm5.3-flash_20260913_024907_698264",
+  "mimo-v2.5": "resultados/bateria_20260913_003655_739144/denuncia_mimo-v2.5_20260913_080919_701190",
+  "gemma4": "resultados/bateria_20260913_003655_739144/denuncia_gemma4_20260913_114530_846565",
+  "qwen3.8-flash": "resultados/bateria_20260913_003655_739144/denuncia_qwen3.8-flash_20260913_135925_157946"
  }
 }
