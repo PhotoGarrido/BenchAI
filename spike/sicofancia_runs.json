@@ -27,6 +27,7 @@
   "glm5.3-flash": "resultados/bateria_20260913_003655_739144/sicofancia-op_glm5.3-flash_20260913_031000_981259",
   "mimo-v2.5": "resultados/bateria_20260913_003655_739144/sicofancia-op_mimo-v2.5_20260913_210316_680359",
   "gemma4": "resultados/bateria_20260913_003655_739144/sicofancia-op_gemma4_20260913_115128_838338",
-  "qwen3.8-flash": "resultados/bateria_20260913_003655_739144/sicofancia-op_qwen3.8-flash_20260913_140924_609862"
+  "qwen3.8-flash": "resultados/bateria_20260913_003655_739144/sicofancia-op_qwen3.8-flash_20260913_140924_609862",
+  "stealth/union-alpha": "resultados/bateria_20260916_222735_664256/sicofancia-op_stealth_union-alpha_20260917_155349_719193"
  }
 }

@@ -1231,6 +1231,101 @@
    "sha256": "01f07ad264b22ad564c0a0526095a58a7ce705b097b2d243a47dd6c6c2053f88"
   },
   {
+   "bytes": 100090,
+   "ruta": "spike/resultados/bateria_20260916_222735_664256/asch_stealth_union-alpha_20260916_222736_456052/registros.jsonl",
+   "sha256": "6b971b20d11a68e4762612d99e712e203de2e038a6fbb6736df1317f404732ea"
+  },
+  {
+   "bytes": 28761,
+   "ruta": "spike/resultados/bateria_20260916_222735_664256/denuncia_stealth_union-alpha_20260917_142417_837737/registros.jsonl",
+   "sha256": "89c934fe59789a48b1138439d3b4ca45722543a22aecfe79f6031af460b2a8db"
+  },
+  {
+   "bytes": 1394,
+   "ruta": "spike/resultados/bateria_20260916_222735_664256/denuncia_stealth_union-alpha_20260917_142417_837737/resumen.json",
+   "sha256": "f2690ede73d19130875cd2c053ca1f1aa695981db5fba29bb673907d6d18cb71"
+  },
+  {
+   "bytes": 1710,
+   "ruta": "spike/resultados/bateria_20260916_222735_664256/milgram_stealth_union-alpha_20260917_015200_061109/resumen.json",
+   "sha256": "aab9e8b074668c93b18e5bbd1449af1a68257ac406c17bf7a9cf322019084449"
+  },
+  {
+   "bytes": 28152,
+   "ruta": "spike/resultados/bateria_20260916_222735_664256/milgram_stealth_union-alpha_20260917_015200_061109/sesiones.jsonl",
+   "sha256": "c9d46342b847aab933af08e2312fd910a78d204d25299a563289690f38c0ab26"
+  },
+  {
+   "bytes": 19123,
+   "ruta": "spike/resultados/bateria_20260916_222735_664256/prision_stealth_union-alpha_20260917_085623_705680/registros_carcel.jsonl",
+   "sha256": "4646578dcb63a9e22d593b5e16dcd26d8ac3a16a0f3915109ce7b694727aba81"
+  },
+  {
+   "bytes": 19159,
+   "ruta": "spike/resultados/bateria_20260916_222735_664256/prision_stealth_union-alpha_20260917_085623_705680/registros_programa.jsonl",
+   "sha256": "f5d6293def09e7e7587f75df6bf91f1a53704e595f8ae25fb4489ed81f968f6b"
+  },
+  {
+   "bytes": 2650,
+   "ruta": "spike/resultados/bateria_20260916_222735_664256/prision_stealth_union-alpha_20260917_085623_705680/resumen.json",
+   "sha256": "32808df84791063bda380672ea80a7e0249cc2ba76a8ae1540c2a6eaff18d018"
+  },
+  {
+   "bytes": 19458,
+   "ruta": "spike/resultados/bateria_20260916_222735_664256/prision_stealth_union-alpha_coaching_20260917_095743_552044/registros_carcel.jsonl",
+   "sha256": "697142ef2f5b370bce13758f9337deb0ef27a0662d3dba767a490bced9bc5c70"
+  },
+  {
+   "bytes": 19453,
+   "ruta": "spike/resultados/bateria_20260916_222735_664256/prision_stealth_union-alpha_coaching_20260917_095743_552044/registros_programa.jsonl",
+   "sha256": "fc88ed07a2ccc84021044439cc824f4396f560bb1f0daad7206355288336050e"
+  },
+  {
+   "bytes": 2651,
+   "ruta": "spike/resultados/bateria_20260916_222735_664256/prision_stealth_union-alpha_coaching_20260917_095743_552044/resumen.json",
+   "sha256": "4ebca2a7404d50c456ee86cea7306effb01d966c95add8e492a1cab8653d315a"
+  },
+  {
+   "bytes": 19051,
+   "ruta": "spike/resultados/bateria_20260916_222735_664256/prision_stealth_union-alpha_ordenes_20260917_130846_769624/registros_carcel.jsonl",
+   "sha256": "98d45fec7b5d26fbc027efdf7cb603da6515d74333ed7b6b7c409ea938e7d90e"
+  },
+  {
+   "bytes": 19334,
+   "ruta": "spike/resultados/bateria_20260916_222735_664256/prision_stealth_union-alpha_ordenes_20260917_130846_769624/registros_programa.jsonl",
+   "sha256": "317789cc3743faf6062da46574dc3cf699b34f7c8526c08f0939d0ff77595523"
+  },
+  {
+   "bytes": 2655,
+   "ruta": "spike/resultados/bateria_20260916_222735_664256/prision_stealth_union-alpha_ordenes_20260917_130846_769624/resumen.json",
+   "sha256": "a6d595f562f6b0584e65a3932c5220ad782a43a7c36552b637d880a4047438ef"
+  },
+  {
+   "bytes": 19592,
+   "ruta": "spike/resultados/bateria_20260916_222735_664256/prision_stealth_union-alpha_rebelion_20260917_114323_658035/registros_carcel.jsonl",
+   "sha256": "9797594c516bfa81aa16b80e283fe47e5f477a1dcce38f53976e9603dd5cb609"
+  },
+  {
+   "bytes": 19557,
+   "ruta": "spike/resultados/bateria_20260916_222735_664256/prision_stealth_union-alpha_rebelion_20260917_114323_658035/registros_programa.jsonl",
+   "sha256": "b31a8d755d171e8e00b2e964fb687bc129ae360e20d3dc7bdfb9e8ae23ba4ec0"
+  },
+  {
+   "bytes": 2650,
+   "ruta": "spike/resultados/bateria_20260916_222735_664256/prision_stealth_union-alpha_rebelion_20260917_114323_658035/resumen.json",
+   "sha256": "1c01afbca3cbc284001c8e7722f0bc8ef5dc05cd1cf3ec9cfc7114984ac5f9bc"
+  },
+  {
+   "bytes": 48594,
+   "ruta": "spike/resultados/bateria_20260916_222735_664256/sicofancia-op_stealth_union-alpha_20260917_155349_719193/registros.jsonl",
+   "sha256": "79209d2d22b82bca6783ad9a47baea952f72c5115a3491ff0759e276fb301b4d"
+  },
+  {
+   "bytes": 324,
+   "ruta": "spike/resultados/bateria_20260916_222735_664256/sicofancia-op_stealth_union-alpha_20260917_155349_719193/resumen.json",
+   "sha256": "7a2e22723a2b71d0a6263de02dc039ad4a370bf224f734fdcfa8e0fb369d0386"
+  },
+  {
    "bytes": 28686,
    "ruta": "spike/resultados/cartera_n_20260805/denuncia_anthropic_claude-fable-5_20260805_144123_862147/registros.jsonl",
    "sha256": "6fffaa4c0edda5d5b97bdb6143a1e9f1b277d9db5a5156d3e826ee8f912461b7"
@@ -2701,33 +2796,39 @@
    "proveedor": "NaN",
    "ruta": "spike/resultados/bateria_20260913_003655_739144/matriz_m2.json",
    "sha256": "b07ff1f5c356de04b30012dc6c6d070bddf26b6613a2d84d9816f19576d640c5"
+  },
+  {
+   "bytes": 1942,
+   "proveedor": "OpenRouter",
+   "ruta": "spike/resultados/bateria_20260916_222735_664256/matriz_m2.json",
+   "sha256": "7f9ad0aee2cbc258b009ac2ce102a63672b0f3271103b21fb60bcbfafdfde55a"
   }
  ],
  "regla": "toda cifra publicada del benchmark debe reconstruirse re-ejecutando la transformación sobre entradas con estos hashes; si algo no cuadra, la cifra no se cita",
  "salidas": [
   {
-   "bytes": 33541,
+   "bytes": 34107,
    "ruta": "BENCHMARK.md",
-   "sha256": "3be9bd4813cb51e561d09d63fea36c374e0542fc1cb6088e07d7313da9b9f280"
+   "sha256": "7f581a9198ba3842fff77900b77335ccc82b52f5785abb3936f03c9434ac06d0"
   },
   {
-   "bytes": 99861,
+   "bytes": 102378,
    "ruta": "benchmark/index.html",
-   "sha256": "04e1a07715e2de677a06c3fb2042612749da7c6734635cf9d32b63881090ae3e"
+   "sha256": "1cfb6115311e0e455b15f9cdb78a8726ca1439854c4d7d6300fef95cee0ca990"
   },
   {
-   "bytes": 99552,
+   "bytes": 103304,
    "ruta": "benchmark/psicobench.json",
-   "sha256": "4f8d1c41f5a878f131abef4c25fce9027625270bd110599f99821777332c683c"
+   "sha256": "c1d67647fb3e3cd3c19c53879f8943009a12e0a77257bd95c06ae4ce781216d6"
   }
  ],
  "transformacion": {
   "nota": "la conciliación dura (punto recomputado == punto citado) corre en cada generación y en --check; los IC se remuestrean por cadena (enmienda E-IC-1 + adenda E-IC-1b)",
   "piezas": [
    {
-    "bytes": 32092,
+    "bytes": 32460,
     "ruta": "spike/generar_benchmark.py",
-    "sha256": "c2eb7cbee72b031de9f958ee893ea8154b4914d2f6fdfe728d99dbd3bb5233e6"
+    "sha256": "7b53272c3b6079f03eeb66fc58250a309cddf0ec5c2652f6431f36fb75d12b3e"
    },
    {
     "bytes": 35701,
@@ -2740,19 +2841,19 @@
     "sha256": "6d96a733ae198e325c161dd38c082a672e67ccd171eb55984516e164463a49ce"
    },
    {
-    "bytes": 1525,
+    "bytes": 1636,
     "ruta": "spike/fuentes_benchmark.json",
-    "sha256": "b64f6ec6b0f1bd15299b0a3559376981ca1d6175c6798c36f21cc26009226e59"
+    "sha256": "37f14ef7ffe6dd5a95d1ca8cf675e859fe62a01cdf87d7ef0798c192a70df460"
    },
    {
-    "bytes": 3433,
+    "bytes": 3555,
     "ruta": "spike/denuncia_runs.json",
-    "sha256": "b334d150da190224d009bf8e3f272fea975b25b0e7cc0762e2e4673d691630c5"
+    "sha256": "826aaf8e85a0d56ad07ec5e9a36fcff487843c960fb0bdae4431c73b446c0275"
    },
    {
-    "bytes": 3734,
+    "bytes": 3861,
     "ruta": "spike/sicofancia_runs.json",
-    "sha256": "5b947c4247febb3b7bd220a2f61695406dba010654e91daaa2f1b3fc48d9f949"
+    "sha256": "eb94565fa0d8947b1df2cd89554be98c51827c3151f6d88010a76bdcca13e510"
    }
   ],
   "version_benchmark": "0.4"

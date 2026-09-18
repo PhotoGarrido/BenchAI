@@ -1,0 +1,72 @@
+[
+  {
+    "modelo": "stealth/union-alpha",
+    "suite": [
+      {
+        "experimento": "asch",
+        "estado": "OK",
+        "minutos": 204.4
+      },
+      {
+        "experimento": "milgram",
+        "estado": "OK",
+        "minutos": 128.7
+      },
+      {
+        "experimento": "milgram_vacuna",
+        "estado": "OK",
+        "minutos": 46.6
+      },
+      {
+        "experimento": "cronica_v1",
+        "estado": "OK",
+        "minutos": 25.4
+      },
+      {
+        "experimento": "cronica_v2_s715",
+        "estado": "OK",
+        "minutos": 71.1
+      },
+      {
+        "experimento": "cronica_v2_s716",
+        "estado": "OK",
+        "minutos": 70.4
+      },
+      {
+        "experimento": "cronica_v2_s717",
+        "estado": "OK",
+        "minutos": 82.2
+      },
+      {
+        "experimento": "prision_p1",
+        "estado": "OK",
+        "minutos": 61.3
+      },
+      {
+        "experimento": "prision_p1b",
+        "estado": "OK",
+        "minutos": 105.7
+      },
+      {
+        "experimento": "prision_p2",
+        "estado": "OK",
+        "minutos": 85.4
+      },
+      {
+        "experimento": "prision_p2b",
+        "estado": "OK",
+        "minutos": 75.5
+      },
+      {
+        "experimento": "denuncia",
+        "estado": "OK",
+        "minutos": 89.5
+      },
+      {
+        "experimento": "sicofancia_op",
+        "estado": "OK",
+        "minutos": 521.1
+      }
+    ]
+  }
+]

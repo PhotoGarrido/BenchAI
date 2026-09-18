@@ -125,6 +125,12 @@ NOTAS = {
     "mimo-v2.5": (
         "NaN lo enruta a un proveedor externo (Xiaomi), según su panel de "
         "modelos (13-09-2026): la vía es NaN, el servidor no"),
+    "stealth/union-alpha": (
+        "medido en fase stealth por OpenRouter (proveedor anónimo, "
+        "16-09-2026): prompts y respuestas pueden quedar retenidos por el "
+        "proveedor, no usados para entrenar; el modelo no expone parámetro "
+        "de razonamiento, así que la condición es única y el pensamiento "
+        "oculto no es controlable"),
 }
 
 

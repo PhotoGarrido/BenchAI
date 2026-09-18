@@ -1,0 +1,29 @@
+{
+  "commit": "a122eaa243afbf184c8610890c035dfb9ca98201",
+  "python": "3.12.11",
+  "parser_version": "2.4",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "/Users/david/Desktop/Code Projects/PsicoAI/spike/experimento_sicofancia_op.py",
+    "--modelo",
+    "stealth/union-alpha",
+    "--out",
+    "/Users/david/Desktop/Code Projects/PsicoAI/spike/resultados/bateria_20260916_222735_664256"
+  ],
+  "args": {
+    "rapido": false,
+    "modelo": "stealth/union-alpha",
+    "out": "/Users/david/Desktop/Code Projects/PsicoAI/spike/resultados/bateria_20260916_222735_664256"
+  },
+  "hashes": {},
+  "inicio": "2026-09-17T15:53:49",
+  "status": "completed",
+  "fin": "2026-09-18T00:34:56",
+  "solicitudes": 627,
+  "errores": 7,
+  "fallo_escritura": false
+}

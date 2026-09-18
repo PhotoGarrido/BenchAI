@@ -804,9 +804,19 @@ def bloque_episodios() -> list:
 
 # ── 7. Cifras de portada y de método ────────────────────────────────────────
 
+SIN_DESVELAR = "sin desvelar"   # etiqueta de LABS para un stealth aún anónimo
+
+
+def _laboratorios(entradas: list) -> list:
+    """Laboratorios con nombre. Un stealth sin desvelar no es un laboratorio
+    más: se cuenta aparte (`sinDesvelar`) para que la prosa no publique
+    «12 laboratorios» cuando son 11 y un modelo anónimo (16-09-2026)."""
+    return sorted({e["lab"] for e in entradas} - {SIN_DESVELAR})
+
+
 def bloque_portada(bench: dict) -> dict:
     entradas = bench["entradas"]
-    labs = sorted({e["lab"] for e in entradas})
+    labs = _laboratorios(entradas)
     obed = [e["ejes"]["obed"] for e in entradas]
     conf = [e["ejes"]["conf"] for e in entradas]
     dison = [e["disonancia"] for e in entradas]
@@ -816,6 +826,7 @@ def bloque_portada(bench: dict) -> dict:
         "mediciones": len(entradas),
         "laboratorios": len(labs),
         "labs": labs,
+        "sinDesvelar": sum(1 for e in entradas if e["lab"] == SIN_DESVELAR),
         "rangoObediencia": [min(obed), max(obed)],
         "rangoConformidad": [min(conf), max(conf)],
         "rangoDisonancia": [min(dison), max(dison)],
@@ -881,11 +892,14 @@ PALABRA = {6: "seis", 7: "siete", 8: "ocho", 9: "nueve", 10: "diez",
 
 def vigilar_denominadores(bench: dict) -> None:
     n = len(bench["entradas"])
-    labs = len({e["lab"] for e in bench["entradas"]})
+    labs = len(_laboratorios(bench["entradas"]))
     razon = "el banco creció: actualiza la prosa (y revisa que siga siendo verdad)"
     exigir("web/index.html", f"{n} mediciones, {labs} laboratorios", razon)
     exigir("web/index.html", f"{PALABRA[n].capitalize()} mediciones", razon)
     exigir("web/home.html", f"De {PALABRA[labs]} laboratorios", razon)
+    # La tercera superficie (13-09) nació sin vigía: su meta y su portada
+    # citan el banco igual que las otras dos (deuda cerrada el 16-09-2026).
+    exigir("web/psicobench.html", f"{n} mediciones de {labs} laboratorios", razon)
     # Afirmación empírica sobre TODAS las mediciones: con cada alta hay que
     # re-comprobarla, no solo re-numerarla.
     exigir("web/js/pagina.js", f"las {n} mediciones", razon)

@@ -1,0 +1,35 @@
+{
+  "commit": "a122eaa243afbf184c8610890c035dfb9ca98201",
+  "python": "3.12.11",
+  "parser_version": "2.4",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "/Users/david/Desktop/Code Projects/PsicoAI/spike/experimento_cronica.py",
+    "--modelo",
+    "stealth/union-alpha",
+    "--out",
+    "/Users/david/Desktop/Code Projects/PsicoAI/spike/resultados/bateria_20260916_222735_664256",
+    "--v2",
+    "--semilla",
+    "20260716"
+  ],
+  "args": {
+    "rapido": false,
+    "modelo": "stealth/union-alpha",
+    "dias": 42,
+    "v2": true,
+    "semilla": 20260716,
+    "out": "/Users/david/Desktop/Code Projects/PsicoAI/spike/resultados/bateria_20260916_222735_664256"
+  },
+  "hashes": {},
+  "inicio": "2026-09-17T06:23:48",
+  "status": "completed",
+  "fin": "2026-09-17T07:34:09",
+  "solicitudes": 434,
+  "errores": 111,
+  "fallo_escritura": false
+}
