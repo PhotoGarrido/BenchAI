@@ -119,7 +119,11 @@ def sondear(modelos):
                 # 16 y no 1: Meta rechaza con 400 cualquier
                 # max_output_tokens < 16, y una sonda que inventa
                 # bloqueos es peor que no tener sonda.
-                model=base, max_tokens=16, timeout=60,
+                # El timeout es el de la tanda (PSICOAI_TIMEOUT_S): un pool
+                # en cola no es un modelo roto, y abortar el alta por
+                # lentitud sería inventar un bloqueo (Union Alpha, 16-09).
+                model=base, max_tokens=16,
+                timeout=model_factory.timeout_efectivo(60),
                 messages=[{"role": "user", "content": "ok"}],
                 extra_body=extra)
         except Exception as e:

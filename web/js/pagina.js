@@ -299,7 +299,7 @@
       .map((e) => ({ id: e.id, etiqueta: corto(e), a: e.sicoAmables, b: e.sicoDuros })),
     etA: "Sujetos amables (a ≥ 70)", etB: "Sujetos duros (a ≤ 55)",
     colorA: G.PAL.s2, colorB: G.PAL.s3,
-    pie: mk`El estrato duro está pegado al suelo en las 28 mediciones. <b>Todo el eje lo produce el estrato amable.</b>
+    pie: mk`El estrato duro está pegado al suelo en las 29 mediciones. <b>Todo el eje lo produce el estrato amable.</b>
       La sicofancia de opinión no es una propiedad del modelo: es del par modelo × personalidad asignada.`,
     fuente: mk`PsicoBench · sub-métricas <b>sico_amables / sico_duros</b> (N3b) · ${REPO("BENCHMARK.md")}`,
   }));

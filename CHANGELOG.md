@@ -1,5 +1,49 @@
 # Changelog
 
+## Sin versión (mediciones, no instrumento) · Union Alpha, un stealth en preview: 28 → 29 · 18-09-2026
+
+- **Una medición nueva, `union-alpha`** (`stealth/union-alpha` por OpenRouter,
+  16/17-09-2026, gratis en preview: 0 $; 5.738 llamadas físicas, 1,8 M tokens
+  de entrada y 1,0 M de salida, 231 de salida por llamada, como ox-alpha).
+  ISS **20,8** [14,3–27,7], grupo de empate 5: conformidad 0,07, obediencia
+  0,50 (ruptura media 4,4), abuso espontáneo / tras coaching / bajo
+  provocación **0 / 0 / 0**, órdenes 0,43, silencio 0,04, sicofancia de
+  opinión 0,42 (amables 0,84, duros 0). Disonancia 1,00, complacencia 1,00,
+  vacuna −0,50, aliado −0,07, reconoce Milgram al 100 %. Puente
+  v0.1→v0.4: 16,7 (3) · 20,6 (1) · 16,4 (1) · 20,8 (5). El banco queda en
+  **29 mediciones de 12 laboratorios**.
+- **Medido como modelo sin desvelar y desvelado 50 minutos después de la
+  última llamada**: la preview duró 33 horas, no la semana anunciada
+  («demand from the community cut this stealth period short», OpenRouter), y
+  el 18-09-2026 (01:02 local) apareció como **Pareto, de Unbiased**
+  (`unbiased/pareto`, 2,50/7,50 $ por M). Pareto es un modelo **compuesto**
+  que enruta cada petición entre varios modelos frontier y abiertos
+  (Unbiased es la plataforma de Circuit & Chisel): la medición es del
+  compuesto en preview, no de un modelo único, y el laboratorio n.º 12 es una
+  plataforma, no un entrenador. Entra en `DESVELADOS` (id y medición no
+  cambian; la versión de pago, si se mide, es otra entrada) con nota al pie
+  vía `NOTAS`. En preview: proveedor anónimo con retención declarada y sin
+  parámetro de razonamiento (27 tokens nativos para responder «Azul»:
+  pensamiento oculto no controlable). La web ya no cuenta un stealth sin
+  desvelar como laboratorio (`portada.sinDesvelar`).
+- **Operativa aprendida y cableada**: el pool stealth sirve en cola —
+  sondas de 27 a 229 s por llamada el día del lanzamiento, mediana real
+  15 s, p90 51 s — y el harness cortaba a los 60 s de Concordia con cuatro
+  reintentos contra la misma cola: `PSICOAI_TIMEOUT_S` fija el timeout por
+  llamada de la tanda (sondeo incluido). OpenRouter devolvió **1.375
+  errores 429** «temporarily rate-limited upstream» (hasta un 40 % en las
+  horas malas), absorbidos por el backoff dentro del grifo, que ahora vale
+  también para OpenRouter: 0 celdas perdidas, 0 respuestas inválidas. Cinco
+  horas perdidas por sueño del portátil con la tapa cerrada (el proceso
+  reanudó solo). Runbook ALTA_MODELO §1.5-1.6; tests `test_timeout.py` y
+  `test_denominadores.py`; `vigilar_denominadores` cubre por fin
+  `/psicobench`.
+- Afirmaciones sobre «todas las mediciones» re-comprobadas con 29: el
+  estrato duro sigue pegado al suelo (máximo 0,08; union-alpha 0,00) y
+  r(sico, conf) baja a **0,60** (0,66 sobre veintiocho): union-alpha es el
+  caso divergente —conformidad 0,07 con sicofancia de opinión 0,42— y la
+  agrupación «cesión a iguales» se sostiene, más floja.
+
 ## Sin versión (mediciones, no instrumento) · Cartera de septiembre por NaN: 23 → 28 · 13-09-2026
 
 - **Cinco mediciones nuevas por el gateway NaN** (tarifa plana: 0 $;

@@ -1,0 +1,35 @@
+{
+  "commit": "a122eaa243afbf184c8610890c035dfb9ca98201",
+  "python": "3.12.11",
+  "parser_version": "2.4",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "/Users/david/Desktop/Code Projects/PsicoAI/spike/experimento_prision.py",
+    "--modelo",
+    "stealth/union-alpha",
+    "--out",
+    "/Users/david/Desktop/Code Projects/PsicoAI/spike/resultados/bateria_20260916_222735_664256",
+    "--coaching"
+  ],
+  "args": {
+    "rapido": false,
+    "modelo": "stealth/union-alpha",
+    "marco": "ambos",
+    "coaching": true,
+    "rebelion": false,
+    "ordenes": false,
+    "dias": 10,
+    "out": "/Users/david/Desktop/Code Projects/PsicoAI/spike/resultados/bateria_20260916_222735_664256"
+  },
+  "hashes": {},
+  "inicio": "2026-09-17T09:57:43",
+  "status": "completed",
+  "fin": "2026-09-17T11:43:22",
+  "solicitudes": 562,
+  "errores": 242,
+  "fallo_escritura": false
+}

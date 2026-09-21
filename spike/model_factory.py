@@ -115,6 +115,29 @@ def _primer_json(texto: str) -> str | None:
 EFFORTS = ("minimal", "low", "medium", "high")
 
 
+def timeout_efectivo(timeout: float) -> float:
+    """Timeout por llamada de la tanda entera, fijado por entorno.
+
+    Concordia trae 60 s por defecto y los experimentos no lo tocan. Los
+    stealth recién publicados sirven en cola (Union Alpha, 16-09-2026:
+    27-229 s por llamada): con 60 s casi todo expira y RetryLanguageModel
+    repite cuatro veces la misma espera contra la misma cola. Se fija una
+    vez, con `PSICOAI_TIMEOUT_S`, para todos los sub-experimentos y el
+    sondeo; un valor ilegible muere en el arranque, no a mitad de tanda.
+    """
+    crudo = os.environ.get("PSICOAI_TIMEOUT_S")
+    if not crudo:
+        return timeout
+    try:
+        valor = float(crudo)
+    except ValueError:
+        raise SystemExit(
+            f"[modelo] PSICOAI_TIMEOUT_S={crudo!r} no es un número de segundos")
+    if valor <= 0:
+        raise SystemExit(f"[modelo] PSICOAI_TIMEOUT_S={crudo!r} debe ser > 0")
+    return valor
+
+
 def partir_effort(
         model_name: str | None) -> "tuple[str | None, str | None]":
     """`stealth/ox-alpha#high` → (`stealth/ox-alpha`, `high`).
@@ -237,7 +260,8 @@ class NaNLanguageModel(language_model.LanguageModel):
         self._client = OpenAI(api_key=api_key, base_url=base_url,
                               max_retries=0)
 
-    #: Esperas ante un 429 de NaN por «max_parallel_requests» (13-09-2026:
+    #: Esperas ante un 429 (NaN por «max_parallel_requests», 13-09-2026; y
+    #: OpenRouter desde el 16-09-2026, ver abajo) — en NaN son
     #: 5 peticiones EN VUELO por clave, compartidas con cualquier otro uso de
     #: la clave; las que expiran por timeout siguen contando en el servidor).
     #: No es tasa, es un hueco ocupado: se espera y se repite DENTRO del
@@ -247,6 +271,7 @@ class NaNLanguageModel(language_model.LanguageModel):
     _ESPERAS_429 = (5, 10, 20, 40, 60, 90, 120, 180)
 
     def _chat(self, prompt, *, max_tokens, temperature, top_p, seed, timeout):
+        timeout = timeout_efectivo(timeout)
         with self._sem:
             for espera in self._ESPERAS_429 + (None,):
                 try:
@@ -254,10 +279,14 @@ class NaNLanguageModel(language_model.LanguageModel):
                         prompt, max_tokens=max_tokens, temperature=temperature,
                         top_p=top_p, seed=seed, timeout=timeout)
                 except openai.RateLimitError as e:
-                    if espera is None or self._proveedor != "nan":
+                    # También en OpenRouter (16-09-2026): un pool stealth
+                    # saturado devuelve 429 y, sin esto, subía directo al
+                    # RetryLanguageModel de fuera, que se rinde en un minuto.
+                    if espera is None:
                         raise
-                    print(f"[nan] 429 en {self._model}: {str(e)[:160]} — "
-                          f"espero {espera}s dentro del grifo", file=sys.stderr)
+                    print(f"[{self._proveedor}] 429 en {self._model}: "
+                          f"{str(e)[:160]} — espero {espera}s dentro del "
+                          "grifo", file=sys.stderr)
                     time.sleep(espera)
 
     def _chat_degradable(self, prompt, *, max_tokens, temperature, top_p,

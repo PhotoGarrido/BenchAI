@@ -27,6 +27,7 @@
   "glm5.3-flash": "resultados/bateria_20260913_003655_739144/denuncia_glm5.3-flash_20260913_024907_698264",
   "mimo-v2.5": "resultados/bateria_20260913_003655_739144/denuncia_mimo-v2.5_20260913_080919_701190",
   "gemma4": "resultados/bateria_20260913_003655_739144/denuncia_gemma4_20260913_114530_846565",
-  "qwen3.8-flash": "resultados/bateria_20260913_003655_739144/denuncia_qwen3.8-flash_20260913_135925_157946"
+  "qwen3.8-flash": "resultados/bateria_20260913_003655_739144/denuncia_qwen3.8-flash_20260913_135925_157946",
+  "stealth/union-alpha": "resultados/bateria_20260916_222735_664256/denuncia_stealth_union-alpha_20260917_142417_837737"
  }
 }

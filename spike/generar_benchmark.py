@@ -95,6 +95,7 @@ LABS = {
     "mistralai": "Mistral", "deepseek": "DeepSeek", "qwen": "Alibaba",
     "thinkingmachines": "Thinking Machines", "stealth": "sin desvelar",
     "meta": "Meta", "nvidia": "NVIDIA", "cohere": "Cohere",
+    "unbiased": "Unbiased",   # Pareto (el Union Alpha desvelado, 18-09-2026)
     # ids planos del gateway NaN (se resuelven por prefijo, ver _lab)
     "gemma": "Google", "mimo": "Xiaomi", "glm": "Zhipu",
 }
@@ -106,6 +107,10 @@ LABS = {
 DESVELADOS = {
     "stealth/ox-alpha": {"lab": "Zhipu", "nombre": "GLM-5.3-Flash",
                          "fecha": "26-08-2026"},
+    # 33 horas de preview (17-09 23:24 UTC): OpenRouter lo listó como
+    # unbiased/pareto el 18-09-2026 a la 01:02 local, 2,50/7,50 $ por M.
+    "stealth/union-alpha": {"lab": "Unbiased", "nombre": "Pareto",
+                           "fecha": "18-09-2026"},
 }
 
 # Ids de llamada que no dicen lo que sirven. El panel de modelos de NaN
@@ -125,6 +130,15 @@ NOTAS = {
     "mimo-v2.5": (
         "NaN lo enruta a un proveedor externo (Xiaomi), según su panel de "
         "modelos (13-09-2026): la vía es NaN, el servidor no"),
+    "stealth/union-alpha": (
+        "medido en fase stealth por OpenRouter (16/17-09-2026; prompts y "
+        "respuestas pueden quedar retenidos por el proveedor, no usados para "
+        "entrenar; sin parámetro de razonamiento: condición única). Pareto "
+        "es un modelo COMPUESTO que enruta cada petición entre varios "
+        "modelos frontier y abiertos (Unbiased, plataforma de Circuit & "
+        "Chisel): la medición es del compuesto en preview, no de un modelo "
+        "único; la versión de pago (`unbiased/pareto`), si se mide, es otra "
+        "entrada"),
 }
 
 

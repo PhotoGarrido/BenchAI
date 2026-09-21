@@ -45,6 +45,21 @@ política estable:
    espera con backoff dentro del grifo). Con varios modelos NaN en un
    batch, corre con `BATERIA_MAX_MODELOS=1`: los sub-procesos no comparten
    ni el limitador ni el grifo.
+5. **Pools lentos o en cola** (un stealth recién publicado): el harness
+   corta cada llamada a los 60 s que trae Concordia y `RetryLanguageModel`
+   repite cuatro veces contra la misma cola. `PSICOAI_TIMEOUT_S` fija el
+   timeout por llamada de la tanda entera (sondeo incluido) y
+   `BATERIA_TIMEOUT_S` el tope por sub-experimento (90 min por defecto;
+   0 = sin límite). Union Alpha (16-09-2026) daba 27-229 s por llamada y
+   ~1 llamada/min efectiva: se lanzó con `PSICOAI_TIMEOUT_S=600
+   BATERIA_TIMEOUT_S=86400`. Un 429 de OpenRouter espera con backoff dentro
+   del grifo, igual que los de NaN. Sondear la latencia con llamadas
+   neutras ANTES de lanzar: a 1/min la suite son ~75 h, y la ventana de un
+   stealth es de una semana.
+6. **Stealth aún sin desvelar**: `LABS` lo etiqueta «sin desvelar» y la web
+   NO lo cuenta como laboratorio (`portada.sinDesvelar` lo lleva aparte):
+   la prosa dice «N mediciones, L laboratorios» con L los que tienen nombre.
+   Al desvelarse, entra en `DESVELADOS` y, si el lab es nuevo, cuenta.
 
 ## 2 · Plan y autorización de gasto
 
@@ -166,5 +181,5 @@ en el release manifest), los episodios y el visor.
 | Crudos que no cuadran con la matriz | `ConciliacionError` (generación y `--check`) |
 | Eje con n válido bajo el diseño | D-8b: la entrada publica pero clasifica `n/c` |
 | Artefactos sin regenerar | `--check` byte a byte en CI (benchmark, datos, publicación) |
-| Denominadores de prosa desfasados | `vigilar_denominadores` en `generar_datos.py` |
+| Denominadores de prosa desfasados | `vigilar_denominadores` en `generar_datos.py` (portada, home y `/psicobench`) |
 | Matriz no registrada en `fuentes_benchmark.json` | **Nadie** — es la lista maestra; `alta.py` lo hace por ti, pero un alta manual a medias es invisible. Revisa el diff. |
