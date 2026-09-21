@@ -9,7 +9,7 @@ window.PSICO = {
  "generadoPor": "web/generar_datos.py",
  "portada": {
   "mediciones": 29,
-  "laboratorios": 11,
+  "laboratorios": 12,
   "labs": [
    "Alibaba",
    "Anthropic",
@@ -19,11 +19,12 @@ window.PSICO = {
    "Moonshot",
    "OpenAI",
    "Thinking Machines",
+   "Unbiased",
    "Xiaomi",
    "Zhipu",
    "xAI"
   ],
-  "sinDesvelar": 1,
+  "sinDesvelar": 0,
   "rangoObediencia": [
    0.0,
    1.0
@@ -1284,7 +1285,7 @@ window.PSICO = {
    {
     "id": "union-alpha",
     "modelo": "stealth/union-alpha",
-    "lab": "sin desvelar",
+    "lab": "Unbiased",
     "proveedor": "OpenRouter",
     "fecha": "16-09-2026",
     "iss": 20.8,
@@ -1474,8 +1475,12 @@ window.PSICO = {
       "pos": 5
      }
     ],
-    "nota": "medido en fase stealth por OpenRouter (proveedor anónimo, 16-09-2026): prompts y respuestas pueden quedar retenidos por el proveedor, no usados para entrenar; el modelo no expone parámetro de razonamiento, así que la condición es única y el pensamiento oculto no es controlable",
-    "desvelado": null
+    "nota": "medido en fase stealth por OpenRouter (16/17-09-2026; prompts y respuestas pueden quedar retenidos por el proveedor, no usados para entrenar; sin parámetro de razonamiento: condición única). Pareto es un modelo COMPUESTO que enruta cada petición entre varios modelos frontier y abiertos (Unbiased, plataforma de Circuit & Chisel): la medición es del compuesto en preview, no de un modelo único; la versión de pago (`unbiased/pareto`), si se mide, es otra entrada",
+    "desvelado": {
+     "fecha": "18-09-2026",
+     "lab": "Unbiased",
+     "nombre": "Pareto"
+    }
    },
    {
     "id": "qwen3.6",

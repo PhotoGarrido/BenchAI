@@ -105,7 +105,7 @@ La unidad del benchmark es la **medición**: `modelo + snapshot + proveedor + fe
 | =1 | **inkling-small** | Thinking Machines | OpenRouter · 22-08-2026 | **16,2** [9,7–23,6] | 4 | 30 | 0 | 1 | 45 | 25 | 11 | 2 | 100 | 0 | 0 | 0 | 100 |
 | =5 | **gpt-5.6-sol** | OpenAI | OpenRouter · 23-07-2026 | **20,4** [13,1–28,1] | 13 | 40 | 0 | 0 | 0 | 20 | 7 | 40 | 100 | -30 | -9 | 0 | 77 |
 | =5 | **mimo-v2.5** | Xiaomi | NaN · 13-09-2026 | **20,6** [15,8–25,7] | 24 | 60 | 0 | 0 | 0 | 9 | 3 | 8 | 100 | -50 | -10 | 0 | 80 |
-| =5 | **union-alpha** | sin desvelar | OpenRouter · 16-09-2026 | **20,8** [14,3–27,7] | 7 | 50 | 0 | 0 | 0 | 43 | 4 | 42 | 100 | -50 | -7 | 0 | 100 |
+| =5 | **union-alpha** | Unbiased | OpenRouter · 16-09-2026 | **20,8** [14,3–27,7] | 7 | 50 | 0 | 0 | 0 | 43 | 4 | 42 | 100 | -50 | -7 | 0 | 100 |
 | n/c | **qwen3.6** | Alibaba | NaN · 04-08-2026 | **23,2** [16,6–30,1] | 14 | 0 | 0 | 0 | 14 | 78 | 33 | 0 | 58 | 56 | 10 | 0 | 33 |
 | =5 | **mistral-medium-3-5** | Mistral | OpenRouter · 24-07-2026 | **23,9** [20,4–27,6] | 0 | 40 | 0 | 0 | 69 | 57 | 1 | 0 | 100 | 0 | 0 | 0 | 27 |
 | =5 | **qwen3.8-flash** | Alibaba | NaN · 13-09-2026 | **24,8** [20,0–30,1] | 23 | 20 | 0 | 17 | 79 | 71 | 1 | 12 | 92 | 0 | -6 | 0 | 63 |
@@ -130,7 +130,8 @@ La unidad del benchmark es la **medición**: `modelo + snapshot + proveedor + fe
 | 28 | **gemini-3.7-flash** | Google | OpenRouter · 22-08-2026 | **55,2** [45,7–64,9] | 50 | 90 | 0 | 12 | 60 | 90 | 39 | 51 | 95 | -30 | -7 | 0 | 100 |
 
 - **mimo-v2.5**: NaN lo enruta a un proveedor externo (Xiaomi), según su panel de modelos (13-09-2026): la vía es NaN, el servidor no.
-- **union-alpha**: medido en fase stealth por OpenRouter (proveedor anónimo, 16-09-2026): prompts y respuestas pueden quedar retenidos por el proveedor, no usados para entrenar; el modelo no expone parámetro de razonamiento, así que la condición es única y el pensamiento oculto no es controlable.
+- **union-alpha** se midió como modelo sin desvelar; el 18-09-2026 su laboratorio lo presentó como **Pareto** (Unbiased). El id y la medición no cambian: la versión pública, si se mide, es otra entrada.
+- **union-alpha**: medido en fase stealth por OpenRouter (16/17-09-2026; prompts y respuestas pueden quedar retenidos por el proveedor, no usados para entrenar; sin parámetro de razonamiento: condición única). Pareto es un modelo COMPUESTO que enruta cada petición entre varios modelos frontier y abiertos (Unbiased, plataforma de Circuit & Chisel): la medición es del compuesto en preview, no de un modelo único; la versión de pago (`unbiased/pareto`), si se mide, es otra entrada.
 - **ox-alpha** se midió como modelo sin desvelar; el 26-08-2026 su laboratorio lo presentó como **GLM-5.3-Flash** (Zhipu). El id y la medición no cambian: la versión pública, si se mide, es otra entrada.
 - **deepseek-v4.1-flash**: se pide a la API de NaN como `deepseek-v4-flash`; el panel de modelos de NaN lo etiqueta «V4-Flash (4.1 version)» (13-09-2026), así que se publica como DeepSeek-V4.1-Flash.
 

@@ -1338,7 +1338,11 @@
    }
   },
   {
-   "desvelado": null,
+   "desvelado": {
+    "fecha": "18-09-2026",
+    "lab": "Unbiased",
+    "nombre": "Pareto"
+   },
    "ejes": {
     "auto": 0.0,
     "brief": 0.0,
@@ -1493,9 +1497,9 @@
     10.6,
     23.3
    ],
-   "lab": "sin desvelar",
+   "lab": "Unbiased",
    "modelo": "stealth/union-alpha",
-   "nota": "medido en fase stealth por OpenRouter (proveedor anónimo, 16-09-2026): prompts y respuestas pueden quedar retenidos por el proveedor, no usados para entrenar; el modelo no expone parámetro de razonamiento, así que la condición es única y el pensamiento oculto no es controlable",
+   "nota": "medido en fase stealth por OpenRouter (16/17-09-2026; prompts y respuestas pueden quedar retenidos por el proveedor, no usados para entrenar; sin parámetro de razonamiento: condición única). Pareto es un modelo COMPUESTO que enruta cada petición entre varios modelos frontier y abiertos (Unbiased, plataforma de Circuit & Chisel): la medición es del compuesto en preview, no de un modelo único; la versión de pago (`unbiased/pareto`), si se mide, es otra entrada",
    "posicion": 5,
    "posicion_v01": 3,
    "posicion_v02": 1,

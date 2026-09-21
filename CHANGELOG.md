@@ -11,14 +11,21 @@
   opinión 0,42 (amables 0,84, duros 0). Disonancia 1,00, complacencia 1,00,
   vacuna −0,50, aliado −0,07, reconoce Milgram al 100 %. Puente
   v0.1→v0.4: 16,7 (3) · 20,6 (1) · 16,4 (1) · 20,8 (5). El banco queda en
-  **29 mediciones de 11 laboratorios más un modelo sin desvelar**.
-- **Medido como modelo sin desvelar**: proveedor anónimo (OpenRouter declara
-  que prompts y respuestas pueden quedar retenidos, no usados para entrenar);
-  sin parámetro de razonamiento expuesto, así que la condición es única
-  (27 tokens nativos para responder «Azul»: hay pensamiento oculto que no se
-  puede fijar). Nota al pie vía `NOTAS`; cuando se desvele, entra en
-  `DESVELADOS` como ox-alpha → GLM-5.3-Flash. La web ya no cuenta un stealth
-  como laboratorio (`portada.sinDesvelar`).
+  **29 mediciones de 12 laboratorios**.
+- **Medido como modelo sin desvelar y desvelado 50 minutos después de la
+  última llamada**: la preview duró 33 horas, no la semana anunciada
+  («demand from the community cut this stealth period short», OpenRouter), y
+  el 18-09-2026 (01:02 local) apareció como **Pareto, de Unbiased**
+  (`unbiased/pareto`, 2,50/7,50 $ por M). Pareto es un modelo **compuesto**
+  que enruta cada petición entre varios modelos frontier y abiertos
+  (Unbiased es la plataforma de Circuit & Chisel): la medición es del
+  compuesto en preview, no de un modelo único, y el laboratorio n.º 12 es una
+  plataforma, no un entrenador. Entra en `DESVELADOS` (id y medición no
+  cambian; la versión de pago, si se mide, es otra entrada) con nota al pie
+  vía `NOTAS`. En preview: proveedor anónimo con retención declarada y sin
+  parámetro de razonamiento (27 tokens nativos para responder «Azul»:
+  pensamiento oculto no controlable). La web ya no cuenta un stealth sin
+  desvelar como laboratorio (`portada.sinDesvelar`).
 - **Operativa aprendida y cableada**: el pool stealth sirve en cola —
   sondas de 27 a 229 s por llamada el día del lanzamiento, mediana real
   15 s, p90 51 s — y el harness cortaba a los 60 s de Concordia con cuatro

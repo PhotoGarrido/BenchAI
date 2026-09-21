@@ -252,3 +252,14 @@ r(sico, conf) baja a 0,60 (union-alpha es el caso divergente: conformidad
 CHANGELOG; `alta.py` dejó cableados mapas, matriz y fuente y regeneró el
 benchmark. Pendiente: PR, merge, deploy manual y smoke de producción;
 `DESVELADOS` cuando OpenRouter diga quién es.
+
+## 9 · Desvelado (18-09-2026, aplicado el 21-09)
+
+Union Alpha era **Pareto, de Unbiased** (plataforma de Circuit & Chisel): un
+modelo compuesto que enruta cada petición entre varios modelos frontier y
+abiertos. La preview duró 33 horas; OpenRouter lo listó como
+`unbiased/pareto` (2,50/7,50 $ por M) el 18-09 a la 01:02 local, 50 minutos
+después de nuestra última llamada. `DESVELADOS` + `LABS["unbiased"]` + nota
+de modelo compuesto en `NOTAS`; la prosa pasa a «29 mediciones de 12
+laboratorios». Si algún día se mide la versión de pago, es otra entrada
+(réplica cruzada preview → producto, como ox-alpha → glm5.3-flash).
