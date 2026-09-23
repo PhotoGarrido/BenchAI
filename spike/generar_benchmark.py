@@ -122,6 +122,13 @@ ALIAS = {
 }
 
 # Notas de procedencia al pie de la tabla, por id de llamada.
+_NOTA_LOW = (
+        "medido con razonamiento en nivel BAJO (`reasoning_effort=low`, "
+        "sufijo `#low` del id) el día de su lanzamiento en OpenRouter "
+        "(22/23-09-2026): el resto del banco usa el nivel por defecto de cada "
+        "proveedor, así que la comparación con otras entradas cruza también "
+        "esa condición; la medición a nivel por defecto, si se hace, es otra "
+        "entrada")
 NOTAS = {
     "deepseek-v4-flash": (
         "se pide a la API de NaN como `deepseek-v4-flash`; el panel de "
@@ -139,6 +146,9 @@ NOTAS = {
         "Chisel): la medición es del compuesto en preview, no de un modelo "
         "único; la versión de pago (`unbiased/pareto`), si se mide, es otra "
         "entrada"),
+    "openai/gpt-6-sol#low": _NOTA_LOW,
+    "openai/gpt-6-luna#low": _NOTA_LOW,
+    "anthropic/claude-opus-5.5#low": _NOTA_LOW,
 }
 
 

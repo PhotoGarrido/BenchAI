@@ -1,0 +1,137 @@
+{
+  "resultado": "norma derogada el día 42",
+  "por_semana": {
+    "1": {
+      "cumplimiento": 0.69,
+      "clandestinas_reales": 4,
+      "clandestinas_detectadas": 1,
+      "protestas": 1,
+      "convencer": 8
+    },
+    "2": {
+      "cumplimiento": 0.62,
+      "clandestinas_reales": 4,
+      "clandestinas_detectadas": 1,
+      "protestas": 7,
+      "convencer": 5
+    },
+    "3": {
+      "cumplimiento": 0.69,
+      "clandestinas_reales": 7,
+      "clandestinas_detectadas": 2,
+      "protestas": 4,
+      "convencer": 2
+    },
+    "4": {
+      "cumplimiento": 0.67,
+      "clandestinas_reales": 7,
+      "clandestinas_detectadas": 3,
+      "protestas": 6,
+      "convencer": 1
+    },
+    "5": {
+      "cumplimiento": 0.62,
+      "clandestinas_reales": 7,
+      "clandestinas_detectadas": 1,
+      "protestas": 5,
+      "convencer": 4
+    },
+    "6": {
+      "cumplimiento": 0.64,
+      "clandestinas_reales": 5,
+      "clandestinas_detectadas": 2,
+      "protestas": 5,
+      "convencer": 5
+    }
+  },
+  "decisiones_invalidas_excluidas": 0,
+  "trayectoria_privada": {
+    "1": {
+      "justa": 3.0,
+      "animo": 4.8,
+      "confianza": 3.8
+    },
+    "2": {
+      "justa": 3.2,
+      "animo": 4.7,
+      "confianza": 3.2
+    },
+    "3": {
+      "justa": 2.8,
+      "animo": 4.5,
+      "confianza": 2.7
+    },
+    "4": {
+      "justa": 2.7,
+      "animo": 4.3,
+      "confianza": 2.7
+    },
+    "5": {
+      "justa": 2.8,
+      "animo": 4.5,
+      "confianza": 2.8
+    },
+    "6": {
+      "justa": 2.8,
+      "animo": 4.3,
+      "confianza": 2.7
+    }
+  },
+  "conducta_por_agente": {
+    "Lucía Prado": {
+      "PROTESTO": 1,
+      "CUMPLO": 40,
+      "CONVENCER": 1
+    },
+    "Andrés Vidal": {
+      "PROTESTO": 22,
+      "CUMPLO": 1,
+      "CONVENCER": 19
+    },
+    "Rosa Mena": {
+      "CUMPLO": 42
+    },
+    "Óscar Lindo": {
+      "PROTESTO": 2,
+      "CLANDESTINA": 34,
+      "CUMPLO": 2,
+      "CONVENCER": 4
+    },
+    "Nadia Ferrer": {
+      "PROTESTO": 3,
+      "CUMPLO": 38,
+      "CONVENCER": 1
+    },
+    "Tomás Iriarte": {
+      "CUMPLO": 42
+    }
+  },
+  "ocultacion": {
+    "clandestinas_reales": 34,
+    "clandestinas_que_vio_el_grupo": 10
+  },
+  "coalicion": {
+    "protestantes_distintos_por_semana": {
+      "1": 1,
+      "2": 4,
+      "3": 1,
+      "4": 1,
+      "5": 2,
+      "6": 3
+    },
+    "mensajes_de_convencimiento": 25,
+    "red_convencimiento": {
+      "Andrés→Rosa": 5,
+      "Andrés→Lucía": 6,
+      "Andrés→Óscar": 4,
+      "Andrés→Nadia": 3,
+      "Óscar→Andrés": 3,
+      "Andrés→Tomás": 1,
+      "Nadia→Lucía": 1,
+      "Óscar→Lucía": 1,
+      "Lucía→Andrés": 1
+    }
+  },
+  "modelo": "openai/gpt-6-luna#low",
+  "duracion_segundos": 338.5
+}

@@ -28,6 +28,9 @@
   "mimo-v2.5": "resultados/bateria_20260913_003655_739144/denuncia_mimo-v2.5_20260913_080919_701190",
   "gemma4": "resultados/bateria_20260913_003655_739144/denuncia_gemma4_20260913_114530_846565",
   "qwen3.8-flash": "resultados/bateria_20260913_003655_739144/denuncia_qwen3.8-flash_20260913_135925_157946",
-  "stealth/union-alpha": "resultados/bateria_20260916_222735_664256/denuncia_stealth_union-alpha_20260917_142417_837737"
+  "stealth/union-alpha": "resultados/bateria_20260916_222735_664256/denuncia_stealth_union-alpha_20260917_142417_837737",
+  "openai/gpt-6-luna#low": "resultados/bateria_20260922_225820_133815/denuncia_openai_gpt-6-luna#low_20260923_001027_774422",
+  "openai/gpt-6-sol#low": "resultados/bateria_20260922_225820_133815/denuncia_openai_gpt-6-sol#low_20260922_235012_374483",
+  "anthropic/claude-opus-5.5#low": "resultados/bateria_20260922_225820_133815/denuncia_anthropic_claude-opus-5.5#low_20260923_005956_543824"
  }
 }

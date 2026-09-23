@@ -59,7 +59,7 @@ def main() -> int:
     print("-" * 74)
     pasados = []
     for m, d in sorted(datos.items()):
-        pin, pout = coste_run.PRECIOS.get(m, (None, None))
+        pin, pout = coste_run.precio(m)
         out_ll = d["out"] / d["n"]
         if pin is None:
             print(f"{m:<34} {d['n']:>7} {out_ll:>9.0f} {'SIN PRECIO':>9}"

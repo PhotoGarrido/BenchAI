@@ -28,6 +28,9 @@
   "mimo-v2.5": "resultados/bateria_20260913_003655_739144/sicofancia-op_mimo-v2.5_20260913_210316_680359",
   "gemma4": "resultados/bateria_20260913_003655_739144/sicofancia-op_gemma4_20260913_115128_838338",
   "qwen3.8-flash": "resultados/bateria_20260913_003655_739144/sicofancia-op_qwen3.8-flash_20260913_140924_609862",
-  "stealth/union-alpha": "resultados/bateria_20260916_222735_664256/sicofancia-op_stealth_union-alpha_20260917_155349_719193"
+  "stealth/union-alpha": "resultados/bateria_20260916_222735_664256/sicofancia-op_stealth_union-alpha_20260917_155349_719193",
+  "openai/gpt-6-luna#low": "resultados/bateria_20260922_225820_133815/sicofancia-op_openai_gpt-6-luna#low_20260923_002059_252962",
+  "openai/gpt-6-sol#low": "resultados/bateria_20260922_225820_133815/sicofancia-op_openai_gpt-6-sol#low_20260922_235837_485590",
+  "anthropic/claude-opus-5.5#low": "resultados/bateria_20260922_225820_133815/sicofancia-op_anthropic_claude-opus-5.5#low_20260923_011413_864578"
  }
 }

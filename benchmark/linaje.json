@@ -1326,6 +1326,291 @@
    "sha256": "7a2e22723a2b71d0a6263de02dc039ad4a370bf224f734fdcfa8e0fb369d0386"
   },
   {
+   "bytes": 100094,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/asch_anthropic_claude-opus-5.5#low_20260922_225821_616876/registros.jsonl",
+   "sha256": "8e48a859b509545a293de1b0188023ba47364cc89625ca8c2207b84b3bd2c6ba"
+  },
+  {
+   "bytes": 100090,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/asch_openai_gpt-6-luna#low_20260922_225821_616876/registros.jsonl",
+   "sha256": "497883b02e75eeff276cd4cb66ced8365b52e774602ebba5adaeb8e4863c5257"
+  },
+  {
+   "bytes": 100090,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/asch_openai_gpt-6-sol#low_20260922_225821_616645/registros.jsonl",
+   "sha256": "9b528311616150eb2fd0d54c33fb2223466d5c2aa82c4fbe8ca2f09bd582aaa9"
+  },
+  {
+   "bytes": 28756,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/denuncia_anthropic_claude-opus-5.5#low_20260923_005956_543824/registros.jsonl",
+   "sha256": "0e1696705b4c636e8f208e8ba156756c26e54da99eed0dcd2b83601fef61f21b"
+  },
+  {
+   "bytes": 1315,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/denuncia_anthropic_claude-opus-5.5#low_20260923_005956_543824/resumen.json",
+   "sha256": "0fa3180921ac8ebb8a20d871aa7fdffede880b754100a49ce1276bf7c76f2533"
+  },
+  {
+   "bytes": 28749,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/denuncia_openai_gpt-6-luna#low_20260923_001027_774422/registros.jsonl",
+   "sha256": "9cabb2702779c5aa4200c6cb052b0ec7a431ebb5414ddce69aa008d97a789133"
+  },
+  {
+   "bytes": 1343,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/denuncia_openai_gpt-6-luna#low_20260923_001027_774422/resumen.json",
+   "sha256": "d354b6f6e5eea7c22e714a6bb25133951d95e2296c77f31fdeed8900146ca2e9"
+  },
+  {
+   "bytes": 28770,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/denuncia_openai_gpt-6-sol#low_20260922_235012_374483/registros.jsonl",
+   "sha256": "7a044781dec495d87b38fd29495660ec8df53408899319fa964991a9446f0675"
+  },
+  {
+   "bytes": 1387,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/denuncia_openai_gpt-6-sol#low_20260922_235012_374483/resumen.json",
+   "sha256": "e64e1944fdcd57e7a4e604b5ec08b0ecfa3f15b10569865ba480cc2631d1c7a9"
+  },
+  {
+   "bytes": 1720,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/milgram_anthropic_claude-opus-5.5#low_20260922_233336_088975/resumen.json",
+   "sha256": "d1250df8ccee9c5ee1dd0953d3069f3a3e45e8fc248e8b1009c31ccdfb7ea7e6"
+  },
+  {
+   "bytes": 20610,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/milgram_anthropic_claude-opus-5.5#low_20260922_233336_088975/sesiones.jsonl",
+   "sha256": "c34d9db8916ba1a4ba7f9c7280340c984eb403b39fda4ffc277c16e876beff9e"
+  },
+  {
+   "bytes": 1727,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/milgram_openai_gpt-6-luna#low_20260922_231919_685370/resumen.json",
+   "sha256": "97e681ce0f3aa91811ad8d793c28654d11dedd916a5a83c6ba67f6533f25ef54"
+  },
+  {
+   "bytes": 22855,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/milgram_openai_gpt-6-luna#low_20260922_231919_685370/sesiones.jsonl",
+   "sha256": "18c4f2a97178d56eee895e1fd81941591d2a6a78e5f0a1d38864072963b2f3d5"
+  },
+  {
+   "bytes": 1712,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/milgram_openai_gpt-6-sol#low_20260922_231107_324678/resumen.json",
+   "sha256": "367f742a236c370546f1bbd9fcaec8b03a78a71e5300095a20da53509ccbea53"
+  },
+  {
+   "bytes": 16253,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/milgram_openai_gpt-6-sol#low_20260922_231107_324678/sesiones.jsonl",
+   "sha256": "c9de3a228f9160baa2d09c23f391d020f273f8a112be59994ce24c7e43258162"
+  },
+  {
+   "bytes": 20035,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/prision_anthropic_claude-opus-5.5#low_20260923_002533_599506/registros_carcel.jsonl",
+   "sha256": "23ff431b76ed1517070212d6c2b5832090b4eb4a6a2ab4fc31f1eee61e6d88c9"
+  },
+  {
+   "bytes": 20026,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/prision_anthropic_claude-opus-5.5#low_20260923_002533_599506/registros_programa.jsonl",
+   "sha256": "7d892c173b81ae71cf882a491fbb1b821abc64248756f36fd1f3694670c05e6b"
+  },
+  {
+   "bytes": 2659,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/prision_anthropic_claude-opus-5.5#low_20260923_002533_599506/resumen.json",
+   "sha256": "547fef795e4d9877daa5443e24fde6857f5513c2c534f84075c4e992f42a0c12"
+  },
+  {
+   "bytes": 20088,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/prision_anthropic_claude-opus-5.5#low_coaching_20260923_003221_479441/registros_carcel.jsonl",
+   "sha256": "ce64ca43d9a7258a22df93a26e16ed179bed6f9cd1f27ac671ed9b8da60564ed"
+  },
+  {
+   "bytes": 20059,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/prision_anthropic_claude-opus-5.5#low_coaching_20260923_003221_479441/registros_programa.jsonl",
+   "sha256": "1f5fa232947777bbec91ebb39b6289be4e4f63fc5d9bbdc97cb7c86b422ff835"
+  },
+  {
+   "bytes": 2659,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/prision_anthropic_claude-opus-5.5#low_coaching_20260923_003221_479441/resumen.json",
+   "sha256": "6ffe09c3659226496a19d979a7dedb984be9e47f61032351220b3ac08cf5d4dd"
+  },
+  {
+   "bytes": 20031,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/prision_anthropic_claude-opus-5.5#low_ordenes_20260923_005013_797293/registros_carcel.jsonl",
+   "sha256": "a1425b5178e9d08250602497ce59caa13a1a7ecd84fb2fe3d07f9b91cea887e4"
+  },
+  {
+   "bytes": 20033,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/prision_anthropic_claude-opus-5.5#low_ordenes_20260923_005013_797293/registros_programa.jsonl",
+   "sha256": "f7fd1cbc86e72eb0eca1623b182b31296c9953d9360d1bffb9aa2991df69e876"
+  },
+  {
+   "bytes": 2661,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/prision_anthropic_claude-opus-5.5#low_ordenes_20260923_005013_797293/resumen.json",
+   "sha256": "789e7fa5399a1563787ffe1c7a737dee9262ae6aeead0b5780e247e3c7fb28f1"
+  },
+  {
+   "bytes": 20013,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/prision_anthropic_claude-opus-5.5#low_rebelion_20260923_004038_086266/registros_carcel.jsonl",
+   "sha256": "1393a42ba4324b59cb869b8d60190da7b5599e4d5ebef5ad01b936bfd59679fc"
+  },
+  {
+   "bytes": 19935,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/prision_anthropic_claude-opus-5.5#low_rebelion_20260923_004038_086266/registros_programa.jsonl",
+   "sha256": "eea67e873e7c7b7b3de843a7b6da34bf37008b66b946d5d7bf6e159a27e4332d"
+  },
+  {
+   "bytes": 2661,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/prision_anthropic_claude-opus-5.5#low_rebelion_20260923_004038_086266/resumen.json",
+   "sha256": "4c28b3469f655162dca388bee2445a0f18e035f91d365466a4f3bb1643b39b93"
+  },
+  {
+   "bytes": 17469,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/prision_openai_gpt-6-luna#low_20260922_235152_209355/registros_carcel.jsonl",
+   "sha256": "87a3f31cbd4d840bccb6f605b4099e0fb189e9ac32357b6983fbee48989ca8a5"
+  },
+  {
+   "bytes": 17437,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/prision_openai_gpt-6-luna#low_20260922_235152_209355/registros_programa.jsonl",
+   "sha256": "3941635c2180968acba49d28fd7f00a776b1c5894bc859bb3e911c28e7e2e61b"
+  },
+  {
+   "bytes": 2625,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/prision_openai_gpt-6-luna#low_20260922_235152_209355/resumen.json",
+   "sha256": "ac35493e6274a35a5c6b24da3463b2ec5b0adaaa6556ee97acc5767312986dc8"
+  },
+  {
+   "bytes": 17720,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/prision_openai_gpt-6-luna#low_coaching_20260922_235646_421204/registros_carcel.jsonl",
+   "sha256": "7d7b0cc973894aee2125602f5635b4612c43dee09ad01c7dcd21225e70052c5f"
+  },
+  {
+   "bytes": 17733,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/prision_openai_gpt-6-luna#low_coaching_20260922_235646_421204/registros_programa.jsonl",
+   "sha256": "0a26ce07fac49d83f8b94c15a8069bd364912b35d7147946f87adec4c9174ad3"
+  },
+  {
+   "bytes": 2640,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/prision_openai_gpt-6-luna#low_coaching_20260922_235646_421204/resumen.json",
+   "sha256": "fea2f1c2f386c7d7073ca627c09abd08d6f1ee85c6b84005e8103a9ff0771a8f"
+  },
+  {
+   "bytes": 17400,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/prision_openai_gpt-6-luna#low_ordenes_20260923_000551_695602/registros_carcel.jsonl",
+   "sha256": "5e7e5b4e3b1bbca1cabd5e763b84ca9c1cb5a061a254e67ec7040dacfe76d26d"
+  },
+  {
+   "bytes": 17521,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/prision_openai_gpt-6-luna#low_ordenes_20260923_000551_695602/registros_programa.jsonl",
+   "sha256": "1616bd51c2f7646429c3aa49c89bf32691b980ceb95cd3eb0b21f3f61330f919"
+  },
+  {
+   "bytes": 2638,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/prision_openai_gpt-6-luna#low_ordenes_20260923_000551_695602/resumen.json",
+   "sha256": "d19637648b0355d8120b4dcea40bff78e95dc6c8c29a2e24d87658956bf2bb77"
+  },
+  {
+   "bytes": 18469,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/prision_openai_gpt-6-luna#low_rebelion_20260923_000119_384914/registros_carcel.jsonl",
+   "sha256": "5ae2f9ec1c6563730ae1ed9a9a33bcc9b0ce6e4a7d8ebd383c86e93fe547f4ed"
+  },
+  {
+   "bytes": 18528,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/prision_openai_gpt-6-luna#low_rebelion_20260923_000119_384914/registros_programa.jsonl",
+   "sha256": "394cecf04d63543eb25e362b67aecdc98efc625f42bae5a0153ddd634b4ba976"
+  },
+  {
+   "bytes": 2626,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/prision_openai_gpt-6-luna#low_rebelion_20260923_000119_384914/resumen.json",
+   "sha256": "bd80b080c242ac08e5339abb42a17dcb0b4ba6e5b2e436a2673a1f8a99f3c002"
+  },
+  {
+   "bytes": 18006,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/prision_openai_gpt-6-sol#low_20260922_233221_512910/registros_carcel.jsonl",
+   "sha256": "0dcc40b6d0369100fcefaaa431d458f82b2b8ba78200c9bc86b473c8ec32ec81"
+  },
+  {
+   "bytes": 18139,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/prision_openai_gpt-6-sol#low_20260922_233221_512910/registros_programa.jsonl",
+   "sha256": "7ccd4120a193b4b603de831d1003fc6a8867b2aa9b98956c8763144979cc107d"
+  },
+  {
+   "bytes": 2650,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/prision_openai_gpt-6-sol#low_20260922_233221_512910/resumen.json",
+   "sha256": "77ea76b63fb361a388dcd4a6735236bbdcd1a8736e6670673bca502d289e7f08"
+  },
+  {
+   "bytes": 18129,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/prision_openai_gpt-6-sol#low_coaching_20260922_233634_467266/registros_carcel.jsonl",
+   "sha256": "a5792c9fed90c85f3341215c84d9ddf53588f24bbe2c11474a33114cc3143a6d"
+  },
+  {
+   "bytes": 18213,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/prision_openai_gpt-6-sol#low_coaching_20260922_233634_467266/registros_programa.jsonl",
+   "sha256": "b70906aabfa7da84d4af7094ac72da941630ecc8c540b78b407e6121244a5c1c"
+  },
+  {
+   "bytes": 2649,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/prision_openai_gpt-6-sol#low_coaching_20260922_233634_467266/resumen.json",
+   "sha256": "6f4ee09d0cfe63b85f0758f64fad6cec0642caf0b73fcfe89bfa23061ccfad82"
+  },
+  {
+   "bytes": 17813,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/prision_openai_gpt-6-sol#low_ordenes_20260922_234505_426561/registros_carcel.jsonl",
+   "sha256": "b7d5e16091eb041acedbcf4b8c8ae3a0b263a120b44b4926d57e52b7beefecce"
+  },
+  {
+   "bytes": 18069,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/prision_openai_gpt-6-sol#low_ordenes_20260922_234505_426561/registros_programa.jsonl",
+   "sha256": "5ce0087c5340b9bb9a69525f2da70f1168faf5b7f297c235b49d2daa8286fd0f"
+  },
+  {
+   "bytes": 2653,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/prision_openai_gpt-6-sol#low_ordenes_20260922_234505_426561/resumen.json",
+   "sha256": "2d104d51f69ad0717eed4c776f92c1354fc14b1b38267c98a572ba0034ecac48"
+  },
+  {
+   "bytes": 18780,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/prision_openai_gpt-6-sol#low_rebelion_20260922_234056_228388/registros_carcel.jsonl",
+   "sha256": "4694b34740245defb882b2d7906ca2d9f9b00a887c977f63e67b54ea28a54ad0"
+  },
+  {
+   "bytes": 18839,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/prision_openai_gpt-6-sol#low_rebelion_20260922_234056_228388/registros_programa.jsonl",
+   "sha256": "adcec1f3e266e0d0e4ee30305da081cd159707cb0b5ffbb3c5e73f16f89c7c6f"
+  },
+  {
+   "bytes": 2650,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/prision_openai_gpt-6-sol#low_rebelion_20260922_234056_228388/resumen.json",
+   "sha256": "00d9210391ae82adcb673ad635149dd03c4f4ef0ff966db8375d7042954950e6"
+  },
+  {
+   "bytes": 48594,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/sicofancia-op_anthropic_claude-opus-5.5#low_20260923_011413_864578/registros.jsonl",
+   "sha256": "342eb4091910aa7d7b1a46bee4331152c7becade9bf6136e2f96476e0342c665"
+  },
+  {
+   "bytes": 334,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/sicofancia-op_anthropic_claude-opus-5.5#low_20260923_011413_864578/resumen.json",
+   "sha256": "9e27a259a8edb32300d91caa72e9949a0bc9d7ceae2a9725f555067ee4d3d05d"
+  },
+  {
+   "bytes": 48628,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/sicofancia-op_openai_gpt-6-luna#low_20260923_002059_252962/registros.jsonl",
+   "sha256": "d4caef94038057d69d726d8a26044bec0a5394727a2289c09315db1d46cd9a3c"
+  },
+  {
+   "bytes": 341,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/sicofancia-op_openai_gpt-6-luna#low_20260923_002059_252962/resumen.json",
+   "sha256": "0bd6d72676c64e7a8f1f72bd4bd8979f1fdab6b03816bcdbfa3d02585bf3ed39"
+  },
+  {
+   "bytes": 48603,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/sicofancia-op_openai_gpt-6-sol#low_20260922_235837_485590/registros.jsonl",
+   "sha256": "46b9948a5379d6012d5f7defe14c0ad560e77f1be15b1f4f74f809ed1e5f5661"
+  },
+  {
+   "bytes": 325,
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/sicofancia-op_openai_gpt-6-sol#low_20260922_235837_485590/resumen.json",
+   "sha256": "03bfc73569b9f3e46d60d397dab6c368c34ddaef45c2832ed03fb92cceaa6801"
+  },
+  {
    "bytes": 28686,
    "ruta": "spike/resultados/cartera_n_20260805/denuncia_anthropic_claude-fable-5_20260805_144123_862147/registros.jsonl",
    "sha256": "6fffaa4c0edda5d5b97bdb6143a1e9f1b277d9db5a5156d3e826ee8f912461b7"
@@ -2802,33 +3087,39 @@
    "proveedor": "OpenRouter",
    "ruta": "spike/resultados/bateria_20260916_222735_664256/matriz_m2.json",
    "sha256": "7f9ad0aee2cbc258b009ac2ce102a63672b0f3271103b21fb60bcbfafdfde55a"
+  },
+  {
+   "bytes": 5975,
+   "proveedor": "OpenRouter",
+   "ruta": "spike/resultados/bateria_20260922_225820_133815/matriz_m2.json",
+   "sha256": "662655b7142967ceca3c4c2d336e8d88d2167961cd193c2417f284e0f0946d15"
   }
  ],
  "regla": "toda cifra publicada del benchmark debe reconstruirse re-ejecutando la transformación sobre entradas con estos hashes; si algo no cuadra, la cifra no se cita",
  "salidas": [
   {
-   "bytes": 34498,
+   "bytes": 36346,
    "ruta": "BENCHMARK.md",
-   "sha256": "5347c80e48217543213d3f5eee62b97f980db98e2f8ee3b234e87622f16b42f7"
+   "sha256": "bfb334a6dcb370c1aee865b7f62101ada977cad1b553f550fd29aa75b3e5fffd"
   },
   {
-   "bytes": 102614,
+   "bytes": 110269,
    "ruta": "benchmark/index.html",
-   "sha256": "bd1e63e14b07c3ce9da06100941b6c2608156b96167bd15fc9ebd846cd7bd24b"
+   "sha256": "ea9801f941e00e892fad027044acc03aab1ff225e21c6017fb675f982b75b094"
   },
   {
-   "bytes": 103562,
+   "bytes": 114890,
    "ruta": "benchmark/psicobench.json",
-   "sha256": "cb35df03be32d02070b8651b44f0ff232eb28ba94b112a4488471cabd3c32c92"
+   "sha256": "ed3b86ea87cb699ae1040b238852f87c53d53b3ca43bf1ecf287aa46623dd650"
   }
  ],
  "transformacion": {
   "nota": "la conciliación dura (punto recomputado == punto citado) corre en cada generación y en --check; los IC se remuestrean por cadena (enmienda E-IC-1 + adenda E-IC-1b)",
   "piezas": [
    {
-    "bytes": 33020,
+    "bytes": 33569,
     "ruta": "spike/generar_benchmark.py",
-    "sha256": "e6ef996a59001b6b8649e1a6ce1c3b6c60f77de7087f3088f28c012a8528c44d"
+    "sha256": "6847182c6e6060f97a16e3257b9ca0e6ec749e4fe6c573880bc66b5aca32e90e"
    },
    {
     "bytes": 35701,
@@ -2841,19 +3132,19 @@
     "sha256": "6d96a733ae198e325c161dd38c082a672e67ccd171eb55984516e164463a49ce"
    },
    {
-    "bytes": 1636,
+    "bytes": 1747,
     "ruta": "spike/fuentes_benchmark.json",
-    "sha256": "37f14ef7ffe6dd5a95d1ca8cf675e859fe62a01cdf87d7ef0798c192a70df460"
+    "sha256": "14c4b5ae1b82f297e1159a13b2e047da0ceb72a8f06f9cf8380323e724e58d71"
    },
    {
-    "bytes": 3555,
+    "bytes": 3947,
     "ruta": "spike/denuncia_runs.json",
-    "sha256": "826aaf8e85a0d56ad07ec5e9a36fcff487843c960fb0bdae4431c73b446c0275"
+    "sha256": "e2e966e41ceb4146a696482ccf4fcc7faf59cf701c7dda49cb9a4d932fe37943"
    },
    {
-    "bytes": 3861,
+    "bytes": 4268,
     "ruta": "spike/sicofancia_runs.json",
-    "sha256": "eb94565fa0d8947b1df2cd89554be98c51827c3151f6d88010a76bdcca13e510"
+    "sha256": "689484274ff1288b71d99d0f3ee0c64de04794ffc605a271f503deb8e4efc2da"
    }
   ],
   "version_benchmark": "0.4"
