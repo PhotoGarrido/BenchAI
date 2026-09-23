@@ -306,6 +306,33 @@ def _pearson(xs, ys):
     return round(sum((x - mx) * (y - my) for x, y in zip(xs, ys)) / (sx * sy), 2)
 
 
+def distincion(entradas):
+    """Regla de lectura del ISS (E-IC-1, 06-08) convertida en cifra DERIVADA.
+
+    Dos mediciones son distinguibles si sus IC de ISS son disjuntos. De ahí
+    salen dos umbrales de diferencia de ISS: `bajo`, la menor separación con
+    la que alguna pareja ya tiene IC disjuntos (por debajo, ninguna), y
+    `alto`, la mayor separación a la que alguna pareja aún solapa (por
+    encima, todas se distinguen). Hasta el 23-09-2026 esto vivía escrito a
+    mano («10,3 / 17,4, de 171 pares») y se quedó congelado en el banco de
+    19 mediciones mientras el banco crecía a 32.
+    """
+    clasif = [e for e in entradas
+              if e.get("posicion") is not None and e.get("iss_ic")]
+    disjuntas, solapan = [], []
+    for i, a in enumerate(clasif):
+        for b in clasif[i + 1:]:
+            d = abs(a["iss"] - b["iss"])
+            (lo_a, hi_a), (lo_b, hi_b) = a["iss_ic"], b["iss_ic"]
+            (disjuntas if hi_a < lo_b or hi_b < lo_a else solapan).append(d)
+    return {
+        "bajo": round(min(disjuntas), 1) if disjuntas else None,
+        "alto": round(max(solapan), 1) if solapan else None,
+        "pares": len(disjuntas) + len(solapan),
+        "solapan": len(solapan),
+    }
+
+
 def construir():
     entradas, crudos = [], []
     for ruta, proveedor in FUENTES:
@@ -433,6 +460,7 @@ def construir():
         "canary": CANARY,
         "replicas": replicas,
         "correlaciones": correlaciones,
+        "distincion": distincion(entradas),
         "version": PSICOBENCH_VERSION,
         "suite": SUITE,
         "ejes": [{"clave": c, "nombre": n, "definicion": d} for c, n, d in EJES],
@@ -516,6 +544,10 @@ MARCA_INI ="<!-- PSICOBENCH:TABLA:INICIO (autogenerada — no editar a mano) -->
 MARCA_FIN = "<!-- PSICOBENCH:TABLA:FIN -->"
 MARCA_PUENTE_INI = "<!-- PSICOBENCH:PUENTE:INICIO (autogenerada — no editar a mano) -->"
 MARCA_PUENTE_FIN = "<!-- PSICOBENCH:PUENTE:FIN -->"
+# Frase de la regla de lectura: va DENTRO de un párrafo, así que se parchea
+# en línea (sin saltos) entre estos dos comentarios.
+MARCA_DIST_INI = "<!-- PSICOBENCH:DISTINCION -->"
+MARCA_DIST_FIN = "<!-- /PSICOBENCH:DISTINCION -->"
 
 
 def tabla_puente_md(datos):
@@ -556,6 +588,14 @@ def _parchear_bloque(texto, ini, fin, contenido, etiqueta):
             + fin + texto.split(fin)[1])
 
 
+def frase_distincion_md(d):
+    return (f"En la tabla actual **ninguna pareja separada por menos de "
+            f"{_fmt(d['bajo'], 1, 1)} puntos de ISS** tiene IC disjuntos, y "
+            f"**todas las separadas por más de {_fmt(d['alto'], 1, 1)}** los "
+            "tienen; entre ambos umbrales hay que mirar la pareja concreta "
+            f"(de {d['pares']} pares, {d['solapan']} solapan).")
+
+
 def parchear_benchmark_md(datos):
     f = RAIZ / "BENCHMARK.md"
     if not f.exists():
@@ -569,6 +609,12 @@ def parchear_benchmark_md(datos):
                              "TABLA")
     texto = _parchear_bloque(texto, MARCA_PUENTE_INI, MARCA_PUENTE_FIN,
                              tabla_puente_md(datos), "PUENTE")
+    if MARCA_DIST_INI not in texto or MARCA_DIST_FIN not in texto:
+        raise SystemExit("BENCHMARK.md: faltan los marcadores DISTINCION; la "
+                         "frase de umbrales no se escribe a mano")
+    texto = (texto.split(MARCA_DIST_INI)[0] + MARCA_DIST_INI
+             + frase_distincion_md(datos["distincion"]) + MARCA_DIST_FIN
+             + texto.split(MARCA_DIST_FIN)[1])
     return texto
 
 

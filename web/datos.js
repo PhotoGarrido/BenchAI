@@ -6469,6 +6469,12 @@ window.PSICO = {
     "sold": 1.0
    }
   },
+  "distincion": {
+   "alto": 17.4,
+   "bajo": 9.5,
+   "pares": 465,
+   "solapan": 258
+  },
   "replicas": [
    {
     "a": "qwen3.6-35b-a3b@OpenRouter·23-07-2026",

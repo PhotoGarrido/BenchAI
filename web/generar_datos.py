@@ -146,6 +146,9 @@ def bloque_benchmark() -> dict:
         "ejes": b["ejes"],
         "entradas": entradas,
         "correlaciones": b["correlaciones"],
+        # Umbrales de la regla de lectura (IC disjuntos): derivados en
+        # generar_benchmark.py; la portada los pinta, no los escribe.
+        "distincion": b["distincion"],
         "replicas": b["replicas"],
     }
 
@@ -904,6 +907,13 @@ def vigilar_denominadores(bench: dict) -> None:
     # Afirmación empírica sobre TODAS las mediciones: con cada alta hay que
     # re-comprobarla, no solo re-numerarla.
     exigir("web/js/pagina.js", f"las {n} mediciones", razon)
+    # Los umbrales de distinción se quedaron escritos a mano de 19 a 32
+    # mediciones (10,3 en vez de 9,5) sin que nada lo viera: ahora la ficha
+    # los lee de los datos y esto impide que vuelvan a escribirse a mano.
+    for clave in ("bajo", "alto", "pares", "solapan"):
+        exigir("web/index.html", f'data-cifra="benchmark.distincion.{clave}"',
+               "los umbrales de distinción se derivan de los datos, no se "
+               "escriben a mano")
 
 
 def construir() -> str:
