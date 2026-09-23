@@ -58,7 +58,7 @@ def proyectar_coste(modelos):
     t_out = sum(v[2] for v in REFERENCIA.values())
     plan, total, sin_precio = [], 0.0, []
     for m in modelos:
-        pin, pout = coste_run.PRECIOS.get(m, (None, None))
+        pin, pout = coste_run.precio(m)
         if pin is None:
             sin_precio.append(m)
             plan.append((m, llamadas, None))
@@ -80,7 +80,7 @@ def avisos_previos(modelos):
             avisos.append(f"«{m}» no resuelve a un laboratorio en LABS de "
                           "generar_benchmark.py (saldría como «?» en la "
                           "tabla): añade su prefijo antes de publicar")
-        if m not in coste_run.PRECIOS:
+        if coste_run.precio(m)[0] is None:
             avisos.append(f"«{m}» no tiene precio en coste_run.PRECIOS: la "
                           "proyección y la auditoría de coste saldrán incompletas")
     return avisos

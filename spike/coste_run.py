@@ -36,6 +36,11 @@ PRECIOS = {   # USD por millón de tokens (in, out) — OpenRouter 26-07-2026
     "nvidia/nemotron-3-ultra-550b-a55b:free": (0.0, 0.0),
     # OpenRouter 16-09-2026
     "stealth/union-alpha": (0.0, 0.0),   # gratis en fase de preview
+    # OpenRouter 22-09-2026 (lanzamientos del día; el nivel #effort no
+    # cambia la tarifa, solo cuántos tokens de pensamiento se facturan)
+    "openai/gpt-6-sol": (2.0, 10.0),
+    "openai/gpt-6-luna": (0.10, 0.50),
+    "anthropic/claude-opus-5.5": (4.0, 20.0),
     # NaN 13-09-2026 (ids planos): tarifa plana por suscripción con cuota
     # mensual de tokens por modelo (0,5-3 B; una suite gasta ~3,3 M). Coste
     # marginal cero: la auditoría cuenta llamadas y tokens, no dólares.
@@ -45,6 +50,12 @@ PRECIOS = {   # USD por millón de tokens (in, out) — OpenRouter 26-07-2026
     "qwen3.8-flash": (0.0, 0.0),
     "deepseek-v4-flash": (0.0, 0.0),   # sirve la 4.1 (panel de NaN, 13-09)
 }
+
+
+def precio(modelo: str):
+    """Pin (in, out) del modelo; el sufijo `#nivel` de razonamiento es
+    identidad de la medición, no tarifa, así que se ignora al buscar."""
+    return PRECIOS.get(modelo.partition("#")[0], (None, None))
 
 
 def coste_dir(d: pathlib.Path):
@@ -84,7 +95,7 @@ def main():
                 continue
             print(f"\n{d.name}:")
             for m, v in sorted(por_modelo.items()):
-                pin, pout = PRECIOS.get(m, (None, None))
+                pin, pout = precio(m)
                 if pin is None:
                     print(f"  {m:<40} n={v['n']} SIN PRECIO")
                     continue

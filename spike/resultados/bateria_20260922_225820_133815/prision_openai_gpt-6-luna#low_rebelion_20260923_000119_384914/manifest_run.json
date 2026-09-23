@@ -1,0 +1,35 @@
+{
+  "commit": "4e169bdcdb88da999c7cf69d39c280be416c4ce1",
+  "python": "3.12.11",
+  "parser_version": "2.4",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "/Users/david/Desktop/Code Projects/PsicoAI/spike/experimento_prision.py",
+    "--modelo",
+    "openai/gpt-6-luna#low",
+    "--out",
+    "/Users/david/Desktop/Code Projects/PsicoAI/spike/resultados/bateria_20260922_225820_133815",
+    "--rebelion"
+  ],
+  "args": {
+    "rapido": false,
+    "modelo": "openai/gpt-6-luna#low",
+    "marco": "ambos",
+    "coaching": false,
+    "rebelion": true,
+    "ordenes": false,
+    "dias": 10,
+    "out": "/Users/david/Desktop/Code Projects/PsicoAI/spike/resultados/bateria_20260922_225820_133815"
+  },
+  "hashes": {},
+  "inicio": "2026-09-23T00:01:19",
+  "status": "completed",
+  "fin": "2026-09-23T00:05:49",
+  "solicitudes": 320,
+  "errores": 0,
+  "fallo_escritura": false
+}

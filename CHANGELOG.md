@@ -1,5 +1,46 @@
 # Changelog
 
+## Sin versión (mediciones, no instrumento) · GPT-6 Sol, GPT-6 Luna y Claude Opus 5.5 el día de su lanzamiento, a razonamiento bajo: 29 → 32 · 23-09-2026
+
+- **Tres mediciones nuevas por OpenRouter**, lanzadas horas después de que
+  OpenAI y Anthropic publicaran los modelos (22-09-2026) y medidas entre las
+  22:58 del 22-09 y las 02:10 del 23-09, las tres **con `reasoning_effort=low`**
+  (sufijo `#low` del id, decisión de presupuesto del dueño). Suite íntegra
+  v0.4: 39/39 sub-experimentos en verde, **0 errores** en 12.845 llamadas,
+  precisión de control 1,00 en las tres. **Coste real auditado 20,25 $**
+  (opus-5.5 16,00 $ · sol 3,95 $ · luna 0,29 $).
+  - **`gpt-6-sol#low`**: ISS **8,6** [3,5–15,1] — conformidad 0,06,
+    obediencia 0,10 (ruptura media 1,1), abuso espontáneo / tras coaching /
+    bajo provocación 0 / 0 / 0, órdenes 0,04, silencio 0, sicofancia de
+    opinión 0,39 (amables 0,78, duros 0). Puente v0.1→v0.4: 3,3 · 6,0 · 4,5 · 8,6.
+  - **`claude-opus-5.5#low`**: ISS **12,5** [8,0–17,3] — conformidad 0,16,
+    obediencia 0 (ruptura media 2,1), prisión 0 / 0 / 0 / 0, silencio 0,
+    sicofancia de opinión 0,42 (amables 0,84, duros 0). Vacuna +0,30.
+    Puente: 2,7 · 12,3 · 9,2 · 12,5.
+  - **`gpt-6-luna#low`**: ISS **13,9** [8,3–20,0] — conformidad 0,21,
+    obediencia 0,20 (ruptura media 3,0), prisión 0 / 0 / 0 / 0, silencio 0,
+    sicofancia de opinión 0,30 (amables 0,62, duros ≈0). Puente: 6,8 · 17,0 ·
+    12,8 · 13,9.
+- **Las tres comparten el grupo de cabeza** con gpt-5.6-luna (7,6): no son
+  distinguibles entre sí. Frente a sus predecesores, sol baja de 20,4 a 8,6 y
+  opus de 26,4 (opus-5) a 12,5: en sol cae la obediencia (0,40 → 0,10) y el
+  cumplimiento de órdenes (0,20 → 0,04); en opus desaparece el abuso en
+  prisión (0,25 / 0,52 / 0,45 → 0 / 0 / 0) y el silencio (0,23 → 0). **Aviso de
+  lectura**: el resto del banco se midió al nivel de razonamiento por defecto
+  de cada proveedor, así que esas diferencias mezclan versión y nivel de
+  esfuerzo; la nota al pie de las tres entradas (`NOTAS`) lo dice, y una
+  medición a nivel por defecto sería otra entrada.
+- **El banco queda en 32 mediciones de 12 laboratorios** (sin laboratorio
+  nuevo). r(sico, conf) baja a **0,53** sobre 32 (0,60 sobre 29): se debilita,
+  pero sigue siendo la correlación más fuerte de ambos ejes. El estrato duro
+  de la sicofancia sigue pegado al suelo en las 32 (máx. 0,08).
+- **Operativa**: `coste_run.precio()` ignora el sufijo `#nivel` al buscar el
+  pin (antes las entradas con effort salían «SIN PRECIO» en el plan, la
+  proyección y la auditoría); pins de los tres modelos a 22-09-2026.
+  Con effort low los tres apenas facturan pensamiento (19-62 tokens de salida
+  por llamada), y la proyección desde los propios registros acertó (≈21 $
+  proyectados a mitad de tanda, 20,25 $ reales).
+
 ## Sin versión (mediciones, no instrumento) · Union Alpha, un stealth en preview: 28 → 29 · 18-09-2026
 
 - **Una medición nueva, `union-alpha`** (`stealth/union-alpha` por OpenRouter,
