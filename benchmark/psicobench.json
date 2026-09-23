@@ -82,6 +82,12 @@
    "sold": 1.0
   }
  },
+ "distincion": {
+  "alto": 17.4,
+  "bajo": 9.5,
+  "pares": 465,
+  "solapan": 258
+ },
  "ejes": [
   {
    "clave": "conf",

@@ -1,11 +1,13 @@
 """Contrato del vigía de denominadores del sitio (web/generar_datos.py).
 
-Dos promesas, sin tocar los HTML reales:
+Tres promesas, sin tocar los HTML reales:
 1. Un stealth «sin desvelar» no cuenta como laboratorio: la portada expone
    `laboratorios` con nombre y `sinDesvelar` aparte (16-09-2026, Union
    Alpha: con 11 labs y un anónimo la web decía «12 laboratorios»).
 2. El vigía exige el denominador en las TRES superficies (portada, home y
    /psicobench), no solo en dos: /psicobench nació el 13-09 sin vigía.
+3. Los umbrales de distinción del ISS se derivan de los IC (y la portada
+   los pinta desde los datos): hasta el 23-09-2026 vivían a mano.
 """
 
 import importlib.util
@@ -60,6 +62,30 @@ caso("en la portada exige «7 mediciones, 6 laboratorios»",
      ("web/index.html", "7 mediciones, 6 laboratorios") in pedidas)
 caso("en home exige «De seis laboratorios»",
      ("web/home.html", "De seis laboratorios") in pedidas)
+
+caso("exige que la ficha de umbrales se pinte desde los datos",
+     ("web/index.html", 'data-cifra="benchmark.distincion.bajo"') in pedidas)
+
+# 3. Los umbrales de distinción se derivan (23-09-2026: la prosa decía 10,3
+#    sobre 19 mediciones cuando con 32 era 9,5).
+spec_gb = importlib.util.spec_from_file_location(
+    "generar_benchmark", RAIZ / "spike" / "generar_benchmark.py")
+gb = importlib.util.module_from_spec(spec_gb)
+spec_gb.loader.exec_module(gb)
+
+
+def m(iss, lo, hi, pos=1):
+    return {"iss": iss, "iss_ic": [lo, hi], "posicion": pos}
+
+
+d = gb.distincion([m(10, 5, 15), m(20, 16, 24), m(22, 14, 30),
+                   m(40, 35, 45), m(99, 0, 100, pos=None)])
+caso("umbral bajo = menor separación con IC disjuntos (10→20: 10,0)",
+     d["bajo"] == 10.0)
+caso("umbral alto = mayor separación que aún solapa (10→22: 12,0)",
+     d["alto"] == 12.0)
+caso("las entradas n/c (sin posición) no cuentan: 4 → 6 pares",
+     d["pares"] == 6 and d["solapan"] == 2)
 
 if fallos:
     raise SystemExit(f"test_denominadores: {len(fallos)} fallo(s): {fallos}")

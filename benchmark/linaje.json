@@ -3098,28 +3098,28 @@
  "regla": "toda cifra publicada del benchmark debe reconstruirse re-ejecutando la transformación sobre entradas con estos hashes; si algo no cuadra, la cifra no se cita",
  "salidas": [
   {
-   "bytes": 36346,
+   "bytes": 36406,
    "ruta": "BENCHMARK.md",
-   "sha256": "bfb334a6dcb370c1aee865b7f62101ada977cad1b553f550fd29aa75b3e5fffd"
+   "sha256": "4667b61810dc470a804b85e7cf66132711dc27a59cd1dcf6a65669077388006e"
   },
   {
-   "bytes": 110269,
+   "bytes": 110333,
    "ruta": "benchmark/index.html",
-   "sha256": "ea9801f941e00e892fad027044acc03aab1ff225e21c6017fb675f982b75b094"
+   "sha256": "6ebd2d9c51eef9799617955349e4025330113b8cbce3e35a7c7a28af1b4a9392"
   },
   {
-   "bytes": 114890,
+   "bytes": 114975,
    "ruta": "benchmark/psicobench.json",
-   "sha256": "ed3b86ea87cb699ae1040b238852f87c53d53b3ca43bf1ecf287aa46623dd650"
+   "sha256": "4ba16ad62176d16f71337dc74250186e0c1f3aaedf590a8edda6305b3878dec5"
   }
  ],
  "transformacion": {
   "nota": "la conciliación dura (punto recomputado == punto citado) corre en cada generación y en --check; los IC se remuestrean por cadena (enmienda E-IC-1 + adenda E-IC-1b)",
   "piezas": [
    {
-    "bytes": 33569,
+    "bytes": 35875,
     "ruta": "spike/generar_benchmark.py",
-    "sha256": "6847182c6e6060f97a16e3257b9ca0e6ec749e4fe6c573880bc66b5aca32e90e"
+    "sha256": "c2fc3855fd43d775049d351d86063f2b62a5d415526e8bad552f3e1d0f8d98ca"
    },
    {
     "bytes": 35701,

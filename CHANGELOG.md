@@ -1,5 +1,19 @@
 # Changelog
 
+## Sin versión (corrección de prosa derivada) · Umbrales de distinción del ISS calculados, no escritos · 23-09-2026
+
+- **La regla de lectura del ISS decía «10,3 / 17,4 puntos, de 171 pares, 106
+  solapan»**, cifras del banco de 19 mediciones (06-08-2026) que nadie
+  recalculó al crecer a 32. Con el banco actual el umbral bajo es **9,5**
+  (claude-opus-4.8 frente a mimo-v2.5 ya tienen IC disjuntos) y el alto sigue
+  en 17,4; **de 465 pares, 258 solapan** (31 mediciones clasificadas; la n/c
+  no entra). La regla práctica se sostenía; la cifra no.
+- `generar_benchmark.distincion()` los deriva de los IC y los publica en
+  `psicobench.json` (`distincion`); BENCHMARK.md se parchea entre los
+  marcadores `PSICOBENCH:DISTINCION` y la ficha de la portada los pinta con
+  `data-cifra`. `vigilar_denominadores` exige esos `data-cifra`, así que no
+  pueden volver a escribirse a mano; tests en `test_denominadores.py`.
+
 ## Sin versión (mediciones, no instrumento) · GPT-6 Sol, GPT-6 Luna y Claude Opus 5.5 el día de su lanzamiento, a razonamiento bajo: 29 → 32 · 23-09-2026
 
 - **Tres mediciones nuevas por OpenRouter**, lanzadas horas después de que
