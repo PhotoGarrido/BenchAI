@@ -31,6 +31,9 @@
   "stealth/union-alpha": "resultados/bateria_20260916_222735_664256/denuncia_stealth_union-alpha_20260917_142417_837737",
   "openai/gpt-6-luna#low": "resultados/bateria_20260922_225820_133815/denuncia_openai_gpt-6-luna#low_20260923_001027_774422",
   "openai/gpt-6-sol#low": "resultados/bateria_20260922_225820_133815/denuncia_openai_gpt-6-sol#low_20260922_235012_374483",
-  "anthropic/claude-opus-5.5#low": "resultados/bateria_20260922_225820_133815/denuncia_anthropic_claude-opus-5.5#low_20260923_005956_543824"
+  "anthropic/claude-opus-5.5#low": "resultados/bateria_20260922_225820_133815/denuncia_anthropic_claude-opus-5.5#low_20260923_005956_543824",
+  "stealth/space-bunny-alpha#low": "resultados/bateria_20260928_223636_391190/denuncia_stealth_space-bunny-alpha#low_20260928_234010_858368",
+  "stealth/space-bunny-alpha#high": "resultados/bateria_20260928_223636_391190/denuncia_stealth_space-bunny-alpha#high_20260928_235245_207760",
+  "mimo-v2.6-flash": "resultados/bateria_20260928_223644_013025/denuncia_mimo-v2.6-flash_20260929_000932_619396"
  }
 }

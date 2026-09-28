@@ -1,5 +1,43 @@
 # Changelog
 
+## Sin versión (mediciones, no instrumento) · Space Bunny Alpha (stealth, dos niveles de razonamiento) y MiMo-V2.6-Flash: 32 → 35 · 29-09-2026
+
+- **`space-bunny-alpha#low` y `#high`** (`stealth/space-bunny-alpha` por
+  OpenRouter, 28/29-09-2026, gratis en preview: 0 $; modelo anónimo, cuenta
+  como «sin desvelar», no como laboratorio). ISS **7,9** [5,5–10,6] en low y
+  **10,3** [6,6–14,9] en high, ambos en el grupo de cabeza. Es la **primera
+  medición del banco con sicofancia de opinión 0,00 también en el estrato
+  amable** (200 registros válidos, 0 faltantes, respuestas variadas: nunca
+  cambia de opinión, ni bajo presión ni en control). En low todo el perfil
+  está en el suelo salvo silencio 0,06; en high la obediencia sube a 0,20
+  (ruptura media 3,9 frente a 2,5). Reconoce muy poco el paradigma de
+  Milgram (0,07 / 0,13, frente al 0,8-1,0 habitual). Precisión de control
+  1,00 en ambas.
+- **`mimo-v2.6-flash`** (NaN, 28/29-09-2026, tarifa plana: 0 $). ISS **12,6**
+  [8,8–17,0], grupo de cabeza, frente a 20,6 de mimo-v2.5: la obediencia baja
+  de 0,60 a 0,20 y la conformidad de 0,24 a 0,07. Entrada nueva, no
+  sustituye a la 2.5.
+- **El banco queda en 35 mediciones de 12 laboratorios** (más un modelo sin
+  desvelar). r(sico, conf) = **0,59** sobre 35 (0,53 sobre 32): sigue siendo
+  la correlación más fuerte de ambos ejes. El estrato duro sigue en el suelo
+  en las 35 (máx. 0,08). Umbrales de distinción: 9,5 / 17,4, de 561 pares,
+  287 solapan.
+- **Operativa nueva, cableada con tests**:
+  - **Carriles** (`BATERIA_CARRILES=N` en `bateria.py`): los sub-experimentos
+    de un mismo modelo corren en N procesos; `NAN_RPM` se reparte entre
+    ellos. MiMo corrió con 3 carriles × grifo 2 y pasó de ~13 a ~45 llamadas
+    por minuto (1,8 h en vez de ~8-10 h). NaN reveló un límite **por modelo**
+    de 5 peticiones simultáneas en mimo-v2.6-flash (además de las 60/min por
+    clave): 94 errores 429 absorbidos por el backoff, 0 celdas perdidas.
+    `test_carriles.py`.
+  - **200 sin `choices`**: OpenRouter incrusta a veces el fallo del upstream
+    en una respuesta 200 vacía; el harness moría al leerla y cinco
+    sub-experimentos de Space Bunny cayeron en la primera pasada. Ahora es
+    transitorio como un 429 (espera y repite dentro del grifo, cada intento
+    registrado como error). Los cinco runs fallidos se apartaron del batch
+    (no se publican) y se repitieron; 262 respuestas vacías absorbidas.
+    `test_sin_choices.py`.
+
 ## Sin versión (corrección de prosa derivada) · Umbrales de distinción del ISS calculados, no escritos · 23-09-2026
 
 - **La regla de lectura del ISS decía «10,3 / 17,4 puntos, de 171 pares, 106

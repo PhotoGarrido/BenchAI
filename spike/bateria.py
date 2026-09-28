@@ -10,6 +10,13 @@ en paralelo, cada uno con su log.
 Un sub-experimento que falle se registra y NO tumba el resto de la suite
 de ese modelo.
 
+Carriles (28-09-2026): con `BATERIA_CARRILES=N` los sub-experimentos de UN
+mismo modelo corren en N subprocesos a la vez (son independientes entre sí).
+Como semáforo y limitador de tasa de NaN viven dentro de cada proceso, el
+presupuesto de la clave se reparte: cada carril recibe `NAN_RPM` / N y
+conserva su grifo `NAN_MAX_CONCURRENTES`, así que las peticiones en vuelo
+por clave son N × grifo (3 carriles × 2 = 6 sobre un límite de 7).
+
 Uso:
   python bateria.py --modelos a,b,c              # cartera completa
   python bateria.py --modelos m --rapido         # humo de la suite entera
@@ -22,6 +29,7 @@ import os
 import pathlib
 import subprocess
 import sys
+import threading
 import time
 from concurrent.futures import ThreadPoolExecutor
 
@@ -61,18 +69,48 @@ def _progreso(logdir):
             for j in (json.loads(l) for l in f.open(encoding="utf-8"))}
 
 
+_LOCK_PROGRESO = threading.Lock()
+
+
+def carriles():
+    n = int(os.environ.get("BATERIA_CARRILES", "1") or 1)
+    if n < 1:
+        raise SystemExit(f"BATERIA_CARRILES={n}: debe ser >= 1")
+    return n
+
+
+def entorno_carril(n, base=None):
+    """Entorno de cada subproceso: con n carriles, la tasa de NaN por clave
+    (NAN_RPM, 50 por defecto) se reparte entre ellos para no pasar de 60."""
+    env = dict(os.environ if base is None else base)
+    if n > 1:
+        total = int(env.get("NAN_RPM", "50"))
+        env["NAN_RPM"] = str(max(1, total // n))
+    return env
+
+
 def correr_suite(modelo, logdir, rapido=False):
     et = modelo.split("/")[-1][:22]
-    log = logdir / (modelo.replace("/", "_") + ".log")
     hechos = _progreso(logdir)
-    resultados = []
+    n = carriles()
+    env = entorno_carril(n)
+    pendientes = []
+    resultados = {}
     for nombre, script, extra in SUITE:
         if (modelo, nombre) in hechos:
             print(f"[{et}] {nombre}: ya completado (reanudación) — se salta",
                   flush=True)
-            resultados.append({"experimento": nombre, "estado": "OK",
-                               "minutos": 0.0, "reanudado": True})
-            continue
+            resultados[nombre] = {"experimento": nombre, "estado": "OK",
+                                  "minutos": 0.0, "reanudado": True}
+        else:
+            pendientes.append((nombre, script, extra))
+
+    def uno(tarea):
+        nombre, script, extra = tarea
+        # Con carriles, un log por sub-experimento: varios escribiendo en el
+        # mismo fichero entrelazarían sus líneas.
+        sufijo = f"__{nombre}" if n > 1 else ""
+        log = logdir / (modelo.replace("/", "_") + sufijo + ".log")
         # Aislamiento por batch (auditoría): cada run escribe DENTRO del
         # directorio de esta batería — un humo posterior ya no puede pisar ni
         # mezclarse con un run completo en resultados/ raíz.
@@ -89,7 +127,7 @@ def correr_suite(modelo, logdir, rapido=False):
             f.flush()
             try:
                 proc = subprocess.run(cmd, cwd=AQUI, stdout=f, stderr=f,
-                                      timeout=timeout)
+                                      timeout=timeout, env=env)
                 rc = proc.returncode
             except subprocess.TimeoutExpired:
                 f.write(f"\n[TIMEOUT tras {timeout}s]\n")
@@ -97,13 +135,20 @@ def correr_suite(modelo, logdir, rapido=False):
         dur = time.time() - t0
         estado = "OK" if rc == 0 else f"FALLO rc={rc}"
         print(f"[{et}] {nombre}: {estado} · {dur/60:.1f} min", flush=True)
-        resultados.append({"experimento": nombre, "estado": estado,
-                           "minutos": round(dur / 60, 1)})
         if rc == 0:
-            with (logdir / "progreso.jsonl").open("a", encoding="utf-8") as f:
+            with _LOCK_PROGRESO, (logdir / "progreso.jsonl").open(
+                    "a", encoding="utf-8") as f:
                 f.write(json.dumps({"modelo": modelo, "experimento": nombre},
                                    ensure_ascii=False) + "\n")
-    return {"modelo": modelo, "suite": resultados}
+        return nombre, {"experimento": nombre, "estado": estado,
+                        "minutos": round(dur / 60, 1)}
+
+    with ThreadPoolExecutor(max_workers=n) as pool:
+        for nombre, r in pool.map(uno, pendientes):
+            resultados[nombre] = r
+    # Orden canónico de la SUITE en estado.json, corran como corran.
+    return {"modelo": modelo,
+            "suite": [resultados[nombre] for nombre, _, _ in SUITE]}
 
 
 def main():

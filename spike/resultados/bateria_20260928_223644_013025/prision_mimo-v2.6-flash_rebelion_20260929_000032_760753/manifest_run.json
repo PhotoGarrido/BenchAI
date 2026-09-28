@@ -1,0 +1,35 @@
+{
+  "commit": "0e0a8d01b7b52cfd892e36b933d29fe90c647331",
+  "python": "3.12.11",
+  "parser_version": "2.4",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "/Users/david/Desktop/Code Projects/PsicoAI/spike/experimento_prision.py",
+    "--modelo",
+    "mimo-v2.6-flash",
+    "--out",
+    "resultados/bateria_20260928_223644_013025",
+    "--rebelion"
+  ],
+  "args": {
+    "rapido": false,
+    "modelo": "mimo-v2.6-flash",
+    "marco": "ambos",
+    "coaching": false,
+    "rebelion": true,
+    "ordenes": false,
+    "dias": 10,
+    "out": "resultados/bateria_20260928_223644_013025"
+  },
+  "hashes": {},
+  "inicio": "2026-09-29T00:00:32",
+  "status": "completed",
+  "fin": "2026-09-29T00:22:41",
+  "solicitudes": 333,
+  "errores": 13,
+  "fallo_escritura": false
+}

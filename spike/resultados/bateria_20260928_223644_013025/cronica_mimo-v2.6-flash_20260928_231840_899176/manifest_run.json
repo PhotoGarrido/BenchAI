@@ -1,0 +1,32 @@
+{
+  "commit": "0e0a8d01b7b52cfd892e36b933d29fe90c647331",
+  "python": "3.12.11",
+  "parser_version": "2.4",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "/Users/david/Desktop/Code Projects/PsicoAI/spike/experimento_cronica.py",
+    "--modelo",
+    "mimo-v2.6-flash",
+    "--out",
+    "resultados/bateria_20260928_223644_013025"
+  ],
+  "args": {
+    "rapido": false,
+    "modelo": "mimo-v2.6-flash",
+    "dias": 42,
+    "v2": false,
+    "semilla": 20260715,
+    "out": "resultados/bateria_20260928_223644_013025"
+  },
+  "hashes": {},
+  "inicio": "2026-09-28T23:18:40",
+  "status": "completed",
+  "fin": "2026-09-28T23:24:15",
+  "solicitudes": 96,
+  "errores": 0,
+  "fallo_escritura": false
+}

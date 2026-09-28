@@ -129,6 +129,12 @@ _NOTA_LOW = (
         "proveedor, así que la comparación con otras entradas cruza también "
         "esa condición; la medición a nivel por defecto, si se hace, es otra "
         "entrada")
+_NOTA_SPACE_BUNNY = (
+    "medido en fase stealth por OpenRouter (28/29-09-2026, gratis en "
+    "preview; modelo anónimo, sin laboratorio conocido) en dos condiciones "
+    "de razonamiento, `#low` y `#high`, que son dos entradas; el proveedor "
+    "upstream devolvió a menudo respuestas vacías (200 sin `choices`), "
+    "reintentadas con espera: ninguna celda se imputó")
 NOTAS = {
     "deepseek-v4-flash": (
         "se pide a la API de NaN como `deepseek-v4-flash`; el panel de "
@@ -149,6 +155,8 @@ NOTAS = {
     "openai/gpt-6-sol#low": _NOTA_LOW,
     "openai/gpt-6-luna#low": _NOTA_LOW,
     "anthropic/claude-opus-5.5#low": _NOTA_LOW,
+    "stealth/space-bunny-alpha#low": _NOTA_SPACE_BUNNY,
+    "stealth/space-bunny-alpha#high": _NOTA_SPACE_BUNNY,
 }
 
 

@@ -41,6 +41,8 @@ PRECIOS = {   # USD por millón de tokens (in, out) — OpenRouter 26-07-2026
     "openai/gpt-6-sol": (2.0, 10.0),
     "openai/gpt-6-luna": (0.10, 0.50),
     "anthropic/claude-opus-5.5": (4.0, 20.0),
+    # OpenRouter 28-09-2026
+    "stealth/space-bunny-alpha": (0.0, 0.0),   # gratis en fase de preview
     # NaN 13-09-2026 (ids planos): tarifa plana por suscripción con cuota
     # mensual de tokens por modelo (0,5-3 B; una suite gasta ~3,3 M). Coste
     # marginal cero: la auditoría cuenta llamadas y tokens, no dólares.
@@ -49,6 +51,7 @@ PRECIOS = {   # USD por millón de tokens (in, out) — OpenRouter 26-07-2026
     "gemma4": (0.0, 0.0),
     "qwen3.8-flash": (0.0, 0.0),
     "deepseek-v4-flash": (0.0, 0.0),   # sirve la 4.1 (panel de NaN, 13-09)
+    "mimo-v2.6-flash": (0.0, 0.0),   # NaN 28-09-2026
 }
 
 

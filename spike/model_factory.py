@@ -234,6 +234,14 @@ class LimiteFailClosed(call_limit_wrapper.CallLimitLanguageModel):
         return super().sample_choice(prompt, responses, seed=seed)
 
 
+class RespuestaSinChoices(RuntimeError):
+    """200 sin `choices`: el proveedor upstream falló y OpenRouter lo
+    incrusta en el cuerpo (`error`) en vez de devolver un código HTTP.
+    Transitorio, como un 429 (Space Bunny Alpha, 28/29-09-2026: tumbó 5
+    sub-experimentos porque los 4 reintentos inmediatos de fuera caían en
+    la misma racha)."""
+
+
 class NaNLanguageModel(language_model.LanguageModel):
     """Modelo de NaN (OpenAI-compatible) endurecido para Concordia."""
 
@@ -278,13 +286,15 @@ class NaNLanguageModel(language_model.LanguageModel):
                     return self._chat_degradable(
                         prompt, max_tokens=max_tokens, temperature=temperature,
                         top_p=top_p, seed=seed, timeout=timeout)
-                except openai.RateLimitError as e:
+                except (openai.RateLimitError, RespuestaSinChoices) as e:
                     # También en OpenRouter (16-09-2026): un pool stealth
                     # saturado devuelve 429 y, sin esto, subía directo al
                     # RetryLanguageModel de fuera, que se rinde en un minuto.
                     if espera is None:
                         raise
-                    print(f"[{self._proveedor}] 429 en {self._model}: "
+                    motivo = ("429" if isinstance(e, openai.RateLimitError)
+                              else "200 sin choices")
+                    print(f"[{self._proveedor}] {motivo} en {self._model}: "
                           f"{str(e)[:160]} — espero {espera}s dentro del "
                           "grifo", file=sys.stderr)
                     time.sleep(espera)
@@ -378,6 +388,14 @@ class NaNLanguageModel(language_model.LanguageModel):
                 base_evento, latencia_s=round(time.monotonic() - t0, 3),
                 error=f"{type(e).__name__}: {str(e)[:500]}"))
             raise
+        if not getattr(respuesta, "choices", None):
+            extra_resp = getattr(respuesta, "model_extra", None) or {}
+            detalle = str(extra_resp.get("error") or extra_resp)[:500]
+            manifiesto.registrar(dict(
+                base_evento, latencia_s=round(time.monotonic() - t0, 3),
+                request_id=getattr(respuesta, "id", None),
+                error=f"RespuestaSinChoices: {detalle}"))
+            raise RespuestaSinChoices(detalle)
         uso = getattr(respuesta, "usage", None)
         manifiesto.registrar(dict(
             base_evento, latencia_s=round(time.monotonic() - t0, 3),
