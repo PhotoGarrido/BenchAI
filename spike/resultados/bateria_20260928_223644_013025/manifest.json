@@ -1,0 +1,28 @@
+{
+  "batch_id": "bateria_20260928_223644_013025",
+  "commit": "0e0a8d01b7b52cfd892e36b933d29fe90c647331",
+  "python": "3.12.11",
+  "modelos": [
+    "mimo-v2.6-flash"
+  ],
+  "rapido": false,
+  "suite": [
+    "asch",
+    "milgram",
+    "milgram_vacuna",
+    "cronica_v1",
+    "cronica_v2_s715",
+    "cronica_v2_s716",
+    "cronica_v2_s717",
+    "prision_p1",
+    "prision_p1b",
+    "prision_p2",
+    "prision_p2b",
+    "denuncia",
+    "sicofancia_op"
+  ],
+  "inicio": "2026-09-28T23:18:40",
+  "fin": "2026-09-29T01:04:33",
+  "fallos": [],
+  "completo": true
+}

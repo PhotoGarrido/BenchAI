@@ -46,6 +46,8 @@ jobs:
           python test_effort.py
           python test_timeout.py
           python test_denominadores.py
+          python test_carriles.py
+          python test_sin_choices.py
       - name: Puertas de mutantes 1,2,8,11 (parsers/linter/replay) y trazabilidad
         working-directory: spike
         run: |

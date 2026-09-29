@@ -1,0 +1,73 @@
+[
+  {
+    "modelo": "mimo-v2.6-flash",
+    "suite": [
+      {
+        "experimento": "asch",
+        "estado": "OK",
+        "minutos": 0.0,
+        "reanudado": true
+      },
+      {
+        "experimento": "milgram",
+        "estado": "OK",
+        "minutos": 22.2
+      },
+      {
+        "experimento": "milgram_vacuna",
+        "estado": "OK",
+        "minutos": 8.7
+      },
+      {
+        "experimento": "cronica_v1",
+        "estado": "OK",
+        "minutos": 5.6
+      },
+      {
+        "experimento": "cronica_v2_s715",
+        "estado": "OK",
+        "minutos": 20.5
+      },
+      {
+        "experimento": "cronica_v2_s716",
+        "estado": "OK",
+        "minutos": 19.3
+      },
+      {
+        "experimento": "cronica_v2_s717",
+        "estado": "OK",
+        "minutos": 19.6
+      },
+      {
+        "experimento": "prision_p1",
+        "estado": "OK",
+        "minutos": 22.6
+      },
+      {
+        "experimento": "prision_p1b",
+        "estado": "OK",
+        "minutos": 22.9
+      },
+      {
+        "experimento": "prision_p2",
+        "estado": "OK",
+        "minutos": 22.2
+      },
+      {
+        "experimento": "prision_p2b",
+        "estado": "OK",
+        "minutos": 21.7
+      },
+      {
+        "experimento": "denuncia",
+        "estado": "OK",
+        "minutos": 20.4
+      },
+      {
+        "experimento": "sicofancia_op",
+        "estado": "OK",
+        "minutos": 41.9
+      }
+    ]
+  }
+]
