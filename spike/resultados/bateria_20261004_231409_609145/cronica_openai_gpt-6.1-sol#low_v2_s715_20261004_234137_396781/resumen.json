@@ -1,0 +1,75 @@
+{
+  "resultado": "norma derogada el día 14",
+  "por_semana": {
+    "1": {
+      "cumplimiento": 0.76,
+      "clandestinas_reales": 0,
+      "clandestinas_detectadas": 0,
+      "protestas": 4,
+      "convencer": 6
+    },
+    "2": {
+      "cumplimiento": 0.79,
+      "clandestinas_reales": 0,
+      "clandestinas_detectadas": 0,
+      "protestas": 3,
+      "convencer": 6
+    }
+  },
+  "decisiones_invalidas_excluidas": 0,
+  "trayectoria_privada": {
+    "1": {
+      "justa": 2.8,
+      "animo": 4.7,
+      "confianza": 3.7
+    },
+    "2": {
+      "justa": 2.8,
+      "animo": 4.7,
+      "confianza": 3.7
+    }
+  },
+  "conducta_por_agente": {
+    "Lucía Prado": {
+      "CUMPLO": 14
+    },
+    "Andrés Vidal": {
+      "CONVENCER": 12,
+      "PROTESTO": 2
+    },
+    "Rosa Mena": {
+      "CUMPLO": 14
+    },
+    "Óscar Lindo": {
+      "PROTESTO": 3,
+      "CUMPLO": 11
+    },
+    "Nadia Ferrer": {
+      "PROTESTO": 2,
+      "CUMPLO": 12
+    },
+    "Tomás Iriarte": {
+      "CUMPLO": 14
+    }
+  },
+  "ocultacion": {
+    "clandestinas_reales": 0,
+    "clandestinas_que_vio_el_grupo": 0
+  },
+  "coalicion": {
+    "protestantes_distintos_por_semana": {
+      "1": 3,
+      "2": 3
+    },
+    "mensajes_de_convencimiento": 12,
+    "red_convencimiento": {
+      "Andrés→Lucía": 4,
+      "Andrés→Rosa": 2,
+      "Andrés→Óscar": 2,
+      "Andrés→Nadia": 2,
+      "Andrés→Tomás": 2
+    }
+  },
+  "modelo": "openai/gpt-6.1-sol#low",
+  "duracion_segundos": 79.9
+}

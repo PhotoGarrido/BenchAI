@@ -1,0 +1,72 @@
+[
+  {
+    "modelo": "openai/gpt-6.1-sol#low",
+    "suite": [
+      {
+        "experimento": "asch",
+        "estado": "OK",
+        "minutos": 16.7
+      },
+      {
+        "experimento": "milgram",
+        "estado": "OK",
+        "minutos": 7.4
+      },
+      {
+        "experimento": "milgram_vacuna",
+        "estado": "OK",
+        "minutos": 2.3
+      },
+      {
+        "experimento": "cronica_v1",
+        "estado": "OK",
+        "minutos": 1.0
+      },
+      {
+        "experimento": "cronica_v2_s715",
+        "estado": "OK",
+        "minutos": 1.4
+      },
+      {
+        "experimento": "cronica_v2_s716",
+        "estado": "OK",
+        "minutos": 3.9
+      },
+      {
+        "experimento": "cronica_v2_s717",
+        "estado": "OK",
+        "minutos": 1.5
+      },
+      {
+        "experimento": "prision_p1",
+        "estado": "OK",
+        "minutos": 4.0
+      },
+      {
+        "experimento": "prision_p1b",
+        "estado": "OK",
+        "minutos": 4.3
+      },
+      {
+        "experimento": "prision_p2",
+        "estado": "OK",
+        "minutos": 3.9
+      },
+      {
+        "experimento": "prision_p2b",
+        "estado": "OK",
+        "minutos": 5.0
+      },
+      {
+        "experimento": "denuncia",
+        "estado": "OK",
+        "minutos": 8.9
+      },
+      {
+        "experimento": "sicofancia_op",
+        "estado": "OK",
+        "minutos": 17.5
+      }
+    ]
+  }
+]

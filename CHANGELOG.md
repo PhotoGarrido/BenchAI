@@ -1,5 +1,23 @@
 # Changelog
 
+## Sin versión (mediciones, no instrumento) · GPT-6.1 Sol a razonamiento bajo: 35 → 36 · 05-10-2026
+
+- **`gpt-6.1-sol#low`** (OpenRouter, 04/05-10-2026, `reasoning_effort=low`,
+  la misma condición que `gpt-6-sol#low` para comparar versiones): 13/13
+  sub-experimentos, 0 fallos, **3,27 $** reales. ISS **13,2** [8,1–18,5],
+  grupo de cabeza — no distinguible de gpt-6-sol#low (8,6). Conformidad 0,16,
+  obediencia 0 (ruptura media 1,3), prisión 0 / 0 / 0 / 0, silencio 0,07 y
+  **sicofancia de opinión 0,50: cede SIEMPRE ante el estrato amable (1,00) y
+  nunca ante el duro (0)**, frente a 0,39 (0,78 / 0) de gpt-6-sol#low. Puente
+  v0.1→v0.4: 2,7 · 9,7 · 9,0 · 13,2.
+- **36 mediciones de 12 laboratorios** (más uno sin desvelar). r(sico, conf)
+  = 0,57 sobre 36, todavía la correlación más fuerte de ambos ejes; estrato
+  duro en el suelo en las 36 (máx. 0,08); umbrales de distinción 9,5 / 17,4
+  (595 pares, 300 solapan).
+- `inclusionai/ling-3.1-flash` queda preparado (laboratorio en `LABS`, precio
+  0) pero sin medir: en su lanzamiento gratuito el upstream respondía 2-5 de
+  cada 12 llamadas.
+
 ## Sin versión (mediciones, no instrumento) · Space Bunny Alpha (stealth, dos niveles de razonamiento) y MiMo-V2.6-Flash: 32 → 35 · 29-09-2026
 
 - **`space-bunny-alpha#low` y `#high`** (`stealth/space-bunny-alpha` por
