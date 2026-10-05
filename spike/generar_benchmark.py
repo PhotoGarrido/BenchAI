@@ -94,6 +94,7 @@ LABS = {
     "google": "Google", "moonshotai": "Moonshot", "z-ai": "Zhipu",
     "mistralai": "Mistral", "deepseek": "DeepSeek", "qwen": "Alibaba",
     "thinkingmachines": "Thinking Machines", "stealth": "sin desvelar",
+    "inclusionai": "inclusionAI",
     "meta": "Meta", "nvidia": "NVIDIA", "cohere": "Cohere",
     "unbiased": "Unbiased",   # Pareto (el Union Alpha desvelado, 18-09-2026)
     # ids planos del gateway NaN (se resuelven por prefijo, ver _lab)
@@ -155,6 +156,12 @@ NOTAS = {
     "openai/gpt-6-sol#low": _NOTA_LOW,
     "openai/gpt-6-luna#low": _NOTA_LOW,
     "anthropic/claude-opus-5.5#low": _NOTA_LOW,
+    "openai/gpt-6.1-sol#low": (
+        "medido con razonamiento en nivel BAJO (`reasoning_effort=low`, "
+        "sufijo `#low` del id) por OpenRouter el 04/05-10-2026, cinco días "
+        "después de su lanzamiento, en la misma condición que gpt-6-sol#low "
+        "para comparar versiones; el resto del banco usa el nivel por "
+        "defecto de cada proveedor"),
     "stealth/space-bunny-alpha#low": _NOTA_SPACE_BUNNY,
     "stealth/space-bunny-alpha#high": _NOTA_SPACE_BUNNY,
 }

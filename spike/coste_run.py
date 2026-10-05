@@ -43,6 +43,9 @@ PRECIOS = {   # USD por millón de tokens (in, out) — OpenRouter 26-07-2026
     "anthropic/claude-opus-5.5": (4.0, 20.0),
     # OpenRouter 28-09-2026
     "stealth/space-bunny-alpha": (0.0, 0.0),   # gratis en fase de preview
+    # OpenRouter 04-10-2026
+    "openai/gpt-6.1-sol": (2.0, 10.0),
+    "inclusionai/ling-3.1-flash": (0.0, 0.0),   # gratis en lanzamiento
     # NaN 13-09-2026 (ids planos): tarifa plana por suscripción con cuota
     # mensual de tokens por modelo (0,5-3 B; una suite gasta ~3,3 M). Coste
     # marginal cero: la auditoría cuenta llamadas y tokens, no dólares.
