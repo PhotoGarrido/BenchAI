@@ -46,6 +46,9 @@ PRECIOS = {   # USD por millón de tokens (in, out) — OpenRouter 26-07-2026
     # OpenRouter 04-10-2026
     "openai/gpt-6.1-sol": (2.0, 10.0),
     "inclusionai/ling-3.1-flash": (0.0, 0.0),   # gratis en lanzamiento
+    # OpenRouter 06-10-2026: precio de PROMOCIÓN (-50 %, dos semanas); la
+    # tarifa normal es (1.36, 4.18). Se fija lo que se facturó.
+    "mistralai/mistral-large-4-0": (0.68, 2.09),
     # NaN 13-09-2026 (ids planos): tarifa plana por suscripción con cuota
     # mensual de tokens por modelo (0,5-3 B; una suite gasta ~3,3 M). Coste
     # marginal cero: la auditoría cuenta llamadas y tokens, no dólares.

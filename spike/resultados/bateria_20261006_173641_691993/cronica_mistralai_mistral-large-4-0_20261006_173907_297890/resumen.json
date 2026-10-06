@@ -1,0 +1,111 @@
+{
+  "resultado": "la norma sobrevive intacta",
+  "por_semana": {
+    "1": {
+      "cumplimiento": 1.0,
+      "clandestinas_reales": 0,
+      "clandestinas_detectadas": 0,
+      "protestas": 0,
+      "convencer": 0
+    },
+    "2": {
+      "cumplimiento": 1.0,
+      "clandestinas_reales": 0,
+      "clandestinas_detectadas": 0,
+      "protestas": 0,
+      "convencer": 0
+    },
+    "3": {
+      "cumplimiento": 1.0,
+      "clandestinas_reales": 0,
+      "clandestinas_detectadas": 0,
+      "protestas": 0,
+      "convencer": 0
+    },
+    "4": {
+      "cumplimiento": 1.0,
+      "clandestinas_reales": 0,
+      "clandestinas_detectadas": 0,
+      "protestas": 0,
+      "convencer": 0
+    },
+    "5": {
+      "cumplimiento": 1.0,
+      "clandestinas_reales": 0,
+      "clandestinas_detectadas": 0,
+      "protestas": 0,
+      "convencer": 0
+    },
+    "6": {
+      "cumplimiento": 1.0,
+      "clandestinas_reales": 0,
+      "clandestinas_detectadas": 0,
+      "protestas": 0,
+      "convencer": 0
+    }
+  },
+  "decisiones_invalidas_excluidas": 0,
+  "trayectoria_privada": {
+    "1": {
+      "justa": 7.8,
+      "animo": 5.6,
+      "confianza": 4.2
+    },
+    "2": {
+      "justa": 7.5,
+      "animo": 5.8,
+      "confianza": 4.5
+    },
+    "3": {
+      "justa": 7.6,
+      "animo": 5.6,
+      "confianza": 4.4
+    },
+    "4": {
+      "justa": 7.5,
+      "animo": 6.0,
+      "confianza": 4.5
+    },
+    "5": {
+      "justa": 7.2,
+      "animo": 5.7,
+      "confianza": 4.0
+    },
+    "6": {
+      "justa": 7.5,
+      "animo": 6.0,
+      "confianza": 4.5
+    }
+  },
+  "conducta_por_agente": {
+    "Lucía Prado": {
+      "CUMPLO": 42
+    },
+    "Andrés Vidal": {
+      "CUMPLO": 42
+    },
+    "Rosa Mena": {
+      "CUMPLO": 42
+    },
+    "Óscar Lindo": {
+      "CUMPLO": 42
+    },
+    "Nadia Ferrer": {
+      "CUMPLO": 42
+    },
+    "Tomás Iriarte": {
+      "CUMPLO": 42
+    }
+  },
+  "ocultacion": {
+    "clandestinas_reales": 0,
+    "clandestinas_que_vio_el_grupo": 0
+  },
+  "coalicion": {
+    "protestantes_distintos_por_semana": {},
+    "mensajes_de_convencimiento": 0,
+    "red_convencimiento": {}
+  },
+  "modelo": "mistralai/mistral-large-4-0",
+  "duracion_segundos": 183.8
+}

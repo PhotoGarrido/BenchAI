@@ -1991,6 +1991,101 @@
    "sha256": "fd6f73107c2c567a16f0844edea31cd09757161ad9ecd7ba05c48f9d66a49ca0"
   },
   {
+   "bytes": 100090,
+   "ruta": "spike/resultados/bateria_20261006_173641_691993/asch_mistralai_mistral-large-4-0_20261006_173649_041873/registros.jsonl",
+   "sha256": "e67331888654883d96daef7de098899aa43f1111c2ceaaa30e751611b9ed1f4b"
+  },
+  {
+   "bytes": 28436,
+   "ruta": "spike/resultados/bateria_20261006_173641_691993/denuncia_mistralai_mistral-large-4-0_20261006_175021_782861/registros.jsonl",
+   "sha256": "cf8ccfa3bf269658dc0724f1c14b567d072a39a4f995d29b1c04657227d0960c"
+  },
+  {
+   "bytes": 1095,
+   "ruta": "spike/resultados/bateria_20261006_173641_691993/denuncia_mistralai_mistral-large-4-0_20261006_175021_782861/resumen.json",
+   "sha256": "d45423d24cef0120cced46b522d7be0f5bea8bd56f144e474ed73c7962892961"
+  },
+  {
+   "bytes": 1732,
+   "ruta": "spike/resultados/bateria_20261006_173641_691993/milgram_mistralai_mistral-large-4-0_20261006_181831_999182/resumen.json",
+   "sha256": "6c8b7a6d0728ce011d29ecbb726d57498bfe82b83cc94428927e3d2a15d2c573"
+  },
+  {
+   "bytes": 35550,
+   "ruta": "spike/resultados/bateria_20261006_173641_691993/milgram_mistralai_mistral-large-4-0_20261006_181831_999182/sesiones.jsonl",
+   "sha256": "0f24528aef55686298c4db666896b67c396bc6d6852762e4a74143eb84e5aeb4"
+  },
+  {
+   "bytes": 20032,
+   "ruta": "spike/resultados/bateria_20261006_173641_691993/prision_mistralai_mistral-large-4-0_20261006_174555_894543/registros_carcel.jsonl",
+   "sha256": "a6c6de388ab748e3594764f050a72cf4724b0f9a4679b25f25bda07bbcd8daa5"
+  },
+  {
+   "bytes": 19899,
+   "ruta": "spike/resultados/bateria_20261006_173641_691993/prision_mistralai_mistral-large-4-0_20261006_174555_894543/registros_programa.jsonl",
+   "sha256": "6590671fd25d179636ec9f1b4318a98ad555315e25d823a51ed6415f18f14b1c"
+  },
+  {
+   "bytes": 2640,
+   "ruta": "spike/resultados/bateria_20261006_173641_691993/prision_mistralai_mistral-large-4-0_20261006_174555_894543/resumen.json",
+   "sha256": "0023e3835261f45a4e12a99477bbcd7d30b62659f319f20e5a1d5c7275d5083c"
+  },
+  {
+   "bytes": 20028,
+   "ruta": "spike/resultados/bateria_20261006_173641_691993/prision_mistralai_mistral-large-4-0_coaching_20261006_174558_053789/registros_carcel.jsonl",
+   "sha256": "9814e6aea3e5e90b2fec8499aab964ca49abdc8e9fb0395b69943458c813ca4f"
+  },
+  {
+   "bytes": 20178,
+   "ruta": "spike/resultados/bateria_20261006_173641_691993/prision_mistralai_mistral-large-4-0_coaching_20261006_174558_053789/registros_programa.jsonl",
+   "sha256": "5cdb0e759b64a2c4096a4c30761dbdf112a50956b0693d1bb03520b61305856b"
+  },
+  {
+   "bytes": 2647,
+   "ruta": "spike/resultados/bateria_20261006_173641_691993/prision_mistralai_mistral-large-4-0_coaching_20261006_174558_053789/resumen.json",
+   "sha256": "020034c2bbbbe9bd6daa97e3fb5d071893f13eaadeb2b91c20af7f1515f44d9d"
+  },
+  {
+   "bytes": 20120,
+   "ruta": "spike/resultados/bateria_20261006_173641_691993/prision_mistralai_mistral-large-4-0_ordenes_20261006_174957_932956/registros_carcel.jsonl",
+   "sha256": "db836cf56ffd40cc4611a7b75bd819266df8327863179e51ee115cf5f091f68a"
+  },
+  {
+   "bytes": 20061,
+   "ruta": "spike/resultados/bateria_20261006_173641_691993/prision_mistralai_mistral-large-4-0_ordenes_20261006_174957_932956/registros_programa.jsonl",
+   "sha256": "9097fd9abd797456ce91aabaa44d66813deba1f03b578221b06000bad0076347"
+  },
+  {
+   "bytes": 2650,
+   "ruta": "spike/resultados/bateria_20261006_173641_691993/prision_mistralai_mistral-large-4-0_ordenes_20261006_174957_932956/resumen.json",
+   "sha256": "96d5bf84ef81f3ff17bc99f49f07059c08bd3c11a198450e414a2a47a5cdbc01"
+  },
+  {
+   "bytes": 20165,
+   "ruta": "spike/resultados/bateria_20261006_173641_691993/prision_mistralai_mistral-large-4-0_rebelion_20261006_174640_729291/registros_carcel.jsonl",
+   "sha256": "a2244e3047c9800d7c405ce8d96dd4aa1d549267ee6e3eed84b564d141d5da4f"
+  },
+  {
+   "bytes": 19839,
+   "ruta": "spike/resultados/bateria_20261006_173641_691993/prision_mistralai_mistral-large-4-0_rebelion_20261006_174640_729291/registros_programa.jsonl",
+   "sha256": "38e09d0bbb56923363d114c445e2ba4d31b757dd56b76cc00a7d4a91e4f6c273"
+  },
+  {
+   "bytes": 2634,
+   "ruta": "spike/resultados/bateria_20261006_173641_691993/prision_mistralai_mistral-large-4-0_rebelion_20261006_174640_729291/resumen.json",
+   "sha256": "3c457b9f8bed552805eb667842064ddfbc6f45c8bb7ade406ce603e36cb85a96"
+  },
+  {
+   "bytes": 48720,
+   "ruta": "spike/resultados/bateria_20261006_173641_691993/sicofancia-op_mistralai_mistral-large-4-0_20261006_175113_177570/registros.jsonl",
+   "sha256": "2bfb531605c8722dc4d00106dbf48f87f80c05e41d3cc50ff6b6db998154425b"
+  },
+  {
+   "bytes": 332,
+   "ruta": "spike/resultados/bateria_20261006_173641_691993/sicofancia-op_mistralai_mistral-large-4-0_20261006_175113_177570/resumen.json",
+   "sha256": "e881a76ee53485225472efbeb7aaa7c33553b6f5f51fae76b73d1e8cb07a47b0"
+  },
+  {
    "bytes": 28686,
    "ruta": "spike/resultados/cartera_n_20260805/denuncia_anthropic_claude-fable-5_20260805_144123_862147/registros.jsonl",
    "sha256": "6fffaa4c0edda5d5b97bdb6143a1e9f1b277d9db5a5156d3e826ee8f912461b7"
@@ -3491,33 +3586,39 @@
    "proveedor": "OpenRouter",
    "ruta": "spike/resultados/bateria_20261004_231409_609145/matriz_m2.json",
    "sha256": "015a5189e82a5c250fb82e930717ebf80564e03f63e9a833184586bc6af6f3be"
+  },
+  {
+   "bytes": 2040,
+   "proveedor": "OpenRouter",
+   "ruta": "spike/resultados/bateria_20261006_173641_691993/matriz_m2.json",
+   "sha256": "7b547b08dbfdcf3a04961c18d0757840f41fe402343293608296710c5784963d"
   }
  ],
  "regla": "toda cifra publicada del benchmark debe reconstruirse re-ejecutando la transformación sobre entradas con estos hashes; si algo no cuadra, la cifra no se cita",
  "salidas": [
   {
-   "bytes": 38474,
+   "bytes": 39048,
    "ruta": "BENCHMARK.md",
-   "sha256": "6677edf600c03be8bc87f172e55c5a70100a091ef8ccfd0f4c9952ccdee23832"
+   "sha256": "7d1e2fa78c42f06332734723f83300e8de3441361fa37867c2eaf5b06daceb4d"
   },
   {
-   "bytes": 120314,
+   "bytes": 123055,
    "ruta": "benchmark/index.html",
-   "sha256": "4de28438850cf4cec124b74621186a76e61a8b53992c1750d27ed5efbeb23b5d"
+   "sha256": "ba1b4a191a4c8f4666100c302f8c171381d3f16032718ca799df2c8672a270b7"
   },
   {
-   "bytes": 129880,
+   "bytes": 133942,
    "ruta": "benchmark/psicobench.json",
-   "sha256": "270558188bd87793fce6276936775674628ca1c2548927454df4df67c5634af2"
+   "sha256": "beefe0a6c9895d791b6df85a1f29bfe93a743c4356469b34ec9277f70908adeb"
   }
  ],
  "transformacion": {
   "nota": "la conciliación dura (punto recomputado == punto citado) corre en cada generación y en --check; los IC se remuestrean por cadena (enmienda E-IC-1 + adenda E-IC-1b)",
   "piezas": [
    {
-    "bytes": 36776,
+    "bytes": 37153,
     "ruta": "spike/generar_benchmark.py",
-    "sha256": "33445833610db1cc9f19b77e60aef60efa55ca2a1c4c5ab25b7a4cd9849b6e6e"
+    "sha256": "f0812e4d5bc58c5b309b2376320f34fd660f86726ee87ac534a3c7e2ad00d1ef"
    },
    {
     "bytes": 35701,
@@ -3530,19 +3631,19 @@
     "sha256": "6d96a733ae198e325c161dd38c082a672e67ccd171eb55984516e164463a49ce"
    },
    {
-    "bytes": 2073,
+    "bytes": 2184,
     "ruta": "spike/fuentes_benchmark.json",
-    "sha256": "1517876d3d3ca5d21a6fdc7c95af21a4336fa55823e375ebb98c86775306b14a"
+    "sha256": "cb4c5c57122b0df26edc37cdefdf4be611792174e58a51e2891866accecc856d"
    },
    {
-    "bytes": 4475,
+    "bytes": 4613,
     "ruta": "spike/denuncia_runs.json",
-    "sha256": "b2457f9adf322739d139149afe252195db8f393e34f6eb9284e89cafb12ad3e8"
+    "sha256": "02a2d4436e03f56675b42f0297fc4163dab859602ff96ed5356aeeb71b38a491"
    },
    {
-    "bytes": 4816,
+    "bytes": 4959,
     "ruta": "spike/sicofancia_runs.json",
-    "sha256": "ab42e9d08622cdffedb81bd731e6d3fdb503545d0f194899d816ef2ec8eae751"
+    "sha256": "7c8d82136cb1bf41a3ff200da00e6f401d104c4dab0956047aa1d606bd02ede3"
    }
   ],
   "version_benchmark": "0.4"
