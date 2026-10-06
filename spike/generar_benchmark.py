@@ -162,6 +162,12 @@ NOTAS = {
         "después de su lanzamiento, en la misma condición que gpt-6-sol#low "
         "para comparar versiones; el resto del banco usa el nivel por "
         "defecto de cada proveedor"),
+    "mistralai/mistral-large-4-0": (
+        "medido por OpenRouter el día de su lanzamiento (06-10-2026) con "
+        "precio de promoción (-50 %); fuera de la clasificación por D-8b: en "
+        "la prisión con coaching y en el motín REHÚSA a menudo el papel de "
+        "supervisor (n válido 19/7 y 13/9 de 30), y las negativas no son "
+        "actos medibles"),
     "stealth/space-bunny-alpha#low": _NOTA_SPACE_BUNNY,
     "stealth/space-bunny-alpha#high": _NOTA_SPACE_BUNNY,
 }

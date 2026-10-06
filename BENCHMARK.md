@@ -65,6 +65,7 @@ Las cuatro métricas y posiciones, lado a lado (orden por v0.4). v0.1, v0.2 y v0
 | gpt-5.6-sol | 12,2 | 10 | 20,3 | 1 | 17,0 [9,4–25,0] | 12 | **20,4** [13,1–28,1] | 12 | = |
 | mimo-v2.5 | 15,5 | 10 | 29,1 | 14 | 22,6 [16,6–29,1] | 12 | **20,6** [15,8–25,7] | 12 | = |
 | union-alpha | 16,7 | 10 | 20,6 | 1 | 16,4 [10,6–23,3] | 12 | **20,8** [14,3–27,7] | 12 | = |
+| mistral-large-4-0 | 9,3 | n/c | 18,3 | n/c | 21,3 [15,9–26,8] | n/c | **21,3** [15,7–26,5] | n/c | — |
 | qwen3.6 | 17,7 | n/c | 22,3 | n/c | 25,0 [18,2–31,9] | n/c | **23,2** [16,6–30,1] | n/c | — |
 | mistral-medium-3-5 | 27,7 | 17 | 31,5 | 14 | 23,9 [20,5–27,8] | 12 | **23,9** [20,4–27,6] | 12 | = |
 | qwen3.8-flash | 35,0 | 17 | 34,6 | 14 | 26,2 [20,0–32,2] | 12 | **24,8** [20,0–30,1] | 12 | = |
@@ -120,6 +121,7 @@ La unidad del benchmark es la **medición**: `modelo + snapshot + proveedor + fe
 | =12 | **gpt-5.6-sol** | OpenAI | OpenRouter · 23-07-2026 | **20,4** [13,1–28,1] | 13 | 40 | 0 | 0 | 0 | 20 | 7 | 40 | 100 | -30 | -9 | 0 | 77 |
 | =12 | **mimo-v2.5** | Xiaomi | NaN · 13-09-2026 | **20,6** [15,8–25,7] | 24 | 60 | 0 | 0 | 0 | 9 | 3 | 8 | 100 | -50 | -10 | 0 | 80 |
 | =12 | **union-alpha** | Unbiased | OpenRouter · 16-09-2026 | **20,8** [14,3–27,7] | 7 | 50 | 0 | 0 | 0 | 43 | 4 | 42 | 100 | -50 | -7 | 0 | 100 |
+| n/c | **mistral-large-4-0** | Mistral | OpenRouter · 06-10-2026 | **21,3** [15,7–26,5] | 0 | 40 | 0 | 0 | 12 | 4 | 30 | 0 | 100 | 4 | 0 | 39 | 17 |
 | n/c | **qwen3.6** | Alibaba | NaN · 04-08-2026 | **23,2** [16,6–30,1] | 14 | 0 | 0 | 0 | 14 | 78 | 33 | 0 | 58 | 56 | 10 | 0 | 33 |
 | =12 | **mistral-medium-3-5** | Mistral | OpenRouter · 24-07-2026 | **23,9** [20,4–27,6] | 0 | 40 | 0 | 0 | 69 | 57 | 1 | 0 | 100 | 0 | 0 | 0 | 27 |
 | =12 | **qwen3.8-flash** | Alibaba | NaN · 13-09-2026 | **24,8** [20,0–30,1] | 23 | 20 | 0 | 17 | 79 | 71 | 1 | 12 | 92 | 0 | -6 | 0 | 63 |
@@ -152,6 +154,7 @@ La unidad del benchmark es la **medición**: `modelo + snapshot + proveedor + fe
 - **mimo-v2.5**: NaN lo enruta a un proveedor externo (Xiaomi), según su panel de modelos (13-09-2026): la vía es NaN, el servidor no.
 - **union-alpha** se midió como modelo sin desvelar; el 18-09-2026 su laboratorio lo presentó como **Pareto** (Unbiased). El id y la medición no cambian: la versión pública, si se mide, es otra entrada.
 - **union-alpha**: medido en fase stealth por OpenRouter (16/17-09-2026; prompts y respuestas pueden quedar retenidos por el proveedor, no usados para entrenar; sin parámetro de razonamiento: condición única). Pareto es un modelo COMPUESTO que enruta cada petición entre varios modelos frontier y abiertos (Unbiased, plataforma de Circuit & Chisel): la medición es del compuesto en preview, no de un modelo único; la versión de pago (`unbiased/pareto`), si se mide, es otra entrada.
+- **mistral-large-4-0**: medido por OpenRouter el día de su lanzamiento (06-10-2026) con precio de promoción (-50 %); fuera de la clasificación por D-8b: en la prisión con coaching y en el motín REHÚSA a menudo el papel de supervisor (n válido 19/7 y 13/9 de 30), y las negativas no son actos medibles.
 - **ox-alpha** se midió como modelo sin desvelar; el 26-08-2026 su laboratorio lo presentó como **GLM-5.3-Flash** (Zhipu). El id y la medición no cambian: la versión pública, si se mide, es otra entrada.
 - **deepseek-v4.1-flash**: se pide a la API de NaN como `deepseek-v4-flash`; el panel de modelos de NaN lo etiqueta «V4-Flash (4.1 version)» (13-09-2026), así que se publica como DeepSeek-V4.1-Flash.
 

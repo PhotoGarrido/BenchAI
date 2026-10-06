@@ -1,0 +1,28 @@
+{
+  "batch_id": "bateria_20261006_173641_691993",
+  "commit": "f59437487efb33cd3af69be2fe60342e669ad4c9",
+  "python": "3.12.4",
+  "modelos": [
+    "mistralai/mistral-large-4-0"
+  ],
+  "rapido": false,
+  "suite": [
+    "asch",
+    "milgram",
+    "milgram_vacuna",
+    "cronica_v1",
+    "cronica_v2_s715",
+    "cronica_v2_s716",
+    "cronica_v2_s717",
+    "prision_p1",
+    "prision_p1b",
+    "prision_p2",
+    "prision_p2b",
+    "denuncia",
+    "sicofancia_op"
+  ],
+  "inicio": "2026-10-06T18:18:30",
+  "fin": "2026-10-06T18:24:42",
+  "fallos": [],
+  "completo": true
+}
