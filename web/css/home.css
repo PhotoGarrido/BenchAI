@@ -478,7 +478,9 @@ h2.titular {
 .tablero .piezas { display: flex; flex-wrap: wrap; gap: 7px; min-height: 60px; align-content: flex-start; }
 .tablero .pieza {
   font: 500 12.5px/1 var(--mono); padding: 7px 11px; border-radius: 999px;
-  border: 1px dashed var(--base); color: var(--tenue); opacity: .34;
+  /* pendiente: se apaga por color y borde discontinuo, no por opacidad —
+     el texto de lo que viene tiene que poder leerse */
+  border: 1px dashed var(--base); color: var(--tenue); opacity: 1;
   transition: opacity .45s, color .45s, background .45s, border-color .45s, transform .45s;
 }
 .tablero .pieza.puesta {
@@ -507,6 +509,8 @@ h2.titular {
   gap: 11px; opacity: .34; transition: opacity .45s;
 }
 .tablero .rastro .fila.en { opacity: 1; }
+.tablero .rastro .fila:not(.en) { opacity: 1; }
+.tablero .rastro .fila:not(.en) .pista { opacity: .5; }
 .tablero .rastro .n { font: 500 11px/1 var(--mono); letter-spacing: .06em; color: var(--tenue); }
 .tablero .rastro .fila.ahora .n { color: var(--tinta); }
 .tablero .rastro .pista { height: 9px; border-radius: 3px; background: var(--sup-3); overflow: hidden; }
@@ -1016,7 +1020,8 @@ section:nth-of-type(odd) .firmas .celda-f.grave span { color: #000; }
    (el número exacto sigue en el title y en la ficha de arriba). */
 @media (max-width: 860px) {
   .firmas { grid-template-columns: minmax(0, 2.6fr) repeat(8, minmax(0, 1fr)) auto; gap: 0 2px; }
-  .firmas .nom-f { font-size: 12px; padding-right: 8px; }
+  .firmas .nom-f { font-size: 12px; padding-right: 8px; white-space: normal; overflow-wrap: anywhere; }
+  .firmas .nom-f small { white-space: normal; }
   .firmas .iss-f { font-size: 12px; padding-left: 6px; }
   /* las cabeceras de eje, en vertical: caben enteras en columnas estrechas */
   .firmas .cabf:not(.izq):not(.der) span { writing-mode: vertical-rl; transform: rotate(180deg); display: inline-block; }
@@ -1047,8 +1052,8 @@ section:nth-of-type(odd) .firmas .celda-f.grave span { color: #000; }
 .ficha h4 { margin: 0; font-size: 15px; line-height: 1.15; }
 .ficha-meta { margin: 4px 0 0; font: 400 11px/1.35 var(--mono); color: var(--tenue); }
 .ficha-media { text-align: right; }
-.ficha-media b { display: block; font: 600 30px/1 var(--display); }
-.ficha-media small { display: block; margin-top: 1px; font: 600 11px/1 var(--mono);
+.ficha-media b { display: inline-block; font: 600 30px/1 var(--display); padding-bottom: 5px; }
+.ficha-media small { display: block; margin-top: 5px; font: 600 11px/1 var(--mono);
   letter-spacing: .16em; text-transform: uppercase; color: var(--tenue); }
 /* el mini-informe de la ficha: dónde cede y dónde aguanta, con su peldaño */
 .ficha-informe { grid-column: 1 / -1; margin: 10px 0 0; display: grid; gap: 5px; }
@@ -1106,4 +1111,17 @@ section:nth-of-type(odd) .firmas .celda-f.grave span { color: #000; }
 @media (max-width: 640px) {
   .botonera .chip-b { min-height: 36px; padding: 10px 11px; }
   .superficies a { padding: 8px 9px; }
+}
+
+@media (max-width: 640px) {
+  .superficies a { display: inline-flex; align-items: center; min-height: 36px; }
+  .barra .marca { padding: 7px 0; }
+  .apuesta input[type="range"], input[type="range"] { height: 32px; }
+}
+
+/* en los teléfonos más estrechos (320 px) el conmutador de lecturas no cabe
+   junto a la palabra BenchAI: queda el icono, con su nombre accesible */
+@media (max-width: 359px) {
+  .barra .marca { font-size: 0; gap: 0; padding: 10px 6px; }
+  .barra .marca .v { display: none; }
 }

@@ -290,3 +290,7 @@ table.puente td.actual { font-weight: 600; }
 /* en el papel, el peldaño 5 es un naranja medio: ni la tinta clara ni la
    oscura del registro llegan a 4,5:1 sobre él; el negro sí */
 section:nth-of-type(even) table.mapa td.c.p5, section:nth-of-type(even) .tira td.c.p5 span { color: #000; }
+
+@media (max-width: 640px) {
+  .sesion .cab .quien small a { display: inline-block; padding: 9px 0; }
+}

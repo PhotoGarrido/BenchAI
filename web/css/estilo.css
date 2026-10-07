@@ -374,7 +374,7 @@ figure.viz {
 figure.viz > figcaption { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--linea); }
 figure.viz .titviz { font: 600 15.5px/1.3 var(--sans); margin: 0 0 3px; color: var(--tinta); }
 .subviz { font-size: 13px; color: var(--tenue); margin: 0; max-width: 78ch; line-height: 1.5; }
-.fuente { font: 500 11.5px/1.5 var(--mono); color: var(--tenue); margin: 9px 0 0; }
+.fuente { font: 500 11.5px/1.5 var(--mono); color: var(--tenue); margin: 9px 0 0; overflow-wrap: anywhere; }
 .nota-tecnica { margin: 8px 0 0; }
 .nota-tecnica summary { cursor: pointer; font: 600 12.5px/1.4 var(--sans); color: var(--tinta-2); width: max-content; max-width: 100%; }
 .nota-tecnica summary:hover { color: var(--tinta); }
@@ -465,6 +465,10 @@ table.datos { width: 100%; border-collapse: collapse; font-size: 13px; }
 table.datos th, table.datos td { padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--linea); white-space: nowrap; }
 table.datos thead th { background: var(--sup-2); font: 600 11.5px/1 var(--sans); letter-spacing: .06em; text-transform: uppercase; color: var(--tenue); position: sticky; top: 0; }
 table.datos td.n, table.datos th.n { text-align: right; font-variant-numeric: tabular-nums; }
+/* cabecera que ordena: un botón sin aspecto de botón, pero con blanco para el dedo */
+.orden-cab { all: unset; cursor: pointer; color: inherit; font: inherit; letter-spacing: inherit;
+  text-transform: inherit; display: inline-flex; align-items: center; min-height: 26px; }
+.orden-cab:focus-visible { outline: 2px solid var(--acento); outline-offset: 2px; }
 table.datos tbody tr:hover { background: rgba(255, 255, 255, .022); }
 table.datos tbody tr:last-child td { border-bottom: none; }
 table.datos td.destaca { color: var(--tinta); font-weight: 700; }
@@ -678,3 +682,28 @@ footer.pie code { font-family: var(--mono); font-size: 12px; color: var(--tinta-
   .superficies a { padding: 8px 9px; }
   .tira-tiempo button { height: 32px; }
 }
+
+@media (max-width: 640px) {
+  .superficies a { display: inline-flex; align-items: center; min-height: 36px; }
+  .barra .marca { padding: 10px 0; }
+  input[type="range"] { height: 32px; }
+  .orden-cab { min-height: 36px; min-width: 32px; justify-content: center; }
+  .nota-tecnica summary { padding: 9px 0; }
+  .tira-tiempo button { height: 36px; }
+}
+
+/* en los teléfonos más estrechos (320 px) el conmutador de lecturas no cabe
+   junto a la palabra BenchAI: queda el icono, con su nombre accesible */
+@media (max-width: 359px) {
+  .barra .marca { font-size: 0; gap: 0; padding: 10px 6px; }
+  .barra .marca .v { display: none; }
+}
+
+/* la tira de días de la grabación: en los móviles estrechos, dos filas de
+   cinco en vez de diez botones de 22 px */
+@media (max-width: 400px) {
+  .tira-tiempo { flex-wrap: wrap; }
+  .tira-tiempo button { flex: 1 0 calc(20% - 3px); }
+}
+
+@media (max-width: 400px) { figure.viz { padding: 16px 12px 14px; } }

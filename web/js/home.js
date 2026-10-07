@@ -107,6 +107,13 @@
     const aplica = () => {
       const k = svg.getBoundingClientRect().width / W;
       if (!k) return;
+      // los bocadillos crecen lo justo para que su letra (15 de diseño) no
+      // baje de 11 px en pantalla, sin pasar del doble
+      const s = Math.max(1, Math.min(2.4, 11 / (15 * k)));
+      svg.querySelectorAll("g.picto-bocadillo").forEach((b) => {
+        if (b.dataset.base == null) b.dataset.base = b.getAttribute("transform") || "";
+        b.setAttribute("transform", b.dataset.base + (s > 1 ? ` scale(${s.toFixed(2)})` : ""));
+      });
       svg.querySelectorAll("text[data-px]").forEach((t) => {
         t.style.fontSize = (Number(t.dataset.px) / Math.min(1, k)).toFixed(1) + "px";
         if (t.dataset.corto != null) {
@@ -116,7 +123,7 @@
     };
     if (typeof ResizeObserver === "function") new ResizeObserver(aplica).observe(svg);
     else addEventListener("resize", aplica);
-    requestAnimationFrame(aplica);
+    setTimeout(aplica, 0);
   }
   const rotulo = (atr, largo, corto, umbral) => {
     const t = s("text", Object.assign({ "data-largo": largo }, corto != null ? { "data-corto": corto, "data-umbral": umbral || 0.75 } : {}, atr),
@@ -191,7 +198,7 @@
     const maxConf = Math.max(...entradas.map((e) => e.ejes.conf));
     const cede = entradas.filter((e) => e.ejes.conf > 0).length;
 
-    const W = 640, H = 252;
+    const W = 640, H = 284;
     const svg = s("svg", { viewBox: `0 0 ${W} ${H}`, role: "img",
       "aria-label": "Panel de seis revisores: cinco cómplices dan la misma respuesta " +
         "equivocada antes de que hable el sujeto." });
@@ -201,12 +208,12 @@
       const esSujeto = i === 5;
       const col = esSujeto ? COLOR.maquina : COLOR.humano;
       svg.appendChild(figura({ color: col, marca: esSujeto,
-        t: `translate(${x0 + i * paso} 120) scale(0.95)` }));
-      const b = bocadillo(x0 + i * paso + 12, 62, esSujeto ? "?" : "B", col,
+        t: `translate(${x0 + i * paso} 152) scale(0.95)` }));
+      const b = bocadillo(x0 + i * paso + 12, 78, esSujeto ? "?" : "B", col,
         { relleno: esSujeto ? "rgba(16,160,176,.10)" : "rgba(200,127,40,.10)" });
       b.classList.add("on");
       svg.appendChild(b);
-      svg.appendChild(rotulo({ x: x0 + i * paso + 12, y: 192, "text-anchor": "middle",
+      svg.appendChild(rotulo({ x: x0 + i * paso + 12, y: 224, "text-anchor": "middle",
         fill: esSujeto ? COLOR.maquinaClaro : COLOR.tenue, "data-px": 11,
         style: "font:500 11px ui-monospace,Menlo,monospace" },
         esSujeto ? "sujeto" : "cómplice " + (i + 1), esSujeto ? "sujeto" : String(i + 1), 0.8));
@@ -218,12 +225,12 @@
       "SU PROPIA MEDICIÓN — LA C ES LA MÁS LARGA", "LA C ES LA MÁS LARGA", 0.8));
     [["A", 96], ["B", 104], ["C", 168]].forEach(([et, ancho], i) => {
       const y = 32 + i * 0;
-      svg.appendChild(s("text", { x: bx + i * 190, y: 47, fill: COLOR.tenue, "data-px": 11,
+      svg.appendChild(s("text", { x: bx + i * 190, y: 64, fill: COLOR.tenue, "data-px": 11,
         style: "font:600 11px ui-monospace,Menlo,monospace" }, [document.createTextNode(et)]));
-      svg.appendChild(s("rect", { x: bx + 16 + i * 190, y: 37, width: ancho, height: 10, rx: 5,
+      svg.appendChild(s("rect", { x: bx + 16 + i * 190, y: 54, width: ancho, height: 10, rx: 5,
         fill: et === "C" ? COLOR.maquina : "var(--sup-3)" }));
     });
-    svg.appendChild(s("text", { x: W - 42, y: 236, "text-anchor": "end", fill: COLOR.tinta, "data-px": 13,
+    svg.appendChild(s("text", { x: W - 42, y: 268, "text-anchor": "end", fill: COLOR.tinta, "data-px": 13,
       style: "font:600 13px system-ui" },
       [document.createTextNode("El coro dice B. ¿Qué dice el sujeto?")]));
 
@@ -477,7 +484,19 @@
       Array.prototype.forEach.call(piezas.children, (c, j) => {
         c.classList.toggle("puesta", j <= i);
         c.classList.toggle("nueva", j === i);
+        c.style.color = "";
       });
+      // la pieza nueva lleva el color de su marco de fondo: su tinta (negra o
+      // blanca) se elige midiendo ese fondo, para que pase 4,5:1 con todos
+      // (el fondo transiciona: se lee la variable ya resuelta, no el fondo)
+      const nueva = piezas.children[i];
+      const m2 = /^#([0-9a-f]{6})$/i.exec(getComputedStyle(tablero).getPropertyValue("--c").trim());
+      if (m2) {
+        const n = parseInt(m2[1], 16), r = n >> 16 & 255, g = n >> 8 & 255, b = n & 255;
+        const f = (v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
+        const L = 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b);
+        nueva.style.color = (L + 0.05) / 0.05 >= 1.05 / (L + 0.05) ? "#000" : "#fff";
+      }
       figs.forEach((g, j) => tinta(g, j < m.conAbuso ? m.col : "var(--sup-3)"));
       MARCADO.pintar(nota, conAbusoDe(m));
       Array.prototype.forEach.call(rastro.children, (f, j) => {
@@ -628,7 +647,7 @@
     function pinta() {
       cab.textContent = "";
       cab.append(tarjeta(selA, "a"), tarjeta(selB, "b"));
-      W = Math.max(280, Math.min(460, Math.floor(lienzo.clientWidth - 20) || 430));
+      W = Math.max(220, Math.min(460, Math.floor(lienzo.clientWidth - 20) || 430));
       R = Math.round(Math.min(124, W / 2 - 62));
       // en estrecho los nombres pegados a la punta pisaban los ejes: van a
       // una leyenda debajo (línea continua = A, discontinua = B)

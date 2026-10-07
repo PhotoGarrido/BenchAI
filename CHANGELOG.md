@@ -39,6 +39,17 @@ Sin cambios en el instrumento ni en las mediciones: es la web.
 - **Fallos de paso**: la escalera de versiones apilaba los nombres al revés
   de sus líneas; el menú activo no casaba enlace y sección si faltaba un
   ancla.
+- **Segunda pasada** (auditoría automática por línea de texto, recortada
+  por los contenedores con scroll; 5 páginas × 7 anchos de 320 a 1440 px:
+  0 desbordes, 0 solapes, 0 fallos de contraste, 0 recortes, 0 mandos táctiles
+  por debajo de 32 px de alto): las gráficas también se dibujan en una
+  pestaña en segundo plano (antes esperaban a `requestAnimationFrame`); los
+  nombres de los personajes del visor se aclaran hasta 4,5:1 sin tocar el
+  color de su figura; la pieza activa de la prisión elige tinta negra o
+  blanca según su fondo; lo pendiente (piezas, marcos, peldaños) se apaga
+  por color y no por opacidad; mandos, cabeceras ordenables, deslizadores y
+  la tira de días crecen en el móvil; a 320 px la barra deja solo el icono y
+  la matriz de correlaciones abrevia los ejes.
 
 ## Sin versión (mediciones, no instrumento) · Mistral Large 4 el día de su lanzamiento: 36 → 37 · 06-10-2026
 

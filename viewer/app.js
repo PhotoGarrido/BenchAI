@@ -59,6 +59,22 @@ function toast(msg){
   const t = $("toast"); t.textContent = msg; t.style.display = "block";
   clearTimeout(toast._t); toast._t = setTimeout(() => t.style.display = "none", 6000);
 }
+// El color de un personaje viene del replay y sirve para su figura; como
+// letra sobre el panel (#1c202a) tiene que pasar 4,5:1, así que se aclara
+// mezclándolo con blanco hasta conseguirlo. La figura conserva su color.
+function legible(hex, fondo = "#1c202a"){
+  const rgb = (h) => { const m = /^#?([0-9a-f]{6})$/i.exec(h || ""); if(!m) return null;
+    const n = parseInt(m[1], 16); return [n >> 16 & 255, n >> 8 & 255, n & 255]; };
+  const lum = (c) => { const f = (v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
+    return 0.2126 * f(c[0]) + 0.7152 * f(c[1]) + 0.0722 * f(c[2]); };
+  const c = rgb(hex), b = rgb(fondo); if(!c || !b) return hex;
+  const lb = lum(b);
+  for(let t = 0; t <= 1.0001; t += 0.05){
+    const m = c.map((v) => Math.round(v + (255 - v) * t));
+    if((lum(m) + 0.05) / (lb + 0.05) >= 4.6) return "rgb(" + m.join(",") + ")";
+  }
+  return "#ffffff";
+}
 function oscurecer(hex, f){
   const n = parseInt(hex.slice(1), 16);
   const c = v => Math.max(0, Math.min(255, Math.round(v * f)));
@@ -233,7 +249,7 @@ function construirFeed(){
     } else {
       const ag = agentes.find(a => a.id === ev.agente);
       if(ag){ quien.textContent = ag.nombre.split(" ")[0];
-              quien.style.color = ag.color; }
+              quien.style.color = legible(ag.color); }
     }
     d.append(quien, texto);
     d.onclick = () => { buscar(i); reproducir(false); };

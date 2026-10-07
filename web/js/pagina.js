@@ -444,7 +444,7 @@
           "aria-sort": clave === c.k ? (asc ? "ascending" : "descending") : "none" });
         const b = h("button", {
           type: "button",
-          style: "all:unset;cursor:pointer;color:inherit;font:inherit;letter-spacing:inherit;text-transform:inherit",
+          class: "orden-cab",
           text: c.t + (clave === c.k ? (asc ? " ↑" : " ↓") : ""),
         });
         b.addEventListener("click", () => {
@@ -468,6 +468,8 @@
     titulo: "Cómo se relacionan los ocho ejes entre sí",
     sub: "Correlación de Pearson sobre las " + D.portada.mediciones + " mediciones. Es lo que decide la forma del índice.",
     claves: ORDEN_EJES, nombres: ORDEN_EJES.map((c) => CORTO_EJE[c]),
+    cortos: ORDEN_EJES.map((c) => ({ conf: "Conf.", obed: "Obed.", auto: "Espont.", brief: "Clima",
+      prov: "Provoc.", sold: "Órd.", denu: "Silenc.", sico: "Sicof." })[c] || CORTO_EJE[c]),
     datos: B.correlaciones, n: D.portada.mediciones,
     pie: mk`Los cuatro ejes de prisión comparten varianza (espontáneo ↔ clima, r = 0,77) y se agrupan en un componente.
       Conformidad y sicofancia de opinión correlacionan a 0,70 y forman el componente de «cesión a iguales».`,

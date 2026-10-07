@@ -179,11 +179,15 @@
       if (fig._trasDibujar) fig._trasDibujar();
     }
     fig._redibujar = () => pinta(true);
+    // primer dibujo en cuanto quien la crea la haya colgado del documento
+    // (lo hace en la misma tarea): ResizeObserver solo avisa dentro del ciclo
+    // de pintado, que no corre en una pestaña en segundo plano
+    setTimeout(() => pinta(false), 0);
+    addEventListener("resize", () => pinta(false));
     if (typeof ResizeObserver === "function") {
-      new ResizeObserver(() => { if (!pendiente) pendiente = requestAnimationFrame(() => pinta(false)); }).observe(lienzo);
-    } else {
-      addEventListener("resize", () => pinta(false));
-      setTimeout(() => pinta(false), 0);
+      // setTimeout y no requestAnimationFrame: rAF no corre en pestañas en
+      // segundo plano y la gráfica se quedaba sin dibujar hasta volver a ella
+      new ResizeObserver(() => { if (!pendiente) pendiente = setTimeout(() => pinta(false), 0); }).observe(lienzo);
     }
   }
 
@@ -462,8 +466,11 @@
       const anchoPanel = (W - EJE_X - GAP_P * (COLS - 1)) / COLS;
       const ALTO_F = encima ? 34 : 22;
       // los títulos de panel se parten en líneas si no caben en su columna
-      const maxCar = Math.max(6, Math.floor(anchoPanel / 7.4));
-      const lineasTit = Math.max(...paneles.map((p) => partir(p.titulo, maxCar, 2).length));
+      const lineasDe = (p) => partirAncho(p.titulo, anchoPanel - 4, "serie", 2);
+      // si alguna palabra del título no cabe en su columna, el panel se
+      // rotula con una franja de su color: la leyenda de arriba dice cuál es
+      const conTitulo = paneles.every((p) => p.titulo.split(" ").every((w) => anchoTexto(w, "serie") <= anchoPanel - 4));
+      const lineasTit = conTitulo ? Math.max(...paneles.map((p) => lineasDe(p).length)) : 1;
       const conNota = paneles.some((p) => p.nota) && !encima;
       const H_TOP = 8 + lineasTit * 16 + (conNota ? 16 : 0) + 12, H_BOT = 26;
       const H = H_TOP + filas * ALTO_F + H_BOT;
@@ -483,8 +490,10 @@
       const marcas = [];
       paneles.forEach((p, c) => {
         const x0 = EJE_X + c * (anchoPanel + GAP_P);
-        partir(p.titulo, maxCar, 2).forEach((l, k) =>
+        if (conTitulo) lineasDe(p).forEach((l, k) =>
           g.appendChild(el("text", { x: x0, y: 18 + k * 16, class: "et-serie" }, [txt(l)])));
+        else g.appendChild(el("rect", { x: x0, y: 8, width: anchoPanel, height: 8, rx: 2, fill: p.color },
+          [el("title", {}, [txt(p.titulo)])]));
         if (conNota && p.nota) g.appendChild(el("text", { x: x0, y: 18 + lineasTit * 16, class: "eje-txt" }, [txt(p.nota)]));
         g.appendChild(el("line", { x1: x0, y1: H_TOP - 6, x2: x0, y2: H - H_BOT + 2, class: "base-l" }));
         g.appendChild(el("line", { x1: x0 + anchoPanel, y1: H_TOP - 6, x2: x0 + anchoPanel, y2: H - H_BOT + 2, class: "reja-l" }));
@@ -700,10 +709,14 @@
       { color: "rgb(217,86,78)", etiqueta: "r = +1 (se mueven juntos)" },
     ];
     const fig = figura(o);
+    // abreviatura para los móviles más estrechos («Espontáneo» → «Espo.»)
+    const abreviado = o.cortos || nombres.map((n) => (n.length > 6 ? n.slice(0, 4).replace(/\.$/, "") + "." : n));
     adaptable(fig, (Wl) => {
-      const largo = anchoMax(nombres, "eje");
+      const cabe = (ns) => Math.floor((Wl - Math.ceil(anchoMax(ns, "eje")) - 20) / N) >= 26;
+      const nombresV = cabe(nombres) ? nombres : abreviado;
+      const largo = anchoMax(nombresV, "eje");
       const EJE = Math.ceil(largo) + 12;
-      const CELDA = Math.max(26, Math.min(52, Math.floor((Wl - EJE - 8) / N)));
+      const CELDA = Math.max(24, Math.min(52, Math.floor((Wl - EJE - 8) / N)));
       const TOP = Math.ceil(largo * Math.sin(52 * Math.PI / 180)) + 22;
       const W = EJE + N * CELDA + 8, H = TOP + N * CELDA + 8;
       const prieta = CELDA < 38;
@@ -713,12 +726,12 @@
 
       claves.forEach((c, i) => {
         g.appendChild(el("text", { x: EJE - 8, y: TOP + i * CELDA + CELDA / 2 + 4, class: "eje-txt", "text-anchor": "end" },
-          [txt(nombres[i])]));
+          [txt(nombresV[i])]));
         const px = EJE + i * CELDA + CELDA / 2;
         g.appendChild(el("text", {
           x: px, y: TOP - 10, class: "eje-txt", "text-anchor": "start",
           transform: `rotate(-52 ${px} ${TOP - 10})`,
-        }, [txt(nombres[i])]));
+        }, [txt(nombresV[i])]));
       });
 
       claves.forEach((cf, i) => claves.forEach((cc, j) => {
@@ -893,7 +906,7 @@
         return svg;
       }
       // tumbada: etiqueta encima, dos barras finas debajo, escala común
-      const ALTO_F = 44, H_TOP = 8, H_BOT = 28;
+      const ALTO_F = 50, H_TOP = 8, H_BOT = 28;
       const padD = 46, anchoPlot = W - padD - 2;
       const H = H_TOP + datos.length * ALTO_F + H_BOT;
       const x = (v) => v * anchoPlot;
@@ -907,7 +920,7 @@
         const y = H_TOP + i * ALTO_F;
         g.appendChild(el("text", { x: 2, y: y + 12, class: "eje-txt et-fila" }, [txt(etq(d))]));
         [[d.a, cA, 0], [d.b, cB, 1]].forEach(([v, col, k]) => {
-          const yb = y + 18 + k * 10;
+          const yb = y + 18 + k * 15;
           const barra = el("rect", { x: 2, y: yb, width: Math.max(x(v), v > 0 ? 2.5 : 0), height: 8, rx: 2, fill: col,
             class: "marca anim-barra", style: `transition-delay:${Math.min(i * 22, 420)}ms` });
           g.appendChild(barra); marcas.push(barra);

@@ -65,9 +65,7 @@
   }
   .ev:hover{background:var(--panel2)}
   .ev.activo{background:var(--panel2); border-color:var(--accent)}
-  /* el color de cada personaje viene del replay; un punto más de luz para
-     que el nombre pase 4,5:1 sobre el panel */
-  .ev .quien{font-weight:700; margin-right:4px; filter:brightness(1.15)}
+  .ev .quien{font-weight:700; margin-right:4px}
   .ev.narrador{font-style:italic; color:var(--dim)}
   .ev.pensamiento{color:var(--dim)}
   .ev.pensamiento .texto::before{content:"💭 "}
@@ -122,6 +120,9 @@
     .ev{ font-size:13.5px; }
     footer{ position:sticky; bottom:0; z-index:5; }
     header .btn{ font-size:12.5px; }
+    #tituloSesion{ white-space:normal; flex-basis:100%; order:3; }
+    footer .btn{ min-height:38px; min-width:38px; }
+    #barra{ height:32px; }
   }
 </style>
 </head>
