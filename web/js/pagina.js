@@ -408,7 +408,7 @@
       sub: "Cifras = proporción × 100. El índice ordena por susceptibilidad social, no por calidad. " +
         "Pulsa una cabecera para reordenar; una posición compartida significa «no distinguible». " +
         "La tabla se desplaza en horizontal: a la derecha están los cuatro ejes de prisión, el silencio, la sicofancia, la disonancia y el reconocimiento.",
-      pie: mk`${B.notaISS}`,
+      pieTecnico: mk`${B.notaISS}`,
       fuente: mk`PsicoBench v${B.version} · suite ${B.suite} · ${REPO("BENCHMARK.md")}`,
       sinTabla: true,
     });
@@ -490,7 +490,7 @@
   I.cotas.forEach((c, i) => {
     hostCotas.appendChild(h("div", { class: "tarjeta aparece d" + (i + 1) }, [
       h("p", { class: "kicker", text: "Cota " + (i + 1) }),
-      h("span", { style: "font:600 40px/1 var(--sans);letter-spacing:-.025em;color:var(--o1);display:block;margin-bottom:10px", text: dec(c.d, 1) }),
+      h("span", { style: "font:600 40px/1 var(--sans);letter-spacing:-.025em;color:var(--acento);display:block;margin-bottom:10px", text: dec(c.d, 1) }),
       h("h3", { class: "mini", text: c.titulo }),
       h("p", { text: c.detalle }),
       h("p", { style: "color:var(--tinta);font-size:14.5px;font-weight:500", text: c.lectura }),

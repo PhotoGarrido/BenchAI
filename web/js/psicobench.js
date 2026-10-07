@@ -37,7 +37,9 @@
   const labs = Array.from(new Set(B.entradas.map((e) => e.lab))).sort((a, b) => a.localeCompare(b, "es"));
   const fechaNum = (f) => { const [d, m, a] = String(f).split("-").map(Number); return a * 10000 + m * 100 + d; };
   const ultima = B.entradas.map((e) => e.fecha).sort((a, b) => fechaNum(a) - fechaNum(b)).pop();
-  document.getElementById("n-labs").textContent = ES.format(labs.length);
+  // un modelo sin desvelar no cuenta como laboratorio hasta que se sepa de
+  // quién es (la misma regla que el sitio largo y los metas)
+  document.getElementById("n-labs").textContent = ES.format(labs.filter((l) => l !== "sin desvelar").length);
   document.getElementById("n-ejes").textContent = ES.format(B.ejes.length);
   document.getElementById("ultima-medicion").textContent = ultima;
 
@@ -288,7 +290,7 @@
     const fig = G.barrasH({
       titulo: `${EJE[c].nombre}: las ${ES.format(orden.length)} mediciones, de más a menos`,
       sub: "Barra = proporción; bigote = intervalo de confianza al 95 %. Si dos bigotes se solapan, el orden entre esas dos no significa nada.",
-      datos, max: 1, ticks: [0, 0.25, 0.5, 0.75, 1], anchoEtiqueta: 292, altoFila: 22,
+      datos, max: 1, ticks: [0, 0.25, 0.5, 0.75, 1], altoFila: 22, alPulsar: (d) => abrirHash(d.id),
       nombreFila: "Medición", nombreValor: EJE[c].nombre,
       pie: mk`${EJE[c].definicion}. El color de cada barra es la escala de dureza del sitio, la misma del mapa.`,
       fuente: mk`PsicoBench v${B.version} · eje <b>${c}</b> · ${REPO("benchmark/psicobench.json")}`,
@@ -594,52 +596,97 @@
   const abrirHash = (id) => { location.hash = "#m=" + encodeURIComponent(id); };
 
   function dispersion(o) {
-    const W = 640, H = 500, P = { l: 58, r: 22, t: 34, b: 54 };
-    const px = (v) => P.l + Math.max(0, Math.min(1, v)) * (W - P.l - P.r);
-    const py = (v) => H - P.b - Math.max(0, Math.min(1, v)) * (H - P.t - P.b);
-    const svg = G.el("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": o.titulo });
-    const g = G.el("g", {}); svg.appendChild(g);
-    [0, 0.25, 0.5, 0.75, 1].forEach((t) => {
-      g.appendChild(G.el("line", { x1: px(t), y1: P.t, x2: px(t), y2: H - P.b, class: "reja-l" }));
-      g.appendChild(G.el("line", { x1: P.l, y1: py(t), x2: W - P.r, y2: py(t), class: "reja-l" }));
-      g.appendChild(G.el("text", { x: px(t), y: H - P.b + 16, class: "eje-txt tab", "text-anchor": "middle" }, [document.createTextNode(pc(t))]));
-      g.appendChild(G.el("text", { x: P.l - 8, y: py(t) + 4, class: "eje-txt tab", "text-anchor": "end" }, [document.createTextNode(pc(t))]));
-    });
-    g.appendChild(G.el("line", { x1: px(0.5), y1: P.t, x2: px(0.5), y2: H - P.b, class: "guia-l" }));
-    g.appendChild(G.el("line", { x1: P.l, y1: py(0.5), x2: W - P.r, y2: py(0.5), class: "guia-l" }));
-    g.appendChild(G.el("text", { x: (P.l + W - P.r) / 2, y: H - 8, class: "eje-nombre", "text-anchor": "middle" }, [document.createTextNode(o.x.nombre + " →")]));
-    g.appendChild(G.el("text", { x: 14, y: (P.t + H - P.b) / 2, class: "eje-nombre", "text-anchor": "middle", transform: `rotate(-90 14 ${(P.t + H - P.b) / 2})` }, [document.createTextNode(o.y.nombre + " →")]));
-    const [ai, ad, bi, bd] = o.cuadrantes;
-    g.appendChild(G.el("text", { x: P.l + 8, y: P.t - 10, class: "cuadrante" }, [document.createTextNode(ai)]));
-    g.appendChild(G.el("text", { x: W - P.r - 8, y: P.t - 10, class: "cuadrante", "text-anchor": "end" }, [document.createTextNode(ad)]));
-    g.appendChild(G.el("text", { x: P.l + 8, y: H - P.b - 8, class: "cuadrante" }, [document.createTextNode(bi)]));
-    g.appendChild(G.el("text", { x: W - P.r - 8, y: H - P.b - 8, class: "cuadrante", "text-anchor": "end" }, [document.createTextNode(bd)]));
-
     const datos = B.entradas.filter((e) => o.x.fn(e) != null && o.y.fn(e) != null);
     const porX = datos.slice().sort((a, b) => o.x.fn(a) - o.x.fn(b)), porY = datos.slice().sort((a, b) => o.y.fn(a) - o.y.fn(b));
-    const etiquetar = new Set([porX[0], porX[1], porX[porX.length - 1], porX[porX.length - 2],
-      porY[0], porY[1], porY[porY.length - 1], porY[porY.length - 2]].filter(Boolean).map((e) => e.id));
-    const marcas = [];
-    datos.forEach((e, i) => {
-      const jx = ((i % 3) - 1) * 2, jy = ((Math.floor(i / 3) % 3) - 1) * 2;
-      // sin la clase `marca`: en estilo.css es la marca de la barra (display flex…)
-      const c = G.el("circle", { cx: px(o.x.fn(e)) + jx, cy: py(o.y.fn(e)) + jy, r: 5.5, class: "punto anim-fade", "fill-opacity": 0.8 });
-      G.conGlobo(c, () => window.MARCADO.une(
-        mk`<div class="g-tit">${e.id}</div>`,
-        mk`<div class="g-fila"><span>${o.x.nombre}</span><b>${pc(o.x.fn(e))}</b></div>`,
-        mk`<div class="g-fila"><span>${o.y.nombre}</span><b>${pc(o.y.fn(e))}</b></div>`,
-        mk`<div class="g-nota">${e.lab} · ${e.proveedor} · ${e.fecha} · pulsa para abrir la ficha</div>`), marcas);
-      c.addEventListener("click", () => abrirHash(e.id));
-      g.appendChild(c);
-      marcas.push(c);
-      if (etiquetar.has(e.id)) {
-        const der = px(o.x.fn(e)) < W * 0.72;
-        g.appendChild(G.el("text", { x: px(o.x.fn(e)) + (der ? 9 : -9), y: py(o.y.fn(e)) - 7, class: "punto-et anim-fade", "text-anchor": der ? "start" : "end" },
-          [document.createTextNode(e.id)]));
-      }
-    });
+    // candidatas a llevar nombre: los extremos de cada eje, por orden de interés
+    const candidatas = [porX[porX.length - 1], porY[porY.length - 1], porX[0], porY[0],
+      porX[porX.length - 2], porY[porY.length - 2], porX[1], porY[1]].filter(Boolean)
+      .filter((e, i, a) => a.indexOf(e) === i);
     const fig = G.figura(o);
-    fig._lienzo.appendChild(svg);
+    G.adaptable(fig, (Wl) => {
+      const W = Math.min(Wl, 720);
+      const estrecho = W < 460;
+      const H = Math.round(Math.max(300, Math.min(500, W * 0.8)));
+      const P = { l: 58, r: 14, t: 30, b: 48 };
+      const px = (v) => P.l + Math.max(0, Math.min(1, v)) * (W - P.l - P.r);
+      const py = (v) => H - P.b - Math.max(0, Math.min(1, v)) * (H - P.t - P.b);
+      const T = (s) => document.createTextNode(s);
+      const svg = G.el("svg", { viewBox: `0 0 ${W} ${H}`, width: W, height: H, role: "img", "aria-label": o.titulo });
+      const g = G.el("g", {}); svg.appendChild(g);
+      [0, 0.25, 0.5, 0.75, 1].forEach((t) => {
+        g.appendChild(G.el("line", { x1: px(t), y1: P.t, x2: px(t), y2: H - P.b, class: "reja-l" }));
+        g.appendChild(G.el("line", { x1: P.l, y1: py(t), x2: W - P.r, y2: py(t), class: "reja-l" }));
+        if (!estrecho || t !== 0.25 && t !== 0.75) {
+          g.appendChild(G.el("text", { x: px(t), y: H - P.b + 16, class: "eje-txt tab", "text-anchor": t === 1 ? "end" : t === 0 ? "start" : "middle" }, [T(pc(t))]));
+        }
+        g.appendChild(G.el("text", { x: P.l - 6, y: py(t) + 4, class: "eje-txt tab", "text-anchor": "end" }, [T(pc(t))]));
+      });
+      g.appendChild(G.el("line", { x1: px(0.5), y1: P.t, x2: px(0.5), y2: H - P.b, class: "guia-l" }));
+      g.appendChild(G.el("line", { x1: P.l, y1: py(0.5), x2: W - P.r, y2: py(0.5), class: "guia-l" }));
+      // el nombre del eje, sin el paréntesis si no cabe
+      const nombreEje = (n, hueco) => (G.anchoTexto(n + " →", "eje") <= hueco ? n : n.replace(/\s*\(.*\)\s*$/, "")) + " →";
+      g.appendChild(G.el("text", { x: W - P.r, y: H - 8, class: "eje-nombre", "text-anchor": "end" }, [T(nombreEje(o.x.nombre, W - P.l - P.r))]));
+      g.appendChild(G.el("text", { x: 12, y: H - P.b, class: "eje-nombre", "text-anchor": "start", transform: `rotate(-90 12 ${H - P.b})` }, [T(nombreEje(o.y.nombre, H - P.t - P.b))]));
+      // los cuadrantes, dentro de su cuarto y partidos si no caben
+      const [ai, ad, bi, bd] = o.cuadrantes;
+      const mitad = (W - P.l - P.r) / 2 - 12, maxCar = Math.max(8, Math.floor(mitad / 6.4));
+      const cajasCuad = [];
+      const cuad = (texto, x, y, ancla, abajo) => {
+        const ls = G.partir(texto.toUpperCase(), maxCar, 2);
+        ls.forEach((l, k) => {
+          const yl = abajo ? y - (ls.length - 1 - k) * 13 : y + k * 13;
+          const a = l.length * 6.6;
+          cajasCuad.push({ x0: ancla === "end" ? x - a : x, x1: ancla === "end" ? x : x + a, y0: yl - 10, y1: yl + 3 });
+          g.appendChild(G.el("text", { x, y: yl, class: "cuadrante", "text-anchor": ancla }, [T(l)]));
+        });
+      };
+      cuad(ai, P.l + 6, P.t + 14, "start", false);
+      cuad(ad, W - P.r - 6, P.t + 14, "end", false);
+      cuad(bi, P.l + 6, H - P.b - 8, "start", true);
+      cuad(bd, W - P.r - 6, H - P.b - 8, "end", true);
+
+      const marcas = [];
+      // cajas ocupadas por etiquetas ya puestas: una etiqueta que no cabe
+      // sin pisar a otra (o sin salirse) no se pone; el globo y la tabla la dan
+      const ocupadas = cajasCuad.slice();
+      const libre = (c) => c.x0 >= P.l && c.x1 <= W - P.r && c.y0 >= P.t && c.y1 <= H - P.b &&
+        !ocupadas.some((b) => c.x0 < b.x1 && c.x1 > b.x0 && c.y0 < b.y1 && c.y1 > b.y0);
+      const cx = new Map();
+      datos.forEach((e, i) => {
+        const jx = ((i % 3) - 1) * 2, jy = ((Math.floor(i / 3) % 3) - 1) * 2;
+        const x = px(o.x.fn(e)) + jx, y = py(o.y.fn(e)) + jy;
+        cx.set(e.id, [x, y]);
+        // sin la clase `marca`: en estilo.css es la marca de la barra (display flex…)
+        const c = G.el("circle", { cx: x, cy: y, r: estrecho ? 5 : 5.5, class: "punto anim-fade", "fill-opacity": 0.8 });
+        G.conGlobo(c, () => window.MARCADO.une(
+          mk`<div class="g-tit">${e.id}</div>`,
+          mk`<div class="g-fila"><span>${o.x.nombre}</span><b>${pc(o.x.fn(e))}</b></div>`,
+          mk`<div class="g-fila"><span>${o.y.nombre}</span><b>${pc(o.y.fn(e))}</b></div>`,
+          mk`<div class="g-nota">${e.lab} · ${e.proveedor} · ${e.fecha} · pulsa para abrir la ficha</div>`), marcas);
+        c.addEventListener("click", () => abrirHash(e.id));
+        g.appendChild(c);
+        marcas.push(c);
+      });
+      // los puntos también ocupan: una etiqueta no tapa otro punto
+      cx.forEach(([x, y]) => ocupadas.push({ x0: x - 5, x1: x + 5, y0: y - 5, y1: y + 5 }));
+      const tope = estrecho ? 4 : 8;
+      let puestas = 0;
+      candidatas.forEach((e) => {
+        if (puestas >= tope) return;
+        const [x, y] = cx.get(e.id);
+        const a = G.anchoTexto(e.id, "mono") + 4, alto = 13;
+        const sitios = [[x + 9, y - 7, "start"], [x - 9, y - 7, "end"], [x + 9, y + 15, "start"], [x - 9, y + 15, "end"]];
+        for (const [tx, ty, ancla] of sitios) {
+          const caja = { x0: ancla === "start" ? tx : tx - a, x1: ancla === "start" ? tx + a : tx, y0: ty - alto + 2, y1: ty + 3 };
+          if (libre(caja)) {
+            g.appendChild(G.el("text", { x: tx, y: ty, class: "punto-et anim-fade", "text-anchor": ancla }, [T(e.id)]));
+            ocupadas.push(caja); puestas++;
+            break;
+          }
+        }
+      });
+      return svg;
+    });
     fig._tabla.appendChild(G.tabla([{ t: "Medición" }, { t: o.x.nombre, n: true }, { t: o.y.nombre, n: true }],
       datos.slice().sort((a, b) => o.x.fn(b) - o.x.fn(a)).map((e) => [e.id, pc(o.x.fn(e)), pc(o.y.fn(e))])));
     return fig;
@@ -686,7 +733,7 @@
     max: Math.ceil(Math.max(...B.replicas.map((rp) => rp.ic[1]), I.sueloRuidoMax) / 5) * 5,
     ticks: [0, 5, 10, 15, 20], formato: (v) => dec(v, 1),
     ref: I.sueloRuido, refEtiqueta: `suelo de ruido ≈ ${dec(I.sueloRuido, 1)} (máx. ${dec(I.sueloRuidoMax, 1)})`,
-    anchoEtiqueta: 300, altoFila: 26, nombreFila: "Par de mediciones", nombreValor: "d",
+    altoFila: 26, nombreFila: "Par de mediciones", nombreValor: "d",
     pie: mk`Con los intervalos por cadena, solo el salto generacional completo (d = ${dec(I.saltoGeneracional.d, 1)}, IC ${G.rangoIC(I.saltoGeneracional.ic, (v) => dec(v, 1))}) queda por encima del suelo típico: la dirección de los demás se sostiene; la magnitud, no. Por eso la unidad del banco es la medición, no el nombre.`,
     fuente: mk`PsicoBench v${B.version} · réplicas · ${REPO("BENCHMARK.md")}`,
   });
@@ -807,61 +854,80 @@
   /* ══ escalera de versiones: la tabla puente, dibujada ════════════════════ */
   function escaleraVersiones() {
     const vers = B.entradas[0].versiones.map((v) => v.v);
-    const W = 900, H = 600, P = { l: 56, r: 230, t: 44, b: 26 };
     const maxY = Math.ceil(Math.max(...B.entradas.flatMap((e) => e.versiones.map((v) => (v.ic ? v.ic[1] : v.iss || 0)))) / 10) * 10;
-    const cx = (i) => P.l + (i / (vers.length - 1)) * (W - P.l - P.r);
-    const cy = (v) => H - P.b - (v / maxY) * (H - P.t - P.b);
-    const svg = G.el("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": "ISS de cada medición bajo cada versión del índice" });
-    const g = G.el("g", {}); svg.appendChild(g);
-    for (let t = 0; t <= maxY; t += 10) {
-      g.appendChild(G.el("line", { x1: P.l, y1: cy(t), x2: W - P.r, y2: cy(t), class: "reja-l" }));
-      g.appendChild(G.el("text", { x: P.l - 8, y: cy(t) + 4, class: "eje-txt tab", "text-anchor": "end" }, [document.createTextNode(dec(t, 0))]));
-    }
-    vers.forEach((v, i) => {
-      g.appendChild(G.el("line", { x1: cx(i), y1: P.t - 6, x2: cx(i), y2: H - P.b, class: "base-l" }));
-      g.appendChild(G.el("text", { x: cx(i), y: P.t - 22, class: "col-v", "text-anchor": "middle" }, [document.createTextNode("v" + v)]));
-      g.appendChild(G.el("text", { x: cx(i), y: P.t - 9, class: "col-v-sub", "text-anchor": "middle" }, [document.createTextNode(v === B.version ? "vigente" : "conservada")]));
-    });
-    // etiquetas a la derecha, sin solaparse: se reparten de arriba abajo
-    const orden = B.entradas.slice().sort((a, b) => a.iss - b.iss);
-    const ys = orden.map((e) => cy(e.iss));
-    for (let k = 1; k < ys.length; k++) ys[k] = Math.max(ys[k], ys[k - 1] + 11);
-    const exceso = ys[ys.length - 1] - (H - P.b);
-    if (exceso > 0) ys.forEach((_, k) => { ys[k] -= exceso; });
-    const porId = {};
-    orden.forEach((e, k) => {
-      const pts = e.versiones.map((v, i) => (v.iss == null ? null : [cx(i), cy(v.iss), v])).filter(Boolean);
-      const grupo = [];
-      const linea = G.el("polyline", { points: pts.map((p) => p[0] + "," + p[1]).join(" "), class: "linea-v" });
-      g.appendChild(linea); grupo.push(linea);
-      pts.forEach(([x, y, v]) => {
-        if (v.ic) { const w = G.el("line", { x1: x, y1: cy(v.ic[0]), x2: x, y2: cy(v.ic[1]), class: "ic-v" }); g.appendChild(w); grupo.push(w); }
-        const c = G.el("circle", { cx: x, cy: y, r: 3.5, class: "punto-v anim-fade" }); g.appendChild(c); grupo.push(c);
-      });
-      const ult = pts[pts.length - 1];
-      const guia = G.el("line", { x1: ult[0] + 5, y1: ult[1], x2: W - P.r + 10, y2: ys[k], class: "reja-l" });
-      const et = G.el("text", { x: W - P.r + 14, y: ys[k] + 3.5, class: "et-v anim-fade" }, [document.createTextNode(e.id)]);
-      g.appendChild(guia); g.appendChild(et); grupo.push(guia, et);
-      porId[e.id] = grupo;
-      const hit = G.el("rect", { x: W - P.r + 10, y: ys[k] - 5.5, width: P.r - 14, height: 11, class: "viz-hit", role: "img",
-        "aria-label": `${e.id}: ` + e.versiones.map((v) => `v${v.v} ${v.iss == null ? "—" : dec(v.iss, 1)}`).join(", ") });
-      G.conGlobo(hit, () => window.MARCADO.une(
-        mk`<div class="g-tit">${e.id}</div>`,
-        ...e.versiones.map((v) => mk`<div class="g-fila"><span>v${v.v}</span><b>${v.iss == null ? "—" : dec(v.iss, 1)} ${v.ic ? "[" + dec(v.ic[0], 1) + "–" + dec(v.ic[1], 1) + "]" : ""} · ${v.pos == null ? "n/c" : "=" + v.pos}</b></div>`),
-        mk`<div class="g-nota">pulsa para abrir la ficha</div>`));
-      const on = () => { Object.entries(porId).forEach(([id, gr]) => gr.forEach((n) => n.classList.toggle("apagada", id !== e.id))); grupo.forEach((n) => n.classList.add("resalte")); };
-      const off = () => { Object.values(porId).forEach((gr) => gr.forEach((n) => { n.classList.remove("apagada"); n.classList.remove("resalte"); })); };
-      [hit, linea].forEach((n) => { n.addEventListener("pointerenter", on); n.addEventListener("pointerleave", off); n.addEventListener("focus", on); n.addEventListener("blur", off); n.addEventListener("click", () => abrirHash(e.id)); });
-      linea.style.cursor = "pointer";
-      g.appendChild(hit);
-    });
+    // las etiquetas se reparten de arriba abajo en el orden en que acaban las
+    // líneas (ISS vigente de mayor a menor), así cada nombre queda a la altura
+    // de su línea o lo más cerca posible sin pisar al vecino
+    const orden = B.entradas.slice().sort((a, b) => b.iss - a.iss);
     const fig = G.figura({
       titulo: "La misma medición bajo cada versión del índice",
-      sub: "Una línea por medición; los bigotes son el IC 95 % de cada versión. Pasa el ratón por una etiqueta para seguir una sola línea.",
-      pie: mk`Las versiones anteriores reproducen byte a byte los valores publicados en su fecha. ${B.notaISS}`,
+      sub: "Una línea por medición; los bigotes son el IC 95 % de cada versión. Pasa el ratón (o pulsa) por una línea o una etiqueta para seguirla sola.",
+      pie: mk`Las versiones anteriores reproducen byte a byte los valores publicados en su fecha.`,
+      pieTecnico: mk`${B.notaISS}`,
       fuente: mk`PsicoBench · tabla puente v${vers[0]} → v${vers[vers.length - 1]} · ${REPO("BENCHMARK.md")}`,
     });
-    fig._lienzo.appendChild(svg);
+    G.adaptable(fig, (W) => {
+      const T = (s) => document.createTextNode(s);
+      const conNombres = W >= 620;
+      const anchoEt = conNombres ? Math.ceil(G.anchoMax(orden.map((e) => e.id), "mono")) + 22 : 0;
+      const P = { l: 40, r: conNombres ? anchoEt : 16, t: 44, b: 26 };
+      const H = conNombres ? Math.max(560, orden.length * 13 + P.t + P.b) : 420;
+      const cx = (i) => P.l + (i / (vers.length - 1)) * (W - P.l - P.r);
+      const cy = (v) => H - P.b - (v / maxY) * (H - P.t - P.b);
+      const svg = G.el("svg", { viewBox: `0 0 ${W} ${H}`, width: W, height: H, role: "img", "aria-label": "ISS de cada medición bajo cada versión del índice" });
+      const g = G.el("g", {}); svg.appendChild(g);
+      for (let t = 0; t <= maxY; t += 10) {
+        g.appendChild(G.el("line", { x1: P.l, y1: cy(t), x2: W - P.r, y2: cy(t), class: "reja-l" }));
+        g.appendChild(G.el("text", { x: P.l - 8, y: cy(t) + 4, class: "eje-txt tab", "text-anchor": "end" }, [T(dec(t, 0))]));
+      }
+      vers.forEach((v, i) => {
+        const ancla = i === 0 ? "start" : i === vers.length - 1 ? "end" : "middle";
+        g.appendChild(G.el("line", { x1: cx(i), y1: P.t - 6, x2: cx(i), y2: H - P.b, class: "base-l" }));
+        g.appendChild(G.el("text", { x: cx(i), y: P.t - 24, class: "col-v", "text-anchor": ancla }, [T("v" + v)]));
+        // en estrecho solo se rotula la vigente: «conservada» ×3 se pisaba
+        if (conNombres || v === B.version) g.appendChild(G.el("text", { x: cx(i), y: P.t - 10, class: "col-v-sub", "text-anchor": ancla }, [T(v === B.version ? "vigente" : "conservada")]));
+      });
+      const ys = orden.map((e) => cy(e.iss));
+      ys[0] = Math.max(ys[0], P.t + 8);
+      for (let k = 1; k < ys.length; k++) ys[k] = Math.max(ys[k], ys[k - 1] + 12.5);
+      const exceso = ys[ys.length - 1] - (H - P.b);
+      if (exceso > 0) ys.forEach((_, k) => { ys[k] -= exceso; });
+      for (let k = ys.length - 2; k >= 0; k--) ys[k] = Math.min(ys[k], ys[k + 1] - 12.5);
+      if (ys[0] < P.t + 8) { const sube = P.t + 8 - ys[0]; ys.forEach((_, k) => { ys[k] += sube; }); }
+      const porId = {};
+      orden.forEach((e, k) => {
+        const pts = e.versiones.map((v, i) => (v.iss == null ? null : [cx(i), cy(v.iss), v])).filter(Boolean);
+        const grupo = [];
+        const linea = G.el("polyline", { points: pts.map((p) => p[0] + "," + p[1]).join(" "), class: "linea-v" });
+        g.appendChild(linea); grupo.push(linea);
+        pts.forEach(([x, y, v]) => {
+          if (v.ic) { const w = G.el("line", { x1: x, y1: cy(v.ic[0]), x2: x, y2: cy(v.ic[1]), class: "ic-v" }); g.appendChild(w); grupo.push(w); }
+          const c = G.el("circle", { cx: x, cy: y, r: 3.5, class: "punto-v anim-fade" }); g.appendChild(c); grupo.push(c);
+        });
+        // una línea gruesa e invisible encima: el blanco para el dedo
+        const blanco = G.el("polyline", { points: pts.map((p) => p[0] + "," + p[1]).join(" "), class: "linea-blanco" });
+        let hit = blanco;
+        if (conNombres) {
+          const ult = pts[pts.length - 1];
+          const guia = G.el("line", { x1: ult[0] + 5, y1: ult[1], x2: W - P.r + 8, y2: ys[k], class: "reja-l" });
+          const et = G.el("text", { x: W - P.r + 12, y: ys[k] + 4, class: "et-v anim-fade" }, [T(e.id)]);
+          g.appendChild(guia); g.appendChild(et); grupo.push(guia, et);
+          hit = G.el("rect", { x: W - P.r + 8, y: ys[k] - 6, width: P.r - 8, height: 12.5, class: "viz-hit", role: "img",
+            "aria-label": `${e.id}: ` + e.versiones.map((v) => `v${v.v} ${v.iss == null ? "—" : dec(v.iss, 1)}`).join(", ") });
+        }
+        porId[e.id] = grupo;
+        G.conGlobo(hit, () => window.MARCADO.une(
+          mk`<div class="g-tit">${e.id}</div>`,
+          ...e.versiones.map((v) => mk`<div class="g-fila"><span>v${v.v}</span><b>${v.iss == null ? "—" : dec(v.iss, 1)} ${v.ic ? "[" + dec(v.ic[0], 1) + "–" + dec(v.ic[1], 1) + "]" : ""} · ${v.pos == null ? "n/c" : "=" + v.pos}</b></div>`),
+          mk`<div class="g-nota">pulsa para abrir la ficha</div>`));
+        const on = () => { Object.entries(porId).forEach(([id, gr]) => gr.forEach((n) => n.classList.toggle("apagada", id !== e.id))); grupo.forEach((n) => n.classList.add("resalte")); };
+        const off = () => { Object.values(porId).forEach((gr) => gr.forEach((n) => { n.classList.remove("apagada"); n.classList.remove("resalte"); })); };
+        [hit, blanco].forEach((n) => { n.addEventListener("pointerenter", on); n.addEventListener("pointerleave", off); n.addEventListener("focus", on); n.addEventListener("blur", off); n.addEventListener("click", () => abrirHash(e.id)); });
+        g.appendChild(blanco);
+        if (hit !== blanco) g.appendChild(hit);
+      });
+      return svg;
+    });
     fig._tabla.appendChild(G.tabla([{ t: "Medición" }].concat(vers.map((v) => ({ t: "ISS v" + v + " [IC] · pos", n: true }))),
       orden.map((e) => [e.id].concat(e.versiones.map((v) => (v.iss == null ? "—" : `${dec(v.iss, 1)} [${v.ic ? dec(v.ic[0], 1) + "–" + dec(v.ic[1], 1) : "—"}] · ${v.pos == null ? "n/c" : "=" + v.pos}`))))));
     G.navegable(fig, "Escalera de versiones");
@@ -921,64 +987,76 @@
 
   function rankingISS() {
     const datos = porISS;
-    const W = 760, EJE_X = 306, PAD_D = 56, ALTO_F = 22, GAP = 6, H_TOP = 26, H_BOT = 30;
-    const H = H_TOP + datos.length * (ALTO_F + GAP) + H_BOT;
     const max = Math.ceil(Math.max(...datos.map((e) => e.issIC[1])) / 10) * 10;
-    const anchoPlot = W - EJE_X - PAD_D;
-    const x = (v) => (v / max) * anchoPlot;
-    const svg = G.el("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": "Índice de susceptibilidad social por medición" });
-    const g = G.el("g", {}); svg.appendChild(g);
-    for (let t = 0; t <= max; t += 10) {
-      g.appendChild(G.el("line", { x1: EJE_X + x(t), y1: H_TOP - 8, x2: EJE_X + x(t), y2: H - H_BOT + 4, class: "reja-l" }));
-      g.appendChild(G.el("text", { x: EJE_X + x(t), y: H - H_BOT + 19, class: "eje-txt tab", "text-anchor": "middle" }, [document.createTextNode(String(t))]));
-    }
-    g.appendChild(G.el("line", { x1: EJE_X, y1: H_TOP - 8, x2: EJE_X, y2: H - H_BOT + 4, class: "base-l" }));
-    const marcas = [];
-    datos.forEach((e, i) => {
-      const y = H_TOP + i * (ALTO_F + GAP), cy = y + ALTO_F / 2;
-      g.appendChild(G.el("text", { x: EJE_X - 12, y: cy + 4, class: "eje-txt", "text-anchor": "end" },
-        [document.createTextNode(`${rango(e)}  ·  ${e.id}`)]));
-      // la fila entera crece desde la izquierda al entrar en pantalla, como
-      // las barras del sitio largo (escalonado por fila)
-      const gf = G.el("g", { class: "anim-barra fila-anim", style: `transition-delay:${Math.min(i * 26, 420)}ms` });
-      const fila = [];
-      if (formulaCuadra) {
-        let acc = 0;
-        COMPONENTES.forEach((c) => {
-          const aporta = (c.fn(e) / COMPONENTES.length) * 100;
-          if (aporta <= 0) return;
-          const r = G.el("rect", { x: EJE_X + x(acc), y: y + (ALTO_F - 13) / 2, width: Math.max(x(aporta), 0.5), height: 13, fill: c.color, class: "segmento marca" });
-          gf.appendChild(r); fila.push(r); acc += aporta;
-        });
-      } else {
-        const r = G.el("rect", { x: EJE_X, y: y + (ALTO_F - 13) / 2, width: Math.max(x(e.iss), 3), height: 13, rx: 4, fill: G.PAL.s1, class: "marca" });
-        gf.appendChild(r); fila.push(r);
-      }
-      g.appendChild(gf);
-      marcas.push(...fila);
-      g.appendChild(G.el("line", { x1: EJE_X + x(e.issIC[0]), x2: EJE_X + x(e.issIC[1]), y1: cy, y2: cy, class: "ic-l anim-fade" }));
-      g.appendChild(G.el("text", { x: EJE_X + x(Math.max(e.iss, e.issIC[1])) + 9, y: cy + 4, class: "et-val anim-fade" }, [document.createTextNode(dec(e.iss, 1))]));
-      const hit = G.el("rect", { x: EJE_X, y, width: anchoPlot, height: ALTO_F, class: "viz-hit", role: "img",
-        "aria-label": `${e.id}: ISS ${dec(e.iss, 1)}, posición ${rango(e)}` });
-      G.conGlobo(hit, () => window.MARCADO.une(
-        mk`<div class="g-tit">${e.id}</div>`,
-        mk`<div class="g-fila"><span>ISS</span><b>${dec(e.iss, 1)} [${dec(e.issIC[0], 1)}–${dec(e.issIC[1], 1)}]</b></div>`,
-        mk`<div class="g-fila"><span>posición</span><b>${rango(e)}</b></div>`,
-        ...(formulaCuadra ? COMPONENTES.map((c) => mk`<div class="g-fila"><span>${c.nombre}</span><b>${pc(c.fn(e))} → aporta ${dec((c.fn(e) / COMPONENTES.length) * 100, 1)}</b></div>`) : []),
-        mk`<div class="g-nota">${e.lab} · ${e.proveedor} · ${e.fecha} · pulsa para abrir la ficha</div>`), marcas);
-      hit.addEventListener("click", () => abrirHash(e.id));
-      g.appendChild(hit);
-    });
+    const etq = (e) => `${rango(e)} · ${e.id}`;
     const fig = G.figura({
       titulo: `Las ${ES.format(datos.length)} mediciones por su índice, de menos a más`,
       sub: formulaCuadra
-        ? "Cada barra es el ISS de una medición, partido en sus cuatro componentes (cada uno aporta su valor dividido por cuatro). El bigote es el IC 95 %; la posición es el grupo de empate."
-        : "Cada barra es el ISS de una medición; el bigote es el IC 95 % y la posición, el grupo de empate. (La descomposición por componentes no cuadra con la fórmula publicada y no se dibuja.)",
+        ? "Arriba, las que menos ceden a la presión social; abajo, las que más. Cada barra es el ISS (0 = nunca cede, 100 = cede siempre), partido en sus cuatro componentes. El bigote es el intervalo de confianza al 95 %, y el número de la izquierda, el grupo de empate."
+        : "Arriba, las que menos ceden; abajo, las que más. Cada barra es el ISS (0–100); el bigote es el IC 95 % y el número de la izquierda, el grupo de empate. (La descomposición por componentes no cuadra con la fórmula publicada y no se dibuja.)",
       leyenda: formulaCuadra ? COMPONENTES.map((c) => ({ etiqueta: c.nombre, color: c.color })) : [],
-      pie: mk`${B.notaISS}`,
+      pieTecnico: mk`${B.notaISS}`,
       fuente: mk`PsicoBench v${B.version} · ${REPO("benchmark/psicobench.json")} · ${REPO("BENCHMARK.md")}`,
     });
-    fig._lienzo.appendChild(svg);
+    G.adaptable(fig, (W) => {
+      const T = (s) => document.createTextNode(s);
+      const padD = 44;
+      const largo = G.anchoMax(datos.map(etq), "eje");
+      const encima = W < G.ESTRECHO || largo + 16 > W * 0.48;
+      const EJE_X = encima ? 2 : Math.ceil(largo) + 16;
+      const anchoPlot = W - EJE_X - padD;
+      const ALTO_F = encima ? 34 : 24, GAP = encima ? 4 : 5, H_TOP = 10, H_BOT = 46;
+      const H = H_TOP + datos.length * (ALTO_F + GAP) + H_BOT;
+      const x = (v) => (v / max) * anchoPlot;
+      const svg = G.el("svg", { viewBox: `0 0 ${W} ${H}`, width: W, height: H, role: "img", "aria-label": "Índice de susceptibilidad social por medición" });
+      const g = G.el("g", {}); svg.appendChild(g);
+      for (let t = 0; t <= max; t += 10) {
+        if (encima && W < 420 && t % 20) continue;
+        g.appendChild(G.el("line", { x1: EJE_X + x(t), y1: H_TOP - 4, x2: EJE_X + x(t), y2: H - H_BOT + 4, class: "reja-l" }));
+        g.appendChild(G.el("text", { x: EJE_X + x(t), y: H - H_BOT + 19, class: "eje-txt tab", "text-anchor": t === 0 ? "start" : "middle" }, [T(String(t))]));
+      }
+      g.appendChild(G.el("text", { x: EJE_X, y: H - 6, class: "eje-nombre" }, [T("ISS →  más alto = cede más a la presión social")]));
+      g.appendChild(G.el("line", { x1: EJE_X, y1: H_TOP - 4, x2: EJE_X, y2: H - H_BOT + 4, class: "base-l" }));
+      const marcas = [];
+      datos.forEach((e, i) => {
+        const y = H_TOP + i * (ALTO_F + GAP), cy = encima ? y + 24 : y + ALTO_F / 2;
+        g.appendChild(G.el("text", encima
+          ? { x: EJE_X, y: y + 12, class: "eje-txt et-fila" + (e.posicion == null ? " nc" : "") }
+          : { x: EJE_X - 12, y: cy + 4, class: "eje-txt et-fila" + (e.posicion == null ? " nc" : ""), "text-anchor": "end" },
+        [T(etq(e))]));
+        // la fila entera crece desde la izquierda al entrar en pantalla, como
+        // las barras del sitio largo (escalonado por fila)
+        const gf = G.el("g", { class: "anim-barra fila-anim", style: `transition-delay:${Math.min(i * 26, 420)}ms` });
+        const fila = [];
+        if (formulaCuadra) {
+          let acc = 0;
+          COMPONENTES.forEach((c) => {
+            const aporta = (c.fn(e) / COMPONENTES.length) * 100;
+            if (aporta <= 0) return;
+            const r = G.el("rect", { x: EJE_X + x(acc), y: cy - 6.5, width: Math.max(x(aporta), 0.5), height: 13, fill: c.color, class: "segmento marca" });
+            gf.appendChild(r); fila.push(r); acc += aporta;
+          });
+        } else {
+          const r = G.el("rect", { x: EJE_X, y: cy - 6.5, width: Math.max(x(e.iss), 3), height: 13, rx: 3, fill: G.PAL.s1, class: "marca" });
+          gf.appendChild(r); fila.push(r);
+        }
+        g.appendChild(gf);
+        marcas.push(...fila);
+        g.appendChild(G.el("line", { x1: EJE_X + x(e.issIC[0]), x2: EJE_X + x(e.issIC[1]), y1: cy, y2: cy, class: "ic-l anim-fade" }));
+        g.appendChild(G.el("text", { x: EJE_X + x(Math.max(e.iss, e.issIC[1])) + 8, y: cy + 4, class: "et-val anim-fade" }, [T(dec(e.iss, 1))]));
+        const hit = G.el("rect", { x: 0, y: y - GAP / 2, width: W, height: ALTO_F + GAP, class: "viz-hit", role: "img",
+          "aria-label": `${e.id}: ISS ${dec(e.iss, 1)}, posición ${rango(e)}` });
+        G.conGlobo(hit, () => window.MARCADO.une(
+          mk`<div class="g-tit">${e.id}</div>`,
+          mk`<div class="g-fila"><span>ISS</span><b>${dec(e.iss, 1)} [${dec(e.issIC[0], 1)}–${dec(e.issIC[1], 1)}]</b></div>`,
+          mk`<div class="g-fila"><span>posición</span><b>${rango(e)}</b></div>`,
+          ...(formulaCuadra ? COMPONENTES.map((c) => mk`<div class="g-fila"><span>${c.nombre}</span><b>${pc(c.fn(e))} → aporta ${dec((c.fn(e) / COMPONENTES.length) * 100, 1)}</b></div>`) : []),
+          mk`<div class="g-nota">${e.lab} · ${e.proveedor} · ${e.fecha}${e.posicion == null ? " · fuera de la clasificación (n/c)" : ""} · pulsa para abrir la ficha</div>`), marcas);
+        hit.addEventListener("click", () => abrirHash(e.id));
+        g.appendChild(hit);
+      });
+      return svg;
+    });
     fig._tabla.appendChild(G.tabla(
       [{ t: "Medición" }, { t: "Posición", n: true }, { t: "ISS", n: true }, { t: "IC 95 %", n: true }].concat(COMPONENTES.map((c) => ({ t: c.nombre, n: true }))),
       datos.map((e) => [e.id, rango(e), { v: dec(e.iss, 1), destaca: true }, `${dec(e.issIC[0], 1)}–${dec(e.issIC[1], 1)}`].concat(COMPONENTES.map((c) => pc(c.fn(e)))))));

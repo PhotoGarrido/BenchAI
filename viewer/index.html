@@ -64,16 +64,18 @@
   }
   .ev:hover{background:var(--panel2)}
   .ev.activo{background:var(--panel2); border-color:var(--accent)}
-  .ev .quien{font-weight:700; margin-right:4px}
+  /* el color de cada personaje viene del replay; un punto más de luz para
+     que el nombre pase 4,5:1 sobre el panel */
+  .ev .quien{font-weight:700; margin-right:4px; filter:brightness(1.15)}
   .ev.narrador{font-style:italic; color:var(--dim)}
-  .ev.pensamiento{opacity:.75}
+  .ev.pensamiento{color:var(--dim)}
   .ev.pensamiento .texto::before{content:"💭 "}
   /* Fila de ADVERTENCIA para eventos constraint_violation: siempre visible */
   .ev.advertencia{background:#3a2430; border-color:#a5566e; color:#f0d5dd}
   .ev.advertencia .quien{color:#f0a5b8}
   .ev.advertencia:hover{background:#462b3a}
   .divisorPaso{
-    text-align:center; color:var(--dim); font-size:10.5px; letter-spacing:2px;
+    text-align:center; color:var(--dim); font-size:11px; letter-spacing:2px;
     text-transform:uppercase; padding:7px 0 3px;
   }
   footer{
@@ -104,9 +106,21 @@
   #tituloSesion{ min-width:0; overflow:hidden; text-overflow:ellipsis; }
   /* W1: bajo 900px el panel (descripción, personajes, transcripción) se
      apilaba... no: DESAPARECÍA. Ahora se apila bajo la escena. */
+  /* En estrecho la página se desplaza entera: escena, panel y transcripción
+     una debajo de otra, y la barra de transporte pegada abajo. Antes todo
+     cabía a la fuerza en la altura de la pantalla y los eventos —el diálogo,
+     lo que se viene a ver— se quedaban en una franja de 16 px. */
   @media (max-width:900px){
-    main{ flex-direction:column; }
-    aside{ width:100%; flex:1 1 auto; max-height:46vh; }
+    html, body{ height:auto; }
+    body{ overflow:visible; min-height:100%; }
+    main{ flex-direction:column; flex:none; }
+    #escenarioWrap{ flex:none; padding:10px; }
+    canvas{ width:100%; height:auto; max-height:none; }
+    aside{ width:100%; flex:none; border-left:none; border-top:1px solid var(--border); }
+    #feed{ flex:none; height:62vh; min-height:320px; }
+    .ev{ font-size:13.5px; }
+    footer{ position:sticky; bottom:0; z-index:5; }
+    header .btn{ font-size:12.5px; }
   }
 </style>
 </head>

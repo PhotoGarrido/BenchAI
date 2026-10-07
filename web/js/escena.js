@@ -44,10 +44,13 @@
   // solo los enlaces a secciones de ESTA página: el menú también lleva
   // enlaces a otras páginas (`/psicobench`), y un href sin almohadilla no es
   // un selector válido — la excepción abortaba todo el guion en producción
-  const enlaces = Array.from(document.querySelectorAll('.navmini a[href^="#"]'));
-  const secciones = enlaces
-    .map((a) => document.querySelector(a.getAttribute("href")))
-    .filter(Boolean);
+  // (enlace, sección) por parejas: si un ancla no existe, se cae el par
+  // entero y los índices de ambas listas siguen casando
+  const pares = Array.from(document.querySelectorAll('.navmini a[href^="#"]'))
+    .map((a) => [a, document.querySelector(a.getAttribute("href"))])
+    .filter(([, s]) => s);
+  const enlaces = pares.map(([a]) => a), secciones = pares.map(([, s]) => s);
+  let activaAntes = -2;
 
   let pendiente = false;
   function alScroll() {
@@ -66,6 +69,12 @@
         if (i === activa) a.setAttribute("aria-current", "true");
         else a.removeAttribute("aria-current");
       });
+      // el menú es una sola línea desplazable: la sección activa, a la vista
+      if (activa !== activaAntes && activa >= 0) {
+        const a = enlaces[activa], nav = a.parentElement;
+        if (nav.scrollWidth > nav.clientWidth + 2) nav.scrollTo({ left: Math.max(0, a.offsetLeft - nav.clientWidth / 3), behavior: "smooth" });
+      }
+      activaAntes = activa;
     });
   }
   addEventListener("scroll", alScroll, { passive: true });
