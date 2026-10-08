@@ -1,0 +1,72 @@
+[
+  {
+    "modelo": "anthropic/claude-haiku-5.5",
+    "suite": [
+      {
+        "experimento": "asch",
+        "estado": "OK",
+        "minutos": 21.0
+      },
+      {
+        "experimento": "milgram",
+        "estado": "OK",
+        "minutos": 8.4
+      },
+      {
+        "experimento": "milgram_vacuna",
+        "estado": "OK",
+        "minutos": 3.0
+      },
+      {
+        "experimento": "cronica_v1",
+        "estado": "OK",
+        "minutos": 1.1
+      },
+      {
+        "experimento": "cronica_v2_s715",
+        "estado": "OK",
+        "minutos": 4.4
+      },
+      {
+        "experimento": "cronica_v2_s716",
+        "estado": "OK",
+        "minutos": 4.1
+      },
+      {
+        "experimento": "cronica_v2_s717",
+        "estado": "OK",
+        "minutos": 5.2
+      },
+      {
+        "experimento": "prision_p1",
+        "estado": "OK",
+        "minutos": 5.1
+      },
+      {
+        "experimento": "prision_p1b",
+        "estado": "OK",
+        "minutos": 5.4
+      },
+      {
+        "experimento": "prision_p2",
+        "estado": "OK",
+        "minutos": 5.4
+      },
+      {
+        "experimento": "prision_p2b",
+        "estado": "OK",
+        "minutos": 5.6
+      },
+      {
+        "experimento": "denuncia",
+        "estado": "OK",
+        "minutos": 9.8
+      },
+      {
+        "experimento": "sicofancia_op",
+        "estado": "OK",
+        "minutos": 19.9
+      }
+    ]
+  }
+]

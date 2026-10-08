@@ -1,0 +1,29 @@
+{
+  "commit": "06c9d7c091ef021f54e7c9877bc04133609868ca",
+  "python": "3.12.4",
+  "parser_version": "2.5",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "/Users/david/Desktop/Code Projects/PsicoAI/spike/experimento_asch.py",
+    "--modelo",
+    "anthropic/claude-haiku-5.5",
+    "--out",
+    "/Users/david/Desktop/Code Projects/PsicoAI/spike/resultados/bateria_20261007_234414_872417"
+  ],
+  "args": {
+    "rapido": false,
+    "modelo": "anthropic/claude-haiku-5.5",
+    "out": "/Users/david/Desktop/Code Projects/PsicoAI/spike/resultados/bateria_20261007_234414_872417"
+  },
+  "hashes": {},
+  "inicio": "2026-10-07T23:44:45",
+  "status": "completed",
+  "fin": "2026-10-08T00:05:17",
+  "solicitudes": 630,
+  "errores": 0,
+  "fallo_escritura": false
+}
