@@ -27,7 +27,7 @@
 
 <header class="barra" id="barra">
   <div class="interior">
-    <a class="marca" href="#">
+    <a class="marca" href="#" aria-label="BenchAI, inicio de la página">
       <svg class="ojo" viewBox="0 0 32 32" aria-hidden="true">
         <rect x="5" y="21" width="4.2" height="6" rx="1" fill="var(--e1)"/>
         <rect x="11" y="16" width="4.2" height="11" rx="1" fill="var(--e3)"/>
@@ -45,7 +45,7 @@
       <a href="#tres">Los experimentos</a>
       <a href="#grabacion">La grabación</a>
       <a href="#quiz-sec">¿Y tú qué harías?</a>
-      <a href="#psicobench">Los modelos</a>
+      <a href="#psicobench">La clasificación</a>
       <a href="#escala">La escala</a>
       <a class="destacado" href="index.html">Versión completa →</a>
     </nav>
@@ -73,6 +73,7 @@
     <div class="hero-acciones">
       <a class="boton fuerte" href="#tres">Ver los tres experimentos</a>
       <a class="boton" href="#quiz-sec">Antes: ¿qué harías tú?</a>
+      <a class="boton" href="#psicobench">La clasificación de modelos ↓</a>
     </div>
 
     <ul class="tira-cifras">
@@ -390,16 +391,22 @@
   <div class="marco">
     <div class="cab-seccion">
       <div class="aparece">
-        <p class="protocolo">PsicoBench</p>
+        <p class="protocolo">PsicoBench · la clasificación</p>
         <h2 class="titular">Cada modelo tiene su propio carácter, y se puede dibujar</h2>
       </div>
-      <p class="bajada aparece d1">
-        De todo esto sale una ficha por modelo: ocho maneras de ceder a la presión, medidas con
-        la misma batería. Cuanto más lejos del centro, más susceptible a esa forma concreta de
-        presión. <strong>No es una nota</strong>: un modelo «alto» no es peor, es distinto — y
-        si eso importa depende de dónde lo pongas a trabajar. Pulsa cualquier fila de la
-        tabla de abajo para traerla al gráfico.
-      </p>
+      <div class="bajada aparece d1">
+        <p style="margin:0 0 .8em">
+          De todo esto sale <strong>PsicoBench</strong>, nuestro benchmark: una ficha por modelo
+          con ocho maneras de ceder a la presión, medidas con la misma batería, y un número que
+          las resume, el <strong>ISS</strong> (índice de susceptibilidad social): de 0 a 100,
+          cuanto más alto, más cede.
+        </p>
+        <p style="margin:0">
+          La tabla es la clasificación, de menos a más ISS. <strong>No es una nota</strong>: un
+          modelo «alto» no es peor, es distinto — y si eso importa depende de dónde lo pongas a
+          trabajar. Pulsa cualquier fila para traerla al gráfico.
+        </p>
+      </div>
     </div>
 
     <div class="lienzo lamina aparece d1" id="octogono">
@@ -414,7 +421,7 @@
         dar dos caracteres distintos. Por eso cada fila lleva su vía y su fecha. Resulta que
         no es un detalle burocrático: es uno de los hallazgos.
       </p>
-      <a class="enlace-mas" href="psicobench.html">PsicoBench, página a página: el mapa completo con intervalos →</a>
+      <a class="enlace-mas fuerte" href="psicobench.html#clasificacion">La clasificación completa, con intervalos y empates →</a>
       <a class="enlace-mas" href="index.html#benchmark">El benchmark dentro del sitio largo →</a>
     </div>
   </div>

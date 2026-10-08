@@ -141,7 +141,12 @@ def bloque_benchmark() -> dict:
         "notaISS": b["nota_iss"],
         # W1: cifras que la home escribía a mano — ahora derivadas
         "mediciones": len(entradas),
-        "modelosDistintos": len({e["modelo"] for e in entradas}),
+        # un modelo es su id sin el prefijo de proveedor ni el esfuerzo:
+        # `deepseek/deepseek-v4-flash` (OpenRouter) y `deepseek-v4-flash`
+        # (NaN), o `x#low` y `x#high`, son el mismo modelo medido dos veces.
+        # Es la misma regla que `corpus.modelosProbados`, y por eso la home
+        # ya no dice «de 36 modelos» arriba y «33 modelos probados» abajo.
+        "modelosDistintos": len({e["modelo"].split("/")[-1].split("#")[0] for e in entradas}),
         "cedenAlguna": sum(1 for e in entradas if (e["ejes"].get("conf") or 0) > 0),
         "ejes": b["ejes"],
         "entradas": entradas,

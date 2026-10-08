@@ -239,6 +239,19 @@ la puerta salta y obliga a decidirlo a mano en vez de renderizarlo a ciegas.
 - **Una escala por gráfica**, nunca dos ejes. El color sigue a la entidad, no a
   su posición en el ranking. **Toda gráfica tiene tabla equivalente** y globo de
   datos accesible por teclado; ningún valor vive solo en el globo.
+- **Las gráficas se dibujan a su tamaño real** (`graficas.js · adaptable`): el
+  svg mide lo que su hueco y se redibuja si el hueco cambia, así que la letra
+  mide siempre lo que dice el CSS (12–13 px) en una columna de escritorio y en
+  un móvil. Cada tipo trae su variante estrecha: la etiqueta pasa encima de la
+  barra (y se parte en dos líneas si hace falta), las columnas se tumban en
+  filas, el radar encoge el radio y no la letra. Ninguna gráfica se escala ni
+  se desplaza en horizontal; las tablas anchas sí, con la columna del nombre
+  fija. Las ilustraciones de viewBox fijo de la home usan `letraFija`.
+- **Legibilidad, medida**: ningún texto por debajo de 11 px; el texto atenuado
+  (`--tenue`) y los acentos de texto (`--acento`, `--alerta`, distintos de los
+  peldaños que rellenan barras) pasan 4,5:1 en grafito y en papel. La escala
+  de dureza solo colorea superficies; cuando un número va encima de un peldaño,
+  su tinta se elige para ese peldaño.
 - **Las animaciones son de entrada**, no de decoración, y se apagan enteras con
   `prefers-reduced-motion`.
 - Sin red: misma `Content-Security-Policy` que `panel/` y `viewer/`

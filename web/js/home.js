@@ -97,6 +97,40 @@
     return g;
   }
 
+  /* Las escenas son ilustraciones de viewBox fijo y se escalan con su hueco;
+     su letra no puede escalar con ellas o en el móvil baja a 5 px. Cada
+     <text> con `data-px` declara su tamaño EN PANTALLA y aquí se traduce a
+     unidades del viewBox según el ancho real; los que llevan `data-corto`
+     cambian a su versión breve cuando la escena se encoge por debajo de
+     `data-umbral` (fracción del ancho de diseño). */
+  function letraFija(svg, W) {
+    const aplica = () => {
+      const k = svg.getBoundingClientRect().width / W;
+      if (!k) return;
+      // los bocadillos crecen lo justo para que su letra (15 de diseño) no
+      // baje de 11 px en pantalla, sin pasar del doble
+      const s = Math.max(1, Math.min(2.4, 11 / (15 * k)));
+      svg.querySelectorAll("g.picto-bocadillo").forEach((b) => {
+        if (b.dataset.base == null) b.dataset.base = b.getAttribute("transform") || "";
+        b.setAttribute("transform", b.dataset.base + (s > 1 ? ` scale(${s.toFixed(2)})` : ""));
+      });
+      svg.querySelectorAll("text[data-px]").forEach((t) => {
+        t.style.fontSize = (Number(t.dataset.px) / Math.min(1, k)).toFixed(1) + "px";
+        if (t.dataset.corto != null) {
+          t.textContent = k < Number(t.dataset.umbral || 0.75) ? t.dataset.corto : t.dataset.largo;
+        }
+      });
+    };
+    if (typeof ResizeObserver === "function") new ResizeObserver(aplica).observe(svg);
+    else addEventListener("resize", aplica);
+    setTimeout(aplica, 0);
+  }
+  const rotulo = (atr, largo, corto, umbral) => {
+    const t = s("text", Object.assign({ "data-largo": largo }, corto != null ? { "data-corto": corto, "data-umbral": umbral || 0.75 } : {}, atr),
+      [document.createTextNode(largo)]);
+    return t;
+  };
+
   /* trío de figuras en miniatura para las tarjetas de expediente */
   function mini(n, colores) {
     const svg = s("svg", { viewBox: `0 0 ${n * 22} 50`, role: "img",
@@ -116,7 +150,7 @@
     /* H da para una banda de rótulo POR DEBAJO del suelo: la figura mide 46 px
        desde su translate, así que con el suelo a H−26 y los rótulos a H−8 no
        se pisan (antes el rótulo de la izquierda caía sobre las dos primeras). */
-    const W = 860, H = 232;
+    const W = 860, H = 252;
     const svg = s("svg", { viewBox: `0 0 ${W} ${H}`, role: "img",
       "aria-label": "Cinco figuras dan en voz alta la misma respuesta equivocada; " +
         "la sexta, que mide bien, tiene que hablar la última." });
@@ -127,24 +161,25 @@
       const esSujeto = i === 5;
       const col = esSujeto ? COLOR.maquina : COLOR.humano;
       svg.appendChild(figura({ color: col, marca: esSujeto,
-        t: `translate(${x0 + i * paso} ${H - 84})` }));
+        t: `translate(${x0 + i * paso} 148)` }));
       const b = bocadillo(x0 + i * paso + 13, 52, esSujeto ? "?" : "B", col,
         { relleno: esSujeto ? "rgba(16,160,176,.10)" : "rgba(200,127,40,.10)" });
       svg.appendChild(b);
       bocs.push(b);
     }
     // el suelo del panel, con los rótulos colgando por debajo
-    svg.appendChild(s("line", { x1: 24, y1: H - 26, x2: W - 24, y2: H - 26,
+    svg.appendChild(s("line", { x1: 24, y1: 206, x2: W - 24, y2: 206,
       stroke: COLOR.linea, "stroke-width": 1 }));
-    svg.appendChild(s("text", { x: 24, y: H - 8, fill: COLOR.tenue,
-      style: "font:600 11px ui-monospace,Menlo,monospace;letter-spacing:.12em" },
-      [document.createTextNode("CINCO CÓMPLICES CON GUION")]));
-    svg.appendChild(s("text", { x: W - 24, y: H - 8, fill: COLOR.maquinaClaro,
-      "text-anchor": "end",
-      style: "font:600 11px ui-monospace,Menlo,monospace;letter-spacing:.12em" },
-      [document.createTextNode("EL SUJETO")]));
+    svg.appendChild(rotulo({ x: 24, y: H - 8, fill: COLOR.tenue, "data-px": 11,
+      style: "font:600 11px ui-monospace,Menlo,monospace;letter-spacing:.08em" },
+      "CINCO CÓMPLICES CON GUION", "CINCO CÓMPLICES", 0.6));
+    svg.appendChild(rotulo({ x: W - 24, y: H - 8, fill: COLOR.maquinaClaro,
+      "text-anchor": "end", "data-px": 11,
+      style: "font:600 11px ui-monospace,Menlo,monospace;letter-spacing:.08em" },
+      "EL SUJETO"));
 
     host.appendChild(svg);
+    letraFija(svg, W);
 
     if (quieto) { bocs.forEach((b) => b.classList.add("on")); return; }
     let i = 0;
@@ -163,7 +198,7 @@
     const maxConf = Math.max(...entradas.map((e) => e.ejes.conf));
     const cede = entradas.filter((e) => e.ejes.conf > 0).length;
 
-    const W = 640, H = 250;
+    const W = 640, H = 284;
     const svg = s("svg", { viewBox: `0 0 ${W} ${H}`, role: "img",
       "aria-label": "Panel de seis revisores: cinco cómplices dan la misma respuesta " +
         "equivocada antes de que hable el sujeto." });
@@ -173,32 +208,34 @@
       const esSujeto = i === 5;
       const col = esSujeto ? COLOR.maquina : COLOR.humano;
       svg.appendChild(figura({ color: col, marca: esSujeto,
-        t: `translate(${x0 + i * paso} 120) scale(0.95)` }));
-      const b = bocadillo(x0 + i * paso + 12, 62, esSujeto ? "?" : "B", col,
+        t: `translate(${x0 + i * paso} 152) scale(0.95)` }));
+      const b = bocadillo(x0 + i * paso + 12, 78, esSujeto ? "?" : "B", col,
         { relleno: esSujeto ? "rgba(16,160,176,.10)" : "rgba(200,127,40,.10)" });
       b.classList.add("on");
       svg.appendChild(b);
-      svg.appendChild(s("text", { x: x0 + i * paso + 12, y: 190, "text-anchor": "middle",
-        fill: COLOR.tenue, style: "font:500 10.5px ui-monospace,Menlo,monospace" },
-        [document.createTextNode(esSujeto ? "sujeto" : "cómplice " + (i + 1))]));
+      svg.appendChild(rotulo({ x: x0 + i * paso + 12, y: 224, "text-anchor": "middle",
+        fill: esSujeto ? COLOR.maquinaClaro : COLOR.tenue, "data-px": 11,
+        style: "font:500 11px ui-monospace,Menlo,monospace" },
+        esSujeto ? "sujeto" : "cómplice " + (i + 1), esSujeto ? "sujeto" : String(i + 1), 0.8));
     }
     // el estímulo: tres barras, la correcta gana por más de un segundo
     const bx = 42;
-    svg.appendChild(s("text", { x: bx, y: 24, fill: COLOR.tenue,
-      style: "font:600 10.5px ui-monospace,Menlo,monospace;letter-spacing:.12em" },
-      [document.createTextNode("SU PROPIA MEDICIÓN — LA C ES LA MÁS LARGA")]));
+    svg.appendChild(rotulo({ x: bx, y: 24, fill: COLOR.tenue, "data-px": 11,
+      style: "font:600 11px ui-monospace,Menlo,monospace;letter-spacing:.08em" },
+      "SU PROPIA MEDICIÓN — LA C ES LA MÁS LARGA", "LA C ES LA MÁS LARGA", 0.8));
     [["A", 96], ["B", 104], ["C", 168]].forEach(([et, ancho], i) => {
       const y = 32 + i * 0;
-      svg.appendChild(s("text", { x: bx + i * 190, y: 46, fill: COLOR.tenue,
+      svg.appendChild(s("text", { x: bx + i * 190, y: 64, fill: COLOR.tenue, "data-px": 11,
         style: "font:600 11px ui-monospace,Menlo,monospace" }, [document.createTextNode(et)]));
-      svg.appendChild(s("rect", { x: bx + 16 + i * 190, y: 37, width: ancho, height: 10, rx: 5,
+      svg.appendChild(s("rect", { x: bx + 16 + i * 190, y: 54, width: ancho, height: 10, rx: 5,
         fill: et === "C" ? COLOR.maquina : "var(--sup-3)" }));
     });
-    svg.appendChild(s("text", { x: W - 42, y: 214, "text-anchor": "end", fill: COLOR.tinta,
-      style: "font:600 12.5px system-ui" },
+    svg.appendChild(s("text", { x: W - 42, y: 268, "text-anchor": "end", fill: COLOR.tinta, "data-px": 13,
+      style: "font:600 13px system-ui" },
       [document.createTextNode("El coro dice B. ¿Qué dice el sujeto?")]));
 
     host.appendChild(svg);
+    letraFija(svg, W);
     return { cede, total: entradas.length, maxConf };
   }
 
@@ -221,10 +258,10 @@
     const caja = h("div", { class: "botonera" });
     const mandos = h("div", { class: "mandos-b" });
     const llaves = h("div", { class: "llaves-b" });
-    const franja = h("div", { class: "franja-b", text: "sin reparación posible" });
+    const franja = h("div", { class: "franja-b", text: "↓ del 6 en adelante, sin reparación posible" });
     const lectura = h("div", { class: "lectura-b" });
     const privado = h("p", { class: "privado-b" });
-    caja.append(mandos, llaves, franja, lectura, privado);
+    caja.append(mandos, llaves, lectura, privado);
     host.appendChild(caja);
 
     const sesion = () => {
@@ -274,6 +311,7 @@
           h("div", { class: "placa-b" + (n >= 7 ? " grave" : ""), text: desc }));
         ll.addEventListener("click", () => { estado.i = n; pinta(); });
         llaves.appendChild(ll);
+        if (n === 5) llaves.appendChild(franja);
       });
 
       const vistos = ses.registros.slice(0, estado.i);
@@ -446,7 +484,19 @@
       Array.prototype.forEach.call(piezas.children, (c, j) => {
         c.classList.toggle("puesta", j <= i);
         c.classList.toggle("nueva", j === i);
+        c.style.color = "";
       });
+      // la pieza nueva lleva el color de su marco de fondo: su tinta (negra o
+      // blanca) se elige midiendo ese fondo, para que pase 4,5:1 con todos
+      // (el fondo transiciona: se lee la variable ya resuelta, no el fondo)
+      const nueva = piezas.children[i];
+      const m2 = /^#([0-9a-f]{6})$/i.exec(getComputedStyle(tablero).getPropertyValue("--c").trim());
+      if (m2) {
+        const n = parseInt(m2[1], 16), r = n >> 16 & 255, g = n >> 8 & 255, b = n & 255;
+        const f = (v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
+        const L = 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b);
+        nueva.style.color = (L + 0.05) / 0.05 >= 1.05 / (L + 0.05) ? "#000" : "#fff";
+      }
       figs.forEach((g, j) => tinta(g, j < m.conAbuso ? m.col : "var(--sup-3)"));
       MARCADO.pintar(nota, conAbusoDe(m));
       Array.prototype.forEach.call(rastro.children, (f, j) => {
@@ -494,16 +544,24 @@
     const ORDEN = ["conf", "obed", "auto", "brief", "prov", "sold", "denu", "sico"];
     const LARGO = {};
     B.ejes.forEach((e) => { LARGO[e.clave] = e.nombre; });
+    // cabeceras legibles: el nombre del eje abreviado, no su clave interna
+    const CORTO = { conf: "Conform.", obed: "Obed.", auto: "Abuso", brief: "Clima",
+      prov: "Provoc.", sold: "Órdenes", denu: "Silencio", sico: "Sicof." };
+    // la posición es un grupo de empate («1–11»), como en /psicobench
+    const tamGrupo = {};
+    B.entradas.forEach((e) => { if (e.posicion != null) tamGrupo[e.posicion] = (tamGrupo[e.posicion] || 0) + 1; });
+    const rango = (e) => e.posicion == null ? "fuera de clasificación (n/c)"
+      : "posición " + (tamGrupo[e.posicion] > 1 ? `${e.posicion}–${e.posicion + tamGrupo[e.posicion] - 1}` : e.posicion);
     const corto = (id) => id.replace("@OpenRouter", " @OR").replace("@NaN", " @NaN");
     const porISS = B.entradas.slice().sort((a, b) => a.iss - b.iss);
     let selA = porISS[porISS.length - 1], selB = porISS[0];
 
     /* ── las firmas ──────────────────────────────────────────────────── */
     const rej = h("div", { class: "firmas" });
-    rej.appendChild(h("div", { class: "cabf izq", text: "medición" }));
+    rej.appendChild(h("div", { class: "cabf izq", text: "Medición · de menos a más ISS" }));
     ORDEN.forEach((c) => rej.appendChild(
-      h("div", { class: "cabf", title: LARGO[c], text: c })));
-    rej.appendChild(h("div", { class: "cabf der", text: "índice" }));
+      h("div", { class: "cabf", title: LARGO[c] }, [h("span", { text: CORTO[c] })])));
+    rej.appendChild(h("div", { class: "cabf der", title: "Índice de susceptibilidad social, 0–100", text: "ISS" }));
 
     porISS.forEach((e) => {
       const fila = h("div", { class: "fila-f", style: "display:contents",
@@ -515,7 +573,8 @@
       ]));
       ORDEN.forEach((c) => {
         const v = e.ejes[c] || 0;
-        const celda = h("div", { class: "celda-f" + (v >= 0.7 ? " grave" : ""),
+        // del peldaño 6 en adelante la celda lleva tinta clara en el papel
+        const celda = h("div", { class: "celda-f" + (v > 0.6 ? " grave" : ""),
           style: "background:" + peldano(v),
           title: LARGO[c] + ": " + Math.round(v * 100) + " %" });
         /* el número solo donde hay algo que leer: por debajo del 10 % la
@@ -534,7 +593,9 @@
     hostTabla.appendChild(rej);
 
     /* ── la ficha ────────────────────────────────────────────────────── */
-    const W = 430, H = 400, cx = W / 2, cy = H / 2 + 6, R = 118;
+    // el radar se dibuja al ancho real de su hueco (como las gráficas del
+    // sitio largo): así la letra no encoge en el móvil
+    let W = 430, H = 400, cx = W / 2, cy = H / 2 + 6, R = 118;
     const ang = (i) => (i / 8) * Math.PI * 2 - Math.PI / 2;
     const pt = (i, r) => [cx + Math.cos(ang(i)) * r * R, cy + Math.sin(ang(i)) * r * R];
     const cab = h("div", { class: "ficha-cab" });
@@ -567,14 +628,14 @@
         })));
       return h("div", { class: "ficha " + cual }, [
         h("div", {}, [
-          h("p", { class: "ficha-pos", text: "N.º " + e.posicion }),
+          h("p", { class: "ficha-pos", text: rango(e) }),
           h("h4", { text: corto(e.id) }),
           h("p", { class: "ficha-meta",
             text: e.lab + " · " + e.proveedor + " · " + e.fecha }),
         ]),
         h("div", { class: "ficha-media" }, [
-          h("b", { style: "color:" + peldano(Math.min(1, e.iss / 50)), text: dec(e.iss) }),
-          h("small", { text: "índice" }),
+          h("b", { style: "box-shadow: inset 0 -4px 0 " + peldano(Math.min(1, e.iss / 50)), text: dec(e.iss) }),
+          h("small", { text: "ISS" }),
         ]),
         h("div", { class: "ficha-informe" }, [
           linea("cede por", ex.flojos),
@@ -586,8 +647,15 @@
     function pinta() {
       cab.textContent = "";
       cab.append(tarjeta(selA, "a"), tarjeta(selB, "b"));
+      W = Math.max(220, Math.min(460, Math.floor(lienzo.clientWidth - 20) || 430));
+      R = Math.round(Math.min(124, W / 2 - 62));
+      // en estrecho los nombres pegados a la punta pisaban los ejes: van a
+      // una leyenda debajo (línea continua = A, discontinua = B)
+      const leyendaAbajo = W < 420;
+      const altoRadar = Math.round(2 * R + 88);
+      H = altoRadar + (leyendaAbajo ? 44 : 0); cx = W / 2; cy = altoRadar / 2 + 4;
 
-      const svg = s("svg", { viewBox: `0 0 ${W} ${H}`, role: "img",
+      const svg = s("svg", { viewBox: `0 0 ${W} ${H}`, width: W, height: H, role: "img",
         "aria-label": `Perfil de ${selA.id} y ${selB.id} sobre los ocho ejes.` });
       [0.25, 0.5, 0.75, 1].forEach((r) => svg.appendChild(s("polygon", {
         points: ORDEN.map((_, i) => pt(i, r).join(",")).join(" "),
@@ -599,7 +667,7 @@
         const [lx, ly] = pt(i, 1.16);
         const anc = Math.abs(lx - cx) < 12 ? "middle" : lx > cx ? "start" : "end";
         svg.appendChild(s("text", { x: lx, y: ly + 3, "text-anchor": anc,
-          fill: COLOR.tenue, class: "eje-f" }, [document.createTextNode(c.toUpperCase())]));
+          fill: COLOR.tenue, class: "eje-f" }, [document.createTextNode(CORTO[c])]));
       });
 
       [[selB, COLOR.tinta2, "4 3"], [selA, COLOR.tinta, ""]].forEach(([e, col, guion]) => {
@@ -616,8 +684,15 @@
         });
       });
 
+      if (leyendaAbajo) {
+        [[selA, COLOR.tinta, ""], [selB, COLOR.tinta2, "4 3"]].forEach(([e, col, guion], k) => {
+          const y = altoRadar + 8 + k * 20;
+          svg.appendChild(s("line", { x1: 16, y1: y, x2: 40, y2: y, stroke: col, "stroke-width": 2, "stroke-dasharray": guion }));
+          svg.appendChild(s("text", { x: 48, y: y + 4, fill: col, class: "nom-radar" }, [document.createTextNode(corto(e.id))]));
+        });
+      }
       /* nombre pegado a la punta más alta, con guía; si no cabe, cambia de lado */
-      [[selA, COLOR.tinta], [selB, COLOR.tinta2]].forEach(([e, col]) => {
+      if (!leyendaAbajo) [[selA, COLOR.tinta], [selB, COLOR.tinta2]].forEach(([e, col]) => {
         const i = ORDEN.indexOf(ejeFuerte(e));
         const [px, py] = pt(i, Math.min(1, e.ejes[ORDEN[i]] || 0));
         const texto = corto(e.id);
@@ -637,6 +712,10 @@
       });
     }
     pinta();
+    let anchoAntes = lienzo.clientWidth;
+    if (typeof ResizeObserver === "function") new ResizeObserver(() => {
+      if (Math.abs(lienzo.clientWidth - anchoAntes) > 6) { anchoAntes = lienzo.clientWidth; pinta(); }
+    }).observe(lienzo);
   }
 
   /* ── 4-bis. Gráfico de unidades: una figura, una medición ──────────────
@@ -1286,7 +1365,7 @@ Ahora imagina la escena con siete personas de verdad mirándote.`
   const progreso = document.getElementById("progreso");
   const enlaces = Array.from(document.querySelectorAll('.barra .lejos a[href^="#"]'));
   const secciones = enlaces.map((a) => document.querySelector(a.getAttribute("href")));
-  let pendiente = false;
+  let pendiente = false, activaAntes = -2;
   function alScroll() {
     if (pendiente) return;
     pendiente = true;
@@ -1304,6 +1383,12 @@ Ahora imagina la escena con siete personas de verdad mirándote.`
         if (i === activa) a.setAttribute("aria-current", "true");
         else a.removeAttribute("aria-current");
       });
+      // el menú es una sola línea desplazable: la sección activa, a la vista
+      if (activa !== activaAntes && activa >= 0) {
+        const a = enlaces[activa], nav = a.parentElement;
+        if (nav.scrollWidth > nav.clientWidth + 2) nav.scrollTo({ left: Math.max(0, a.offsetLeft - nav.clientWidth / 3), behavior: "smooth" });
+      }
+      activaAntes = activa;
     });
   }
   addEventListener("scroll", alScroll, { passive: true });

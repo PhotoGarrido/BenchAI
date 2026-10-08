@@ -1,5 +1,56 @@
 # Changelog
 
+## Web · revisión de legibilidad, maquetación y lectura · 08-10-2026
+
+Sin cambios en el instrumento ni en las mediciones: es la web.
+
+- **Gráficas a tamaño real.** Todas se dibujaban a 760 de ancho y el
+  navegador las escalaba: en las columnas de escritorio la letra bajaba a
+  6–7 px y en el móvil se forzaban a 600 px y salían cortadas por la derecha
+  (barras sin su valor, radar partido, mapas sin eje X). Ahora se dibujan al
+  ancho de su hueco y se redibujan al cambiarlo (`graficas.js · adaptable`),
+  con variante estrecha por tipo. Ningún rótulo ni cifra de gráfica baja de
+  10,5 px (solo la letra dentro de los bocadillos de las ilustraciones de la
+  home, que hace de pictograma).
+- **Legibilidad**: ningún texto de la web por debajo de 11 px (había placas
+  de 7,5 px en la escalera de Milgram de la home y cabeceras de 8–9 px);
+  `--tenue` y los acentos de texto pasan 4,5:1 en grafito y en papel
+  (/psicobench: de 375 fallos de contraste a 0); el radar ya enseña su
+  retícula sobre fondo oscuro; las cabeceras del mapa no se parten a mitad de
+  palabra («CONFORMIDA / D»); etiquetas de los mapas sin pisarse.
+- **Maquetación**: la barra superior ya no desborda (en móvil solo queda el
+  conmutador de lecturas; el menú de secciones es una línea desplazable); la
+  escalera de Milgram de la home pasa a dos filas de cinco; el visor de
+  replays en el móvil enseñaba los eventos en una franja de 16 px y ahora la
+  página se desplaza con la transcripción entera; el panel `/benchmark` fija
+  posición y modelo al desplazar la tabla en el móvil.
+- **Lectura para quien llega de nuevas**: /psicobench define PsicoBench en
+  su primera frase, abre con «Ver la clasificación», explica el ISS con tres
+  claves (0–100; más bajo, más resistente; posiciones en grupos) antes del
+  ranking, y pliega la fórmula exacta en «Fórmula exacta y notas técnicas».
+  La home ofrece la clasificación desde la portada, explica el ISS en su
+  sección de modelos y sustituye las claves internas (CONF, SOLD…) por
+  nombres legibles; la posición se da como grupo de empate, no «N.º 35».
+- **Cifras coherentes**: la home decía «37 mediciones de 36 modelos» arriba
+  y «33 modelos probados» abajo; `modelosDistintos` contaba como modelos
+  distintos un mismo id servido por dos vías o con dos esfuerzos. Ahora 33
+  en los dos sitios. /psicobench decía 13 laboratorios (contaba «sin
+  desvelar»); ahora 12, como el resto del sitio.
+- **Fallos de paso**: la escalera de versiones apilaba los nombres al revés
+  de sus líneas; el menú activo no casaba enlace y sección si faltaba un
+  ancla.
+- **Segunda pasada** (auditoría automática por línea de texto, recortada
+  por los contenedores con scroll; 5 páginas × 7 anchos de 320 a 1440 px:
+  0 desbordes, 0 solapes, 0 fallos de contraste, 0 recortes, 0 mandos táctiles
+  por debajo de 32 px de alto): las gráficas también se dibujan en una
+  pestaña en segundo plano (antes esperaban a `requestAnimationFrame`); los
+  nombres de los personajes del visor se aclaran hasta 4,5:1 sin tocar el
+  color de su figura; la pieza activa de la prisión elige tinta negra o
+  blanca según su fondo; lo pendiente (piezas, marcos, peldaños) se apaga
+  por color y no por opacidad; mandos, cabeceras ordenables, deslizadores y
+  la tira de días crecen en el móvil; a 320 px la barra deja solo el icono y
+  la matriz de correlaciones abrevia los ejes.
+
 ## Sin versión (mediciones, no instrumento) · Mistral Large 4 el día de su lanzamiento: 36 → 37 · 06-10-2026
 
 - **`mistral-large-4-0`** (OpenRouter, 06-10-2026, precio de promoción

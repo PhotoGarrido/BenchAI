@@ -251,7 +251,7 @@
       ]));
       lateral.appendChild(h("p", {
         class: "fuente", style: "margin:16px 0 0",
-        html: mk`Run <code style="font-size:10.5px;word-break:break-all">${p.run}</code>`,
+        html: mk`Run <code style="font-size:11px;word-break:break-all">${p.run}</code>`,
       }));
     }
 

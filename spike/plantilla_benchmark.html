@@ -75,7 +75,10 @@
     vertical-align:6px; margin-left:10px; letter-spacing:.02em; }
   header .sub { color:var(--tinta2); margin:8px 0 0; max-width:72ch; }
 
-  nav { display:flex; gap:4px; margin:26px 0 0; border-bottom:1px solid var(--linea); }
+  nav { display:flex; gap:4px; margin:26px 0 0; border-bottom:1px solid var(--linea);
+    overflow-x:auto; scrollbar-width:none; }
+  nav::-webkit-scrollbar { display:none; }
+  @media (max-width: 420px) { nav button { padding:11px 10px; font-size:13.5px; } }
   nav button { appearance:none; background:none; border:none; cursor:pointer;
     font:600 14px/1 var(--sans); color:var(--tinta2); padding:11px 14px;
     border-bottom:2px solid transparent; margin-bottom:-1px; }
@@ -108,11 +111,25 @@
   tr.fila:hover td { background:var(--acento-tenue); }
   .nombre { font-weight:650; font-size:14px; }
   .meta { color:var(--tinta2); font-size:11.5px; }
-  .chip { display:inline-block; font:600 10px/1 var(--sans); color:var(--acento);
+  .chip { display:inline-block; font:600 11px/1 var(--sans); color:var(--acento);
     border:1px solid var(--acento); border-radius:99px; padding:2.5px 7px;
     margin-left:7px; letter-spacing:.04em; vertical-align:1px; }
   td.iss { font-weight:700; }
-  .ic { display:block; font-size:10px; font-weight:400; color:var(--tinta2); }
+  .ic { display:block; font-size:11px; font-weight:400; color:var(--tinta2); }
+  a { color:var(--acento); text-underline-offset:3px; }
+  details.nota summary { cursor:pointer; color:var(--tinta); font-weight:600; padding:6px 0; }
+  details.nota[open] summary { margin-bottom:6px; }
+  /* en el móvil la tabla se desplaza: la posición y el modelo se quedan
+     fijos a la izquierda para no perder de quién es cada fila */
+  @media (max-width: 760px) {
+    thead th:first-child, tbody td:first-child { position:sticky; left:0; z-index:2;
+      background:var(--carta); min-width:48px; width:48px; }
+    thead th.izq, tbody td.izq { position:sticky; left:48px; z-index:2;
+      background:var(--carta); min-width:150px; max-width:170px; white-space:normal;
+      box-shadow:1px 0 0 var(--linea); }
+    thead th:first-child, thead th.izq { z-index:3; }
+    .nombre { font-size:13px; overflow-wrap:anywhere; }
+  }
   .celda-calor { border-radius:5px; padding:2px 6px; }
   .correl td, .correl th { padding:4px 8px; font-size:12px; text-align:right; }
   .correl th.izq { text-align:left; }
@@ -305,7 +322,12 @@ function renderClasificacion() {
   const sec = document.getElementById("sec-clasificacion");
   sec.replaceChildren(
     el("h2", { text: "Clasificación por resistencia" }),
-    el("p", { class: "nota", text: DATOS.nota_iss + " Todas las cifras son " +
+    el("p", { class: "nota", text: "ISS: índice de susceptibilidad social, de 0 a 100 — " +
+      "más bajo, más resistente a la presión social del protocolo. Arriba, las " +
+      "mediciones que menos ceden; «=» marca un empate (intervalos solapados). " +
+      "No es un ranking de calidad." }),
+    el("details", { class: "nota" }, [el("summary", { text: "Fórmula, empates y cómo usar la tabla" }),
+      el("p", { style: "margin:0", text: DATOS.nota_iss + " Todas las cifras son " +
       "proporciones × 100; bajo el ISS, su IC 95%. REGLA DE EMPATES: dos " +
       "entradas cuyos IC de ISS se solapan comparten posición a efectos de " +
       (E.some(e => e.posicion == null)
@@ -313,7 +335,7 @@ function renderClasificacion() {
           "insuficiente (umbral D-8b). " : "") +
       "lectura — el orden de la tabla es solo tipográfico. Pasa el ratón " +
       "por una celda para ver n e IC del eje. Clic en una columna para " +
-      "ordenar; clic en una fila para llevar ese perfil al radar." }));
+      "ordenar; clic en una fila para llevar ese perfil al radar." })]));
   const filas = E.slice();
   const col = COLS.find(c => c.k === orden.k);
   if (col && col.k !== "pos") {

@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'">
 <title>PsicoBench · El perfil social de cada modelo · BenchAI</title>
 <link rel="canonical" href="https://benchai.tech/psicobench">
-<meta name="description" content="PsicoBench: el perfil social de los modelos de lenguaje medido por conducta. Conformidad, obediencia, abuso de poder, silencio ante la irregularidad y sicofancia, con intervalos de confianza y sesiones reales, sobre 37 mediciones de 12 laboratorios.">
+<meta name="description" content="PsicoBench: el perfil social de los modelos de lenguaje medido por conducta. Conformidad, obediencia, abuso de poder, silencio ante la irregularidad y sicofancia, con intervalos de confianza y sesiones reales, sobre 37 mediciones de 12 laboratorios, con su clasificación por el índice de susceptibilidad social (ISS).">
 <meta name="color-scheme" content="dark">
 <meta property="og:title" content="PsicoBench · Cada modelo cede a la presión a su manera">
 <meta property="og:description" content="Ocho formas de ceder a la presión social, medidas con la misma batería en 37 mediciones de 12 laboratorios. No es un ranking de calidad: es un perfil.">
@@ -32,7 +32,7 @@
 <!-- ═══ barra superior ═══════════════════════════════════════════════════ -->
 <header class="barra" id="barra">
   <div class="interior">
-    <a class="marca" href="#portada">
+    <a class="marca" href="#portada" aria-label="BenchAI, inicio de la página">
       <span class="punto" aria-hidden="true"></span>
       BenchAI
       <span class="v" data-texto="benchmark.version" data-prefijo="PsicoBench v"></span>
@@ -43,7 +43,8 @@
       <a href="psicobench.html" aria-current="page">PsicoBench</a>
     </nav>
     <nav class="navmini" aria-label="Secciones">
-      <a href="#indice">Índice</a>
+      <a href="#indice">El ISS</a>
+      <a href="#clasificacion">Clasificación</a>
       <a href="#ejes">Quién cede</a>
       <a href="#mapa">Mapa</a>
       <a href="#sesiones">Cara a cara</a>
@@ -63,15 +64,16 @@
   <div class="fondo" aria-hidden="true"></div>
 
   <div>
-    <p class="ceja">PsicoBench · perfil social de modelos de lenguaje</p>
+    <p class="ceja">PsicoBench · el benchmark de presión social de BenchAI</p>
     <h1>Cada modelo cede a la presión <em>a su manera</em>. Aquí está medido.</h1>
     <p class="entradilla">
-      Sentamos a cada modelo en los experimentos clásicos de la psicología social, disfrazados
-      para que no los reconozca: la sala de Asch, la escalera de Milgram, un turno de supervisión
-      con poder real, una irregularidad que crece y un interlocutor que opina lo contrario.
-      De ahí salen <strong>ocho formas de ceder</strong>, medidas con la misma batería.
-      <strong>No es una nota</strong>: un modelo «alto» no es peor, es distinto, y si eso importa
-      depende de dónde vaya a trabajar.
+      <strong>PsicoBench mide cuánto cede un modelo de lenguaje a la presión social.</strong>
+      Lo sentamos en los experimentos clásicos de la psicología social, disfrazados para que no
+      los reconozca: la sala de Asch, la escalera de Milgram, un turno de supervisión con poder
+      real, una irregularidad que crece y un interlocutor que opina lo contrario. De ahí salen
+      <strong>ocho formas de ceder</strong> y un índice que las resume, el <strong>ISS</strong>
+      (de 0 a 100: más alto, más cede). No es una nota de calidad: un modelo «alto» no es peor,
+      es distinto, y si eso importa depende de dónde vaya a trabajar.
     </p>
 
     <ul class="cifras">
@@ -86,9 +88,9 @@
     </ul>
 
     <div class="acciones">
-      <a class="boton fuerte" href="#indice">Empezar por el índice</a>
-      <a class="boton" href="#mapa">Ir al mapa</a>
-      <a class="boton" href="#metodo">Método y datos</a>
+      <a class="boton fuerte" href="#clasificacion">Ver la clasificación</a>
+      <a class="boton" href="#indice">¿Qué es el ISS?</a>
+      <a class="boton" href="#mapa">El mapa completo</a>
     </div>
   </div>
 
@@ -115,15 +117,20 @@
     <div class="rotulo aparece"><span class="indice">01</span><span class="grupo">El índice</span></div>
     <h2 class="titulo aparece">Un número por medición: el índice de susceptibilidad social</h2>
     <p class="bajada aparece d1">
-      El <strong>ISS</strong> resume cuánto cede una medición a la presión social del protocolo,
-      de 0 a 100: más alto, más cede. No es una nota de calidad ni una media plana de los ocho
-      ejes: es una <strong>media jerárquica por paradigma</strong>, para que los cuatro marcos
-      de la prisión no pesen cuatro veces más que la sala de Asch. Cuatro componentes, cada uno
-      un cuarto del índice.
+      El <strong>ISS</strong> resume en un solo número cuánto cede una medición a la presión
+      social del protocolo. Es la media de cuatro componentes —ceder ante iguales, obedecer,
+      abusar del poder y callar—, cada uno con el mismo peso, para que ningún experimento cuente
+      más que otro.
     </p>
-    <div class="componentes aparece d1" id="componentes"></div>
-    <div class="aparece d2" id="ranking-iss"></div>
+    <ul class="claves-lectura aparece d1" aria-label="Cómo se lee el índice">
+      <li><b>De 0 a 100</b><span>0 = no cede nunca a la presión del protocolo; 100 = cede siempre.</span></li>
+      <li><b>Más bajo, más resistente</b><span>Arriba de la clasificación, las mediciones que menos ceden. No es una nota de calidad: un índice alto es un perfil, no un suspenso.</span></li>
+      <li><b>Posiciones en grupos</b><span>«1–11» quiere decir que esas mediciones están empatadas: sus intervalos se solapan y los datos no las distinguen.</span></li>
+    </ul>
+    <div class="aparece d2 ancla" id="clasificacion"><div id="ranking-iss"></div></div>
     <p class="nota aparece d2" style="margin-top:14px" id="nota-iss"></p>
+    <h3 class="mini aparece" style="margin-top:38px;font-size:17px">De qué está hecho el índice</h3>
+    <div class="componentes aparece d1" id="componentes"></div>
   </div>
 </section>
 
@@ -159,6 +166,7 @@
       reordenar y una fila para ver sus intervalos y su tamaño de muestra.
     </p>
     <div class="filtros aparece d1" id="mandos-mapa"></div>
+    <p class="pista-tabla" aria-hidden="true">Desliza la tabla hacia la izquierda para ver las ocho columnas →</p>
     <div class="aparece d2" id="heat"></div>
     <div class="leyenda-mapa aparece d2" id="leyenda-mapa"></div>
     <p class="nota aparece d2" style="margin-top:14px">

@@ -408,7 +408,7 @@
       sub: "Cifras = proporción × 100. El índice ordena por susceptibilidad social, no por calidad. " +
         "Pulsa una cabecera para reordenar; una posición compartida significa «no distinguible». " +
         "La tabla se desplaza en horizontal: a la derecha están los cuatro ejes de prisión, el silencio, la sicofancia, la disonancia y el reconocimiento.",
-      pie: mk`${B.notaISS}`,
+      pieTecnico: mk`${B.notaISS}`,
       fuente: mk`PsicoBench v${B.version} · suite ${B.suite} · ${REPO("BENCHMARK.md")}`,
       sinTabla: true,
     });
@@ -444,7 +444,7 @@
           "aria-sort": clave === c.k ? (asc ? "ascending" : "descending") : "none" });
         const b = h("button", {
           type: "button",
-          style: "all:unset;cursor:pointer;color:inherit;font:inherit;letter-spacing:inherit;text-transform:inherit",
+          class: "orden-cab",
           text: c.t + (clave === c.k ? (asc ? " ↑" : " ↓") : ""),
         });
         b.addEventListener("click", () => {
@@ -468,6 +468,8 @@
     titulo: "Cómo se relacionan los ocho ejes entre sí",
     sub: "Correlación de Pearson sobre las " + D.portada.mediciones + " mediciones. Es lo que decide la forma del índice.",
     claves: ORDEN_EJES, nombres: ORDEN_EJES.map((c) => CORTO_EJE[c]),
+    cortos: ORDEN_EJES.map((c) => ({ conf: "Conf.", obed: "Obed.", auto: "Espont.", brief: "Clima",
+      prov: "Provoc.", sold: "Órd.", denu: "Silenc.", sico: "Sicof." })[c] || CORTO_EJE[c]),
     datos: B.correlaciones, n: D.portada.mediciones,
     pie: mk`Los cuatro ejes de prisión comparten varianza (espontáneo ↔ clima, r = 0,77) y se agrupan en un componente.
       Conformidad y sicofancia de opinión correlacionan a 0,70 y forman el componente de «cesión a iguales».`,
@@ -490,7 +492,7 @@
   I.cotas.forEach((c, i) => {
     hostCotas.appendChild(h("div", { class: "tarjeta aparece d" + (i + 1) }, [
       h("p", { class: "kicker", text: "Cota " + (i + 1) }),
-      h("span", { style: "font:600 40px/1 var(--sans);letter-spacing:-.025em;color:var(--o1);display:block;margin-bottom:10px", text: dec(c.d, 1) }),
+      h("span", { style: "font:600 40px/1 var(--sans);letter-spacing:-.025em;color:var(--acento);display:block;margin-bottom:10px", text: dec(c.d, 1) }),
       h("h3", { class: "mini", text: c.titulo }),
       h("p", { text: c.detalle }),
       h("p", { style: "color:var(--tinta);font-size:14.5px;font-weight:500", text: c.lectura }),
