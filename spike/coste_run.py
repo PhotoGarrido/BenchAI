@@ -49,6 +49,8 @@ PRECIOS = {   # USD por millón de tokens (in, out) — OpenRouter 26-07-2026
     # OpenRouter 06-10-2026: precio de PROMOCIÓN (-50 %, dos semanas); la
     # tarifa normal es (1.36, 4.18). Se fija lo que se facturó.
     "mistralai/mistral-large-4-0": (0.68, 2.09),
+    # OpenRouter 07-10-2026 (día de lanzamiento)
+    "anthropic/claude-haiku-5.5": (0.10, 0.50),
     # NaN 13-09-2026 (ids planos): tarifa plana por suscripción con cuota
     # mensual de tokens por modelo (0,5-3 B; una suite gasta ~3,3 M). Coste
     # marginal cero: la auditoría cuenta llamadas y tokens, no dólares.

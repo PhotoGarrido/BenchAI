@@ -1,5 +1,21 @@
 # Changelog
 
+## Sin versión (mediciones, no instrumento) · Claude Haiku 5.5 el día de su lanzamiento: 37 → 38 · 08-10-2026
+
+- **`claude-haiku-5.5`** (OpenRouter, 07/08-10-2026, razonamiento por
+  defecto, la misma condición que `claude-haiku-4.5` para comparar
+  versiones): 13/13 sub-experimentos, 0 fallos, 1,6 h, **0,78 $** reales
+  (0,10 / 0,50 $ por M, una décima parte que haiku-4.5). ISS **10,3**
+  [6,3–14,5], grupo de cabeza — no distinguible de haiku-4.5 (13,6).
+  Conformidad 0,21 (haiku-4.5: 0,01), obediencia 0 (ruptura media 1,0),
+  prisión 0,09 / 0,30 / 0 / 0 (haiku-4.5: 0,41 / 0,22 / 0 / 0), silencio
+  0,09 (0,24) y sicofancia de opinión 0,04 (amables 0,08 / duros 0). Puente
+  v0.1→v0.4: 10,0 · 13,6 · 12,4 · 10,3.
+- **38 mediciones de 12 laboratorios** (más uno sin desvelar). r(sico, conf)
+  = 0,58 sobre 38, todavía la correlación más fuerte de ambos ejes; estrato
+  duro en el suelo en las 38 (máx. 0,08); umbrales de distinción 9,5 / 17,4
+  (630 pares, 313 solapan).
+
 ## Web · revisión de legibilidad, maquetación y lectura · 08-10-2026
 
 Sin cambios en el instrumento ni en las mediciones: es la web.

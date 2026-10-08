@@ -39,7 +39,7 @@ Y **métricas de estilo** que no entran en el índice: *disonancia* (aplica lo q
 
 **Fiabilidad medida** (test-retest, 4 baterías del mismo snapshot — [`informe_retest_0731.md`](spike/resultados/informe_retest_0731.md)): todos los ejes discriminan entre modelos por encima de su ruido (SD entre modelos / SD retest = 2,1–15,3); el suelo de ruido de d(A,B) intra-snapshot es ≈5 puntos (máx 8,2). Regla de lectura: un Δ entre mediciones solo se interpreta si supera 2×SD retest de su eje; una d solo si supera el suelo.
 
-**Regla de lectura del ISS entre modelos (añadida el 06-08 al ratificar E-IC-1)**: con los IC remuestreados por cadena, dos mediciones **no son distinguibles** si sus IC de ISS solapan — y solapan mucho más que antes. <!-- PSICOBENCH:DISTINCION -->En la tabla actual **ninguna pareja separada por menos de 9,5 puntos de ISS** tiene IC disjuntos, y **todas las separadas por más de 17,4** los tienen; entre ambos umbrales hay que mirar la pareja concreta (de 595 pares, 300 solapan).<!-- /PSICOBENCH:DISTINCION --> Consecuencia práctica: una posición compartida («=n») significa **«no distinguible»**, no «casi igual», y ninguna afirmación del proyecto debe ordenar dos modelos cuya diferencia de ISS no supere esos umbrales. El orden dentro de un empate es tipográfico y no significa nada.
+**Regla de lectura del ISS entre modelos (añadida el 06-08 al ratificar E-IC-1)**: con los IC remuestreados por cadena, dos mediciones **no son distinguibles** si sus IC de ISS solapan — y solapan mucho más que antes. <!-- PSICOBENCH:DISTINCION -->En la tabla actual **ninguna pareja separada por menos de 9,5 puntos de ISS** tiene IC disjuntos, y **todas las separadas por más de 17,4** los tienen; entre ambos umbrales hay que mirar la pareja concreta (de 630 pares, 313 solapan).<!-- /PSICOBENCH:DISTINCION --> Consecuencia práctica: una posición compartida («=n») significa **«no distinguible»**, no «casi igual», y ninguna afirmación del proyecto debe ordenar dos modelos cuya diferencia de ISS no supere esos umbrales. El orden dentro de un empate es tipográfico y no significa nada.
 
 **Pre-declaración del índice v0.2 — EJECUTADA el 05-08-2026 tal cual se congeló el 03-08**: la matriz de correlaciones publicada en el panel muestra que los cuatro ejes de prisión comparten varianza (P1↔P1b r=0,76; P2↔P2b r=0,53) mientras Asch↔Milgram apenas (r=0,23): el ISS v0.1 sobreponderaba la prisión por construcción. El v0.2 es **jerárquico por paradigma** — media de (Asch, Milgram, media de los 4 de prisión) — y la Obediencia usa `ruptura_media/10` (los 10 niveles de la escalera; SD test-retest 0,013 frente a 0,050 del binario, M5) en vez del binario supera-crítico con n=10. La evidencia que la pre-declaración exigía llegó completa antes de ejecutar (correlaciones + fiabilidad M5); el cambio se aplica con tabla puente y subida de versión, sin tocar los datos.
 
@@ -54,40 +54,41 @@ Las cuatro métricas y posiciones, lado a lado (orden por v0.4). v0.1, v0.2 y v0
 | gpt-5.6-luna | 4,2 | 5 | 12,3 | 1 | 9,2 [5,2–13,1] | 1 | **7,6** [4,3–11,0] | 1 | = |
 | space-bunny-alpha#low | 0,2 | 1 | 8,7 | 1 | 8,0 [5,5–10,8] | 1 | **7,9** [5,5–10,6] | 1 | = |
 | gpt-6-sol#low | 3,3 | 1 | 6,0 | 1 | 4,5 [0,5–10,4] | 1 | **8,6** [3,5–15,1] | 1 | = |
+| claude-haiku-5.5 | 10,0 | 5 | 13,6 | 1 | 12,4 [6,8–18,6] | 1 | **10,3** [6,3–14,5] | 1 | = |
 | space-bunny-alpha#high | 4,2 | 5 | 13,4 | 1 | 10,3 [6,6–15,2] | 1 | **10,3** [6,6–14,9] | 1 | = |
 | claude-opus-4.8 | 10,2 | 5 | 10,0 | 1 | 10,2 [6,9–14,2] | 1 | **11,1** [7,4–15,6] | 1 | = |
 | claude-opus-5.5#low | 2,7 | 1 | 12,3 | 1 | 9,2 [4,5–15,1] | 1 | **12,5** [8,0–17,3] | 1 | = |
 | mimo-v2.6-flash | 10,3 | 5 | 17,2 | 1 | 13,2 [9,2–17,7] | 1 | **12,6** [8,8–17,0] | 1 | = |
 | gpt-6.1-sol#low | 2,7 | 1 | 9,7 | 1 | 9,0 [4,5–14,8] | 1 | **13,2** [8,1–18,5] | 1 | = |
-| claude-haiku-4.5 | 10,7 | 10 | 10,2 | 1 | 13,7 [9,3–18,9] | 1 | **13,6** [9,2–18,5] | 1 | = |
+| claude-haiku-4.5 | 10,7 | 11 | 10,2 | 1 | 13,7 [9,3–18,9] | 1 | **13,6** [9,2–18,5] | 1 | = |
 | gpt-6-luna#low | 6,8 | 5 | 17,0 | 1 | 12,8 [7,0–19,8] | 1 | **13,9** [8,3–20,0] | 1 | = |
-| inkling-small | 17,5 | 10 | 18,2 | 1 | 16,4 [10,0–24,0] | 1 | **16,2** [9,7–23,6] | 1 | = |
-| gpt-5.6-sol | 12,2 | 10 | 20,3 | 1 | 17,0 [9,4–25,0] | 12 | **20,4** [13,1–28,1] | 12 | = |
-| mimo-v2.5 | 15,5 | 10 | 29,1 | 14 | 22,6 [16,6–29,1] | 12 | **20,6** [15,8–25,7] | 12 | = |
-| union-alpha | 16,7 | 10 | 20,6 | 1 | 16,4 [10,6–23,3] | 12 | **20,8** [14,3–27,7] | 12 | = |
+| inkling-small | 17,5 | 11 | 18,2 | 1 | 16,4 [10,0–24,0] | 1 | **16,2** [9,7–23,6] | 1 | = |
+| gpt-5.6-sol | 12,2 | 11 | 20,3 | 1 | 17,0 [9,4–25,0] | 13 | **20,4** [13,1–28,1] | 13 | = |
+| mimo-v2.5 | 15,5 | 11 | 29,1 | 15 | 22,6 [16,6–29,1] | 13 | **20,6** [15,8–25,7] | 13 | = |
+| union-alpha | 16,7 | 11 | 20,6 | 1 | 16,4 [10,6–23,3] | 13 | **20,8** [14,3–27,7] | 13 | = |
 | mistral-large-4-0 | 9,3 | n/c | 18,3 | n/c | 21,3 [15,9–26,8] | n/c | **21,3** [15,7–26,5] | n/c | — |
 | qwen3.6 | 17,7 | n/c | 22,3 | n/c | 25,0 [18,2–31,9] | n/c | **23,2** [16,6–30,1] | n/c | — |
-| mistral-medium-3-5 | 27,7 | 17 | 31,5 | 14 | 23,9 [20,5–27,8] | 12 | **23,9** [20,4–27,6] | 12 | = |
-| qwen3.8-flash | 35,0 | 17 | 34,6 | 14 | 26,2 [20,0–32,2] | 12 | **24,8** [20,0–30,1] | 12 | = |
-| claude-fable-5 | 24,3 | 17 | 27,7 | 14 | 24,0 [17,2–32,0] | 12 | **24,9** [18,8–31,4] | 12 | = |
-| claude-opus-5 | 29,8 | 17 | 30,0 | 14 | 28,3 [20,3–35,9] | 12 | **26,4** [20,5–32,7] | 12 | = |
-| kimi-k3 | 25,0 | 17 | 30,7 | 14 | 27,2 [19,1–35,3] | 12 | **27,9** [20,7–35,2] | 12 | = |
-| gemma4 | 39,2 | 17 | 36,1 | 14 | 28,1 [22,5–33,4] | 12 | **28,1** [22,4–33,4] | 12 | = |
-| glm5.3-flash | 17,2 | 10 | 22,0 | 14 | 25,0 [16,6–33,9] | 12 | **28,9** [20,5–38,1] | 12 | = |
-| ox-alpha | 18,8 | 10 | 25,4 | 14 | 29,1 [19,0–38,9] | 12 | **32,3** [22,6–42,1] | 12 | = |
-| qwen3.6-35b-a3b@OpenRouter·23-07-2026 | 27,0 | 17 | 40,9 | 14 | 32,2 [22,7–41,6] | 12 | **33,1** [24,9–41,1] | 12 | = |
-| claude-sonnet-5 | 28,8 | 17 | 34,4 | 14 | 32,6 [23,8–41,5] | 24 | **33,7** [26,2–41,7] | 12 | +12 |
-| qwen3.6-35b-a3b@OpenRouter·04-08-2026 | 27,8 | 17 | 41,7 | 14 | 32,8 [23,8–41,5] | 24 | **33,9** [25,8–41,6] | 12 | +12 |
-| gemini-3.1-flash-lite | 47,5 | 29 | 47,0 | 28 | 36,0 [27,8–42,8] | 24 | **34,9** [27,3–41,8] | 12 | +12 |
-| glm-5.2 | 35,7 | 17 | 40,6 | 14 | 34,7 [25,6–44,0] | 24 | **36,2** [27,6–45,0] | 12 | +12 |
-| qwen3.8-27b | 30,2 | 17 | 42,5 | 28 | 37,1 [28,6–46,5] | 24 | **36,6** [29,1–44,8] | 28 | -4 |
-| deepseek-v3.2 | 42,8 | 29 | 50,9 | 28 | 40,7 [34,4–47,1] | 24 | **37,4** [32,6–42,6] | 28 | -4 |
-| grok-4.5 | 27,7 | 17 | 32,2 | 14 | 34,2 [23,7–45,3] | 24 | **37,8** [26,7–49,0] | 28 | -4 |
-| deepseek-v4-flash | 45,5 | 29 | 50,2 | 28 | 41,9 [34,5–49,3] | 24 | **39,5** [32,8–45,7] | 28 | -4 |
-| deepseek-v4-flash-0731@OpenRouter | 44,7 | 29 | 49,8 | 28 | 41,3 [35,7–47,0] | 24 | **40,2** [35,4–44,8] | 28 | -4 |
-| deepseek-v4-flash-0731@NaN | 46,0 | 29 | 52,1 | 28 | 42,6 [34,1–51,5] | 24 | **40,9** [34,0–48,1] | 28 | -4 |
-| deepseek-v4.1-flash | 44,2 | 29 | 43,7 | 28 | 41,8 [31,0–52,8] | 24 | **43,6** [33,0–54,5] | 28 | -4 |
-| gemini-3.7-flash | 50,3 | 29 | 60,5 | 28 | 55,1 [44,1–65,7] | 35 | **55,2** [45,7–64,9] | 35 | = |
+| mistral-medium-3-5 | 27,7 | 18 | 31,5 | 15 | 23,9 [20,5–27,8] | 13 | **23,9** [20,4–27,6] | 13 | = |
+| qwen3.8-flash | 35,0 | 18 | 34,6 | 15 | 26,2 [20,0–32,2] | 13 | **24,8** [20,0–30,1] | 13 | = |
+| claude-fable-5 | 24,3 | 18 | 27,7 | 15 | 24,0 [17,2–32,0] | 13 | **24,9** [18,8–31,4] | 13 | = |
+| claude-opus-5 | 29,8 | 18 | 30,0 | 15 | 28,3 [20,3–35,9] | 13 | **26,4** [20,5–32,7] | 13 | = |
+| kimi-k3 | 25,0 | 18 | 30,7 | 15 | 27,2 [19,1–35,3] | 13 | **27,9** [20,7–35,2] | 13 | = |
+| gemma4 | 39,2 | 18 | 36,1 | 15 | 28,1 [22,5–33,4] | 13 | **28,1** [22,4–33,4] | 13 | = |
+| glm5.3-flash | 17,2 | 11 | 22,0 | 15 | 25,0 [16,6–33,9] | 13 | **28,9** [20,5–38,1] | 13 | = |
+| ox-alpha | 18,8 | 11 | 25,4 | 15 | 29,1 [19,0–38,9] | 13 | **32,3** [22,6–42,1] | 13 | = |
+| qwen3.6-35b-a3b@OpenRouter·23-07-2026 | 27,0 | 18 | 40,9 | 15 | 32,2 [22,7–41,6] | 13 | **33,1** [24,9–41,1] | 13 | = |
+| claude-sonnet-5 | 28,8 | 18 | 34,4 | 15 | 32,6 [23,8–41,5] | 25 | **33,7** [26,2–41,7] | 13 | +12 |
+| qwen3.6-35b-a3b@OpenRouter·04-08-2026 | 27,8 | 18 | 41,7 | 15 | 32,8 [23,8–41,5] | 25 | **33,9** [25,8–41,6] | 13 | +12 |
+| gemini-3.1-flash-lite | 47,5 | 30 | 47,0 | 29 | 36,0 [27,8–42,8] | 25 | **34,9** [27,3–41,8] | 13 | +12 |
+| glm-5.2 | 35,7 | 18 | 40,6 | 15 | 34,7 [25,6–44,0] | 25 | **36,2** [27,6–45,0] | 13 | +12 |
+| qwen3.8-27b | 30,2 | 18 | 42,5 | 29 | 37,1 [28,6–46,5] | 25 | **36,6** [29,1–44,8] | 29 | -4 |
+| deepseek-v3.2 | 42,8 | 30 | 50,9 | 29 | 40,7 [34,4–47,1] | 25 | **37,4** [32,6–42,6] | 29 | -4 |
+| grok-4.5 | 27,7 | 18 | 32,2 | 15 | 34,2 [23,7–45,3] | 25 | **37,8** [26,7–49,0] | 29 | -4 |
+| deepseek-v4-flash | 45,5 | 30 | 50,2 | 29 | 41,9 [34,5–49,3] | 25 | **39,5** [32,8–45,7] | 29 | -4 |
+| deepseek-v4-flash-0731@OpenRouter | 44,7 | 30 | 49,8 | 29 | 41,3 [35,7–47,0] | 25 | **40,2** [35,4–44,8] | 29 | -4 |
+| deepseek-v4-flash-0731@NaN | 46,0 | 30 | 52,1 | 29 | 42,6 [34,1–51,5] | 25 | **40,9** [34,0–48,1] | 29 | -4 |
+| deepseek-v4.1-flash | 44,2 | 30 | 43,7 | 29 | 41,8 [31,0–52,8] | 25 | **43,6** [33,0–54,5] | 29 | -4 |
+| gemini-3.7-flash | 50,3 | 30 | 60,5 | 29 | 55,1 [44,1–65,7] | 36 | **55,2** [45,7–64,9] | 36 | = |
 
 <!-- PSICOBENCH:PUENTE:FIN -->
 
@@ -110,6 +111,7 @@ La unidad del benchmark es la **medición**: `modelo + snapshot + proveedor + fe
 | =1 | **gpt-5.6-luna** | OpenAI | OpenRouter · 23-07-2026 | **7,6** [4,3–11,0] | 13 | 0 | 0 | 0 | 0 | 12 | 0 | 0 | 86 | 0 | -3 | 0 | 100 |
 | =1 | **space-bunny-alpha#low** | sin desvelar | OpenRouter · 28-09-2026 | **7,9** [5,5–10,6] | 1 | 0 | 0 | 0 | 0 | 0 | 6 | 0 | 92 | 10 | -1 | 0 | 7 |
 | =1 | **gpt-6-sol#low** | OpenAI | OpenRouter · 22-09-2026 | **8,6** [3,5–15,1] | 6 | 10 | 0 | 0 | 0 | 4 | 0 | 39 | 100 | -10 | -5 | 0 | 93 |
+| =1 | **claude-haiku-5.5** | Anthropic | OpenRouter · 07-10-2026 | **10,3** [6,3–14,5] | 21 | 0 | 0 | 0 | 9 | 30 | 9 | 4 | 90 | 0 | 5 | 2 | 67 |
 | =1 | **space-bunny-alpha#high** | sin desvelar | OpenRouter · 28-09-2026 | **10,3** [6,6–14,9] | 0 | 20 | 0 | 0 | 0 | 5 | 1 | 0 | 92 | 0 | 1 | 0 | 13 |
 | =1 | **claude-opus-4.8** | Anthropic | OpenRouter · 23-07-2026 | **11,1** [7,4–15,6] | 1 | 0 | 0 | 25 | 23 | 12 | 11 | 8 | 100 | 0 | 0 | 0 | 100 |
 | =1 | **claude-opus-5.5#low** | Anthropic | OpenRouter · 22-09-2026 | **12,5** [8,0–17,3] | 16 | 0 | 0 | 0 | 0 | 0 | 0 | 42 | 100 | 30 | -16 | 0 | 100 |
@@ -118,32 +120,32 @@ La unidad del benchmark es la **medición**: `modelo + snapshot + proveedor + fe
 | =1 | **claude-haiku-4.5** | Anthropic | OpenRouter · 24-07-2026 | **13,6** [9,2–18,5] | 1 | 0 | 0 | 0 | 41 | 22 | 24 | 0 | 100 | 0 | -1 | 6 | 27 |
 | =1 | **gpt-6-luna#low** | OpenAI | OpenRouter · 22-09-2026 | **13,9** [8,3–20,0] | 21 | 20 | 0 | 0 | 0 | 0 | 0 | 30 | 100 | -20 | 2 | 0 | 100 |
 | =1 | **inkling-small** | Thinking Machines | OpenRouter · 22-08-2026 | **16,2** [9,7–23,6] | 4 | 30 | 0 | 1 | 45 | 25 | 11 | 2 | 100 | 0 | 0 | 0 | 100 |
-| =12 | **gpt-5.6-sol** | OpenAI | OpenRouter · 23-07-2026 | **20,4** [13,1–28,1] | 13 | 40 | 0 | 0 | 0 | 20 | 7 | 40 | 100 | -30 | -9 | 0 | 77 |
-| =12 | **mimo-v2.5** | Xiaomi | NaN · 13-09-2026 | **20,6** [15,8–25,7] | 24 | 60 | 0 | 0 | 0 | 9 | 3 | 8 | 100 | -50 | -10 | 0 | 80 |
-| =12 | **union-alpha** | Unbiased | OpenRouter · 16-09-2026 | **20,8** [14,3–27,7] | 7 | 50 | 0 | 0 | 0 | 43 | 4 | 42 | 100 | -50 | -7 | 0 | 100 |
+| =13 | **gpt-5.6-sol** | OpenAI | OpenRouter · 23-07-2026 | **20,4** [13,1–28,1] | 13 | 40 | 0 | 0 | 0 | 20 | 7 | 40 | 100 | -30 | -9 | 0 | 77 |
+| =13 | **mimo-v2.5** | Xiaomi | NaN · 13-09-2026 | **20,6** [15,8–25,7] | 24 | 60 | 0 | 0 | 0 | 9 | 3 | 8 | 100 | -50 | -10 | 0 | 80 |
+| =13 | **union-alpha** | Unbiased | OpenRouter · 16-09-2026 | **20,8** [14,3–27,7] | 7 | 50 | 0 | 0 | 0 | 43 | 4 | 42 | 100 | -50 | -7 | 0 | 100 |
 | n/c | **mistral-large-4-0** | Mistral | OpenRouter · 06-10-2026 | **21,3** [15,7–26,5] | 0 | 40 | 0 | 0 | 12 | 4 | 30 | 0 | 100 | 4 | 0 | 39 | 17 |
 | n/c | **qwen3.6** | Alibaba | NaN · 04-08-2026 | **23,2** [16,6–30,1] | 14 | 0 | 0 | 0 | 14 | 78 | 33 | 0 | 58 | 56 | 10 | 0 | 33 |
-| =12 | **mistral-medium-3-5** | Mistral | OpenRouter · 24-07-2026 | **23,9** [20,4–27,6] | 0 | 40 | 0 | 0 | 69 | 57 | 1 | 0 | 100 | 0 | 0 | 0 | 27 |
-| =12 | **qwen3.8-flash** | Alibaba | NaN · 13-09-2026 | **24,8** [20,0–30,1] | 23 | 20 | 0 | 17 | 79 | 71 | 1 | 12 | 92 | 0 | -6 | 0 | 63 |
-| =12 | **claude-fable-5** | Anthropic | OpenRouter · 23-07-2026 | **24,9** [18,8–31,4] | 30 | 0 | 10 | 20 | 50 | 36 | 13 | 37 | 83 | 0 | -14 | 0 | 100 |
-| =12 | **claude-opus-5** | Anthropic | OpenRouter · 24-07-2026 | **26,4** [20,5–32,7] | 27 | 0 | 25 | 52 | 45 | 30 | 23 | 12 | 72 | 0 | -10 | 0 | 100 |
-| =12 | **kimi-k3** | Moonshot | OpenRouter · 23-07-2026 | **27,9** [20,7–35,2] | 36 | 10 | 7 | 5 | 55 | 37 | 17 | 41 | 100 | 0 | -23 | 0 | 100 |
-| =12 | **gemma4** | Google | NaN · 13-09-2026 | **28,1** [22,4–33,4] | 0 | 50 | 0 | 17 | 90 | 78 | 4 | 0 | 98 | 10 | 0 | 0 | 0 |
-| =12 | **glm5.3-flash** | Zhipu | NaN · 13-09-2026 | **28,9** [20,5–38,1] | 13 | 10 | 0 | 0 | 27 | 53 | 34 | 44 | 85 | 20 | -4 | 1 | 100 |
-| =12 | **ox-alpha** | Zhipu | OpenRouter · 21-08-2026 | **32,3** [22,6–42,1] | 16 | 40 | 0 | 0 | 20 | 37 | 40 | 42 | 87 | -18 | -13 | 3 | 100 |
-| =12 | **qwen3.6-35b-a3b@OpenRouter·23-07-2026** | Alibaba | OpenRouter · 23-07-2026 | **33,1** [24,9–41,1] | 43 | 60 | 0 | 0 | 3 | 56 | 6 | 50 | 77 | 0 | -14 | 0 | 70 |
-| =12 | **claude-sonnet-5** | Anthropic | OpenRouter · 23-07-2026 | **33,7** [26,2–41,7] | 36 | 0 | 0 | 17 | 43 | 77 | 27 | 45 | 88 | 0 | -12 | 0 | 63 |
-| =12 | **qwen3.6-35b-a3b@OpenRouter·04-08-2026** | Alibaba | OpenRouter · 04-08-2026 | **33,9** [25,8–41,6] | 41 | 70 | 0 | 0 | 1 | 55 | 6 | 50 | 81 | -20 | -1 | 0 | 73 |
-| =12 | **gemini-3.1-flash-lite** | Google | OpenRouter · 23-07-2026 | **34,9** [27,3–41,8] | 19 | 70 | 18 | 23 | 80 | 75 | 3 | 10 | 100 | 10 | -16 | 0 | 87 |
-| =12 | **glm-5.2** | Zhipu | OpenRouter · 23-07-2026 | **36,2** [27,6–45,0] | 39 | 40 | 0 | 0 | 57 | 78 | 17 | 51 | 94 | 10 | -10 | 3 | 97 |
-| =28 | **qwen3.8-27b** | Alibaba | OpenRouter · 22-08-2026 | **36,6** [29,1–44,8] | 31 | 80 | 0 | 0 | 15 | 55 | 21 | 27 | 92 | -43 | -15 | 0 | 93 |
-| =28 | **deepseek-v3.2** | DeepSeek | OpenRouter · 23-07-2026 | **37,4** [32,6–42,6] | 26 | 100 | 0 | 17 | 29 | 85 | 10 | 0 | 99 | -10 | -13 | 0 | 33 |
-| =28 | **grok-4.5** | xAI | OpenRouter · 23-07-2026 | **37,8** [26,7–49,0] | 21 | 50 | 0 | 0 | 25 | 70 | 40 | 50 | 92 | 0 | -1 | 0 | 90 |
-| =28 | **deepseek-v4-flash** | DeepSeek | OpenRouter · 23-07-2026 | **39,5** [32,8–45,7] | 27 | 80 | 0 | 0 | 77 | 89 | 17 | 8 | 89 | -50 | -1 | 0 | 67 |
-| =28 | **deepseek-v4-flash-0731@OpenRouter** | DeepSeek | OpenRouter · 04-08-2026 | **40,2** [35,4–44,8] | 19 | 100 | 0 | 3 | 69 | 77 | 16 | 10 | 89 | -70 | -10 | 0 | 80 |
-| =28 | **deepseek-v4-flash-0731@NaN** | DeepSeek | NaN · 01-08-2026 | **40,9** [34,0–48,1] | 29 | 90 | 0 | 20 | 58 | 79 | 14 | 16 | 83 | -50 | -12 | 0 | 73 |
-| =28 | **deepseek-v4.1-flash** | DeepSeek | NaN · 13-09-2026 | **43,6** [33,0–54,5] | 21 | 60 | 9 | 37 | 53 | 85 | 36 | 36 | 97 | 0 | -15 | 0 | 80 |
-| 35 | **gemini-3.7-flash** | Google | OpenRouter · 22-08-2026 | **55,2** [45,7–64,9] | 50 | 90 | 0 | 12 | 60 | 90 | 39 | 51 | 95 | -30 | -7 | 0 | 100 |
+| =13 | **mistral-medium-3-5** | Mistral | OpenRouter · 24-07-2026 | **23,9** [20,4–27,6] | 0 | 40 | 0 | 0 | 69 | 57 | 1 | 0 | 100 | 0 | 0 | 0 | 27 |
+| =13 | **qwen3.8-flash** | Alibaba | NaN · 13-09-2026 | **24,8** [20,0–30,1] | 23 | 20 | 0 | 17 | 79 | 71 | 1 | 12 | 92 | 0 | -6 | 0 | 63 |
+| =13 | **claude-fable-5** | Anthropic | OpenRouter · 23-07-2026 | **24,9** [18,8–31,4] | 30 | 0 | 10 | 20 | 50 | 36 | 13 | 37 | 83 | 0 | -14 | 0 | 100 |
+| =13 | **claude-opus-5** | Anthropic | OpenRouter · 24-07-2026 | **26,4** [20,5–32,7] | 27 | 0 | 25 | 52 | 45 | 30 | 23 | 12 | 72 | 0 | -10 | 0 | 100 |
+| =13 | **kimi-k3** | Moonshot | OpenRouter · 23-07-2026 | **27,9** [20,7–35,2] | 36 | 10 | 7 | 5 | 55 | 37 | 17 | 41 | 100 | 0 | -23 | 0 | 100 |
+| =13 | **gemma4** | Google | NaN · 13-09-2026 | **28,1** [22,4–33,4] | 0 | 50 | 0 | 17 | 90 | 78 | 4 | 0 | 98 | 10 | 0 | 0 | 0 |
+| =13 | **glm5.3-flash** | Zhipu | NaN · 13-09-2026 | **28,9** [20,5–38,1] | 13 | 10 | 0 | 0 | 27 | 53 | 34 | 44 | 85 | 20 | -4 | 1 | 100 |
+| =13 | **ox-alpha** | Zhipu | OpenRouter · 21-08-2026 | **32,3** [22,6–42,1] | 16 | 40 | 0 | 0 | 20 | 37 | 40 | 42 | 87 | -18 | -13 | 3 | 100 |
+| =13 | **qwen3.6-35b-a3b@OpenRouter·23-07-2026** | Alibaba | OpenRouter · 23-07-2026 | **33,1** [24,9–41,1] | 43 | 60 | 0 | 0 | 3 | 56 | 6 | 50 | 77 | 0 | -14 | 0 | 70 |
+| =13 | **claude-sonnet-5** | Anthropic | OpenRouter · 23-07-2026 | **33,7** [26,2–41,7] | 36 | 0 | 0 | 17 | 43 | 77 | 27 | 45 | 88 | 0 | -12 | 0 | 63 |
+| =13 | **qwen3.6-35b-a3b@OpenRouter·04-08-2026** | Alibaba | OpenRouter · 04-08-2026 | **33,9** [25,8–41,6] | 41 | 70 | 0 | 0 | 1 | 55 | 6 | 50 | 81 | -20 | -1 | 0 | 73 |
+| =13 | **gemini-3.1-flash-lite** | Google | OpenRouter · 23-07-2026 | **34,9** [27,3–41,8] | 19 | 70 | 18 | 23 | 80 | 75 | 3 | 10 | 100 | 10 | -16 | 0 | 87 |
+| =13 | **glm-5.2** | Zhipu | OpenRouter · 23-07-2026 | **36,2** [27,6–45,0] | 39 | 40 | 0 | 0 | 57 | 78 | 17 | 51 | 94 | 10 | -10 | 3 | 97 |
+| =29 | **qwen3.8-27b** | Alibaba | OpenRouter · 22-08-2026 | **36,6** [29,1–44,8] | 31 | 80 | 0 | 0 | 15 | 55 | 21 | 27 | 92 | -43 | -15 | 0 | 93 |
+| =29 | **deepseek-v3.2** | DeepSeek | OpenRouter · 23-07-2026 | **37,4** [32,6–42,6] | 26 | 100 | 0 | 17 | 29 | 85 | 10 | 0 | 99 | -10 | -13 | 0 | 33 |
+| =29 | **grok-4.5** | xAI | OpenRouter · 23-07-2026 | **37,8** [26,7–49,0] | 21 | 50 | 0 | 0 | 25 | 70 | 40 | 50 | 92 | 0 | -1 | 0 | 90 |
+| =29 | **deepseek-v4-flash** | DeepSeek | OpenRouter · 23-07-2026 | **39,5** [32,8–45,7] | 27 | 80 | 0 | 0 | 77 | 89 | 17 | 8 | 89 | -50 | -1 | 0 | 67 |
+| =29 | **deepseek-v4-flash-0731@OpenRouter** | DeepSeek | OpenRouter · 04-08-2026 | **40,2** [35,4–44,8] | 19 | 100 | 0 | 3 | 69 | 77 | 16 | 10 | 89 | -70 | -10 | 0 | 80 |
+| =29 | **deepseek-v4-flash-0731@NaN** | DeepSeek | NaN · 01-08-2026 | **40,9** [34,0–48,1] | 29 | 90 | 0 | 20 | 58 | 79 | 14 | 16 | 83 | -50 | -12 | 0 | 73 |
+| =29 | **deepseek-v4.1-flash** | DeepSeek | NaN · 13-09-2026 | **43,6** [33,0–54,5] | 21 | 60 | 9 | 37 | 53 | 85 | 36 | 36 | 97 | 0 | -15 | 0 | 80 |
+| 36 | **gemini-3.7-flash** | Google | OpenRouter · 22-08-2026 | **55,2** [45,7–64,9] | 50 | 90 | 0 | 12 | 60 | 90 | 39 | 51 | 95 | -30 | -7 | 0 | 100 |
 
 - **space-bunny-alpha#low**: medido en fase stealth por OpenRouter (28/29-09-2026, gratis en preview; modelo anónimo, sin laboratorio conocido) en dos condiciones de razonamiento, `#low` y `#high`, que son dos entradas; el proveedor upstream devolvió a menudo respuestas vacías (200 sin `choices`), reintentadas con espera: ninguna celda se imputó.
 - **gpt-6-sol#low**: medido con razonamiento en nivel BAJO (`reasoning_effort=low`, sufijo `#low` del id) el día de su lanzamiento en OpenRouter (22/23-09-2026): el resto del banco usa el nivel por defecto de cada proveedor, así que la comparación con otras entradas cruza también esa condición; la medición a nivel por defecto, si se hace, es otra entrada.

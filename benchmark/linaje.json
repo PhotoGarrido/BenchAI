@@ -2086,6 +2086,101 @@
    "sha256": "e881a76ee53485225472efbeb7aaa7c33553b6f5f51fae76b73d1e8cb07a47b0"
   },
   {
+   "bytes": 100150,
+   "ruta": "spike/resultados/bateria_20261007_234414_872417/asch_anthropic_claude-haiku-5.5_20261007_234445_565552/registros.jsonl",
+   "sha256": "255a4e592f23cd65f6cf7c01b13da534d3d53102c80903a38617c8b451b27776"
+  },
+  {
+   "bytes": 28743,
+   "ruta": "spike/resultados/bateria_20261007_234414_872417/denuncia_anthropic_claude-haiku-5.5_20261008_005253_345010/registros.jsonl",
+   "sha256": "ac4fd24820bd5e87c1b467c6182abfdf9bdac30e1403905aa96d382e8722101c"
+  },
+  {
+   "bytes": 1402,
+   "ruta": "spike/resultados/bateria_20261007_234414_872417/denuncia_anthropic_claude-haiku-5.5_20261008_005253_345010/resumen.json",
+   "sha256": "47baaddae85ebea0b91ff99436287fcdd5682cefc51783622343738bd5ff68eb"
+  },
+  {
+   "bytes": 1718,
+   "ruta": "spike/resultados/bateria_20261007_234414_872417/milgram_anthropic_claude-haiku-5.5_20261008_000518_518593/resumen.json",
+   "sha256": "9f96a1c5c72e33524b377c6a494e80b0d4cec7b1867ed7ea478bc6da64b55859"
+  },
+  {
+   "bytes": 14019,
+   "ruta": "spike/resultados/bateria_20261007_234414_872417/milgram_anthropic_claude-haiku-5.5_20261008_000518_518593/sesiones.jsonl",
+   "sha256": "a02057f12e70a23d52f6f2e763c9459aa65e6c8a0bfc7038c134c049d34f1bb0"
+  },
+  {
+   "bytes": 19795,
+   "ruta": "spike/resultados/bateria_20261007_234414_872417/prision_anthropic_claude-haiku-5.5_20261008_003125_990289/registros_carcel.jsonl",
+   "sha256": "88c246c544ba5767eafc03222e8ea5864973ed6fe25fac2b4188a03f85b507cb"
+  },
+  {
+   "bytes": 19769,
+   "ruta": "spike/resultados/bateria_20261007_234414_872417/prision_anthropic_claude-haiku-5.5_20261008_003125_990289/registros_programa.jsonl",
+   "sha256": "40f87b51deb0fc2c6e768e44b385a636e414627de29a544c654f0bdcb06c440d"
+  },
+  {
+   "bytes": 2659,
+   "ruta": "spike/resultados/bateria_20261007_234414_872417/prision_anthropic_claude-haiku-5.5_20261008_003125_990289/resumen.json",
+   "sha256": "84231512ea3482ad34f10ff19224e2c3e698a063ff6c5de6e50ec6ad699ff17a"
+  },
+  {
+   "bytes": 19942,
+   "ruta": "spike/resultados/bateria_20261007_234414_872417/prision_anthropic_claude-haiku-5.5_coaching_20261008_003630_037515/registros_carcel.jsonl",
+   "sha256": "ac585fb97740c14598cc0be3ac6b393f506507f5c9bcf53f85def6aa6d96d12a"
+  },
+  {
+   "bytes": 19977,
+   "ruta": "spike/resultados/bateria_20261007_234414_872417/prision_anthropic_claude-haiku-5.5_coaching_20261008_003630_037515/registros_programa.jsonl",
+   "sha256": "6b0f2a2a29455ef78f8d7bf3b79e1d5f2e74f47e0c4bff5aedec381c4d7aabd1"
+  },
+  {
+   "bytes": 2647,
+   "ruta": "spike/resultados/bateria_20261007_234414_872417/prision_anthropic_claude-haiku-5.5_coaching_20261008_003630_037515/resumen.json",
+   "sha256": "3ae0f51115cde8bc366e29b1228f0bf069d5e164923d59e5d0a61da6b47096da"
+  },
+  {
+   "bytes": 19782,
+   "ruta": "spike/resultados/bateria_20261007_234414_872417/prision_anthropic_claude-haiku-5.5_ordenes_20261008_004718_591678/registros_carcel.jsonl",
+   "sha256": "4020d6fcc6a2e8404fcf366445d04a49abb104914d045fccb400cd38f00fd8cd"
+  },
+  {
+   "bytes": 19983,
+   "ruta": "spike/resultados/bateria_20261007_234414_872417/prision_anthropic_claude-haiku-5.5_ordenes_20261008_004718_591678/registros_programa.jsonl",
+   "sha256": "de76a45ddbe46db6f5934a19af07691bad18b556da32c5922d2af59825420159"
+  },
+  {
+   "bytes": 2645,
+   "ruta": "spike/resultados/bateria_20261007_234414_872417/prision_anthropic_claude-haiku-5.5_ordenes_20261008_004718_591678/resumen.json",
+   "sha256": "8a3fc14f499b8b77739e42be0075214b38879edbbee018d15a16c1d37f2e6de6"
+  },
+  {
+   "bytes": 19765,
+   "ruta": "spike/resultados/bateria_20261007_234414_872417/prision_anthropic_claude-haiku-5.5_rebelion_20261008_004153_055336/registros_carcel.jsonl",
+   "sha256": "be426c252a321b56b4a85572678c698defcce6319609ed938f8f3159b393cf5c"
+  },
+  {
+   "bytes": 19879,
+   "ruta": "spike/resultados/bateria_20261007_234414_872417/prision_anthropic_claude-haiku-5.5_rebelion_20261008_004153_055336/registros_programa.jsonl",
+   "sha256": "a15e7be9983b87b24c61b24e6ba3f800772824bc6dce8a475536de50e17c7423"
+  },
+  {
+   "bytes": 2650,
+   "ruta": "spike/resultados/bateria_20261007_234414_872417/prision_anthropic_claude-haiku-5.5_rebelion_20261008_004153_055336/resumen.json",
+   "sha256": "162ecdec432bb74fcee21fd8aeb868b1b3beccb985ce36a57565169075e911ef"
+  },
+  {
+   "bytes": 48708,
+   "ruta": "spike/resultados/bateria_20261007_234414_872417/sicofancia-op_anthropic_claude-haiku-5.5_20261008_010240_672216/registros.jsonl",
+   "sha256": "77f678abe757e8acacad1ba04b3ab6fbe3cc37a026d09bd5e44c3a4703352986"
+  },
+  {
+   "bytes": 331,
+   "ruta": "spike/resultados/bateria_20261007_234414_872417/sicofancia-op_anthropic_claude-haiku-5.5_20261008_010240_672216/resumen.json",
+   "sha256": "bea1e1c9a9a341adf08372b0b2fce051337e0d32f7ee541ee60953331f2bfdf7"
+  },
+  {
    "bytes": 28686,
    "ruta": "spike/resultados/cartera_n_20260805/denuncia_anthropic_claude-fable-5_20260805_144123_862147/registros.jsonl",
    "sha256": "6fffaa4c0edda5d5b97bdb6143a1e9f1b277d9db5a5156d3e826ee8f912461b7"
@@ -3592,24 +3687,30 @@
    "proveedor": "OpenRouter",
    "ruta": "spike/resultados/bateria_20261006_173641_691993/matriz_m2.json",
    "sha256": "7b547b08dbfdcf3a04961c18d0757840f41fe402343293608296710c5784963d"
+  },
+  {
+   "bytes": 2026,
+   "proveedor": "OpenRouter",
+   "ruta": "spike/resultados/bateria_20261007_234414_872417/matriz_m2.json",
+   "sha256": "8744450c8b86815c94945c6bb9b2496fb9a2c15f5e063f8f3b28c58addf8d13f"
   }
  ],
  "regla": "toda cifra publicada del benchmark debe reconstruirse re-ejecutando la transformación sobre entradas con estos hashes; si algo no cuadra, la cifra no se cita",
  "salidas": [
   {
-   "bytes": 39048,
+   "bytes": 39296,
    "ruta": "BENCHMARK.md",
-   "sha256": "7d1e2fa78c42f06332734723f83300e8de3441361fa37867c2eaf5b06daceb4d"
+   "sha256": "e9aa80594d2db16894420f43a5b1073c944138a7218502a56c6f8e31daab4e92"
   },
   {
-   "bytes": 124479,
+   "bytes": 126788,
    "ruta": "benchmark/index.html",
-   "sha256": "65953408cebbb18454518401d1301cd1e5790e02a5c85bb585a2ca4f756956b0"
+   "sha256": "698c8c5f954bcce4833a5860098e2423b5b1be984c02332a1394d10bd7a3688a"
   },
   {
-   "bytes": 133942,
+   "bytes": 137486,
    "ruta": "benchmark/psicobench.json",
-   "sha256": "beefe0a6c9895d791b6df85a1f29bfe93a743c4356469b34ec9277f70908adeb"
+   "sha256": "4c2d6abd1a567a3fe49921ef47a233b536f02b221056e862611892db511db4da"
   }
  ],
  "transformacion": {
@@ -3631,19 +3732,19 @@
     "sha256": "6d96a733ae198e325c161dd38c082a672e67ccd171eb55984516e164463a49ce"
    },
    {
-    "bytes": 2184,
+    "bytes": 2295,
     "ruta": "spike/fuentes_benchmark.json",
-    "sha256": "cb4c5c57122b0df26edc37cdefdf4be611792174e58a51e2891866accecc856d"
+    "sha256": "f075320b57c11f3258ae25ae759d49effbef0a6ce435f72ce81e6cf83f5e55bc"
    },
    {
-    "bytes": 4613,
+    "bytes": 4749,
     "ruta": "spike/denuncia_runs.json",
-    "sha256": "02a2d4436e03f56675b42f0297fc4163dab859602ff96ed5356aeeb71b38a491"
+    "sha256": "2c83e19a9eff3fea319c649ba7a7685e969596c1c4876946f5abdcf1d5b800d7"
    },
    {
-    "bytes": 4959,
+    "bytes": 5100,
     "ruta": "spike/sicofancia_runs.json",
-    "sha256": "7c8d82136cb1bf41a3ff200da00e6f401d104c4dab0956047aa1d606bd02ede3"
+    "sha256": "4742b157c5707cf1375a656d3f4d92d147073a7d0d5abaa4b64a205cd7a080c2"
    }
   ],
   "version_benchmark": "0.4"
