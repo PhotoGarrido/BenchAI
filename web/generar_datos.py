@@ -694,6 +694,12 @@ def bloque_corpus() -> dict:
     base = RAIZ / "spike" / "resultados"
     carpetas = ({p.parent for p in base.rglob("manifest_run.json")}
                 | {p.parent for p in base.rglob("solicitudes.jsonl")})
+    # El piloto de personalidad (PERSONALIDAD.md, carpetas personalidad_*) es
+    # un instrumento aparte, aún no publicado: sus llamadas no entran en el
+    # corpus de PsicoBench que cita la web. Si se publica, se decide entonces.
+    carpetas = {c for c in carpetas
+                if not any(parte.startswith("personalidad_")
+                           for parte in c.relative_to(base).parts)}
 
     llamadas = tok_in = tok_out = n_tok = 0
     runs = completados = errores = 0

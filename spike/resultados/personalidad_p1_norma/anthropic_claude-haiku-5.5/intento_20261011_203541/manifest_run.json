@@ -1,0 +1,29 @@
+{
+  "commit": "1dcf122bad8b2cd7e1fb01cad722709aeebd34e9",
+  "python": "3.12.4",
+  "parser_version": "2.5",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "calibrar_norma.py",
+    "--modelo",
+    "anthropic/claude-haiku-5.5",
+    "--hilos",
+    "6"
+  ],
+  "args": {
+    "modelo": "anthropic/claude-haiku-5.5",
+    "n_tareas": 358,
+    "n_pendientes": 358
+  },
+  "hashes": {},
+  "inicio": "2026-10-11T20:35:41",
+  "status": "completed",
+  "fin": "2026-10-11T20:37:22",
+  "solicitudes": 358,
+  "errores": 0,
+  "fallo_escritura": false
+}

@@ -1,0 +1,28 @@
+{
+  "commit": "1dcf122bad8b2cd7e1fb01cad722709aeebd34e9",
+  "python": "3.12.4",
+  "parser_version": "2.5",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "experimento_personalidad_v3.py",
+    "--modelo",
+    "mimo-v2.6-flash"
+  ],
+  "args": {
+    "modelo": "mimo-v2.6-flash",
+    "version": "v3",
+    "n_pendientes": 756,
+    "seleccion_sha256": "13dd216cba4479884b15d77223358eb31777f4deaa81f35b3dd962ed1802b63c"
+  },
+  "hashes": {},
+  "inicio": "2026-10-17T14:23:37",
+  "status": "completed",
+  "fin": "2026-10-17T16:02:55",
+  "solicitudes": 764,
+  "errores": 8,
+  "fallo_escritura": false
+}

@@ -1,0 +1,28 @@
+{
+  "commit": "1dcf122bad8b2cd7e1fb01cad722709aeebd34e9",
+  "python": "3.12.4",
+  "parser_version": "2.5",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "experimento_personalidad_v3.py",
+    "--modelo",
+    "qwen3.8-flash"
+  ],
+  "args": {
+    "modelo": "qwen3.8-flash",
+    "version": "v3",
+    "n_pendientes": 144,
+    "seleccion_sha256": "16f310c9bf69d6d9cc465467435022b2f8120e0bfba12d00531fc9a9b16b4203"
+  },
+  "hashes": {},
+  "inicio": "2026-10-17T16:19:40",
+  "status": "completed",
+  "fin": "2026-10-17T16:35:43",
+  "solicitudes": 145,
+  "errores": 1,
+  "fallo_escritura": false
+}

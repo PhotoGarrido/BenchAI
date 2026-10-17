@@ -1,0 +1,36 @@
+{
+  "commit": "1dcf122bad8b2cd7e1fb01cad722709aeebd34e9",
+  "python": "3.12.4",
+  "parser_version": "2.5",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "experimento_personalidad_p1.py",
+    "--modelo",
+    "google/gemini-3.7-flash",
+    "--replica-r3",
+    "--brazos",
+    "sit_propia",
+    "--hilos",
+    "6"
+  ],
+  "args": {
+    "modelo": "google/gemini-3.7-flash",
+    "hilos": 6,
+    "replica_r3": true,
+    "brazos": "sit_propia",
+    "version_bateria": "P1",
+    "n_tareas": 716,
+    "n_pendientes": 358
+  },
+  "hashes": {},
+  "inicio": "2026-10-16T23:47:59",
+  "status": "completed",
+  "fin": "2026-10-16T23:51:52",
+  "solicitudes": 358,
+  "errores": 0,
+  "fallo_escritura": false
+}
