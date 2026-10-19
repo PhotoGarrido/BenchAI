@@ -97,6 +97,7 @@ LABS = {
     "inclusionai": "inclusionAI",
     "meta": "Meta", "nvidia": "NVIDIA", "cohere": "Cohere",
     "unbiased": "Unbiased",   # Pareto (el Union Alpha desvelado, 18-09-2026)
+    "minimax": "MiniMax",     # M3.1 Flash (el Space Bunny desvelado, 19-10-2026)
     # ids planos del gateway NaN (se resuelven por prefijo, ver _lab)
     "gemma": "Google", "mimo": "Xiaomi", "glm": "Zhipu",
 }
@@ -112,6 +113,15 @@ DESVELADOS = {
     # unbiased/pareto el 18-09-2026 a la 01:02 local, 2,50/7,50 $ por M.
     "stealth/union-alpha": {"lab": "Unbiased", "nombre": "Pareto",
                            "fecha": "18-09-2026"},
+    # Tres semanas de preview (en el catálogo de OpenRouter desde el
+    # 23-09-2026): MiniMax lo presentó en X el 19-10-2026 («MiniMax-M3.1-Flash
+    # is coming») y OpenRouter lo da por desvelado como MiniMax M3.1 Flash.
+    "stealth/space-bunny-alpha#low": {"lab": "MiniMax",
+                                      "nombre": "MiniMax-M3.1-Flash",
+                                      "fecha": "19-10-2026"},
+    "stealth/space-bunny-alpha#high": {"lab": "MiniMax",
+                                       "nombre": "MiniMax-M3.1-Flash",
+                                       "fecha": "19-10-2026"},
 }
 
 # Ids de llamada que no dicen lo que sirven. El panel de modelos de NaN
@@ -135,7 +145,10 @@ _NOTA_SPACE_BUNNY = (
     "preview; modelo anónimo, sin laboratorio conocido) en dos condiciones "
     "de razonamiento, `#low` y `#high`, que son dos entradas; el proveedor "
     "upstream devolvió a menudo respuestas vacías (200 sin `choices`), "
-    "reintentadas con espera: ninguna celda se imputó")
+    "reintentadas con espera: ninguna celda se imputó. La medición es de la "
+    "preview servida en stealth; la versión pública de MiniMax-M3.1-Flash "
+    "(pesos y precio anunciados para el 23-10-2026), si se mide, es otra "
+    "entrada")
 NOTAS = {
     "deepseek-v4-flash": (
         "se pide a la API de NaN como `deepseek-v4-flash`; el panel de "

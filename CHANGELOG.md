@@ -1,5 +1,19 @@
 # Changelog
 
+## Sin versión (mediciones, no instrumento) · Space Bunny Alpha desvelado: MiniMax-M3.1-Flash; 13 laboratorios · 19-10-2026
+
+- **Space Bunny Alpha ya tiene nombre**: el 19-10-2026 MiniMax anunció en X
+  «MiniMax-M3.1-Flash is coming» y OpenRouter da el stealth por desvelado
+  como MiniMax M3.1 Flash (en su catálogo desde el 23-09-2026; pesos y
+  precio anunciados para el 23-10-2026). Las dos entradas,
+  `space-bunny-alpha#low` (ISS 7,9) y `#high` (10,3), conservan su id y su
+  medición (artefactos fechados en preview, 28/29-09-2026) y pasan a contar
+  como MiniMax: `DESVELADOS` gana las dos, `LABS` el prefijo `minimax`, y la
+  nota al pie avisa de que la versión pública, si se mide, es otra entrada.
+- **Laboratorio nuevo**: el banco queda en **38 mediciones de 13
+  laboratorios**, sin ningún stealth pendiente de desvelar. Prosa de
+  portada, home, /psicobench y README al día.
+
 ## Sin versión (mediciones, no instrumento) · Claude Haiku 5.5 el día de su lanzamiento: 37 → 38 · 08-10-2026
 
 - **`claude-haiku-5.5`** (OpenRouter, 07/08-10-2026, razonamiento por

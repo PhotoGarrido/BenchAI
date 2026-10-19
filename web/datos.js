@@ -9,12 +9,13 @@ window.PSICO = {
  "generadoPor": "web/generar_datos.py",
  "portada": {
   "mediciones": 38,
-  "laboratorios": 12,
+  "laboratorios": 13,
   "labs": [
    "Alibaba",
    "Anthropic",
    "DeepSeek",
    "Google",
+   "MiniMax",
    "Mistral",
    "Moonshot",
    "OpenAI",
@@ -24,7 +25,7 @@ window.PSICO = {
    "Zhipu",
    "xAI"
   ],
-  "sinDesvelar": 2,
+  "sinDesvelar": 0,
   "rangoObediencia": [
    0.0,
    1.0
@@ -305,7 +306,7 @@ window.PSICO = {
    {
     "id": "space-bunny-alpha#low",
     "modelo": "stealth/space-bunny-alpha#low",
-    "lab": "sin desvelar",
+    "lab": "MiniMax",
     "proveedor": "OpenRouter",
     "fecha": "28-09-2026",
     "iss": 7.9,
@@ -495,8 +496,12 @@ window.PSICO = {
       "pos": 1
      }
     ],
-    "nota": "medido en fase stealth por OpenRouter (28/29-09-2026, gratis en preview; modelo anónimo, sin laboratorio conocido) en dos condiciones de razonamiento, `#low` y `#high`, que son dos entradas; el proveedor upstream devolvió a menudo respuestas vacías (200 sin `choices`), reintentadas con espera: ninguna celda se imputó",
-    "desvelado": null
+    "nota": "medido en fase stealth por OpenRouter (28/29-09-2026, gratis en preview; modelo anónimo, sin laboratorio conocido) en dos condiciones de razonamiento, `#low` y `#high`, que son dos entradas; el proveedor upstream devolvió a menudo respuestas vacías (200 sin `choices`), reintentadas con espera: ninguna celda se imputó. La medición es de la preview servida en stealth; la versión pública de MiniMax-M3.1-Flash (pesos y precio anunciados para el 23-10-2026), si se mide, es otra entrada",
+    "desvelado": {
+     "fecha": "19-10-2026",
+     "lab": "MiniMax",
+     "nombre": "MiniMax-M3.1-Flash"
+    }
    },
    {
     "id": "gpt-6-sol#low",
@@ -893,7 +898,7 @@ window.PSICO = {
    {
     "id": "space-bunny-alpha#high",
     "modelo": "stealth/space-bunny-alpha#high",
-    "lab": "sin desvelar",
+    "lab": "MiniMax",
     "proveedor": "OpenRouter",
     "fecha": "28-09-2026",
     "iss": 10.3,
@@ -1083,8 +1088,12 @@ window.PSICO = {
       "pos": 1
      }
     ],
-    "nota": "medido en fase stealth por OpenRouter (28/29-09-2026, gratis en preview; modelo anónimo, sin laboratorio conocido) en dos condiciones de razonamiento, `#low` y `#high`, que son dos entradas; el proveedor upstream devolvió a menudo respuestas vacías (200 sin `choices`), reintentadas con espera: ninguna celda se imputó",
-    "desvelado": null
+    "nota": "medido en fase stealth por OpenRouter (28/29-09-2026, gratis en preview; modelo anónimo, sin laboratorio conocido) en dos condiciones de razonamiento, `#low` y `#high`, que son dos entradas; el proveedor upstream devolvió a menudo respuestas vacías (200 sin `choices`), reintentadas con espera: ninguna celda se imputó. La medición es de la preview servida en stealth; la versión pública de MiniMax-M3.1-Flash (pesos y precio anunciados para el 23-10-2026), si se mide, es otra entrada",
+    "desvelado": {
+     "fecha": "19-10-2026",
+     "lab": "MiniMax",
+     "nombre": "MiniMax-M3.1-Flash"
+    }
    },
    {
     "id": "claude-opus-4.8",
