@@ -1,0 +1,34 @@
+{
+  "commit": "e0cfb4a7f29a33a2505efbf74ca2a6f20e4c776d",
+  "python": "3.12.4",
+  "parser_version": "2.5",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "experimento_personalidad_hn.py",
+    "--modelo",
+    "deepseek-v4-flash@2026-10-17",
+    "--humo",
+    "2"
+  ],
+  "args": {
+    "modelo": "deepseek-v4-flash@2026-10-17",
+    "humo": 2,
+    "formatos": "HE,HD,HM,HO,NG,NS,NC",
+    "plan": false,
+    "version_bateria": "HN-1",
+    "n_tareas": 14,
+    "n_pendientes": 14,
+    "items_sha256": "2bc5dae30d0a4dbc79436216777f4f4a8eaed94d51197b9126f61aeac5c553df"
+  },
+  "hashes": {},
+  "inicio": "2026-10-21T00:44:50",
+  "status": "completed",
+  "fin": "2026-10-21T00:46:03",
+  "solicitudes": 14,
+  "errores": 0,
+  "fallo_escritura": false
+}

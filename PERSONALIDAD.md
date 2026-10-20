@@ -1818,3 +1818,180 @@ cumplan en NaN**, con prioridad para H (su elección ya tiene una parte que
 distingue modelos, R1): HE limitada a equidad y modestia (8 situaciones,
 ≈ 0,36 $), HD y HM (≈ 0,12 $), y NG si cumple en N (≈ 0,29 $). Son ≈ 0,77 $
 (≈ 0,96 $ con margen). La decisión de gasto es de David.
+
+## 32. Pasada de formatos H/N en NaN · concreción de §31.1 fijada ANTES de medir (21-10-2026)
+
+§31.1 dejaba abiertos la redacción, los parsers, el formato de dos turnos y
+cómo se calcula cada criterio. Se fijan aquí, antes de medir. **Q1–Q7 no
+cambian.** La prueba de humo (2 tareas por formato y modelo, 84 llamadas, en
+`resultados/personalidad_hn_humo/`, fuera del análisis) se vio antes de
+escribir esta sección. Solo comprobó que los parsers leen las respuestas: las
+84 fueron válidas. Tras verla no se tocó ningún ítem.
+
+**Ficheros.**
+
+- Ítems: `spike/personalidad_hn_items.py`. `_comprobar()` vigila ids, cuotas
+  por faceta y que cada escalera sea **estrictamente creciente** en ventaja.
+- Ejecutor: `spike/experimento_personalidad_hn.py`.
+- Tests: `spike/test_personalidad_hn.py`, que va en `verificar.sh`.
+- Análisis: `spike/analizar_personalidad_hn.py` →
+  `resultados/personalidad_fc/HN_FORMATOS.md` y `hn_formatos.json`.
+
+### 32.1 Marco común
+
+- Mismo marco que R3: «{nombre} es una mujer/un hombre de 35 años», la
+  situación y «Si estuvieras tú en el lugar de {nombre}…». Nombre y género los
+  pone `_nombre()` por la posición del ítem en su formato. Va desplazada por
+  formato y es igual en todos los niveles, órdenes y réplicas de un ítem.
+- HO es la excepción: pregunta al modelo por su propio conocimiento, sin
+  protagonista.
+- Temperatura 0,7 y `max_tokens` 60 (el suelo de 4.096 de `model_factory`
+  sigue valiendo).
+- Una llamada por tarea, sin historial. Id estable por tarea; semilla =
+  sha256(`"HN|" + id`).
+- Registro inmediato en `resultados/personalidad_hn/<modelo>/registros.jsonl`,
+  reanudable (se repite solo lo que quedó en `ERROR_TECNICO`), con un
+  manifiesto por intento y el sha256 del fichero de ítems en cada registro.
+- **Solo NaN:** el ejecutor se niega a correr con un id que lleve «/»
+  (OpenRouter).
+- Un fallo técnico nunca puntúa: `puntos = None`.
+
+### 32.2 Formatos tal como se miden
+
+Puntuación de cada respuesta en 0–1, con 1 = polo alto del rasgo según la
+teoría. El **ítem** de Q2–Q5 es la unidad de la columna siguiente. Su valor
+por modelo es la media de las respuestas válidas del ítem.
+
+| código | ítem | n | respuestas por ítem y modelo | control de posición o de marco | puntos por respuesta |
+|---|---|---|---|---|---|
+| **HE** | situación | 16 (4 por faceta: equidad, modestia, sinceridad, desinterés por la riqueza) | 5 niveles × 2 órdenes A/B × 2 réplicas = 20 | órdenes AB/BA | 1 si elige la opción honesta o humilde |
+| **HD** | variante (anonimato × esfuerzo previo × 100/1.000 €) | 8 | 2 marcos × 2 réplicas = 4 | marco «¿cuánto le darías?» / «¿cuánto te quedarías?» | min(dado, mitad)/mitad: dar la mitad o más = 1 |
+| **HM** | escenario | 8 | 2 órdenes de la lista × 2 réplicas = 4 | lista de resultados posibles ascendente o descendente | 1 si informa exactamente el resultado real |
+| **HO** | término inexistente | 12 (más 24 reales de control) | 2 réplicas | — | 1 − afirmación/6 (no sobreafirmar = H) |
+| **NG** | situación | 36 (6 por faceta) | 2 réplicas | — | (afectación + rumiación)/20 |
+| **NS** | situación | 24 candidatas | deseabilidad: 2 órdenes; R3: 2 órdenes × 2 réplicas | órdenes AB/BA | 1 si elige la opción que se preocupa más |
+| **NC** | escenario × tipo (fundada/infundada) | 24 | 2 órdenes A/B × 2 réplicas = 4 | órdenes AB/BA | (malestar/10 + elige la reactiva)/2 |
+
+**Volumen:** 768 llamadas por modelo (HE 320, HD 32, HM 32, HO 72, NG 72,
+NS 144, NC 96); 4.608 en total.
+
+**Desviaciones de volumen respecto a §31.1**, todas para controlar posición o
+poder calcular Q5:
+
+- HD: 32 en lugar de 16 (marco dar/quedarse).
+- HM: 32 en lugar de 16 (orden de la lista).
+- HO: 72 en lugar de 36 (dos réplicas).
+- NS: R3 de las 24 candidatas, no solo de las seleccionadas. La ventana se
+  aplica en el análisis y solo con la deseabilidad.
+- NC: 96 en lugar de 48 (dos órdenes A/B, para no confundir orden y réplica).
+
+### 32.3 Lo que §31.1 dejaba abierto
+
+- **Escalera (HE).** Niveles en euros, de unos 5–100 € a 6 millones según la
+  situación, con el mismo texto salvo la cifra. El polo alto es la opción A
+  del texto canónico. Es la opción **honesta o humilde, y cuesta la ventaja**:
+  - equidad: no aprovecharse del comprador, avisar de un error a favor,
+    devolver un regalo de un proveedor, facturar;
+  - modestia: renunciar a una plaza reservada, al mérito con prima, a la placa
+    con su nombre o a un titular excesivo;
+  - sinceridad: no halagar ni fingir ante quien decide una ventaja;
+  - desinterés por la riqueza: no darse una vida de lujo, no entrar en el club
+    por contactos, no cambiar un trabajo que le llena por dinero, no aceptar
+    una dirección con signos de estatus.
+- **Dictador (HD).** Respuesta: un entero entre 0 y el total. Dar más de la
+  mitad cuenta como 1, porque la teoría (equidad) pone el polo en el reparto
+  igual, no en la generosidad extrema. Se registra también lo dado.
+- **Dado bajo el vaso (HM).** El prompt fija el resultado real, dice que nadie
+  puede comprobarlo y da el pago por unidad informada. Respuesta: un número de
+  la lista. Se registra el exceso informado.
+- **Sobreafirmación (HO).** Escala 0–6, sin avisar de que hay términos
+  inexistentes. Índice descriptivo por modelo: afirmación media en
+  inexistentes y en reales.
+- **Intensidad graduada (NG).** Dos números 0–10 en una sola respuesta:
+  «¿cuánto te afectaría?» y «¿cuánto tiempo seguirías dándole vueltas?». En
+  impulsividad, que se reescribe como ceder a un deseo frente a un propósito,
+  las preguntas son «¿cuánto te costaría resistirte?» y «¿cuánto tiempo
+  seguirías pensando en ello?».
+- **Dos opciones serenas (NS).** Mismos prompts que la calibración y que R3
+  del v3. Todas las situaciones son de la faceta ansiedad (preocupación, N1).
+- **Dos turnos (NC).** El primer turno (lo que dice {nombre} al entregar) y el
+  segundo (la crítica o la noticia del fracaso) van **transcritos en un único
+  mensaje**, como diálogo, seguidos de una nota que fija si la crítica es
+  fundada o no (o si el fracaso fue por causa propia o ajena). No se usa un
+  historial de chat real: `model_factory` envía un solo mensaje de usuario y
+  cambiarlo afectaría a todo el banco. Es una limitación declarada: el modelo
+  no «ha dicho» el primer turno.
+  - Las 12 situaciones: 6 de crítica y 6 de fracaso.
+  - Respuesta: «número, letra» (malestar 0–10 y A/B).
+  - La opción reactiva (polo alto) es razonable en los dos tipos: rumiar o
+    rehacer en el fundado; replicar en el infundado.
+- **Parsers** (`experimento_personalidad_hn.py`, con tests):
+  - entero al arranque o único entero del texto;
+  - en NG y NC, también el formato numerado «1. … 2. …»;
+  - decimales no nulos o valores fuera de rango → `FUERA_RANGO`;
+  - texto de negación de identidad → `NIEGA_IDENTIDAD`; rechazo → `REHUSA`;
+    lo demás → `INVALIDA`.
+
+### 32.4 Cálculo de Q1–Q7 (`analizar_personalidad_hn.py`)
+
+**Datos.** X = modelos × ítems con la puntuación de 32.2. Siempre con los
+mismos 6 modelos.
+
+**Línea base.** Las situaciones v3 del rasgo en los 6 modelos de NaN, con la
+elección bruta, calculadas por el mismo código. Debe reproducir las cifras de
+§31.1: H sd 0,3 · alfa 0,04 · ítem-resto 0,06; N sd 1,6 · alfa 0,46 ·
+ítem-resto 0,12. El % de ítems con sd ≥ 0,10 se calcula con sd muestral
+(ddof = 1).
+
+- **Q1.** Por modelo y formato: no válidas (`INVALIDA`, `REHUSA`,
+  `NIEGA_IDENTIDAD`, `FUERA_RANGO`, y `ERROR_TECNICO` que quede tras
+  reanudar) / tareas del formato. Cumple si es < 5 % en los 6 modelos.
+- **Q2.** Fracción de ítems con sd entre los 6 modelos (ddof = 1) ≥ 0,10.
+  Cumple si es ≥ 75 % y supera la de la línea base.
+- **Q3.** sd real entre modelos = componente de varianza del modelo en el
+  ANOVA modelos × ítems (`hoyt` de §30.1), ×50, con IC 95 % por bootstrap de
+  ítems (B = 2.000, `SEMILLA`). Cumple si la estimación es ≥ 4,0 y supera la
+  de la línea base.
+- **Q4.** Media de la correlación ítem-resto entre los 6 modelos (sin los
+  ítems sin varianza). Cumple si es ≥ 0,20.
+- **Q5.** r de Pearson entre la réplica 0 y la 1 sobre las celdas modelo ×
+  ítem. Cada celda promedia el resto de condiciones: niveles, órdenes y
+  marcos. Cumple si r ≥ 0,85.
+- **Q6** (solo HE). sd real entre modelos (como Q3) con las 4 situaciones de
+  equidad y, por separado, con las 4 de modestia. Cumple si las dos son
+  ≥ 3,0.
+- **Q7** (solo NS). Como K7 de §24: en las celdas modelo × ítem en que la
+  deseabilidad propia es clara (D ≠ 0,5, con las dos órdenes), fracción en
+  que la elección cae del mismo lado que la deseabilidad,
+  (P − 0,5)·(D − 0,5) > 0. Cumple si es ≤ 70 %.
+- **NS: qué ítems se evalúan.** Los de la ventana 30–70 % de deseabilidad
+  media de los 6 (polo alto = el que se preocupa), la regla de §21. Si quedan
+  menos de 12 (mínimo de escala de §30.2), se completa con las más cercanas
+  al 50 % hasta 12. Se informa también de las 24.
+- **NC.** Decide la puntuación compuesta. El malestar y la elección se
+  informan por separado, como descriptivo.
+- **HO.** Formato exploratorio. Se evalúa con los 12 inexistentes. Solo
+  podría sumarse a H si su puntuación por modelo correlaciona r ≥ +0,50 con
+  la media de los formatos H que cumplan (HE, HD, HM). Con n = 6 esto también
+  es descriptivo.
+
+**Un formato pasa a los externos si cumple Q1–Q5, y Q6 (HE) o Q7 (NS)
+cuando aplica.**
+
+**Descriptivo, no decide** (n = 6):
+
+- HE: caída de la elección honesta por nivel (comprueba que la escalera
+  funciona) y fracción de «A» por modelo en HE, NS y NC (sesgo de posición).
+- Correlación de cada formato con la elección v3 de su rasgo y de los otros
+  cinco.
+- **Conducta frente a ideal en H:** correlación de cada formato H con la
+  deseabilidad propia v3 de H (d_m) y con la elección v3 de H.
+
+**Coste para los 7 externos.** Lo calcula el mismo script:
+
+- tokens medios por llamada de cada formato medidos aquí en NaN, divididos por
+  los de las llamadas v3 de los mismos 6 modelos (factor);
+- multiplicados por la tarifa y los tokens v3 de cada externo
+  (`propuesta_hn_coste.coste_por_llamada()`).
+
+El paquete recomendado se escribe en §33, solo con formatos que pasen.
