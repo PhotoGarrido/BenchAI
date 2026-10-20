@@ -61,13 +61,27 @@ def signo(lo, hi):
     return "▲" if lo > 0 else "▼" if hi < 0 else ""
 
 
-def cargar_v3():
+def cargar_seleccion(rutas=(SEL,)):
+    """Situaciones de uno o varios ficheros de selección, en orden.
+
+    Si un id se repite, manda la última aparición (un fichero posterior, como
+    el del banco v3.1, puede redefinir una situación) y conserva su posición
+    original."""
+    por_id = {}
+    for r in rutas:
+        for s in json.loads(pathlib.Path(r).read_text(encoding="utf-8")):
+            por_id[s["id"]] = s
+    return list(por_id.values())
+
+
+def cargar_v3(rutas_sel=(SEL,)):
     """Banco v3: selección, R3 válidas por modelo y situaciones comunes.
 
+    rutas_sel: ficheros de selección (por defecto, solo el del banco v3).
     Devuelve un dict con sel, rasgo_de, faceta_de, des, ms (modelos con el
     banco completo), excluidos, invalidas, elecciones {m: {item: [(orden, rep,
     elige_alto)]}}, comunes, por_rasgo y facetas."""
-    sel = json.loads(SEL.read_text(encoding="utf-8"))
+    sel = cargar_seleccion(rutas_sel)
     rasgo_de = {s["id"]: s["rasgo"] for s in sel}
     faceta_de = {s["id"]: s["faceta"] for s in sel}
     datos = cargar(ap1.DIR)
@@ -103,6 +117,39 @@ def cargar_v3():
             "ms": ms, "excluidos": excluidos, "invalidas": invalidas,
             "elecciones": elecciones, "comunes": comunes, "por_rasgo": por_rasgo,
             "facetas": facetas}
+
+
+def facetas_score(a, ms, comunes, rasgo_de, faceta_de, facetas):
+    """{(rasgo, faceta): [media de a(m, i) en la faceta, por modelo en orden ms]}."""
+    return {f: [np.mean([a[m][i] for i in comunes if (rasgo_de[i], faceta_de[i]) == f])
+                for m in ms] for f in facetas}
+
+
+def g3_estructura(fac_score, facetas):
+    """G3: {rasgo: (r media entre facetas del rasgo, r media con facetas de otros)}."""
+    corr = {}
+    for f1, f2 in combinations(facetas, 2):
+        x, y = np.array(fac_score[f1]), np.array(fac_score[f2])
+        if np.std(x) and np.std(y):
+            corr[(f1, f2)] = float(np.corrcoef(x, y)[0, 1])
+    g3 = {}
+    for t in RASGOS:
+        dentro = [v for (f1, f2), v in corr.items() if f1[0] == t and f2[0] == t]
+        fuera = [v for (f1, f2), v in corr.items() if (f1[0] == t) != (f2[0] == t)]
+        g3[t] = (float(np.mean(dentro)) if dentro else None, float(np.mean(fuera)) if fuera else None)
+    return g3
+
+
+def g4_consistencia(a, ms, por_rasgo):
+    """G4: Spearman-Brown de mitades pares/impares entre modelos, por rasgo."""
+    g4 = {}
+    for t in RASGOS:
+        it = sorted(por_rasgo[t])
+        h1 = [np.mean([a[m][i] for i in it[0::2]]) for m in ms]
+        h2 = [np.mean([a[m][i] for i in it[1::2]]) for m in ms]
+        r = float(np.corrcoef(h1, h2)[0, 1])
+        g4[t] = 2 * r / (1 + r) if r > -1 else None
+    return g4
 
 
 def main():
@@ -144,29 +191,13 @@ def main():
     res["G2"] = {"r": r2, "n": len(x0), "cumple": r2 >= .90}
 
     # G3 estructura: facetas entre modelos
-    fac_score = {f: [np.mean([a[m][i] for i in comunes if (rasgo_de[i], faceta_de[i]) == f])
-                     for m in ms] for f in facetas}
-    corr = {}
-    for f1, f2 in combinations(facetas, 2):
-        x, y = np.array(fac_score[f1]), np.array(fac_score[f2])
-        if np.std(x) and np.std(y):
-            corr[(f1, f2)] = float(np.corrcoef(x, y)[0, 1])
-    g3 = {}
-    for t in RASGOS:
-        dentro = [v for (f1, f2), v in corr.items() if f1[0] == t and f2[0] == t]
-        fuera = [v for (f1, f2), v in corr.items() if (f1[0] == t) != (f2[0] == t)]
-        g3[t] = (float(np.mean(dentro)) if dentro else None, float(np.mean(fuera)) if fuera else None)
+    fac_score = facetas_score(a, ms, comunes, rasgo_de, faceta_de, facetas)
+    g3 = g3_estructura(fac_score, facetas)
     ok3 = sum(d is not None and f is not None and d > f for d, f in g3.values())
     res["G3"] = {"por_rasgo": g3, "rasgos_ok": ok3, "cumple": ok3 >= 4}
 
     # G4 consistencia interna: mitades pares/impares, Spearman-Brown, entre modelos
-    g4 = {}
-    for t in RASGOS:
-        it = sorted(por_rasgo[t])
-        h1 = [np.mean([a[m][i] for i in it[0::2]]) for m in ms]
-        h2 = [np.mean([a[m][i] for i in it[1::2]]) for m in ms]
-        r = float(np.corrcoef(h1, h2)[0, 1])
-        g4[t] = 2 * r / (1 + r) if r > -1 else None
+    g4 = g4_consistencia(a, ms, por_rasgo)
     res["G4"] = {"spearman_brown": g4,
                  "cumple": sum((v or 0) >= .70 for v in g4.values()) >= 5}
 

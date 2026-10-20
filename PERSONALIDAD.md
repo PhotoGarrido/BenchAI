@@ -1326,3 +1326,164 @@ fallaban P4 son evidencia de este indicador, no de la conducta comparada.
 **Pendiente:** recalcular el cuadro con esta definición, pasar las cinco
 comprobaciones y escribir los resultados en una sección nueva. No se
 retoca §28 a la vista de esos resultados.
+
+## 29. Cuadro público con la conducta comparada (20-10-2026)
+
+`python cuadro_publico_v3.py` (desde `spike/`, ≈ 7 s, sin llamadas a
+modelos). Cifras en `spike/resultados/personalidad_fc/CUADRO_PUBLICO.md` y
+`cuadro_publico.json`. El json está pensado para que lo consuma la web: por
+modelo, puntuación e IC de cada rasgo, comparación con su IC, marca
+publicable, nivel de la marca candidata y frase. La definición y las cinco
+comprobaciones son las de §28, sin cambios.
+
+El script reutiliza `analizar_v3.py` y `analizar_robustez_v3.py` con la
+semilla `SEMILLA`. Esos dos se han refactorizado en funciones reutilizables
+(`cargar_seleccion`, G3/G4, `d_consenso`, `mitades`, `clasificar`, `frase`),
+y sus salidas (`V3.md`, `CUADRO_V3.md`, `v3.json`, `ROBUSTEZ_V3.md`,
+`robustez_v3.json`) salen idénticas byte a byte. `CUADRO_V3.md`, con la
+deseabilidad propia, queda como salida secundaria.
+
+### Cuadro público (§28)
+
+Puntuación = 50 + 50·media(e − d̄); 50 = elige lo que el panel juzga
+admirable. ▲/▼ solo en las marcas **robustas**.
+
+| modelo | ISS | Apertura | Responsabilidad | Extraversión † | Amabilidad | Neuroticismo ‡ | Honestidad-Humildad |
+|---|---|---|---|---|---|---|---|
+| Haiku 5.5 | 10,3 | 52 | 39 | 42 | 28 ▼ | 56 | 38 |
+| Opus 5.5 #low | 12,5 | 55 | 33 ▼ | 42 | 38 | 49 | 43 |
+| DeepSeek Flash@ | — | 50 | 35 | 34 ▼ | 32 | 51 | 41 |
+| DeepSeek V4 Pro | — | 49 | 40 | 39 | 40 | 47 | 41 |
+| gemma4 | 28,1 | 55 | 45 ▲ | 37 | 29 ▼ | 54 | 37 |
+| glm5.3-flash | 28,9 | 55 | 39 | 38 | 34 | 47 | 40 |
+| Gemini 3.7 Flash | 55,2 | 37 ▼ | 39 | 52 ▲ | 47 ▲ | 48 | 37 |
+| Argon | — | 44 ▼ | 36 | 38 | 35 | 52 | 40 |
+| mimo | 12,6 | 56 | 40 | 43 | 36 | 51 | 39 |
+| Luna | 7,6 | 55 | 41 | 39 | 31 | 52 | 40 |
+| Sol #low | 13,2 | 52 | 34 ▼ | 38 | 33 | 49 | 46 ▲ |
+| qwen3.6 | 23,2 | 55 | 41 | 42 | 35 | 54 | 38 |
+| qwen3.8-flash | 24,8 | 49 | 36 | 40 | 32 | 50 | 39 |
+
+† Con aviso de fiabilidad (§23). ‡ Solo descriptivo.
+
+En C, E, A y H casi todas las puntuaciones quedan por debajo de 50: los
+modelos eligen el polo alto menos de lo que el panel juzga admirable. En O
+rondan el 50. La escala absoluta es descriptiva; lo que se afirma en público
+es la comparación.
+
+### Validez con la definición de §28: hay conflicto
+
+> **Conflicto pendiente de David.** Con la puntuación de §28, la
+> consistencia interna (G4) da la vuelta a la de §23:
+> - **Honestidad-Humildad** lleva marca, pero cae a 0,13.
+> - **Extraversión** solo lleva marca con aviso, pero sube a 0,93.
+>
+> El cuadro de arriba aplica §28 tal cual: no se ha cambiado qué rasgos
+> llevan marca.
+
+La tabla recalcula G3 y G4 de §21 sobre la puntuación de §28. Como d̄ es
+común a todos los modelos, entre modelos da lo mismo que calcularlos sobre la
+elección bruta. Lo detectó el agente del banco E/N como cálculo exploratorio,
+después de ver datos; aquí sale del script y es reproducible.
+
+| Rasgo | G3 dentro / fuera | G4 §28 | G4 §23 (deseabilidad propia) | Papel en §28 |
+|---|---|---|---|---|
+| Apertura | +0,46 / −0,08 ✔ | **0,94** | 0,90 | con marca |
+| Responsabilidad | +0,27 / −0,00 ✔ | **0,81** | 0,81 | con marca |
+| Extraversión | +0,27 / +0,02 ✔ | **0,93** | 0,36 | marca solo si robusta, con aviso → **conflicto** |
+| Amabilidad | +0,56 / −0,05 ✔ | **0,86** | 0,78 | con marca |
+| Neuroticismo | +0,04 / −0,03 ✔ (por poco) | 0,62 | 0,17 | solo descriptivo; sin conflicto (< 0,70) |
+| Honestidad-Humildad | −0,07 / −0,04 ✘ | **0,13** | 0,91 | con marca → **conflicto** |
+
+Lectura:
+
+- **H.** Su consistencia en §23 (0,91) venía del juicio de deseabilidad de
+  cada modelo, no de lo que elige. Es lo mismo que mostró P4 en §27: las
+  marcas de H dependían de la deseabilidad propia. Con la elección comparada,
+  sus facetas no se agrupan (falla G3) y las mitades no concuerdan.
+- **E.** Le pasa lo contrario: el ruido de la deseabilidad propia hundía su
+  consistencia. Su conducta comparada es tan consistente como la de O.
+- **N.** Sube a 0,62, todavía por debajo de 0,70. G3 apenas separa sus
+  facetas de las ajenas. Sigue siendo descriptivo.
+
+**Cómo quedaría el cuadro en cada caso.** Los niveles de robustez son los
+mismos en los dos; solo cambia en qué rasgos se admite marca.
+
+| Caso | Rasgos con marca | Diferencias en el retrato |
+|---|---|---|
+| **A · §28 tal cual** (cuadro de arriba) | O, C, A, H; E con aviso | Sol lleva H▲. Las E▲/▼ de Gemini Flash y DeepSeek Flash@ van con aviso. |
+| **B · según G4 ≥ 0,70** (no decidido) | O, C, E, A; H y N solo descriptivos | Sol pierde H▲ y se queda con C▼. Las E de Gemini Flash y DeepSeek Flash@ van sin aviso. El resto, igual. |
+
+En B ningún modelo se queda sin retrato. La única marca de H que se pierde,
+la de Sol, es robusta en las cinco comprobaciones, pero pertenece a un rasgo
+que, medido así, no es consistente. `CUADRO_PUBLICO.md` incluye la tabla y
+los retratos completos del caso B.
+
+### Marcas: 25 candidatas · 11 robustas · 5 frágiles · 9 no publicables
+
+| Nivel | Marcas |
+|---|---|
+| **Robusta** (pasa P1–P3, P5, P6) | Haiku A▼ · Opus C▼ · DeepSeek Flash@ E▼ (aviso) · gemma4 C▲ y A▼ · Gemini Flash O▼, A▲ y E▲ (aviso) · Argon O▼ · Sol C▼ y H▲ |
+| **Frágil** | DeepSeek Flash@ A▼ (P3) · DeepSeek V4 Pro A▲ (P3; sesgo de posición de §27) · glm5.3-flash O▲ (P3, P5) · mimo O▲ (P3, P5) · Luna A▼ (P2) |
+| **No publicable** | Opus O▲ · gemma4 O▲ · glm5.3-flash E▼ · mimo E▲ · Luna O▲ · qwen3.8-flash A▼ (fallan 3 o 4) · N: Haiku N▲, DeepSeek V4 Pro N▼, glm5.3-flash N▼ |
+
+La corrección BH se hace sobre 78 pruebas (13 × 6). Fuera de N, ninguna
+marca se invierte en las variantes.
+
+### Retratos publicables (caso A, §28)
+
+- **Haiku 5.5**: menos Amabilidad (pone límites y se defiende).
+- **Opus 5.5 #low**: menos Responsabilidad (prioriza descanso y flexibilidad).
+- **DeepSeek Flash@**: menos Extraversión (prefiere calma y segundo plano),
+  con aviso.
+- **gemma4**: más Responsabilidad (cumple y planifica); menos Amabilidad
+  (pone límites y se defiende).
+- **Gemini 3.7 Flash**: menos Apertura (prefiere lo conocido); más
+  Amabilidad (cede y coopera); más Extraversión (busca gente y
+  protagonismo), con aviso.
+- **Argon**: menos Apertura (prefiere lo conocido).
+- **Sol #low**: menos Responsabilidad (prioriza descanso y flexibilidad);
+  más Honestidad-Humildad (sincero, renuncia a ventajas).
+- **DeepSeek V4 Pro, glm5.3-flash, mimo, Luna, qwen3.6 y qwen3.8-flash**:
+  perfil próximo al de los demás modelos.
+
+Quedan 7 de 13 modelos con retrato (6 si no se publicara E).
+
+### Qué cambia respecto al cuadro v2 y a la recomendación de §27
+
+- **Se mantienen** 4 de las 6 marcas robustas de §27: Haiku A▼, Gemini
+  Flash A▲, Argon O▼ y Sol C▼. Sin el ajuste propio la diferencia es menor
+  (Haiku A pasa de −10,1 a −6,9), pero resisten todas las comprobaciones.
+- **Caen 2.** Parte de su Apertura venía de su juicio de deseabilidad:
+  - gemma4 O▲ pasa de +12,3 a +4,7 y queda no publicable.
+  - mimo O▲ pasa de +6,4 a +5,6 y queda frágil (P3, P5).
+- **Entran 7 nuevas**: Opus C▼, gemma4 C▲ y A▼, Gemini Flash O▼ y E▲,
+  DeepSeek Flash@ E▼ y Sol H▲.
+  - Opus C, gemma4 A y C, DeepSeek Flash@ E y Sol H ya aparecían en P4 de
+    §27 como marcas nuevas con deseabilidad común.
+  - Gemini Flash O▼ era no publicable en el cuadro v2 (−4,7); con la
+    elección bruta es la marca más grande (−15,5).
+- **Las 9 marcas frágiles solo por P4 en §27 desaparecen** como conducta
+  comparada: Haiku C y H, DeepSeek Flash@ H, gemma4 E, Gemini Flash C,
+  mimo C, Sol E, qwen3.6 C y H. Ninguna es marca candidata ahora. Quedan
+  como evidencia del indicador secundario, la distancia al ideal propio
+  (§28).
+- **qwen3.6** no tiene ninguna marca candidata: todo su perfil v2 venía de
+  su deseabilidad propia.
+- **Ganan retrato Opus y DeepSeek Flash@; lo pierde mimo.** Son 7 modelos
+  con retrato, frente a 6 en §27.
+
+### Se rehará con el banco v3.1
+
+`python cuadro_publico_v3.py` rehace el cuadro entero con un solo comando
+cuando llegue el banco v3.1 de E y N o se completen más modelos:
+
+- Modelos, situaciones y laboratorios se leen de los datos y de la selección,
+  con el filtro de cobertura ≥ 95 %.
+- Por defecto se leen `personalidad_v3_seleccion.json` y cualquier
+  `personalidad_v3*_seleccion.json` nuevo; con `--seleccion` se eligen a mano.
+- El conflicto de G4 se evalúa en cada ejecución y queda escrito en
+  `CUADRO_PUBLICO.md`.
+
+Las cifras de esta sección son las del banco v3 con 13 modelos. Con v3.1
+pueden cambiar las de E y N y, con ellas, el conflicto.

@@ -103,6 +103,52 @@ def particiones(items, faceta_de, rng):
     return out
 
 
+def d_consenso(des, ms, items):
+    """Deseabilidad común d̄(i): media de los juicios de todos los modelos `ms`."""
+    return {i: float(np.mean([des[m][i] for m in ms])) for i in items}
+
+
+def mitades(d, partes, s0, rng):
+    """P1 de una marca s0 con diferencias por situación d {item: dif}.
+
+    Tasas sobre las particiones `partes`: signo de la marca en las dos mitades,
+    marca significativa en las dos, y alguna mitad con signo contrario
+    significativo (solo informativa, §27)."""
+    s = 1 if s0 == "▲" else -1
+    n_signo = n_sig = n_inv = 0
+    for h1, h2 in partes:
+        r1 = _ic_p([d[i] for i in h1], rng, B_MITAD)
+        r2 = _ic_p([d[i] for i in h2], rng, B_MITAD)
+        n_signo += s * r1[0] > 0 and s * r2[0] > 0
+        n_sig += all(signo(r[1], r[2]) == s0 for r in (r1, r2))
+        n_inv += any(signo(r[1], r[2]) not in ("", s0) for r in (r1, r2))
+    n = len(partes)
+    return {"tasa_signo": n_signo / n, "tasa_sig_ambas": n_sig / n,
+            "tasa_half_invertida": n_inv / n}
+
+
+def clasificar(t, tasa_signo, fallos, inv, todas):
+    """(nivel, motivo) de una marca según los niveles de §26.
+
+    fallos: comprobaciones que falla; inv: variantes en que se invierte;
+    todas: etiqueta de las comprobaciones aplicadas («P1–P6»)."""
+    if t == "N":
+        return "no publicable", "N solo descriptivo (§23)"
+    if tasa_signo < .75 or len(fallos) >= 3 or inv:
+        return "no publicable", ", ".join(filter(None, [
+            f"signo en mitades {100 * tasa_signo:.0f} % < 75 %" if tasa_signo < .75 else "",
+            f"falla {len(fallos)} ({' '.join(fallos)})" if len(fallos) >= 3 else "",
+            f"se invierte en {', '.join(inv)}" if inv else ""]))
+    if not fallos:
+        return "robusta", f"pasa {todas}"
+    return "frágil", f"falla {' '.join(fallos)}"
+
+
+def frase(t, s):
+    """Frase del retrato para el rasgo t con marca s (▲/▼)."""
+    return f"**{'más' if s == '▲' else 'menos'} {NOMBRE[t]}** ({POLOS[t][0] if s == '▲' else POLOS[t][1]})"
+
+
 def main():
     rng = np.random.default_rng(SEMILLA)
     v = cargar_v3()
@@ -119,7 +165,7 @@ def main():
     var = {k: marcas_variante({m: puntuar(el[m], des[m], f) for m in ms}, ms, por_rasgo, rng)
            for k, f in filtros.items()}
     comunes = v["comunes"]
-    d_cons = {i: float(np.mean([des[m][i] for m in ms])) for i in comunes}
+    d_cons = d_consenso(des, ms, comunes)
     a_cons = {m: puntuar({i: el[m][i] for i in comunes}, d_cons) for m in ms}
     a_raw = {m: puntuar(el[m]) for m in ms}
     var["consenso"] = marcas_variante(a_cons, ms, por_rasgo, rng)
@@ -150,17 +196,8 @@ def main():
     parts = {t: particiones(por_rasgo[t], v["faceta_de"], rng) for t in RASGOS}
     p1 = {}
     for (m, t) in marcadas:
-        s = 1 if marca0[(m, t)][0] == "▲" else -1
         d = dict(zip(por_rasgo[t], dif_pareada(a, m, [o for o in ms if o != m], por_rasgo[t])))
-        n_signo = n_sig = n_inv = 0
-        for h1, h2 in parts[t]:
-            r1 = _ic_p([d[i] for i in h1], rng, B_MITAD)
-            r2 = _ic_p([d[i] for i in h2], rng, B_MITAD)
-            n_signo += s * r1[0] > 0 and s * r2[0] > 0
-            n_sig += all(signo(r[1], r[2]) == marca0[(m, t)][0] for r in (r1, r2))
-            n_inv += any(signo(r[1], r[2]) not in ("", marca0[(m, t)][0]) for r in (r1, r2))
-        p1[(m, t)] = {"tasa_signo": n_signo / N_PARTICIONES, "tasa_sig_ambas": n_sig / N_PARTICIONES,
-                      "tasa_half_invertida": n_inv / N_PARTICIONES}
+        p1[(m, t)] = mitades(d, parts[t], marca0[(m, t)][0], rng)
 
     # ── Niveles ────────────────────────────────────────────────────────────
     filas = {}
@@ -180,19 +217,7 @@ def main():
         caen = [L for L in labs if not se_mantiene(var_lab[L])]
         inv = [n for n, x in list(var.items()) + [(f"sin {L}", var_lab[L]) for L in labs] if invierte(x)]
         fallos = [p for p in PRUEBAS if not paso[p]]
-        if t == "N":
-            nivel = "no publicable"
-            motivo = "N solo descriptivo (§23)"
-        elif p1[k]["tasa_signo"] < .75 or len(fallos) >= 3 or inv:
-            nivel = "no publicable"
-            motivo = ", ".join(filter(None, [
-                f"signo en mitades {100 * p1[k]['tasa_signo']:.0f} % < 75 %" if p1[k]["tasa_signo"] < .75 else "",
-                f"falla {len(fallos)} ({' '.join(fallos)})" if len(fallos) >= 3 else "",
-                f"se invierte en {', '.join(inv)}" if inv else ""]))
-        elif not fallos:
-            nivel, motivo = "robusta", "pasa P1–P6"
-        else:
-            nivel, motivo = "frágil", f"falla {' '.join(fallos)}"
+        nivel, motivo = clasificar(t, p1[k]["tasa_signo"], fallos, inv, "P1–P6")
         if caen and not paso["P5"]:
             motivo += f"; cae sin {', '.join(caen)}"
         filas[k] = {"marca": s0, "dif": marca0[k][1], "ic": marca0[k][2:4], "paso": paso,
@@ -221,9 +246,6 @@ def main():
         corr_iss[t] = (rho, float(np.percentile(bs, 2.5)), float(np.percentile(bs, 97.5)))
 
     # ── Retratos ───────────────────────────────────────────────────────────
-    def frase(t, s):
-        return f"**{'más' if s == '▲' else 'menos'} {NOMBRE[t]}** ({POLOS[t][0] if s == '▲' else POLOS[t][1]})"
-
     retratos = {}
     for m in ms:
         rob = [(t, filas[(m, t)]["marca"]) for t in RASGOS

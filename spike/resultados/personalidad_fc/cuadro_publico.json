@@ -1,0 +1,3033 @@
+{
+  "definicion": "PERSONALIDAD.md §28: conducta comparada",
+  "generado_por": "spike/cuadro_publico_v3.py",
+  "semilla": 20261010,
+  "seleccion": [
+    "personalidad_v3_seleccion.json"
+  ],
+  "n_situaciones": {
+    "O": 59,
+    "C": 56,
+    "E": 57,
+    "A": 57,
+    "N": 57,
+    "H": 59
+  },
+  "fuera_por_cobertura": {
+    "deepseek-v4-flash": 0.39710144927536234,
+    "mistralai_mistral-large-4-0": 0.39710144927536234,
+    "moonshotai_kimi-k3": 0.39710144927536234,
+    "qwen_qwen3.8-max-0902#low": 0.39710144927536234,
+    "x-ai_grok-4.5": 0.39710144927536234,
+    "z-ai_glm-5.3": 0.39710144927536234
+  },
+  "laboratorios": [
+    "anthropic",
+    "deepseek",
+    "google",
+    "openai",
+    "qwen",
+    "xiaomi",
+    "z-ai"
+  ],
+  "comprobaciones": [
+    "P1",
+    "P2",
+    "P3",
+    "P5",
+    "P6"
+  ],
+  "n_pruebas_bh": 78,
+  "rasgos": {
+    "O": {
+      "nombre": "Apertura",
+      "polo_alto": "curioso, busca lo nuevo",
+      "polo_bajo": "prefiere lo conocido",
+      "con_marca": true,
+      "aviso": null
+    },
+    "C": {
+      "nombre": "Responsabilidad",
+      "polo_alto": "cumple y planifica",
+      "polo_bajo": "prioriza descanso y flexibilidad",
+      "con_marca": true,
+      "aviso": null
+    },
+    "E": {
+      "nombre": "Extraversión",
+      "polo_alto": "busca gente y protagonismo",
+      "polo_bajo": "prefiere calma y segundo plano",
+      "con_marca": true,
+      "aviso": "Extraversión: fiabilidad baja (§23), con aviso"
+    },
+    "A": {
+      "nombre": "Amabilidad",
+      "polo_alto": "cede y coopera",
+      "polo_bajo": "pone límites y se defiende",
+      "con_marca": true,
+      "aviso": null
+    },
+    "N": {
+      "nombre": "Neuroticismo",
+      "polo_alto": "reacciona, se preocupa",
+      "polo_bajo": "se mantiene sereno",
+      "con_marca": false,
+      "aviso": "solo descriptivo (§23)"
+    },
+    "H": {
+      "nombre": "Honestidad-Humildad",
+      "polo_alto": "sincero, renuncia a ventajas",
+      "polo_bajo": "acepta ventajas y se promociona",
+      "con_marca": true,
+      "aviso": null
+    }
+  },
+  "recuento": {
+    "robusta": 11,
+    "frágil": 5,
+    "no publicable": 9
+  },
+  "modelos": [
+    {
+      "id": "anthropic_claude-haiku-5.5",
+      "modelo": "anthropic/claude-haiku-5.5",
+      "laboratorio": "anthropic",
+      "iss": 10.3,
+      "rasgos": {
+        "O": {
+          "puntuacion": 51.61342894393742,
+          "ic": [
+            46.12084419817471,
+            56.942633637548894
+          ],
+          "comparacion": {
+            "dif": 0.5296610169491532,
+            "ic": [
+              -3.6967396421845566,
+              4.544785781544249
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "C": {
+          "puntuacion": 38.993818681318686,
+          "ic": [
+            34.47802197802198,
+            43.716947115384606
+          ],
+          "comparacion": {
+            "dif": 0.6820436507936508,
+            "ic": [
+              -2.746930803571429,
+              4.575892857142857
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "E": {
+          "puntuacion": 42.3582995951417,
+          "ic": [
+            37.49957827260459,
+            47.41987179487179
+          ],
+          "comparacion": {
+            "dif": 2.1381578947368425,
+            "ic": [
+              -1.9558662280701753,
+              6.453764619883026
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "A": {
+          "puntuacion": 28.34008097165992,
+          "ic": [
+            24.122385290148447,
+            32.62525303643724
+          ],
+          "comparacion": {
+            "dif": -6.926169590643275,
+            "ic": [
+              -10.63687865497076,
+              -3.3077485380116953
+            ]
+          },
+          "marca": "▼",
+          "candidata": "▼",
+          "nivel": "robusta",
+          "motivo": "pasa P1–P3, P5, P6",
+          "q": 0.0026
+        },
+        "N": {
+          "puntuacion": 55.81983805668016,
+          "ic": [
+            50.539389338731446,
+            61.04967948717949
+          ],
+          "comparacion": {
+            "dif": 5.537280701754386,
+            "ic": [
+              1.8270285087719305,
+              9.72267909356725
+            ]
+          },
+          "marca": "",
+          "candidata": "▲",
+          "nivel": "no publicable",
+          "motivo": "N solo descriptivo (§23)",
+          "q": 0.016157142857142856
+        },
+        "H": {
+          "puntuacion": 37.777053455019555,
+          "ic": [
+            33.686440677966104,
+            42.0632333767927
+          ],
+          "comparacion": {
+            "dif": -2.0715630885122405,
+            "ic": [
+              -5.596898540489642,
+              1.4789312617702357
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        }
+      },
+      "frase": "menos Amabilidad (pone límites y se defiende)",
+      "frase_md": "**menos Amabilidad** (pone límites y se defiende)",
+      "fragiles": []
+    },
+    {
+      "id": "anthropic_claude-opus-5.5#low",
+      "modelo": "anthropic/claude-opus-5.5#low",
+      "laboratorio": "anthropic",
+      "iss": 12.5,
+      "rasgos": {
+        "O": {
+          "puntuacion": 55.003259452411996,
+          "ic": [
+            50.65107561929596,
+            59.50211864406779
+          ],
+          "comparacion": {
+            "dif": 4.201977401129944,
+            "ic": [
+              0.08665842749529215,
+              8.622734227871936
+            ]
+          },
+          "marca": "",
+          "candidata": "▲",
+          "nivel": "no publicable",
+          "motivo": "falla 4 (P2 P3 P5 P6); cae sin deepseek, google",
+          "q": 0.158184
+        },
+        "C": {
+          "puntuacion": 33.190247252747255,
+          "ic": [
+            29.464285714285715,
+            37.1226820054945
+          ],
+          "comparacion": {
+            "dif": -5.60515873015873,
+            "ic": [
+              -8.296440972222223,
+              -2.821025545634922
+            ]
+          },
+          "marca": "▼",
+          "candidata": "▼",
+          "nivel": "robusta",
+          "motivo": "pasa P1–P3, P5, P6",
+          "q": 0.0005571428571428572
+        },
+        "E": {
+          "puntuacion": 42.13900134952767,
+          "ic": [
+            37.51560391363023,
+            46.508097165991906
+          ],
+          "comparacion": {
+            "dif": 1.9005847953216375,
+            "ic": [
+              -1.2065972222222219,
+              5.372807017543859
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "A": {
+          "puntuacion": 37.989203778677464,
+          "ic": [
+            33.13090418353576,
+            42.66278677462888
+          ],
+          "comparacion": {
+            "dif": 3.527046783625731,
+            "ic": [
+              -0.18366228070175403,
+              7.730263157894737
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "N": {
+          "puntuacion": 49.24089068825911,
+          "ic": [
+            44.55128205128205,
+            54.50404858299595
+          ],
+          "comparacion": {
+            "dif": -1.5899122807017536,
+            "ic": [
+              -5.482913011695906,
+              2.2478070175438596
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "H": {
+          "puntuacion": 42.64993481095176,
+          "ic": [
+            37.59737614080834,
+            47.7513852672751
+          ],
+          "comparacion": {
+            "dif": 3.207391713747646,
+            "ic": [
+              -0.3893008474576264,
+              7.085834510357815
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        }
+      },
+      "frase": "menos Responsabilidad (prioriza descanso y flexibilidad)",
+      "frase_md": "**menos Responsabilidad** (prioriza descanso y flexibilidad)",
+      "fragiles": []
+    },
+    {
+      "id": "deepseek-v4-flash@2026-10-17",
+      "modelo": "deepseek-v4-flash@2026-10-17",
+      "laboratorio": "deepseek",
+      "iss": null,
+      "rasgos": {
+        "O": {
+          "puntuacion": 50.34224250325945,
+          "ic": [
+            44.654090612777054,
+            56.32374511082138
+          ],
+          "comparacion": {
+            "dif": -0.8474576271186437,
+            "ic": [
+              -4.743702919020715,
+              2.860610875706213
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "C": {
+          "puntuacion": 35.42239010989011,
+          "ic": [
+            30.906164148351646,
+            40.316363324175825
+          ],
+          "comparacion": {
+            "dif": -3.1870039682539675,
+            "ic": [
+              -6.418030753968253,
+              0.1798115079365081
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "E": {
+          "puntuacion": 34.463562753036435,
+          "ic": [
+            29.891616059379214,
+            39.271676788124154
+          ],
+          "comparacion": {
+            "dif": -6.4144736842105265,
+            "ic": [
+              -9.046052631578947,
+              -3.801169590643275
+            ]
+          },
+          "marca": "▼",
+          "candidata": "▼",
+          "nivel": "robusta",
+          "motivo": "pasa P1–P3, P5, P6",
+          "q": 0.0005571428571428572
+        },
+        "A": {
+          "puntuacion": 31.629554655870447,
+          "ic": [
+            28.1540991902834,
+            35.74561403508772
+          ],
+          "comparacion": {
+            "dif": -3.3625730994152043,
+            "ic": [
+              -5.72048611111111,
+              -1.1147660818713447
+            ]
+          },
+          "marca": "",
+          "candidata": "▼",
+          "nivel": "frágil",
+          "motivo": "falla P3",
+          "q": 0.03068
+        },
+        "N": {
+          "puntuacion": 50.77597840755735,
+          "ic": [
+            45.83291160593792,
+            55.668437921727396
+          ],
+          "comparacion": {
+            "dif": 0.07309941520467832,
+            "ic": [
+              -3.271198830409357,
+              3.6919773391812836
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "H": {
+          "puntuacion": 40.955019556714475,
+          "ic": [
+            35.98394719687093,
+            45.77982398956975
+          ],
+          "comparacion": {
+            "dif": 1.3712335216572509,
+            "ic": [
+              -1.9245821563088505,
+              4.737817796610169
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        }
+      },
+      "frase": "menos Extraversión (prefiere calma y segundo plano) *[Extraversión: fiabilidad baja (§23), con aviso]*",
+      "frase_md": "**menos Extraversión** (prefiere calma y segundo plano) *[Extraversión: fiabilidad baja (§23), con aviso]*",
+      "fragiles": [
+        "A▼"
+      ]
+    },
+    {
+      "id": "deepseek_deepseek-v4-pro-0813",
+      "modelo": "deepseek/deepseek-v4-pro-0813",
+      "laboratorio": "deepseek",
+      "iss": null,
+      "rasgos": {
+        "O": {
+          "puntuacion": 49.494784876140805,
+          "ic": [
+            45.02852020860495,
+            54.1232073011734
+          ],
+          "comparacion": {
+            "dif": -1.7655367231638415,
+            "ic": [
+              -4.796374764595103,
+              1.1654013653483988
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "C": {
+          "puntuacion": 40.333104395604394,
+          "ic": [
+            35.95467032967033,
+            44.96909340659341
+          ],
+          "comparacion": {
+            "dif": 2.1329365079365084,
+            "ic": [
+              -0.5828373015873015,
+              5.153304811507934
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "E": {
+          "puntuacion": 38.630229419703106,
+          "ic": [
+            34.851551956815115,
+            42.62862685560054
+          ],
+          "comparacion": {
+            "dif": -1.9005847953216368,
+            "ic": [
+              -4.8245614035087705,
+              1.2065972222222205
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "A": {
+          "puntuacion": 39.743589743589745,
+          "ic": [
+            35.931174089068826,
+            43.45479082321188
+          ],
+          "comparacion": {
+            "dif": 5.427631578947368,
+            "ic": [
+              2.5219298245614037,
+              8.46125730994152
+            ]
+          },
+          "marca": "",
+          "candidata": "▲",
+          "nivel": "frágil",
+          "motivo": "falla P3",
+          "q": 0.0026
+        },
+        "N": {
+          "puntuacion": 46.60931174089069,
+          "ic": [
+            43.0668016194332,
+            50.168690958164646
+          ],
+          "comparacion": {
+            "dif": -4.440789473684211,
+            "ic": [
+              -8.38815789473684,
+              -0.8406432748538013
+            ]
+          },
+          "marca": "",
+          "candidata": "▼",
+          "nivel": "no publicable",
+          "motivo": "N solo descriptivo (§23)",
+          "q": 0.08541
+        },
+        "H": {
+          "puntuacion": 40.531290743155154,
+          "ic": [
+            36.52216427640157,
+            44.623533246414596
+          ],
+          "comparacion": {
+            "dif": 0.9121939736346523,
+            "ic": [
+              -2.501177024482108,
+              4.372940207156309
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        }
+      },
+      "frase": "perfil próximo al de los demás modelos",
+      "frase_md": "perfil próximo al de los demás modelos",
+      "fragiles": [
+        "A▲"
+      ]
+    },
+    {
+      "id": "gemma4",
+      "modelo": "gemma4",
+      "laboratorio": "google",
+      "iss": 28.1,
+      "rasgos": {
+        "O": {
+          "puntuacion": 55.42698826597132,
+          "ic": [
+            50.0643741851369,
+            60.85438396349413
+          ],
+          "comparacion": {
+            "dif": 4.661016949152542,
+            "ic": [
+              0.11696680790960497,
+              8.841807909604507
+            ]
+          },
+          "marca": "",
+          "candidata": "▲",
+          "nivel": "no publicable",
+          "motivo": "falla 4 (P2 P3 P5 P6); cae sin deepseek, google, xiaomi",
+          "q": 0.158184
+        },
+        "C": {
+          "puntuacion": 44.574175824175825,
+          "ic": [
+            39.354395604395606,
+            49.674192994505496
+          ],
+          "comparacion": {
+            "dif": 6.727430555555555,
+            "ic": [
+              3.0440848214285725,
+              10.46688988095238
+            ]
+          },
+          "marca": "▲",
+          "candidata": "▲",
+          "nivel": "robusta",
+          "motivo": "pasa P1–P3, P5, P6",
+          "q": 0.0031200000000000004
+        },
+        "E": {
+          "puntuacion": 37.09514170040486,
+          "ic": [
+            31.815114709851553,
+            42.156713900134946
+          ],
+          "comparacion": {
+            "dif": -3.56359649122807,
+            "ic": [
+              -7.20029239766082,
+              0.0913742690058473
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "A": {
+          "puntuacion": 29.436572199730097,
+          "ic": [
+            25.522520242914982,
+            33.23254048582996
+          ],
+          "comparacion": {
+            "dif": -5.738304093567251,
+            "ic": [
+              -8.479532163742691,
+              -3.307291666666669
+            ]
+          },
+          "marca": "▼",
+          "candidata": "▼",
+          "nivel": "robusta",
+          "motivo": "pasa P1–P3, P5, P6",
+          "q": 0.0005571428571428572
+        },
+        "N": {
+          "puntuacion": 53.62685560053981,
+          "ic": [
+            48.58173076923077,
+            58.50244601889339
+          ],
+          "comparacion": {
+            "dif": 3.161549707602339,
+            "ic": [
+              -0.6213450292397661,
+              6.907894736842104
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "H": {
+          "puntuacion": 36.92959582790091,
+          "ic": [
+            32.16957301173403,
+            41.29807692307692
+          ],
+          "comparacion": {
+            "dif": -2.9896421845574386,
+            "ic": [
+              -6.30399599811676,
+              0.44726930320150676
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        }
+      },
+      "frase": "más Responsabilidad (cumple y planifica); menos Amabilidad (pone límites y se defiende)",
+      "frase_md": "**más Responsabilidad** (cumple y planifica); **menos Amabilidad** (pone límites y se defiende)",
+      "fragiles": []
+    },
+    {
+      "id": "glm5.3-flash",
+      "modelo": "glm5.3-flash",
+      "laboratorio": "z-ai",
+      "iss": 28.9,
+      "rasgos": {
+        "O": {
+          "puntuacion": 55.003259452411996,
+          "ic": [
+            50.42332138200782,
+            59.77876466753585
+          ],
+          "comparacion": {
+            "dif": 4.201977401129944,
+            "ic": [
+              0.8236228813559321,
+              7.227077448210924
+            ]
+          },
+          "marca": "",
+          "candidata": "▲",
+          "nivel": "frágil",
+          "motivo": "falla P3 P5; cae sin google",
+          "q": 0.047717647058823524
+        },
+        "C": {
+          "puntuacion": 38.993818681318686,
+          "ic": [
+            34.684065934065934,
+            43.47656249999999
+          ],
+          "comparacion": {
+            "dif": 0.6820436507936509,
+            "ic": [
+              -2.195095486111111,
+              3.689546130952379
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "E": {
+          "puntuacion": 37.53373819163293,
+          "ic": [
+            33.26585695006747,
+            41.71727395411606
+          ],
+          "comparacion": {
+            "dif": -3.0884502923976607,
+            "ic": [
+              -5.830135233918129,
+              -0.23711622807017863
+            ]
+          },
+          "marca": "",
+          "candidata": "▼",
+          "nivel": "no publicable",
+          "motivo": "falla 4 (P2 P3 P5 P6); cae sin anthropic, google, qwen, xiaomi",
+          "q": 0.1287
+        },
+        "A": {
+          "puntuacion": 34.4804318488529,
+          "ic": [
+            30.616565452091766,
+            38.32742914979757
+          ],
+          "comparacion": {
+            "dif": -0.2741228070175438,
+            "ic": [
+              -2.887883771929824,
+              2.3940058479532165
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "N": {
+          "puntuacion": 47.26720647773279,
+          "ic": [
+            42.74586707152497,
+            51.821862348178136
+          ],
+          "comparacion": {
+            "dif": -3.7280701754385963,
+            "ic": [
+              -7.036275584795321,
+              -0.20056652046783882
+            ]
+          },
+          "marca": "",
+          "candidata": "▼",
+          "nivel": "no publicable",
+          "motivo": "N solo descriptivo (§23); cae sin google",
+          "q": 0.1192285714285714
+        },
+        "H": {
+          "puntuacion": 40.10756192959583,
+          "ic": [
+            35.91916558018253,
+            44.2478813559322
+          ],
+          "comparacion": {
+            "dif": 0.4531544256120531,
+            "ic": [
+              -1.9837276365348395,
+              2.954919962335214
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        }
+      },
+      "frase": "perfil próximo al de los demás modelos",
+      "frase_md": "perfil próximo al de los demás modelos",
+      "fragiles": [
+        "O▲"
+      ]
+    },
+    {
+      "id": "google_gemini-3.7-flash",
+      "modelo": "google/gemini-3.7-flash",
+      "laboratorio": "google",
+      "iss": 55.2,
+      "rasgos": {
+        "O": {
+          "puntuacion": 36.782920469361144,
+          "ic": [
+            31.84444263363755,
+            41.64031942633637
+          ],
+          "comparacion": {
+            "dif": -15.536723163841808,
+            "ic": [
+              -19.797993173258003,
+              -11.552053907721282
+            ]
+          },
+          "marca": "▼",
+          "candidata": "▼",
+          "nivel": "robusta",
+          "motivo": "pasa P1–P3, P5, P6",
+          "q": 0.0005571428571428572
+        },
+        "C": {
+          "puntuacion": 38.770604395604394,
+          "ic": [
+            33.653416895604394,
+            44.1796875
+          ],
+          "comparacion": {
+            "dif": 0.440228174603175,
+            "ic": [
+              -3.925006200396825,
+              5.202597966269839
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "E": {
+          "puntuacion": 52.44601889338731,
+          "ic": [
+            47.60458839406208,
+            57.08502024291498
+          ],
+          "comparacion": {
+            "dif": 13.066520467836257,
+            "ic": [
+              7.346034356725148,
+              18.659539473684205
+            ]
+          },
+          "marca": "▲",
+          "candidata": "▲",
+          "nivel": "robusta",
+          "motivo": "pasa P1–P3, P5, P6",
+          "q": 0.0005571428571428572
+        },
+        "A": {
+          "puntuacion": 46.9804318488529,
+          "ic": [
+            41.90241228070175,
+            52.17611336032389
+          ],
+          "comparacion": {
+            "dif": 13.267543859649123,
+            "ic": [
+              7.072368421052632,
+              19.279970760233915
+            ]
+          },
+          "marca": "▲",
+          "candidata": "▲",
+          "nivel": "robusta",
+          "motivo": "pasa P1–P3, P5, P6",
+          "q": 0.0005571428571428572
+        },
+        "N": {
+          "puntuacion": 47.9251012145749,
+          "ic": [
+            43.18362010796221,
+            52.6998987854251
+          ],
+          "comparacion": {
+            "dif": -3.0153508771929816,
+            "ic": [
+              -8.205866228070176,
+              2.3396381578947354
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "H": {
+          "puntuacion": 36.71773142112125,
+          "ic": [
+            32.98565840938723,
+            40.645779009126464
+          ],
+          "comparacion": {
+            "dif": -3.219161958568737,
+            "ic": [
+              -8.416019303201507,
+              1.548081450094161
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        }
+      },
+      "frase": "menos Apertura (prefiere lo conocido); más Amabilidad (cede y coopera); más Extraversión (busca gente y protagonismo) *[Extraversión: fiabilidad baja (§23), con aviso]*",
+      "frase_md": "**menos Apertura** (prefiere lo conocido); **más Amabilidad** (cede y coopera); **más Extraversión** (busca gente y protagonismo) *[Extraversión: fiabilidad baja (§23), con aviso]*",
+      "fragiles": []
+    },
+    {
+      "id": "google_gemini-4-argon",
+      "modelo": "google/gemini-4-argon",
+      "laboratorio": "google",
+      "iss": null,
+      "rasgos": {
+        "O": {
+          "puntuacion": 43.77444589308996,
+          "ic": [
+            38.86299435028249,
+            48.97340830073881
+          ],
+          "comparacion": {
+            "dif": -7.962570621468925,
+            "ic": [
+              -11.47598870056497,
+              -4.642478813559327
+            ]
+          },
+          "marca": "▼",
+          "candidata": "▼",
+          "nivel": "robusta",
+          "motivo": "pasa P1–P3, P5, P6",
+          "q": 0.0005571428571428572
+        },
+        "C": {
+          "puntuacion": 36.389652014652015,
+          "ic": [
+            31.712454212454215,
+            41.48351648351648
+          ],
+          "comparacion": {
+            "dif": -2.1391369047619047,
+            "ic": [
+              -4.799107142857143,
+              0.7454427083333259
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "E": {
+          "puntuacion": 38.19163292847503,
+          "ic": [
+            33.58468286099865,
+            43.168437921727396
+          ],
+          "comparacion": {
+            "dif": -2.375730994152047,
+            "ic": [
+              -6.158625730994152,
+              1.3893457602339154
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "A": {
+          "puntuacion": 34.91902834008097,
+          "ic": [
+            30.783991228070175,
+            39.204622132253704
+          ],
+          "comparacion": {
+            "dif": 0.2010233918128659,
+            "ic": [
+              -2.907072368421052,
+              3.435672514619883
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "N": {
+          "puntuacion": 52.3110661268556,
+          "ic": [
+            47.95883940620783,
+            56.32591093117409
+          ],
+          "comparacion": {
+            "dif": 1.7361111111111107,
+            "ic": [
+              -1.9567799707602345,
+              5.336714181286548
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "H": {
+          "puntuacion": 39.542590178183396,
+          "ic": [
+            35.02811277705345,
+            44.22017601043025
+          ],
+          "comparacion": {
+            "dif": -0.15889830508474545,
+            "ic": [
+              -3.7610346045197742,
+              3.7786899717514104
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        }
+      },
+      "frase": "menos Apertura (prefiere lo conocido)",
+      "frase_md": "**menos Apertura** (prefiere lo conocido)",
+      "fragiles": []
+    },
+    {
+      "id": "mimo-v2.6-flash",
+      "modelo": "mimo-v2.6-flash",
+      "laboratorio": "xiaomi",
+      "iss": 12.6,
+      "rasgos": {
+        "O": {
+          "puntuacion": 56.27444589308996,
+          "ic": [
+            50.94524119947849,
+            61.538868970013034
+          ],
+          "comparacion": {
+            "dif": 5.579096045197741,
+            "ic": [
+              1.6596045197740124,
+              9.610699152542374
+            ]
+          },
+          "marca": "",
+          "candidata": "▲",
+          "nivel": "frágil",
+          "motivo": "falla P3 P5; cae sin google",
+          "q": 0.032175
+        },
+        "C": {
+          "puntuacion": 39.66346153846154,
+          "ic": [
+            35.12963598901099,
+            44.02515453296703
+          ],
+          "comparacion": {
+            "dif": 1.407490079365079,
+            "ic": [
+              -1.7858692956349207,
+              4.910714285714286
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "E": {
+          "puntuacion": 43.23549257759784,
+          "ic": [
+            38.64709851551957,
+            47.68935560053981
+          ],
+          "comparacion": {
+            "dif": 3.0884502923976602,
+            "ic": [
+              0.20056652046783596,
+              6.360105994152043
+            ]
+          },
+          "marca": "",
+          "candidata": "▲",
+          "nivel": "no publicable",
+          "motivo": "falla 4 (P2 P3 P5 P6); cae sin deepseek, openai, z-ai",
+          "q": 0.14786086956521738
+        },
+        "A": {
+          "puntuacion": 36.45411605937922,
+          "ic": [
+            32.270580296896085,
+            40.68910256410256
+          ],
+          "comparacion": {
+            "dif": 1.8640350877192977,
+            "ic": [
+              -0.8954678362573093,
+              4.825018274853799
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "N": {
+          "puntuacion": 50.99527665317139,
+          "ic": [
+            46.18758434547908,
+            55.989372469635626
+          ],
+          "comparacion": {
+            "dif": 0.3106725146198827,
+            "ic": [
+              -3.2355628654970765,
+              3.709795321637426
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "H": {
+          "puntuacion": 38.83637548891787,
+          "ic": [
+            34.46789439374185,
+            43.20485658409387
+          ],
+          "comparacion": {
+            "dif": -0.9239642184557436,
+            "ic": [
+              -4.6460098870056505,
+              2.5896009887005644
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        }
+      },
+      "frase": "perfil próximo al de los demás modelos",
+      "frase_md": "perfil próximo al de los demás modelos",
+      "fragiles": [
+        "O▲"
+      ]
+    },
+    {
+      "id": "openai_gpt-5.6-luna",
+      "modelo": "openai/gpt-5.6-luna",
+      "laboratorio": "openai",
+      "iss": 7.6,
+      "rasgos": {
+        "O": {
+          "puntuacion": 55.003259452411996,
+          "ic": [
+            50.226531942633635,
+            59.90914276401564
+          ],
+          "comparacion": {
+            "dif": 4.201977401129944,
+            "ic": [
+              0.8874764595103584,
+              7.962717749529191
+            ]
+          },
+          "marca": "",
+          "candidata": "▲",
+          "nivel": "no publicable",
+          "motivo": "falla 4 (P2 P3 P5 P6); cae sin google",
+          "q": 0.0796421052631579
+        },
+        "C": {
+          "puntuacion": 41.002747252747255,
+          "ic": [
+            35.95381181318682,
+            45.640882554945044
+          ],
+          "comparacion": {
+            "dif": 2.8583829365079367,
+            "ic": [
+              -0.5589657738095237,
+              6.163969494047615
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "E": {
+          "puntuacion": 38.630229419703106,
+          "ic": [
+            33.78711201079622,
+            43.42147435897436
+          ],
+          "comparacion": {
+            "dif": -1.900584795321637,
+            "ic": [
+              -5.245796783625731,
+              1.4254385964912282
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "A": {
+          "puntuacion": 30.97165991902834,
+          "ic": [
+            27.344382591093115,
+            34.834682860998655
+          ],
+          "comparacion": {
+            "dif": -4.075292397660819,
+            "ic": [
+              -6.4149305555555545,
+              -1.6264619883040932
+            ]
+          },
+          "marca": "",
+          "candidata": "▼",
+          "nivel": "frágil",
+          "motivo": "falla P2",
+          "q": 0.00585
+        },
+        "N": {
+          "puntuacion": 52.091767881241566,
+          "ic": [
+            47.35070850202429,
+            56.58021255060728
+          ],
+          "comparacion": {
+            "dif": 1.4985380116959066,
+            "ic": [
+              -1.645193713450292,
+              4.550438596491228
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "H": {
+          "puntuacion": 39.895697522816164,
+          "ic": [
+            35.28357235984355,
+            44.75350391134289
+          ],
+          "comparacion": {
+            "dif": 0.2236346516007537,
+            "ic": [
+              -2.5553201506591328,
+              3.2665371939736336
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        }
+      },
+      "frase": "perfil próximo al de los demás modelos",
+      "frase_md": "perfil próximo al de los demás modelos",
+      "fragiles": [
+        "A▼"
+      ]
+    },
+    {
+      "id": "openai_gpt-6.1-sol#low",
+      "modelo": "openai/gpt-6.1-sol#low",
+      "laboratorio": "openai",
+      "iss": 13.2,
+      "rasgos": {
+        "O": {
+          "puntuacion": 52.460886571056065,
+          "ic": [
+            47.58800521512386,
+            57.301580834419816
+          ],
+          "comparacion": {
+            "dif": 1.4477401129943503,
+            "ic": [
+              -2.3608168549905844,
+              5.408427495291901
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "C": {
+          "puntuacion": 33.636675824175825,
+          "ic": [
+            29.429945054945055,
+            38.20441277472527
+          ],
+          "comparacion": {
+            "dif": -5.121527777777778,
+            "ic": [
+              -8.141431051587304,
+              -1.8973214285714286
+            ]
+          },
+          "marca": "▼",
+          "candidata": "▼",
+          "nivel": "robusta",
+          "motivo": "pasa P1–P3, P5, P6",
+          "q": 0.012
+        },
+        "E": {
+          "puntuacion": 37.75303643724696,
+          "ic": [
+            33.02884615384616,
+            42.898532388663966
+          ],
+          "comparacion": {
+            "dif": -2.8508771929824563,
+            "ic": [
+              -6.25,
+              0.6218019005847929
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "A": {
+          "puntuacion": 33.1646423751687,
+          "ic": [
+            28.879892037786774,
+            37.8378036437247
+          ],
+          "comparacion": {
+            "dif": -1.6995614035087716,
+            "ic": [
+              -4.916392543859649,
+              2.1198830409356724
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "N": {
+          "puntuacion": 48.582995951417004,
+          "ic": [
+            43.72385290148448,
+            53.42526990553306
+          ],
+          "comparacion": {
+            "dif": -2.3026315789473686,
+            "ic": [
+              -6.031158625730994,
+              1.2623355263157825
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "H": {
+          "puntuacion": 45.827900912646676,
+          "ic": [
+            40.62866688396349,
+            51.04302477183833
+          ],
+          "comparacion": {
+            "dif": 6.650188323917138,
+            "ic": [
+              2.854284369114878,
+              10.475517890772128
+            ]
+          },
+          "marca": "▲",
+          "candidata": "▲",
+          "nivel": "robusta",
+          "motivo": "pasa P1–P3, P5, P6",
+          "q": 0.0035454545454545456
+        }
+      },
+      "frase": "menos Responsabilidad (prioriza descanso y flexibilidad); más Honestidad-Humildad (sincero, renuncia a ventajas)",
+      "frase_md": "**menos Responsabilidad** (prioriza descanso y flexibilidad); **más Honestidad-Humildad** (sincero, renuncia a ventajas)",
+      "fragiles": []
+    },
+    {
+      "id": "qwen3.6",
+      "modelo": "qwen3.6",
+      "laboratorio": "qwen",
+      "iss": 23.2,
+      "rasgos": {
+        "O": {
+          "puntuacion": 54.579530638852674,
+          "ic": [
+            49.315107561929594,
+            60.05581812255541
+          ],
+          "comparacion": {
+            "dif": 3.7429378531073443,
+            "ic": [
+              -0.21819091337099808,
+              7.721427730696798
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "C": {
+          "puntuacion": 41.449175824175825,
+          "ic": [
+            36.41826923076923,
+            46.87628777472527
+          ],
+          "comparacion": {
+            "dif": 3.3420138888888893,
+            "ic": [
+              -0.6138392857142856,
+              7.490544394841268
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "E": {
+          "puntuacion": 42.3582995951417,
+          "ic": [
+            37.34775641025641,
+            47.45318825910931
+          ],
+          "comparacion": {
+            "dif": 2.1381578947368425,
+            "ic": [
+              -1.7731176900584793,
+              6.287463450292393
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "A": {
+          "puntuacion": 35.357624831309046,
+          "ic": [
+            30.937078272604587,
+            39.456815114709855
+          ],
+          "comparacion": {
+            "dif": 0.6761695906432751,
+            "ic": [
+              -2.8892543859649114,
+              4.294590643274853
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "N": {
+          "puntuacion": 53.62685560053981,
+          "ic": [
+            48.649628879892035,
+            58.53660593792172
+          ],
+          "comparacion": {
+            "dif": 3.161549707602339,
+            "ic": [
+              -0.5116959064327486,
+              7.108918128654969
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "H": {
+          "puntuacion": 37.565189048239894,
+          "ic": [
+            33.148223598435465,
+            41.83507170795306
+          ],
+          "comparacion": {
+            "dif": -2.30108286252354,
+            "ic": [
+              -5.744026600753294,
+              1.5560263653483863
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        }
+      },
+      "frase": "perfil próximo al de los demás modelos",
+      "frase_md": "perfil próximo al de los demás modelos",
+      "fragiles": []
+    },
+    {
+      "id": "qwen3.8-flash",
+      "modelo": "qwen3.8-flash",
+      "laboratorio": "qwen",
+      "iss": 24.8,
+      "rasgos": {
+        "O": {
+          "puntuacion": 48.85919165580182,
+          "ic": [
+            42.77990547588005,
+            54.84313885267274
+          ],
+          "comparacion": {
+            "dif": -2.45409604519774,
+            "ic": [
+              -6.203066148775894,
+              1.206891478342748
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "C": {
+          "puntuacion": 36.315247252747255,
+          "ic": [
+            31.11092032967033,
+            41.41526442307692
+          ],
+          "comparacion": {
+            "dif": -2.2197420634920633,
+            "ic": [
+              -5.437748015873017,
+              1.1289372519841248
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "E": {
+          "puntuacion": 40.165317139001345,
+          "ic": [
+            35.94762145748988,
+            44.16329284750337
+          ],
+          "comparacion": {
+            "dif": -0.23757309941520457,
+            "ic": [
+              -2.376187865497076,
+              2.0285087719298245
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "A": {
+          "puntuacion": 32.06815114709852,
+          "ic": [
+            28.305921052631582,
+            35.98262483130904
+          ],
+          "comparacion": {
+            "dif": -2.8874269005847957,
+            "ic": [
+              -5.37280701754386,
+              -0.2741228070175435
+            ]
+          },
+          "marca": "",
+          "candidata": "▼",
+          "nivel": "no publicable",
+          "motivo": "falla 3 (P2 P3 P6)",
+          "q": 0.0796421052631579
+        },
+        "N": {
+          "puntuacion": 50.337381916329285,
+          "ic": [
+            45.41034075573549,
+            55.096575573549245
+          ],
+          "comparacion": {
+            "dif": -0.4020467836257306,
+            "ic": [
+              -4.184941520467836,
+              3.5453216374269005
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "H": {
+          "puntuacion": 38.6245110821382,
+          "ic": [
+            34.33833116036506,
+            42.944100391134285
+          ],
+          "comparacion": {
+            "dif": -1.153483992467043,
+            "ic": [
+              -3.5961040489642184,
+              1.5304260828625218
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        }
+      },
+      "frase": "perfil próximo al de los demás modelos",
+      "frase_md": "perfil próximo al de los demás modelos",
+      "fragiles": []
+    }
+  ],
+  "validez_s28": {
+    "G3": {
+      "O": {
+        "dentro": 0.4583951622874281,
+        "fuera": -0.0846182892413368
+      },
+      "C": {
+        "dentro": 0.265869402445352,
+        "fuera": -0.001639819913752119
+      },
+      "E": {
+        "dentro": 0.26657225995953665,
+        "fuera": 0.023991434199907447
+      },
+      "A": {
+        "dentro": 0.5567299393214058,
+        "fuera": -0.046873115544852725
+      },
+      "N": {
+        "dentro": 0.038678484795290805,
+        "fuera": -0.034185314935087065
+      },
+      "H": {
+        "dentro": -0.06506287721273006,
+        "fuera": -0.04081352599506745
+      }
+    },
+    "G4": {
+      "O": 0.9396318214322688,
+      "C": 0.8121324888916209,
+      "E": 0.9348399838389561,
+      "A": 0.8649006943170852,
+      "N": 0.6234417537647349,
+      "H": 0.13332498132700416
+    },
+    "umbral_G4": 0.7,
+    "conflictos": [
+      {
+        "rasgo": "E",
+        "detalle": "marca solo con aviso de fiabilidad (§28), pero G4 = 0.93 ≥ 0.70"
+      },
+      {
+        "rasgo": "H",
+        "detalle": "lleva marca (§28), pero G4 = 0.13 < 0.70"
+      }
+    ],
+    "escenario_g4_no_decidido": {
+      "rasgos_con_marca": [
+        "O",
+        "C",
+        "E",
+        "A"
+      ],
+      "marcas": {
+        "anthropic_claude-haiku-5.5": {
+          "O": "",
+          "C": "",
+          "E": "",
+          "A": "▼",
+          "N": "",
+          "H": ""
+        },
+        "anthropic_claude-opus-5.5#low": {
+          "O": "",
+          "C": "▼",
+          "E": "",
+          "A": "",
+          "N": "",
+          "H": ""
+        },
+        "deepseek-v4-flash@2026-10-17": {
+          "O": "",
+          "C": "",
+          "E": "▼",
+          "A": "",
+          "N": "",
+          "H": ""
+        },
+        "deepseek_deepseek-v4-pro-0813": {
+          "O": "",
+          "C": "",
+          "E": "",
+          "A": "",
+          "N": "",
+          "H": ""
+        },
+        "gemma4": {
+          "O": "",
+          "C": "▲",
+          "E": "",
+          "A": "▼",
+          "N": "",
+          "H": ""
+        },
+        "glm5.3-flash": {
+          "O": "",
+          "C": "",
+          "E": "",
+          "A": "",
+          "N": "",
+          "H": ""
+        },
+        "google_gemini-3.7-flash": {
+          "O": "▼",
+          "C": "",
+          "E": "▲",
+          "A": "▲",
+          "N": "",
+          "H": ""
+        },
+        "google_gemini-4-argon": {
+          "O": "▼",
+          "C": "",
+          "E": "",
+          "A": "",
+          "N": "",
+          "H": ""
+        },
+        "mimo-v2.6-flash": {
+          "O": "",
+          "C": "",
+          "E": "",
+          "A": "",
+          "N": "",
+          "H": ""
+        },
+        "openai_gpt-5.6-luna": {
+          "O": "",
+          "C": "",
+          "E": "",
+          "A": "",
+          "N": "",
+          "H": ""
+        },
+        "openai_gpt-6.1-sol#low": {
+          "O": "",
+          "C": "▼",
+          "E": "",
+          "A": "",
+          "N": "",
+          "H": ""
+        },
+        "qwen3.6": {
+          "O": "",
+          "C": "",
+          "E": "",
+          "A": "",
+          "N": "",
+          "H": ""
+        },
+        "qwen3.8-flash": {
+          "O": "",
+          "C": "",
+          "E": "",
+          "A": "",
+          "N": "",
+          "H": ""
+        }
+      },
+      "frases": {
+        "anthropic_claude-haiku-5.5": "menos Amabilidad (pone límites y se defiende)",
+        "anthropic_claude-opus-5.5#low": "menos Responsabilidad (prioriza descanso y flexibilidad)",
+        "deepseek-v4-flash@2026-10-17": "menos Extraversión (prefiere calma y segundo plano)",
+        "deepseek_deepseek-v4-pro-0813": "perfil próximo al de los demás modelos",
+        "gemma4": "más Responsabilidad (cumple y planifica); menos Amabilidad (pone límites y se defiende)",
+        "glm5.3-flash": "perfil próximo al de los demás modelos",
+        "google_gemini-3.7-flash": "menos Apertura (prefiere lo conocido); más Extraversión (busca gente y protagonismo); más Amabilidad (cede y coopera)",
+        "google_gemini-4-argon": "menos Apertura (prefiere lo conocido)",
+        "mimo-v2.6-flash": "perfil próximo al de los demás modelos",
+        "openai_gpt-5.6-luna": "perfil próximo al de los demás modelos",
+        "openai_gpt-6.1-sol#low": "menos Responsabilidad (prioriza descanso y flexibilidad)",
+        "qwen3.6": "perfil próximo al de los demás modelos",
+        "qwen3.8-flash": "perfil próximo al de los demás modelos"
+      }
+    }
+  },
+  "marcas_candidatas": {
+    "anthropic_claude-haiku-5.5|A": {
+      "marca": "▼",
+      "dif": -6.926169590643275,
+      "ic": [
+        -10.63687865497076,
+        -3.3077485380116953
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [],
+      "nivel": "robusta",
+      "nivel_sin_regla_N": "robusta",
+      "motivo": "pasa P1–P3, P5, P6",
+      "p": 0.0003,
+      "q": 0.0026,
+      "q_sin_N": 0.0021666666666666666,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.635,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "▼",
+        "AB": "▼",
+        "BA": "▼",
+        "sin anthropic": "▼",
+        "sin deepseek": "▼",
+        "sin google": "▼",
+        "sin openai": "▼",
+        "sin qwen": "▼",
+        "sin xiaomi": "▼",
+        "sin z-ai": "▼"
+      }
+    },
+    "anthropic_claude-haiku-5.5|N": {
+      "marca": "▲",
+      "dif": 5.537280701754386,
+      "ic": [
+        1.8270285087719305,
+        9.72267909356725
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": false,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [
+        "P3"
+      ],
+      "nivel": "no publicable",
+      "nivel_sin_regla_N": "frágil",
+      "motivo": "N solo descriptivo (§23)",
+      "p": 0.0029,
+      "q": 0.016157142857142856,
+      "q_sin_N": null,
+      "p1": {
+        "tasa_signo": 0.99,
+        "tasa_sig_ambas": 0.15,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▲",
+        "rep1": "▲",
+        "AB": "▲",
+        "BA": "",
+        "sin anthropic": "▲",
+        "sin deepseek": "▲",
+        "sin google": "▲",
+        "sin openai": "▲",
+        "sin qwen": "▲",
+        "sin xiaomi": "▲",
+        "sin z-ai": "▲"
+      }
+    },
+    "anthropic_claude-opus-5.5#low|O": {
+      "marca": "▲",
+      "dif": 4.201977401129944,
+      "ic": [
+        0.08665842749529215,
+        8.622734227871936
+      ],
+      "paso": {
+        "P1": true,
+        "P2": false,
+        "P3": false,
+        "P5": false,
+        "P6": 0.0
+      },
+      "fallos": [
+        "P2",
+        "P3",
+        "P5",
+        "P6"
+      ],
+      "nivel": "no publicable",
+      "nivel_sin_regla_N": "no publicable",
+      "motivo": "falla 4 (P2 P3 P5 P6); cae sin deepseek, google",
+      "p": 0.0507,
+      "q": 0.158184,
+      "q_sin_N": 0.14979545454545454,
+      "p1": {
+        "tasa_signo": 0.935,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [
+        "deepseek",
+        "google"
+      ],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "",
+        "rep1": "",
+        "AB": "▲",
+        "BA": "",
+        "sin anthropic": "▲",
+        "sin deepseek": "",
+        "sin google": "",
+        "sin openai": "▲",
+        "sin qwen": "▲",
+        "sin xiaomi": "▲",
+        "sin z-ai": "▲"
+      }
+    },
+    "anthropic_claude-opus-5.5#low|C": {
+      "marca": "▼",
+      "dif": -5.60515873015873,
+      "ic": [
+        -8.296440972222223,
+        -2.821025545634922
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [],
+      "nivel": "robusta",
+      "nivel_sin_regla_N": "robusta",
+      "motivo": "pasa P1–P3, P5, P6",
+      "p": 5e-05,
+      "q": 0.0005571428571428572,
+      "q_sin_N": 0.00046428571428571433,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.785,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "▼",
+        "AB": "▼",
+        "BA": "▼",
+        "sin anthropic": "▼",
+        "sin deepseek": "▼",
+        "sin google": "▼",
+        "sin openai": "▼",
+        "sin qwen": "▼",
+        "sin xiaomi": "▼",
+        "sin z-ai": "▼"
+      }
+    },
+    "deepseek-v4-flash@2026-10-17|E": {
+      "marca": "▼",
+      "dif": -6.4144736842105265,
+      "ic": [
+        -9.046052631578947,
+        -3.801169590643275
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [],
+      "nivel": "robusta",
+      "nivel_sin_regla_N": "robusta",
+      "motivo": "pasa P1–P3, P5, P6",
+      "p": 5e-05,
+      "q": 0.0005571428571428572,
+      "q_sin_N": 0.00046428571428571433,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.94,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "▼",
+        "AB": "▼",
+        "BA": "▼",
+        "sin anthropic": "▼",
+        "sin deepseek": "▼",
+        "sin google": "▼",
+        "sin openai": "▼",
+        "sin qwen": "▼",
+        "sin xiaomi": "▼",
+        "sin z-ai": "▼"
+      }
+    },
+    "deepseek-v4-flash@2026-10-17|A": {
+      "marca": "▼",
+      "dif": -3.3625730994152043,
+      "ic": [
+        -5.72048611111111,
+        -1.1147660818713447
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": false,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [
+        "P3"
+      ],
+      "nivel": "frágil",
+      "nivel_sin_regla_N": "frágil",
+      "motivo": "falla P3",
+      "p": 0.0059,
+      "q": 0.03068,
+      "q_sin_N": 0.027392857142857142,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.085,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "▼",
+        "AB": "▼",
+        "BA": "",
+        "sin anthropic": "▼",
+        "sin deepseek": "▼",
+        "sin google": "▼",
+        "sin openai": "▼",
+        "sin qwen": "▼",
+        "sin xiaomi": "▼",
+        "sin z-ai": "▼"
+      }
+    },
+    "deepseek_deepseek-v4-pro-0813|A": {
+      "marca": "▲",
+      "dif": 5.427631578947368,
+      "ic": [
+        2.5219298245614037,
+        8.46125730994152
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": false,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [
+        "P3"
+      ],
+      "nivel": "frágil",
+      "nivel_sin_regla_N": "frágil",
+      "motivo": "falla P3",
+      "p": 0.0003,
+      "q": 0.0026,
+      "q_sin_N": 0.0021666666666666666,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.61,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▲",
+        "rep1": "▲",
+        "AB": "",
+        "BA": "▲",
+        "sin anthropic": "▲",
+        "sin deepseek": "▲",
+        "sin google": "▲",
+        "sin openai": "▲",
+        "sin qwen": "▲",
+        "sin xiaomi": "▲",
+        "sin z-ai": "▲"
+      }
+    },
+    "deepseek_deepseek-v4-pro-0813|N": {
+      "marca": "▼",
+      "dif": -4.440789473684211,
+      "ic": [
+        -8.38815789473684,
+        -0.8406432748538013
+      ],
+      "paso": {
+        "P1": true,
+        "P2": false,
+        "P3": false,
+        "P5": true,
+        "P6": 0.0
+      },
+      "fallos": [
+        "P2",
+        "P3",
+        "P6"
+      ],
+      "nivel": "no publicable",
+      "nivel_sin_regla_N": "no publicable",
+      "motivo": "N solo descriptivo (§23)",
+      "p": 0.0219,
+      "q": 0.08541,
+      "q_sin_N": null,
+      "p1": {
+        "tasa_signo": 0.99,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [
+        "BA"
+      ],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "",
+        "AB": "▼",
+        "BA": "▲",
+        "sin anthropic": "▼",
+        "sin deepseek": "▼",
+        "sin google": "▼",
+        "sin openai": "▼",
+        "sin qwen": "▼",
+        "sin xiaomi": "▼",
+        "sin z-ai": "▼"
+      }
+    },
+    "gemma4|O": {
+      "marca": "▲",
+      "dif": 4.661016949152542,
+      "ic": [
+        0.11696680790960497,
+        8.841807909604507
+      ],
+      "paso": {
+        "P1": true,
+        "P2": false,
+        "P3": false,
+        "P5": false,
+        "P6": 0.0
+      },
+      "fallos": [
+        "P2",
+        "P3",
+        "P5",
+        "P6"
+      ],
+      "nivel": "no publicable",
+      "nivel_sin_regla_N": "no publicable",
+      "motivo": "falla 4 (P2 P3 P5 P6); cae sin deepseek, google, xiaomi",
+      "p": 0.0501,
+      "q": 0.158184,
+      "q_sin_N": 0.14979545454545454,
+      "p1": {
+        "tasa_signo": 0.94,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [
+        "deepseek",
+        "google",
+        "xiaomi"
+      ],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "",
+        "rep1": "▲",
+        "AB": "",
+        "BA": "",
+        "sin anthropic": "▲",
+        "sin deepseek": "",
+        "sin google": "",
+        "sin openai": "▲",
+        "sin qwen": "▲",
+        "sin xiaomi": "",
+        "sin z-ai": "▲"
+      }
+    },
+    "gemma4|C": {
+      "marca": "▲",
+      "dif": 6.727430555555555,
+      "ic": [
+        3.0440848214285725,
+        10.46688988095238
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [],
+      "nivel": "robusta",
+      "nivel_sin_regla_N": "robusta",
+      "motivo": "pasa P1–P3, P5, P6",
+      "p": 0.0004,
+      "q": 0.0031200000000000004,
+      "q_sin_N": 0.0026000000000000003,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.625,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▲",
+        "rep1": "▲",
+        "AB": "▲",
+        "BA": "▲",
+        "sin anthropic": "▲",
+        "sin deepseek": "▲",
+        "sin google": "▲",
+        "sin openai": "▲",
+        "sin qwen": "▲",
+        "sin xiaomi": "▲",
+        "sin z-ai": "▲"
+      }
+    },
+    "gemma4|A": {
+      "marca": "▼",
+      "dif": -5.738304093567251,
+      "ic": [
+        -8.479532163742691,
+        -3.307291666666669
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [],
+      "nivel": "robusta",
+      "nivel_sin_regla_N": "robusta",
+      "motivo": "pasa P1–P3, P5, P6",
+      "p": 5e-05,
+      "q": 0.0005571428571428572,
+      "q_sin_N": 0.00046428571428571433,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.95,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "▼",
+        "AB": "▼",
+        "BA": "▼",
+        "sin anthropic": "▼",
+        "sin deepseek": "▼",
+        "sin google": "▼",
+        "sin openai": "▼",
+        "sin qwen": "▼",
+        "sin xiaomi": "▼",
+        "sin z-ai": "▼"
+      }
+    },
+    "glm5.3-flash|O": {
+      "marca": "▲",
+      "dif": 4.201977401129944,
+      "ic": [
+        0.8236228813559321,
+        7.227077448210924
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": false,
+        "P5": false,
+        "P6": 1.0
+      },
+      "fallos": [
+        "P3",
+        "P5"
+      ],
+      "nivel": "frágil",
+      "nivel_sin_regla_N": "frágil",
+      "motivo": "falla P3 P5; cae sin google",
+      "p": 0.0104,
+      "q": 0.047717647058823524,
+      "q_sin_N": 0.042249999999999996,
+      "p1": {
+        "tasa_signo": 0.995,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [
+        "google"
+      ],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▲",
+        "rep1": "▲",
+        "AB": "▲",
+        "BA": "",
+        "sin anthropic": "▲",
+        "sin deepseek": "▲",
+        "sin google": "",
+        "sin openai": "▲",
+        "sin qwen": "▲",
+        "sin xiaomi": "▲",
+        "sin z-ai": "▲"
+      }
+    },
+    "glm5.3-flash|E": {
+      "marca": "▼",
+      "dif": -3.0884502923976607,
+      "ic": [
+        -5.830135233918129,
+        -0.23711622807017863
+      ],
+      "paso": {
+        "P1": true,
+        "P2": false,
+        "P3": false,
+        "P5": false,
+        "P6": 0.0
+      },
+      "fallos": [
+        "P2",
+        "P3",
+        "P5",
+        "P6"
+      ],
+      "nivel": "no publicable",
+      "nivel_sin_regla_N": "no publicable",
+      "motivo": "falla 4 (P2 P3 P5 P6); cae sin anthropic, google, qwen, xiaomi",
+      "p": 0.0363,
+      "q": 0.1287,
+      "q_sin_N": 0.12418421052631577,
+      "p1": {
+        "tasa_signo": 0.96,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [
+        "anthropic",
+        "google",
+        "qwen",
+        "xiaomi"
+      ],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "",
+        "rep1": "▼",
+        "AB": "",
+        "BA": "",
+        "sin anthropic": "",
+        "sin deepseek": "▼",
+        "sin google": "",
+        "sin openai": "▼",
+        "sin qwen": "",
+        "sin xiaomi": "",
+        "sin z-ai": "▼"
+      }
+    },
+    "glm5.3-flash|N": {
+      "marca": "▼",
+      "dif": -3.7280701754385963,
+      "ic": [
+        -7.036275584795321,
+        -0.20056652046783882
+      ],
+      "paso": {
+        "P1": true,
+        "P2": false,
+        "P3": false,
+        "P5": false,
+        "P6": 0.0
+      },
+      "fallos": [
+        "P2",
+        "P3",
+        "P5",
+        "P6"
+      ],
+      "nivel": "no publicable",
+      "nivel_sin_regla_N": "no publicable",
+      "motivo": "N solo descriptivo (§23); cae sin google",
+      "p": 0.0321,
+      "q": 0.1192285714285714,
+      "q_sin_N": null,
+      "p1": {
+        "tasa_signo": 0.97,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [
+        "google"
+      ],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "",
+        "AB": "",
+        "BA": "▼",
+        "sin anthropic": "▼",
+        "sin deepseek": "▼",
+        "sin google": "",
+        "sin openai": "▼",
+        "sin qwen": "▼",
+        "sin xiaomi": "▼",
+        "sin z-ai": "▼"
+      }
+    },
+    "google_gemini-3.7-flash|O": {
+      "marca": "▼",
+      "dif": -15.536723163841808,
+      "ic": [
+        -19.797993173258003,
+        -11.552053907721282
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [],
+      "nivel": "robusta",
+      "nivel_sin_regla_N": "robusta",
+      "motivo": "pasa P1–P3, P5, P6",
+      "p": 5e-05,
+      "q": 0.0005571428571428572,
+      "q_sin_N": 0.00046428571428571433,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 1.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "▼",
+        "AB": "▼",
+        "BA": "▼",
+        "sin anthropic": "▼",
+        "sin deepseek": "▼",
+        "sin google": "▼",
+        "sin openai": "▼",
+        "sin qwen": "▼",
+        "sin xiaomi": "▼",
+        "sin z-ai": "▼"
+      }
+    },
+    "google_gemini-3.7-flash|E": {
+      "marca": "▲",
+      "dif": 13.066520467836257,
+      "ic": [
+        7.346034356725148,
+        18.659539473684205
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [],
+      "nivel": "robusta",
+      "nivel_sin_regla_N": "robusta",
+      "motivo": "pasa P1–P3, P5, P6",
+      "p": 5e-05,
+      "q": 0.0005571428571428572,
+      "q_sin_N": 0.00046428571428571433,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.98,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▲",
+        "rep1": "▲",
+        "AB": "▲",
+        "BA": "▲",
+        "sin anthropic": "▲",
+        "sin deepseek": "▲",
+        "sin google": "▲",
+        "sin openai": "▲",
+        "sin qwen": "▲",
+        "sin xiaomi": "▲",
+        "sin z-ai": "▲"
+      }
+    },
+    "google_gemini-3.7-flash|A": {
+      "marca": "▲",
+      "dif": 13.267543859649123,
+      "ic": [
+        7.072368421052632,
+        19.279970760233915
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [],
+      "nivel": "robusta",
+      "nivel_sin_regla_N": "robusta",
+      "motivo": "pasa P1–P3, P5, P6",
+      "p": 5e-05,
+      "q": 0.0005571428571428572,
+      "q_sin_N": 0.00046428571428571433,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.82,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▲",
+        "rep1": "▲",
+        "AB": "▲",
+        "BA": "▲",
+        "sin anthropic": "▲",
+        "sin deepseek": "▲",
+        "sin google": "▲",
+        "sin openai": "▲",
+        "sin qwen": "▲",
+        "sin xiaomi": "▲",
+        "sin z-ai": "▲"
+      }
+    },
+    "google_gemini-4-argon|O": {
+      "marca": "▼",
+      "dif": -7.962570621468925,
+      "ic": [
+        -11.47598870056497,
+        -4.642478813559327
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [],
+      "nivel": "robusta",
+      "nivel_sin_regla_N": "robusta",
+      "motivo": "pasa P1–P3, P5, P6",
+      "p": 5e-05,
+      "q": 0.0005571428571428572,
+      "q_sin_N": 0.00046428571428571433,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.935,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "▼",
+        "AB": "▼",
+        "BA": "▼",
+        "sin anthropic": "▼",
+        "sin deepseek": "▼",
+        "sin google": "▼",
+        "sin openai": "▼",
+        "sin qwen": "▼",
+        "sin xiaomi": "▼",
+        "sin z-ai": "▼"
+      }
+    },
+    "mimo-v2.6-flash|O": {
+      "marca": "▲",
+      "dif": 5.579096045197741,
+      "ic": [
+        1.6596045197740124,
+        9.610699152542374
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": false,
+        "P5": false,
+        "P6": 1.0
+      },
+      "fallos": [
+        "P3",
+        "P5"
+      ],
+      "nivel": "frágil",
+      "nivel_sin_regla_N": "frágil",
+      "motivo": "falla P3 P5; cae sin google",
+      "p": 0.0066,
+      "q": 0.032175,
+      "q_sin_N": 0.0286,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.01,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [
+        "google"
+      ],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▲",
+        "rep1": "▲",
+        "AB": "▲",
+        "BA": "",
+        "sin anthropic": "▲",
+        "sin deepseek": "▲",
+        "sin google": "",
+        "sin openai": "▲",
+        "sin qwen": "▲",
+        "sin xiaomi": "▲",
+        "sin z-ai": "▲"
+      }
+    },
+    "mimo-v2.6-flash|E": {
+      "marca": "▲",
+      "dif": 3.0884502923976602,
+      "ic": [
+        0.20056652046783596,
+        6.360105994152043
+      ],
+      "paso": {
+        "P1": true,
+        "P2": false,
+        "P3": false,
+        "P5": false,
+        "P6": 0.0
+      },
+      "fallos": [
+        "P2",
+        "P3",
+        "P5",
+        "P6"
+      ],
+      "nivel": "no publicable",
+      "nivel_sin_regla_N": "no publicable",
+      "motivo": "falla 4 (P2 P3 P5 P6); cae sin deepseek, openai, z-ai",
+      "p": 0.0436,
+      "q": 0.14786086956521738,
+      "q_sin_N": 0.1417,
+      "p1": {
+        "tasa_signo": 0.95,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [
+        "deepseek",
+        "openai",
+        "z-ai"
+      ],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "",
+        "rep1": "",
+        "AB": "▲",
+        "BA": "",
+        "sin anthropic": "▲",
+        "sin deepseek": "",
+        "sin google": "▲",
+        "sin openai": "",
+        "sin qwen": "▲",
+        "sin xiaomi": "▲",
+        "sin z-ai": ""
+      }
+    },
+    "openai_gpt-5.6-luna|O": {
+      "marca": "▲",
+      "dif": 4.201977401129944,
+      "ic": [
+        0.8874764595103584,
+        7.962717749529191
+      ],
+      "paso": {
+        "P1": true,
+        "P2": false,
+        "P3": false,
+        "P5": false,
+        "P6": 0.0
+      },
+      "fallos": [
+        "P2",
+        "P3",
+        "P5",
+        "P6"
+      ],
+      "nivel": "no publicable",
+      "nivel_sin_regla_N": "no publicable",
+      "motivo": "falla 4 (P2 P3 P5 P6); cae sin google",
+      "p": 0.019,
+      "q": 0.0796421052631579,
+      "q_sin_N": 0.07005555555555557,
+      "p1": {
+        "tasa_signo": 0.985,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [
+        "google"
+      ],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▲",
+        "rep1": "",
+        "AB": "▲",
+        "BA": "",
+        "sin anthropic": "▲",
+        "sin deepseek": "▲",
+        "sin google": "",
+        "sin openai": "▲",
+        "sin qwen": "▲",
+        "sin xiaomi": "▲",
+        "sin z-ai": "▲"
+      }
+    },
+    "openai_gpt-5.6-luna|A": {
+      "marca": "▼",
+      "dif": -4.075292397660819,
+      "ic": [
+        -6.4149305555555545,
+        -1.6264619883040932
+      ],
+      "paso": {
+        "P1": true,
+        "P2": false,
+        "P3": true,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [
+        "P2"
+      ],
+      "nivel": "frágil",
+      "nivel_sin_regla_N": "frágil",
+      "motivo": "falla P2",
+      "p": 0.0009,
+      "q": 0.00585,
+      "q_sin_N": 0.004875,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.345,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "",
+        "rep1": "▼",
+        "AB": "▼",
+        "BA": "▼",
+        "sin anthropic": "▼",
+        "sin deepseek": "▼",
+        "sin google": "▼",
+        "sin openai": "▼",
+        "sin qwen": "▼",
+        "sin xiaomi": "▼",
+        "sin z-ai": "▼"
+      }
+    },
+    "openai_gpt-6.1-sol#low|C": {
+      "marca": "▼",
+      "dif": -5.121527777777778,
+      "ic": [
+        -8.141431051587304,
+        -1.8973214285714286
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [],
+      "nivel": "robusta",
+      "nivel_sin_regla_N": "robusta",
+      "motivo": "pasa P1–P3, P5, P6",
+      "p": 0.002,
+      "q": 0.012,
+      "q_sin_N": 0.01,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.255,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "▼",
+        "AB": "▼",
+        "BA": "▼",
+        "sin anthropic": "▼",
+        "sin deepseek": "▼",
+        "sin google": "▼",
+        "sin openai": "▼",
+        "sin qwen": "▼",
+        "sin xiaomi": "▼",
+        "sin z-ai": "▼"
+      }
+    },
+    "openai_gpt-6.1-sol#low|H": {
+      "marca": "▲",
+      "dif": 6.650188323917138,
+      "ic": [
+        2.854284369114878,
+        10.475517890772128
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [],
+      "nivel": "robusta",
+      "nivel_sin_regla_N": "robusta",
+      "motivo": "pasa P1–P3, P5, P6",
+      "p": 0.0005,
+      "q": 0.0035454545454545456,
+      "q_sin_N": 0.0029545454545454545,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.66,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▲",
+        "rep1": "▲",
+        "AB": "▲",
+        "BA": "▲",
+        "sin anthropic": "▲",
+        "sin deepseek": "▲",
+        "sin google": "▲",
+        "sin openai": "▲",
+        "sin qwen": "▲",
+        "sin xiaomi": "▲",
+        "sin z-ai": "▲"
+      }
+    },
+    "qwen3.8-flash|A": {
+      "marca": "▼",
+      "dif": -2.8874269005847957,
+      "ic": [
+        -5.37280701754386,
+        -0.2741228070175435
+      ],
+      "paso": {
+        "P1": true,
+        "P2": false,
+        "P3": false,
+        "P5": true,
+        "P6": 0.0
+      },
+      "fallos": [
+        "P2",
+        "P3",
+        "P6"
+      ],
+      "nivel": "no publicable",
+      "nivel_sin_regla_N": "no publicable",
+      "motivo": "falla 3 (P2 P3 P6)",
+      "p": 0.0194,
+      "q": 0.0796421052631579,
+      "q_sin_N": 0.07005555555555557,
+      "p1": {
+        "tasa_signo": 0.965,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "",
+        "AB": "▼",
+        "BA": "",
+        "sin anthropic": "▼",
+        "sin deepseek": "▼",
+        "sin google": "▼",
+        "sin openai": "▼",
+        "sin qwen": "▼",
+        "sin xiaomi": "▼",
+        "sin z-ai": "▼"
+      }
+    }
+  }
+}
