@@ -1056,3 +1056,88 @@ está inflada por las situaciones compartidas y no se usa como evidencia.
 - Los 6 modelos sin banco v3 completo aparecen con su cuadro v1 marcado como
   «banco anterior», o se completan cuando haya presupuesto: ≈ 14,6 $ para
   Grok, Kimi, Mistral, Qwen Max y GLM 5.3.
+
+## 26. Robustez de las marcas del cuadro v2 · criterios fijados ANTES de calcular (20-10-2026)
+
+**Objetivo.** El retrato por modelo de la web se construye con las marcas
+▲/▼ del cuadro v2 (§21, `CUADRO_V3.md`): 13 modelos con el banco v3
+completo, seis rasgos. Antes de publicar una frase hay que saber qué marcas
+dependen de decisiones de análisis o de qué situaciones, réplicas o modelos
+hayan entrado. **Solo con los datos ya recogidos: cero llamadas a modelos.**
+Lo calcula `spike/analizar_robustez_v3.py`, que reutiliza `analizar_v3.py`
+con la semilla `SEMILLA` (20261010), y lo escribe en
+`spike/resultados/personalidad_fc/ROBUSTEZ_V3.md` y `robustez_v3.json`.
+
+**Marca de partida.** La del cuadro v2 tal cual: diferencia pareada por
+situación en la escala del cuadro, 50·(a_m(i) − media de los demás modelos),
+IC 95 % por bootstrap de situaciones; marca si el IC excluye 0. Se evalúan
+las **27 marcas** del cuadro, incluidas las 3 de N: §23 ya decidió que N no
+lleva marcas en la web, y su robustez se mide solo como información.
+
+**Comprobaciones.** Cada una se aplica a cada marca. «Se mantiene» = mismo
+signo e IC 95 % que excluye 0, salvo en P1.
+
+- **P1 · réplica por mitades de situaciones.** En cada rasgo, las situaciones
+  se reparten en dos mitades **dentro de cada faceta**; si una faceta es
+  impar, la sobrante va alternando de mitad. **200 particiones aleatorias.**
+  En cada mitad se calcula la diferencia pareada con su IC (bootstrap de
+  1.000). Se mide:
+  - la **tasa de signo**: fracción de particiones en que la estimación
+    puntual tiene el signo de la marca en las dos mitades;
+  - la tasa de significación en las dos mitades, solo descriptiva: con la
+    mitad de situaciones el IC se ensancha ≈ √2 y no se le exige.
+
+  **Pasa si la tasa de signo ≥ 90 %.**
+- **P2 · réplica.** Marcas calculadas solo con la réplica 0 y solo con la
+  réplica 1, cada una con sus dos órdenes. **Pasa si la marca se mantiene en
+  las dos.**
+- **P3 · orden de presentación.** Solo orden AB frente a solo BA, cada uno
+  con sus dos réplicas. **Pasa si se mantiene en los dos.**
+- **P4 · fuente de la deseabilidad.** Se recalcula con la deseabilidad de
+  **consenso** (media de d_m(i) de los 13 modelos) y **sin ajuste** (d = 0).
+  Nota de método, previa a calcular: en la diferencia pareada, un d(i) común
+  a todos los modelos se cancela, así que las marcas con consenso y sin
+  ajuste son idénticas por construcción; cambia la puntuación mostrada, no la
+  comparación. P4 pregunta, por tanto, si la marca nace de la conducta o de
+  que ese modelo juzga de otra manera qué es admirable. **Pasa si la marca se
+  mantiene con la deseabilidad común.** Se informa además de cuánto cambia la
+  puntuación.
+- **P5 · composición del panel (leave-one-lab-out).** Se quita cada
+  laboratorio y se recalcula la media de comparación. El laboratorio sale del
+  prefijo de `ORGS` vía `_id`; los modelos de NaN, sin prefijo, se asignan a
+  mano a su familia: qwen3.6 y qwen3.8-flash a `qwen`, deepseek-v4-flash@ a
+  `deepseek`, gemma4 a `google`, glm5.3-flash a `z-ai` y mimo a `xiaomi`.
+  Cuando se quita el laboratorio del propio modelo, se quitan solo sus
+  hermanos: el modelo se compara entonces solo con otros laboratorios.
+  **Pasa si la marca se mantiene en todos los paneles.**
+- **P6 · comparaciones múltiples.** p bilateral por bootstrap de la
+  diferencia pareada completa (B = 20.000; p = 2·min(fracción ≤ 0, fracción
+  ≥ 0), con suelo 1/B) en las **78 pruebas** (13 × 6), con
+  Benjamini-Hochberg. **Pasa si q < 0,05.** Como información, también BH
+  sobre las 65 pruebas sin N.
+
+**Niveles (por marca):**
+
+- **Robusta:** pasa P1–P6.
+- **Frágil:** falla una o dos de P1–P6, con tasa de signo de P1 ≥ 75 %.
+- **No publicable:** tasa de signo de P1 < 75 %, o falla tres o más de
+  P1–P6, o en alguna comprobación la marca **se invierte** (signo contrario
+  con IC que excluye 0). Las marcas de **N** son no publicables por §23, sea
+  cual sea su robustez.
+
+Las marcas **nuevas** que aparezcan solo en una variante (sin ajuste, un
+panel, una réplica) se listan, pero no entran en el retrato: no estaban en
+el cuadro fijado.
+
+**Retrato publicable propuesto.** Por modelo, solo frases de marcas
+**robustas** de O, C, A y H; las de E robustas, con el aviso de fiabilidad
+de §23; N solo como dato descriptivo, sin frase de comparación. Las frágiles
+no se publican como frase; pueden aparecer como «tendencia» solo si David lo
+decide aparte. Un modelo sin marcas robustas se describe como «perfil
+próximo al de los demás».
+
+**Relación con el ISS (descriptiva).** Spearman entre la puntuación ajustada
+de cada rasgo y el ISS publicado (`iss_por_modelo`), en los modelos del
+cuadro que tienen ISS, con IC 95 % por bootstrap de modelos (2.000). Con
+n ≈ 10 el IC será ancho: no se contrasta ninguna hipótesis, no se usa para
+decidir nada y el informe avisa del n.
