@@ -128,8 +128,13 @@ DESVELADOS = {
 # (13-09-2026) etiqueta «V4-Flash (4.1 version)» lo que su API pide como
 # deepseek-v4-flash: la entrada se publica con el nombre real y conserva el
 # id de llamada en el campo «modelo» (y en los crudos).
+# El 17-10-2026 NaN cambió el modelo detrás del mismo id sin cambiar el id ni
+# el campo `model` de la respuesta: lo medido desde entonces lleva etiqueta
+# de medición (`id@etiqueta`, model_factory.partir_etiqueta) y su panel lo
+# etiqueta deepseek-v4-flash-1017. La entrada de la 4.1 no se toca.
 ALIAS = {
     "deepseek-v4-flash": "deepseek-v4.1-flash",
+    "deepseek-v4-flash@2026-10-17": "deepseek-v4-flash-1017",
 }
 
 # Notas de procedencia al pie de la tabla, por id de llamada.
@@ -154,6 +159,15 @@ NOTAS = {
         "se pide a la API de NaN como `deepseek-v4-flash`; el panel de "
         "modelos de NaN lo etiqueta «V4-Flash (4.1 version)» (13-09-2026), "
         "así que se publica como DeepSeek-V4.1-Flash"),
+    "deepseek-v4-flash@2026-10-17": (
+        "se pide a la API de NaN como `deepseek-v4-flash`, el MISMO id que la "
+        "4.1: el 17-10-2026 NaN cambió el modelo servido detrás del id sin "
+        "cambiar el id ni el campo `model` de la respuesta. Se midió ese "
+        "mismo día con etiqueta de medición (`deepseek-v4-flash@2026-10-17`, "
+        "registrada en cada solicitud) y se publica con el nombre del panel "
+        "de modelos de NaN, deepseek-v4-flash-1017 (su `/models` sigue "
+        "listando solo `deepseek-v4-flash`, 20-10-2026). La medición de la "
+        "4.1 (13-09-2026) se conserva como entrada propia"),
     "mimo-v2.5": (
         "NaN lo enruta a un proveedor externo (Xiaomi), según su panel de "
         "modelos (13-09-2026): la vía es NaN, el servidor no"),

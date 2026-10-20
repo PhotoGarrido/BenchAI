@@ -58,15 +58,18 @@ PRECIOS = {   # USD por millón de tokens (in, out) — OpenRouter 26-07-2026
     "mimo-v2.5": (0.0, 0.0),
     "gemma4": (0.0, 0.0),
     "qwen3.8-flash": (0.0, 0.0),
-    "deepseek-v4-flash": (0.0, 0.0),   # sirve la 4.1 (panel de NaN, 13-09)
+    # sirvió la 4.1 hasta el 17-10-2026; desde entonces, la 1017 (se mide
+    # como deepseek-v4-flash@2026-10-17). La tarifa plana no cambió.
+    "deepseek-v4-flash": (0.0, 0.0),
     "mimo-v2.6-flash": (0.0, 0.0),   # NaN 28-09-2026
 }
 
 
 def precio(modelo: str):
-    """Pin (in, out) del modelo; el sufijo `#nivel` de razonamiento es
-    identidad de la medición, no tarifa, así que se ignora al buscar."""
-    return PRECIOS.get(modelo.partition("#")[0], (None, None))
+    """Pin (in, out) del modelo; el sufijo `#nivel` de razonamiento y la
+    etiqueta `@medición` son identidad de la medición, no tarifa, así que se
+    ignoran al buscar."""
+    return PRECIOS.get(modelo.partition("#")[0].partition("@")[0], (None, None))
 
 
 def coste_dir(d: pathlib.Path):
