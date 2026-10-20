@@ -48,7 +48,8 @@ def deseabilidad_nan():
 
 def main():
     des = deseabilidad_nan()
-    banco = {i[0]: i for i in cal.banco()}
+    # P4 (banco v3.1, §24) se selecciona aparte: el banco v3 queda congelado.
+    banco = {i[0]: i for i in cal.banco() if i[5] != "P4"}
     por_faceta = defaultdict(list)
     for iid, (_, rasgo, sit, alto, bajo, origen, faceta, ctx) in banco.items():
         if iid in des:

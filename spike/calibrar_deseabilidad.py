@@ -43,6 +43,8 @@ from experimento_personalidad import (TEMPERATURA, _nombre, parsear_ab,
 AQUI = pathlib.Path(__file__).parent
 CANDIDATOS = AQUI / "personalidad_p1_candidatos.json"
 CANDIDATOS_P3 = AQUI / "personalidad_p3_candidatos.json"
+#: Banco v3.1 (§24): candidatas nuevas de Extraversión y Neuroticismo.
+CANDIDATOS_P4 = AQUI / "personalidad_p4_candidatos.json"
 FACETAS_P0 = AQUI / "personalidad_facetas_p0.json"
 SALIDA = AQUI / "resultados" / "personalidad_p1_calibracion"
 VERSION = "P1-cal"
@@ -68,13 +70,18 @@ def banco():
         for d in json.loads(CANDIDATOS_P3.read_text(encoding="utf-8")):
             items.append((d["id"], d["rasgo"], d["situacion"], d["alto"], d["bajo"],
                           "P3", d["faceta"], d["contexto"]))
+    if CANDIDATOS_P4.exists():   # banco v3.1 (§24): SIEMPRE al final del banco
+        for d in json.loads(CANDIDATOS_P4.read_text(encoding="utf-8")):
+            items.append((d["id"], d["rasgo"], d["situacion"], d["alto"], d["bajo"],
+                          "P4", d["faceta"], d["contexto"]))
     ids = [i[0] for i in items]
     assert len(ids) == len(set(ids)), "ids duplicados en el banco"
     return items
 
 
-def plan(solo_seleccion=False):
-    """`solo_seleccion`: solo las 179 del banco P1 (para modelos nuevos, §18)."""
+def plan(solo_seleccion=False, solo_origen=None):
+    """`solo_seleccion`: solo las 179 del banco P1 (para modelos nuevos, §18).
+    `solo_origen`: solo las candidatas de ese origen (p. ej. "P4", §24)."""
     sel = None
     if solo_seleccion:
         sel = {d["id"] for d in json.loads(
@@ -82,6 +89,8 @@ def plan(solo_seleccion=False):
     tareas = []
     for n, (iid, rasgo, sit, alto, bajo, origen, faceta, ctx) in enumerate(banco()):
         if sel is not None and iid not in sel:
+            continue
+        if solo_origen is not None and origen != solo_origen:
             continue
         nombre, genero = _nombre(n)
         for orden in ("AB", "BA"):
@@ -95,7 +104,7 @@ def plan(solo_seleccion=False):
     return tareas
 
 
-def medir(modelo_id, hilos=1, solo_seleccion=False):
+def medir(modelo_id, hilos=1, solo_seleccion=False, solo_origen=None):
     base = SALIDA / modelo_id.replace("/", "_")
     base.mkdir(parents=True, exist_ok=True)
     fichero = base / "registros.jsonl"
@@ -105,7 +114,7 @@ def medir(modelo_id, hilos=1, solo_seleccion=False):
             r = json.loads(linea)
             if r["estado"] != parsers.ERROR_TECNICO:
                 hechas.add(r["id"])
-    tareas = plan(solo_seleccion)
+    tareas = plan(solo_seleccion, solo_origen)
     random.Random(f"orden-{modelo_id}").shuffle(tareas)
     pendientes = [t for t in tareas if t["id"] not in hechas]
     manifiesto.activar(base / datetime.datetime.now().strftime("intento_%Y%m%d_%H%M%S"),
@@ -144,7 +153,9 @@ def analizar():
                 ultimo[r["id"]] = r
             filas += list(ultimo.values())
     modelos = sorted({r["modelo"] for r in filas})
-    info = {i[0]: i for i in banco()}
+    # Las candidatas P4 (banco v3.1, §24) tienen su propia selección
+    # (seleccionar_v31_en.py): no entran en la del P1.
+    info = {i[0]: i for i in banco() if i[5] != "P4"}
     por = defaultdict(list)
     por_mod = defaultdict(lambda: defaultdict(list))
     for r in filas:
@@ -265,6 +276,8 @@ def main():
     ap.add_argument("--analizar", action="store_true")
     ap.add_argument("--solo-seleccion", action="store_true",
                     help="solo las 179 situaciones del banco P1 (358 llamadas)")
+    ap.add_argument("--solo-origen", choices=("P0", "P1", "P3", "P4"),
+                    help="solo las candidatas de ese origen (P4 = banco v3.1, §24)")
     ap.add_argument("--hilos", type=int, default=1,
                     help="llamadas concurrentes (solo OpenRouter; NaN con 1)")
     args = ap.parse_args()
@@ -272,7 +285,7 @@ def main():
         analizar()
     elif args.modelo:
         try:
-            medir(args.modelo, args.hilos, args.solo_seleccion)
+            medir(args.modelo, args.hilos, args.solo_seleccion, args.solo_origen)
             manifiesto.cerrar_activo()
         except BaseException as e:
             manifiesto.cerrar_activo("failed", {"exception_type": type(e).__name__})

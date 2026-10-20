@@ -41,11 +41,11 @@ def _hechas(f):
             if r["estado"] != parsers.ERROR_TECNICO}
 
 
-def plan(f_cal, f_p1):
+def plan(f_cal, f_p1, sel=SEL):
     idx = {i[0]: k for k, i in enumerate(cal.banco())}
     hechas_cal, hechas_p1 = _hechas(f_cal), _hechas(f_p1)
     tareas = []
-    for d in json.loads(SEL.read_text(encoding="utf-8")):
+    for d in json.loads(sel.read_text(encoding="utf-8")):
         sit = (d["id"], d["rasgo"], d["situacion"], d["alto"], d["bajo"])
         nombre, genero = _nombre(idx[d["id"]])
         for orden in ("AB", "BA"):
@@ -72,18 +72,25 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--modelo", required=True)
     ap.add_argument("--hilos", type=int, default=1)
+    ap.add_argument("--seleccion", type=pathlib.Path, default=SEL,
+                    help="banco a completar (por defecto el v3; el v3.1 de E y N es"
+                         " personalidad_v31_en_seleccion.json, §24)")
     args = ap.parse_args()
+    sel = args.seleccion if args.seleccion.is_absolute() else AQUI / args.seleccion
     e = args.modelo.replace("/", "_")
     d_cal, d_p1 = cal.SALIDA / e, ep1.SALIDA / e
     d_cal.mkdir(parents=True, exist_ok=True)
     d_p1.mkdir(parents=True, exist_ok=True)
     f_cal, f_p1 = d_cal / "registros.jsonl", d_p1 / "registros.jsonl"
-    tareas = plan(f_cal, f_p1)
-    manifiesto.activar(d_p1 / datetime.datetime.now().strftime("intento_v3_%Y%m%d_%H%M%S"),
-                       dict(modelo=args.modelo, version="v3", n_pendientes=len(tareas),
-                            seleccion_sha256=manifiesto.sha256_texto(SEL.read_text(encoding="utf-8"))))
+    tareas = plan(f_cal, f_p1, sel)
+    version = "v3" if sel.resolve() == SEL.resolve() else "v3.1"
+    manifiesto.activar(d_p1 / datetime.datetime.now().strftime(
+                           f"intento_{version.replace('.', '')}_%Y%m%d_%H%M%S"),
+                       dict(modelo=args.modelo, version=version, n_pendientes=len(tareas),
+                            seleccion=sel.name,
+                            seleccion_sha256=manifiesto.sha256_texto(sel.read_text(encoding="utf-8"))))
     modelo = model_factory.build_model(dry_run=False, model_name=args.modelo)
-    print(f"[{args.modelo}/v3] {len(tareas)} pendientes", flush=True)
+    print(f"[{args.modelo}/{version}] {len(tareas)} pendientes", flush=True)
 
     def hacer(t):
         try:
@@ -103,7 +110,7 @@ def main():
                                       else (v == "A") == (t["orden"] == "AB")))
         else:
             reg.update(ep1.puntuar(t, raw), raw=(raw or "")[:400], modelo=args.modelo,
-                       version_bateria="v3", parser_version=parsers.PARSER_VERSION,
+                       version_bateria=version, parser_version=parsers.PARSER_VERSION,
                        prompt_sha256=manifiesto.sha256_texto(t["prompt"]),
                        ts=datetime.datetime.now().isoformat(timespec="seconds"))
         return reg
@@ -114,7 +121,7 @@ def main():
         with destino.open("a", encoding="utf-8") as fh:
             fh.write(json.dumps(reg, ensure_ascii=False) + "\n")
 
-    personalidad_runner.ejecutar(tareas, hacer, escribir, f"{args.modelo}/v3", args.hilos,
+    personalidad_runner.ejecutar(tareas, hacer, escribir, f"{args.modelo}/{version}", args.hilos,
                                  cada=100)
 
 if __name__ == "__main__":

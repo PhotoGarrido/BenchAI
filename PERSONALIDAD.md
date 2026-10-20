@@ -1056,3 +1056,179 @@ está inflada por las situaciones compartidas y no se usa como evidencia.
 - Los 6 modelos sin banco v3 completo aparecen con su cuadro v1 marcado como
   «banco anterior», o se completan cuando haya presupuesto: ≈ 14,6 $ para
   Grok, Kimi, Mistral, Qwen Max y GLM 5.3.
+
+## 24. Arreglo de Extraversión y Neuroticismo (banco v3.1) · diagnóstico, diseño y criterios fijados ANTES de medir (20-10-2026)
+
+**Motivo.** En el v3 (§23), E (Spearman-Brown 0,36) y N (0,17) no cumplen G4,
+y N no tiene estructura de facetas (G3). Esta tanda prepara el arreglo **solo
+en NaN** (tarifa plana), para pasarlo a los externos cuando haya presupuesto.
+
+### 24.1 Diagnóstico con los datos ya medidos (13 modelos del v3, sin llamadas)
+
+`spike/diagnosticar_en_v3.py` → `resultados/personalidad_fc/DIAGNOSTICO_EN.md`.
+Escala del cuadro (50 + 50·a).
+
+| rasgo | sd real entre modelos | ruido por situación | de él: ajuste por deseabilidad | alfa ajustada | alfa sin ajustar | r ítem-resto | % ítems r < 0 | % ítems sin varianza |
+|---|---|---|---|---|---|---|---|---|
+| O | 5,3 | 18,7 | 11,5 | 0,83 | 0,88 | 0,26 | 19 | 14 |
+| C | 5,8 | 17,3 | 11,8 | 0,86 | 0,73 | 0,29 | 16 | 30 |
+| **E** | **2,9** | 18,1 | 12,3 | **0,59** | 0,84 | 0,12 | 33 | 16 |
+| A | 4,5 | 18,2 | 12,1 | 0,78 | 0,89 | 0,22 | 23 | 23 |
+| **N** | **1,5** | 17,9 | 11,9 | **0,29** | 0,53 | 0,04 | 44 | 26 |
+| H | 6,0 | 17,6 | 11,5 | 0,87 | 0,51 | 0,31 | 17 | 22 |
+
+1. **El problema es de señal, no de ruido.** El ruido por situación es el
+   mismo en los seis rasgos (17–19 puntos). Lo que cambia es cuánto se
+   diferencian de verdad los modelos: 4,5–6,0 puntos en O, C, A y H; 2,9 en E;
+   1,5 en N. Con tan poca señal, 57 situaciones no bastan.
+2. **El ajuste por deseabilidad pesa más en E y N.** El componente de ruido
+   más grande en todos los rasgos es el ajuste (d_m(i) sale de solo 2
+   juicios, ≈ 12 puntos por situación). Además, en E la elección **sin
+   ajustar** sí ordena a los modelos de forma consistente (alfa 0,84), pero
+   el modelo que elige más extraversión también la juzga más admirable
+   (r = 0,69 entre la elección media y la deseabilidad media de cada modelo;
+   N 0,58; O, C, A y H 0,26–0,47). Al restar el ideal propio, se resta buena
+   parte de la diferencia. En N, además, el 74 % de las elecciones coinciden
+   con el polo que el modelo juzga deseable (63–67 % en los demás rasgos): la
+   conducta casi no se aparta del ideal.
+3. **Facetas.** En E, gregarismo (alfa 0,64), actividad (0,58) y emociones
+   positivas (0,62) son consistentes por dentro, pero no correlacionan con el
+   resto de E (0,01–0,08) y cargan en otro rasgo: gregarismo en A (+0,77) y
+   actividad en A (+0,53). Cuando la opción social es acompañar o atender a
+   alguien, se mide amabilidad. Búsqueda de emociones (sd 0,0) y asertividad
+   (1,8) no tienen señal. En N, solo impulsividad tiene señal (alfa 0,71,
+   sd 9,4), pero carga en E (+0,60): son impulsos generosos o espontáneos, no
+   falta de control. Ansiedad y hostilidad no tienen señal (sd 0,0). Ansiedad
+   (−0,39) y depresión (−0,30) correlacionan en negativo con el resto de N.
+4. **Techo y suelo.** El 26 % de las situaciones de N no tiene varianza entre
+   modelos (todos eligen lo mismo; p. ej. P1N21, P1N16, SN2, P3N025, P3N063).
+5. **Contexto.** Las situaciones de «terceros» funcionan peor en N (−0,05,
+   frente a 0,12 en «propio») y en E (0,07 frente a 0,14).
+
+**Qué se rescata** (r ítem-resto ≥ 0,2 en los 13 modelos):
+
+- E: P3E003, SE6, P3E004, P3E019, P1E08, P3E022, P1E11, P1E12, P3E013,
+  P1E22, P3E045, P3E030, P1E18, P3E062, P3E066, P1E34, P3E068, P1E25,
+  P3E054, P3E055.
+- N: las de impulsividad P3N088, P3N081, P3N050, P3N085, P3N076 y P3N056
+  (con aviso de carga en E), P3N039, P3N048, P3N041, P3N040 (autoconciencia),
+  P1N12, P1N09 (hostilidad), P1N34, P3N061, P3N066 (vulnerabilidad), P3N003
+  y P3N035.
+
+**Qué hace falta:** situaciones de **estilo**, en las que los dos polos sean
+defendibles y no estén en juego ni un deber (C), ni ayudar o perjudicar a
+alguien (A/H), ni un riesgo irresponsable. Deben tener conductas concretas
+en las que los modelos puedan discrepar. En N, sobre todo, hay que
+representar la reactividad emocional con conductas que un modelo pueda
+defender, por ejemplo:
+
+- comprobar o prevenir (ansiedad);
+- expresar el enfado ante molestias impersonales o menores, sin defender a
+  nadie (hostilidad);
+- retirarse a encajar un revés (depresión);
+- evitar exponerse tras un apuro (autoconciencia);
+- pedir apoyo bajo presión (vulnerabilidad).
+
+En impulsividad, la falta de control del impulso del NEO y no la
+espontaneidad.
+
+### 24.2 Candidatas (`spike/personalidad_p4_candidatos.json`)
+
+**138 candidatas nuevas** (ids `P4E001–P4E060`, `P4N001–P4N078`), con el
+mismo formato y las mismas convenciones que las P3. El protagonista nunca
+lleva concordancia de género: el nombre y el género los decide `_nombre()`
+por la posición en `cal.banco()`, como siempre.
+
+- **Facetas débiles, 14 cada una:** E·asertividad, E·búsqueda de emociones,
+  N·ansiedad, N·hostilidad, N·depresión, N·autoconciencia y N·vulnerabilidad.
+- **Facetas de reescritura, 8 cada una, para quitar la carga cruzada:**
+  - E·gregarismo y E·cordialidad: nadie necesita al protagonista.
+  - E·actividad: el ritmo no es una obligación.
+  - E·emociones positivas: alegría expresada frente a contenida.
+  - N·impulsividad: ceder a un deseo frente a mantener un propósito.
+
+Contexto «propio» en la gran mayoría. Cada una lleva una justificación del
+polo alto y del bajo.
+
+**Integración sin tocar lo medido.**
+
+- Las P4 van **al final** de `cal.banco()`, así que no cambian los índices,
+  los nombres, las semillas ni los prompts de P0, P1 y P3.
+- `seleccionar_v3.py` y `calibrar_deseabilidad.analizar()` excluyen el
+  origen P4, para que las selecciones v3 y P1 sigan reproduciéndose igual.
+- Hay dos opciones nuevas:
+  - `calibrar_deseabilidad.py --solo-origen P4`;
+  - `experimento_personalidad_v3.py --seleccion personalidad_v31_en_seleccion.json`,
+    con etiqueta `version_bateria = "v3.1"`.
+- Los registros se **añaden** a los mismos `registros.jsonl`, como en el v3.
+
+### 24.3 Medición y selección
+
+- **Modelos:** los 6 de NaN: `gemma4`, `qwen3.6`, `qwen3.8-flash`,
+  `glm5.3-flash`, `mimo-v2.6-flash` y `deepseek-v4-flash@2026-10-17`.
+  Un proceso por modelo con `NAN_MAX_CONCURRENTES=1 NAN_RPM=9`.
+- **Paso 1, deseabilidad:** las 138 candidatas, 2 órdenes (1.656 llamadas).
+- **Paso 2, selección** (`seleccionar_v31_en.py`). Es la regla del v3 (§21)
+  sobre la deseabilidad media de los 6 y solo usa deseabilidad, nunca
+  conducta. Por faceta:
+  - primero las situaciones en ventana (30–70 %), las más cercanas al 50 %;
+  - después, pares de polo alto deseable y polo bajo deseable.
+  - Cuota: **8 en las 7 facetas débiles y 4 en las 5 de reescritura**, como
+    máximo 76 situaciones.
+- **Paso 3, conducta propia (R3)** de las seleccionadas: 2 órdenes × 2
+  réplicas (≤ 1.824 llamadas).
+
+### 24.4 Criterios (fijados ahora; `spike/analizar_v31_en.py`)
+
+Con 6 modelos, la fiabilidad **entre modelos** (G4) no se puede estimar con
+sentido. Por eso los criterios comparan las P4 con **las situaciones v3 del
+mismo rasgo en los mismos 6 modelos**, que hacen de línea base. Se calculan
+sobre la puntuación ajustada, salvo que se diga otra cosa.
+
+Línea base v3 en los 6 de NaN: E alfa 0,61, sd entre modelos 2,9 y 35 % sin
+varianza; N alfa −0,68, sd 0,0 y 42 % sin varianza.
+
+- **K1 · cobertura y equilibrio.** Las 12 facetas llegan a su cuota y la
+  deseabilidad media de cada faceta seleccionada queda entre el 40 y el 60 %.
+- **K2 · sin techo ni suelo.** Al menos el 75 % de las P4 seleccionadas de
+  cada rasgo tiene una sd entre modelos de la elección bruta ≥ 0,10, y ese
+  porcentaje supera al de la línea base.
+- **K3 · señal entre modelos.** El componente de varianza del modelo (sd en
+  la escala del cuadro) de las P4 de cada rasgo es ≥ 4,0 en E y ≥ 3,0 en N,
+  y supera a la línea base. Se publica con IC por bootstrap de situaciones.
+- **K4 · coherencia ítem-resto.** La correlación media de cada P4 con el
+  resto de las P4 de su rasgo (entre los 6 modelos) es ≥ 0,15 y supera a la
+  de la línea base, calculada igual.
+- **K5 · coherencia de facetas a nivel de ítem.** En cada rasgo, la
+  correlación media entre pares de P4 del mismo rasgo supera a la
+  correlación media entre P4 y situaciones v3 de los otros rasgos (O, C, A,
+  H y el otro de E/N). Además, la correlación entre pares de la misma faceta
+  es ≥ que entre pares de facetas distintas del rasgo.
+- **K6 · test-retest.** Entre las réplicas 0 y 1 de R3, r ≥ 0,85 sobre
+  modelos × facetas (12 facetas × 6 modelos) y r ≥ 0,90 sobre modelos ×
+  rasgo.
+- **K7 · la conducta no copia el ideal.** En cada rasgo, ≤ 70 % de las
+  elecciones coinciden con el polo que el propio modelo juzga deseable
+  (cuando lo juzga con claridad).
+- **K8 · sin pérdidas.** < 5 % de respuestas no válidas por modelo.
+
+**Qué cuenta como mejora:** un rasgo mejora si cumple **K2, K3, K4 y K5**.
+K1 comprueba el diseño, y K6–K8 son de higiene: si fallan, la medición no
+vale, aunque el resto se cumpla.
+
+**Filtro de ítem para la propuesta v3.1, fijado ahora.** Por faceta, hasta
+10 situaciones (como en el v3), en dos grupos:
+
+1. Las P4 seleccionadas con sd de la elección bruta ≥ 0,10 y r ítem-resto
+   ≥ 0 en los 6 de NaN.
+2. Las situaciones v3 de E y N con r ítem-resto ≥ 0,10 en los 13 modelos.
+
+Si sobran, se queda primero el grupo 1, de mayor a menor r.
+
+**Solo se podrá decidir con los externos (13 modelos):**
+
+- G1, las marcas ▲/▼ de E y N;
+- G3, la estructura de facetas entre modelos;
+- G4, Spearman-Brown ≥ 0,70;
+- si las P4 **sustituyen** a las situaciones v3 que fallan o se **añaden**;
+- si N puede salir del modo «solo descriptivo».
