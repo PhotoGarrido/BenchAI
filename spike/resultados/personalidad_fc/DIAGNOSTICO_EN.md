@@ -178,3 +178,14 @@ Escala del cuadro (50 + 50·a). *sd modelos* = desviación típica real entre mo
 | P3N062 | vulnerabilidad | terceros | 73 | 96 | 0.13 | -0.12 | O +0.47 |
 | P1N32 | vulnerabilidad | terceros | 27 | 81 | 0.33 | -0.15 | C +0.10 |
 | P3N065 | vulnerabilidad | propio | 42 | 63 | 0.39 | -0.16 | O +0.12 |
+
+## 6. G4 con la elección bruta (§28, exploratorio)
+
+| rasgo | ajustada (§21) | bruta (§28) |
+|---|---|---|
+| O | 0.90 | 0.94 |
+| C | 0.81 | 0.81 |
+| E | 0.36 | 0.93 |
+| A | 0.78 | 0.86 |
+| N | 0.17 | 0.62 |
+| H | 0.91 | 0.13 |

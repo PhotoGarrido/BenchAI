@@ -1,0 +1,31 @@
+{
+  "commit": "532f300a356ce2c041a43325f448b77c575e9206",
+  "python": "3.12.4",
+  "parser_version": "2.5",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "experimento_personalidad_v3.py",
+    "--modelo",
+    "qwen3.6",
+    "--seleccion",
+    "personalidad_v31_en_seleccion.json"
+  ],
+  "args": {
+    "modelo": "qwen3.6",
+    "version": "v3.1",
+    "n_pendientes": 192,
+    "seleccion": "personalidad_v31_en_seleccion.json",
+    "seleccion_sha256": "8ef1f139c5c002eec2da2575347d7d25701f7b64add7535e5075dd0970917130"
+  },
+  "hashes": {},
+  "inicio": "2026-10-20T23:12:55",
+  "status": "completed",
+  "fin": "2026-10-20T23:34:35",
+  "solicitudes": 196,
+  "errores": 4,
+  "fallo_escritura": false
+}

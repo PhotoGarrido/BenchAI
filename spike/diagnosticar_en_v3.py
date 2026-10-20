@@ -223,7 +223,7 @@ def main():
           "|---|---|---|---|---|---|---|---|"]
     for t in "EN":
         ids = por_rasgo[t]
-        ir = item_resto(A[t])
+        ir, ir_b = item_resto(A[t]), item_resto(P[t])
         orden = sorted(range(len(ids)), key=lambda j: (info[ids[j]]["faceta"], -np.nan_to_num(ir[j])))
         for j in orden:
             i = ids[j]
@@ -234,11 +234,29 @@ def main():
             res["items"][i] = dict(rasgo=t, faceta=info[i]["faceta"], contexto=info[i]["contexto"],
                                    origen=info[i]["origen"], deseab=float(D[t][:, j].mean()),
                                    p_alto=float(P[t][:, j].mean()), sd_p=float(P[t][:, j].std()),
-                                   r_propio=float(ir[j]), mejor_ajeno=(u_max, otros[u_max]))
+                                   r_propio=float(ir[j]), r_propio_bruta=float(ir_b[j]),
+                                   mejor_ajeno=(u_max, otros[u_max]))
             g = res["items"][i]
             L.append(f"| {i} | {g['faceta']} | {g['contexto'] or '—'} | {100 * g['deseab']:.0f} |"
                      f" {100 * g['p_alto']:.0f} | {g['sd_p']:.2f} | {g['r_propio']:.2f} |"
                      f" {u_max} {otros[u_max]:+.2f} |")
+
+    # G4 (mitades pares/impares, Spearman-Brown) con la puntuación ajustada del
+    # §21 y con la elección bruta del §28 (conducta comparada). Exploratorio.
+    L += ["", "## 6. G4 con la elección bruta (§28, exploratorio)", "",
+          "| rasgo | ajustada (§21) | bruta (§28) |", "|---|---|---|"]
+    res["g4"] = {}
+    for t in RASGOS:
+        ids = sorted(por_rasgo[t])
+        cols = {i: k for k, i in enumerate(por_rasgo[t])}
+        sb = []
+        for X in (A[t], P[t]):
+            h1 = X[:, [cols[i] for i in ids[0::2]]].mean(1)
+            h2 = X[:, [cols[i] for i in ids[1::2]]].mean(1)
+            r = float(np.corrcoef(h1, h2)[0, 1])
+            sb.append(2 * r / (1 + r))
+        res["g4"][t] = dict(ajustada=sb[0], bruta=sb[1])
+        L.append(f"| {t} | {sb[0]:.2f} | {sb[1]:.2f} |")
 
     SALIDA.mkdir(parents=True, exist_ok=True)
     (SALIDA / "DIAGNOSTICO_EN.md").write_text("\n".join(L) + "\n", encoding="utf-8")

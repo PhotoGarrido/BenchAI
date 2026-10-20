@@ -1232,3 +1232,132 @@ Si sobran, se queda primero el grupo 1, de mayor a menor r.
 - G4, Spearman-Brown ≥ 0,70;
 - si las P4 **sustituyen** a las situaciones v3 que fallan o se **añaden**;
 - si N puede salir del modo «solo descriptivo».
+
+## 25. Resultados del banco v3.1 de E y N en NaN (20-10-2026)
+
+Cifras en `spike/resultados/personalidad_fc/V31_EN.md` y `v31_en.json`
+(`python analizar_v31_en.py`).
+
+**Medición.**
+
+- Deseabilidad: 1.656 juicios (138 candidatas × 2 órdenes × 6 modelos),
+  todos válidos.
+- Selección: **48 situaciones** (E 29, N 19), en
+  `spike/personalidad_v31_en_seleccion.json`.
+- R3: 1.152 respuestas (48 × 4 × 6), todas válidas.
+- NaN devolvió 27 errores 429 por límite de peticiones. Se reintentaron
+  dentro del grifo y no se perdió ningún dato.
+- Los `registros.jsonl` solo ganan líneas nuevas: ninguna línea medida antes
+  cambia.
+
+### Desviaciones
+
+1. **Puntuación de referencia (§28).** El 20-10, en la rama
+   `claude/personalidad-robustez`, David decidió que el cuadro público mide
+   **conducta comparada**: la elección bruta, equivalente a usar la
+   deseabilidad común. El §24 se fijó con la puntuación ajustada. Los
+   criterios se evalúan **tal como se fijaron**, con la ajustada, y además
+   con la elección bruta como complemento. La recomendación se apoya en la
+   bruta.
+2. **Entorno.** Durante la preparación, el intérprete del venv quedó roto
+   un rato por un accidente ajeno a esta tanda. Antes del aviso, dos
+   ejecuciones de solo lectura del diagnóstico usaron un Python alternativo;
+   después se repitieron con el venv. Ninguna medición se hizo con el
+   intérprete alternativo.
+
+### Resultados contra los criterios del §24
+
+| Criterio | E | N | Veredicto |
+|---|---|---|---|
+| **K1** cobertura y equilibrio | 4 de 6 facetas a cuota (gregarismo 2/4, búsqueda 7/8) | **ninguna faceta a cuota**: impulsividad 0/4, hostilidad 2/8, depresión 2/8 | **No cumple** |
+| **K2** sin techo ni suelo (≥ 75 %) | 66 % (base 65 %) | 53 % (base 58 %) | **No cumple** |
+| **K3** señal (ajustada) | **4,1** [1,0; 8,7] frente a 2,9 de base ✔ | 0,0 (base 0,0) ✘ | E cumple, N no |
+| **K4** ítem-resto (ajustada) | **0,16** frente a 0,13 ✔ | −0,10 frente a −0,02 ✘ | E cumple, N no |
+| **K5** coherencia de ítem (ajustada) | mismo rasgo 0,04 > otros 0,00, pero misma faceta −0,01 < otra 0,05 ✘ | −0,01 frente a 0,00 ✘ | **No cumple** |
+| **K6** test-retest | facetas r = 0,94 ✔; rasgo r = 0,82 (12 puntos) ✘ | (conjunto) | **No cumple** |
+| **K7** la conducta no copia el ideal (≤ 70 %) | 68 % ✔ | 77 % ✘ | E cumple, N no |
+| **K8** sin pérdidas | 0 % | 0 % | **Cumple** |
+| **Mejora** (K2 + K3 + K4 + K5) | **no** | **no** | — |
+
+Con la elección bruta (§28), el veredicto es el mismo:
+
+- E: K3 3,5 frente a 3,0 de base, por debajo del umbral de 4; K4 0,30
+  frente a 0,26 ✔; alfa 0,69 frente a 0,80.
+- N: sd 0,0 frente a 1,6 de base; ítem-resto −0,05 frente a 0,12.
+
+K6 falla en el agregado por rasgo: la correlación se calcula con 12 puntos
+casi sin varianza entre modelos en N. Es una consecuencia de la falta de
+señal, no de inestabilidad: con las facetas, r = 0,94. Aun así, según lo
+fijado, la medición de esta tanda no sirve para justificar un cambio.
+
+### Lectura
+
+1. **N: la redacción no arregla el problema; está en la deseabilidad.** De
+   las 138 candidatas, solo 24 cayeron en la ventana, y 23 de ellas eran de
+   las previstas como «disputadas». En N, el juicio de deseabilidad es
+   **bimodal y unánime**:
+   - en depresión, hostilidad e impulsividad, la mediana es del 0 % y la sd
+     entre modelos, de 0,02–0,03. Por ejemplo, dejar el deporte cuando faltan
+     las ganas: 8 %.
+   - Cuando el polo reactivo se lee como **franqueza emocional o
+     prudencia**, el juicio salta al otro extremo, no a la ventana. Ejemplos:
+     llorar a una amiga en el aniversario de su muerte (75 %), decirle a una
+     amiga que su retraso molesta (100 %), pedir apoyo en un trabajo nuevo
+     (75 %), comprobar el gas (92 %) o ir al dermatólogo (100 %).
+   
+   Esas situaciones miden prudencia o asertividad, no reactividad. Las pocas
+   que entraron como pares no correlacionan con el resto de N. Con R3 de
+   elección forzada entre
+   conducta reactiva y serena, los modelos de NaN eligen casi siempre la
+   serena (77 % coincide con su ideal) y no se diferencian entre sí. **No hay
+   señal que medir con este formato.**
+2. **E: mejora parcial, insuficiente.** Las P4 de E tienen algo más de
+   señal y coherencia que las v3 en los mismos 6 modelos, pero no forman
+   facetas, y gregarismo y actividad casi no tienen candidatas en ventana:
+   los modelos juzgan admirable la opción social (92 % de mediana).
+3. **El cambio de puntuación del §28 resuelve E con los datos que ya hay**
+   (exploratorio, posterior a ver los datos; `DIAGNOSTICO_EN.md` §6). G4 con
+   la elección bruta en los 13 modelos del v3 (Spearman-Brown por mitades;
+   entre paréntesis, la ajustada):
+
+   | O | C | **E** | A | **N** | **H** |
+   |---|---|---|---|---|---|
+   | 0,94 (0,90) | 0,81 (0,81) | **0,93 (0,36)** | 0,86 (0,78) | **0,62 (0,17)** | **0,13 (0,91)** |
+
+   - **E no fallaba por las situaciones**: las diferencias de extraversión
+     entre modelos estaban en la elección, pero el ajuste por el ideal propio
+     las restaba (r = 0,69 entre elección y deseabilidad de cada modelo,
+     §24.1).
+   - Con la elección bruta, N sube a 0,62, aún por debajo de 0,70.
+   - H se hunde a 0,13. Es coherente con que las marcas de H «salían del
+     juicio de deseabilidad» (§28). Conviene revisarlo en la rama de
+     robustez antes de publicar H con la puntuación bruta.
+
+### Recomendación
+
+- **No sustituir situaciones de E ni de N en el banco v3 por ahora.**
+- **E:** con la puntuación de conducta comparada del §28, el banco v3 actual
+  ya cumple G4 (0,93). Las P4 de E no lo mejoran en NaN.
+- **N:**
+  - Mantener N como **solo descriptivo**.
+  - El formato de elección forzada entre una reacción y una respuesta serena
+    no separa a los modelos, porque todos juzgan y eligen la serena.
+  - Para N haría falta otro instrumento, no más situaciones del mismo tipo.
+    Por ejemplo:
+    - una intensidad graduada («¿cuánto te afectaría?»);
+    - dos opciones serenas que difieran en cuánto se preocupa uno;
+    - o medir la reactividad en la conducta de los episodios.
+- **Si aun así se quiere probar el v3.1 en los externos** (para comprobar
+  con 13 modelos lo que en NaN no se puede estimar: G1, G3 y G4): lo más
+  barato es pasar solo las **22 P4** que superan el filtro de ítem del §24
+  con alguna de las dos puntuaciones (`v31_en.json`, `nuevas_a_externos`).
+  - Son 132 llamadas por modelo: deseabilidad ×2 + R3 ×4.
+  - Cuesta ≈ **0,53 $** (≈ 0,66 $ con margen), estimado con los tokens por
+    llamada que registró cada externo en la pasada v3.
+  - Las 48 seleccionadas costarían ≈ 1,2 $.
+  - El reparto entre modelos es aproximado: Argon, Luna y DeepSeek Pro no
+    tienen tarifa en `coste_run.py`, así que reciben, en proporción a sus
+    tokens, lo que falta hasta los 5,0 $ reales del v3. Para Luna, la cifra
+    es una cota alta.
+  - Las P4 se **añadirían** al banco, no lo sustituirían: en NaN no hay
+    prueba de que superen a las v3.
