@@ -1262,3 +1262,67 @@ mirarla cuando haya más modelos con las dos medidas.
    - o fijar ya, en un §28 previo a cualquier pasada nueva, si el producto
      publica «conducta frente a su ideal» o «conducta comparada», y redactar
      el retrato en consecuencia.
+
+## 28. Qué afirma el cuadro público · decisión fijada ANTES de recalcular (20-10-2026)
+
+**Decisión de David (20-10-2026): el retrato principal es la conducta
+comparada.** Una frase del retrato («más Amabilidad: cede y coopera») afirma
+que **el modelo elige más a menudo que los demás modelos** el polo alto de ese
+rasgo en las mismas situaciones. No afirma nada sobre su propio ideal.
+
+Se fija ahora, después de §27 pero antes de recalcular nada con esta
+definición. Se conocen ya, por P4 de §27, qué marcas resisten con la
+deseabilidad común y algunas que aparecen nuevas con ella. Por eso la regla
+se escribe de forma que no dependa de qué modelos salgan favorecidos.
+
+**Definición.**
+
+- **Comparación entre modelos:** diferencia pareada por situación entre la
+  elección del modelo y la media de los demás, 50·(e_m(i) − media de los
+  demás e_o(i)), con e = fracción de veces que elige el polo alto (órdenes ×
+  réplicas). Es exactamente la marca de §26 con la deseabilidad común (P4):
+  un d(i) común a todos se cancela.
+- **Puntuación mostrada:** 50 + 50·media_i(e_m(i) − d̄(i)), con d̄(i) = media
+  de los juicios de deseabilidad de **todos** los modelos del panel. 50 =
+  elige lo que el panel juzga admirable. Sustituye a la puntuación con la
+  deseabilidad propia en el cuadro público.
+- **Marca ▲/▼ publicable:** IC 95 % por bootstrap de situaciones que excluye 0
+  en la comparación, y además las comprobaciones de §26 aplicadas a esta
+  comparación:
+  - P1: tasa de signo ≥ 90 %;
+  - P2: se mantiene en réplica 0 y réplica 1;
+  - P3: se mantiene en AB y en BA;
+  - P5: se mantiene sin cada laboratorio;
+  - P6: q < 0,05 con Benjamini-Hochberg sobre todas las pruebas del cuadro.
+
+  P4 deja de ser una comprobación: ahora es la definición. Los niveles
+  robusta / frágil / no publicable son los de §26 sobre esas cinco
+  comprobaciones. **Solo las robustas llevan frase.**
+- **Marcas nuevas.** Las que aparecen con esta definición y no estaban en el
+  cuadro v2 (por ejemplo, las listadas en P4 de §27) **sí entran**: el
+  cuadro se rehace entero con la definición nueva. Pasan por las mismas
+  cinco comprobaciones que cualquier otra, sin trato aparte en ningún
+  sentido.
+- **Rasgos:** sin cambios respecto a §23. O, C, A y H, con marca. E, con
+  marca solo si es robusta y con el aviso de fiabilidad. N, solo descriptivo,
+  sin marca.
+
+**La distancia al ideal propio** (la puntuación con d_m(i) de §8/§17/§21) se
+conserva como **indicador secundario**, no publicado hasta que tenga su
+propia sección, con su redacción («se aparta más que otros de lo que él
+mismo juzga admirable») y sus criterios. Las 9 marcas que en §27 solo
+fallaban P4 son evidencia de este indicador, no de la conducta comparada.
+
+**Alcance.**
+
+- Se aplica al cuadro público y a cualquier pasada nueva: banco v3.1 de E y N,
+  modelos externos que se completen, réplicas en el tiempo.
+- La selección de situaciones sigue usando la ventana de deseabilidad (§21),
+  porque evita techo y suelo en la elección.
+- `analizar_v3.py` y `analizar_robustez_v3.py` deben generar el cuadro
+  público con esta definición. El cuadro con la deseabilidad propia queda
+  como salida secundaria.
+
+**Pendiente:** recalcular el cuadro con esta definición, pasar las cinco
+comprobaciones y escribir los resultados en una sección nueva. No se
+retoca §28 a la vista de esos resultados.
