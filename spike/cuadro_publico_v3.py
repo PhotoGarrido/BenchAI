@@ -85,9 +85,17 @@ def selecciones_por_defecto():
     return [SEL] + extra
 
 
-def calcular(rutas_sel):
+def calcular(rutas_sel, escalas=None):
+    """escalas: {rasgo: [situaciones]} para limitar un rasgo a una escala
+    rescatada (§30-31); None = banco completo, salidas idénticas a §29."""
     rng = np.random.default_rng(SEMILLA)
     v = cargar_v3(rutas_sel)
+    if escalas:
+        for t, its in escalas.items():
+            v["por_rasgo"][t] = [i for i in v["por_rasgo"][t] if i in set(its)]
+        dentro = {i for x in v["por_rasgo"].values() for i in x}
+        v["comunes"] = [i for i in v["comunes"] if i in dentro]
+        v["facetas"] = sorted({(v["rasgo_de"][i], v["faceta_de"][i]) for i in v["comunes"]})
     ms, por_rasgo, des, el, comunes = v["ms"], v["por_rasgo"], v["des"], v["elecciones"], v["comunes"]
     otros = {m: [o for o in ms if o != m] for m in ms}
 

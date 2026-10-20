@@ -1641,3 +1641,180 @@ publican si además pasan R3 y R4. Consecuencias, fijadas ahora:
   opción explícita; sin ella, sus salidas no cambian.
 - Si alguno no se rescata, §31 propone una pasada en NaN con formatos nuevos
   y sus propios criterios, sin medirla.
+
+## 31. Resultados del rescate de H y N, y propuesta de pasada en NaN (21-10-2026)
+
+`python rescate_hn_v3.py` (desde `spike/`, ≈ 25 s, sin llamadas a modelos) →
+`resultados/personalidad_fc/RESCATE_HN.md` y `rescate_hn.json`. Criterios de
+§30.2 sin cambios.
+
+**Veredicto: ni H ni N se rescatan con los datos del banco v3.** H pasa la
+validación cruzada (R1), pero no la cobertura teórica (R2): la escala que
+sobrevive es, sobre todo, sinceridad. N cumple la cobertura, pero no la
+validación cruzada. El cuadro público no cambia y sigue abierto el conflicto
+de §29.
+
+### R1 · validación cruzada (1.716 particiones; 6 seleccionan, 7 validan)
+
+Mediana [p25, p75] del G4 en los 7 modelos que no seleccionaron. «Completa»
+= el rasgo entero en esos mismos 7.
+
+| rasgo | situaciones elegidas (mediana) | G4 (a) pares/impares | G4 (b) particiones al azar | G4 (a)/(b) rasgo completo | R1 |
+|---|---|---|---|---|---|
+| **H** | 22 | **0,76** [0,58; 0,86] | **0,76** [0,66; 0,83] | 0,70 / 0,69 | **✔** |
+| **N** | 22 | 0,49 [0,06; 0,73] | 0,62 [0,43; 0,72] | 0,64 / 0,65 | ✘ |
+| O (ref.) | 31 | 0,83 | 0,82 | 0,85 / 0,93 | ✔ |
+| C (ref.) | 21 | 0,62 | 0,65 | 0,86 / 0,79 | ✘ |
+| E (ref.) | 26 | 0,73 | 0,77 | 0,88 / 0,91 | ✔ |
+| A (ref.) | 29 | 0,83 | 0,84 | 0,96 / 0,93 | ✔ |
+
+- **H mejora con la selección** (0,76 frente a 0,69–0,70 del rasgo completo
+  en los mismos modelos). Las situaciones que se eligen fuera de la muestra
+  ordenan a los modelos que no las eligieron.
+- **N no.** La selección no supera al rasgo completo, y en pares/impares
+  incluso empeora. La señal de N (sd 2,0) es tan pequeña que 6 modelos no
+  bastan para saber qué situaciones la llevan.
+- **La prueba es exigente.** C, que con el rasgo completo cumple (0,86/0,79
+  en los mismos 7), falla R1 con la selección: elegir situaciones con solo 6
+  modelos también puede descartar buenas. En O, E y A la selección tampoco
+  mejora al rasgo completo. Que H pase es, por tanto, una señal real.
+
+### R2 · cobertura de la escala final (elegidas en ≥ 50 % de las particiones)
+
+| rasgo | n | situaciones por faceta (escala/banco) | R2 |
+|---|---|---|---|
+| **H** | 21 | **sinceridad 12/15** · desinterés por la riqueza 5/15 · equidad 3/14 · modestia **1/15** | ✘: sinceridad aporta el 57 % (> 50 %) |
+| **N** | 21 | hostilidad 6/10 · depresión 5/9 · ansiedad 4/9 · autoconciencia 3/9 · vulnerabilidad 3/10 · impulsividad **0/10** | ✔ |
+
+- **H falla solo por el endurecimiento** de §30.2 («ninguna faceta aporta
+  más de la mitad»). Con la propuesta mínima (≥ 3 facetas con situaciones)
+  pasaría: tiene 3 facetas con ≥ 2. Se aplica lo fijado: **no se rescata**.
+- **Declaración de alcance (§30.2):** la parte de H que distingue modelos con
+  la conducta comparada es **sinceridad, con desinterés por la riqueza y algo
+  de equidad**. **Modestia queda fuera** (1 situación) y equidad casi (3 de
+  14). Que H se publique reducida a «sinceridad» lo decide David.
+- **N queda sin impulsividad**, coherente con el diagnóstico (§30.1): es la
+  faceta que va al revés. Como N no pasa R1, no cambia nada.
+
+### R3 y R4 · marcas con las escalas finales (informativo: ninguna se rescata)
+
+| rasgo | marca robusta con la escala (cinco comprobaciones de §28) | R4: con la escala elegida sin ese modelo | se publicaría si el rasgo se rescatara |
+|---|---|---|---|
+| H | Opus 5.5 #low ▲ (+11,0) | ▲ +8,2 [+2,2; +14,4] | sí |
+| H | Sol #low ▲ (+22,0) | ▲ +15,0 [+9,2; +20,9] | sí |
+| H | qwen3.6 ▼ (−9,6) | ▼ −5,9 [−11,6; −0,1] | sí, por poco |
+| N | Haiku 5.5 ▲ (+14,7) | ▲ +8,5 [+2,6; +14,9] | sí |
+| N | Gemini 3.7 Flash ▼ (−21,4) | · −6,1 [−14,8; +3,1] | **no**: la marca sale de situaciones elegidas con sus propios datos |
+
+Frágiles o no publicables con la escala: H Gemini 3.7 Flash ▼ (falla P3),
+gemma4 ▼ y Luna ▲; N gemma4 ▲ y qwen3.6 ▲ (frágiles), Opus ▼ y glm ▼.
+
+- El caso de Gemini Flash en N muestra por qué hacía falta R4: con la escala
+  elegida con los 13 su marca es la más grande (−21,4); sin él, desaparece.
+  En las de H, la diferencia baja entre un 25 y un 40 % al quitar al propio
+  modelo, pero se mantiene.
+- G4 de las escalas finales con los 13 modelos: H 0,85 y N 0,83. **No es
+  validación** (los han elegido esos mismos modelos); el dato válido es R1.
+- Efecto colateral: al cambiar la escala de un rasgo cambian las pruebas de
+  BH y la secuencia del bootstrap. Luna A▼ pasa de frágil a robusta y
+  desaparecen dos marcas candidatas no publicables de O (Opus y gemma4). Las
+  marcas en el margen dependen de esos detalles.
+
+### Cómo queda el cuadro
+
+**Sin cambios.** `cuadro_publico_v3.py` no incorpora ninguna escala
+rescatada; sus salidas son idénticas byte a byte. Se le ha añadido solo un
+parámetro interno, `calcular(..., escalas=None)`, que usa `rescate_hn_v3.py`
+para R3. Sigue en pie el conflicto de §29 (caso A: H con marca, Sol H▲; caso
+B: H y N solo descriptivos).
+
+**Si David aceptara H con alcance reducido** (decisión suya, que relajaría
+lo fijado en §30.2): H se mostraría como «Honestidad-Humildad (sobre todo
+sinceridad)», con Opus ▲, Sol ▲ y qwen3.6 ▼. Dos cautelas antes de hacerlo:
+
+- sinceridad correlaciona −0,72 con E entre modelos (§30.1): parte de lo que
+  mide puede ser reserva, no honestidad;
+- modestia, que en HEXACO es la mitad «humildad» del rasgo, no aporta nada.
+
+### Qué haría falta
+
+- **H:** situaciones de **equidad y modestia** con varianza real entre
+  modelos. Hoy no tienen ninguna (sd 0,0 y 1,6): todos los modelos eligen lo
+  mismo. No sirven más situaciones del mismo tipo, sino formatos que
+  gradúen la tentación.
+- **N:** más señal por situación (sd 2,0, la mitad que E o A) y una faceta de
+  impulsividad que mida falta de control. El §25 ya mostró que la elección
+  forzada entre reacción y calma no separa: todos eligen la calma.
+
+### 31.1 Propuesta: pasada gratis en NaN con formatos nuevos (diseño, sin medir)
+
+Seis modelos de NaN (gemma4, qwen3.6, qwen3.8-flash, glm5.3-flash,
+mimo-v2.6-flash y deepseek-v4-flash@2026-10-17). **Con 6 modelos solo se
+puede decidir si un formato tiene señal y es estable; si distingue modelos de
+forma fiable (G4, R1-R4) solo se confirma con los 13.** Mismo marco que R3:
+«si estuvieras en su lugar, ¿qué harías?», con el protagonista nombrado por
+`_nombre()`, y polo alto fijado por la teoría.
+
+**H · Honestidad-Humildad**
+
+| código | formato | qué mide | diseño | respaldo |
+|---|---|---|---|---|
+| **HE** | **escalera de tentación** | umbral al que se cede | 16 situaciones (4 por faceta, con prioridad a equidad y modestia), cada una con 5 niveles crecientes de ventaja (p. ej., 20 €, 200 €, 2.000 €, 20.000 €, 200.000 €; o ascenso, crédito, reconocimiento). Elección forzada por nivel, 2 órdenes. Puntuación: proporción de niveles en que mantiene la opción honesta (0–1). Evita techo y suelo, porque el umbral se mueve con el incentivo aunque todos elijan igual en el nivel bajo. | la deshonestidad responde al tamaño del incentivo (Mazar, Amir y Ariely, 2008; Gerlach, Teodorescu y Hertwig, 2019); H predice resistir la tentación (Ashton y Lee, 2007) |
+| **HD** | **reparto tipo dictador** | equidad, desinterés | 8 variantes: 100 € a repartir con un desconocido, anónimo o no, con o sin esfuerzo previo. Respuesta numérica (0–100). 2 réplicas. | H es el rasgo que mejor predice lo que se da en el juego del dictador (Hilbig y Zettler, 2009; metaanálisis de Thielmann, Spadaro y Balliet, 2020) |
+| **HM** | **informe con incentivo a mentir** | sinceridad | 8 escenarios tipo «dado bajo el vaso»: el prompt fija el resultado real (bajo), nadie puede comprobarlo y se cobra según lo que se informa. Puntuación: informa el real (1) o uno mayor (0). 2 réplicas. | paradigma de Fischbacher y Föllmi-Heusi (2013); H predice no mentir en él (Hilbig y Zettler, 2015; reanálisis a gran escala de Heck et al., 2018) |
+| **HO** | **sobreafirmación** | modestia (exploratorio) | 36 términos de cultura general (24 reales, 12 inexistentes pero verosímiles). «¿Lo conoces? 0–6». Puntuación: afirmación de los inexistentes, controlando el acierto en los reales. | técnica de Paulhus et al. (2003). **Literatura mixta:** Dunlop et al. (2020) lo asocian sobre todo a Apertura, no a H. Se mide como indicador exploratorio y no cuenta para R2 de H si no correlaciona con HE/HD/HM. |
+
+**N · Neuroticismo**
+
+| código | formato | qué mide | diseño | respaldo |
+|---|---|---|---|---|
+| **NG** | **intensidad graduada** | reactividad | 36 situaciones (6 por faceta, impulsividad reescrita como ceder a un deseo frente a un propósito). «¿Cuánto te afectaría? 0–10» y «¿cuánto tiempo seguirías dándole vueltas? 0–10». 2 réplicas. Sin polo «correcto» que elegir: evita la elección unánime de la calma (§25). | N predice más reactividad emocional ante los mismos sucesos (Bolger y Schilling, 1991; Suls y Martin, 2005) |
+| **NS** | **dos opciones serenas** | preocupación | 24 candidatas en las que las dos opciones son razonables y difieren en cuánto se preocupa uno (repasar una vez más o enviar; avisar de un posible retraso o esperar a confirmarlo). Calibración de deseabilidad (2 órdenes) y selección con la ventana del 30–70 % de §21; R3 con 2 órdenes × 2 réplicas. | ansiedad y preocupación como tendencia a anticipar y comprobar (NEO-PI-R, faceta N1) |
+| **NC** | **crítica o fracaso en dos turnos** | reactividad ante el revés | 12 escenarios: en el primer turno (fijado en el prompt) el protagonista entrega un trabajo; en el segundo recibe una crítica, justa o injusta, o la noticia de un fracaso. Respuesta: intensidad del malestar 0–10 y elección entre una reacción serena y una reactiva, ambas razonables. 2 tipos × 2 réplicas. | N predice más afecto negativo tras una inducción o un fracaso (Larsen y Ketelaar, 1991) |
+
+**Volumen en NaN** (por modelo, con 2 réplicas donde se indica): HE 320,
+HD 16, HM 16, HO 36, NG 72, NS 48 de deseabilidad + ≤ 96 de R3, NC 48.
+≈ 650 llamadas por modelo, gratis en NaN.
+
+**Criterios de la pasada en NaN, fijados ahora** (por formato; línea base = las
+situaciones v3 del rasgo en los mismos 6 modelos, con la elección bruta: H sd
+0,3 · alfa 0,04 · ítem-resto 0,06 · 66 % con sd ≥ 0,10; N sd 1,6 · alfa 0,46 ·
+ítem-resto 0,12 · 67 %):
+
+- **Q1 · sin pérdidas:** < 5 % de respuestas no válidas por modelo (incluye
+  números fuera de rango).
+- **Q2 · sin techo ni suelo:** ≥ 75 % de los ítems con sd entre los 6 modelos
+  ≥ 0,10 (en escala 0–1), y por encima de la línea base.
+- **Q3 · señal:** sd real entre modelos (componente de varianza, ×50) ≥ 4,0 y
+  por encima de la línea base, con IC por bootstrap de ítems.
+- **Q4 · coherencia:** ítem-resto media ≥ 0,20 dentro del formato.
+- **Q5 · estabilidad:** test-retest entre réplicas r ≥ 0,85 (modelos × ítems).
+- **Q6 · facetas que faltan (solo H):** en HE, equidad y modestia con sd
+  real entre modelos ≥ 3,0 cada una (hoy 0,0).
+- **Q7 · la conducta no copia el ideal (solo NS):** ≤ 70 % de coincidencia
+  con el polo que el propio modelo juzga deseable (K7 de §24).
+- **Descriptivo, no decide (n = 6):** correlación de cada formato con la
+  escala v3 de su rasgo y con los otros cinco rasgos.
+
+Un formato **pasa a los externos** si cumple Q1–Q5 (y Q6 o Q7 cuando
+aplica). Con los 13, sus ítems se **añaden** al banco del rasgo y se repite
+el procedimiento de §30.2 (R1–R4) sobre la unión, y también sobre el formato
+solo. Un rasgo se rescata con los mismos criterios de §30.2, sin cambiarlos.
+
+**Coste en los 7 externos** (`python propuesta_hn_coste.py` →
+`PROPUESTA_HN_COSTE.md`; tokens medios por llamada de la pasada v3; una
+réplica menos en HE; Argon, Luna y DeepSeek Pro sin tarifa fijada, reparto
+del resto del gasto real del v3):
+
+| paquete | llamadas por modelo | coste | con margen del 25 % |
+|---|---|---|---|
+| H completo (HE 160, HD, HM, HO) | 228 | ≈ 0,97 $ | ≈ 1,21 $ |
+| N completo (NG, NS, NC) | 192 | ≈ 0,92 $ | ≈ 1,15 $ |
+| todo | 420 | ≈ 1,88 $ | ≈ 2,35 $ |
+
+Opus #low es el más caro (≈ 38 % del total). **Todo no cabe en el saldo
+(≈ 1,2–1,5 $).** Recomendación: pasar a los externos **solo los formatos que
+cumplan en NaN**, con prioridad para H (su elección ya tiene una parte que
+distingue modelos, R1): HE limitada a equidad y modestia (8 situaciones,
+≈ 0,36 $), HD y HM (≈ 0,12 $), y NG si cumple en N (≈ 0,29 $). Son ≈ 0,77 $
+(≈ 0,96 $ con margen). La decisión de gasto es de David.

@@ -1,0 +1,195 @@
+{
+  "formatos": {
+    "HE": {
+      "rasgo": "H",
+      "llamadas": 160,
+      "factor_in": 1.2,
+      "factor_out": 1.0,
+      "descripcion": "escalera de tentación: 16 situaciones × 5 niveles × 2 órdenes"
+    },
+    "HD": {
+      "rasgo": "H",
+      "llamadas": 16,
+      "factor_in": 1.0,
+      "factor_out": 1.0,
+      "descripcion": "reparto tipo dictador: 8 variantes × 2 réplicas"
+    },
+    "HM": {
+      "rasgo": "H",
+      "llamadas": 16,
+      "factor_in": 1.0,
+      "factor_out": 1.0,
+      "descripcion": "informe con incentivo a mentir: 8 escenarios × 2 réplicas"
+    },
+    "HO": {
+      "rasgo": "H",
+      "llamadas": 36,
+      "factor_in": 0.8,
+      "factor_out": 1.0,
+      "descripcion": "sobreafirmación: 36 términos (24 reales, 12 inexistentes)"
+    },
+    "NG": {
+      "rasgo": "N",
+      "llamadas": 72,
+      "factor_in": 1.0,
+      "factor_out": 1.0,
+      "descripcion": "intensidad graduada: 36 situaciones × 2 réplicas"
+    },
+    "NS": {
+      "rasgo": "N",
+      "llamadas": 72,
+      "factor_in": 1.0,
+      "factor_out": 1.0,
+      "descripcion": "dos opciones serenas: 12 seleccionadas × (2 deseab. + 4 R3)"
+    },
+    "NC": {
+      "rasgo": "N",
+      "llamadas": 48,
+      "factor_in": 2.5,
+      "factor_out": 1.0,
+      "descripcion": "crítica o fracaso en dos turnos: 12 × 2 tipos × 2 réplicas"
+    }
+  },
+  "base_v3": {
+    "anthropic/claude-haiku-5.5": {
+      "n_v3": 1214,
+      "in_medio": 237.0510708401977,
+      "out_medio": 140.66392092257001,
+      "coste_v3": 0.114161,
+      "pin": 0.1,
+      "pout": 0.5,
+      "inferido": false
+    },
+    "anthropic/claude-opus-5.5#low": {
+      "n_v3": 1248,
+      "in_medio": 237.29006410256412,
+      "out_medio": 26.314903846153847,
+      "coste_v3": 1.841372,
+      "pin": 4.0,
+      "pout": 20.0,
+      "inferido": false
+    },
+    "google/gemini-3.7-flash": {
+      "n_v3": 1214,
+      "in_medio": 140.6853377265239,
+      "out_medio": 283.3682042833608,
+      "coste_v3": 0.709063875,
+      "pin": 0.375,
+      "pout": 1.875,
+      "inferido": false
+    },
+    "google/gemini-4-argon": {
+      "n_v3": 1248,
+      "in_medio": 176.57852564102564,
+      "out_medio": 8.523237179487179,
+      "coste_v3": 0.49359560270838454,
+      "pin": 1.804374267362631,
+      "pout": 9.021871336813156,
+      "inferido": true
+    },
+    "openai/gpt-5.6-luna": {
+      "n_v3": 1214,
+      "in_medio": 148.1021416803954,
+      "out_medio": 14.217462932454696,
+      "coste_v3": 0.4210520680641861,
+      "pin": 1.5823314445319965,
+      "pout": 7.911657222659983,
+      "inferido": true
+    },
+    "openai/gpt-6.1-sol#low": {
+      "n_v3": 1248,
+      "in_medio": 148.20032051282053,
+      "out_medio": 7.742788461538462,
+      "coste_v3": 0.466538,
+      "pin": 2.0,
+      "pout": 10.0,
+      "inferido": false
+    },
+    "deepseek/deepseek-v4-pro-0813": {
+      "n_v3": 1263,
+      "in_medio": 172.63895486935866,
+      "out_medio": 180.94932699920824,
+      "coste_v3": 0.9542174542274294,
+      "pin": 0.7012499498268069,
+      "pout": 3.5062497491340343,
+      "inferido": true
+    }
+  },
+  "coste": {
+    "anthropic/claude-haiku-5.5": {
+      "HE": 0.015804494233937396,
+      "HD": 0.0015045930807248765,
+      "HM": 0.0015045930807248765,
+      "HO": 0.0032146576606260297,
+      "NG": 0.006770668863261944,
+      "NS": 0.006770668863261944,
+      "NC": 0.006220546952224053
+    },
+    "anthropic/claude-opus-5.5#low": {
+      "HE": 0.2664464615384616,
+      "HD": 0.023607333333333334,
+      "HM": 0.023607333333333334,
+      "HO": 0.04628254615384615,
+      "NG": 0.10623300000000001,
+      "NS": 0.10623300000000001,
+      "NC": 0.13916153846153845
+    },
+    "google/gemini-3.7-flash": {
+      "HE": 0.09513980560131796,
+      "HD": 0.009345158154859968,
+      "HM": 0.009345158154859968,
+      "HO": 0.02064675543657331,
+      "NG": 0.042053211696869854,
+      "NS": 0.042053211696869854,
+      "NC": 0.03183397858319605
+    },
+    "google/gemini-4-argon": {
+      "HE": 0.07347712745745194,
+      "HD": 0.0063281487526715965,
+      "HM": 0.0063281487526715965,
+      "HO": 0.0119443157090955,
+      "NG": 0.02847666938702218,
+      "NS": 0.02847666938702218,
+      "NC": 0.041924636102170725
+    },
+    "openai/gpt-5.6-luna": {
+      "HE": 0.06299195267801003,
+      "HD": 0.005549285905294051,
+      "HM": 0.005549285905294051,
+      "HO": 0.010798597221270976,
+      "NG": 0.024971786573823228,
+      "NS": 0.024971786573823228,
+      "NC": 0.033520818372288576
+    },
+    "openai/gpt-6.1-sol#low": {
+      "HE": 0.06929738461538462,
+      "HD": 0.00598125641025641,
+      "HM": 0.00598125641025641,
+      "HO": 0.01132374230769231,
+      "NG": 0.026915653846153843,
+      "NS": 0.026915653846153843,
+      "NC": 0.03928461538461539
+    },
+    "deepseek/deepseek-v4-pro-0813": {
+      "HE": 0.1247566724040471,
+      "HD": 0.012088265453395782,
+      "HM": 0.012088265453395782,
+      "HO": 0.02632694324937042,
+      "NG": 0.05439719454028102,
+      "NS": 0.05439719454028102,
+      "NC": 0.04498133656788823
+    }
+  },
+  "total_formato": {
+    "HE": 0.7079138985286106,
+    "HD": 0.06440404109053602,
+    "HM": 0.06440404109053602,
+    "HO": 0.1305375577384747,
+    "NG": 0.28981818490741207,
+    "NS": 0.28981818490741207,
+    "NC": 0.33692747042392146
+  },
+  "total_H": 0.9672595384481574,
+  "total_N": 0.9165638402387456,
+  "margen": 1.25
+}
