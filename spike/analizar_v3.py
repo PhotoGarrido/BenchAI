@@ -37,17 +37,45 @@ def _boot(x, rng):
     return float(x.mean()), float(np.percentile(bs, 2.5)), float(np.percentile(bs, 97.5))
 
 
-def main():
-    rng = np.random.default_rng(SEMILLA)
+def puntuar(elecciones, d=None, filtro=None):
+    """{item: media de (elige_alto − d(item))} de un modelo.
+
+    elecciones: {item: [(orden, rep, elige_alto)]} (R3 válidas, ver cargar_v3).
+    d: {item: deseabilidad}; None = sin ajuste (d = 0).
+    filtro: función (orden, rep) → bool para quedarse con una parte."""
+    out = {}
+    for i, v in elecciones.items():
+        xs = [(1.0 if alto else 0.0) - (d[i] if d is not None else 0.0)
+              for orden, rep, alto in v if filtro is None or filtro(orden, rep)]
+        if xs:
+            out[i] = float(np.mean(xs))
+    return out
+
+
+def dif_pareada(a, m, otros, items):
+    """Diferencia por situación entre m y la media de `otros`, escala del cuadro."""
+    return [50 * (a[m][i] - np.mean([a[o][i] for o in otros])) for i in items]
+
+
+def signo(lo, hi):
+    return "▲" if lo > 0 else "▼" if hi < 0 else ""
+
+
+def cargar_v3():
+    """Banco v3: selección, R3 válidas por modelo y situaciones comunes.
+
+    Devuelve un dict con sel, rasgo_de, faceta_de, des, ms (modelos con el
+    banco completo), excluidos, invalidas, elecciones {m: {item: [(orden, rep,
+    elige_alto)]}}, comunes, por_rasgo y facetas."""
     sel = json.loads(SEL.read_text(encoding="utf-8"))
     rasgo_de = {s["id"]: s["rasgo"] for s in sel}
     faceta_de = {s["id"]: s["faceta"] for s in sel}
     datos = cargar(ap1.DIR)
     des = ap1.deseabilidad()
     ms = sorted(m for m in datos if m in des)
-    a, a_rep, invalidas = {}, {}, {}
+    elecciones, invalidas = {}, {}
     for m in ms:
-        acc, acc_rep = defaultdict(list), defaultdict(lambda: defaultdict(list))
+        acc = defaultdict(list)
         n = malas = 0
         for r in datos[m]:
             if r["brazo"] != "sit_propia" or r["item"] not in rasgo_de:
@@ -58,22 +86,34 @@ def main():
                 continue
             if r["item"] not in des[m]:
                 continue
-            x = (1.0 if r["elige_alto"] else 0.0) - des[m][r["item"]]
-            acc[r["item"]].append(x)
-            acc_rep[r.get("rep", 0)][r["item"]].append(x)
-        a[m] = {k: float(np.mean(v)) for k, v in acc.items()}
-        a_rep[m] = {rep: {k: float(np.mean(v)) for k, v in d.items()} for rep, d in acc_rep.items()}
+            acc[r["item"]].append((r.get("orden"), r.get("rep", 0), bool(r["elige_alto"])))
+        elecciones[m] = dict(acc)
         invalidas[m] = malas / n if n else None
     # Solo entran los modelos con el banco v3 completo (≥ 95 % de las
     # situaciones con dato). Quedan fuera los retirados, como deepseek-v4-flash
     # (4.1, cambiado por NaN el 17-10-2026, §22), y los aún sin completar.
-    cobertura = {m: sum(s["id"] in a[m] for s in sel) / len(sel) for m in ms}
+    cobertura = {m: sum(s["id"] in elecciones[m] for s in sel) / len(sel) for m in ms}
     excluidos = {m: c for m, c in cobertura.items() if c < .95}
     ms = [m for m in ms if m not in excluidos]
     # Solo situaciones con dato en todos los modelos (comparación pareada limpia)
-    comunes = [s["id"] for s in sel if all(s["id"] in a[m] for m in ms)]
+    comunes = [s["id"] for s in sel if all(s["id"] in elecciones[m] for m in ms)]
     por_rasgo = {t: [i for i in comunes if rasgo_de[i] == t] for t in RASGOS}
     facetas = sorted({(rasgo_de[i], faceta_de[i]) for i in comunes})
+    return {"sel": sel, "rasgo_de": rasgo_de, "faceta_de": faceta_de, "des": des,
+            "ms": ms, "excluidos": excluidos, "invalidas": invalidas,
+            "elecciones": elecciones, "comunes": comunes, "por_rasgo": por_rasgo,
+            "facetas": facetas}
+
+
+def main():
+    rng = np.random.default_rng(SEMILLA)
+    v = cargar_v3()
+    sel, rasgo_de, faceta_de, des = v["sel"], v["rasgo_de"], v["faceta_de"], v["des"]
+    ms, excluidos, invalidas = v["ms"], v["excluidos"], v["invalidas"]
+    comunes, por_rasgo, facetas = v["comunes"], v["por_rasgo"], v["facetas"]
+    a = {m: puntuar(v["elecciones"][m], des[m]) for m in ms}
+    a_rep = {m: {rep: puntuar(v["elecciones"][m], des[m], lambda o, r, rep=rep: r == rep)
+                 for rep in (0, 1)} for m in ms}
     res = {"modelos": ms, "fuera_por_cobertura": excluidos,
            "n_situaciones": {t: len(v) for t, v in por_rasgo.items()}}
 
@@ -83,9 +123,8 @@ def main():
             p, lo, hi = _boot([a[m][i] for i in por_rasgo[t]], rng)
             punt[(m, t)] = (50 + 50 * p, 50 + 50 * lo, 50 + 50 * hi)
             otros = [o for o in ms if o != m]
-            d = [50 * (a[m][i] - np.mean([a[o][i] for o in otros])) for i in por_rasgo[t]]
-            dp, dlo, dhi = _boot(d, rng)
-            marca[(m, t)] = ("▲" if dlo > 0 else "▼" if dhi < 0 else "", dp, dlo, dhi)
+            dp, dlo, dhi = _boot(dif_pareada(a, m, otros, por_rasgo[t]), rng)
+            marca[(m, t)] = (signo(dlo, dhi), dp, dlo, dhi)
     n_marc = sum(any(marca[(m, t)][0] for t in RASGOS) for m in ms)
     semis = [(marca[k][3] - marca[k][2]) / 2 for k in marca]
     res["G1"] = {"modelos_con_rasgo": n_marc, "semiancho_mediano": float(np.median(semis)),

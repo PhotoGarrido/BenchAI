@@ -1141,3 +1141,124 @@ de cada rasgo y el ISS publicado (`iss_por_modelo`), en los modelos del
 cuadro que tienen ISS, con IC 95 % por bootstrap de modelos (2.000). Con
 n ≈ 10 el IC será ancho: no se contrasta ninguna hipótesis, no se usa para
 decidir nada y el informe avisa del n.
+
+## 27. Resultados de la robustez del cuadro v2 (20-10-2026)
+
+`python analizar_robustez_v3.py` (≈ 7 s, sin llamadas a modelos). Cifras en
+`spike/resultados/personalidad_fc/ROBUSTEZ_V3.md` y `robustez_v3.json`. Los
+criterios son los de §26, sin cambios. `analizar_v3.py` se ha refactorizado
+en funciones reutilizables (`cargar_v3`, `puntuar`, `dif_pareada`, `signo`),
+y `V3.md`, `CUADRO_V3.md` y `v3.json` salen idénticos byte a byte.
+
+**Balance: de las 27 marcas, 6 son robustas, 10 frágiles y 11 no
+publicables** (3 de ellas por ser de N).
+
+| Nivel | Marcas |
+|---|---|
+| **Robusta** (pasa P1–P6) | Haiku A▼ · Gemini 3.7 Flash A▲ · gemma4 O▲ · mimo O▲ · Argon O▼ · Sol C▼ |
+| **Frágil**, solo falla P4 | Haiku C▼ y H▼ · DeepSeek Flash@ H▲ · gemma4 E▲ · Gemini 3.7 Flash C▲ · mimo C▼ · Sol E▼ · qwen3.6 C▲ y H▲ |
+| **Frágil**, falla P3 y P4 | qwen3.6 O▲ |
+| **No publicable** | Haiku O▼ · glm5.3-flash H▼ · Gemini 3.7 Flash O▼ y H▲ · Argon H▼ · Luna O▼ (se invierte con deseabilidad común) y E▼ · Sol A▼ · N: Haiku N▲, Luna N▼, Sol N▼ |
+
+### Comprobación por comprobación
+
+1. **P1 · mitades.** Todas las marcas pasan: la tasa de signo va del 94 al
+   100 %. Con la mitad de situaciones, la marca sigue siendo significativa
+   en las dos mitades solo en las grandes:
+   - Haiku H, Gemini Flash C y A: 100 %;
+   - gemma4 O: 91 %; mimo C: 88 %; qwen3.6 H: 86 %; Argon O: 82 %.
+
+   En las pequeñas cae al 0–5 %. **P1, tal como se fijó, es poco exigente:**
+   el signo de una diferencia pareada casi nunca se invierte entre mitades,
+   aunque la marca sea marginal.
+2. **P2 y P3 · réplica y orden.** Tumban casi siempre las mismas marcas:
+   - Fuera de N caen 9 marcas: Haiku O, glm H, Gemini Flash O y H, Argon H,
+     Luna O y E, Sol A y qwen3.6 O.
+   - Siete de ellas caen también en P5 y P6. Gemini Flash H y Luna O pasan
+     P6, pero fallan P4.
+   - qwen3.6 O▲ desaparece solo en BA.
+   - **DeepSeek V4 Pro tiene un sesgo de posición fuerte.** Solo en AB queda
+     ▼ en los seis rasgos (−6 a −12); solo en BA, ▲ en los seis (+6 a +13).
+     Al combinar los dos órdenes se cancela: el contrabalanceo funciona, pero
+     sus datos de un solo orden no sirven, y su «perfil próximo a la media»
+     es en parte ruido de posición.
+3. **P4 · fuente de la deseabilidad. Es la comprobación que más tumba.**
+   - Con la deseabilidad común (≡ sin ajuste: diferencia máxima 1,8·10⁻¹⁵,
+     como se anunció en §26), **desaparecen casi todas las marcas de C, H y
+     E**. Ejemplos: Gemini Flash C pasa de 51 (deseabilidad propia) a 39
+     (consenso); qwen3.6 H, de 51 a 38; Haiku H, de 26 a 38.
+   - Esas marcas no salen de que el modelo **elija distinto** que los demás.
+     Salen de que **juzga distinto qué es admirable**, y por eso queda por
+     encima o por debajo de *su propio* ideal.
+   - Las que resisten son las de **O y A**, donde la conducta bruta también
+     difiere, y Sol C▼.
+   - La deseabilidad común hace aparecer marcas nuevas (Opus C, gemma4 A y
+     C, DeepSeek Flash@ A y E, glm5.3-flash O y E…). No entran en el retrato.
+4. **P5 · panel.** Solo caen las marcas marginales. Por ejemplo, Argon H▼ cae
+   al quitar cualquiera de 4 laboratorios, y glm H▼ sin deepseek o sin qwen.
+   Ninguna marca grande depende de un laboratorio concreto.
+5. **P6 · BH sobre 78 pruebas.** Resisten 18 de 27. Caen las 9 marginales:
+   Haiku O y N, glm H, Gemini Flash O, Argon H, Luna E y N, Sol A y N. El
+   resultado con BH sobre 65 pruebas (sin N) es el mismo.
+
+**Desviación de interpretación, no de criterio.** La «inversión» de §26 se
+aplicó a las variantes de una sola estimación: P2–P5. En P1, una mitad
+aislada con signo contrario significativo se informa en el json
+(`tasa_half_invertida`), pero no se usó para clasificar, porque §26 no lo
+precisaba.
+
+### ¿Obliga algún criterio a revisar el cuadro?
+
+**Sí, P4.**
+- El cuadro v2 mide **conducta relativa al ideal propio**. Es la definición
+  de §8/§17, y la mantiene.
+- Pero el texto del retrato («más Responsabilidad: cumple y planifica») se lee
+  como una afirmación sobre la conducta comparada con la de otros modelos.
+- Para C y H, esa afirmación no se sostiene sin el ajuste propio: lo que
+  distingue a esos modelos es su juicio de deseabilidad, no lo que eligen.
+- No se cambia el nivel de ninguna marca. Si se quieren publicar las 9
+  frágiles por P4, haría falta otra redacción, del tipo «se aparta más que
+  otros de lo que él mismo considera admirable». Esa decisión es de David.
+- Las 8 marcas no publicables de O, C, A, H y E, más las 3 de N, deberían
+  salir del cuadro público. Seis de las 8 ni siquiera resisten la
+  corrección por comparaciones múltiples.
+
+**Relación con el ISS (descriptiva, n = 10; sin ISS: DeepSeek Flash@,
+DeepSeek Pro y Argon).**
+
+| Rasgo | Spearman ρ | IC 95 % |
+|---|---|---|
+| Responsabilidad | +0,73 | +0,19 a +0,95 |
+| Apertura | +0,42 | −0,37 a +0,96 |
+| Extraversión | +0,39 | −0,27 a +0,87 |
+| Honestidad-Humildad | +0,26 | −0,42 a +0,84 |
+| Amabilidad | +0,25 | −0,50 a +0,87 |
+| Neuroticismo | +0,05 | −0,61 a +0,75 |
+
+Solo C tiene un IC que excluye 0. Con 10 modelos y el punto alto de Gemini
+Flash (ISS 55, C 51) no se lee como relación establecida. Se anota para
+mirarla cuando haya más modelos con las dos medidas.
+
+### Recomendación para la web
+
+1. **Publicar solo las 6 marcas robustas como frase**:
+   - Haiku: menos Amabilidad.
+   - Gemini 3.7 Flash: más Amabilidad.
+   - gemma4 y mimo: más Apertura.
+   - Argon: menos Apertura.
+   - Sol: menos Responsabilidad.
+
+   Los otros 7 modelos se describen como «perfil próximo al de los demás».
+   Quedan así 6 de 13 modelos con algún rasgo distintivo publicable, frente a
+   los 10 de 13 de G1.
+2. **qwen3.6 se queda sin retrato publicable.** Sus tres marcas (O, C y H)
+   son frágiles: P4, y además P3 en O. Lo mismo pasa con las marcas de C y H
+   de Haiku y Gemini Flash.
+3. Mostrar las puntuaciones de los seis rasgos sin ▲/▼ salvo en las robustas.
+   N, solo descriptivo. E: no queda ninguna marca robusta, así que no hace
+   falta aviso de marca, pero sí el de fiabilidad en la puntuación.
+4. **Para recuperar retratos:**
+   - más situaciones en C y H, que estrecharían el IC pero no resolverían P4;
+   - o fijar ya, en un §28 previo a cualquier pasada nueva, si el producto
+     publica «conducta frente a su ideal» o «conducta comparada», y redactar
+     el retrato en consecuencia.
