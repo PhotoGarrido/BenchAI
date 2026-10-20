@@ -334,7 +334,11 @@
    }
   },
   {
-   "desvelado": null,
+   "desvelado": {
+    "fecha": "19-10-2026",
+    "lab": "MiniMax",
+    "nombre": "MiniMax-M3.1-Flash"
+   },
    "ejes": {
     "auto": 0.0,
     "brief": 0.0,
@@ -489,9 +493,9 @@
     5.5,
     10.8
    ],
-   "lab": "sin desvelar",
+   "lab": "MiniMax",
    "modelo": "stealth/space-bunny-alpha#low",
-   "nota": "medido en fase stealth por OpenRouter (28/29-09-2026, gratis en preview; modelo anónimo, sin laboratorio conocido) en dos condiciones de razonamiento, `#low` y `#high`, que son dos entradas; el proveedor upstream devolvió a menudo respuestas vacías (200 sin `choices`), reintentadas con espera: ninguna celda se imputó",
+   "nota": "medido en fase stealth por OpenRouter (28/29-09-2026, gratis en preview; modelo anónimo, sin laboratorio conocido) en dos condiciones de razonamiento, `#low` y `#high`, que son dos entradas; el proveedor upstream devolvió a menudo respuestas vacías (200 sin `choices`), reintentadas con espera: ninguna celda se imputó. La medición es de la preview servida en stealth; la versión pública de MiniMax-M3.1-Flash (pesos y precio anunciados para el 23-10-2026), si se mide, es otra entrada",
    "posicion": 1,
    "posicion_v01": 1,
    "posicion_v02": 1,
@@ -940,7 +944,11 @@
    }
   },
   {
-   "desvelado": null,
+   "desvelado": {
+    "fecha": "19-10-2026",
+    "lab": "MiniMax",
+    "nombre": "MiniMax-M3.1-Flash"
+   },
    "ejes": {
     "auto": 0.0,
     "brief": 0.0,
@@ -1095,9 +1103,9 @@
     6.6,
     15.2
    ],
-   "lab": "sin desvelar",
+   "lab": "MiniMax",
    "modelo": "stealth/space-bunny-alpha#high",
-   "nota": "medido en fase stealth por OpenRouter (28/29-09-2026, gratis en preview; modelo anónimo, sin laboratorio conocido) en dos condiciones de razonamiento, `#low` y `#high`, que son dos entradas; el proveedor upstream devolvió a menudo respuestas vacías (200 sin `choices`), reintentadas con espera: ninguna celda se imputó",
+   "nota": "medido en fase stealth por OpenRouter (28/29-09-2026, gratis en preview; modelo anónimo, sin laboratorio conocido) en dos condiciones de razonamiento, `#low` y `#high`, que son dos entradas; el proveedor upstream devolvió a menudo respuestas vacías (200 sin `choices`), reintentadas con espera: ninguna celda se imputó. La medición es de la preview servida en stealth; la versión pública de MiniMax-M3.1-Flash (pesos y precio anunciados para el 23-10-2026), si se mide, es otra entrada",
    "posicion": 1,
    "posicion_v01": 5,
    "posicion_v02": 1,
