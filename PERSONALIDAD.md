@@ -1487,3 +1487,157 @@ cuando llegue el banco v3.1 de E y N o se completen más modelos:
 
 Las cifras de esta sección son las del banco v3 con 13 modelos. Con v3.1
 pueden cambiar las de E y N y, con ellas, el conflicto.
+
+## 30. Rescate de H y N con los datos del banco v3 · diagnóstico y criterios fijados ANTES de calcular el rescate (21-10-2026)
+
+**Objetivo (David, 21-10).** Que los seis rasgos del cuadro distingan modelos
+de forma fiable. Con la definición de §28, G4 da O 0,94 · C 0,81 · E 0,93 ·
+A 0,86 · **N 0,62** · **H 0,13**, y H no tiene estructura de facetas (G3).
+Esta sección mira si H y N se rescatan **con lo ya medido** (13 modelos del
+banco v3, cero llamadas) y fija, antes de calcularlo, qué cuenta como
+rescate.
+
+### 30.1 Diagnóstico con la definición de §28
+
+`python diagnosticar_hn_v3.py` (desde `spike/`) →
+`resultados/personalidad_fc/DIAGNOSTICO_HN.md` y `diagnostico_hn.json`.
+Todo sobre la elección bruta e_m(i), escala del cuadro (×50).
+
+| rasgo | sd real entre modelos | ruido por situación | alfa | G4 pares/impares | G4 en 2.000 particiones al azar: mediana [p5, p95] | % ítems sd < 0,10 | r ítem-resto media | % r < 0 |
+|---|---|---|---|---|---|---|---|---|
+| O | 5,2 | 14,7 | 0,88 | 0,94 | 0,90 [0,81; 0,96] | 14 | +0,35 | 8 |
+| C | 2,8 | 12,7 | 0,73 | 0,81 | 0,76 [0,51; 0,89] | 30 | +0,22 | 18 |
+| E | 4,1 | 13,4 | 0,84 | 0,93 | 0,88 [0,75; 0,95] | 16 | +0,28 | 28 |
+| A | 4,6 | 12,6 | 0,89 | 0,86 | 0,92 [0,81; 0,97] | 23 | +0,40 | 7 |
+| **N** | **2,0** | 14,2 | **0,53** | 0,62 | **0,62** [0,23; 0,83] | 26 | +0,14 | 23 |
+| **H** | **1,8** | 13,4 | **0,51** | **0,13** | **0,60** [0,18; 0,84] | 22 | +0,11 | 27 |
+
+1. **El 0,13 de H es en parte mala suerte de la partición pares/impares.**
+   Con 2.000 particiones equilibradas por faceta, la mediana es 0,60 (alfa
+   0,51). Aun así, H y N quedan claramente por debajo de 0,70: solo el
+   26–29 % de las particiones llega. El G4 de una sola partición es inestable
+   en todos los rasgos (C va de 0,51 a 0,89).
+2. **El problema es de señal, no de ruido.** El ruido por situación es igual
+   en los seis rasgos (13–15 puntos). La sd real entre modelos es de 4–5
+   puntos en O, E y A, y de 1,8–2,0 en H y N.
+3. **Techo y suelo.** No es lo que distingue a H y N: el 22–26 % de sus
+   situaciones casi no varía entre modelos (sd < 0,10), igual que C (30 %) y
+   A (23 %). En H la elección media es 0,39; en N, 0,51.
+
+**Por qué se desploma H al pasar de la ajustada a la comparada.**
+
+| H | elección e (§28) | ajustada e − d_m (§23) | deseabilidad propia d_m sola |
+|---|---|---|---|
+| sd real entre modelos | **1,8** | 6,0 | **6,9** |
+| G4 pares/impares | 0,13 | 0,91 | 0,85 |
+| G4, mediana de particiones | 0,60 | 0,90 | 0,93 |
+
+La puntuación ajustada es e − d_m. En H, lo que los modelos **eligen** casi
+no varía entre ellos (1,8), pero lo que **juzgan admirable** varía mucho y de
+forma muy consistente (d_m sola: G4 0,85–0,93; la deseabilidad media de H va
+de 16 en qwen3.6 a 42 en Haiku). La ajustada hereda la señal de −d_m: el
+0,91 de §23 medía **cuánto valora cada modelo la honestidad-humildad**, no
+cuánto la practica. Al quitar d_m (§28) queda solo la elección, que entre
+modelos apenas tiene señal. Es lo mismo que mostró P4 en §27. En E pasa lo
+contrario: elección y deseabilidad propia correlacionan +0,69 entre modelos,
+y restarla quitaba señal (G4 0,36 → 0,93).
+
+**Facetas: H se parte en dos.**
+
+| faceta | sd entre modelos | alfa | r con el resto de H | carga cruzada más fuerte |
+|---|---|---|---|---|
+| sinceridad | **8,5** | 0,86 | −0,17 | E −0,72 |
+| desinterés por la riqueza | 2,3 | 0,42 | +0,60 | C −0,63 |
+| modestia | 1,6 | 0,18 | −0,33 | A +0,75 |
+| equidad | **0,0** | — | −0,43 | E +0,80 |
+
+Correlación entre facetas (entre modelos): sinceridad–desinterés +0,55;
+sinceridad–equidad −0,55; sinceridad–modestia −0,40; equidad–modestia +0,20.
+**Sinceridad es la única faceta con señal fuerte**, se acompaña de
+desinterés por la riqueza y va **en contra** de equidad y modestia. Equidad
+no tiene ninguna varianza real entre modelos (elección media 0,22), y
+modestia casi ninguna. Como el rasgo suma facetas que se cancelan, la sd de
+H se queda en 1,8 aunque sinceridad sola tenga 8,5. (Exploratorio, con los
+13 modelos y sin validación cruzada: sinceridad + desinterés da alfa 0,85;
+equidad + modestia, −0,02.)
+
+**Facetas de N.** Impulsividad correlaciona **en negativo** con el resto de
+N (−0,54) y carga en O (−0,69): son los impulsos generosos o espontáneos de
+§22/§24, no falta de control. Autoconciencia no tiene señal (sd 0,6).
+Hostilidad, depresión y vulnerabilidad se agrupan (+0,39 a +0,55), y
+ansiedad se une a hostilidad (+0,43). (Exploratorio: N sin impulsividad da
+alfa 0,73 y mediana de particiones 0,79; hostilidad + depresión +
+vulnerabilidad, 0,77 y 0,81.)
+
+**Por qué N no llega.** Su señal real (2,0) es la mitad que la de E y A; una
+de sus seis facetas (impulsividad) ordena a los modelos al revés que el resto
+del rasgo, y otra (autoconciencia) no los ordena.
+
+**Aviso.** Este diagnóstico se ha visto antes de fijar el rescate, incluidas
+las correlaciones entre facetas. Por eso la regla de 30.2 es genérica: no usa
+las facetas, no invierte ítems y no se ha elegido a la vista de qué facetas
+sobreviven.
+
+### 30.2 Criterios del rescate (fijados ahora, antes de calcularlo)
+
+Los calcula `spike/rescate_hn_v3.py`. Semilla `SEMILLA`. Solo elección bruta
+(§28). Se aplica a H y a N; O, C, E y A pasan por el mismo procedimiento solo
+como referencia, sin decidir nada.
+
+**Regla de selección de ítems** (se aplica a un conjunto S de modelos, con
+los datos de S y nada más):
+
+1. Se parte de todas las situaciones del rasgo en el banco v3.
+2. Fuera las que tienen sd de e entre los modelos de S < 0,10 (no
+   discriminan).
+3. Depuración iterativa: mientras quede alguna con correlación ítem-resto
+   entre los modelos de S < 0,20, se quita la de menor correlación y se
+   recalcula. Se para también si quedan 12 situaciones (mínimo de escala).
+4. **Ninguna situación se invierte**: el polo alto es el de la teoría.
+
+**R1 · validación cruzada entre modelos (principal).** Se recorren **todas**
+las particiones de los 13 modelos en 6 que seleccionan y 7 que validan
+(C(13,6) = 1.716). En cada una se aplica la regla con los 6 y se mide G4 en
+los 7 con las situaciones elegidas, de dos maneras:
+(a) la de §21, mitades pares/impares en el orden de la selección, y
+(b) la mediana de Spearman-Brown en 200 particiones al azar de las
+situaciones, equilibradas por faceta.
+**Pasa si la mediana sobre las 1.716 particiones es ≥ 0,70 en (a) y en
+(b).** La propuesta mínima pedía una sola medida; exigir las dos endurece.
+Como referencia se informa del G4 de la escala completa del rasgo en los
+mismos 7 modelos.
+
+**R2 · cobertura teórica.** Escala final = las situaciones elegidas en
+≥ 50 % de las 1.716 particiones. Pasa si tiene **≥ 3 facetas con ≥ 2
+situaciones cada una** y **ninguna faceta aporta más de la mitad** de las
+situaciones (endurecimiento: que no sea una faceta disfrazada de rasgo). Si
+quedan facetas del constructo sin situaciones, se declara explícitamente
+(«H queda reducida a …») aunque pase; publicar con ese alcance lo decide
+David.
+
+**R3 · marcas.** Con la escala final de H (o de N), el cuadro de §28 se
+recalcula y cada marca candidata pasa las **cinco comprobaciones de §28**
+(P1 mitades por faceta ≥ 90 % de signo, P2 réplicas, P3 órdenes, P5 sin cada
+laboratorio, P6 BH sobre las 78 pruebas). Mismos niveles de §26.
+
+**R4 · sin reutilización.** Una marca de la escala rescatada solo se publica
+si además **se mantiene** (mismo signo, IC 95 % que excluye 0) cuando la
+escala se selecciona **sin ese modelo** (la regla aplicada a los otros 12).
+Así ningún modelo queda marcado con situaciones elegidas con sus propios
+datos. El G4 de la escala final con los 13 modelos se informa, pero **no**
+cuenta como validación: la han elegido esos mismos modelos.
+
+**Decisión.** Un rasgo se rescata si cumple **R1 y R2**. Sus marcas se
+publican si además pasan R3 y R4. Consecuencias, fijadas ahora:
+
+- **H rescatada:** sus marcas en el cuadro público salen de la escala
+  rescatada, con la etiqueta de alcance si R2 declaró una reducción.
+  **H no rescatada:** se mantiene el conflicto de §29 para que lo resuelva
+  David; no se cambia nada del cuadro.
+- **N rescatado:** pasa a ser **elegible** para marca, pero salir del modo
+  «solo descriptivo» de §23/§28 lo decide David. **N no rescatado:** sigue
+  solo descriptivo.
+- `cuadro_publico_v3.py` solo incorpora una escala rescatada detrás de una
+  opción explícita; sin ella, sus salidas no cambian.
+- Si alguno no se rescata, §31 propone una pasada en NaN con formatos nuevos
+  y sus propios criterios, sin medirla.
