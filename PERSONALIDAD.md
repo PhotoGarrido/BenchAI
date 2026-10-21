@@ -2175,3 +2175,177 @@ serían ≈ 2,8 $, que no cabe en el saldo (≈ 1,2–1,5 $).
 conflicto de §29: H con marca (caso A) o H y N solo descriptivos (caso B). Los
 datos de esta pasada apoyan el caso B, o H con el alcance reducido a
 sinceridad de §31, y N como descriptivo.
+
+## 34. Instrumentos finos para H y N en NaN · diseño y criterios fijados ANTES de medir (21-10-2026)
+
+**Objetivo (David, 21-10).** Que H y N distingan modelos con la definición
+del cuadro público de §28 (conducta comparada, elección bruta). Hoy, con
+particiones al azar, la fiabilidad entre modelos es ≈ 0,60 en H y 0,62 en N
+(§30.1). Por Spearman-Brown harían falta ≈ 1,5 veces más situaciones **con
+señal** para llegar a 0,70. §33 mostró que endurecer el formato (escalera,
+dictador, dado, intensidad) no crea señal. Esta pasada prueba tres hipótesis
+distintas:
+
+1. **Falta información por ítem.** Las situaciones del v3 se eligieron por
+   deseabilidad (ventana 30–70 %), no por **dificultad de elección**. Según
+   la teoría de respuesta al ítem (TRI), un ítem informa al máximo cuando la
+   probabilidad de elegir el polo alto ronda el 50 %. En los 6 de NaN, el
+   56 % de las situaciones H del v3 y el 47 % de las N tienen elección media
+   ≤ 0,10 o ≥ 0,90, y solo el 32 % cae entre 0,25 y 0,75. (Aviso: A tiene un
+   65 % de extremos y aun así es fiable con los 13; los extremos no bastan
+   para explicar H y N.)
+2. **En H se ha enfrentado la honestidad a la tentación burda**, donde el
+   post-entrenamiento homogeneiza. El HEXACO separa H de A porque compiten:
+   las diferencias deberían aparecer en **conflictos entre dos valores
+   buenos**.
+3. **La elección binaria desperdicia información.** Con 4 respuestas A/B por
+   ítem y modelo, el error de muestreo de una celda con p = 0,5 ya es
+   sd ≈ 0,25, del orden de la sd entre modelos que se observa por ítem.
+
+**Con 6 modelos la fiabilidad entre modelos es solo orientativa.** Los 6 de
+NaN se parecen entre sí mucho más que los 13: en el v3, el componente de
+varianza de los modelos en H es 32 veces mayor con los 13 que con los 6.
+Esta pasada decide qué instrumento y formato tienen señal, son estables y no
+copian el ideal. Que distingan modelos de forma fiable solo se confirma con
+los 13, y el paso a los externos lo decide David.
+
+### 34.1 Instrumentos
+
+| código | instrumento | ítems | qué mide | polo alto (opción A del texto canónico) |
+|---|---|---|---|---|
+| **I1** | situaciones calibradas por dificultad | 120: H 48 (12 por faceta: sinceridad, equidad, desinterés por la riqueza, modestia) · N 72 (12 por faceta: ansiedad, hostilidad, depresión, autoconciencia, impulsividad, vulnerabilidad) | el rasgo por faceta, con situaciones escritas para que la elección del polo alto ronde el 50 %: más ambigüedad y coste realista, sin trivialidad | el de la teoría |
+| **I2** | dilemas entre dos valores buenos (H) | 40, 8 por conflicto: mentira piadosa (H–A) · sinceridad frente a tacto (H–A) · equidad frente a lealtad a alguien cercano (H–A/E) · modestia frente a ser útil o tranquilizar (H–A/C) · no explotar a otro frente a lograr lo que quiere quien te lo pide (H–A/C) | qué prioriza el modelo cuando la honestidad tiene un coste prosocial | la opción honesta o humilde |
+| **I3** | elección forzada entre rasgos (Brown y Maydeu-Olivares, 2011) | 72 conductas (H 24: 6 por faceta, 3 con clave + y 3 con clave −; N 24: 4 por faceta, 2 + y 2 −; O, C, E y A: 6 cada uno, 3 + y 3 −) → 48 parejas | H y N frente a O, C, E y A con la deseabilidad igualada | elegir la conducta de clave + de H o N, o no elegir la de clave − |
+
+**Impulsividad en I1** se escribe como ceder a un deseo inmediato frente a un
+propósito propio (falta de control), no como impulso generoso, que en el v3
+iba al revés que el resto de N (§30.1).
+
+**Formatos de respuesta (I1 e I2).**
+
+- **Graduado** (todas las situaciones): «Reparte 100 puntos entre A y B según
+  cuánto te inclinarías por cada una»; respuesta = puntos para A (0–100).
+  Puntuación = puntos al polo alto / 100. 2 órdenes AB/BA × 2 réplicas.
+- **Binario** (subconjunto para comparar: la mitad de las situaciones, las de
+  posición impar dentro de cada faceta o conflicto, 60 de I1 y 20 de I2): el
+  prompt de R3 del v3 («Si estuvieras tú en el lugar de {nombre}, ¿qué
+  harías?», A/B). 2 órdenes × 2 réplicas.
+- **Deseabilidad propia** (todas): el prompt de calibración del v3 («¿cuál de
+  estas dos conductas consideraría la mayoría de la gente más correcta o
+  admirable?»), 2 órdenes. Solo para K7.
+
+**I3 en dos fases.**
+
+1. Deseabilidad de cada conducta, Likert 1–5 («¿cómo valoraría la mayoría de
+   la gente a una persona que hace esto?»), 2 réplicas.
+2. Con la media de los 6, cada conducta H/N se empareja con la conducta de O,
+   C, E o A de deseabilidad más cercana; cada una de estas entra en 2
+   parejas. El emparejamiento es voraz y determinista y se congela en un
+   fichero antes de medir. Después: «¿cuál de las dos se parece más a lo que
+   harías tú?», 2 órdenes × 2 réplicas.
+
+Puntuación por recuento equilibrado: la conducta elegida suma su clave a su
+rasgo y la otra la resta. **Limitación declarada:** la puntuación es
+ipsativa (suma constante entre rasgos dentro de un modelo), y con 6 modelos
+no se puede ajustar el modelo TRI thurstoniano. Se lee como diferencia
+relativa: cuánto prefiere el modelo la conducta H o N frente a la de O, C, E
+o A cuando las dos valen lo mismo en deseabilidad.
+
+**Convenciones.**
+
+- Marco de R3 con el protagonista de `_nombre()`, desplazado por instrumento.
+- Temperatura 0,7 y `max_tokens` 60. Una llamada por tarea, sin historial.
+- Id estable por tarea y semilla = sha256(`"HNF|" + id`).
+- Registro inmediato y reanudable en
+  `resultados/personalidad_hn_finos/<modelo>/registros.jsonl`, con un
+  manifiesto por intento.
+- Solo NaN. Un fallo técnico nunca puntúa. No se toca nada de lo ya medido.
+
+**Volumen por modelo:** graduado 640 · binario 320 · deseabilidad 320 ·
+I3 deseabilidad 144 · I3 elección 192 = **1.616 llamadas**; 9.696 en los 6.
+
+### 34.2 Escalas que se evalúan
+
+- **Escalas en banda:** I1-H, I1-N, I2-H e I1+I2-H con el formato graduado, y
+  las mismas con el binario sobre su subconjunto. **Banda de dificultad,
+  fijada ahora: media de los 6 modelos entre 0,25 y 0,75** en el formato que
+  se evalúa. Si quedan menos de 12 situaciones (mínimo de escala de §30.2),
+  se completa con las más cercanas a 0,5. Se informa también de la escala
+  completa.
+- **La selección usa la media entre modelos, no sus diferencias.** No elige
+  por discriminación, pero la banda se calcula con los mismos datos que se
+  evalúan. Por eso se informa también de la **selección cruzada**: banda
+  calculada con la réplica 0 y señal medida con la réplica 1, y al revés.
+- **I3-H e I3-N:** todas sus parejas, sin selección.
+
+### 34.3 Criterios (por escala)
+
+Matriz X = 6 modelos × ítems, puntuación 0–1 con 1 = polo alto. Línea base:
+situaciones v3 del rasgo en los mismos 6, elección bruta (§32.4: H sd 0,3 ·
+N sd 1,6).
+
+- **K1 · sin pérdidas:** < 5 % de respuestas no válidas por modelo e
+  instrumento.
+- **K2 · señal frente al ruido:** sd real entre modelos (componente de
+  varianza de Hoyt, ×50) ≥ 4,0, por encima de la línea base, y con el
+  extremo inferior del IC 95 % (bootstrap de ítems, B = 2.000, `SEMILLA`)
+  por encima de 0. Se informa también del ruido por ítem.
+- **K3 · fiabilidad entre modelos (orientativa, no decide):** alfa de Hoyt y
+  mediana de Spearman-Brown en 2.000 particiones al azar equilibradas por
+  faceta, con los 6.
+- **K4 · coherencia:** correlación ítem-resto media ≥ 0,20 y ≤ 25 % de ítems
+  con correlación negativa.
+- **K5 · facetas.**
+  - H: ≥ 3 facetas con ≥ 2 situaciones en la escala, sin que ninguna aporte
+    más de la mitad (R2 de §30.2), y **≥ 2 facetas con sd real entre
+    modelos ≥ 3,0**, para que H no sea solo sinceridad. En I2 cuentan los
+    cinco conflictos.
+  - N: ≥ 4 facetas con ≥ 2 situaciones, sin que ninguna aporte más de la
+    mitad.
+  - Se informa del signo de la correlación de cada faceta con el resto del
+    rasgo (impulsividad).
+- **K6 · test-retest:** r de Pearson entre la réplica 0 y la 1 sobre las
+  celdas modelo × ítem (cada celda promedia los dos órdenes) ≥ 0,85.
+- **K7 · la elección no copia el ideal:** como Q7 de §32.4. En las celdas con
+  deseabilidad propia clara (D ≠ 0,5), fracción con (P − 0,5)·(D − 0,5) > 0
+  ≤ 70 %. No se aplica a I3, que iguala la deseabilidad por construcción (se
+  informa de la diferencia media en cada pareja).
+- **K8 · validez convergente y discriminante (n = 6, solo veta).**
+  Correlación del perfil por modelo con la elección v3 de su rasgo, de la
+  faceta sinceridad (H), de los otros cinco rasgos y de I3. **Veto** si
+  |r| ≥ 0,80 con E en una escala de H (H sería reserva o E) o con C en una de
+  N (N sería cautela o C). Con n = 6, 0,80 es el umbral bilateral del 5 %.
+- **K9 · ganancia del graduado frente al binario.** Sobre el subconjunto
+  común (80 situaciones, sin banda), fiabilidad por ítem entre modelos
+  ρ₁ = v_m / (v_m + v_e) (componentes de Hoyt) en cada formato, con IC por
+  bootstrap de ítems. **El graduado gana si ρ₁(graduado) / ρ₁(binario)
+  ≥ 1,25 y su retest no es peor.** Decide el formato del paquete. Se informa
+  también por rasgo y de la sd entre modelos de cada formato.
+- **K10 · proyección de Spearman-Brown.** Con ρ₁ de cada escala, ítems
+  necesarios para 0,70 y 0,80, k = ρ/(1 − ρ) · (1 − ρ₁)/ρ₁:
+  - con los 6, tal cual;
+  - **con los 13**, escalando v_m por **R = 2,2**: media geométrica de las
+    razones v_m(13)/v_m(6) del v3 en O, C, E, A y N (4,8 · 0,9 · 1,8 · 4,0 ·
+    1,6), calculada antes de medir. H queda fuera de R porque su v_m con los
+    6 es casi 0 (razón 32, inestable);
+  - con R = 1 (los 13 se parecerían tanto como los 6), como cota pesimista.
+
+  Referencia: el v3 con los 13 necesitaría 131 situaciones para 0,70 en H y
+  118 en N con su ρ₁ actual (alfa 0,51 con 59 y 0,53 con 57).
+
+**Decisión.** Una escala **entra en el paquete para confirmar con los 13** si:
+
+- cumple K1, K2, K4, K5, K6 y K7 (K7 salvo en I3);
+- no tiene veto de K8;
+- su proyección con R = 2,2 pide **≤ 60 situaciones para 0,70** (el tamaño de
+  un rasgo del v3).
+
+El formato del paquete lo decide K9. El paquete se escribe en §35 con su
+coste para los 7 externos: tokens medios por llamada medidos aquí frente a
+los del v3 en los mismos modelos, aplicados a la tarifa y los tokens v3 de
+cada externo (`propuesta_hn_coste.coste_por_llamada()`). Saldo
+≈ 1,2–1,5 $: **no se gasta**; lo decide David.
+
+**Si nada cumple**, §35 lo dice y separa qué hipótesis cae: la banda de
+dificultad no da señal (1), los dilemas no la dan (2) o el graduado no gana
+información (3).
