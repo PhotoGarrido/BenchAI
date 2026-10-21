@@ -2561,3 +2561,134 @@ el graduado de N (≈ 0,96–1,64 $) ni el graduado de H (≈ 0,84–1,09 $).
 **Cómo queda el cuadro.** Sin cambios. `CUADRO_PUBLICO.md`, `CUADRO_V3.md`,
 `V3.md`, `ROBUSTEZ_V3.md` y `HN_FORMATOS.md` se regeneran idénticos byte a
 byte. Sigue abierto el conflicto de §29.
+
+## 36. Confirmación de I1-H en binario con los 13 modelos · criterios fijados ANTES de medir (21-10-2026)
+
+**Decisión de David (21-10).** Gastar ≈ 0,8–1 $ en OpenRouter (tope duro
+1,10 $) para medir **I1-H en binario** en los 7 externos y confirmar con los
+13 si sirve como escala de H del cuadro público. Es la única escala de §35
+con señal en las cuatro facetas (sd 5,0–8,6 en los 6 de NaN), coherente
+(ítem-resto 0,44), convergente con H del v3 (+0,95) y que no es reserva (r
+con E −0,43). Fallaba dos criterios de §34: copia del ideal propio (79 %
+frente al 70 %) y retest (0,84 frente a 0,85).
+
+Esta sección se escribe y se versiona **antes de medir** nada de lo que
+sigue. No se retoca a la vista de los resultados.
+
+### 36.1 Qué se mide
+
+- **Las 48 situaciones de I1-H** (12 por faceta: sinceridad, equidad,
+  desinterés por la riqueza, modestia) en **binario**, con el prompt de R3
+  del v3, 2 órdenes × 2 réplicas. Mismos ids (`BI|<situación>|<orden>|<rep>`),
+  semillas (sha256(`"HNF|" + id`)), prompts, nombres, temperatura 0,7 y
+  `max_tokens` 60 que en §34-35. Registro en
+  `resultados/personalidad_hn_finos/<modelo>/registros.jsonl` (los externos,
+  con «/» cambiado por «_», como en el v3), reanudable y con manifiesto.
+- **NaN (gratis):** solo faltan las 24 situaciones de posición par, que en
+  §35 se midieron en graduado y no en binario: 96 llamadas por modelo en
+  `gemma4`, `qwen3.6`, `qwen3.8-flash`, `glm5.3-flash`, `mimo-v2.6-flash` y
+  `deepseek-v4-flash@2026-10-17`. Un proceso por modelo, con
+  `NAN_MAX_CONCURRENTES=1 NAN_RPM=9`.
+- **OpenRouter (tope 1,10 $):** las 48 en los 7 externos del v3, con sus
+  ids y sufijos de esfuerzo: `anthropic/claude-haiku-5.5`,
+  `anthropic/claude-opus-5.5#low`, `google/gemini-3.7-flash`,
+  `google/gemini-4-argon`, `openai/gpt-5.6-luna`, `openai/gpt-6.1-sol#low` y
+  `deepseek/deepseek-v4-pro-0813`. 192 llamadas por modelo, 1.344 en total.
+  Proyección con los tokens del v3 de cada modelo y la tarifa vigente de
+  OpenRouter (consultada hoy): ≈ 0,78 $ (≈ 0,97 $ con un margen del 25 %).
+  Saldo antes de medir: 1,51 $.
+- **Vigilante de gasto.** Suma los tokens de las solicitudes registradas en
+  los manifiestos de esta tanda × la tarifa de cada modelo y mata los
+  ejecutores si el gasto estimado llega a 1,10 $. Antes de lanzar se
+  comprueba que reconoce el nombre del ejecutor.
+- **Un fallo técnico nunca cuenta como conducta**; se reintenta al
+  reanudar.
+
+**Deseabilidad propia de los externos (condicional al coste, no a los
+resultados).** Medirla en las 48 × 2 órdenes en los 7 costaría ≈ 0,39 $ y
+no cabe con la tanda binaria. Regla fijada ahora: terminada la tanda
+binaria, se proyecta el coste de la deseabilidad (prompt de calibración del
+v3, 48 × 2 órdenes, ids `DS|…` de §34) de cada externo con el coste medio
+por llamada **medido en su tanda binaria**. Se mide en los externos de
+menor a mayor coste mientras el gasto acumulado estimado más la proyección
+× 1,15 no pase de 1,05 $. Los que no quepan se quedan sin ella. Solo afecta
+a dos cosas, y ninguna decide:
+
+- la **copia del ideal propio** (36.3), que se informa en los modelos con
+  deseabilidad;
+- el **nivel absoluto** de la puntuación de H en el cuadro (50 + 50·media(e
+  − d̄)), con d̄ = media de la deseabilidad de los modelos que la tengan.
+  d̄ es común a todos los modelos, así que no cambia las comparaciones ni
+  las marcas.
+
+### 36.2 Datos y escala
+
+Matriz X = 13 modelos × 48 situaciones, e_m(i) = fracción de elecciones del
+polo alto (órdenes × réplicas válidas), como en §28. Los 13 son los del
+cuadro público de §29. El resto de rasgos (O, C, E, A, N) y H del v3 se
+leen del banco v3 sin cambios.
+
+**Escala que iría al cuadro.** Si el banco completo de 48, sin seleccionar,
+tiene G4 ≥ 0,70 con los 13 en las dos medidas de 36.3 (pares/impares y
+mediana de particiones), se usan las 48. Así no hay selección y ningún
+modelo se mide con situaciones elegidas con sus datos. Si no, se usa la
+escala final de R1 (situaciones elegidas en ≥ 50 % de las particiones), y
+las marcas deben pasar además R4 de §30.2.
+
+### 36.3 Criterios con los 13
+
+1. **Fiabilidad entre modelos con validación cruzada (R1 de §30.2).** Se
+   recorren las C(13,6) = 1.716 particiones en 6 modelos que seleccionan y
+   7 que miden. Con los 6 se aplica la regla de §30.2 (fuera sd < 0,10;
+   depuración por ítem-resto < 0,20 hasta un mínimo de 12; sin invertir) y
+   en los 7 se mide G4 con las situaciones elegidas de dos maneras: (a)
+   pares/impares en el orden de la selección y (b) mediana de
+   Spearman-Brown en 200 particiones al azar equilibradas por faceta.
+   **Pasa si la mediana sobre las 1.716 es ≥ 0,70 en (a) y en (b)**, como
+   en §30. Se informa también del **G4 del banco completo de 48 sin
+   seleccionar**, con los 13 y en los 7 de cada partición.
+2. **Cobertura.** En la escala que iría al cuadro, **las cuatro facetas
+   tienen situaciones** (≥ 2 cada una, el mínimo de R2 de §30.2) y
+   **ninguna aporta más de la mitad**.
+3. **Estructura (G3 de §21).** Sobre la escala que iría al cuadro, con los
+   13: la correlación media entre las facetas de H (puntuación por faceta,
+   entre modelos) es **mayor** que la correlación media entre las facetas
+   de H y las de O, C, E, A y N del v3.
+4. **Discriminante.** |r| entre el perfil de H (media de e en la escala,
+   13 modelos) y la elección bruta de E del v3 **< 0,70**.
+5. **Retest ≥ 0,85.** r de Pearson entre la réplica 0 y la 1 sobre las
+   celdas modelo × situación de la escala (cada celda promedia los dos
+   órdenes), con los 13.
+6. **Marcas.** Con H medida con esa escala, el cuadro de §28 se recalcula
+   entero y cada marca candidata pasa las **cinco comprobaciones de §28**
+   (P1 mitades por faceta, ≥ 90 % de signo; P2 réplicas; P3 órdenes; P5
+   sin cada laboratorio; P6 BH sobre las 78 pruebas). Niveles de §26.
+   Solo las robustas llevan frase (y, si la escala es seleccionada, también
+   deben pasar R4).
+
+**Copia del ideal propio: se informa, pero NO veta.** Es un **cambio hecho
+después de ver §35**, decidido por David: en §34 era el criterio K7 y I1-H
+binario lo fallaba (79 %). Motivo: el cuadro mide la **conducta** (§28), y
+en Honestidad-Humildad es esperable que lo que un modelo practica coincida
+con lo que valora; esa coincidencia no hace falsa la conducta. **No es un
+criterio previo** y no se presenta como tal. Se informa en los modelos con
+deseabilidad propia:
+
+- la fracción de celdas con deseabilidad clara (D ≠ 0,5) en las que la
+  elección cae del lado deseable para el propio modelo
+  ((P − 0,5)·(D − 0,5) > 0);
+- la correlación entre el perfil de H y la deseabilidad propia media.
+
+Se informa también, sin decidir: convergencia con H y sinceridad del v3,
+correlación con C, sd entre modelos por faceta, y G4 con los 6 de NaN y con
+los 7 externos por separado.
+
+### 36.4 Decisión
+
+- **H pasa** si cumple **1 a 5**. Entonces `cuadro_publico_v3.py` usa I1-H
+  binario como escala de H (documentado y reproducible con un comando), se
+  regeneran `CUADRO_PUBLICO.md` y `cuadro_publico.json` y se muestra el
+  cuadro anterior para comparar. Las marcas de H son las que pasan 6.
+- **H no pasa** si falla alguno de 1 a 5. El cuadro no cambia y sigue
+  abierto el conflicto de §29. §37 dice qué falla.
+- Los resultados se escriben en §37.
