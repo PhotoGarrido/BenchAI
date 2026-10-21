@@ -2692,3 +2692,175 @@ los 7 externos por separado.
 - **H no pasa** si falla alguno de 1 a 5. El cuadro no cambia y sigue
   abierto el conflicto de §29. §37 dice qué falla.
 - Los resultados se escriben en §37.
+
+## 37. Resultados de la confirmación de I1-H en binario con los 13 modelos (21-10-2026)
+
+`python analizar_h_confirmacion.py` (desde `spike/`, sin llamadas) →
+`resultados/personalidad_fc/H_CONFIRMACION.md` y `h_confirmacion.json`.
+Datos en `resultados/personalidad_hn_finos/<modelo>/` (externos con «/» →
+«_»). Ejecutor: `experimento_personalidad_hn_finos.py --i1h` (y `--externo
+--hilos 8` en OpenRouter). Criterios de §36 sin cambios.
+
+**Medición.**
+
+- **NaN:** 576 llamadas (las 24 situaciones de posición par × 4 en los 6),
+  un proceso por modelo con `NAN_MAX_CONCURRENTES=1 NAN_RPM=9`, ≈ 11 min.
+  Ningún error técnico.
+- **OpenRouter:** 7 de prueba de humo (fuera del análisis, en
+  `personalidad_hn_finos_humo/`), 1.344 binarias (192 × 7) y 480 de
+  deseabilidad. 1.835 solicitudes físicas, 0 errores técnicos; todos los
+  manifiestos cerraron `completed`. Mismos sufijos de esfuerzo que en el v3
+  (`#low` en Opus y Sol, sin esfuerzo en el resto).
+- **Deseabilidad de los externos (regla de 36.1):** tras la tanda binaria el
+  gasto estimado era 0,825 $. Cupieron Luna, Haiku, Sol, Argon y DeepSeek V4
+  Pro (proyección 0,170 $ × 1,15). Gemini 3.7 Flash y Opus se quedaron sin
+  ella. Hay deseabilidad propia en 11 de los 13.
+- **Gasto en OpenRouter:** saldo 1,5125 $ antes y 0,6042 $ después, es
+  decir, **0,908 $ reales**. El vigilante por tokens estimaba 1,005 $, una
+  sobreestimación. No llegó a actuar.
+- **No válidas:** solo Argon, con un 4,7 % (9 de 192): se niega a elegir
+  («No puedo responder únicamente con A o B…»). Es conducta, no fallo
+  técnico, y no puntúa. Las 48 situaciones tienen dato en los 13.
+
+### Veredicto: **I1-H en binario pasa los criterios 1 a 5 de §36**
+
+| criterio | resultado | umbral | |
+|---|---|---|---|
+| 1 · R1, G4 (a) en los 7 que no seleccionan | 0,92 [p25 0,87; p75 0,95] | mediana ≥ 0,70 | ✔ |
+| 1 · R1, G4 (b) | 0,92 [0,90; 0,94]; el 100 % de las particiones ≥ 0,70 | mediana ≥ 0,70 | ✔ |
+| 1 · banco completo de 48, con los 13 (informativo) | (a) 0,95 · (b) 0,93 | — | |
+| 2 · cobertura (escala completa, 48) | 12 por faceta (25 % cada una) | 4 facetas ≥ 2, ninguna > 50 % | ✔ |
+| 3 · G3 dentro / fuera | +0,52 / −0,09 | dentro > fuera | ✔ |
+| 4 · r con E del v3 | −0,34 | \|r\| < 0,70 | ✔ |
+| 5 · retest (réplica 0 / 1) | 0,88 | ≥ 0,85 | ✔ |
+
+- **Escala que va al cuadro: las 48, sin seleccionar.** El banco completo
+  tiene G4 ≥ 0,70 con los 13 en las dos medidas, así que no se aplica R4:
+  ningún modelo se mide con situaciones elegidas con sus propios datos. La
+  regla de §30.2, aplicada en cada partición, retiene una mediana de 26
+  situaciones (12–34). La validación cruzada no mejora el banco completo
+  (0,92 frente a 0,94–0,96 en los mismos 7).
+- **No depende de un subgrupo.** G4 (a/b): 0,98/0,95 en los 6 de NaN y
+  0,95/0,95 en los 7 externos. La sd entre modelos es 5,8 con los 13 (5,8
+  en NaN; 5,5 en externos), frente a 1,8 de la H del v3 (§30.1). Alfa 0,90;
+  ítem-resto medio +0,40 (15 % negativas).
+- **Retest:** con los 13 sube a 0,88 (0,84 con los 6 en §35).
+
+**Facetas.** Por primera vez las cuatro varían entre modelos y van en el
+mismo sentido:
+
+| faceta | sd entre modelos | elección media | r con el resto de H |
+|---|---|---|---|
+| sinceridad | 10,7 | 0,65 | +0,83 |
+| desinterés por la riqueza | 6,2 | 0,84 | +0,80 |
+| equidad | 4,4 | 0,90 | +0,67 |
+| modestia | 3,9 | 0,48 | +0,39 |
+
+Correlaciones entre facetas (13 modelos): sinceridad–equidad +0,82,
+sinceridad–desinterés +0,82, desinterés–modestia +0,53, desinterés–equidad
++0,45, sinceridad–modestia +0,30, equidad–modestia +0,22. En el v3,
+sinceridad iba **en contra** de equidad (−0,55) y de modestia (−0,40).
+Modestia es la faceta más débil. Equidad está cerca del techo (0,90), pero
+ya tiene varianza.
+
+**Copia del ideal propio (se informa; no veta por el cambio de §36,
+posterior a §35).** En los 11 modelos con deseabilidad propia, la elección
+cae del lado que el propio modelo juzga admirable en el **82 %** de las 423
+celdas con D ≠ 0,5 y P ≠ 0,5 (79 % con los 6 en §35; el umbral de K7 era el
+70 %). El perfil de H correlaciona **+0,79** con la deseabilidad propia
+media. La lectura es la de §36: los modelos que más honestidad-humildad
+practican en estas situaciones son también los que más la valoran. El cuadro
+afirma la conducta comparada (§28), no que la conducta sea independiente de
+sus valores. Opus y Gemini 3.7 Flash no entran en esta cifra.
+
+**Convergencia y discriminación (13 modelos, informativo).** r con H del v3
++0,77 y con su faceta sinceridad +0,71: es la misma dimensión, medida con
+más señal. Con E −0,34, O +0,24, A −0,13, N −0,40 y **C −0,62**. La relación
+inversa con C ya aparecía en los 6 (−0,90) y se atenúa con los 13. No es un
+veto de §36, pero queda por mirar: los modelos más «responsables» del v3
+(cumplir, planificar) tienden a aceptar más ventajas en estas situaciones.
+
+### Marcas de H (cinco comprobaciones de §28, BH sobre 78 pruebas)
+
+| modelo | marca | dif [IC 95 %] | nivel |
+|---|---|---|---|
+| Opus 5.5 #low | ▲ | +8,2 [+4,8; +11,8] | **robusta** |
+| Sol #low | ▲ | +7,9 [+4,1; +12,0] | **robusta** |
+| DeepSeek Flash@ | ▲ | +5,6 [+2,8; +8,5] | **robusta** |
+| gemma4 | ▼ | −10,5 [−15,6; −5,3] | **robusta** |
+| qwen3.6 | ▼ | −10,5 [−14,7; −6,1] | **robusta** |
+| Argon | ▼ | −6,2 [−10,8; −2,1] | **robusta** |
+| DeepSeek V4 Pro | ▲ | +5,6 [+2,7; +8,8] | frágil (P3) |
+| Gemini 3.7 Flash | ▼ | −7,1 [−12,7; −1,9] | frágil (P3) |
+| Luna | ▲ | +4,2 [+1,3; +7,1] | frágil (P3, P5: cae sin google) |
+
+Las 9 marcas candidatas tienen un 99–100 % de signo en P1. Ninguna se
+invierte. La única marca de H del cuadro anterior (Sol ▲) se mantiene.
+
+**Efecto en los otros rasgos.** Cambiar las pruebas de H mueve la corrección
+BH. **Luna A▼ pasa de frágil a robusta**, y mimo E▲ (no publicable) deja de
+ser candidata. Ninguna otra marca cambia de nivel.
+
+### Cómo queda el cuadro público
+
+`cuadro_publico_v3.py` usa ahora I1-H en binario (48 situaciones) como
+escala de H **por defecto**. Se rehace con un solo comando,
+`python cuadro_publico_v3.py`. El cuadro anterior, con la H del v3, sale con
+`python cuadro_publico_v3.py --h v3`. El nivel absoluto de H usa d̄ = media
+de la deseabilidad propia de los 11 modelos que la tienen. Las otras cinco
+columnas y sus puntuaciones no cambian.
+
+| modelo | H anterior (§29) | H con I1 binario |
+|---|---|---|
+| Haiku 5.5 | 38 | 46 |
+| Opus 5.5 #low | 43 | 51 ▲ |
+| DeepSeek Flash@ | 41 | 49 ▲ |
+| DeepSeek V4 Pro | 41 | 49 |
+| gemma4 | 37 | 34 ▼ |
+| glm5.3-flash | 40 | 45 |
+| Gemini 3.7 Flash | 37 | 37 |
+| Argon | 40 | 38 ▼ |
+| mimo | 39 | 42 |
+| Luna | 40 | 48 |
+| Sol #low | 46 ▲ | 51 ▲ |
+| qwen3.6 | 38 | 34 ▼ |
+| qwen3.8-flash | 39 | 44 |
+
+**Validez en el cuadro.** H pasa de G4 0,13 a **0,95** y de G3 −0,07/−0,04
+(✘) a **+0,52/−0,09** (✔). **El conflicto de §29 queda resuelto para H**: H
+lleva marca y es consistente. Sigue abierto el de E (marca solo con aviso,
+pero G4 0,93), que decide David.
+
+**Retratos (caso A, §28).**
+
+- **Haiku 5.5**: menos Amabilidad (pone límites y se defiende).
+- **Opus 5.5 #low**: menos Responsabilidad; **más Honestidad-Humildad**
+  (nuevo).
+- **DeepSeek Flash@**: **más Honestidad-Humildad** (nuevo); menos
+  Extraversión, con aviso.
+- **gemma4**: más Responsabilidad; menos Amabilidad; **menos
+  Honestidad-Humildad** (acepta ventajas y se promociona; nuevo).
+- **Gemini 3.7 Flash**: menos Apertura; más Amabilidad; más Extraversión,
+  con aviso. Sin cambios.
+- **Argon**: menos Apertura; **menos Honestidad-Humildad** (nuevo).
+- **Luna**: **menos Amabilidad** (nuevo, por el cambio de BH).
+- **Sol #low**: menos Responsabilidad; más Honestidad-Humildad. Sin cambios.
+- **qwen3.6**: **menos Honestidad-Humildad** (nuevo; antes no tenía
+  retrato).
+- **DeepSeek V4 Pro, glm5.3-flash, mimo y qwen3.8-flash**: perfil próximo
+  al de los demás modelos.
+
+Ahora tienen retrato 9 de los 13 modelos (antes, 7): lo ganan qwen3.6 y
+Luna.
+
+### Qué queda
+
+- Gemini 3.7 Flash y Opus no tienen deseabilidad propia en I1-H. Solo
+  afecta a la cifra informativa de copia del ideal: d̄ no cambia las
+  comparaciones. Completarla costaría ≈ 0,24 $ (con el coste medido).
+- La relación inversa de H con C (−0,62) merece una sección propia antes
+  de interpretarla.
+- N sigue solo descriptivo (§35). E, con el conflicto de §29 abierto.
+- `CUADRO_V3.md`, `V3.md`, `ROBUSTEZ_V3.md`, `RESCATE_HN.md` y
+  `HN_FINOS.md` no se tocan. Siguen describiendo la H del v3 y la pasada
+  de §35.

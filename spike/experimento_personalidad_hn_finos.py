@@ -26,6 +26,15 @@ Uso:
   python experimento_personalidad_hn_finos.py --modelo gemma4            (lo que falte)
   python experimento_personalidad_hn_finos.py --modelo gemma4 --humo 2   (humo)
   python experimento_personalidad_hn_finos.py --plan
+
+Confirmación de I1-H en binario con los 13 (PERSONALIDAD.md §36): --i1h
+limita la tanda a las 48 situaciones de I1-H y añade el binario en las 24 de
+posición par (mismos ids, semillas y prompts). Solo con --i1h se admiten los
+externos de OpenRouter (--externo, formatos BI/DS), que se registran en
+resultados/personalidad_hn_finos/<modelo con «/» → «_»>/:
+  python experimento_personalidad_hn_finos.py --modelo gemma4 --i1h --formatos BI
+  python experimento_personalidad_hn_finos.py --modelo openai/gpt-6.1-sol#low \
+         --i1h --formatos BI --externo --hilos 8
 """
 
 import argparse
@@ -144,7 +153,9 @@ def cargar_parejas():
     return json.loads(PAREJAS.read_text(encoding="utf-8"))["parejas"]
 
 
-def plan(parejas="auto"):
+def plan(parejas="auto", bi_h_completo=False):
+    """bi_h_completo: binario también en las situaciones de I1-H de posición
+    par (confirmación de §36); mismos ids, semillas y prompts."""
     if parejas == "auto":
         parejas = cargar_parejas()
     tareas = []
@@ -155,7 +166,7 @@ def plan(parejas="auto"):
             for rep in (0, 1):
                 tareas.append(dict(base, formato="GR", orden=orden, rep=rep,
                                    prompt=prompt_gr(sit, orden, nombre, genero)))
-                if it.binario(iid):
+                if it.binario(iid) or (bi_h_completo and instr == "I1" and rasgo == "H"):
                     tareas.append(dict(base, formato="BI", orden=orden, rep=rep,
                                        prompt=ep1.prompt_situacion(sit, orden, nombre, genero,
                                                                    "sit_propia")))
@@ -279,10 +290,17 @@ def main():
     ap.add_argument("--formatos", default=",".join(FORMATOS))
     ap.add_argument("--plan", action="store_true", help="cuenta las tareas y sale")
     ap.add_argument("--parejas", action="store_true", help="congela las parejas de I3")
+    ap.add_argument("--i1h", action="store_true",
+                    help="solo I1-H, con binario en las 48 (confirmación de §36)")
+    ap.add_argument("--externo", action="store_true",
+                    help="admite ids de OpenRouter (de pago); solo con --i1h y BI/DS")
+    ap.add_argument("--hilos", type=int, default=1, help="hilos (solo sirve en OpenRouter)")
     args = ap.parse_args()
     if args.parejas:
         return parejas()
-    tareas = [t for t in plan() if t["formato"] in args.formatos.split(",")]
+    tareas = [t for t in plan(bi_h_completo=args.i1h) if t["formato"] in args.formatos.split(",")]
+    if args.i1h:
+        tareas = [t for t in tareas if t["instr"] == "I1" and t["rasgo"] == "H"]
     if args.plan:
         por = {f: sum(t["formato"] == f for t in tareas) for f in FORMATOS}
         print(json.dumps(por), "total", len(tareas),
@@ -291,9 +309,13 @@ def main():
     if not args.modelo:
         ap.error("--modelo es obligatorio")
     # Solo NaN (tarifa plana): un id con «/» iría a OpenRouter, que es de pago.
-    if "/" in args.modelo:
+    # Excepción explícita: la confirmación de §36 (--i1h --externo, solo BI/DS).
+    if "/" in args.modelo and not (args.externo and args.i1h
+                                   and set(args.formatos.split(",")) <= {"BI", "DS"}):
         raise SystemExit("[HNF] esta pasada es solo para NaN: los ids con «/» van a"
-                         " OpenRouter, que es de pago.")
+                         " OpenRouter, que es de pago (salvo --i1h --externo con BI/DS, §36).")
+    if args.externo and "/" not in args.modelo:
+        raise SystemExit("[HNF] --externo es solo para ids de OpenRouter")
     if args.humo:
         visto, sel = {}, []
         for t in tareas:
@@ -301,7 +323,7 @@ def main():
                 visto[t["formato"]] = visto.get(t["formato"], 0) + 1
                 sel.append(t)
         tareas = sel
-    base = (SALIDA_HUMO if args.humo else SALIDA) / args.modelo
+    base = (SALIDA_HUMO if args.humo else SALIDA) / args.modelo.replace("/", "_")
     base.mkdir(parents=True, exist_ok=True)
     fichero = base / "registros.jsonl"
     hechas = _hechas(fichero)
@@ -333,7 +355,8 @@ def main():
                    ts=datetime.datetime.now().isoformat(timespec="seconds"))
         return reg
 
-    personalidad_runner.ejecutar(pendientes, hacer, fichero, f"{args.modelo}/HNF", 1, cada=100)
+    personalidad_runner.ejecutar(pendientes, hacer, fichero, f"{args.modelo}/HNF",
+                                 max(1, args.hilos), cada=48 if args.i1h else 100)
 
 
 if __name__ == "__main__":

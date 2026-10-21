@@ -37,6 +37,15 @@ Cómo se rehace (un solo comando, desde spike/):
     python cuadro_publico_v3.py
       → resultados/personalidad_fc/CUADRO_PUBLICO.md y cuadro_publico.json
 
+Escala de Honestidad-Humildad (§36-37): por defecto, I1-H en binario (48
+situaciones calibradas por dificultad, 12 por faceta, medidas en los 13
+modelos; datos en resultados/personalidad_hn_finos/<modelo>/, cargados por
+analizar_h_confirmacion.h_para_cuadro). Pasó los criterios de §36 con los
+13, sin seleccionar situaciones. Su d̄ es la media de la deseabilidad propia
+de los modelos que la tienen (11 de 13): solo mueve el nivel absoluto, no
+las comparaciones. El cuadro anterior, con las situaciones de H del v3
+(§29), sale con `python cuadro_publico_v3.py --h v3`.
+
 Nada está fijado a mano: los modelos salen de los datos (los que tienen
 deseabilidad y ≥ 95 % de las situaciones de la selección con dato, filtro de
 cargar_v3), las situaciones de la selección (solo las que tienen dato en
@@ -75,6 +84,9 @@ ETIQUETA = "P1–P3, P5, P6"
 CON_MARCA = ("O", "C", "A", "H")  # §23/§28: E solo si robusta y con aviso; N nunca
 AVISO_E = "Extraversión: fiabilidad baja (§23), con aviso"
 G4_MIN = .70  # umbral de consistencia de §21 (G4)
+ESCALA_H = {"i1": "I1-H en binario: 48 situaciones calibradas por dificultad, 12 por faceta"
+                  " (PERSONALIDAD.md §36-37)",
+            "v3": "situaciones de H del banco v3 (§21; cuadro de §29)"}
 FILTROS = {"rep0": lambda o, r: r == 0, "rep1": lambda o, r: r == 1,
            "AB": lambda o, r: o == "AB", "BA": lambda o, r: o == "BA"}
 
@@ -85,9 +97,33 @@ def selecciones_por_defecto():
     return [SEL] + extra
 
 
-def calcular(rutas_sel, escalas=None):
+def sustituir_h(v, h):
+    """Cambia las situaciones de H del v3 por las de otra escala (§36-37).
+
+    h: {"items": [...], "faceta_de": {item: faceta}, "elecciones": {m: {item:
+    [(orden, rep, elige_alto)]}}, "des": {m: {item: D}}} con los mismos modelos
+    que v["ms"]. Devuelve los ids nuevos."""
+    viejos = set(v["por_rasgo"]["H"])
+    its = list(h["items"])
+    for m in v["ms"]:
+        el = {i: x for i, x in v["elecciones"][m].items() if i not in viejos}
+        el.update({i: h["elecciones"][m][i] for i in its})
+        v["elecciones"][m] = el
+    for i in its:
+        v["rasgo_de"][i] = "H"
+        v["faceta_de"][i] = h["faceta_de"][i]
+    v["comunes"] = [i for i in v["comunes"] if i not in viejos] + its
+    v["por_rasgo"]["H"] = its
+    v["facetas"] = sorted({(v["rasgo_de"][i], v["faceta_de"][i]) for i in v["comunes"]})
+    return set(its)
+
+
+def calcular(rutas_sel, escalas=None, h=None):
     """escalas: {rasgo: [situaciones]} para limitar un rasgo a una escala
-    rescatada (§30-31); None = banco completo, salidas idénticas a §29."""
+    rescatada (§30-31); None = banco completo, salidas idénticas a §29.
+    h: escala de H que sustituye a la del v3 (sustituir_h; §36-37). Su d̄ es
+    la media de los modelos que tienen deseabilidad propia en esas
+    situaciones."""
     rng = np.random.default_rng(SEMILLA)
     v = cargar_v3(rutas_sel)
     if escalas:
@@ -96,12 +132,15 @@ def calcular(rutas_sel, escalas=None):
         dentro = {i for x in v["por_rasgo"].values() for i in x}
         v["comunes"] = [i for i in v["comunes"] if i in dentro]
         v["facetas"] = sorted({(v["rasgo_de"][i], v["faceta_de"][i]) for i in v["comunes"]})
+    nuevos_h = sustituir_h(v, h) if h else set()
     ms, por_rasgo, des, el, comunes = v["ms"], v["por_rasgo"], v["des"], v["elecciones"], v["comunes"]
     otros = {m: [o for o in ms if o != m] for m in ms}
 
     # Elección bruta (comparación) y elección frente a la deseabilidad común (puntuación)
     a = {m: puntuar(el[m]) for m in ms}
-    d_bar = d_consenso(des, ms, comunes)
+    d_bar = d_consenso(des, ms, [i for i in comunes if i not in nuevos_h])
+    for i in nuevos_h:
+        d_bar[i] = float(np.mean([h["des"][m][i] for m in ms if i in h["des"].get(m, {})]))
     a_d = {m: puntuar({i: el[m][i] for i in comunes}, d_bar) for m in ms}
     punt = {}
     for m in ms:
@@ -212,7 +251,8 @@ def escribir(r, rutas_sel):
          f"Generado por `cuadro_publico_v3.py`. Selección: {', '.join(sels)}. {len(ms)} modelos,"
          f" {len(labs)} laboratorios ({', '.join(labs)}); situaciones por rasgo: "
          + ", ".join(f"{t} {len(x)}" for t, x in v["por_rasgo"].items())
-         + f". Semilla {SEMILLA}. Sin llamadas a modelos.",
+         + f". Semilla {SEMILLA}. Sin llamadas a modelos."
+         + (f" Escala de Honestidad-Humildad: {r['escala_h']}." if r.get("escala_h") else ""),
          f"Fuera por banco incompleto (< 95 %): "
          f"{', '.join(f'{_id(m)} ({100 * c:.0f} %)' for m, c in v['excluidos'].items()) or 'ninguno'}.", "",
          "**Puntuación** = 50 + 50·media(elige el polo alto − deseabilidad media del panel):"
@@ -306,6 +346,7 @@ def escribir(r, rutas_sel):
         "definicion": "PERSONALIDAD.md §28: conducta comparada",
         "generado_por": "spike/cuadro_publico_v3.py", "semilla": SEMILLA, "seleccion": sels,
         "n_situaciones": {t: len(x) for t, x in v["por_rasgo"].items()},
+        "escala_H": r.get("escala_h"),
         "fuera_por_cobertura": v["excluidos"], "laboratorios": labs,
         "comprobaciones": list(PRUEBAS), "n_pruebas_bh": r["n_pruebas"],
         "rasgos": {t: {"nombre": NOMBRE[t], "polo_alto": POLOS[t][0], "polo_bajo": POLOS[t][1],
@@ -329,9 +370,18 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--seleccion", nargs="+", type=pathlib.Path,
                     help="ficheros de selección (por defecto: v3 + personalidad_v3*_seleccion.json)")
+    ap.add_argument("--h", choices=("i1", "v3"), default="i1",
+                    help="escala de H: i1 = I1-H en binario, 48 situaciones (§36-37, por defecto);"
+                         " v3 = situaciones de H del banco v3 (cuadro de §29)")
     args = ap.parse_args(argv)
     rutas = args.seleccion or selecciones_por_defecto()
-    print("\n".join(escribir(calcular(rutas), rutas)))
+    h = None
+    if args.h == "i1":
+        import analizar_h_confirmacion as ahc  # import tardío: ese módulo importa este
+        h = ahc.h_para_cuadro(rutas_sel=rutas)
+    r = calcular(rutas, h=h)
+    r["escala_h"] = ESCALA_H[args.h]
+    print("\n".join(escribir(r, rutas)))
 
 
 if __name__ == "__main__":
