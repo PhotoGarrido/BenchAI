@@ -2349,3 +2349,215 @@ cada externo (`propuesta_hn_coste.coste_por_llamada()`). Saldo
 **Si nada cumple**, §35 lo dice y separa qué hipótesis cae: la banda de
 dificultad no da señal (1), los dilemas no la dan (2) o el graduado no gana
 información (3).
+
+## 35. Resultados de los instrumentos finos para H y N en NaN (21-10-2026)
+
+`python analizar_personalidad_hn_finos.py` (desde `spike/`, sin llamadas) →
+`resultados/personalidad_fc/HN_FINOS.md` y `hn_finos.json`. Datos en
+`resultados/personalidad_hn_finos/<modelo>/`. Ítems en
+`spike/personalidad_hn_finos_items.py`, ejecutor en
+`spike/experimento_personalidad_hn_finos.py`, parejas de I3 en
+`spike/personalidad_hn_finos_parejas.json`, tests en
+`spike/test_personalidad_hn_finos.py` (en `verificar.sh`). Criterios de §34
+sin cambios.
+
+**Medición.**
+
+- **9.744 llamadas en NaN**: 48 de prueba de humo (8 por modelo, todas
+  válidas, fuera del análisis) y 1.616 por modelo × 6. Un proceso por modelo
+  con `NAN_MAX_CONCURRENTES=1 NAN_RPM=9`, en dos fases: deseabilidad de I3
+  (≈ 17 min) y el resto (≈ 2 h 55 min). Los 12 manifiestos cerraron
+  `completed`.
+- 223 respuestas 429 de NaN (límite de 7 en paralelo y de 60 por minuto),
+  reintentadas dentro del grifo: **ningún `ERROR_TECNICO`** y nada que
+  reanudar.
+- 26 respuestas no válidas: 24 de gemma4 en I3 («Ninguna», como en §11, en
+  parejas de dos conductas poco deseables); 1 de glm en el graduado
+  («B: 100 puntos para B, es decir, 0 para A. **0**», sin arreglar el parser
+  después de verlo) y 1 rechazo del proveedor de mimo.
+- **Parejas de I3:** |Δ deseabilidad| media 0,50 en la escala 1–5 (máximo
+  1,67), 12 parejas contra cada uno de O, C, E y A. Las conductas H/N de clave
+  − son menos deseables que casi todas las de O, C, E y A, y algunas parejas
+  quedan desiguales (p. ej., «dormir bien la noche antes de una entrevista»,
+  5,0, frente a «confiar en la buena fe de los desconocidos», 3,5).
+
+**Veredicto: ninguna escala cumple los criterios de §34.** Por la regla
+fijada, **ninguna entra en el paquete para los 13** y no se recomienda gastar.
+Las tres hipótesis caen o quedan muy matizadas: en NaN no se obtiene señal
+de H o N que sea a la vez estable, coherente y distinta del ideal propio.
+
+### Qué separa modelos y qué no
+
+| escala | n | sd modelos [IC] | alfa (6) | ítem-resto | retest | elige lo deseable | falla |
+|---|---|---|---|---|---|---|---|
+| línea base H v3 | 59 | 0,3 | 0,04 | 0,06 | — | — | |
+| **I1-H graduado, banda** | 37 | 2,2 [1,1; 3,8] | **0,80** | 0,26 (27 % < 0) | 0,74 | 67 % | K2, K4, K6 |
+| **I1-H binario, completa** | 24 | **5,5** [3,3; 8,7] | 0,83 | **0,44** | 0,84 | 79 % | K6 (por 0,01), K7 |
+| I1+I2-H binario, completa | 44 | 3,4 [2,0; 5,5] | 0,83 | 0,37 | 0,85 | 84 % | K2, K7 |
+| I2-H graduado, banda | 24 | 1,0 [0,0; 2,9] | 0,32 | 0,17 | 0,66 | 81 % | K2, K4, K6, K7 |
+| I2-H binario, completa | 20 | 0,7 [0,0; 3,0] | 0,20 | 0,11 | 0,83 | 90 % | casi todo |
+| I3-H elección forzada | 22 | 2,3 [0,0; 6,5] | 0,43 | 0,13 | 0,70 | — | K1 (gemma 7 %), K2, K4, K5, K6 |
+| línea base N v3 | 57 | 1,6 | 0,46 | 0,12 | — | — | |
+| I1-N graduado, banda | 42 | 1,3 [0,8; 2,4] | 0,66 | 0,17 | 0,74 | 85 % | K2, K4, K6, K7 |
+| I1-N graduado, completa | 72 | 2,2 [1,7; 3,0] | **0,91** | 0,33 | 0,81 | 92 % | K2, K6, K7 |
+| I1-N binario, completa | 36 | **0,0** [0,0; 2,8] | −0,50 | 0,02 | 0,91 | 91 % | K2, K4, K7 |
+| I3-N elección forzada | 23 | 0,0 [0,0; 5,5] | −0,07 | 0,03 | 0,62 | — | casi todo; veto K8 (C +0,96) |
+
+(sd ×50. «Banda» = media de los 6 entre 0,25 y 0,75; «completa» = sin
+banda. La tabla completa, con las 18 escalas, está en `HN_FINOS.md`.)
+
+**H1 · dificultad (I1).** Escribir para el 50 % sí funciona como
+calibración: el 77 % de las situaciones H y el 58 % de las N quedan en la
+banda con el graduado (en el v3, el 32 %). Pero la banda **no crea señal**:
+no aumenta la sd entre modelos (I1-H 2,2 en banda frente a 1,8 completa;
+I1-N 1,3 frente a 2,2), y la selección cruzada (banda con una réplica, señal con la otra) da lo mismo
+(I1-H 2,0–2,5; I1-N 1,4–1,5). La selección no infla nada, pero tampoco
+añade.
+
+- **H con situaciones nuevas y respuesta binaria sí varía, y por primera vez
+  en las cuatro facetas:** sd por faceta sinceridad 8,6 · modestia 6,0 ·
+  desinterés 5,9 · equidad 5,0 (en el v3, en los 13: 8,5 · 1,6 · 2,3 · 0,0).
+  Es lo más cerca que se ha estado de una H con estructura.
+- **Pero esa señal copia el ideal propio.** En el 79 % de las celdas la
+  elección cae del lado que el propio modelo juzga admirable (K7, umbral
+  70 %), y el perfil por modelo correlaciona **+0,81 con la deseabilidad
+  propia** medida en las mismas situaciones. Los modelos que más honestidad
+  practican aquí son los que más la valoran. Es el problema de §30 en otra
+  forma.
+- **N no varía en binario** (sd 0,0 en las 36). En graduado es muy coherente
+  (alfa 0,91 entre los 6), pero con poca señal (2,2), copia el ideal (92 %) y
+  su perfil sigue la **compresión de la escala**, no la conducta (ver H3).
+- **Impulsividad reescrita** (ceder a un deseo frente a un propósito) ya no
+  va al revés: correlaciona +0,81 con el resto de N graduado en banda. La
+  faceta queda bien orientada, aunque N siga sin señal.
+
+**H2 · dilemas entre dos valores buenos (I2): refutada en estos modelos.**
+Cuando la honestidad cuesta algo prosocial, los 6 eligen casi siempre la
+honestidad: elección binaria media ≈ 0,87 (techo) y sd 0,7. En graduado la
+media baja a 0,70 y la sd sube a 2,1, pero sin coherencia (ítem-resto 0,17 en
+banda) ni estabilidad (retest 0,66–0,74). Solo «sinceridad frente a tacto»
+(sd 3,8–4,0) y «lealtad» (3,2) dan algo. La mentira piadosa (0,0), la
+modestia útil (0,0–1,2) y no explotar (0,0–2,0) no separan. El
+post-entrenamiento también homogeneiza el conflicto entre valores buenos.
+
+**H3 · graduado frente a binario (K9): refutada.** Sobre las 80 situaciones
+con los dos formatos:
+
+| ítems | ρ₁ graduado | ρ₁ binario | razón [IC] | ruido GR / BI | retest GR / BI |
+|---|---|---|---|---|---|
+| H (44) | 0,045 | 0,099 | **0,46** [0,10; 1,91] | 6,6 / 10,2 | 0,78 / 0,85 |
+| N (36) | 0,060 | 0,000 | — | 6,0 / 8,9 | 0,84 / 0,91 |
+
+- El graduado **reduce el ruido** (6–7 frente a 9–10), pero **reduce más la
+  señal**: los modelos responden valores intermedios parecidos (20–65), y la
+  elección binaria amplifica en 0/1 preferencias que difieren poco. En H, el
+  binario da el doble de información por ítem; el graduado no gana.
+- El graduado **introduce un estilo de respuesta**, como el Likert de §9:
+  gemma4 y qwen3.6 responden 0 o 100 en el 29–30 % de los casos, glm y mimo
+  en el 1–4 %. Mimo da de media 64 puntos a la opción A (sesgo de posición,
+  neutralizado por los dos órdenes). El perfil de N graduado correlaciona
+  −0,50 con la extremosidad: comprimir hacia 50 sube la puntuación de N,
+  cuya media es 0,32, sin que cambie la conducta.
+- El bajo retest del graduado (0,74–0,83 frente a 0,84–0,91) es coherente con
+  eso.
+
+**I3 · elección forzada entre rasgos: no funciona.**
+
+- H: sd 2,3 con IC desde 0, ítem-resto 0,13 y retest 0,70. Solo desinterés
+  por la riqueza varía (4,7). Sinceridad elegida en el 85 % de las parejas:
+  techo.
+- N: sin señal (sd 0,0). Su perfil correlaciona **+0,96 con C del v3**:
+  elegir «no perder los nervios» frente a «terminar el trabajo antes de
+  plazo» mide cuánto se prefiere C, no N (veto de K8). La ipsatividad pesa
+  aquí más que el igualado de deseabilidad.
+- gemma4 se niega a elegir entre dos conductas poco deseables (7 % de
+  pérdidas, falla K1), como en §11.
+
+### Convergencia y discriminación (n = 6, descriptivo)
+
+| escala | r con H v3 | con sinceridad v3 | con E v3 | con C v3 | con I3-H | con su deseabilidad propia |
+|---|---|---|---|---|---|---|
+| I1-H graduado, banda | +0,97 | +0,94 | −0,53 | −0,82 | +0,81 | +0,62 |
+| I1-H binario, completa | +0,95 | +0,94 | −0,43 | **−0,90** | +0,51 | **+0,81** |
+| I2-H graduado, banda | −0,10 | +0,05 | −0,42 | −0,11 | +0,43 | −0,34 |
+| I1-N graduado, completa | N −0,40 | — | +0,50 | −0,33 | — | +0,18 (A v3 **+0,88**) |
+
+- **I1-H converge con H del v3** (+0,95 a +0,97), y sobre todo con la
+  sinceridad (+0,94), aunque H del v3 casi no tiene varianza en estos 6 (sd
+  0,3). Ordena a los modelos como el v3 sin depender de él: es la misma
+  dimensión, medida con más señal en binario.
+- **No es reserva (E):** r con E −0,43 a −0,53, por debajo del veto (0,80).
+  Va en contra de C (−0,82 a −0,90); con n = 6 no se puede interpretar, y K8
+  solo vetaba E para H. Queda como cautela.
+- **I2 no converge con nada**: lo que mide el dilema no es la H del v3.
+- **N graduado no converge con N del v3** (−0,40) y se parece a A (+0,88):
+  no mide neuroticismo en estos modelos.
+
+### Proyección de Spearman-Brown
+
+R = 2,19 (media geométrica de las razones del v3 en O, C, E, A y N; H del v3
+da 36,5, inestable). Situaciones necesarias para una fiabilidad entre
+modelos de 0,70 / 0,80:
+
+| escala | ρ₁ (6) | con los 13 (R = 2,19) | con R = 1 |
+|---|---|---|---|
+| v3 H (referencia, con los 13 reales) | — | 131 / — | — |
+| v3 N (referencia, con los 13 reales) | — | 118 / — | — |
+| I1-H binario, completa | 0,168 | **5 / 9** | 12 |
+| I1+I2-H binario, completa | 0,099 | 10 / 17 | 21 |
+| I1-H graduado, banda | 0,096 | 10 / 17 | 22 |
+| I1-N graduado, completa | 0,125 | 7 / 13 | 16 |
+| I2-H graduado, banda | 0,019 | 54 / 93 | 118 |
+| I3-H | 0,034 | 31 / 52 | 67 |
+| I1-N binario, I3-N | 0,000 | sin señal | — |
+
+**Cómo leerla.** Los ρ₁ de I1 son 8–240 veces los del v3 en los mismos 6,
+así que la proyección es muy favorable. **Pero proyecta fiabilidad, no
+validez.** En I1-H binario, esa fiabilidad es en buena parte la del ideal
+propio (+0,81, K7 79 %); en N graduado, la del estilo de respuesta. Y R es
+una extrapolación: H del v3 pasa de casi 0 con los 6 a 0,51 de alfa con los
+13 por los 7 externos, que no están aquí.
+
+### Paquete para los externos
+
+**Recomendación: no pasar nada con lo fijado en §34.** Ninguna escala cumple
+K1–K10. N no tiene ningún instrumento que lo mida en estos modelos: los tres
+fallan, o miden C, A o estilo de respuesta.
+
+**Si David quiere gastar para aprender algo** (relajando lo fijado, decisión
+suya), lo único defendible es **I1-H en binario**:
+
+- falla K6 por 0,01 (0,84) y K7 (79 %);
+- es la única H con señal en las cuatro facetas (sd 5,0–8,6), coherente
+  (ítem-resto 0,44) y que converge con la sinceridad del v3;
+- coste en los 7 externos, con los tokens medidos aquí (binario 151 de
+  entrada / 1,9 de salida, como el v3), 2 órdenes × 2 réplicas:
+  - las 24 situaciones ya medidas en binario: 96 llamadas por modelo,
+    **≈ 0,39 $** (≈ 0,49 $ con margen);
+  - las 48 de I1-H, con el binario también en las 24 que no se midieron así:
+    192 llamadas por modelo, ≈ 0,78 $ (≈ 0,98 $ con margen);
+  - las dos caben en el saldo (≈ 1,2–1,5 $);
+- con los 13 habría que mirar antes que nada **K7 y la correlación con la
+  deseabilidad propia**: si la diferencia entre modelos sigue siendo la de
+  su ideal, H medida así no aporta nada que no diga ya d_m (§30.1);
+- se aplicarían R1–R4 de §30.2 a I1-H solo y unido a H del v3.
+
+**No se recomienda gastar** en I2 (≈ 0,55–0,91 $), I3 (≈ 0,50 $ por rasgo),
+el graduado de N (≈ 0,96–1,64 $) ni el graduado de H (≈ 0,84–1,09 $).
+
+### Qué queda
+
+- **H1 a medias:** escribir situaciones nuevas, con coste realista y
+  ambigüedad, sí consigue que equidad, modestia y desinterés varíen entre
+  modelos (por primera vez), pero en binario y siguiendo el ideal propio.
+  La banda de dificultad por sí sola no añade nada.
+- **H2 refutada:** los dilemas entre valores buenos homogeneizan tanto como
+  la tentación burda.
+- **H3 refutada:** el formato graduado pierde señal y añade estilo de
+  respuesta.
+- **N:** ningún formato probado aquí, ni en §33, lo distingue en NaN. Lo
+  coherente es mantener N como descriptivo (§23/§28).
+
+**Cómo queda el cuadro.** Sin cambios. `CUADRO_PUBLICO.md`, `CUADRO_V3.md`,
+`V3.md`, `ROBUSTEZ_V3.md` y `HN_FORMATOS.md` se regeneran idénticos byte a
+byte. Sigue abierto el conflicto de §29.
