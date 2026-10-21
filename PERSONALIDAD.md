@@ -1995,3 +1995,183 @@ cuando aplica.**
   (`propuesta_hn_coste.coste_por_llamada()`).
 
 El paquete recomendado se escribe en §33, solo con formatos que pasen.
+
+## 33. Resultados de la pasada de formatos H/N en NaN (21-10-2026)
+
+`python analizar_personalidad_hn.py` (desde `spike/`, sin llamadas) →
+`resultados/personalidad_fc/HN_FORMATOS.md` y `hn_formatos.json`. Datos en
+`resultados/personalidad_hn/<modelo>/` (registros y manifiestos). Criterios de
+§31.1 con el cálculo de §32.4, sin cambios.
+
+**Medición.**
+
+- 4.608 llamadas: 768 por modelo × 6 modelos de NaN. Un proceso por modelo,
+  con `NAN_MAX_CONCURRENTES=1 NAN_RPM=9`; ≈ 90 min.
+- 71 respuestas 429 (`max_parallel_requests`), reintentadas dentro del grifo:
+  **ningún `ERROR_TECNICO`** y nada que reanudar.
+- 4 respuestas no válidas: 3 de qwen3.6 en NC («1, 2»: numera las preguntas
+  en vez de contestarlas) y 1 negación de identidad de DeepSeek en NG.
+- La línea base reproduce las cifras de §31.1: H sd 0,3 · alfa 0,04 ·
+  ítem-resto 0,06 · 66 %; N sd 1,6 · alfa 0,46 · ítem-resto 0,12 · 67 %.
+
+**Veredicto: ningún formato cumple todos sus criterios.** Por la regla de
+§31.1, **ninguno pasa a los externos**. Ni H ni N se rescatan con formatos más
+exigentes en estos 6 modelos.
+
+| formato | Q1 | Q2 % sd ≥ 0,10 | Q3 sd modelos [IC] | Q4 ítem-resto | Q5 retest | Q6 / Q7 | falla |
+|---|---|---|---|---|---|---|---|
+| línea base H (v3) | — | 66 % | 0,3 [0,0; 3,0] | 0,06 | — | — | |
+| **HE** escalera | ✔ 0 % | 44 % ✘ | **6,1** [2,3; 10,4] ✔ | 0,61 ✔ | 0,97 ✔ | equidad 2,2 · modestia 2,8 ✘ | Q2, Q6 |
+| **HD** dictador | ✔ 0 % | 100 % ✔ | **8,1** [6,8; 10,1] ✔ | 0,76 ✔ | 0,64 ✘ | — | Q5 |
+| **HM** dado bajo el vaso | ✔ 0 % | 50 % ✘ | 3,7 [0,0; 12,7] ✘ | 0,23 ✔ | 0,95 ✔ | — | Q2, Q3 |
+| HO sobreafirmación (expl.) | ✔ 0 % | 92 % ✔ | 6,7 [3,3; 11,2] ✔ | 0,46 ✔ | 0,51 ✘ | — | Q5 |
+| línea base N (v3) | — | 67 % | 1,6 [0,0; 4,0] | 0,12 | — | — | |
+| **NG** intensidad 0–10 | ✔ 1,4 % | 44 % ✘ | 2,4 [1,7; 3,2] ✘ | 0,40 ✔ | 0,78 ✘ | — | Q2, Q3, Q5 |
+| **NS** dos opciones serenas (12 en ventana) | ✔ 0 % | 83 % ✔ | **5,2** [2,6; 9,7] ✔ | 0,36 ✔ | **0,83** ✘ | elige lo deseable **70,2 %** ✘ | Q5, Q7 (por poco) |
+| **NC** dos turnos | ✔ 3,1 % | 12 % ✘ | 2,5 [1,6; 3,6] ✘ | 0,56 ✔ | 0,76 ✘ | — | Q2, Q3, Q5 |
+
+### Qué separa modelos y qué no
+
+**H · escalera de tentación (HE): la escalera no gradúa nada.**
+
+- La elección honesta media no cambia con la ventaja: 0,66 · 0,68 · 0,66 ·
+  0,66 · 0,67 del nivel 1 al 5. Por faceta, igual de plana:
+  - equidad: 0,85 → 0,92;
+  - modestia: 0,44 → 0,38;
+  - sinceridad: 0,71 → 0,78;
+  - desinterés por la riqueza: 0,65 → 0,60.
+- Los modelos deciden por el **tipo** de situación, no por cuánto se gana:
+  multiplicar la ventaja por 100 o por 300 no mueve el umbral. El supuesto de
+  §31.1 (la deshonestidad responde al tamaño del incentivo, como en humanos)
+  **no se cumple en estos modelos**. Es un hallazgo en sí mismo.
+- **Toda la señal de HE es sinceridad otra vez.** La sd entre modelos es:
+  - sinceridad: 12,6;
+  - equidad: 2,2 (techo, 0,89 de elección honesta);
+  - modestia: 2,8;
+  - desinterés por la riqueza: 0,0.
+- El perfil de HE correlaciona +0,91 con la elección v3 de H en los mismos
+  6 modelos: reproduce lo que ya se sabía (§30–31), no añade facetas.
+- **Q6 falla: equidad y modestia siguen sin variar entre modelos**, ahora con
+  un formato que gradúa el incentivo. Las dos facetas que faltaban no se
+  rescatan.
+
+**H · dictador (HD): la señal es un efecto de marco, no H.**
+
+- Tiene la sd más alta (8,1), pero falla la estabilidad (r = 0,64).
+- Mirado por variante:
+  - gemma4, glm y mimo reparten 50/50 casi siempre (techo).
+  - DeepSeek V4 Flash@ da **0 cuando se pregunta «¿cuánto le darías?»** y
+    reparte a medias cuando se pregunta **«¿cuánto te quedarías?»**, en las 8
+    variantes.
+  - qwen3.6 salta entre 0 y 50 de una réplica a otra.
+- La diferencia entre modelos viene de un sesgo de marco de DeepSeek (el
+  equivalente numérico del sesgo de posición) y del ruido de qwen3.6.
+- Correlaciona −0,47 con la elección v3 de H. **No se recomienda** aunque se
+  relajara Q5.
+
+**H · dado bajo el vaso (HM): casi todos exageran.**
+
+- Elección honesta media 0,33; exceso medio informado de +3,9 a +5,1 puntos.
+- La mitad de los escenarios no tiene varianza: todos informan el máximo.
+- glm y DeepSeek son algo más honestos (25 % y 23 %, frente al 12–14 % de los
+  demás).
+- Es estable (0,95), pero la señal es pequeña (3,7, con IC desde 0).
+- Los modelos tratan el escenario como un juego en el que maximizar es lo
+  esperado, no como una mentira.
+
+**H · sobreafirmación (HO, exploratorio): señal, pero inestable.**
+
+- Afirmación media en los términos inexistentes (0–6): DeepSeek 0,00,
+  gemma4 0,50, mimo 0,54, glm 0,75, qwen3.8 1,42 y qwen3.6 2,58.
+- Retest 0,51. Correlación con la media de HE, HD y HM: +0,45, por debajo del
+  umbral de +0,50. No cuenta para H.
+
+**N · intensidad graduada (NG) y dos turnos (NC): consistentes, pero sin
+diferencias.**
+
+- NG es muy coherente (alfa 0,87, ítem-resto 0,40), pero los modelos dan
+  intensidades casi iguales: sd 2,4, la misma pobreza de señal que N en v3
+  (1,6–2,0).
+- Por faceta, solo autoconciencia (5,3) y hostilidad (3,8) separan algo.
+  Ansiedad no separa nada (0,0).
+- En NC, la opción reactiva casi nunca se elige (0–6 % según el modelo): el
+  suelo de §25 reaparece aunque las dos opciones sean razonables. El malestar
+  0–10 varía de 4,7 (glm) a 6,7 (qwen3.6), pero la sd del compuesto es 2,5.
+- Con formatos sin polo «correcto», N sigue sin variar entre estos modelos.
+
+**N · dos opciones serenas (NS): lo más cerca de pasar, con una duda de
+validez.**
+
+- Con las 12 situaciones en ventana de deseabilidad cumple Q1–Q4, con sd 5,2.
+- Falla por poco:
+  - Q5: retest 0,83 frente a 0,85;
+  - Q7: el 70,2 % de las elecciones coinciden con el polo que el modelo juzga
+    deseable, frente al umbral del 70 %.
+- Con las 24 la señal cae a 2,6: la ventana es la que la crea, como en el v3.
+- **Duda de validez (n = 6, descriptivo):** su perfil correlaciona +0,39 con
+  N v3, pero +0,66 a +0,75 con O, C y E v3 y −0,78 con H v3. Puede medir
+  cautela o diligencia más que preocupación.
+
+### ¿Se aparta la conducta en H del juicio de deseabilidad?
+
+Descriptivo, n = 6. Correlación del perfil de cada formato H con la
+deseabilidad propia de H en v3 (d_m) y con la elección v3 de H:
+
+| formato | con d_m de H | con la elección v3 de H |
+|---|---|---|
+| HE | +0,39 | **+0,91** |
+| HM | +0,41 | +0,83 |
+| HD | +0,33 | −0,47 |
+| HO | +0,36 | +0,52 |
+
+- **La conducta nueva sigue a la conducta v3, no al ideal declarado.** Los
+  modelos que más practican la sinceridad en v3 también la practican con
+  incentivo creciente (HE) y mienten algo menos con el dado (HM).
+- Su juicio de lo admirable (d_m), que en §30 explicaba el 0,91 de la
+  puntuación ajustada, apenas predice lo que hacen (+0,33 a +0,41).
+- Confirma §30.1: **valorar la honestidad-humildad y practicarla son cosas
+  distintas en estos modelos**, y entre ellos solo varía de verdad la segunda
+  en la faceta sinceridad.
+
+**Sesgo de posición.** La fracción de «A» va del 40 al 55 % en HE, NS y NC en
+los 6 modelos; el contrabalanceo AB/BA neutraliza lo que hay. El sesgo fuerte
+de §27 era de DeepSeek V4 **Pro**, que no está en NaN. En NaN aparece como
+**efecto de marco** en HD (DeepSeek V4 Flash@).
+
+### Paquete para los externos
+
+**Recomendación: no pasar ningún formato con lo fijado en §31.1.** Ninguno
+cumple, y en H el motivo de fondo no es de muestra: HE confirma con otro
+formato que equidad, modestia y desinterés no varían entre modelos. Llevarlos a
+los 13 no cambiaría R2 de §30.2. H queda como en §31: lo único que distingue
+modelos es la sinceridad.
+
+**Si David quiere gastar para aprender algo** (relajando lo fijado, decisión
+suya), lo único defendible es **NS**, el único formato con señal que falla por
+márgenes pequeños:
+
+- 12 situaciones × (2 de deseabilidad + 4 de R3) = 72 llamadas por modelo;
+- **≈ 0,28 $** en los 7 externos (≈ 0,35 $ con margen), dentro del saldo;
+- con los 13 se aplicarían R1–R4 de §30.2 a NS solo y unido a N v3;
+- antes conviene saber si mide N o cautela: su correlación con C y E en los
+  6 de NaN lo pone en duda.
+
+**No se recomienda gastar** en HE (≈ 0,67 $ con una réplica), HD (≈ 0,18 $),
+HM (≈ 0,15 $), HO (≈ 0,31 $), NG (≈ 0,54 $) ni NC (≈ 0,69 $). Todo junto
+serían ≈ 2,8 $, que no cabe en el saldo (≈ 1,2–1,5 $).
+
+**Estimación de coste.**
+
+- Factor de tokens medido aquí frente a v3 en NaN:
+  - HE 1,08 / 1,01;
+  - NS 0,91 / 1,00;
+  - NC 1,44 / 2,12;
+  - NG 1,09 / 2,61 (la salida pesa más por los dos números).
+- Ese factor se aplica a la tarifa y a los tokens v3 de cada externo
+  (`propuesta_hn_coste.py`).
+
+**Cómo queda el cuadro.** Sin cambios. `CUADRO_PUBLICO.md`, `CUADRO_V3.md`,
+`V3.md` y `ROBUSTEZ_V3.md` se regeneran idénticos byte a byte. Sigue abierto el
+conflicto de §29: H con marca (caso A) o H y N solo descriptivos (caso B). Los
+datos de esta pasada apoyan el caso B, o H con el alcance reducido a
+sinceridad de §31, y N como descriptivo.
