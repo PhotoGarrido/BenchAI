@@ -59,7 +59,7 @@
       "polo_alto": "busca gente y protagonismo",
       "polo_bajo": "prefiere calma y segundo plano",
       "con_marca": true,
-      "aviso": "Extraversión: fiabilidad baja (§23), con aviso"
+      "aviso": null
     },
     "A": {
       "nombre": "Amabilidad",
@@ -460,8 +460,8 @@
           "q": 0.00032500000000000004
         }
       },
-      "frase": "más Honestidad-Humildad (sincero, renuncia a ventajas); menos Extraversión (prefiere calma y segundo plano) *[Extraversión: fiabilidad baja (§23), con aviso]*",
-      "frase_md": "**más Honestidad-Humildad** (sincero, renuncia a ventajas); **menos Extraversión** (prefiere calma y segundo plano) *[Extraversión: fiabilidad baja (§23), con aviso]*",
+      "frase": "menos Extraversión (prefiere calma y segundo plano); más Honestidad-Humildad (sincero, renuncia a ventajas)",
+      "frase_md": "**menos Extraversión** (prefiere calma y segundo plano); **más Honestidad-Humildad** (sincero, renuncia a ventajas)",
       "fragiles": [
         "A▼"
       ]
@@ -967,8 +967,8 @@
           "q": 0.028392
         }
       },
-      "frase": "menos Apertura (prefiere lo conocido); más Amabilidad (cede y coopera); más Extraversión (busca gente y protagonismo) *[Extraversión: fiabilidad baja (§23), con aviso]*",
-      "frase_md": "**menos Apertura** (prefiere lo conocido); **más Amabilidad** (cede y coopera); **más Extraversión** (busca gente y protagonismo) *[Extraversión: fiabilidad baja (§23), con aviso]*",
+      "frase": "menos Apertura (prefiere lo conocido); más Extraversión (busca gente y protagonismo); más Amabilidad (cede y coopera)",
+      "frase_md": "**menos Apertura** (prefiere lo conocido); **más Extraversión** (busca gente y protagonismo); **más Amabilidad** (cede y coopera)",
       "fragiles": [
         "H▼"
       ]
@@ -1764,12 +1764,7 @@
       "H": 0.950396508533642
     },
     "umbral_G4": 0.7,
-    "conflictos": [
-      {
-        "rasgo": "E",
-        "detalle": "marca solo con aviso de fiabilidad (§28), pero G4 = 0.93 ≥ 0.70"
-      }
-    ],
+    "conflictos": [],
     "escenario_g4_no_decidido": {
       "rasgos_con_marca": [
         "O",

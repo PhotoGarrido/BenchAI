@@ -3,9 +3,9 @@
 Generado por `cuadro_publico_v3.py`. Selección: personalidad_v3_seleccion.json. 13 modelos, 7 laboratorios (anthropic, deepseek, google, openai, qwen, xiaomi, z-ai); situaciones por rasgo: O 59, C 56, E 57, A 57, N 57, H 48. Semilla 20261010. Sin llamadas a modelos. Escala de Honestidad-Humildad: I1-H en binario: 48 situaciones calibradas por dificultad, 12 por faceta (PERSONALIDAD.md §36-37).
 Fuera por banco incompleto (< 95 %): deepseek-v4-flash (40 %), mistralai/mistral-large-4-0 (40 %), moonshotai/kimi-k3 (40 %), qwen/qwen3.8-max-0902#low (40 %), x-ai/grok-4.5 (40 %), z-ai/glm-5.3 (40 %).
 
-**Puntuación** = 50 + 50·media(elige el polo alto − deseabilidad media del panel): 50 = elige lo que el conjunto de modelos juzga admirable. **▲/▼** = elige el polo alto más/menos a menudo que los demás modelos en las mismas situaciones (comparación pareada, IC 95 %), solo si la marca es **robusta** (P1–P3, P5, P6). Extraversión con aviso de fiabilidad; Neuroticismo solo descriptivo, sin marca.
+**Puntuación** = 50 + 50·media(elige el polo alto − deseabilidad media del panel): 50 = elige lo que el conjunto de modelos juzga admirable. **▲/▼** = elige el polo alto más/menos a menudo que los demás modelos en las mismas situaciones (comparación pareada, IC 95 %), solo si la marca es **robusta** (P1–P3, P5, P6). Neuroticismo solo descriptivo, sin marca.
 
-| modelo | ISS | Apertura | Responsabilidad | Extraversión † | Amabilidad | Neuroticismo ‡ | Honestidad-Humildad |
+| modelo | ISS | Apertura | Responsabilidad | Extraversión | Amabilidad | Neuroticismo ‡ | Honestidad-Humildad |
 |---|---|---|---|---|---|---|---|
 | anthropic/claude-haiku-5.5 | 10.3 | 52 | 39 | 42 | 28 ▼ | 56 | 46 |
 | anthropic/claude-opus-5.5#low | 12.5 | 55 | 33 ▼ | 42 | 38 | 49 | 51 ▲ |
@@ -21,7 +21,7 @@ Fuera por banco incompleto (< 95 %): deepseek-v4-flash (40 %), mistralai/mistral
 | qwen3.6 | 23.2 | 55 | 41 | 42 | 35 | 54 | 34 ▼ |
 | qwen3.8-flash | 24.8 | 49 | 36 | 40 | 32 | 50 | 44 |
 
-† fiabilidad baja (§23): marca solo si robusta, con aviso. ‡ solo descriptivo (§23).
+‡ solo descriptivo (§23).
 
 ## Validez con la definición de §28 (G3 y G4 de §21)
 
@@ -31,58 +31,22 @@ Mismos cálculos que `analizar_v3.py` (G3: r media entre facetas del mismo rasgo
 |---|---|---|---|---|---|
 | Apertura | +0.46 / -0.05 | ✔ | 0.94 | ✔ | con marca |
 | Responsabilidad | +0.27 / -0.01 | ✔ | 0.81 | ✔ | con marca |
-| Extraversión | +0.27 / +0.00 | ✔ | 0.93 | ✔ | marca solo robusta, con aviso |
+| Extraversión | +0.27 / +0.00 | ✔ | 0.93 | ✔ | con marca |
 | Amabilidad | +0.56 / -0.08 | ✔ | 0.86 | ✔ | con marca |
 | Neuroticismo | +0.04 / -0.04 | ✔ | 0.62 | ✘ | solo descriptivo |
 | Honestidad-Humildad | +0.52 / -0.09 | ✔ | 0.95 | ✔ | con marca |
 
-**CONFLICTO entre §28 y la consistencia con la definición nueva (lo resuelve David; este cuadro aplica §28 sin cambios):**
-
-- **Extraversión**: marca solo con aviso de fiabilidad (§28), pero G4 = 0.93 ≥ 0.70.
-
-### Escenario alternativo, NO decidido: marca en los rasgos con G4 ≥ 0,70
-
-Rasgos con marca: Apertura, Responsabilidad, Extraversión, Amabilidad, Honestidad-Humildad; el resto, solo descriptivo. Mismos niveles de robustez (sin la regla de N).
-
-| modelo | Apertura | Responsabilidad | Extraversión | Amabilidad | Neuroticismo | Honestidad-Humildad |
-|---|---|---|---|---|---|---|
-| anthropic/claude-haiku-5.5 | 52 | 39 | 42 | 28 ▼ | 56 | 46 |
-| anthropic/claude-opus-5.5#low | 55 | 33 ▼ | 42 | 38 | 49 | 51 ▲ |
-| deepseek-v4-flash@2026-10-17 | 50 | 35 | 34 ▼ | 32 | 51 | 49 ▲ |
-| deepseek/deepseek-v4-pro-0813 | 49 | 40 | 39 | 40 | 47 | 49 |
-| gemma4 | 55 | 45 ▲ | 37 | 29 ▼ | 54 | 34 ▼ |
-| glm5.3-flash | 55 | 39 | 38 | 34 | 47 | 45 |
-| google/gemini-3.7-flash | 37 ▼ | 39 | 52 ▲ | 47 ▲ | 48 | 37 |
-| google/gemini-4-argon | 44 ▼ | 36 | 38 | 35 | 52 | 38 ▼ |
-| mimo-v2.6-flash | 56 | 40 | 43 | 36 | 51 | 42 |
-| openai/gpt-5.6-luna | 55 | 41 | 39 | 31 ▼ | 52 | 48 |
-| openai/gpt-6.1-sol#low | 52 | 34 ▼ | 38 | 33 | 49 | 51 ▲ |
-| qwen3.6 | 55 | 41 | 42 | 35 | 54 | 34 ▼ |
-| qwen3.8-flash | 49 | 36 | 40 | 32 | 50 | 44 |
-
-- **anthropic/claude-haiku-5.5**: **menos Amabilidad** (pone límites y se defiende).
-- **anthropic/claude-opus-5.5#low**: **menos Responsabilidad** (prioriza descanso y flexibilidad); **más Honestidad-Humildad** (sincero, renuncia a ventajas).
-- **deepseek-v4-flash@2026-10-17**: **menos Extraversión** (prefiere calma y segundo plano); **más Honestidad-Humildad** (sincero, renuncia a ventajas).
-- **deepseek/deepseek-v4-pro-0813**: perfil próximo al de los demás modelos.
-- **gemma4**: **más Responsabilidad** (cumple y planifica); **menos Amabilidad** (pone límites y se defiende); **menos Honestidad-Humildad** (acepta ventajas y se promociona).
-- **glm5.3-flash**: perfil próximo al de los demás modelos.
-- **google/gemini-3.7-flash**: **menos Apertura** (prefiere lo conocido); **más Extraversión** (busca gente y protagonismo); **más Amabilidad** (cede y coopera).
-- **google/gemini-4-argon**: **menos Apertura** (prefiere lo conocido); **menos Honestidad-Humildad** (acepta ventajas y se promociona).
-- **mimo-v2.6-flash**: perfil próximo al de los demás modelos.
-- **openai/gpt-5.6-luna**: **menos Amabilidad** (pone límites y se defiende).
-- **openai/gpt-6.1-sol#low**: **menos Responsabilidad** (prioriza descanso y flexibilidad); **más Honestidad-Humildad** (sincero, renuncia a ventajas).
-- **qwen3.6**: **menos Honestidad-Humildad** (acepta ventajas y se promociona).
-- **qwen3.8-flash**: perfil próximo al de los demás modelos.
+Sin conflictos: los rasgos con marca tienen G4 ≥ 0,70 y los demás, por debajo.
 
 ## Retrato de cada modelo (§28)
 
 - **anthropic/claude-haiku-5.5**: **menos Amabilidad** (pone límites y se defiende). *Neuroticismo (descriptivo): 56.*
 - **anthropic/claude-opus-5.5#low**: **menos Responsabilidad** (prioriza descanso y flexibilidad); **más Honestidad-Humildad** (sincero, renuncia a ventajas). *Neuroticismo (descriptivo): 49.*
-- **deepseek-v4-flash@2026-10-17**: **más Honestidad-Humildad** (sincero, renuncia a ventajas); **menos Extraversión** (prefiere calma y segundo plano) *[Extraversión: fiabilidad baja (§23), con aviso]*. *Neuroticismo (descriptivo): 51.* Tendencias frágiles, no publicadas: A▼.
+- **deepseek-v4-flash@2026-10-17**: **menos Extraversión** (prefiere calma y segundo plano); **más Honestidad-Humildad** (sincero, renuncia a ventajas). *Neuroticismo (descriptivo): 51.* Tendencias frágiles, no publicadas: A▼.
 - **deepseek/deepseek-v4-pro-0813**: perfil próximo al de los demás modelos. *Neuroticismo (descriptivo): 47.* Tendencias frágiles, no publicadas: A▲, H▲.
 - **gemma4**: **más Responsabilidad** (cumple y planifica); **menos Amabilidad** (pone límites y se defiende); **menos Honestidad-Humildad** (acepta ventajas y se promociona). *Neuroticismo (descriptivo): 54.*
 - **glm5.3-flash**: perfil próximo al de los demás modelos. *Neuroticismo (descriptivo): 47.* Tendencias frágiles, no publicadas: O▲.
-- **google/gemini-3.7-flash**: **menos Apertura** (prefiere lo conocido); **más Amabilidad** (cede y coopera); **más Extraversión** (busca gente y protagonismo) *[Extraversión: fiabilidad baja (§23), con aviso]*. *Neuroticismo (descriptivo): 48.* Tendencias frágiles, no publicadas: H▼.
+- **google/gemini-3.7-flash**: **menos Apertura** (prefiere lo conocido); **más Extraversión** (busca gente y protagonismo); **más Amabilidad** (cede y coopera). *Neuroticismo (descriptivo): 48.* Tendencias frágiles, no publicadas: H▼.
 - **google/gemini-4-argon**: **menos Apertura** (prefiere lo conocido); **menos Honestidad-Humildad** (acepta ventajas y se promociona). *Neuroticismo (descriptivo): 52.*
 - **mimo-v2.6-flash**: perfil próximo al de los demás modelos. *Neuroticismo (descriptivo): 51.* Tendencias frágiles, no publicadas: O▲.
 - **openai/gpt-5.6-luna**: **menos Amabilidad** (pone límites y se defiende). *Neuroticismo (descriptivo): 52.* Tendencias frágiles, no publicadas: H▲.

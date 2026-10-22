@@ -3169,3 +3169,27 @@ Luna.
 - `CUADRO_V3.md`, `V3.md`, `ROBUSTEZ_V3.md`, `RESCATE_HN.md` y
   `HN_FINOS.md` no se tocan. Siguen describiendo la H del v3 y la pasada
   de §35.
+
+## 38. Extraversión sin aviso y bancos aprobados del cuadro público · decisión de David (22-10-2026)
+
+**Extraversión lleva marca como O, C, A y H, sin aviso.** Esto resuelve el
+conflicto de §29. Con la definición de §28, E tiene una consistencia entre
+modelos de G4 = 0,93 y estructura de facetas (G3 +0,27 / +0,00), por encima
+del umbral de 0,70 que cumplen los demás rasgos con marca. El aviso de §23 se
+basaba en la puntuación ajustada por el ideal propio (G4 = 0,36), que ya no es
+la del cuadro público. Las marcas de E siguen la misma regla que las demás:
+solo llevan frase las robustas en P1–P3, P5 y P6. N sigue solo descriptivo
+(§23, §35).
+
+**Bancos del cuadro público.** `cuadro_publico_v3.py` solo lee los bancos
+aprobados en la constante `BANCOS`, ahora mismo el v3. La escala de H es
+I1-H (§37), que se carga aparte. Antes leía cualquier
+`personalidad_v3*_seleccion.json`. Al unificar las ramas entró el banco v3.1
+de E y N (`personalidad_v31_en_seleccion.json`), que solo se midió en NaN y
+no se adoptó (§25). Con ese banco dentro, los 7 externos quedaban fuera por
+cobertura. Un banco nuevo entra en el cuadro solo cuando una sección lo
+aprueba.
+
+**Cuadro resultante** (`CUADRO_PUBLICO.md`): mismas puntuaciones y marcas
+que en §37. Solo cambia el texto de E, sin el aviso, y desaparecen el
+conflicto y el escenario alternativo.

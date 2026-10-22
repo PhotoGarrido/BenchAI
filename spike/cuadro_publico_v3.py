@@ -16,8 +16,8 @@ comprobaciones de §26 sobre esta comparación (P4 ya es la definición):
   P6 Benjamini-Hochberg sobre todas las pruebas del cuadro (modelos × 6 rasgos)
 Niveles de §26 sobre esas cinco: robusta (pasa todas) · frágil (falla 1-2,
 signo P1 ≥ 75 %) · no publicable (signo P1 < 75 %, falla ≥ 3, se invierte en
-alguna variante, o rasgo N). Solo las robustas llevan marca y frase; E con
-aviso de fiabilidad; N solo descriptivo (§23). El cuadro se rehace entero:
+alguna variante, o rasgo N). Solo las robustas llevan marca y frase; E, como
+O, C, A y H, sin aviso (§38); N solo descriptivo (§23). El cuadro se rehace entero:
 toda marca candidata pasa por las mismas comprobaciones, estuviera o no en el
 cuadro v2.
 
@@ -50,14 +50,11 @@ Nada está fijado a mano: los modelos salen de los datos (los que tienen
 deseabilidad y ≥ 95 % de las situaciones de la selección con dato, filtro de
 cargar_v3), las situaciones de la selección (solo las que tienen dato en
 todos los modelos que entran) y los laboratorios del id (laboratorio()).
-- Banco v3.1 de E y N: si sus situaciones se añaden a
-  personalidad_v3_seleccion.json, basta con volver a ejecutar. Si llegan en
-  un fichero nuevo `personalidad_v3*_seleccion.json` (p. ej.
-  personalidad_v3.1_seleccion.json), se lee también por defecto, después del
-  de v3 (un id repetido toma la última definición). Para elegir los ficheros
-  a mano: `python cuadro_publico_v3.py --seleccion A.json B.json`.
-  Ojo: un modelo que no tenga ≥ 95 % de la selección conjunta queda fuera
-  hasta que se complete.
+- Bancos nuevos: solo entran los aprobados en BANCOS (§38). Un banco medido
+  en parte del panel (p. ej. personalidad_v31_en_seleccion.json, solo NaN,
+  no adoptado en §25) echaría por cobertura a los modelos que no lo tienen.
+  Para probar otros a mano: `python cuadro_publico_v3.py --seleccion A.json B.json`
+  (un id repetido toma la última definición).
 - Modelos nuevos completados: entran solos al volver a ejecutar. Si es un
   modelo de NaN sin prefijo de organización, añadir su familia a
   FAMILIA_NAN (analizar_robustez_v3.py) para que P5 lo agrupe bien.
@@ -74,15 +71,14 @@ from analizar_personalidad import SEMILLA
 from analizar_robustez_v3 import (B_FDR, Q, _ic_p, bh, clasificar, d_consenso,
                                   frase, laboratorio, marcas_variante, mitades,
                                   particiones)
-from analizar_v3 import (AQUI, RASGOS, SALIDA, SEL, _boot, cargar_v3,
+from analizar_v3 import (RASGOS, SALIDA, SEL, _boot, cargar_v3,
                          dif_pareada, facetas_score, g3_estructura,
                          g4_consistencia, puntuar)
 from cuadro_personalidad import NOMBRE, POLOS
 
 PRUEBAS = ("P1", "P2", "P3", "P5", "P6")
 ETIQUETA = "P1–P3, P5, P6"
-CON_MARCA = ("O", "C", "A", "H")  # §23/§28: E solo si robusta y con aviso; N nunca
-AVISO_E = "Extraversión: fiabilidad baja (§23), con aviso"
+CON_MARCA = ("O", "C", "E", "A", "H")  # §38: E sin aviso (G4 0,93 con §28); N nunca
 G4_MIN = .70  # umbral de consistencia de §21 (G4)
 ESCALA_H = {"i1": "I1-H en binario: 48 situaciones calibradas por dificultad, 12 por faceta"
                   " (PERSONALIDAD.md §36-37)",
@@ -91,10 +87,12 @@ FILTROS = {"rep0": lambda o, r: r == 0, "rep1": lambda o, r: r == 1,
            "AB": lambda o, r: o == "AB", "BA": lambda o, r: o == "BA"}
 
 
+#: Bancos que entran en el cuadro público, en orden; solo los aprobados (§38)
+BANCOS = (SEL,)
+
+
 def selecciones_por_defecto():
-    """El fichero del banco v3 y, detrás, cualquier `personalidad_v3*_seleccion.json`."""
-    extra = sorted(p for p in AQUI.glob("personalidad_v3*_seleccion.json") if p != SEL)
-    return [SEL] + extra
+    return list(BANCOS)
 
 
 def sustituir_h(v, h):
@@ -205,8 +203,6 @@ def calcular(rutas_sel, escalas=None, h=None):
     retratos = {}
     for m in ms:
         partes = [frase(t, publicable(m, t)) for t in CON_MARCA if publicable(m, t)]
-        if publicable(m, "E"):
-            partes.append(frase("E", publicable(m, "E")) + f" *[{AVISO_E}]*")
         retratos[m] = {"frase": "; ".join(partes) if partes else "perfil próximo al de los demás modelos",
                        "fragiles": [f"{t}{filas[(m, t)]['marca']}" for t in RASGOS
                                     if (m, t) in filas and filas[(m, t)]["nivel"] == "frágil"]}
@@ -219,8 +215,6 @@ def calcular(rutas_sel, escalas=None, h=None):
         g = validez["G4"][t]
         if t in CON_MARCA and (g is None or g < G4_MIN):
             conflictos.append((t, f"lleva marca (§28), pero G4 = {g:.2f} < {G4_MIN:.2f}"))
-        elif t == "E" and g is not None and g >= G4_MIN:
-            conflictos.append((t, f"marca solo con aviso de fiabilidad (§28), pero G4 = {g:.2f} ≥ {G4_MIN:.2f}"))
         elif t == "N" and g is not None and g >= G4_MIN:
             conflictos.append((t, f"sin marca (§28), pero G4 = {g:.2f} ≥ {G4_MIN:.2f}"))
     # Escenario alternativo, NO decidido: llevan marca los rasgos con G4 ≥ umbral,
@@ -258,16 +252,16 @@ def escribir(r, rutas_sel):
          "**Puntuación** = 50 + 50·media(elige el polo alto − deseabilidad media del panel):"
          " 50 = elige lo que el conjunto de modelos juzga admirable. **▲/▼** = elige el polo alto"
          " más/menos a menudo que los demás modelos en las mismas situaciones (comparación pareada,"
-         f" IC 95 %), solo si la marca es **robusta** ({ETIQUETA}). Extraversión con aviso de"
-         " fiabilidad; Neuroticismo solo descriptivo, sin marca.", "",
-         "| modelo | ISS | " + " | ".join(NOMBRE[t] + (" †" if t == "E" else " ‡" if t == "N" else "")
+         f" IC 95 %), solo si la marca es **robusta** ({ETIQUETA}). Neuroticismo solo"
+         " descriptivo, sin marca.", "",
+         "| modelo | ISS | " + " | ".join(NOMBRE[t] + (" ‡" if t == "N" else "")
                                           for t in RASGOS) + " |",
          "|---|---|" + "---|" * len(RASGOS)]
     for m in ms:
         L.append(f"| {_id(m)} | {iss.get(_id(m), '—')} | " + " | ".join(
             f"{punt[(m, t)][0]:.0f} {publicable(m, t)}".strip() for t in RASGOS) + " |")
     val, conf = r["validez"], r["conflictos"]
-    L += ["", "† fiabilidad baja (§23): marca solo si robusta, con aviso. ‡ solo descriptivo (§23).", "",
+    L += ["", "‡ solo descriptivo (§23).", "",
           "## Validez con la definición de §28 (G3 y G4 de §21)", "",
           "Mismos cálculos que `analizar_v3.py` (G3: r media entre facetas del mismo rasgo frente a"
           " facetas de otros rasgos; G4: Spearman-Brown de mitades pares/impares entre modelos), pero"
@@ -276,7 +270,7 @@ def escribir(r, rutas_sel):
     for t in RASGOS:
         d3, f3 = val["G3"][t]
         g4 = val["G4"][t]
-        papel = "con marca" if t in CON_MARCA else "marca solo robusta, con aviso" if t == "E" else "solo descriptivo"
+        papel = "con marca" if t in CON_MARCA else "solo descriptivo"
         L.append(f"| {NOMBRE[t]} | {d3:+.2f} / {f3:+.2f} | {ok(d3 > f3)} | {g4:.2f} | {ok(g4 >= G4_MIN)} | {papel} |")
     L += [""]
     if conf:
@@ -351,7 +345,7 @@ def escribir(r, rutas_sel):
         "comprobaciones": list(PRUEBAS), "n_pruebas_bh": r["n_pruebas"],
         "rasgos": {t: {"nombre": NOMBRE[t], "polo_alto": POLOS[t][0], "polo_bajo": POLOS[t][1],
                        "con_marca": t != "N",
-                       "aviso": AVISO_E if t == "E" else "solo descriptivo (§23)" if t == "N" else None}
+                       "aviso": "solo descriptivo (§23)" if t == "N" else None}
                    for t in RASGOS},
         "recuento": cnt, "modelos": modelos,
         "validez_s28": {"G3": {t: {"dentro": d, "fuera": f} for t, (d, f) in r["validez"]["G3"].items()},
