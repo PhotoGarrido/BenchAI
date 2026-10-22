@@ -183,3 +183,77 @@ en el release manifest), los episodios y el visor.
 | Artefactos sin regenerar | `--check` byte a byte en CI (benchmark, datos, publicación) |
 | Denominadores de prosa desfasados | `vigilar_denominadores` en `generar_datos.py` (portada, home y `/psicobench`) |
 | Matriz no registrada en `fuentes_benchmark.json` | **Nadie** — es la lista maestra; `alta.py` lo hace por ti, pero un alta manual a medias es invisible. Revisa el diff. |
+
+## Alta en el cuadro de personalidad (PERSONALIDAD.md §41-42)
+
+El cuadro público de personalidad (`spike/cuadro_publico_v3.py` →
+`resultados/personalidad_fc/CUADRO_PUBLICO.md`) es una pieza aparte del
+ISS: un modelo con la suite completa no entra en él hasta que tiene su
+batería de personalidad. Todo lo que le falta se mide con un solo comando,
+reanudable, con los mismos ids, semillas, prompts y ficheros que los
+ejecutores de §21-40:
+
+| fase | qué mide | llamadas (completa / corta) |
+|---|---|---|
+| v3 | R3 (2 órdenes × 2 réplicas) y deseabilidad (2 órdenes) de O, C, E y A del banco v3 | 1.374 / 756 |
+| I1-H | binario y deseabilidad de las 48 situaciones de I1-H | 288 / 102 |
+| I1-N | binario y deseabilidad de las 72 de I1-N (corta: las de la forma corta) | 432 / 66 |
+
+Cuentas para un modelo sin nada medido: 2.094 llamadas con la forma completa
+y 924 con la corta (−56 %). Lo ya medido (por ejemplo, el v1) no se repite.
+
+1. **Proyectar** (sin llamadas): con los tokens medios por llamada del propio
+   modelo en sus manifiestos de personalidad y la tarifa de
+   `spike/tarifas_openrouter.json` (catálogo público de OpenRouter; si falta
+   el modelo, la de `coste_run.PRECIOS`):
+
+   ```bash
+   python alta_personalidad.py --modelo z-ai/glm-5.3 --corta --proyectar
+   # presupuesto de varios, forma corta y completa → PRESUPUESTO_ALTA.md
+   python alta_personalidad.py --modelo z-ai/glm-5.3 x-ai/grok-4.5 --proyectar --informe --saldo 7.21
+   ```
+
+   Sin historial, proyecta con la mediana del panel externo y lo avisa: en
+   ese caso, mide antes unas pocas llamadas (el humo del paso 2) o lanza
+   con un tope bajo y vuelve a proyectar.
+2. **Comprobar en seco** (sin red, modelo falso, directorio temporal):
+   `--seco [--tope X]` recorre el plan entero, escribe los registros y los
+   manifiestos y ejercita el tope. `--humo N --raiz DIR` hace N llamadas
+   reales por fase fuera de `resultados/` (para NaN o para medir el coste de
+   un modelo nuevo).
+3. **Lanzar** con tope (obligatorio para OpenRouter):
+
+   ```bash
+   python alta_personalidad.py --modelo z-ai/glm-5.3 --corta --tope 0.60 --hilos 8
+   ```
+
+   Si la proyección con margen × 1,15 pasa del tope, no lanza (`--parcial`
+   lo permite). El **control del gasto va dentro del propio proceso**: el
+   manifiesto activo (`ManifiestoVigilado`) suma tokens × tarifa de cada
+   solicitud física al registrarla, y antes de cada llamada se exige
+   gasto + hilos × coste máximo por llamada < tope. Lo que no cabe no se
+   lanza, queda pendiente y el comando sale con código 3; se reanuda con el
+   mismo comando y un tope mayor. Sustituye al vigilante externo de §37 y
+   §40, cuyo patrón de `pgrep` falló con rutas con espacios y con el `-E`
+   de macOS. Los NaN (tarifa plana) no necesitan tope; con varios a la vez,
+   uno por proceso y `NAN_MAX_CONCURRENTES=1`, como siempre.
+4. **Regenerar el cuadro**: `python cuadro_publico_v3.py`. En cada ejecución:
+   - **Cobertura**: entra con forma completa (≥ 95 % del banco de cada rasgo)
+     o corta (≥ 95 % de `personalidad_forma_corta.json`); si no, «fuera por
+     cobertura».
+   - **Validez por modelo** (§41.2, `validez_personalidad.py`): posición,
+     no válidas, retest y coherencia de la deseabilidad. Un perfil **no
+     interpretable** sale de la norma y se lista aparte sin puntuaciones; con
+     **aviso**, publica con «interpretar con cautela». Conviene mirarlo
+     antes de gastar el resto: `python validez_personalidad.py <carpeta>`
+     funciona con datos parciales.
+   - **Revalidación** (§41.3): si al entrar el modelo un rasgo con marca cae
+     por debajo de G4 (a) o (b) 0,70 o de G3, ese rasgo pierde sus marcas
+     («en revisión») hasta que una sección lo corrija.
+5. **Escribir la sección** de PERSONALIDAD.md con el gasto real (saldo antes
+   y después), los índices de validez del modelo y qué marcas cambian en los
+   demás (al entrar un modelo cambian la media de comparación, la escala de
+   N, que se reselecciona con los modelos completos en N, y la corrección BH).
+
+La forma corta está congelada: cambiarla (o el banco de cualquier rasgo)
+exige una sección, y después `python analizar_forma_corta.py`.

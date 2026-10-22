@@ -236,12 +236,17 @@ def escala_cuadro(d, ms):
     return {"items": final, "completa": False, "r4": r4m, "e": e}
 
 
-def n_para_cuadro(rutas_sel=None):
+def n_para_cuadro(rutas_sel=None, ms=None, ms_datos=None):
     """Escala de N para cuadro_publico_v3.calcular(n=...): I1-N binario (A) en
-    los modelos del cuadro, con la escala de escala() y R4 (§39-40)."""
-    v = cargar_v3(rutas_sel or cp.selecciones_por_defecto())
-    d = cargar_a(v["ms"])
-    esc = escala_cuadro(d, v["ms"])
+    los modelos del cuadro, con la escala de escala() y R4 (§39-40).
+
+    ms: modelos que seleccionan la escala (los que tienen las 72; None = los
+    del banco v3). ms_datos: modelos cuyos datos se cargan (además, los de
+    forma corta de §41.1; None = ms). R4 solo se calcula en ms."""
+    if ms is None:
+        ms = cargar_v3(rutas_sel or cp.selecciones_por_defecto())["ms"]
+    d = cargar_a(ms_datos or ms)
+    esc = escala_cuadro(d, ms)
     por_f = {f: sum(FACETA_A[i] == f for i in esc["items"]) for f in FACETAS_N}
     fuera = [f for f, n in por_f.items() if n == 0]
     tipo = "72, sin seleccionar" if esc["completa"] else f"{len(esc['items'])} elegidas por R1"

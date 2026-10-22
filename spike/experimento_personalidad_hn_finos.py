@@ -289,6 +289,20 @@ def _hechas(f):
             if r["estado"] != parsers.ERROR_TECNICO}
 
 
+def items_sha256():
+    return manifiesto.sha256_texto((AQUI / "personalidad_hn_finos_items.py").read_text(encoding="utf-8"))
+
+
+def registro(t, raw, modelo_id, items_sha):
+    """Registro de una tarea del plan (también lo usa alta_personalidad.py, §41.4)."""
+    reg = {k: v for k, v in t.items() if k != "prompt"}
+    reg.update(puntuar(t, raw), raw=(raw or "")[:400], modelo=modelo_id,
+               version_bateria=VERSION_BATERIA, parser_version=parsers.PARSER_VERSION,
+               prompt_sha256=manifiesto.sha256_texto(t["prompt"]), items_sha256=items_sha,
+               ts=datetime.datetime.now().isoformat(timespec="seconds"))
+    return reg
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--modelo")
@@ -343,8 +357,7 @@ def main():
     hechas = _hechas(fichero)
     random.Random(f"orden-hnf-{args.modelo}").shuffle(tareas)
     pendientes = [t for t in tareas if t["id"] not in hechas]
-    items_sha = manifiesto.sha256_texto(
-        (AQUI / "personalidad_hn_finos_items.py").read_text(encoding="utf-8"))
+    items_sha = items_sha256()
     parejas_sha = (manifiesto.sha256_texto(PAREJAS.read_text(encoding="utf-8"))
                    if PAREJAS.exists() else None)
     manifiesto.activar(base / datetime.datetime.now().strftime("intento_%Y%m%d_%H%M%S"),
@@ -362,12 +375,7 @@ def main():
             print(f"[{args.modelo}] error en {t['id']}: {type(e).__name__}:"
                   f" {str(e)[:120]}", file=sys.stderr, flush=True)
             raw = ""
-        reg = {k: v for k, v in t.items() if k != "prompt"}
-        reg.update(puntuar(t, raw), raw=(raw or "")[:400], modelo=args.modelo,
-                   version_bateria=VERSION_BATERIA, parser_version=parsers.PARSER_VERSION,
-                   prompt_sha256=manifiesto.sha256_texto(t["prompt"]), items_sha256=items_sha,
-                   ts=datetime.datetime.now().isoformat(timespec="seconds"))
-        return reg
+        return registro(t, raw, args.modelo, items_sha)
 
     personalidad_runner.ejecutar(pendientes, hacer, fichero, f"{args.modelo}/HNF",
                                  max(1, args.hilos), cada=48 if args.i1h or args.i1n else 100)

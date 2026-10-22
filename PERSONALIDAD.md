@@ -3902,3 +3902,299 @@ OpenRouter es de ≈ 7,21 $. Los modelos se ordenan por coste y se recomiendan
 los que caben, teniendo en cuenta el pronóstico de validez de 41.2. No se
 gasta nada: lanzar es decisión de David.
 
+## 42. Resultados del alta: forma corta, validez por modelo, revalidación y batería de alta (22-10-2026)
+
+Todo sale de cuatro comandos, desde `spike/` y sin llamadas a modelos de
+pago:
+
+| comando | salida |
+|---|---|
+| `python analizar_forma_corta.py` (≈ 6 min) | `personalidad_forma_corta.json` (forma congelada), `resultados/personalidad_fc/FORMA_CORTA.md` y `forma_corta.json` |
+| `python cuadro_publico_v3.py` (≈ 10 s) | `CUADRO_PUBLICO.md` y `cuadro_publico.json`, ahora con validez por modelo y revalidación |
+| `python validez_personalidad.py [carpeta…]` | índices de validez de cualquier modelo, también con datos parciales |
+| `python alta_personalidad.py --modelo … --proyectar --informe` | `PRESUPUESTO_ALTA.md` y `presupuesto_alta.json` |
+
+Gasto en OpenRouter: **0 $**. Solo hubo 3 llamadas reales a NaN (`gemma4`,
+humo de `alta_personalidad.py` escrito fuera de `resultados/`). Los criterios
+de §41 no cambian, salvo las desviaciones declaradas en 42.6.
+
+### 42.1 Forma corta
+
+Validación cruzada sobre las C(13,6) = 1.716 particiones (6 modelos
+seleccionan, 7 validan). En la tabla, C1 y C2 son medianas en los 7 que no
+seleccionan; C3, con los 13 y la forma final.
+
+| rasgo | banco | k | C1 r(corta, completa) | C2 G4 (a) / (b) | G4 del banco completo en los 7 (a / b) | C3 facetas (máx.) | C3 con los 13: r / G4 (a) / (b) |
+|---|---|---|---|---|---|---|---|
+| Apertura | 59 | **27** | 0,95 | 0,84 / 0,81 | 0,85 / 0,93 | 5·5·5·4·4·4 (19 %) | 0,97 / 0,95 / 0,93 |
+| Responsabilidad | 56 | **47** | 0,99 | 0,84 / 0,76 | 0,86 / 0,79 | 8·8·8·8·8·7 (17 %) | 1,00 / 0,91 / 0,79 |
+| Extraversión | 57 | **31** | 0,95 | 0,84 / 0,82 | 0,88 / 0,91 | 5·5·6·5·5·5 (19 %) | 0,98 / 0,92 / 0,93 |
+| Amabilidad | 57 | **21** | 0,95 | 0,82 / 0,84 | 0,96 / 0,93 | 4·4·3·3·4·3 (19 %) | 0,96 / 0,96 / 0,95 |
+| Honestidad-Humildad | 48 | **17** | 0,95 | 0,86 / 0,87 | 0,96 / 0,94 | 4·4·5·4 (29 %) | 0,98 / 0,91 / 0,93 |
+| Neuroticismo | 19 | **11** | 0,95 | 0,86 / 0,88 | 0,90 / 0,92 | ansiedad 3 · hostilidad 3 · depresión 3 · impulsividad 2 · vulnerabilidad 0 (27 %) | 0,98 / 0,88 / 0,90 |
+
+**Lectura:**
+
+- En todos los rasgos manda C1, salvo en C. La correlación con la forma
+  completa llega a 0,95 con k de 11 a 31; G4 ya pasaba antes.
+- **Responsabilidad apenas se acorta (47 de 56).** Es el rasgo con menos señal
+  entre modelos (sd 2,8, §30.1): G4 (b) no llega a 0,70 hasta k = 34. Además,
+  G4 (a) de una sola partición vuelve a caer a 0,69 en k = 46. La regla de
+  «a partir de k, todos los mayores» lleva entonces el mínimo a 47.
+- N usa como banco la escala de 19 que R1 elegía con los 13 (§40). Su forma
+  corta (11) cubre las mismas 4 facetas que la escala, con ≥ 2 en cada una.
+- C3 se cumple en los seis rasgos.
+
+**Ahorro.** Un modelo nuevo pasa de **2.094 llamadas a 924 (−56 %)**:
+
+| | O | C | E | A | H | N | total |
+|---|---|---|---|---|---|---|---|
+| completa | 354 | 336 | 342 | 342 | 288 | 432 | 2.094 |
+| corta | 162 | 282 | 186 | 126 | 102 | 66 | 924 |
+
+Coste de un alta desde cero, con los tokens medios por llamada de cada modelo
+y la tarifa del 23-10-2026, sin margen (completa / corta, en $):
+
+| modelo | tokens por llamada (entrada / salida) | completa | corta |
+|---|---|---|---|
+| openai/gpt-5.6-luna | 146 / 13 | 0,09 | 0,04 |
+| anthropic/claude-haiku-5.5 | 234 / 138 | 0,19 | 0,09 |
+| openai/gpt-6.1-sol#low | 143 / 8 | 0,77 | 0,34 |
+| deepseek/deepseek-v4-pro-0813 | 169 / 133 | 0,78 | 0,35 |
+| google/gemini-4-argon | 172 / 8 | 0,90 | 0,40 |
+| z-ai/glm-5.3 | 151 / 253 | 1,39 | 0,61 |
+| google/gemini-3.7-flash | 138 / 273 | 2,36 | 1,04 |
+| qwen/qwen3.8-max-0902#low | 178 / 149 | 2,61 | 1,15 |
+| anthropic/claude-opus-5.5#low | 228 / 26 | 2,99 | 1,32 |
+| x-ai/grok-4.5 | 340 / 438 | 6,93 | 3,06 |
+| moonshotai/kimi-k3 | 254 / 305 | 7,74 | 3,42 |
+| mistralai/mistral-large-4-0 | 135 / 1.117 | 10,16 | 4,48 |
+
+**C4 · marcas, con los seis rasgos en forma corta (13 modelos):** se conservan
+**19 de las 21 robustas**. Se pierden dos de H, que pasan a frágiles:
+
+- DeepSeek Flash@ H▲: falla P3 y P5 (cae sin google);
+- Sol H▲: falla P5 (cae sin google).
+
+Aparecen 5 robustas nuevas: Opus O▲, DeepSeek V4 Pro H▲, mimo O▲, Luna A▼ y
+Sol A▼. Como información, la forma corta de H conservaría sus marcas con
+k = 29 (en vez de 17), con los otros rasgos en su mínimo.
+
+**Simulación del alta real** (informativa, añadida después de fijar §41). Cada
+uno de los 13, por turno, entra con la forma corta y los demás con la
+completa. Es el caso de un modelo nuevo y el que ejercita el cálculo mixto de
+41.1.
+
+- **Se conservan 18 de las 21 marcas robustas.** Se pierden tres de H:
+  DeepSeek Flash@ ▲, Argon ▼ y Sol ▲. Son las marcas de H con menos margen.
+- **El modelo corto gana 6 marcas que su forma completa no tiene:** Opus O▲,
+  DeepSeek V4 Pro H▲, mimo O▲, Luna A▼ y H▲, y Sol A▼.
+- La forma corta elige las situaciones que más discriminan, así que la
+  diferencia pareada crece más que su ruido. En la simulación, la precisión
+  de las marcas de un modelo corto frente a las del completo es 18/24.
+- En las demás filas solo cambia Luna A▼, que gana o pierde la marca según
+  la secuencia del bootstrap (como en §37 y §40).
+
+**Equiparación de la puntuación mostrada.** Con la constante de 41.1, que
+solo iguala la media, la puntuación de un modelo corto se aleja hasta 18
+puntos de la que tiene con la forma completa (Gemini 3.7 Flash, A: 47 → 65).
+La forma corta estira la escala entre modelos: la sd de la corta es 1,2-2,1
+veces la de la completa (O ×1,6 · C ×1,2 · E ×1,8 · A ×2,1 · N ×1,3 ·
+H ×1,9). Con equiparación lineal (media y sd de los modelos completos), el
+error máximo baja a ≤ 2,8 puntos en O, C, E y H, 5,1 en N y 8,6 en A (el
+extremo, Gemini Flash). Se adopta la lineal; es una desviación declarada
+(42.6).
+
+### 42.2 Índices de validez por modelo (umbrales de §41.2)
+
+| modelo | Δ AB−BA | fracción de A | no válidas | retest | coherencia deseabilidad | nivel |
+|---|---|---|---|---|---|---|
+| Haiku 5.5 | −0,04 | 0,48 | 0,0 % | 0,93 | 0,90 | válido |
+| Opus 5.5 #low | −0,05 | 0,47 | 0,0 % | 0,96 | 0,92 | válido |
+| DeepSeek Flash@ | −0,09 | 0,45 | 0,0 % | 0,95 | 0,80 | válido |
+| **DeepSeek V4 Pro** | **−0,30** (aviso) | **0,35** (aviso) | 0,0 % | 0,80 | **0,64** | **no interpretable** |
+| gemma4 | −0,09 | 0,46 | 0,1 % | 0,95 | 0,83 | válido |
+| glm5.3-flash | −0,10 | 0,45 | 0,0 % | 0,87 | 0,83 | válido |
+| Gemini 3.7 Flash | −0,06 | 0,47 | 0,0 % | 0,90 | 0,90 | válido |
+| Argon | −0,09 | 0,46 | 1,5 % | 0,89 | 0,92 | válido |
+| mimo | 0,00 | 0,50 | 0,0 % | 0,86 | 0,75 | válido |
+| Luna | +0,02 | 0,51 | 0,0 % | 0,91 | 0,82 | válido |
+| Sol #low | −0,06 | 0,47 | 0,0 % | 0,97 | 0,89 | válido |
+| qwen3.6 | 0,00 | 0,50 | 0,0 % | 0,85 | 0,76 | válido |
+| qwen3.8-flash | −0,11 | 0,44 | 0,0 % | 0,82 | 0,77 | válido |
+
+Los índices se calculan sobre 1.396 respuestas binarias por modelo (349
+situaciones × 4) y 349 pares de deseabilidad.
+
+- **DeepSeek V4 Pro sale no interpretable por V4.** Su juicio de qué opción
+  es admirable coincide en AB y BA solo en el 64 % de las situaciones. En la
+  deseabilidad elige «A» el 33 % de las veces: el mismo sesgo hacia B que en
+  la conducta, donde está en el borde del aviso (|Δ| = 0,295 y |A − 0,5| =
+  0,148, justo bajo el 0,30 y el 0,15). Su retest (0,80) es bueno: repite su
+  sesgo, no responde al azar. Es lo que §27 vio desde las marcas (▼ en todo
+  solo en AB, ▲ en todo solo en BA).
+- Argon: 1,5 % de no válidas en el conjunto (4,7 % en I1-H, §37). Válido.
+- Ningún modelo queda en aviso. Casi todos tienen un Δ ligeramente negativo,
+  una preferencia leve y común por la opción B.
+
+**Pronóstico de los 5 que faltan** (con su v1: 94 situaciones, 376
+respuestas, sin I1):
+
+- glm-5.3, qwen3.8-max, kimi-k3 y mistral-large-4: válidos.
+- **grok-4.5: aviso en V1 y V4** (Δ −0,26, |A − 0,5| 0,13, coherencia
+  0,72). Está a 0,04-0,07 de no interpretable.
+
+**Cómo cambia el cuadro al sacar a DeepSeek V4 Pro de la norma** (12 modelos,
+`--sin-validez` reproduce el de §40):
+
+- **Escala de N.** R1 elige ahora con 12 modelos (C(12,6) = 924 particiones)
+  y pasa de 19 a **21 situaciones**: añade F1-IM05 y F1-IM09, e impulsividad
+  pasa de 2 a 4. Las puntuaciones de N se mueven hasta 1,9 puntos (gemma4,
+  68 → 66). Las de los otros rasgos, menos de 0,5, por d̄ sin DeepSeek V4 Pro.
+- **Marcas robustas: 21 → 20.**
+  - **Argon H▼ pasa de robusta a frágil**: falla P3 y desaparece en BA. Con
+    su preferencia por B, DeepSeek V4 Pro subía la media del panel en BA,
+    donde B es el polo alto; sin él, la diferencia de Argon en BA ya no
+    excluye 0 (la total pasa de −6,2 a −5,8). Parte de esa marca venía del
+    sesgo de posición de otro modelo.
+  - Argon pierde «menos Honestidad-Humildad» en su retrato.
+- **Otras candidatas que cambian de nivel:**
+  - DeepSeek Flash@ A▼ pasa de frágil a no publicable;
+  - glm5.3-flash O▲, de no publicable a frágil;
+  - desaparecen las no publicables mimo E▲ y N▲;
+  - aparecen como no publicables Opus O▲ y A▲.
+- **Retratos:** 8 de 12 modelos (antes 8 de 13). DeepSeek V4 Pro, que tenía
+  «perfil próximo al de los demás», pasa a la tabla de perfiles no
+  interpretables.
+
+### 42.3 Revalidación automática (§41.3)
+
+Con el panel de 12:
+
+| rasgo | G3 dentro / fuera | G4 (a) | G4 (b) | listón |
+|---|---|---|---|---|
+| Apertura | +0,46 / −0,05 | 0,94 | 0,90 | ✔ |
+| Responsabilidad | +0,26 / +0,01 | 0,83 | 0,78 | ✔ |
+| Extraversión | +0,28 / +0,02 | 0,94 | 0,89 | ✔ |
+| Amabilidad | +0,56 / −0,07 | 0,85 | 0,92 | ✔ |
+| Neuroticismo | +0,39 / +0,04 | 0,88 | 0,91 | ✔ |
+| Honestidad-Humildad | +0,53 / −0,13 | 0,95 | 0,93 | ✔ |
+
+Ningún rasgo queda en revisión. El más cercano al listón es C (G4 (b) 0,78).
+La regla está en `cuadro_publico_v3.revalidar_rasgos`:
+
+- se aplica en cada ejecución, también a la forma corta cuando hay modelos
+  cortos;
+- un rasgo suspendido sale en la tabla como «en revisión», sin ▲/▼ ni frases;
+- `--sin-revalidar` solo sirve para comparar.
+
+`test_alta_personalidad.py` comprueba que un rasgo de puro ruido, o con G3
+invertido, pierde las marcas.
+
+### 42.4 Batería de alta (`alta_personalidad.py`, §41.4)
+
+El procedimiento está en `ALTA_MODELO.md` («Alta en el cuadro de
+personalidad»). Lo comprobado:
+
+- **Mismos ids, semillas y prompts.** El plan sale de `plan()` de los dos
+  ejecutores, que solo se han refactorizado para exponer `registro()` y un
+  filtro de ids, sin cambiar lo que escriben. En el humo real con `gemma4`,
+  `prompt_sha256`, la semilla y el nombre coinciden con los registros de
+  §35-40.
+- **Seco** (`--seco`): el alta corta de glm-5.3 con `--tope 0.10` y 4 hilos se
+  para a 0,094 $ estimados. Lanza 142 llamadas, deja 470 pendientes, cierra
+  el manifiesto `failed` con `TopeDeGasto` y sale con código 3. Con un tope
+  mayor, se reanuda y completa las 612 sin repetir ningún id.
+- **Camino real**: `--humo 1 --raiz <scratch>` con `gemma4` hizo 3 llamadas a
+  NaN; las solicitudes llegan al manifiesto vigilado con sus tokens.
+- **Guardas:** un id de OpenRouter sin `--tope` no se lanza; si la proyección
+  con margen pasa del tope, tampoco (salvo `--parcial`); `--seco` y `--humo`
+  no escriben en `resultados/`; el límite de llamadas del harness se sube
+  solo para que el alta completa (2.094) no acabe en `ERROR_TECNICO`.
+- `test_alta_personalidad.py` entra en `verificar.sh`.
+
+### 42.5 Presupuesto de los 5 modelos (`PRESUPUESTO_ALTA.md`)
+
+Llamadas que faltan, sin repetir lo medido en el v1, con sus tokens del v1
+y la tarifa del 23-10-2026. Las 5 tienen el mismo v1, así que les faltan las
+mismas llamadas.
+
+| modelo | tarifa $/M (entrada / salida) | corta: llamadas · $ (× 1,15) | completa: llamadas · $ (× 1,15) | pronóstico de validez |
+|---|---|---|---|---|
+| z-ai/glm-5.3 | 0,70 / 2,20 | 612 · 0,41 (**0,47**) | 1.530 · 1,01 (1,17) | válido |
+| qwen/qwen3.8-max-0902#low | 2,00 / 6,00 | 612 · 0,76 (**0,88**) | 1.530 · 1,91 (2,20) | válido |
+| x-ai/grok-4.5 | 2,00 / 6,00 | 612 · 2,02 (**2,33**) | 1.530 · 5,06 (5,82) | **aviso** (posición, coherencia) |
+| moonshotai/kimi-k3 | 0,239 / 11,94 | 612 · 2,26 (**2,60**) | 1.530 · 5,66 (6,50) | válido |
+| mistralai/mistral-large-4-0 | 1,36 / 4,18 | 612 · 2,97 (**3,41**) | 1.530 · 7,42 (8,54) | válido |
+| **total** | | 3.060 · 8,43 (9,69) | 7.650 · 21,06 (24,22) | |
+
+**Recomendación** (saldo ≈ 7,21 $):
+
+1. **glm-5.3, qwen3.8-max y kimi-k3 con la forma corta: 3,95 $ con margen.**
+   Son los tres más baratos con pronóstico válido.
+2. **grok-4.5, solo después, y por tramos.** Con su aviso de posición y de
+   coherencia está cerca de salir no interpretable. Por eso conviene lanzar
+   primero un tramo con `--tope 0.6` y mirar
+   `python validez_personalidad.py x-ai_grok-4.5` antes de gastar el resto.
+   Los cuatro juntos son 6,27 $ con margen y caben, pero dejan menos de 1 $.
+3. **mistral-large-4 no cabe** con los demás. Es el más caro por su salida de
+   razonamiento (1.117 tokens por llamada), y el precio de promoción del 06-10
+   ya no está.
+4. **Alternativa:** glm-5.3 y qwen3.8-max con la forma completa (3,36 $). Con
+   ella participan en la selección de N y no pierden las marcas de H que la
+   corta pierde en 42.1.
+
+**Avisos sobre la proyección:**
+
+- Los tokens salen del v1. En §37 y §40 la proyección erró entre −3 % y +10 %.
+- Kimi cambió de tarifa desde el pin de `coste_run.py` (3/15 → 0,239/11,94).
+- Gemini 3.7 Flash cuesta ya el doble que su pin (0,375/1,875 → 0,75/3,75).
+
+### 42.6 Desviaciones y precisiones (declaradas)
+
+1. **Equiparación lineal en lugar de la de media** (`EQUIPARACION` en
+   `cuadro_publico_v3.py`). Es un cambio posterior a ver la simulación de 42.1:
+   la de §41.1 dejaba errores de hasta 18 puntos en la puntuación mostrada.
+   Solo afecta a la puntuación mostrada de modelos cortos, no a las marcas, y
+   hoy no hay ninguno en el cuadro. Volver a la de §41.1 es poner `"media"`;
+   lo decide David.
+2. **Cobertura de O, C, E y A, en conjunto.** Un modelo es completo en el v3
+   si cubre el 95 % de los cuatro rasgos juntos (el filtro de siempre); si no,
+   se mira la forma corta rasgo a rasgo. §41.1 decía «en un rasgo»; con los
+   datos actuales no cambia nada.
+3. **La simulación del alta y el k que conservaría las marcas de H** son
+   informativos y no estaban en §41.
+4. Como la escala de N se reselecciona con el panel, la de este cuadro (21,
+   con 12 modelos) no es el banco de 19 con el que se eligió la forma corta.
+   Las 11 cortas están dentro de las 21; si un día no lo estuvieran, el cuadro
+   las usa igual para los modelos cortos (`extra` en `sustituir_rasgo`).
+
+**Cambios de código.**
+
+- `cuadro_publico_v3.py`: `panel_publico`, el cálculo mixto
+  completa/corta, `revalidar_rasgos` y el informe de validez.
+- `analizar_v3.cargar_v3` (`rasgos=`), `h_para_cuadro` y `n_para_cuadro`
+  (`ms=`): parámetros opcionales.
+- `registro()` en los dos ejecutores.
+
+Sin los parámetros nuevos, todas las salidas anteriores salen idénticas byte a
+byte: `V3.md`, `H_CONFIRMACION.md`, `N_CONFIRMACION.md` y `RESCATE_HN.md`.
+`CUADRO_V3.md` y `ROBUSTEZ_V3.md` cambiarían solo por el ISS de DeepSeek
+Flash@ (PR #31), que no se regeneró en §40; aquí tampoco se tocan.
+`cuadro_publico_v3.py --sin-validez --sin-revalidar` da el cuadro de §40 con
+las mismas puntuaciones y marcas. Solo cambia el porcentaje de cobertura de
+los excluidos, que ahora se mide en O, C, E y A (41 % en vez de 40 %).
+
+### Qué queda (decisiones de David)
+
+- **Validar o revertir la equiparación lineal** (42.6.1).
+- **Las marcas de un modelo corto son menos fiables** que las de uno
+  completo: en la simulación conserva 18 de 21 y añade 6. Hay dos opciones:
+  - publicarlas marcadas «forma corta», como hace ya el cuadro;
+  - exigirles algo más (por ejemplo, k = 29 en H).
+- **DeepSeek V4 Pro**: queda fuera de la norma por la regla de §41.2.
+  Rehabilitarlo exigiría medirlo otra vez (otro proveedor u otra fecha) o
+  cambiar la regla en una sección.
+- **El gasto en los 5 modelos** (42.5).
+
+

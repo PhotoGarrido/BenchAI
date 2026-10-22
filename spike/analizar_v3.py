@@ -74,14 +74,19 @@ def cargar_seleccion(rutas=(SEL,)):
     return list(por_id.values())
 
 
-def cargar_v3(rutas_sel=(SEL,)):
+def cargar_v3(rutas_sel=(SEL,), rasgos=None):
     """Banco v3: selección, R3 válidas por modelo y situaciones comunes.
 
     rutas_sel: ficheros de selección (por defecto, solo el del banco v3).
+    rasgos: si se da, solo las situaciones de esos rasgos cuentan (también
+    para el filtro de cobertura). Lo usa el cuadro público, que toma H y N de
+    I1 y solo exige del v3 O, C, E y A (PERSONALIDAD.md §41.1). None = todos.
     Devuelve un dict con sel, rasgo_de, faceta_de, des, ms (modelos con el
     banco completo), excluidos, invalidas, elecciones {m: {item: [(orden, rep,
     elige_alto)]}}, comunes, por_rasgo y facetas."""
     sel = cargar_seleccion(rutas_sel)
+    if rasgos is not None:
+        sel = [s for s in sel if s["rasgo"] in rasgos]
     rasgo_de = {s["id"]: s["rasgo"] for s in sel}
     faceta_de = {s["id"]: s["faceta"] for s in sel}
     datos = cargar(ap1.DIR)
