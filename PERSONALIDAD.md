@@ -4197,4 +4197,257 @@ los excluidos, que ahora se mide en O, C, E y A (41 % en vez de 40 %).
   cambiar la regla en una sección.
 - **El gasto en los 5 modelos** (42.5).
 
+## 43. Huella conductual que distinga modelos · diseño y criterios fijados ANTES de medir (22-10-2026)
+
+**Problema.** El 17-10-2026 NaN cambió el modelo detrás de
+`deepseek-v4-flash` sin cambiar el id ni el campo `model` (§22). La huella de
+entonces (`spike/huella_modelo.py`: 40 juicios de deseabilidad con la misma
+semilla) no lo vio. El mismo modelo repetía 37–39/40, los modelos distintos
+coincidían 31–35/40 y el modelo cambiado dio 37/40. Los juicios de
+deseabilidad son justo donde todos los modelos coinciden. Ahora sabemos qué
+situaciones separan modelos: la conducta R3 del banco v3 y los binarios de
+I1-H (§37) e I1-N (§40).
+
+Esta sección se escribe y se versiona **antes de medir** nada de lo que
+sigue. No se retoca a la vista de los resultados; los resultados van en §44.
+
+### 43.1 Diseño de la huella
+
+- **Unidad:** un *prompt* con su semilla, tal como se midió:
+  - R3 del banco v3: `sit_propia|<sit>|<orden>|<rep>|None`, con semilla
+    sha256(`"P1|" + id`);
+  - binario de I1-H o I1-N: `BI|<sit>|<orden>|<rep>`, con semilla
+    sha256(`"HNF|" + id`).
+
+  Prompt, semilla, temperatura 0,7 y `max_tokens` 60 son idénticos a los de
+  los ejecutores (`experimento_personalidad_v3.py`,
+  `experimento_personalidad_hn_finos.py`). Se reconstruyen con sus `plan()`,
+  y se comprueba que el sha256 del prompt coincide con el registrado.
+- **Referencia de cada modelo:** su respuesta ya registrada a cada prompt de
+  la huella. Los modelos que ya tienen el banco no gastan nada en crearla;
+  en un modelo nuevo, la crea la primera ejecución.
+- **Candidatos:** prompts de réplica 0 con respuesta válida A/B en los 6
+  modelos de NaN (`gemma4`, `qwen3.6`, `qwen3.8-flash`, `glm5.3-flash`,
+  `mimo-v2.6-flash`, `deepseek-v4-flash@2026-10-17`), tanto en la réplica 0
+  como en la réplica 1 (misma situación y orden, otra semilla).
+- **Selección (determinista, sin llamadas):**
+  1. *Estable consigo mismo:* inestabilidad I = fracción de modelos cuya
+     réplica 1 da otra letra que la réplica 0. Solo entran prompts con I = 0.
+  2. *Discrimina:* D = fracción de parejas de modelos que dan letras
+     distintas. Se ordena por D descendente, con desempate por el sha256
+     del id.
+  3. *Una situación, un prompt:* como máximo un prompt por situación, porque
+     los dos órdenes de una misma situación no son independientes.
+  4. **K = 48** prompts.
+- **Distancia:** d = fracción de prompts en que la respuesta nueva difiere de
+  la referencia, contando solo los válidos en ambas. Una respuesta no válida
+  no cuenta ni a favor ni en contra, pero se informa.
+- **Alarma:** d ≥ u, con u calibrado según 43.2. Código de salida 3.
+- **Dos huellas con la misma regla:**
+  - **H-oficial:** candidatos del v3, de I1-H y de I1-N, con la selección
+    hecha con los 6. Es la que usa `huella_modelo.py`.
+  - **H-retro:** solo prompts del v3 que la DeepSeek 4.1 respondió entre el
+    10 y el 12-10, en las réplicas 0 y 1
+    (`resultados/personalidad_p1/deepseek-v4-flash/`). La selección se hace
+    con los **5** activos, sin ninguna DeepSeek, para que ni la 4.1 ni la
+    DeepSeek nueva influyan en qué prompts se eligen. Si quedan menos de 48
+    candidatos, se dice y se usa lo que haya.
+
+### 43.2 Calibración en NaN
+
+- **Tandas:** 3 por modelo, separadas al menos 30 minutos, con la unión de
+  los prompts de H-oficial y H-retro (≤ 96 llamadas por tanda). Un proceso
+  por modelo con `NAN_MAX_CONCURRENTES=1 NAN_RPM=9`. Son ≈ 1.700 llamadas,
+  gratis. La referencia es de días anteriores (del 10 al 22-10), así que
+  «mismo modelo» ya compara días distintos.
+- **«Mismo modelo»:** cada tanda de m frente a la referencia de m. Son 18
+  observaciones por huella.
+- **«Modelo distinto»:** cada tanda de m frente a la referencia de cada uno
+  de los otros modelos m'. Son 90 observaciones por huella.
+- **Umbral u (regla fijada ahora):** punto medio entre la mayor distancia
+  «mismo» y la menor «distinto». Si se solapan, se toma el menor valor con
+  una falsa alarma observada ≤ 5 %.
+- **Evaluación sin reutilizar el umbral:** para no evaluar con un umbral
+  calibrado sobre los mismos datos, las tasas de 43.3 se calculan **dejando
+  fuera cada modelo**. u se calcula sin las observaciones en que interviene
+  m, como evaluado o como referencia, y se aplica a las de m.
+
+### 43.3 Criterios
+
+| # | criterio | umbral |
+|---|---|---|
+| C1 | separación «mismo» / «distinto» en H-oficial: AUC | ≥ 0,99 |
+| C2a | falsa alarma observada con el mismo modelo (dejando fuera cada modelo) | ≤ 5 % |
+| C2b | falsa alarma modelada: P(Bin(K, p⁺) ≥ u·K), con p⁺ = cota superior Wilson 95 % de la tasa de cambio por prompt en «mismo» | ≤ 5 % |
+| C3 | detección de «modelo distinto» (dejando fuera cada modelo) | ≥ 95 % |
+| C4 | caso DeepSeek retrospectivo en H-retro (ver abajo) | alarma en (a) y en (b) |
+| C5 | coste por comprobación: llamadas físicas de una comprobación de H-oficial, reintentos incluidos (mediana de las tandas) | ≤ 60 |
+
+**C4** se cumple si hay alarma en las dos comprobaciones:
+
+- (a) d(4.1 registrada, DeepSeek nueva registrada) ≥ u_retro;
+- (b) d(DeepSeek nueva en cada tanda de hoy, referencia de la 4.1) ≥ u_retro
+  en las 3 tandas.
+
+C1–C3 se evalúan también en H-retro: es informativo y da u_retro.
+
+**Cuándo vale la huella.** La huella se da por válida si cumple C1, C2a,
+C2b, C3 y C5. C4 dice si la huella nueva habría detectado el cambio del
+17-10. Si no pasa, el resultado se publica igual y la huella no se presenta
+como capaz de fechar ese caso.
+
+**Informativo, sin veto:**
+
+- distancias entre los 13 modelos con banco v3, I1-H e I1-N, con las
+  respuestas registradas y sin llamadas, para ver si H-oficial separa
+  también a los externos;
+- si los 502 datos en cuarentena de la mañana del 17-10 (§22) se parecen
+  más a la DeepSeek nueva que a los otros modelos, en los prompts del v3
+  nuevos, que la 4.1 no respondió.
+
+### 43.4 Riesgos
+
+- La selección usa los datos de los 6 modelos, así que la separación
+  «distinto» calculada con respuestas registradas está inflada. Por eso la
+  calibración se hace con tandas nuevas, y H-retro se elige sin las DeepSeek.
+- Puede que NaN no reproduzca igual la semilla (por ejemplo, por el
+  balanceo entre réplicas del servidor). La tasa de cambio «mismo» lo recoge.
+- Un modelo con muchas respuestas no válidas tiene menos prompts útiles. Se
+  informa de los n válidos en cada comprobación.
+- En los externos de pago, `--proyectar` estima el coste sin llamar. La
+  huella no se calibra en ellos.
+
+## 44. Resultados de la huella conductual (22/23-10-2026)
+
+`python analizar_huella.py` (desde `spike/`, sin llamadas) →
+`resultados/personalidad_fc/HUELLA.md` y `huella.json`. Selección congelada
+en `spike/huella_seleccion.json`, con el umbral calibrado. Respuestas de las
+tandas en `resultados/huella/<modelo>/registros.jsonl`; una línea por
+comprobación en `resultados/huellas.jsonl`. Criterios de §43 sin cambios.
+
+**Medición.**
+
+- **Tandas:** 3 tandas (t1 a las 00:00, t2 a las 00:45 y t3 a las 01:25 del
+  23-10) × 6 modelos × 83 prompts (la unión de H-oficial y H-retro, que
+  comparten 13). Son **1.495 llamadas físicas** en NaN, gratis: 1.494
+  tareas más un reintento. Ninguna respuesta fue no válida.
+- **Comprobación real:** después, una comprobación de H-oficial del id sin
+  etiqueta `deepseek-v4-flash` frente a la referencia de
+  `deepseek-v4-flash@2026-10-17`: 48 llamadas, **0/48 distintas**, sin
+  alarma (código 0). El endpoint sigue sirviendo el modelo del 17-10.
+- **Total:** 1.543 llamadas.
+- **Prompts:** se verificó que los 96 prompts de la selección tienen el mismo
+  sha256 que los registrados en los 7 modelos (los 6 y la 4.1).
+
+**Selección.**
+
+- **H-oficial:** 37 prompts del v3, 10 de I1-H y 1 de I1-N. Todos tienen
+  D ≥ 0,53.
+- **H-retro:** solo 36 de los 274 candidatos son estables en los 5 activos y
+  tienen D > 0. Los 12 restantes, también estables, tienen D = 0: no
+  discriminan, pero entran porque la regla pide K = 48.
+
+### Veredicto: **la huella nueva vale (C1, C2a, C2b, C3 y C5), pero no habría detectado el cambio de DeepSeek (C4 ✘)**
+
+| # | criterio | H-oficial | umbral | |
+|---|---|---|---|---|
+| C1 | AUC «mismo» / «distinto» | **1,000** | ≥ 0,99 | ✔ |
+| C2a | falsa alarma, dejando fuera cada modelo | **0 %** (0/18) | ≤ 5 % | ✔ |
+| C2b | falsa alarma modelada (p = 9,0 %, p⁺ = 11,1 %) | **0,18 %** | ≤ 5 % | ✔ |
+| C3 | detección, dejando fuera cada modelo | **100 %** (180/180) | ≥ 95 % | ✔ |
+| C4 | caso DeepSeek en H-retro | (a) 10,4 % · (b) 10,4 / 16,7 / 14,6 % frente a u_retro 22,9 % | alarma | ✘ |
+| C5 | llamadas por comprobación (mediana; máx.) | **48**; 48,6 | ≤ 60 | ✔ |
+
+**Distribuciones en H-oficial (K = 48).**
+
+- **«Mismo»:** de 0 a 10 distintas (media 9,0 %). Los qwen y DeepSeek@ casi
+  no cambian (0–4), gemma4 tampoco (3–4); mimo (7–10) y glm (8–10) cambian
+  más.
+- **«Distinto»:** de 16 a 37 distintas (media 54 %). La pareja más cercana
+  es glm5.3-flash ↔ DeepSeek@ (16–21).
+- **Umbral:** u = (20,8 % + 33,3 %) / 2 = **27,1 %**, es decir, alarma con 13
+  o más distintas de 48. Dejando fuera cada modelo, u queda entre 27,1 % y
+  30,2 %.
+- **Margen:** el peor «mismo» (glm, 10) está a 3 del umbral, y el «distinto»
+  más cercano (16), a 3 por encima.
+
+**H-retro (informativo, da u_retro).** AUC 0,982, falsa alarma 0 % y
+detección 92,2 %: qwen3.6 ↔ qwen3.8-flash se quedan en 6–7 de 48, bajo el
+umbral. Es peor que H-oficial, como se esperaba, porque solo 36 prompts
+discriminan y se eligieron sin las DeepSeek.
+
+**C4: el caso DeepSeek.**
+
+- **(a) Lo registrado:** 4.1 frente a DeepSeek@ da 5/48 (10,4 %).
+- **(b) Hoy:** DeepSeek@ en las tres tandas frente a la referencia de la
+  4.1 da 5, 8 y 7 de 48.
+- **Comparación:** las dos medidas caen dentro del rango «mismo» de H-retro
+  (0–9) y lejos del umbral (11 de 48). La 4.1 frente a los otros cinco
+  activos da 11–17 de 48.
+- **Lectura:** la DeepSeek del 17-10 se comporta en estas situaciones casi
+  como la 4.1, más parecida a ella que cualquier par de modelos distintos.
+  Con estos datos, el cambio es pequeño, del orden de una versión menor.
+
+**Exploratorio, decidido tras ver C4.** Con los 274 prompts de réplica 0
+que respondió la 4.1:
+
+- 4.1 frente a DeepSeek@ difieren en **29 (10,6 %)**. La pareja de modelos
+  distintos más cercana es qwen3.6 ↔ qwen3.8-flash, con 40 (14,6 %); el
+  resto, 50–79.
+- Lo que sí cambia es la **sensibilidad a la semilla**. Con otra semilla, la
+  4.1 cambiaba el 9,9 % de sus elecciones (27 de 274) y DeepSeek@ solo el
+  2,9 % (8 de 274).
+
+  Es una pista para una huella de «estabilidad» (repetir un mismo prompt
+  con varias semillas), pero no está validada: se vio después de mirar C4 y
+  costaría varias llamadas por prompt.
+
+**Informativo.**
+
+- **13 modelos con lo registrado (H-oficial):** 77 de 78 parejas quedan por
+  encima del umbral. La excepción es **Opus 5.5 #low ↔ Sol #low, con 8 de
+  48 (16,7 %)**, que la huella no separaría. Los externos no intervinieron
+  en la selección, así que estas cifras no están infladas, pero no hay
+  tandas «mismo» en ellos.
+- **Cuarentena del 17-10 (mañana):** sus 502 respuestas R3 coinciden con
+  DeepSeek@ en el **97,4 %** de 233 prompts comunes (6 distintas). Con los
+  otros cinco modelos coinciden entre el 74 y el 85 %. Es decir, a las 14 h
+  del 17-10 el endpoint ya servía el modelo nuevo, y la cuarentena de §22
+  era la decisión correcta. Esos datos podrían reasignarse a
+  `deepseek-v4-flash@2026-10-17`, pero queda como decisión de David; no se
+  toca nada.
+
+### Qué hace ahora `huella_modelo.py`
+
+- **Comprobación:** repite los 48 prompts de H-oficial con su semilla, cuenta
+  las elecciones distintas frente a la referencia registrada del modelo y
+  avisa si llega a 13 (código 3).
+- **Uso:** ejecutarla antes de cada pasada o alta con un id de NaN ya medido:
+
+  ```bash
+  NAN_MAX_CONCURRENTES=1 NAN_RPM=9 python huella_modelo.py --modelo <id>
+  ```
+
+  Son 48 llamadas, unos 5 minutos. Nota en `ALTA_MODELO.md`, §1 punto 7.
+- **Otras opciones:**
+  - `--referencia` compara contra la referencia de otro id; por ejemplo, el
+    id sin etiqueta frente a la etiqueta vigente.
+  - Un modelo sin referencia la crea en la primera ejecución.
+  - Una referencia parcial (la 4.1 tiene 15 de 48) no se completa con
+    respuestas de hoy, y con menos de la mitad de prompts válidos no se
+    juzga.
+  - `--proyectar` estima el coste en externos sin llamar. Por ejemplo, Opus
+    5.5 #low ≈ 0,04 $ por comprobación; Luna sale «sin precio» porque no
+    tiene pin en `coste_run.py`.
+  - Un id de OpenRouter solo se llama con `--externo`.
+- **Test:** `spike/test_huella.py`, en `verificar.sh`.
+- `web/datos.js` se regenera porque los 19 manifiestos nuevos (1.543
+  llamadas) entran en el recuento global de runs y llamadas.
+
+**Alcance honesto.** La huella detecta que detrás de un id hay otro modelo
+de los que conocemos o igual de distinto. No detecta un cambio de versión
+tan pequeño como el de DeepSeek el 17-10, y en externos no separa Opus de
+Sol. Para fechar cambios pequeños haría falta otra señal, por ejemplo la
+sensibilidad a la semilla del exploratorio, que habría que validar antes con
+criterios propios.
 

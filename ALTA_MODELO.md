@@ -60,6 +60,26 @@ política estable:
    NO lo cuenta como laboratorio (`portada.sinDesvelar` lo lleva aparte):
    la prosa dice «N mediciones, L laboratorios» con L los que tienen nombre.
    Al desvelarse, entra en `DESVELADOS` y, si el lab es nuevo, cuenta.
+7. **Huella conductual (modelos de NaN ya medidos).** NaN puede cambiar el
+   modelo detrás de un id sin avisar (`deepseek-v4-flash`, 17-10-2026).
+   Antes de una pasada o un alta con un id de NaN que ya tiene banco de
+   personalidad, ejecuta:
+
+   ```bash
+   cd spike && NAN_MAX_CONCURRENTES=1 NAN_RPM=9 python huella_modelo.py --modelo <id>
+   ```
+
+   - Son 48 llamadas, gratis, en unos 10 minutos.
+   - Compara con la referencia registrada del modelo y añade una línea a
+     `resultados/huellas.jsonl`.
+   - **Código 3 = posible cambio de modelo.** En ese caso no se mide.
+     Primero se comprueba con NaN; si hay cambio, el modelo nuevo se mide
+     con etiqueta `@fecha`, como DeepSeek en §22 de
+     [PERSONALIDAD.md](PERSONALIDAD.md).
+   - Un modelo de NaN sin referencia la crea en la primera ejecución.
+   - En los externos de pago, `--proyectar` solo estima el coste.
+
+   El umbral y su calibración están en PERSONALIDAD.md §44.
 
 ## 2 · Plan y autorización de gasto
 
