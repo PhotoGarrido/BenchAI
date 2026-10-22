@@ -3656,3 +3656,249 @@ regenera con esas cifras; sus criterios y marcas no cambian.
 - **Autoconciencia y vulnerabilidad** siguen sin situaciones que separen
   modelos en elección binaria.
 
+## 41. Alta de modelos nuevos en el cuadro público: forma corta, índices de validez por modelo y revalidación automática · criterios fijados ANTES de calcular (22-10-2026)
+
+**Objetivo (David, 22-10).** Que no se repita lo de los 5 modelos de
+OpenRouter que se quedaron fuera del cuadro con el 40 % del banco
+(`x-ai/grok-4.5`, `moonshotai/kimi-k3`, `mistralai/mistral-large-4-0`,
+`qwen/qwen3.8-max-0902#low`, `z-ai/glm-5.3`). Son cuatro piezas:
+
+1. una forma corta validada que abarate el alta;
+2. índices de validez por modelo que digan cuándo un perfil no se puede leer
+   como retrato;
+3. una regla que quite las marcas de un rasgo, sin intervención humana, si
+   deja de ser consistente al entrar modelos;
+4. una batería de alta de un solo comando, con proyección de coste y control
+   del gasto dentro del propio proceso.
+
+Esta sección se escribe y se versiona **antes de calcular** nada de lo que
+sigue. No se retoca a la vista de los resultados, que van en §42. Las piezas
+1 a 3 usan solo los datos de los 13 modelos del cuadro: cero llamadas.
+
+**Lo que ya se sabe y se declara.** DeepSeek V4 Pro tiene un sesgo de
+posición fuerte (§27: solo en AB queda ▼ en los seis rasgos; solo en BA, ▲).
+Argon da un 4,7 % de respuestas no válidas en I1-H (§37). Los umbrales de
+41.2 se fijan por su sentido, no para que esos dos modelos salgan o no.
+
+### 41.1 Forma corta
+
+**Bancos de partida.** Son los que usa hoy el cuadro público (§38-40):
+
+- O, C, E y A: las situaciones del banco v3 con dato en los 13 (59, 56, 57 y
+  57);
+- H: las 48 de I1-H;
+- N: las situaciones de la escala de I1-N que elige R1 con el panel (19 en
+  §40), que salen de `analizar_n_confirmacion.n_para_cuadro()`.
+
+**Regla de selección para un tamaño k.** Se aplica sobre un conjunto S de
+modelos, con sus datos y nada más, y usa la elección bruta e de §28:
+
+1. **Cuotas por faceta.** Mínimo 2 situaciones en cada faceta que tenga ≥ 2
+   en el banco completo. El resto de k se reparte en proporción al número de
+   situaciones de cada faceta en el banco (método del mayor resto; empates,
+   por nombre de faceta), sin pasar del número que tiene la faceta. Una faceta
+   con 1 situación en el banco (vulnerabilidad en N) solo recibe cuota del
+   reparto proporcional.
+2. **Dentro de cada faceta**, entran las situaciones con mayor correlación
+   ítem-resto entre los modelos de S: la correlación de e(i) con la media de
+   las demás situaciones del banco completo del rasgo. Sin varianza en S, la
+   correlación cuenta como la peor; los empates se deshacen por id.
+3. Ninguna situación se invierte.
+
+El tamaño mínimo es k = 2 × (facetas con ≥ 2 en el banco): 12 en O, C, E y A;
+8 en H; 8 en N (ansiedad, hostilidad, depresión e impulsividad). Se prueban
+todos los k desde el mínimo hasta el banco completo menos uno.
+
+**Criterios para un k.** Validación cruzada entre modelos, como en §30.2 y §36:
+se recorren las C(13,6) = 1.716 particiones en 6 modelos que seleccionan y 7
+que validan. La regla se aplica con los 6, y en los 7 se mide:
+
+- **(C1) Equivalencia:** r de Pearson entre la puntuación corta (media de e en
+  las k situaciones) y la completa (media de e en el banco del rasgo), entre
+  los 7. **Mediana ≥ 0,95.** La completa incluye a las cortas: es la
+  correlación parte-todo habitual de una forma corta.
+- **(C2) Consistencia:** G4 de la forma corta en los 7, de dos maneras: (a)
+  pares/impares en el orden del banco y (b) mediana de Spearman-Brown en 200
+  particiones al azar equilibradas por faceta (`rescate_hn_v3.g4_ab`).
+  **Medianas ≥ 0,70 en (a) y en (b).**
+
+**k elegido por rasgo:** el menor k que cumple C1 y C2 **y a partir del cual
+se cumplen para todos los k mayores**, para no escoger un mínimo de suerte.
+Si ningún k lo cumple, ese rasgo no tiene forma corta y el alta lo mide
+completo.
+
+**Forma corta final:** la regla aplicada a los 13 con el k elegido. Debe
+cumplir además:
+
+- **(C3) Cobertura**, como en §36 y §39: toda faceta con ≥ 2 situaciones en el
+  banco completo conserva ≥ 2 (lo garantizan las cuotas) y **ninguna aporta
+  más de la mitad**. Con los 13, además, r(corta, completa) ≥ 0,95 y G4 (a) y
+  (b) ≥ 0,70. Es una comprobación dentro de muestra: necesaria, pero no cuenta
+  como validación.
+- **(C4) Marcas:** el cuadro de §28 se recalcula con los 13 y los seis rasgos
+  en su forma corta: cinco comprobaciones de §28, BH sobre todas las pruebas y
+  R4 en N sobre la forma corta. Cada marca **robusta** del cuadro completo
+  **se conserva** si sale robusta y con el mismo signo; las que se pierdan se
+  informan una a una. **No se aumenta k para salvarlas**: la forma corta
+  adoptada es la mínima de C1-C3. Como información, para cada rasgo con
+  marcas perdidas se da el menor k que las conservaría, con los otros rasgos
+  en su mínimo.
+
+La forma corta se congela en `spike/personalidad_forma_corta.json`, con las
+situaciones por rasgo, k, las cifras de C1-C4 y el sha256 de los bancos de
+partida. No se reselecciona sola al entrar modelos: cambiarla exige una
+sección.
+
+**Ahorro.** Se comparan las llamadas por modelo de las dos formas:
+
+- **completa:** O, C, E y A del v3, con 4 R3 + 2 de deseabilidad por
+  situación; I1-H y las 72 de I1-N, con 4 binarias + 2 de deseabilidad;
+- **corta:** las mismas 6 llamadas por situación, solo en las situaciones
+  cortas.
+
+En N, la forma completa mide las 72 de I1-N, porque la escala se reselecciona
+con los modelos que tienen las 72 (§40). La corta mide solo sus situaciones, y
+ese modelo no participa en la selección de N.
+
+El coste por modelo usa los tokens medios por llamada registrados en sus
+manifiestos de personalidad (v1, v3, I1) y la tarifa de OpenRouter del día
+(catálogo público, 23-10-2026). Se da sin margen y con margen × 1,15.
+
+**Cómo entra en el cuadro un modelo con la forma corta** (definición, no
+criterio):
+
+- Un modelo es **completo** en un rasgo si tiene dato en ≥ 95 % de su banco
+  completo (el filtro de siempre). Es **corto** si no lo es, pero tiene dato
+  en ≥ 95 % de su forma corta. Si no es ninguna de las dos cosas en algún
+  rasgo, queda fuera por cobertura. En O, C, E y A cuenta solo la cobertura
+  de esos rasgos en el v3: H y N salen de I1, así que sus situaciones del v3
+  ya no se exigen.
+- **Comparación (la marca):** la de §28, sobre las situaciones que el modelo
+  tiene de su forma (completa o corta), frente a la media de los demás
+  modelos con dato en cada situación. Los modelos completos se siguen
+  comparando en su banco completo; en las situaciones cortas, la media de
+  los demás incluye a los modelos cortos. Con todos completos, el cálculo es
+  idéntico al de hoy.
+- **Puntuación mostrada** de un modelo corto: 50 + 50·media(e − d̄) en sus
+  situaciones, más la constante de equiparación del rasgo, que es la media,
+  en los modelos completos, de la puntuación completa menos la corta. d̄(i) es
+  la media de la deseabilidad de los modelos con dato en i.
+- El cuadro indica la forma de cada modelo: «forma corta» en la fila y en el
+  json.
+
+### 41.2 Índices de validez por modelo (umbrales fijados ahora)
+
+Se inspiran en las escalas de validez de los tests clínicos (VRIN, TRIN, «no
+sabe / no contesta»). Se calculan sobre **todas las respuestas del modelo en
+los instrumentos del cuadro**: R3 del v3 en las situaciones de O, C, E y A;
+binario de I1-H e I1-N (las 72, si las tiene); y su deseabilidad (v3 e I1).
+Se toma el último registro por id. Un `ERROR_TECNICO` pendiente no cuenta: es
+fallo técnico, no conducta.
+
+| índice | qué mide | válido | aviso | no interpretable |
+|---|---|---|---|---|
+| **V1 · posición** | Δ = media por situación de e(AB) − e(BA) (en AB, A es el polo alto) y fracción de respuestas «A» | \|Δ\| ≤ 0,20 y \|A − 0,5\| ≤ 0,10 | \|Δ\| ≤ 0,30 y \|A − 0,5\| ≤ 0,15 | \|Δ\| > 0,30 o \|A − 0,5\| > 0,15 |
+| **V2 · no válidas** | fracción de respuestas binarias no válidas (negativas, ilegibles), sin errores técnicos | ≤ 5 % | ≤ 10 % | > 10 % |
+| **V3 · retest** | r de Pearson, por modelo, entre e de la réplica 0 y de la 1 por situación (cada celda promedia los dos órdenes) | ≥ 0,60 | ≥ 0,40 | < 0,40 |
+| **V4 · coherencia de la deseabilidad** | fracción de situaciones en que el juicio de qué opción es admirable coincide en AB y en BA | ≥ 0,75 | ≥ 0,65 | < 0,65 |
+
+Razones de los umbrales:
+
+- Con contrabalanceo, un modelo que elige por posición deja e ≈ 0,5 en esas
+  situaciones, y su perfil se encoge hacia la media. Un Δ de 0,30 son 15
+  puntos en la escala del cuadro, más que la mayor diferencia entre modelos
+  en cualquier rasgo.
+- Δ y la fracción de A miden lo mismo cuando los órdenes están equilibrados
+  (A − 0,5 ≈ Δ/2). Se exigen los dos para que un desequilibrio de órdenes no
+  esconda el sesgo.
+- El 5 % de V2 es el G6 de §21.
+- En V3 y V4, el azar da 0 y 0,5; la elección pura por posición da 0 (sin
+  varianza) y 0.
+
+**Consecuencias.**
+
+- **No interpretable** (algún índice en esa columna): el modelo **sale de la
+  norma**. No entra en la media de los demás, ni en d̄, ni en la selección de
+  la escala de N, ni en los paneles de P5, ni en la corrección BH. En
+  `CUADRO_PUBLICO.md` aparece en una tabla aparte, «perfil no
+  interpretable», con sus índices y el motivo, **sin puntuaciones, marcas ni
+  retrato**. En el json, `interpretable: false`.
+- **Aviso** (algún índice en esa columna y ninguno en la última): el modelo se
+  queda en el panel con sus marcas y su retrato, precedido de «interpretar
+  con cautela» y el índice que lo motiva.
+- Los índices se calculan en cada ejecución de `cuadro_publico_v3.py`, antes
+  de todo lo demás, para todos los modelos que entran por cobertura.
+- Si alguno de los 13 sale no interpretable, cambia el panel y, con él, el
+  cuadro de los demás. §42 lo explica marca a marca.
+
+Como información, sin decidir nada, los índices se calculan también en los 5
+modelos que faltan, con sus datos del v1 (40 % del banco, sin I1). Sirven de
+pronóstico antes de gastar en ellos.
+
+### 41.3 Revalidación automática
+
+En cada ejecución de `cuadro_publico_v3.py` se comprueba, para cada rasgo con
+marca y con el panel de esa ejecución:
+
+- **G4 (a)**, pares/impares (el de §21, que ya calcula el cuadro), y **G4
+  (b)**, mediana de Spearman-Brown en 200 particiones al azar equilibradas
+  por faceta, con un generador propio con `SEMILLA` para no mover el
+  bootstrap del cuadro. Las dos deben ser ≥ 0,70: es el mismo listón con el
+  que entraron H (§36) y N (§39).
+- **G3**: la correlación media entre facetas del rasgo debe ser mayor que con
+  las facetas de los otros rasgos.
+
+Si un rasgo falla alguna de las tres, **pierde todas sus marcas** en ese
+cuadro: ningún ▲/▼ y ninguna frase de ese rasgo en los retratos. El rasgo
+aparece «en revisión (G4/G3 por debajo del listón; lo corrige una sección)».
+Lo hace el script, no una persona.
+
+- Las marcas vuelven solo cuando, con los datos de ese momento, el rasgo
+  vuelve a pasar. Como los datos solo cambian con un alta o con una sección,
+  toda restitución queda documentada.
+- Si hay modelos con forma corta en el panel, las tres comprobaciones se
+  repiten en la forma corta con todos los modelos, y fallar ahí también
+  suspende las marcas.
+- Sustituye al «CONFLICTO… lo resuelve David» de §29: un rasgo con marca por
+  debajo del listón ya no conserva sus marcas a la espera de una decisión.
+
+### 41.4 Batería de alta de personalidad
+
+`spike/alta_personalidad.py --modelo M [--corta] [--tope X] [--proyectar]
+[--seco]`:
+
+- **Mide lo que le falte** a un modelo para entrar en el cuadro: R3 y
+  deseabilidad del v3 en O, C, E y A, y binario y deseabilidad de I1-H y de
+  I1-N. Reutiliza los planes y la puntuación de
+  `experimento_personalidad_v3.py` y `experimento_personalidad_hn_finos.py`:
+  mismos ids, semillas, prompts, nombres, temperatura, ficheros y
+  manifiestos. Es reanudable: salta lo registrado salvo `ERROR_TECNICO`.
+  `--corta` limita la medición a la forma corta.
+- **Proyecta el coste antes de lanzar** (con `--proyectar`, solo proyecta):
+  llamadas pendientes × tokens medios por llamada del propio modelo en sus
+  manifiestos de personalidad × tarifa. Sin historial, usa la mediana del
+  panel externo y avisa. NaN cuenta 0 $.
+- **Controla el gasto dentro del propio proceso.** El manifiesto activo es una
+  subclase que suma tokens × tarifa de cada solicitud física en cuanto se
+  registra. Antes de cada llamada se comprueba que gasto + (hilos × coste
+  máximo observado por llamada) < tope; si no, la llamada no se lanza y queda
+  pendiente para reanudar. No hay procesos que buscar ni rutas que reconocer,
+  así que funciona igual con espacios en la ruta o sin `pgrep`. Un id de
+  OpenRouter sin `--tope` no se lanza.
+- **`--seco`** ejecuta el plan, la proyección y el control del gasto con un
+  modelo falso, sin red y en un directorio temporal.
+
+Se documenta en `ALTA_MODELO.md`. **En esta tarea no se ejecuta contra
+modelos de pago**: solo `--proyectar` y `--seco`. Si hace falta comprobar el
+camino real, se hacen muy pocas llamadas a un modelo de NaN, fuera de
+`resultados/`.
+
+### 41.5 Presupuesto de los 5 modelos
+
+Se calcula con `alta_personalidad.py --proyectar`, con la forma corta y con la
+completa, por modelo y en total. Usa los tokens de esos modelos en su v1, la
+tarifa de OpenRouter del 23-10-2026 y un margen × 1,15. El saldo de
+OpenRouter es de ≈ 7,21 $. Los modelos se ordenan por coste y se recomiendan
+los que caben, teniendo en cuenta el pronóstico de validez de 41.2. No se
+gasta nada: lanzar es decisión de David.
+
