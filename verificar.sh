@@ -39,6 +39,8 @@ EOF
 for t in test_parsers test_parsers_tipados test_parsers_contrato test_manifiesto test_manifiesto_pool test_sensibles test_barrido_falso test_linter_contraste test_schemas test_robustez_determinista test_replay_privacidad test_gfinal_linter test_trazabilidad test_adjudicacion test_vigia test_version_unica test_alta test_effort test_etiqueta test_timeout test_denominadores test_carriles test_sin_choices test_personalidad_hn test_personalidad_hn_finos test_personalidad_n_libre; do
   echo "== $t =="; "$PY" "$t.py" > /dev/null || { echo "FALLO en $t"; exit 1; }
 done
+# Huella conductual (PERSONALIDAD §43): selección congelada y reglas, sin llamadas.
+echo "== test_huella =="; "$PY" test_huella.py > /dev/null || { echo "FALLO en test_huella"; exit 1; }
 # El test XSS debe ejecutar TAMBIÉN la ampliación de sinks (reauditoría
 # 31-07: era código muerto tras sys.exit y daba falso verde).
 echo "== test_xss_estatico =="

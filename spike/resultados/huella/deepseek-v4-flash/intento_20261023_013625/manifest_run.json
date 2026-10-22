@@ -1,0 +1,30 @@
+{
+  "commit": "803049fe6212e2465d6c751c1aa1666ae48d4acc",
+  "python": "3.12.4",
+  "parser_version": "2.5",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "huella_modelo.py",
+    "--modelo",
+    "deepseek-v4-flash",
+    "--referencia",
+    "deepseek-v4-flash@2026-10-17"
+  ],
+  "args": {
+    "modelo": "deepseek-v4-flash",
+    "etiqueta": "",
+    "n": 48,
+    "seleccion_sha256": "5a30b88e5181e2db1f769fe03566916fcdb6377825cce8bd9bd40898784d4f40"
+  },
+  "hashes": {},
+  "inicio": "2026-10-23T01:36:25",
+  "status": "completed",
+  "fin": "2026-10-23T01:41:34",
+  "solicitudes": 48,
+  "errores": 0,
+  "fallo_escritura": false
+}

@@ -1,0 +1,539 @@
+{
+ "tandas": [
+  "t1",
+  "t2",
+  "t3"
+ ],
+ "llamadas_tandas": null,
+ "oficial": {
+  "k": 48,
+  "umbral": 0.2708333333333333,
+  "auc": 1.0,
+  "mismo": {
+   "n": 18,
+   "min": 0.0,
+   "max": 0.20833333333333334,
+   "media": 0.09027777777777778
+  },
+  "distinto": {
+   "n": 90,
+   "min": 0.3333333333333333,
+   "max": 0.7708333333333334,
+   "media": 0.5416666666666666
+  },
+  "fa_lomo": 0.0,
+  "det_lomo": 1.0,
+  "cambio_mismo": {
+   "cambios": 78,
+   "comparados": 864,
+   "tasa": 0.09027777777777778,
+   "p_sup": 0.11124445177831452
+  },
+  "fa_modelada": 0.0017790051344593499,
+  "lomo": {
+   "gemma4": {
+    "umbral": 0.2708333333333333,
+    "fa": 0,
+    "n_mismo": 3,
+    "det": 30,
+    "n_distinto": 30
+   },
+   "qwen3.6": {
+    "umbral": 0.2708333333333333,
+    "fa": 0,
+    "n_mismo": 3,
+    "det": 30,
+    "n_distinto": 30
+   },
+   "qwen3.8-flash": {
+    "umbral": 0.2708333333333333,
+    "fa": 0,
+    "n_mismo": 3,
+    "det": 30,
+    "n_distinto": 30
+   },
+   "glm5.3-flash": {
+    "umbral": 0.2916666666666667,
+    "fa": 0,
+    "n_mismo": 3,
+    "det": 30,
+    "n_distinto": 30
+   },
+   "mimo-v2.6-flash": {
+    "umbral": 0.2708333333333333,
+    "fa": 0,
+    "n_mismo": 3,
+    "det": 30,
+    "n_distinto": 30
+   },
+   "deepseek-v4-flash@2026-10-17": {
+    "umbral": 0.3020833333333333,
+    "fa": 0,
+    "n_mismo": 3,
+    "det": 30,
+    "n_distinto": 30
+   }
+  },
+  "D_positivo": 48
+ },
+ "retro": {
+  "k": 48,
+  "umbral": 0.22916666666666666,
+  "auc": 0.9824074074074074,
+  "mismo": {
+   "n": 18,
+   "min": 0.0,
+   "max": 0.1875,
+   "media": 0.07407407407407407
+  },
+  "distinto": {
+   "n": 90,
+   "min": 0.125,
+   "max": 0.5,
+   "media": 0.3347222222222222
+  },
+  "fa_lomo": 0.0,
+  "det_lomo": 0.9222222222222223,
+  "cambio_mismo": {
+   "cambios": 64,
+   "comparados": 864,
+   "tasa": 0.07407407407407407,
+   "p_sup": 0.09348556241008582
+  },
+  "fa_modelada": 0.004103576519063344,
+  "lomo": {
+   "gemma4": {
+    "umbral": 0.22916666666666666,
+    "fa": 0,
+    "n_mismo": 3,
+    "det": 29,
+    "n_distinto": 30
+   },
+   "qwen3.6": {
+    "umbral": 0.22916666666666666,
+    "fa": 0,
+    "n_mismo": 3,
+    "det": 24,
+    "n_distinto": 30
+   },
+   "qwen3.8-flash": {
+    "umbral": 0.22916666666666666,
+    "fa": 0,
+    "n_mismo": 3,
+    "det": 24,
+    "n_distinto": 30
+   },
+   "glm5.3-flash": {
+    "umbral": 0.22916666666666666,
+    "fa": 0,
+    "n_mismo": 3,
+    "det": 30,
+    "n_distinto": 30
+   },
+   "mimo-v2.6-flash": {
+    "umbral": 0.22916666666666666,
+    "fa": 0,
+    "n_mismo": 3,
+    "det": 30,
+    "n_distinto": 30
+   },
+   "deepseek-v4-flash@2026-10-17": {
+    "umbral": 0.22916666666666666,
+    "fa": 0,
+    "n_mismo": 3,
+    "det": 29,
+    "n_distinto": 30
+   }
+  },
+  "D_positivo": 36
+ },
+ "c4": {
+  "u_retro": 0.22916666666666666,
+  "a": {
+   "d": 0.10416666666666667,
+   "n": 48,
+   "distintas": 5
+  },
+  "b": [
+   {
+    "tanda": "t1",
+    "d": 0.10416666666666667,
+    "n": 48,
+    "distintas": 5
+   },
+   {
+    "tanda": "t2",
+    "d": 0.16666666666666666,
+    "n": 48,
+    "distintas": 8
+   },
+   {
+    "tanda": "t3",
+    "d": 0.14583333333333334,
+    "n": 48,
+    "distintas": 7
+   }
+  ],
+  "alarma_a": false,
+  "alarma_b": false,
+  "antigua_vs_otros": {
+   "gemma4": 16,
+   "qwen3.6": 14,
+   "qwen3.8-flash": 11,
+   "glm5.3-flash": 15,
+   "mimo-v2.6-flash": 17
+  }
+ },
+ "c5": {
+  "n": 18,
+  "mediana": 48.0,
+  "max": 48.57831325301204,
+  "llamadas_tandas": 1495
+ },
+ "trece": {
+  "gemma4 · qwen3.6": [
+   29,
+   48
+  ],
+  "gemma4 · qwen3.8-flash": [
+   27,
+   48
+  ],
+  "gemma4 · glm5.3-flash": [
+   28,
+   48
+  ],
+  "gemma4 · mimo-v2.6-flash": [
+   26,
+   48
+  ],
+  "gemma4 · DeepSeek@": [
+   26,
+   48
+  ],
+  "gemma4 · claude-haiku-5.5": [
+   17,
+   48
+  ],
+  "gemma4 · claude-opus-5.5#low": [
+   28,
+   48
+  ],
+  "gemma4 · deepseek-v4-pro-0813": [
+   27,
+   48
+  ],
+  "gemma4 · gemini-3.7-flash": [
+   22,
+   48
+  ],
+  "gemma4 · gemini-4-argon": [
+   20,
+   46
+  ],
+  "gemma4 · gpt-5.6-luna": [
+   23,
+   48
+  ],
+  "gemma4 · gpt-6.1-sol#low": [
+   28,
+   48
+  ],
+  "qwen3.6 · qwen3.8-flash": [
+   20,
+   48
+  ],
+  "qwen3.6 · glm5.3-flash": [
+   37,
+   48
+  ],
+  "qwen3.6 · mimo-v2.6-flash": [
+   29,
+   48
+  ],
+  "qwen3.6 · DeepSeek@": [
+   31,
+   48
+  ],
+  "qwen3.6 · claude-haiku-5.5": [
+   30,
+   48
+  ],
+  "qwen3.6 · claude-opus-5.5#low": [
+   33,
+   48
+  ],
+  "qwen3.6 · deepseek-v4-pro-0813": [
+   28,
+   48
+  ],
+  "qwen3.6 · gemini-3.7-flash": [
+   33,
+   48
+  ],
+  "qwen3.6 · gemini-4-argon": [
+   26,
+   46
+  ],
+  "qwen3.6 · gpt-5.6-luna": [
+   26,
+   48
+  ],
+  "qwen3.6 · gpt-6.1-sol#low": [
+   31,
+   48
+  ],
+  "qwen3.8-flash · glm5.3-flash": [
+   29,
+   48
+  ],
+  "qwen3.8-flash · mimo-v2.6-flash": [
+   33,
+   48
+  ],
+  "qwen3.8-flash · DeepSeek@": [
+   23,
+   48
+  ],
+  "qwen3.8-flash · claude-haiku-5.5": [
+   24,
+   48
+  ],
+  "qwen3.8-flash · claude-opus-5.5#low": [
+   25,
+   48
+  ],
+  "qwen3.8-flash · deepseek-v4-pro-0813": [
+   16,
+   48
+  ],
+  "qwen3.8-flash · gemini-3.7-flash": [
+   27,
+   48
+  ],
+  "qwen3.8-flash · gemini-4-argon": [
+   20,
+   46
+  ],
+  "qwen3.8-flash · gpt-5.6-luna": [
+   20,
+   48
+  ],
+  "qwen3.8-flash · gpt-6.1-sol#low": [
+   23,
+   48
+  ],
+  "glm5.3-flash · mimo-v2.6-flash": [
+   22,
+   48
+  ],
+  "glm5.3-flash · DeepSeek@": [
+   16,
+   48
+  ],
+  "glm5.3-flash · claude-haiku-5.5": [
+   23,
+   48
+  ],
+  "glm5.3-flash · claude-opus-5.5#low": [
+   20,
+   48
+  ],
+  "glm5.3-flash · deepseek-v4-pro-0813": [
+   19,
+   48
+  ],
+  "glm5.3-flash · gemini-3.7-flash": [
+   14,
+   48
+  ],
+  "glm5.3-flash · gemini-4-argon": [
+   22,
+   46
+  ],
+  "glm5.3-flash · gpt-5.6-luna": [
+   21,
+   48
+  ],
+  "glm5.3-flash · gpt-6.1-sol#low": [
+   20,
+   48
+  ],
+  "mimo-v2.6-flash · DeepSeek@": [
+   26,
+   48
+  ],
+  "mimo-v2.6-flash · claude-haiku-5.5": [
+   25,
+   48
+  ],
+  "mimo-v2.6-flash · claude-opus-5.5#low": [
+   20,
+   48
+  ],
+  "mimo-v2.6-flash · deepseek-v4-pro-0813": [
+   23,
+   48
+  ],
+  "mimo-v2.6-flash · gemini-3.7-flash": [
+   20,
+   48
+  ],
+  "mimo-v2.6-flash · gemini-4-argon": [
+   24,
+   46
+  ],
+  "mimo-v2.6-flash · gpt-5.6-luna": [
+   23,
+   48
+  ],
+  "mimo-v2.6-flash · gpt-6.1-sol#low": [
+   22,
+   48
+  ],
+  "DeepSeek@ · claude-haiku-5.5": [
+   21,
+   48
+  ],
+  "DeepSeek@ · claude-opus-5.5#low": [
+   18,
+   48
+  ],
+  "DeepSeek@ · deepseek-v4-pro-0813": [
+   15,
+   48
+  ],
+  "DeepSeek@ · gemini-3.7-flash": [
+   18,
+   48
+  ],
+  "DeepSeek@ · gemini-4-argon": [
+   21,
+   46
+  ],
+  "DeepSeek@ · gpt-5.6-luna": [
+   21,
+   48
+  ],
+  "DeepSeek@ · gpt-6.1-sol#low": [
+   16,
+   48
+  ],
+  "claude-haiku-5.5 · claude-opus-5.5#low": [
+   17,
+   48
+  ],
+  "claude-haiku-5.5 · deepseek-v4-pro-0813": [
+   26,
+   48
+  ],
+  "claude-haiku-5.5 · gemini-3.7-flash": [
+   21,
+   48
+  ],
+  "claude-haiku-5.5 · gemini-4-argon": [
+   18,
+   46
+  ],
+  "claude-haiku-5.5 · gpt-5.6-luna": [
+   16,
+   48
+  ],
+  "claude-haiku-5.5 · gpt-6.1-sol#low": [
+   15,
+   48
+  ],
+  "claude-opus-5.5#low · deepseek-v4-pro-0813": [
+   19,
+   48
+  ],
+  "claude-opus-5.5#low · gemini-3.7-flash": [
+   20,
+   48
+  ],
+  "claude-opus-5.5#low · gemini-4-argon": [
+   15,
+   46
+  ],
+  "claude-opus-5.5#low · gpt-5.6-luna": [
+   19,
+   48
+  ],
+  "claude-opus-5.5#low · gpt-6.1-sol#low": [
+   8,
+   48
+  ],
+  "deepseek-v4-pro-0813 · gemini-3.7-flash": [
+   21,
+   48
+  ],
+  "deepseek-v4-pro-0813 · gemini-4-argon": [
+   20,
+   46
+  ],
+  "deepseek-v4-pro-0813 · gpt-5.6-luna": [
+   28,
+   48
+  ],
+  "deepseek-v4-pro-0813 · gpt-6.1-sol#low": [
+   21,
+   48
+  ],
+  "gemini-3.7-flash · gemini-4-argon": [
+   16,
+   46
+  ],
+  "gemini-3.7-flash · gpt-5.6-luna": [
+   21,
+   48
+  ],
+  "gemini-3.7-flash · gpt-6.1-sol#low": [
+   16,
+   48
+  ],
+  "gemini-4-argon · gpt-5.6-luna": [
+   18,
+   46
+  ],
+  "gemini-4-argon · gpt-6.1-sol#low": [
+   17,
+   46
+  ],
+  "gpt-5.6-luna · gpt-6.1-sol#low": [
+   15,
+   48
+  ]
+ },
+ "cuarentena": {
+  "gemma4": {
+   "d": 0.188,
+   "n": 250,
+   "distintas": 47
+  },
+  "qwen3.6": {
+   "d": 0.2589641434262948,
+   "n": 251,
+   "distintas": 65
+  },
+  "qwen3.8-flash": {
+   "d": 0.17131474103585656,
+   "n": 251,
+   "distintas": 43
+  },
+  "glm5.3-flash": {
+   "d": 0.1553784860557769,
+   "n": 251,
+   "distintas": 39
+  },
+  "mimo-v2.6-flash": {
+   "d": 0.17928286852589642,
+   "n": 251,
+   "distintas": 45
+  },
+  "deepseek-v4-flash@2026-10-17": {
+   "d": 0.02575107296137339,
+   "n": 233,
+   "distintas": 6
+  }
+ }
+}

@@ -28400,20 +28400,20 @@ window.PSICO = {
   }
  },
  "corpus": {
-  "runs": 481,
-  "runsCompletados": 423,
-  "llamadas": 150093,
-  "errores": 2205,
-  "horas": 178,
+  "runs": 500,
+  "runsCompletados": 442,
+  "llamadas": 151636,
+  "errores": 2206,
+  "horas": 181,
   "modelosProbados": 34,
   "tokens": {
-   "entrada": 70450871,
-   "salida": 30354216,
-   "total": 100805087
+   "entrada": 70689144,
+   "salida": 30357012,
+   "total": 101046156
   },
-  "llamadasConTokens": 147831,
-  "coberturaTokens": 0.9849,
-  "mediaTokensLlamada": 682,
+  "llamadasConTokens": 149373,
+  "coberturaTokens": 0.9851,
+  "mediaTokensLlamada": 676,
   "fuente": "spike/resultados/**/solicitudes.jsonl + manifest_run.json"
  },
  "metodo": {
