@@ -97,6 +97,7 @@ LABS = {
     "inclusionai": "inclusionAI",
     "meta": "Meta", "nvidia": "NVIDIA", "cohere": "Cohere",
     "unbiased": "Unbiased",   # Pareto (el Union Alpha desvelado, 18-09-2026)
+    "minimax": "MiniMax",     # M3.1 Flash (el Space Bunny desvelado, 19-10-2026)
     # ids planos del gateway NaN (se resuelven por prefijo, ver _lab)
     "gemma": "Google", "mimo": "Xiaomi", "glm": "Zhipu",
 }
@@ -112,14 +113,28 @@ DESVELADOS = {
     # unbiased/pareto el 18-09-2026 a la 01:02 local, 2,50/7,50 $ por M.
     "stealth/union-alpha": {"lab": "Unbiased", "nombre": "Pareto",
                            "fecha": "18-09-2026"},
+    # Tres semanas de preview (en el catálogo de OpenRouter desde el
+    # 23-09-2026): MiniMax lo presentó en X el 19-10-2026 («MiniMax-M3.1-Flash
+    # is coming») y OpenRouter lo da por desvelado como MiniMax M3.1 Flash.
+    "stealth/space-bunny-alpha#low": {"lab": "MiniMax",
+                                      "nombre": "MiniMax-M3.1-Flash",
+                                      "fecha": "19-10-2026"},
+    "stealth/space-bunny-alpha#high": {"lab": "MiniMax",
+                                       "nombre": "MiniMax-M3.1-Flash",
+                                       "fecha": "19-10-2026"},
 }
 
 # Ids de llamada que no dicen lo que sirven. El panel de modelos de NaN
 # (13-09-2026) etiqueta «V4-Flash (4.1 version)» lo que su API pide como
 # deepseek-v4-flash: la entrada se publica con el nombre real y conserva el
 # id de llamada en el campo «modelo» (y en los crudos).
+# El 17-10-2026 NaN cambió el modelo detrás del mismo id sin cambiar el id ni
+# el campo `model` de la respuesta: lo medido desde entonces lleva etiqueta
+# de medición (`id@etiqueta`, model_factory.partir_etiqueta) y su panel lo
+# etiqueta deepseek-v4-flash-1017. La entrada de la 4.1 no se toca.
 ALIAS = {
     "deepseek-v4-flash": "deepseek-v4.1-flash",
+    "deepseek-v4-flash@2026-10-17": "deepseek-v4-flash-1017",
 }
 
 # Notas de procedencia al pie de la tabla, por id de llamada.
@@ -135,12 +150,24 @@ _NOTA_SPACE_BUNNY = (
     "preview; modelo anónimo, sin laboratorio conocido) en dos condiciones "
     "de razonamiento, `#low` y `#high`, que son dos entradas; el proveedor "
     "upstream devolvió a menudo respuestas vacías (200 sin `choices`), "
-    "reintentadas con espera: ninguna celda se imputó")
+    "reintentadas con espera: ninguna celda se imputó. La medición es de la "
+    "preview servida en stealth; la versión pública de MiniMax-M3.1-Flash "
+    "(pesos y precio anunciados para el 23-10-2026), si se mide, es otra "
+    "entrada")
 NOTAS = {
     "deepseek-v4-flash": (
         "se pide a la API de NaN como `deepseek-v4-flash`; el panel de "
         "modelos de NaN lo etiqueta «V4-Flash (4.1 version)» (13-09-2026), "
         "así que se publica como DeepSeek-V4.1-Flash"),
+    "deepseek-v4-flash@2026-10-17": (
+        "se pide a la API de NaN como `deepseek-v4-flash`, el MISMO id que la "
+        "4.1: el 17-10-2026 NaN cambió el modelo servido detrás del id sin "
+        "cambiar el id ni el campo `model` de la respuesta. Se midió ese "
+        "mismo día con etiqueta de medición (`deepseek-v4-flash@2026-10-17`, "
+        "registrada en cada solicitud) y se publica con el nombre del panel "
+        "de modelos de NaN, deepseek-v4-flash-1017 (su `/models` sigue "
+        "listando solo `deepseek-v4-flash`, 20-10-2026). La medición de la "
+        "4.1 (13-09-2026) se conserva como entrada propia"),
     "mimo-v2.5": (
         "NaN lo enruta a un proveedor externo (Xiaomi), según su panel de "
         "modelos (13-09-2026): la vía es NaN, el servidor no"),

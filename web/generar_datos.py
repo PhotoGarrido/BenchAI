@@ -905,7 +905,8 @@ PALABRA = {6: "seis", 7: "siete", 8: "ocho", 9: "nueve", 10: "diez",
            31: "treinta y una", 32: "treinta y dos",
            33: "treinta y tres", 34: "treinta y cuatro",
            35: "treinta y cinco", 36: "treinta y seis",
-           37: "treinta y siete", 38: "treinta y ocho"}
+           37: "treinta y siete", 38: "treinta y ocho",
+           39: "treinta y nueve"}
 
 
 def vigilar_denominadores(bench: dict) -> None:

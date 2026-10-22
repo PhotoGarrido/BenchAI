@@ -1,0 +1,72 @@
+[
+  {
+    "modelo": "deepseek-v4-flash@2026-10-17",
+    "suite": [
+      {
+        "experimento": "asch",
+        "estado": "OK",
+        "minutos": 70.7
+      },
+      {
+        "experimento": "milgram",
+        "estado": "OK",
+        "minutos": 46.7
+      },
+      {
+        "experimento": "milgram_vacuna",
+        "estado": "OK",
+        "minutos": 23.3
+      },
+      {
+        "experimento": "cronica_v1",
+        "estado": "OK",
+        "minutos": 32.2
+      },
+      {
+        "experimento": "cronica_v2_s715",
+        "estado": "OK",
+        "minutos": 32.5
+      },
+      {
+        "experimento": "cronica_v2_s716",
+        "estado": "OK",
+        "minutos": 32.4
+      },
+      {
+        "experimento": "cronica_v2_s717",
+        "estado": "OK",
+        "minutos": 32.3
+      },
+      {
+        "experimento": "prision_p1",
+        "estado": "OK",
+        "minutos": 35.4
+      },
+      {
+        "experimento": "prision_p1b",
+        "estado": "OK",
+        "minutos": 38.5
+      },
+      {
+        "experimento": "prision_p2",
+        "estado": "OK",
+        "minutos": 36.8
+      },
+      {
+        "experimento": "prision_p2b",
+        "estado": "OK",
+        "minutos": 39.5
+      },
+      {
+        "experimento": "denuncia",
+        "estado": "OK",
+        "minutos": 35.5
+      },
+      {
+        "experimento": "sicofancia_op",
+        "estado": "OK",
+        "minutos": 68.5
+      }
+    ]
+  }
+]
