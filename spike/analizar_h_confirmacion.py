@@ -75,11 +75,12 @@ def cargar(ms):
     return {"elecciones": el, "des": des, "faceta_de": FACETA, "invalidas": inval, "n": n}
 
 
-def h_para_cuadro(items=None, rutas_sel=None):
+def h_para_cuadro(items=None, rutas_sel=None, ms=None):
     """Escala de H para cuadro_publico_v3.calcular(h=...): I1-H binario en los
-    modelos del cuadro. items=None → las 48."""
-    v = cargar_v3(rutas_sel or cp.selecciones_por_defecto())
-    d = cargar(v["ms"])
+    modelos del cuadro (ms; None = los del banco v3). items=None → las 48."""
+    if ms is None:
+        ms = cargar_v3(rutas_sel or cp.selecciones_por_defecto())["ms"]
+    d = cargar(ms)
     d["items"] = list(items or ITEMS)
     return d
 

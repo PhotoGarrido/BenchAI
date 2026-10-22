@@ -41,11 +41,15 @@ def _hechas(f):
             if r["estado"] != parsers.ERROR_TECNICO}
 
 
-def plan(f_cal, f_p1, sel=SEL):
+def plan(f_cal, f_p1, sel=SEL, ids=None):
+    """Tareas pendientes. ids: si se da, solo esas situaciones (alta de
+    personalidad, PERSONALIDAD.md §41.4: rasgos O, C, E y A, o su forma corta)."""
     idx = {i[0]: k for k, i in enumerate(cal.banco())}
     hechas_cal, hechas_p1 = _hechas(f_cal), _hechas(f_p1)
     tareas = []
     for d in json.loads(sel.read_text(encoding="utf-8")):
+        if ids is not None and d["id"] not in ids:
+            continue
         sit = (d["id"], d["rasgo"], d["situacion"], d["alto"], d["bajo"])
         nombre, genero = _nombre(idx[d["id"]])
         for orden in ("AB", "BA"):
@@ -66,6 +70,24 @@ def plan(f_cal, f_p1, sel=SEL):
                                        prompt=ep1.prompt_situacion(sit, orden, nombre, genero,
                                                                    "sit_propia")))
     return tareas
+
+
+def registro(t, raw, modelo_id, version):
+    """Registro de una tarea del plan (sin la clave «destino», que dice el fichero)."""
+    reg = {k: v for k, v in t.items() if k != "prompt"}
+    if t["destino"] == "cal":
+        v, estado = parsear_ab(raw)
+        reg.update(valor=v, estado=estado, raw=(raw or "")[:300], modelo=modelo_id,
+                   version=cal.VERSION, parser_version=parsers.PARSER_VERSION,
+                   prompt_sha256=manifiesto.sha256_texto(t["prompt"]),
+                   alto_deseable=(None if v is None
+                                  else (v == "A") == (t["orden"] == "AB")))
+    else:
+        reg.update(ep1.puntuar(t, raw), raw=(raw or "")[:400], modelo=modelo_id,
+                   version_bateria=version, parser_version=parsers.PARSER_VERSION,
+                   prompt_sha256=manifiesto.sha256_texto(t["prompt"]),
+                   ts=datetime.datetime.now().isoformat(timespec="seconds"))
+    return reg
 
 
 def main():
@@ -100,20 +122,7 @@ def main():
             print(f"[{args.modelo}] error en {t['id']}: {type(ex).__name__}",
                   file=sys.stderr, flush=True)
             raw = ""
-        reg = {k: v for k, v in t.items() if k != "prompt"}
-        if t["destino"] == "cal":
-            v, estado = parsear_ab(raw)
-            reg.update(valor=v, estado=estado, raw=(raw or "")[:300], modelo=args.modelo,
-                       version=cal.VERSION, parser_version=parsers.PARSER_VERSION,
-                       prompt_sha256=manifiesto.sha256_texto(t["prompt"]),
-                       alto_deseable=(None if v is None
-                                      else (v == "A") == (t["orden"] == "AB")))
-        else:
-            reg.update(ep1.puntuar(t, raw), raw=(raw or "")[:400], modelo=args.modelo,
-                       version_bateria=version, parser_version=parsers.PARSER_VERSION,
-                       prompt_sha256=manifiesto.sha256_texto(t["prompt"]),
-                       ts=datetime.datetime.now().isoformat(timespec="seconds"))
-        return reg
+        return registro(t, raw, args.modelo, version)
 
     def escribir(reg):
         """Cada registro va al fichero de su análisis: calibración o P1."""
