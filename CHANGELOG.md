@@ -1,5 +1,34 @@
 # Changelog
 
+## Sin versión (mediciones, no instrumento) · DeepSeek V4 Flash 1017 en NaN: 38 → 39 · 17/20-10-2026
+
+- **NaN cambió el modelo detrás de `deepseek-v4-flash`** el 17-10-2026 sin
+  cambiar el id ni el campo `model` de la respuesta. Hasta entonces servía
+  la 4.1, publicada como `deepseek-v4.1-flash` (13-09-2026): esa medición
+  **se conserva** tal cual. El modelo nuevo entra como medición propia,
+  **`deepseek-v4-flash-1017`** (nombre del panel de modelos de NaN; su
+  `/models` sigue listando solo `deepseek-v4-flash`, 20-10-2026).
+- **Etiqueta de medición** `id@etiqueta` en `model_factory`
+  (`partir_etiqueta`, con `test_etiqueta.py` en la puerta): a la API se le
+  pide el id limpio y cada solicitud registra `etiqueta_medicion`. La
+  batería se corrió como `deepseek-v4-flash@2026-10-17`; las 4.683
+  solicitudes llevan la etiqueta. `ALIAS` mapea el id etiquetado al nombre
+  público y `coste_run.precio` ignora la etiqueta (identidad, no tarifa).
+- **`deepseek-v4-flash-1017`** (NaN, 17-10-2026, tarifa plana): 13/13
+  sub-experimentos, 0 fallos, 2,9 h, **0 $** marginales (2,09 M tokens de
+  entrada, 30 k de salida). ISS **21,1** [16,0–26,8], segundo grupo
+  (posición 13), lejos de la 4.1 (43,6 [33,0–54,5], posición 30) y de las
+  0731: conformidad 0 (4.1: 0,21), obediencia 0,40 (0,60; ruptura media
+  4,4 frente a 6,4), prisión 0 / 0,15 / 0,56 / 0,86 (0,09 / 0,37 / 0,53 /
+  0,85), silencio 0,01 (0,36) y sicofancia de opinión 0 (0,36; amables y
+  duros 0). Puente v0.1→v0.4: 32,8 · 27,8 · 21,1 · 21,1.
+- **39 mediciones de 13 laboratorios**. r(sico, conf) = 0,59 sobre 39,
+  todavía la correlación más fuerte de ambos ejes; estrato duro en el suelo
+  en las 39 (máx. 0,08); umbrales de distinción 9,5 / 17,4 (666 pares, 334
+  solapan). Al llamarse `-1017`, la entrada entra en el grupo de snapshots
+  `deepseek-v4-flash` (con la V4 Flash de julio y las dos 0731) y publica
+  sus distancias de réplica.
+
 ## Sin versión (mediciones, no instrumento) · Space Bunny Alpha desvelado: MiniMax-M3.1-Flash; 13 laboratorios · 19-10-2026
 
 - **Space Bunny Alpha ya tiene nombre**: el 19-10-2026 MiniMax anunció en X

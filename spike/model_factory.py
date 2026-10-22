@@ -159,6 +159,21 @@ def partir_effort(
     return base, nivel
 
 
+def partir_etiqueta(model_name: str | None) -> "tuple[str | None, str | None]":
+    """`deepseek-v4-flash@v4.2` → (`deepseek-v4-flash`, `v4.2`).
+
+    Un proveedor puede cambiar el modelo DETRÁS del mismo id (NaN lo hizo con
+    deepseek-v4-flash: 0731 → 4.1). La etiqueta es identidad de la medición,
+    como el `#nivel`: viaja en el id que ven la batería y las carpetas, pero a
+    la API se le pide el id limpio, y cada solicitud física la registra."""
+    if not model_name or "@" not in model_name:
+        return model_name, None
+    base, _, etiqueta = model_name.partition("@")
+    if not base or not etiqueta or not all(c.isalnum() or c in ".-_" for c in etiqueta):
+        raise SystemExit(f"[modelo] etiqueta de medición inválida en «{model_name}»")
+    return base, etiqueta
+
+
 def build_model(dry_run: bool, model_name: str | None = None):
     """Modelo listo para Concordia. `model_name` permite enrutar por rol
     (p. ej. protagonistas con NAN_MODEL y población con NAN_MODEL_LIGERO)
@@ -172,6 +187,7 @@ def build_model(dry_run: bool, model_name: str | None = None):
 
     model_name = model_name or os.environ.get("NAN_MODEL")
     model_name, effort = partir_effort(model_name)
+    model_name, etiqueta = partir_etiqueta(model_name)
     # Enrutado por proveedor: los IDs de OpenRouter llevan "/" (org/modelo);
     # los de NaN son planos (qwen3.6, gemma4...).
     if model_name and "/" in model_name:
@@ -182,7 +198,7 @@ def build_model(dry_run: bool, model_name: str | None = None):
             raise SystemExit("Falta OPENROUTER_API_KEY en spike/.env.")
         model = NaNLanguageModel(model_name, api_key=api_key,
                                  base_url=base_url, proveedor="openrouter",
-                                 effort=effort)
+                                 effort=effort, etiqueta=etiqueta)
     else:
         base_url = os.environ.get("NAN_BASE_URL")
         api_key = os.environ.get("NAN_API_KEY")
@@ -196,7 +212,8 @@ def build_model(dry_run: bool, model_name: str | None = None):
                 "[modelo] el sufijo #nivel de razonamiento solo está probado "
                 "en OpenRouter; el gateway de NaN usa otro mecanismo "
                 "(chat_template_kwargs). Quítalo o mide por OpenRouter.")
-        model = NaNLanguageModel(model_name, api_key=api_key, base_url=base_url)
+        model = NaNLanguageModel(model_name, api_key=api_key, base_url=base_url,
+                                 etiqueta=etiqueta)
     model = retry_wrapper.RetryLanguageModel(model, retry_tries=4)
     max_calls = int(os.environ.get("PSICOAI_MAX_CALLS", "2000"))
     return LimiteFailClosed(model, max_calls=max_calls)
@@ -248,12 +265,15 @@ class NaNLanguageModel(language_model.LanguageModel):
     #: Por defecto en la CLASE, no solo en __init__: hay dobles de prueba que
     #: instancian con object.__new__ y no deben reventar por un atributo.
     _effort: str | None = None
+    _etiqueta: str | None = None
 
     def __init__(self, model_name: str, *, api_key: str, base_url: str,
-                 proveedor: str = "nan", effort: str | None = None):
+                 proveedor: str = "nan", effort: str | None = None,
+                 etiqueta: str | None = None):
         from openai import OpenAI
 
         self._model = model_name
+        self._etiqueta = etiqueta
         # Nivel de razonamiento pedido (None = no se toca el parámetro). Es
         # una VARIABLE INDEPENDIENTE, no una preferencia: si no se puede
         # aplicar, el run debe morir, no degradarse (ver _chat).
@@ -365,6 +385,7 @@ class NaNLanguageModel(language_model.LanguageModel):
                        # indistinguibles en los crudos (G3: el manifiesto
                        # prueba QUÉ se pidió, no solo a quién).
                        "reasoning_effort": self._effort,
+                       "etiqueta_medicion": self._etiqueta,
                        "messages": [{"role": "system", "content": sistema},
                                     {"role": "user", "content": prompt}],
                        "system_prompt_sha256": manifiesto.sha256_texto(sistema)}

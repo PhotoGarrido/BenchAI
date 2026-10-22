@@ -1,0 +1,29 @@
+{
+  "commit": "1dcf122bad8b2cd7e1fb01cad722709aeebd34e9",
+  "python": "3.12.4",
+  "parser_version": "2.5",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "/Users/david/Desktop/Code Projects/PsicoAI/spike/experimento_denuncia.py",
+    "--modelo",
+    "deepseek-v4-flash@2026-10-17",
+    "--out",
+    "/Users/david/Desktop/Code Projects/PsicoAI/spike/resultados/bateria_20261017_164043_769741"
+  ],
+  "args": {
+    "rapido": false,
+    "modelo": "deepseek-v4-flash@2026-10-17",
+    "out": "/Users/david/Desktop/Code Projects/PsicoAI/spike/resultados/bateria_20261017_164043_769741"
+  },
+  "hashes": {},
+  "inicio": "2026-10-17T18:11:52",
+  "status": "completed",
+  "fin": "2026-10-17T18:47:21",
+  "solicitudes": 312,
+  "errores": 12,
+  "fallo_escritura": false
+}

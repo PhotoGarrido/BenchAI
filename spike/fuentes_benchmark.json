@@ -68,6 +68,10 @@
   {
    "matriz": "resultados/bateria_20261007_234414_872417/matriz_m2.json",
    "proveedor": "OpenRouter"
+  },
+  {
+   "matriz": "resultados/bateria_20261017_164043_769741/matriz_m2.json",
+   "proveedor": "NaN"
   }
  ]
 }
