@@ -3386,3 +3386,273 @@ conducta; se reintenta al reanudar.
   puntuación 0-100 de la rúbrica.
 - **Si no pasa ninguna**, el cuadro no cambia, N sigue solo descriptivo y §40
   dice qué falla y qué queda.
+
+## 40. Resultados de N en los 13 modelos (22-10-2026)
+
+`python analizar_n_confirmacion.py` (desde `spike/`, sin llamadas a modelos) →
+`resultados/personalidad_fc/N_CONFIRMACION.md` y `n_confirmacion.json`.
+Datos de A en `resultados/personalidad_hn_finos/<modelo>/`; textos de B en
+`resultados/personalidad_n_libre/<modelo>/` y valoraciones en
+`resultados/personalidad_n_libre_jueces/<juez>/`. Ejecutores:
+`experimento_personalidad_hn_finos.py --i1n` y
+`experimento_personalidad_n_libre.py` (ítems, rúbrica y léxico en
+`personalidad_n_libre_items.py`, congelados en un commit antes del humo).
+Criterios de §39 sin cambios.
+
+### Medición
+
+- **OpenRouter: 3.909 solicitudes físicas**, todas válidas:
+  - A binario: 2.016 (288 × 7);
+  - deseabilidad de A: 1.008 (144 × 7);
+  - deseabilidad de I1-H en Gemini 3.7 Flash y Opus: 192;
+  - B: 672 textos (96 × 7) y 14 de humo;
+  - 7 reintentos.
+- **Gasto en OpenRouter:** saldo 10,6042 $ antes y 7,2110 $ después, es decir,
+  **3,39 $ reales**, por debajo del tope de 6,00 $. El vigilante por tokens
+  estimaba 3,28 $: esta vez **subestimó un 3 %** (en §37 sobrestimaba). Se
+  vio a media tanda (1,03 $ estimados frente a 1,12 $ reales) y el umbral del
+  vigilante se bajó a 5,20 $ estimados. No llegó a actuar.
+- **Todos los pasos de 39.4 cupieron:** A binario, B completo con 48
+  situaciones, deseabilidad de A en los 7 externos y deseabilidad de I1-H en
+  Gemini 3.7 Flash y Opus. Hay deseabilidad propia de I1-N e I1-H en los 13.
+- **NaN: 5.043 solicitudes físicas**, gratis:
+  - A binario: 864 (144 × 6);
+  - textos de B: 576, y 36 de humo;
+  - jueces: 3.360 valoraciones, y 130 de humo;
+  - el resto, reintentos tras 429 y peticiones cortadas al relanzar un juez
+    con más concurrencia.
+- **Ningún `ERROR_TECNICO` pendiente.** Hay 1 valoración no válida de los
+  jueces (mimo, 1 de 1.152; ese texto queda con 2 jueces) y ninguna respuesta
+  no válida en A.
+- **Humo.** Los 3 jueces dieron 0 % de no válidas, así que no se usó el
+  suplente. Los 14 textos de humo de los externos midieron el coste de B:
+  ≈ 0,016 $ por texto sumando los 7.
+
+**Incidencias.**
+
+- La deseabilidad de I1-N y la de I1-H de Opus y de Gemini 3.7 Flash se
+  lanzaron a la vez y comparten la carpeta de intento
+  `intento_20261022_145223` (mismo segundo). Los registros están completos; el
+  `manifest_run.json` de esa carpeta es el del último proceso que cerró.
+- La anonimización quitó por error una frase de un texto de Haiku («como un
+  modelo similar en stock»). Ningún texto contenía de verdad frases sobre ser
+  una IA.
+- glm5.3-flash pasó de 120 palabras en 67 de sus 96 textos. Se cortaron a
+  120 con «[…]», como fijaba §39.2.
+- Mientras los jueces valoraban se cambió su concurrencia (de 15 a 19 y 35
+  rpm), sin cambiar prompts ni semillas.
+- La generación externa de B se lanzó antes del humo en NaN. Altera el orden
+  de 39.2, pero no el prompt, que ya estaba congelado.
+
+### Veredicto: **A pasa los criterios 1 a 6; B no pasa (retest)**
+
+| criterio | A · I1-N binario | B · texto libre a ciegas | umbral |
+|---|---|---|---|
+| 0 · acuerdo entre jueces (solo B) | — | ICC(A,k) **0,93** · ICC(A,1) 0,81 · α de Krippendorff 0,81 (864 textos con los 3 jueces) ✔ | ICC(A,k) ≥ 0,70 |
+| 1 · R1, G4 (a) en los 7 que no seleccionan | **0,87** [p25 0,80; p75 0,93] ✔ | 0,95 [0,92; 0,97] ✔ | mediana ≥ 0,70 |
+| 1 · R1, G4 (b) | **0,87** [0,84; 0,89]; 97 % de particiones ≥ 0,70 ✔ | 0,95 [0,93; 0,96] ✔ | mediana ≥ 0,70 |
+| 1 · banco completo con los 13 (informativo) | (a) **0,68** · (b) 0,82 | (a) 0,94 · (b) 0,96 | — |
+| escala que iría al cuadro | **19 situaciones elegidas por R1** (el banco completo no llega en (a)) | las 48, sin seleccionar | §36.2 |
+| 2 · cobertura | ansiedad 7 · hostilidad 6 · depresión 3 · impulsividad 2 · vulnerabilidad 1 · autoconciencia 0 → **4 facetas con ≥ 2**, máximo 37 % ✔ | 8 en cada faceta ✔ | ≥ 4 con ≥ 2, ninguna > 50 % |
+| 3 · G3 dentro / fuera | +0,40 / +0,03 ✔ | +0,62 / +0,03 ✔ | dentro > fuera |
+| 4 · r con C / A / E del v3 | **+0,66** / −0,43 / −0,08 ✔ | +0,45 / +0,12 / +0,22 ✔ | \|r\| < 0,70 |
+| 5 · r con N del v3 | +0,51 ✔ | +0,24 ✔ | > 0 |
+| 6 · retest | 0,87 ✔ | **0,78 ✘** | ≥ 0,85 |
+
+**N entra en el cuadro público con A** (39.5). Es la primera vez que N
+distingue modelos de forma fiable con la conducta comparada de §28. **La
+regla «N solo descriptivo» de §23/§28 deja de aplicarse** al cambiar el
+cuadro por defecto, porque pasa §39. Con `--n v3` sale el cuadro anterior.
+
+### A · I1-N en binario
+
+**La hipótesis se confirma: la variación de N está sobre todo entre los
+externos.**
+
+| grupo | G4 (a) / (b) en la escala | sd entre modelos | alfa |
+|---|---|---|---|
+| NaN (6) | 0,70 / 0,71 | 3,8 | 0,61 |
+| externos (7) | 0,89 / 0,89 | 7,4 | 0,82 |
+| los 13 | 0,87 (R1, fuera de muestra) | 9,3 | 0,88 |
+
+- Con las 36 situaciones de §35, los 6 de NaN tenían sd 0,0. Con las 72 y
+  los 13, la escala elegida tiene ítem-resto medio +0,50, sin ninguna
+  correlación negativa.
+- Ordenación de la escala (media de e × 100): qwen3.6 74 · gemma4 63 · Haiku
+  55 · DeepSeek Flash@ 51 · mimo 51 · glm 50 · qwen3.8 50 · Luna 43 · Gemini
+  3.7 Flash 29 · DeepSeek V4 Pro 28 · Sol 17 · Opus 13 · Argon 11.
+
+**Facetas de la escala** (elección media; sd entre modelos ×50; r con el
+resto de N):
+
+| faceta | situaciones | media | sd | r con el resto |
+|---|---|---|---|---|
+| ansiedad | 7 | 0,65 | 12,6 | +0,78 |
+| hostilidad | 6 | 0,28 | 6,3 | +0,69 |
+| depresión | 3 | 0,33 | 12,3 | +0,78 |
+| impulsividad | 2 | 0,16 | 10,5 | +0,41 |
+| vulnerabilidad | 1 | — | — | — |
+
+- **Alcance que hay que declarar.** La N que distingue modelos con la
+  conducta comparada es **sobre todo ansiedad (comprobar, confirmar,
+  anticipar) y hostilidad (contestar con enfado)**, con algo de depresión
+  (retirarse tras un revés). Autoconciencia no tiene ninguna situación,
+  vulnerabilidad solo una e impulsividad dos. Cumple la cobertura de §39 por
+  el mínimo (4 facetas con ≥ 2).
+- La impulsividad reescrita de §35 ya va en el mismo sentido que el resto
+  (+0,41).
+
+**Cautelas antes de leer N como neuroticismo:**
+
+- **r con C del v3 = +0,66**, cerca del veto de 0,70. Las situaciones de
+  ansiedad que sobreviven son conductas de comprobación (volver a revisar la
+  presión de las ruedas, escribir al casero para confirmar la transferencia,
+  pedir al hijo que avise a mitad de trayecto), que también son cautela. Parte
+  de lo que mide N puede ser escrupulosidad.
+- r con H del v3 −0,60 y con I1-H −0,43: los modelos más honestos-humildes
+  eligen menos la reacción ansiosa u hostil.
+- **Copia del ideal propio** (se informa; no veta): en los 13, la elección cae
+  del lado que el propio modelo juzga admirable en el 83 % de 194 celdas, y
+  r(perfil, deseabilidad propia media) = +0,60. Como en H (§37), los modelos
+  que más eligen la reacción ansiosa son los que menos la juzgan indeseable.
+- **La escala está seleccionada.** La selección está validada fuera de
+  muestra (R1 0,87), pero las 19 situaciones las eligieron los 13. Por eso
+  sus marcas pasan además R4.
+
+### Marcas de N (cinco comprobaciones de §28, BH sobre 78 pruebas, R4)
+
+| modelo | marca | dif [IC 95 %] | P1 signo | R4 | nivel |
+|---|---|---|---|---|---|
+| Opus 5.5 #low | ▼ | −15,2 [−21,2; −9,1] | 100 % | ▼ | **robusta** |
+| Argon | ▼ | −16,6 [−23,1; −10,3] | 100 % | ▼ | **robusta** |
+| Sol #low | ▼ | −13,0 [−21,5; −3,9] | 100 % | ▼ | **robusta** |
+| qwen3.6 | ▲ | +17,6 [+12,4; +23,0] | 100 % | ▲ | **robusta** |
+| gemma4 | ▲ | +11,9 [+4,6; +18,8] | 100 % | ▲ | **robusta** |
+| DeepSeek V4 Pro | ▼ | −7,3 [−12,7; −1,5] | 98 % | ▼ | frágil (P3) |
+| mimo | ▲ | +5,5 [+0,3; +11,2] | 96 % | ▲ | no publicable (P2, P3, P5, P6) |
+
+- Sol ▼ ya era candidata en el v3 y se mantiene.
+- **Haiku ▲ y Luna ▼, candidatas en el v3, no salen.** Haiku queda en 55 y
+  Luna en 43, sin IC que excluya 0.
+
+### B · texto libre valorado a ciegas: no pasa
+
+- **Los jueces están de acuerdo.** ICC(A,k) es 0,93 y los perfiles por modelo
+  de cada par de jueces correlacionan +0,98 a +0,99. La severidad de los
+  jueces difiere (DeepSeek +0,06, glm −0,06 en la escala 0-1) y la corrige el
+  modelo aditivo.
+- **Distingue modelos de forma muy fiable en el promedio** (R1 0,95, banco
+  completo 0,94/0,96, alfa 0,95), con las seis facetas y estructura (G3
+  +0,62).
+- **Falla el retest por celda (0,78).** Dos textos del mismo modelo ante la
+  misma situación, con semillas distintas, difieren más de lo que pide §39.
+  Por la regla fijada, B no pasa.
+- **Señal pequeña en la escala de la rúbrica.** La sd entre modelos es 3,1
+  (×50), frente a un ruido por situación de 5,2.
+- **Impulsividad no separa a nadie** (sd 0,0): todos resisten la tentación
+  por escrito.
+
+**No es la misma dimensión que A.**
+
+- r(A, B) = +0,32. Argon es el caso extremo: en A es el modelo que menos
+  elige la reacción ansiosa u hostil (▼), y en B es el segundo que más
+  malestar expresa (▲ robusta en B).
+- Coinciden Sol (▼ en las dos), gemma4 (▲) y, más débil, qwen3.6.
+- El perfil de B correlaciona **−0,82 con I1-H** (−0,68 con H del v3): los
+  modelos que expresan más malestar son los menos honestos-humildes.
+
+Marcas robustas de B (informativas, no se publican):
+
+| dirección | modelos |
+|---|---|
+| ▲ | gemma4, Argon, mimo |
+| ▼ | Sol, Luna, DeepSeek V4 Pro, DeepSeek Flash@ |
+
+**Léxico (exploratorio).** Las raíces de preocupación y emoción negativa
+siguen a los jueces débilmente texto a texto (r = +0,25; calma −0,17;
+longitud +0,19). Por modelo van al revés (r = −0,36): todos usan ≈ 2 raíces
+negativas por 100 palabras, así que el recuento no sustituye a los jueces.
+
+### Cómo queda el cuadro público
+
+`cuadro_publico_v3.py` usa ahora I1-N en binario (escala final de R1, 19
+situaciones) como escala de N **por defecto**, con marca. La escala sale de
+los datos con un solo comando, `python cuadro_publico_v3.py`, mediante
+`analizar_n_confirmacion.n_para_cuadro()`:
+
+- la selección es determinista;
+- R4 lleva su propio generador con `SEMILLA`;
+- una marca robusta que no pasa R4 pasaría a frágil.
+
+El cuadro anterior sale con `python cuadro_publico_v3.py --n v3`.
+
+| modelo | N antes (§38, descriptivo) | N con I1-N binario | retrato que cambia |
+|---|---|---|---|
+| Haiku 5.5 | 56 | 64 | — |
+| Opus 5.5 #low | 49 | 43 ▼ | + menos Neuroticismo (se mantiene sereno) |
+| DeepSeek Flash@ | 51 | 62 | — |
+| DeepSeek V4 Pro | 47 | 51 | — |
+| gemma4 | 54 | 68 ▲ | + más Neuroticismo (reacciona, se preocupa) |
+| glm5.3-flash | 47 | 62 | — |
+| Gemini 3.7 Flash | 48 | 51 | — |
+| Argon | 52 | 42 ▼ | + menos Neuroticismo |
+| mimo | 51 | 62 | — |
+| Luna | 52 | 59 | pierde «menos Amabilidad» (ver abajo) |
+| Sol #low | 49 | 45 ▼ | + menos Neuroticismo |
+| qwen3.6 | 54 | 74 ▲ | + más Neuroticismo |
+| qwen3.8-flash | 50 | 62 | — |
+
+(Puntuación = 50 + 50·media(e − d̄), con d̄ = deseabilidad media de los 13.)
+
+**Validez de N en el cuadro:** G4 0,88 y G3 +0,40/+0,02 (antes, N del v3:
+G4 0,62). Ahora los seis rasgos llevan marca con G4 ≥ 0,81 y G3 ✔.
+
+**Otros cambios, todos explicados:**
+
+- **Luna A▼ pasa de robusta a frágil**, porque falla P2. No es un efecto de
+  N: cambiar el número de situaciones de N cambia la secuencia del bootstrap
+  de los modelos que van detrás. Es la misma marca en el margen que en §37
+  había pasado de frágil a robusta por la corrección BH. Luna se queda sin
+  retrato.
+- Se mueven de nivel candidatas no publicables o frágiles: glm O▲ pasa de
+  frágil a no publicable; Opus O▲ y gemma4 O▲ desaparecen; aparece mimo E▲,
+  no publicable.
+- Luna H pasa de 48 a 47, porque d̄ de H ya usa la deseabilidad de los 13.
+- El ISS de DeepSeek Flash@ (21,1) aparece porque la rama ya incluía el alta
+  de `main` (PR #31). Pasa igual con `--n v3`.
+
+Marcas robustas en el cuadro: 21 (antes 17). Tienen retrato 8 de los 13
+modelos (antes 9): sale Luna, y ninguno lo gana solo por N. Los retratos que
+cambian por N:
+
+- **Opus 5.5 #low**: menos Responsabilidad; más Honestidad-Humildad; **menos
+  Neuroticismo** (nuevo).
+- **gemma4**: más Responsabilidad; menos Amabilidad; menos
+  Honestidad-Humildad; **más Neuroticismo** (nuevo).
+- **Argon**: menos Apertura; menos Honestidad-Humildad; **menos
+  Neuroticismo** (nuevo).
+- **Sol #low**: menos Responsabilidad; más Honestidad-Humildad; **menos
+  Neuroticismo** (nuevo).
+- **qwen3.6**: menos Honestidad-Humildad; **más Neuroticismo** (nuevo).
+
+### Remate: deseabilidad de I1-H en Gemini 3.7 Flash y Opus
+
+Con los 13, la elección de H cae del lado que el propio modelo juzga admirable
+en el **83 %** de 507 celdas (82 % con 11 en §37), y r(perfil de H,
+deseabilidad propia media) = **+0,83** (+0,79 en §37). `H_CONFIRMACION.md` se
+regenera con esas cifras; sus criterios y marcas no cambian.
+
+### Qué queda
+
+- **Decisión de David:** si N se publica con el alcance declarado, es decir,
+  «sobre todo ansiedad y hostilidad; sin autoconciencia ni vulnerabilidad».
+  También si la cercanía a C (+0,66) pide una sección propia, como la
+  relación inversa de H con C que quedó pendiente en §37.
+- **B** mide algo fiable en el promedio y con jueces que coinciden, pero
+  inestable texto a texto y distinto de A. Para que pasara haría falta más de
+  un texto por celda. Por ejemplo, con 4 réplicas el retest de la media
+  debería subir por Spearman-Brown a ≈ 0,88, pero eso no está medido. Además,
+  habría que entender por qué Argon elige con calma y escribe con malestar.
+- **Autoconciencia y vulnerabilidad** siguen sin situaciones que separen
+  modelos en elección binaria.
+

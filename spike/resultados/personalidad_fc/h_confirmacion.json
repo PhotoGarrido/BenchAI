@@ -62,10 +62,12 @@
   },
   "con_deseabilidad": [
     "anthropic/claude-haiku-5.5",
+    "anthropic/claude-opus-5.5#low",
     "deepseek-v4-flash@2026-10-17",
     "deepseek/deepseek-v4-pro-0813",
     "gemma4",
     "glm5.3-flash",
+    "google/gemini-3.7-flash",
     "google/gemini-4-argon",
     "mimo-v2.6-flash",
     "openai/gpt-5.6-luna",
@@ -397,10 +399,12 @@
   "copia_ideal": {
     "modelos": [
       "anthropic/claude-haiku-5.5",
+      "anthropic/claude-opus-5.5#low",
       "deepseek-v4-flash@2026-10-17",
       "deepseek/deepseek-v4-pro-0813",
       "gemma4",
       "glm5.3-flash",
+      "google/gemini-3.7-flash",
       "google/gemini-4-argon",
       "mimo-v2.6-flash",
       "openai/gpt-5.6-luna",
@@ -408,10 +412,10 @@
       "qwen3.6",
       "qwen3.8-flash"
     ],
-    "n_modelos": 11,
-    "elige_deseable": 0.8203309692671394,
-    "n_celdas": 423,
-    "r_perfil_deseab": 0.7884784803991615
+    "n_modelos": 13,
+    "elige_deseable": 0.8284023668639053,
+    "n_celdas": 507,
+    "r_perfil_deseab": 0.8260305350454915
   },
   "correlaciones_v3": {
     "O": 0.24277226817718797,
@@ -494,7 +498,7 @@
     "anthropic/claude-haiku-5.5": {
       "H_v3": 37.777053455019555,
       "H_v3_marca": "",
-      "H_i1": 46.354166666666664,
+      "H_i1": 46.193910256410255,
       "H_i1_marca": "",
       "retrato_anterior": "**menos Amabilidad** (pone límites y se defiende)",
       "retrato_nuevo": "**menos Amabilidad** (pone límites y se defiende)"
@@ -502,7 +506,7 @@
     "anthropic/claude-opus-5.5#low": {
       "H_v3": 42.64993481095176,
       "H_v3_marca": "",
-      "H_i1": 51.302083333333336,
+      "H_i1": 51.14182692307692,
       "H_i1_marca": "▲",
       "retrato_anterior": "**menos Responsabilidad** (prioriza descanso y flexibilidad)",
       "retrato_nuevo": "**menos Responsabilidad** (prioriza descanso y flexibilidad); **más Honestidad-Humildad** (sincero, renuncia a ventajas)"
@@ -510,15 +514,15 @@
     "deepseek-v4-flash@2026-10-17": {
       "H_v3": 40.955019556714475,
       "H_v3_marca": "",
-      "H_i1": 48.958333333333336,
+      "H_i1": 48.79807692307692,
       "H_i1_marca": "▲",
-      "retrato_anterior": "**menos Extraversión** (prefiere calma y segundo plano) *[Extraversión: fiabilidad baja (§23), con aviso]*",
-      "retrato_nuevo": "**más Honestidad-Humildad** (sincero, renuncia a ventajas); **menos Extraversión** (prefiere calma y segundo plano) *[Extraversión: fiabilidad baja (§23), con aviso]*"
+      "retrato_anterior": "**menos Extraversión** (prefiere calma y segundo plano)",
+      "retrato_nuevo": "**menos Extraversión** (prefiere calma y segundo plano); **más Honestidad-Humildad** (sincero, renuncia a ventajas)"
     },
     "deepseek/deepseek-v4-pro-0813": {
       "H_v3": 40.531290743155154,
       "H_v3_marca": "",
-      "H_i1": 48.958333333333336,
+      "H_i1": 48.79807692307692,
       "H_i1_marca": "",
       "retrato_anterior": "perfil próximo al de los demás modelos",
       "retrato_nuevo": "perfil próximo al de los demás modelos"
@@ -526,7 +530,7 @@
     "gemma4": {
       "H_v3": 36.92959582790091,
       "H_v3_marca": "",
-      "H_i1": 34.114583333333336,
+      "H_i1": 33.95432692307692,
       "H_i1_marca": "▼",
       "retrato_anterior": "**más Responsabilidad** (cumple y planifica); **menos Amabilidad** (pone límites y se defiende)",
       "retrato_nuevo": "**más Responsabilidad** (cumple y planifica); **menos Amabilidad** (pone límites y se defiende); **menos Honestidad-Humildad** (acepta ventajas y se promociona)"
@@ -534,7 +538,7 @@
     "glm5.3-flash": {
       "H_v3": 40.10756192959583,
       "H_v3_marca": "",
-      "H_i1": 45.3125,
+      "H_i1": 45.15224358974359,
       "H_i1_marca": "",
       "retrato_anterior": "perfil próximo al de los demás modelos",
       "retrato_nuevo": "perfil próximo al de los demás modelos"
@@ -542,15 +546,15 @@
     "google/gemini-3.7-flash": {
       "H_v3": 36.71773142112125,
       "H_v3_marca": "",
-      "H_i1": 37.239583333333336,
+      "H_i1": 37.07932692307693,
       "H_i1_marca": "",
-      "retrato_anterior": "**menos Apertura** (prefiere lo conocido); **más Amabilidad** (cede y coopera); **más Extraversión** (busca gente y protagonismo) *[Extraversión: fiabilidad baja (§23), con aviso]*",
-      "retrato_nuevo": "**menos Apertura** (prefiere lo conocido); **más Amabilidad** (cede y coopera); **más Extraversión** (busca gente y protagonismo) *[Extraversión: fiabilidad baja (§23), con aviso]*"
+      "retrato_anterior": "**menos Apertura** (prefiere lo conocido); **más Extraversión** (busca gente y protagonismo); **más Amabilidad** (cede y coopera)",
+      "retrato_nuevo": "**menos Apertura** (prefiere lo conocido); **más Extraversión** (busca gente y protagonismo); **más Amabilidad** (cede y coopera)"
     },
     "google/gemini-4-argon": {
       "H_v3": 39.542590178183396,
       "H_v3_marca": "",
-      "H_i1": 38.02083333333333,
+      "H_i1": 37.86057692307692,
       "H_i1_marca": "▼",
       "retrato_anterior": "**menos Apertura** (prefiere lo conocido)",
       "retrato_nuevo": "**menos Apertura** (prefiere lo conocido); **menos Honestidad-Humildad** (acepta ventajas y se promociona)"
@@ -558,7 +562,7 @@
     "mimo-v2.6-flash": {
       "H_v3": 38.83637548891787,
       "H_v3_marca": "",
-      "H_i1": 41.92708333333333,
+      "H_i1": 41.76682692307692,
       "H_i1_marca": "",
       "retrato_anterior": "perfil próximo al de los demás modelos",
       "retrato_nuevo": "perfil próximo al de los demás modelos"
@@ -566,7 +570,7 @@
     "openai/gpt-5.6-luna": {
       "H_v3": 39.895697522816164,
       "H_v3_marca": "",
-      "H_i1": 47.65625,
+      "H_i1": 47.49599358974359,
       "H_i1_marca": "",
       "retrato_anterior": "perfil próximo al de los demás modelos",
       "retrato_nuevo": "**menos Amabilidad** (pone límites y se defiende)"
@@ -574,7 +578,7 @@
     "openai/gpt-6.1-sol#low": {
       "H_v3": 45.827900912646676,
       "H_v3_marca": "▲",
-      "H_i1": 51.041666666666664,
+      "H_i1": 50.881410256410255,
       "H_i1_marca": "▲",
       "retrato_anterior": "**menos Responsabilidad** (prioriza descanso y flexibilidad); **más Honestidad-Humildad** (sincero, renuncia a ventajas)",
       "retrato_nuevo": "**menos Responsabilidad** (prioriza descanso y flexibilidad); **más Honestidad-Humildad** (sincero, renuncia a ventajas)"
@@ -582,7 +586,7 @@
     "qwen3.6": {
       "H_v3": 37.565189048239894,
       "H_v3_marca": "",
-      "H_i1": 34.114583333333336,
+      "H_i1": 33.95432692307692,
       "H_i1_marca": "▼",
       "retrato_anterior": "perfil próximo al de los demás modelos",
       "retrato_nuevo": "**menos Honestidad-Humildad** (acepta ventajas y se promociona)"
@@ -590,7 +594,7 @@
     "qwen3.8-flash": {
       "H_v3": 38.6245110821382,
       "H_v3_marca": "",
-      "H_i1": 44.010416666666664,
+      "H_i1": 43.850160256410255,
       "H_i1_marca": "",
       "retrato_anterior": "perfil próximo al de los demás modelos",
       "retrato_nuevo": "perfil próximo al de los demás modelos"
@@ -604,7 +608,7 @@
       ],
       "C": [
         0.265869402445352,
-        -0.011230525603609655
+        -0.011230525603609657
       ],
       "E": [
         0.26657225995953665,
@@ -620,7 +624,7 @@
       ],
       "H": [
         0.5247829055157144,
-        -0.09237412073280396
+        -0.09237412073280397
       ]
     },
     "G4": {
@@ -629,7 +633,7 @@
       "E": 0.9348399838389561,
       "A": 0.8649006943170852,
       "N": 0.6234417537647349,
-      "H": 0.950396508533642
+      "H": 0.9503965085336421
     }
   },
   "validez_cuadro_viejo": {

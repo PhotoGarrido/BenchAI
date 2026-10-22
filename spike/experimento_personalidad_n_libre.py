@@ -215,6 +215,8 @@ def main():
     ap.add_argument("--juez", help="valora los textos (fase J, solo NaN)")
     ap.add_argument("--humo", action="store_true", help="6 situaciones × 1 réplica, aparte")
     ap.add_argument("--por-faceta", type=int, default=None)
+    ap.add_argument("--max-tareas", type=int, default=None,
+                    help="solo las K primeras tareas del plan (humo de coste en los externos: 2)")
     ap.add_argument("--externo", action="store_true", help="admite ids de OpenRouter (de pago)")
     ap.add_argument("--hilos", type=int, default=1)
     ap.add_argument("--plan", action="store_true")
@@ -234,7 +236,7 @@ def main():
     if args.externo and "/" not in nombre:
         raise SystemExit("[NLB] --externo es solo para ids de OpenRouter")
     if args.modelo:
-        tareas = plan_tl(args.por_faceta, args.humo)
+        tareas = plan_tl(args.por_faceta, args.humo)[:args.max_tareas]
         base = (SALIDA_HUMO if args.humo else SALIDA) / nombre.replace("/", "_")
         mt, temp = 400, TEMPERATURA
     else:

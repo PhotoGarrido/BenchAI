@@ -23,7 +23,7 @@ G3 por pares de facetas de H: desinteres_riqueza–equidad +0.45, desinteres_riq
 
 ## Copia del ideal propio (se informa, no veta: cambio posterior a §35)
 
-En los 11 modelos con deseabilidad propia en las 48 situaciones (anthropic/claude-haiku-5.5, deepseek-v4-flash@2026-10-17, deepseek/deepseek-v4-pro-0813, gemma4, glm5.3-flash, google/gemini-4-argon, mimo-v2.6-flash, openai/gpt-5.6-luna, openai/gpt-6.1-sol#low, qwen3.6, qwen3.8-flash): la elección cae del lado que el propio modelo juzga admirable en el **82 %** de 423 celdas (umbral de K7 en §34: 70 %); r(perfil de H, deseabilidad propia media) = **+0.79**.
+En los 13 modelos con deseabilidad propia en las 48 situaciones (anthropic/claude-haiku-5.5, anthropic/claude-opus-5.5#low, deepseek-v4-flash@2026-10-17, deepseek/deepseek-v4-pro-0813, gemma4, glm5.3-flash, google/gemini-3.7-flash, google/gemini-4-argon, mimo-v2.6-flash, openai/gpt-5.6-luna, openai/gpt-6.1-sol#low, qwen3.6, qwen3.8-flash): la elección cae del lado que el propio modelo juzga admirable en el **83 %** de 507 celdas (umbral de K7 en §34: 70 %); r(perfil de H, deseabilidad propia media) = **+0.83**.
 
 ## Descriptivos
 
@@ -65,14 +65,14 @@ Cambios de nivel en marcas de otros rasgos al cambiar H (BH sobre 78 pruebas): m
 |---|---|---|---|---|
 | anthropic/claude-haiku-5.5 | 38  | 46  | **menos Amabilidad** (pone límites y se defiende) | **menos Amabilidad** (pone límites y se defiende) |
 | anthropic/claude-opus-5.5#low | 43  | 51 ▲ | **menos Responsabilidad** (prioriza descanso y flexibilidad) | **menos Responsabilidad** (prioriza descanso y flexibilidad); **más Honestidad-Humildad** (sincero, renuncia a ventajas) |
-| deepseek-v4-flash@2026-10-17 | 41  | 49 ▲ | **menos Extraversión** (prefiere calma y segundo plano) *[Extraversión: fiabilidad baja (§23), con aviso]* | **más Honestidad-Humildad** (sincero, renuncia a ventajas); **menos Extraversión** (prefiere calma y segundo plano) *[Extraversión: fiabilidad baja (§23), con aviso]* |
+| deepseek-v4-flash@2026-10-17 | 41  | 49 ▲ | **menos Extraversión** (prefiere calma y segundo plano) | **menos Extraversión** (prefiere calma y segundo plano); **más Honestidad-Humildad** (sincero, renuncia a ventajas) |
 | deepseek/deepseek-v4-pro-0813 | 41  | 49  | perfil próximo al de los demás modelos | perfil próximo al de los demás modelos |
 | gemma4 | 37  | 34 ▼ | **más Responsabilidad** (cumple y planifica); **menos Amabilidad** (pone límites y se defiende) | **más Responsabilidad** (cumple y planifica); **menos Amabilidad** (pone límites y se defiende); **menos Honestidad-Humildad** (acepta ventajas y se promociona) |
 | glm5.3-flash | 40  | 45  | perfil próximo al de los demás modelos | perfil próximo al de los demás modelos |
-| google/gemini-3.7-flash | 37  | 37  | **menos Apertura** (prefiere lo conocido); **más Amabilidad** (cede y coopera); **más Extraversión** (busca gente y protagonismo) *[Extraversión: fiabilidad baja (§23), con aviso]* | **menos Apertura** (prefiere lo conocido); **más Amabilidad** (cede y coopera); **más Extraversión** (busca gente y protagonismo) *[Extraversión: fiabilidad baja (§23), con aviso]* |
+| google/gemini-3.7-flash | 37  | 37  | **menos Apertura** (prefiere lo conocido); **más Extraversión** (busca gente y protagonismo); **más Amabilidad** (cede y coopera) | **menos Apertura** (prefiere lo conocido); **más Extraversión** (busca gente y protagonismo); **más Amabilidad** (cede y coopera) |
 | google/gemini-4-argon | 40  | 38 ▼ | **menos Apertura** (prefiere lo conocido) | **menos Apertura** (prefiere lo conocido); **menos Honestidad-Humildad** (acepta ventajas y se promociona) |
 | mimo-v2.6-flash | 39  | 42  | perfil próximo al de los demás modelos | perfil próximo al de los demás modelos |
-| openai/gpt-5.6-luna | 40  | 48  | perfil próximo al de los demás modelos | **menos Amabilidad** (pone límites y se defiende) |
+| openai/gpt-5.6-luna | 40  | 47  | perfil próximo al de los demás modelos | **menos Amabilidad** (pone límites y se defiende) |
 | openai/gpt-6.1-sol#low | 46 ▲ | 51 ▲ | **menos Responsabilidad** (prioriza descanso y flexibilidad); **más Honestidad-Humildad** (sincero, renuncia a ventajas) | **menos Responsabilidad** (prioriza descanso y flexibilidad); **más Honestidad-Humildad** (sincero, renuncia a ventajas) |
 | qwen3.6 | 38  | 34 ▼ | perfil próximo al de los demás modelos | **menos Honestidad-Humildad** (acepta ventajas y se promociona) |
 | qwen3.8-flash | 39  | 44  | perfil próximo al de los demás modelos | perfil próximo al de los demás modelos |

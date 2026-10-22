@@ -45,7 +45,7 @@ def puntuar(elecciones, d=None, filtro=None):
     filtro: función (orden, rep) → bool para quedarse con una parte."""
     out = {}
     for i, v in elecciones.items():
-        xs = [(1.0 if alto else 0.0) - (d[i] if d is not None else 0.0)
+        xs = [float(alto) - (d[i] if d is not None else 0.0)
               for orden, rep, alto in v if filtro is None or filtro(orden, rep)]
         if xs:
             out[i] = float(np.mean(xs))
