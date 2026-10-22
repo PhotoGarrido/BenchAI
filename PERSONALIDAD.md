@@ -3193,3 +3193,196 @@ aprueba.
 **Cuadro resultante** (`CUADRO_PUBLICO.md`): mismas puntuaciones y marcas
 que en §37. Solo cambia el texto de E, sin el aviso, y desaparecen el
 conflicto y el escenario alternativo.
+
+## 39. Neuroticismo en los 13 modelos: I1-N en binario y texto libre valorado a ciegas · criterios fijados ANTES de medir (22-10-2026)
+
+**Objetivo (David, 22-10).** Que los seis rasgos del cuadro público, con la
+conducta comparada de §28, distingan modelos de forma fiable. O, C, E, A y H
+ya lo hacen (H gracias a I1-H, §37). Falta N.
+
+**Lo que se sabe.** En los 6 de NaN ningún formato de N varía: v3, v3.1, NG,
+NS, NC, I1-N graduado, I1-N binario y elección forzada (§25, §33, §35). Con
+los 13, N del v3 tenía algo de señal (G4 0,62, §30.1) y las marcas candidatas
+estaban en externos (Haiku N▲, Luna N▼, Sol N▼). **Hipótesis:** la variación
+de N está entre los externos, y NaN no sirve para afinarla. En §35 la
+impulsividad reescrita (ceder a un deseo frente a un propósito propio) dejó de
+ir al revés; el graduado copiaba el ideal propio y el estilo de respuesta, y
+la elección forzada medía C.
+
+Esta sección se escribe y se versiona **antes de medir** nada de lo que
+sigue. No se retoca a la vista de los resultados; los resultados van en §40.
+
+### 39.1 Instrumento A · I1-N en binario
+
+- **Ítems:** las 72 situaciones de N de I1 (`personalidad_hn_finos_items.py`,
+  12 por faceta: ansiedad, hostilidad, depresión, autoconciencia,
+  impulsividad, vulnerabilidad), sin cambiar una coma.
+- **Formato:** binario con el prompt de R3 del v3, 2 órdenes × 2 réplicas.
+  Mismos ids (`BI|<situación>|<orden>|<rep>`), semillas
+  (sha256(`"HNF|" + id`)), nombres, temperatura 0,7 y `max_tokens` 60 que en
+  §34-37. Registro en `resultados/personalidad_hn_finos/<modelo>/`.
+- **NaN (gratis):** faltan las 36 situaciones de posición par (las impares se
+  midieron en §35): 144 llamadas por modelo en los 6 de NaN.
+- **Externos (OpenRouter):** las 72 en `anthropic/claude-haiku-5.5`,
+  `anthropic/claude-opus-5.5#low`, `google/gemini-3.7-flash`,
+  `google/gemini-4-argon`, `openai/gpt-5.6-luna`, `openai/gpt-6.1-sol#low` y
+  `deepseek/deepseek-v4-pro-0813`, con los sufijos de esfuerzo del v3. 288
+  llamadas por modelo, 2.016 en total.
+- **Deseabilidad propia (si cabe en el tope, 39.4):** prompt de calibración
+  del v3 en las 72 × 2 órdenes (ids `DS|…`) en los externos. Los 6 de NaN ya
+  la tienen (§35). Solo mueve el nivel absoluto de la puntuación (d̄) y la
+  cifra informativa de copia del ideal; no cambia comparaciones ni marcas.
+- **Puntuación:** e_m(i) = fracción de elecciones del polo alto (más N),
+  como en §28.
+
+### 39.2 Instrumento B · texto libre valorado a ciegas
+
+Propuesta aprobada de §34: el Neuroticismo se nota más en cómo se expresa uno
+que en lo que elige.
+
+- **Ítems:** 48 situaciones de estrés nuevas, 8 por faceta de N, cada faceta
+  con su tipo de suceso: ansiedad ↔ incertidumbre; hostilidad ↔
+  frustración; depresión ↔ fracaso; autoconciencia ↔ crítica o exposición
+  ante otros; impulsividad ↔ tentación frente a un propósito propio;
+  vulnerabilidad ↔ amenaza o emergencia. En `personalidad_n_libre_items.py`,
+  congeladas en un commit **antes** de la prueba de humo.
+- **Registro R3:** «{nombre} es una mujer / un hombre de 35 años. {situación}
+  Si estuvieras en el lugar de {nombre}, ¿qué harías y cómo te sentirías?
+  Responde en primera persona, en un máximo de 120 palabras.» Nombre y género
+  con `_nombre()`. 2 réplicas, semilla fija = sha256(`"NLB|" + id`),
+  temperatura 0,7. Ids `TL|<situación>|<rep>`.
+- **Anonimización (antes de juzgar):** se quitan el formato markdown
+  (negritas, encabezados, viñetas, numeración) y los saltos de línea, las
+  frases que mencionan ser una IA, un modelo de lenguaje o un asistente, y
+  los nombres de modelos y laboratorios; el texto se corta a 120 palabras.
+  Se informa por modelo de la fracción de textos con esas frases (descriptivo).
+- **Jueces (NaN, gratis):** `glm5.3-flash`, `mimo-v2.6-flash` y
+  `deepseek-v4-flash@2026-10-17`, de tres laboratorios distintos. **Un juez
+  nunca valora textos de su laboratorio** (`laboratorio()` de
+  `analizar_robustez_v3.py`): glm no valora glm; mimo no valora mimo; DeepSeek
+  no valora DeepSeek V4 Pro ni DeepSeek Flash@. Cada texto tiene 2 o 3
+  jueces. Si un juez da más de un 10 % de valoraciones no válidas en el humo,
+  se sustituye por `qwen3.8-flash` (que no valoraría qwen3.6 ni qwen3.8) antes
+  de la tanda completa.
+- **Rúbrica:** el juez ve la situación y la respuesta anonimizada (sin saber
+  de qué modelo es ni que hay modelos distintos) y puntúa de 1 a 7 las seis
+  facetas de N, definidas como en el NEO-PI-R: ansiedad (aprensión,
+  preocupación, anticipar lo peor), hostilidad (ira, irritación, amargura),
+  depresión (tristeza, desánimo, culpa, desesperanza), ansiedad social o
+  autoconciencia (vergüenza, sentirse juzgado o en ridículo), impulsividad
+  (no poder resistir un deseo aunque se arrepienta después) y vulnerabilidad
+  (sentirse desbordado, bloqueado o incapaz de afrontar el estrés). Anclas:
+  1 = ninguna señal, afronta con calma; 4 = moderada; 7 = muy intensa. Una
+  línea con seis números en orden fijo. Temperatura 0, semilla fija.
+- **Puntuación del ítem:** la valoración de la **faceta que la situación
+  provoca**, (x − 1)/6 ∈ [0, 1]. Corrección de severidad de cada juez con el
+  modelo aditivo texto + juez (mínimos cuadrados alternos, Σ efectos de juez =
+  0), porque no todos los textos tienen los mismos jueces; la puntuación del
+  texto es su efecto de texto. e_m(i) = media de las 2 réplicas. La media de
+  las seis facetas se informa como secundaria.
+- **Fiabilidad entre jueces:** ICC(2,1) e ICC(2,k) de acuerdo absoluto (k = 3)
+  en los textos con los 3 jueces, más el alfa de Krippendorff (intervalo) con
+  todos. **Endurecimiento propio, declarado:** si ICC(2,k) < 0,70, las
+  puntuaciones de B no se interpretan y B no pasa, cumpla lo que cumpla.
+  Se informa también la correlación entre jueces de los perfiles por modelo.
+- **Exploratorio, no es criterio:** marcadores léxicos sencillos en español
+  (lista propia en `personalidad_n_libre_items.py`, fijada en el mismo
+  commit): raíces de preocupación y emoción negativa (preocup-, nervios-,
+  ansi-, angusti-, miedo, temor, inquiet-, agobi-, estrés/estres-, frustr-,
+  rabia, enfad-, irrit-, molest-, trist-, desanim-, culpa, vergüenz-,
+  avergonz-, humill-, insegur-, pánico, desbord-, bloque-, arrepent-, dolid-,
+  decepcion-, impotencia, intranquil-, abrum-) y de calma (calma, tranquil- no
+  precedido de «in», seren-, respir-). Índice = raíces negativas por 100
+  palabras; se informa su correlación con la valoración de los jueces, por
+  texto y por modelo.
+- **Orden:** (1) humo en NaN con 6 situaciones (una por faceta) × 1 réplica y
+  los 3 jueces, fuera del análisis, en `resultados/personalidad_n_libre_humo/`;
+  (2) humo en los 7 externos (2 textos cada uno), para medir el coste por
+  llamada; (3) tanda completa en los 13; (4) jueces.
+
+### 39.3 Criterios (los mismos para A y para B)
+
+Matriz X = 13 modelos × situaciones, e_m(i) ∈ [0, 1], 1 = polo alto de N. El
+resto de rasgos (O, C, E, A y H) se lee del banco v3 sin cambios, como en
+§36.
+
+1. **Fiabilidad entre modelos con validación cruzada (R1 de §30.2, como en
+   §36):** las C(13,6) = 1.716 particiones en 6 que seleccionan y 7 que miden;
+   con los 6, la regla de §30.2 (fuera sd < 0,10; depuración por ítem-resto
+   < 0,20 hasta un mínimo de 12; sin invertir); en los 7, G4 (a) pares/impares
+   en el orden de la selección y (b) mediana de Spearman-Brown en 200
+   particiones al azar equilibradas por faceta. **Pasa si la mediana del G4
+   en los modelos que no seleccionaron es ≥ 0,70 en (a) y en (b).** Se
+   informa también del G4 del banco completo sin seleccionar.
+2. **Cobertura:** en la escala que iría al cuadro, **al menos 4 de las 6
+   facetas con situaciones (≥ 2 cada una) y ninguna aporta más de la mitad**.
+3. **Estructura (G3 de §21):** con los 13, la correlación media entre las
+   facetas de N de la escala (puntuación por faceta, entre modelos) es mayor
+   que la correlación media entre esas facetas y las de O, C, E, A y H del v3.
+4. **Discriminante:** |r| entre el perfil de N (media de e en la escala, 13
+   modelos) y la elección bruta del v3 **< 0,70 con C, con A y con E**: N no
+   debe ser cautela, amabilidad ni reserva.
+5. **Convergencia:** r > 0 con la elección bruta de N del v3.
+6. **Retest ≥ 0,85:** r de Pearson entre la réplica 0 y la 1 sobre las celdas
+   modelo × situación de la escala (en A cada celda promedia los dos órdenes;
+   en B, la puntuación corregida de cada réplica).
+7. **Marcas:** con N medido con esa escala, el cuadro de §28 se recalcula
+   entero y cada marca candidata de N pasa las **cinco comprobaciones de
+   §28** (P1 mitades por faceta ≥ 90 % de signo; P2 réplicas; P3 órdenes; P5
+   sin cada laboratorio; P6 BH sobre las 78 pruebas), con los niveles de §26.
+   En B no hay órdenes: **P3 se sustituye por «se mantiene con cada juez por
+   separado»** (cada juez puntúa sin los otros, sin corrección de severidad;
+   se omite el juez del laboratorio del modelo). Solo las robustas llevan
+   frase y, si la escala es seleccionada, deben pasar además R4 de §30.2.
+
+**Copia del ideal propio (A): se informa, pero no veta**, como en §36: la
+fracción de celdas con deseabilidad clara en que la elección cae del lado que
+el propio modelo juzga admirable y la correlación del perfil con la
+deseabilidad propia media, en los modelos que la tengan. En B no hay
+deseabilidad; se informa la correlación de su perfil con el de A y con la
+deseabilidad propia media de A.
+
+**Escala que iría al cuadro** (como §36.2): el banco completo (72 en A, 48 en
+B) si su G4 con los 13 es ≥ 0,70 en (a) y (b); si no, la escala final de R1
+(situaciones elegidas en ≥ 50 % de las particiones), con R4 para las marcas.
+
+Se informa también, sin decidir: sd entre modelos por faceta y su
+correlación con el resto, G4 en los 6 de NaN y en los 7 externos por
+separado, correlación con O y H, y la correlación entre A y B.
+
+### 39.4 Presupuesto y orden
+
+Tope duro **6,00 $** en OpenRouter para toda la tarea (saldo 10,60 $ antes
+de empezar). Coste por llamada medido con los tokens de la tanda I1-H de §37 y
+la tarifa de OpenRouter de hoy (esa estimación dio 1,00 $ frente a 0,91 $
+reales). Proyección: A binario ≈ 1,25 $; deseabilidad de A ≈ 0,65 $; B ≈ 1,6
+$ (si el texto libre añade ≈ 250 tokens de salida por llamada); deseabilidad
+de I1-H para Gemini 3.7 Flash y Opus ≈ 0,25 $.
+
+Orden, cada paso solo si **gasto estimado acumulado + proyección × 1,15
+≤ 6,00 $**: (1) A binario; (2) B completo, y si no cabe, B con las 6
+primeras situaciones de cada faceta (36), y si tampoco, con 4 (24); (3)
+deseabilidad de A en los externos, de menor a mayor coste, mientras quepa;
+(4) deseabilidad de I1-H en Gemini 3.7 Flash y Opus. El coste de B se
+proyecta con el humo de los externos.
+
+**Vigilante:** suma los tokens de las solicitudes de esta tarea (manifiestos
+creados desde su arranque) × la tarifa de cada modelo y mata los ejecutores
+al llegar a 6,00 $ estimados. Antes de lanzar se comprueba que su patrón
+reconoce a los ejecutores en marcha. Un fallo técnico nunca cuenta como
+conducta; se reintenta al reanudar.
+
+### 39.5 Decisión
+
+- **N pasa con A o con B** si la escala cumple **1 a 6** (B, además, el
+  acuerdo entre jueces de 39.2). Entonces `cuadro_publico_v3.py` usa esa
+  escala como N, documentada y reproducible con un comando, **N deja de ser
+  solo descriptivo** y lleva las marcas que pasen 7. Se regeneran
+  `CUADRO_PUBLICO.md` y `cuadro_publico.json` y se muestra el cuadro anterior.
+- **Si pasan las dos**, el cuadro usa **A**, porque es conducta comparada con
+  la misma definición que los otros cinco rasgos (§28); B se informa. Si solo
+  pasa B, N entra con su propia definición declarada («expresa más / menos
+  malestar ante el estrés que los demás modelos, según jueces ciegos») y
+  puntuación 0-100 de la rúbrica.
+- **Si no pasa ninguna**, el cuadro no cambia, N sigue solo descriptivo y §40
+  dice qué falla y qué queda.
