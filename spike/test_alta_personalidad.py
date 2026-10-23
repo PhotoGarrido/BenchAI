@@ -15,6 +15,8 @@ import experimento_personalidad_v3 as ev3
 import validez_personalidad as vp
 
 NUEVO = "x-ai/modelo-de-prueba-inexistente"
+#: Un modelo de pago con v1 y sin alta (§45: glm-5.3, que se usaba aquí, ya está completo)
+PENDIENTE = "mistralai/mistral-large-4-0"
 
 
 def test_tarifas():
@@ -60,14 +62,14 @@ def test_vigilante():
 
 def test_seco_tope_y_reanudacion():
     with tempfile.TemporaryDirectory() as d:
-        args = ["--modelo", "z-ai/glm-5.3", "--corta", "--seco", "--raiz", d, "--hilos", "3"]
-        assert alta.main(args + ["--tope", "0.02"]) == 3          # se para por el tope
+        args = ["--modelo", PENDIENTE, "--corta", "--seco", "--raiz", d, "--hilos", "3"]
+        assert alta.main(args + ["--tope", "0.30"]) == 3          # se para por el tope
         manifs = [json.loads(f.read_text()) for f in pathlib.Path(d).glob("*/*/intento_*/manifest_run.json")]
         assert any(m["status"] == "failed" and m.get("exception_type") == "TopeDeGasto" for m in manifs)
         gasto = sum(m.get("gasto_estimado") or 0 for m in manifs if m["status"] == "failed")
-        assert gasto < 0.02
-        assert alta.main(args + ["--tope", "5"]) == 0              # se reanuda y termina
-        pend = alta.plan("z-ai/glm-5.3", alta.cargar_corta(), leer=(alta.RES, pathlib.Path(d)))
+        assert gasto < 0.30
+        assert alta.main(args + ["--tope", "50"]) == 0             # se reanuda y termina
+        pend = alta.plan(PENDIENTE, alta.cargar_corta(), leer=(alta.RES, pathlib.Path(d)))
         assert sum(len(x) for x in pend.values()) == 0
         # Los ids escritos no se repiten
         for f in pathlib.Path(d).glob("*/*/registros.jsonl"):
@@ -80,7 +82,7 @@ def test_pago_sin_tope_no_lanza():
         raise AssertionError("un id de OpenRouter sin --tope no debe lanzarse")
     original, alta.ejecutar = alta.ejecutar, prohibido
     try:
-        alta.main(["--modelo", "z-ai/glm-5.3", "--corta"])
+        alta.main(["--modelo", PENDIENTE, "--corta"])
     except SystemExit as e:
         assert "tope" in str(e)
     else:
@@ -151,6 +153,34 @@ def test_revalidacion():
     g3["O"] = (.1, .2)   # G3: dentro ≤ fuera
     rv = cp.revalidar_rasgos(a_d, ms, por_rasgo, faceta_de, {"G4": g4_consistencia(a_d, ms, por_rasgo), "G3": g3})
     assert not rv["O"]["pasa"] and "G3" in rv["O"]["motivo"]
+
+
+def test_remedicion_mismos_prompts_semillas_nuevas():
+    """§45.3: la re-medición repite ids y prompts del alta, con otra semilla."""
+    import remedicion_validez as rv
+    with tempfile.TemporaryDirectory() as d:
+        base = alta.plan(NUEVO, None, leer=(pathlib.Path(d),))
+        nueva = rv.plan(NUEVO, pathlib.Path(d))
+    b = {t["id"]: t for ts in base.values() for t in ts}
+    n = {t["id"]: t for tr in nueva.values() for ts in tr.values() for t in ts}
+    assert set(b) == set(n) and len(n) == 2094
+    assert all(n[i]["prompt"] == b[i]["prompt"] and n[i]["seed"] != b[i]["seed"] for i in b)
+    assert all(n[i]["semilla_prefijo"] == rv.PREFIJO for i in n)
+    assert {k: sum(len(x) for x in v.values()) for k, v in nueva.items()} == \
+        {"deseabilidad": 698, "rep0": 698, "rep1": 698}
+
+
+def test_forma_corta_no_se_publica():
+    """§45.2: un modelo con solo la forma corta queda «pendiente de completar»."""
+    import cuadro_publico_v3 as cp
+    corta = cp.cargar_forma_corta()
+    pp = cp.panel_publico(cp.selecciones_por_defecto(), corta=corta)
+    for m, x in pp["pendientes"].items():
+        assert m not in pp["panel"] and m not in pp["formas"] and x["rasgos_corta"]
+    assert not pp["formas"]   # en el panel publicado no hay formas cortas
+    pp2 = cp.panel_publico(cp.selecciones_por_defecto(), corta=corta, publicar_corta=True)
+    assert not pp2["pendientes"]
+    assert set(pp["pendientes"]) <= set(pp2["formas"]) | set(pp2["no_interpretables"])
 
 
 if __name__ == "__main__":

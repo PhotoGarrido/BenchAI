@@ -261,12 +261,22 @@ y 924 con la corta (−56 %). Lo ya medido (por ejemplo, el v1) no se repite.
    - **Cobertura**: entra con forma completa (≥ 95 % del banco de cada rasgo)
      o corta (≥ 95 % de `personalidad_forma_corta.json`); si no, «fuera por
      cobertura».
+   - **La forma corta no se publica** (§45.2, decisión de David del 23-10):
+     un modelo con forma corta en algún rasgo queda «pendiente de
+     completar», fuera del panel y sin puntuaciones, marcas ni retrato
+     (`PUBLICAR_FORMA_CORTA = False`). Para publicarlo, se relanza el alta
+     sin `--corta`, que mide solo lo que falta. `--con-forma-corta` lo
+     admite solo para comparar.
    - **Validez por modelo** (§41.2, `validez_personalidad.py`): posición,
      no válidas, retest y coherencia de la deseabilidad. Un perfil **no
      interpretable** sale de la norma y se lista aparte sin puntuaciones; con
      **aviso**, publica con «interpretar con cautela». Conviene mirarlo
      antes de gastar el resto: `python validez_personalidad.py <carpeta>`
-     funciona con datos parciales.
+     funciona con datos parciales. Para saber si un «no interpretable» es
+     estable o ruido de una pasada, `python remedicion_validez.py --modelo M
+     --tope X` repite deseabilidad y conducta con semillas nuevas en
+     `resultados/remedicion/` (fuera del cuadro) y `--informe` da el
+     veredicto de §45.3.
    - **Revalidación** (§41.3): si al entrar el modelo un rasgo con marca cae
      por debajo de G4 (a) o (b) 0,70 o de G3, ese rasgo pierde sus marcas
      («en revisión») hasta que una sección lo corrija.

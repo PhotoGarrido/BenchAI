@@ -27,7 +27,6 @@ Uso (desde spike/):
 import argparse
 import hashlib
 import json
-import pathlib
 import sys
 
 import numpy as np

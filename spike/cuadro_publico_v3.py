@@ -42,7 +42,11 @@ Alta de modelos (§41-42):
   banco completo entra si tiene ≥ 95 % de la forma corta de cada rasgo. Se
   compara en esas situaciones frente a los demás con dato; su puntuación se
   equipara (EQUIPARACION) a la escala completa con los modelos completos.
-  Con todos completos, el cálculo es idéntico al de §40.
+  Con todos completos, el cálculo es idéntico al de §40. Desde §45.2
+  (decisión de David, 23-10), un modelo con solo la forma corta NO se publica:
+  queda «pendiente de completar» (PUBLICAR_FORMA_CORTA = False), fuera del
+  panel; `--con-forma-corta` lo admite solo para comparar. Equiparación
+  lineal, definitiva (§45.4).
 - Cobertura: del v3 solo se exigen O, C, E y A (H y N salen de I1).
 - `--sin-validez` y `--sin-revalidar` reproducen el cuadro sin esas reglas,
   solo para comparar.
@@ -127,8 +131,13 @@ COBERTURA_MIN = .95
 #: Equiparación de la puntuación mostrada de un modelo con forma corta. §41.1
 #: fijó solo la media («media»); §42 la cambia a lineal (media y desviación típica
 #: entre los modelos completos) tras ver en la simulación del alta que la forma
-#: corta estira la escala ×1,2-2,1. Cambio posterior a ver datos, declarado.
+#: corta estira la escala ×1,2-2,1. Cambio posterior a ver datos, declarado;
+#: David lo aprueba como definitivo el 23-10-2026 (§45.4).
 EQUIPARACION = "lineal"
+#: §45.2 (decisión de David, 23-10-2026): un modelo con solo la forma corta en algún
+#: rasgo NO entra en el cuadro público; figura como «pendiente de completar» hasta
+#: que tenga la forma completa. --con-forma-corta lo admite, solo para comparar.
+PUBLICAR_FORMA_CORTA = False
 
 
 def selecciones_por_defecto():
@@ -143,16 +152,19 @@ def cargar_forma_corta(ruta=FORMA_CORTA):
     return {t: list(x["items"]) for t, x in json.loads(ruta.read_text(encoding="utf-8"))["rasgos"].items()}
 
 
-def panel_publico(rutas, h_modo="i1", n_modo="i1", corta=None, validar=True):
+def panel_publico(rutas, h_modo="i1", n_modo="i1", corta=None, validar=True,
+                  publicar_corta=PUBLICAR_FORMA_CORTA):
     """Quién entra en el cuadro y con qué forma (§41.1) y validez por modelo (§41.2).
 
     Cobertura: O, C, E y A del v3, en conjunto (filtro de siempre, ≥ 95 %) o
     con la forma corta de cada rasgo (≥ 95 % de sus situaciones); H (I1-H, 48)
     y N (I1-N, 72), cada uno completo o corto. validar: los modelos con algún
-    índice «no interpretable» salen de la norma.
+    índice «no interpretable» salen de la norma. publicar_corta: si es False
+    (§45.2, por defecto), un modelo con forma corta en algún rasgo no entra en
+    el panel y queda en «pendientes» (con sus índices de validez, informativos).
 
     Devuelve {"rasgos_v3", "panel", "formas", "fuera_cobertura", "validez",
-    "no_interpretables"}."""
+    "no_interpretables", "pendientes"}."""
     import analizar_h_confirmacion as ahc
     import analizar_n_confirmacion as anc
     import validez_personalidad as vp
@@ -188,11 +200,17 @@ def panel_publico(rutas, h_modo="i1", n_modo="i1", corta=None, validar=True):
             fuera[m] = ", ".join(motivo)
         else:
             formas[m] = f
-    validez = {m: vp.evaluar(m) for m in formas}
+    validez_todos = {m: vp.evaluar(m) for m in formas}
+    # §45.2: con forma corta en algún rasgo, «pendiente de completar» (fuera del panel)
+    pendientes = {} if publicar_corta else {
+        m: {"rasgos_corta": [t for t in RASGOS if f.get(t) == "corta"], "validez": validez_todos[m]}
+        for m, f in formas.items() if f}
+    validez = {m: x for m, x in validez_todos.items() if m not in pendientes}
     no_interp = {m: x for m, x in validez.items() if validar and not x["interpretable"]}
-    panel = [m for m in formas if m not in no_interp]
+    panel = [m for m in formas if m not in no_interp and m not in pendientes]
     return {"rasgos_v3": rasgos_v3, "panel": panel, "formas": {m: formas[m] for m in panel if formas[m]},
-            "fuera_cobertura": fuera, "validez": validez, "no_interpretables": no_interp}
+            "fuera_cobertura": fuera, "validez": validez, "no_interpretables": no_interp,
+            "pendientes": pendientes}
 
 
 def sustituir_rasgo(v, t, h):
@@ -532,6 +550,7 @@ def escribir(r, rutas_sel):
     formas = r.get("formas") or {}
     val_m = (pp or {}).get("validez", {})
     no_int = (pp or {}).get("no_interpretables", {})
+    pend = (pp or {}).get("pendientes", {})
 
     def etiqueta(m):
         """Nombre del modelo con su forma (§41.1) y el aviso de validez (§41.2)."""
@@ -545,6 +564,10 @@ def escribir(r, rutas_sel):
         if no_int:
             fuera_txt += (" **Fuera de la norma por validez (§41.2, perfil no interpretable):** "
                           + ", ".join(f"{_id(m)} ({x['motivo']})" for m, x in no_int.items()) + ".")
+        if pend:
+            fuera_txt += (" **Pendientes de completar (§45.2, solo forma corta; no se publican):** "
+                          + ", ".join(f"{_id(m)} (forma corta en {', '.join(x['rasgos_corta'])})"
+                                      for m, x in pend.items()) + ".")
     else:
         fuera_txt = (f"Fuera por banco incompleto (< 95 %): "
                      f"{', '.join(f'{_id(m)} ({100 * c:.0f} %)' for m, c in v['excluidos'].items()) or 'ninguno'}.")
@@ -660,6 +683,20 @@ def escribir(r, rutas_sel):
                   "Su perfil no se lee como retrato: el cuadro no publica puntuaciones ni marcas suyas.", "",
                   "| modelo | motivo |", "|---|---|"]
             L += [f"| {_id(m)} | {x['motivo']} |" for m, x in no_int.items()] + [""]
+    if pend:
+        L += ["## Pendientes de completar (§45.2)", "",
+              "Medidos solo con la forma corta en algún rasgo. Sus datos se guardan y cuentan para la forma"
+              " completa, pero **no entran en el cuadro público** (ni en la norma de los demás) hasta tenerla:"
+              " sin puntuaciones, marcas ni retrato. Índices de validez de §41.2, solo informativos.", "",
+              "| modelo | rasgos en forma corta | Δ AB−BA | fracción de A | no válidas | retest |"
+              " coherencia deseabilidad | nivel |", "|---|---|---|---|---|---|---|---|"]
+        from validez_personalidad import _fmt as _fv
+        for m, x in pend.items():
+            vv, dd = x["validez"]["valores"], x["validez"]["detalle"]
+            L.append(f"| {_id(m)} | {', '.join(x['rasgos_corta'])} | {_f2(dd['delta_con_signo'])}"
+                     f" | {_f2(dd['frac_A'])} | {_fv('V2_no_validas', vv['V2_no_validas'])}"
+                     f" | {_f2(vv['V3_retest'])} | {_f2(vv['V4_coherencia'])} | {x['validez']['nivel']} |")
+        L += [""]
     L += ["## Retrato de cada modelo (§28)", ""]
     for m in ms:
         rr = retratos[m]
@@ -726,6 +763,11 @@ def escribir(r, rutas_sel):
                                         "motivo": x["motivo"], "valores": x["valores"]}
                                        for m, x in no_int.items()],
                  "fuera_por_cobertura_41": pp["fuera_cobertura"],
+                 "pendientes_de_completar": [{"id": m, "modelo": _id(m), "criterio": "PERSONALIDAD.md §45.2",
+                                              "rasgos_forma_corta": x["rasgos_corta"],
+                                              "validez": x["validez"]["nivel"],
+                                              "valores_validez": x["validez"]["valores"]}
+                                             for m, x in pp.get("pendientes", {}).items()],
                  "revalidacion": {"criterio": "PERSONALIDAD.md §41.3", "banco_completo": r.get("revalidacion"),
                                   "forma_corta": r.get("revalidacion_corta"), "en_revision": susp},
                  "forma_corta": {"fichero": FORMA_CORTA.name if r.get("forma_corta") else None,
@@ -772,10 +814,14 @@ def main(argv=None):
     ap.add_argument("--sin-revalidar", action="store_true",
                     help="no suspende las marcas de un rasgo bajo el listón de G4/G3 (§41.3);"
                          " solo para comparar")
+    ap.add_argument("--con-forma-corta", action="store_true",
+                    help="publica también los modelos con solo la forma corta (§41.1); por defecto quedan"
+                         " «pendientes de completar» (§45.2). Solo para comparar")
     args = ap.parse_args(argv)
     rutas = args.seleccion or selecciones_por_defecto()
     corta = cargar_forma_corta()
-    pp = panel_publico(rutas, args.h, args.n, corta, validar=not args.sin_validez)
+    pp = panel_publico(rutas, args.h, args.n, corta, validar=not args.sin_validez,
+                       publicar_corta=args.con_forma_corta or PUBLICAR_FORMA_CORTA)
     panel, formas = pp["panel"], pp["formas"]
     h = None
     if args.h == "i1":

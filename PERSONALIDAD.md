@@ -4597,3 +4597,191 @@ típica de los modelos completos, §42.1 y §42.6.1) queda **como definitiva**
 por decisión de David (23-10). Deja de ser una desviación pendiente. Con la
 regla de 45.2 no afecta a nada publicado hasta que vuelva a publicarse una
 forma corta.
+
+## 46. Resultados del alta de GLM 5.3, Qwen 3.8 Max y Kimi K3, y de la re-medición de DeepSeek V4 Pro (23/24-10-2026)
+
+Criterios de §45 sin cambios. Comandos, desde `spike/`:
+
+```bash
+python alta_personalidad.py --modelo z-ai/glm-5.3 --tope 1.20 --hilos 8
+python alta_personalidad.py --modelo "qwen/qwen3.8-max-0902#low" --tope 2.25 --hilos 8
+python alta_personalidad.py --modelo moonshotai/kimi-k3 --corta --tope 2.65 --hilos 8
+python remedicion_validez.py --modelo deepseek/deepseek-v4-pro-0813 --tope 1.00 --hilos 8   # y --tope 0.25 para terminar
+python remedicion_validez.py --modelo deepseek/deepseek-v4-pro-0813 --informe
+python cuadro_publico_v3.py
+```
+
+Los tres primeros, a la vez y con `caffeinate -i`; la re-medición, después.
+
+### 46.1 Gasto y llamadas
+
+Saldo de OpenRouter (`/credits`): **7,211 $ antes → 2,786 $ después**, es
+decir, **4,425 $ gastados**, dentro del tope global de 6,90 $. El control de
+gasto del proceso estima 5,27 $ (tokens × tarifa del 23-10). La diferencia,
+de 0,84 $, la da OpenRouter a nuestro favor; seguía igual 10 minutos después
+de terminar.
+
+| modelo | forma | llamadas (solicitudes físicas) | errores | tokens/llamada (ent. / sal.) | proyección | estimado por el proceso |
+|---|---|---|---|---|---|---|
+| z-ai/glm-5.3 | completa | 1.531 (1.530 tareas) | 0 | 155 / 67 | 1,014 $ | 0,390 $ |
+| qwen/qwen3.8-max-0902#low | completa | 1.530 | 0 | 181 / 136 | 1,910 $ | 1,801 $ |
+| moonshotai/kimi-k3 | corta | 612 | 0 | 259 / 284 | 2,262 $ | 2,110 $ |
+| deepseek/deepseek-v4-pro-0813 (re-medición) | 45.3 | 2.119 (2.094 tareas) | 0 | 168 / 174 | 0,783 $ | 0,966 $ |
+| **total** | | **5.792** | 0 | | 5,969 $ | 5,267 $ (real: 4,425 $) |
+
+- **GLM 5.3** costó el 38 % de lo proyectado: hoy responde con 67 tokens de
+  salida por llamada, frente a 253 en su v1 del 16-10.
+- **DeepSeek V4 Pro** costó un 23 % más: la deseabilidad gastó 0,545 $ en
+  698 llamadas, el doble que la conducta. Con `--tope 1.00`, el control de
+  gasto paró el tramo 3 con 289 llamadas pendientes. Se reanudó con el mismo
+  comando y `--tope 0.25` (0,078 $), dentro del tope global (6,90 − 5,19
+  estimados = 1,71 $ libres). La pasada nueva quedó completa: los tres
+  tramos.
+- Ningún `ERROR_TECNICO`. Ninguna respuesta no válida en Qwen, Kimi ni
+  DeepSeek; GLM, 0,1 %.
+
+### 46.2 Validez de cada modelo nuevo (§41.2)
+
+| modelo | Δ AB−BA | fracción de A | no válidas | retest | coherencia deseabilidad | nivel | pronóstico §42.2 |
+|---|---|---|---|---|---|---|---|
+| z-ai/glm-5.3 | +0,04 | 0,52 | 0,1 % | 0,86 | 0,83 | **válido** | válido |
+| qwen/qwen3.8-max-0902#low | −0,10 | 0,45 | 0,0 % | 0,90 | 0,84 | **válido** | válido |
+| moonshotai/kimi-k3 (forma corta, 784 elecciones) | −0,05 | 0,47 | 0,0 % | 0,84 | 0,85 | **válido** (informativo) | válido |
+
+Los tres pronósticos con el v1 aciertan.
+
+### 46.3 El cuadro antes y después
+
+- **Antes** (§42): 12 modelos.
+- **Después: 14 modelos.** Entran GLM 5.3 y Qwen 3.8 Max, con la forma
+  completa.
+- **Kimi K3** queda en «Pendientes de completar» por la regla de §45.2, sin
+  puntuaciones, marcas ni retrato.
+- **DeepSeek V4 Pro** sigue en «perfil no interpretable» (46.5).
+- Siguen fuera por cobertura `x-ai/grok-4.5`, `mistralai/mistral-large-4-0`
+  y el id sin etiqueta `deepseek-v4-flash`.
+
+| modelo | O | C | E | A | N | H |
+|---|---|---|---|---|---|---|
+| Haiku 5.5 | 51 | 39 | 42 | 29 → 28 ▼ | 63 → 64 | 47 → 46 |
+| Opus 5.5 #low | 55 → 54 | 34 → 33 ▼ | 42 | 38 | 44 → 43 ▼ | 51 ▲ |
+| DeepSeek Flash@ | 50 | 36 | 34 ▼ | 32 → 31 | 61 → 62 | 49 ▲ |
+| gemma4 | 55 | 45 ▲ | 37 | 30 → 29 ▼ | 66 → 68 ▲ | 34 ▼ |
+| glm5.3-flash | 55 → 54 | 39 | 37 | 35 → 34 | 61 → 62 | 45 |
+| Gemini 3.7 Flash | 37 → 36 ▼ | 39 | 52 ▲ | 47 ▲ | 51 | 37 |
+| Argon | 44 → 43 ▼ | 37 | 38 | 35 | 43 → 42 ▼ | 38 |
+| mimo | 56 | 40 | 43 | 37 → 36 | 61 → 62 | 42 |
+| Luna | 55 → 54 | 41 | 38 | 31 | 58 → 59 | 48 → 47 |
+| Sol #low | 52 | 34 ▼ | 37 | 33 | 46 → 45 ▼ | 51 ▲ |
+| qwen3.6 | 54 | 42 | 42 | 36 → 35 | 73 → 74 ▲ | 34 ▼ |
+| qwen3.8-flash | 49 → 48 | 37 → 36 | 40 | 32 | 61 → 62 | 44 |
+| **Qwen 3.8 Max #low** (nuevo) | 49 | 36 | **47 ▲** | 33 | 50 | 44 |
+| **GLM 5.3** (nuevo) | 55 | 38 | 42 | 34 | 54 | 47 |
+
+**Qué cambia en los demás:**
+
+- **Escala de N:** R1 elige con 13 modelos completos y válidos y pasa de 21
+  a **19 situaciones**. Impulsividad baja de 4 a 2: es la misma escala de 19
+  de §40, que se eligió con 13 modelos. Las puntuaciones de N se mueven
+  hasta 1,9 puntos (gemma4, 66 → 68); las de los otros rasgos, ≤ 1 punto.
+- **Marcas robustas: 20 → 21.** **Se conservan las 20 de antes, con el mismo
+  signo.** La única nueva es **Qwen 3.8 Max E▲**: pasa las cinco
+  comprobaciones, +7,0 [+3,3, +10,6] y q = 0,0003.
+- **Ningún retrato de los 12 cambia.** Hay retrato en 9 de 14 modelos (antes,
+  8 de 12):
+  - Qwen 3.8 Max: «más Extraversión (busca gente y protagonismo)»;
+  - GLM 5.3: «perfil próximo al de los demás modelos», con O▲ frágil (falla
+    P3 y P5, cae sin google).
+- **Candidatas que cambian de nivel**, ninguna con marca publicada:
+  - glm5.3-flash: O▲ pasa de frágil a no publicable, y E▼ de no publicable
+    a frágil;
+  - Opus O▲ deja de ser candidata;
+  - aparecen como no publicables Haiku N▲, gemma4 E▼, mimo N▲, Luna C▲ y
+    Sol E▼;
+  - Qwen 3.8 Max N▼ y GLM 5.3 H▲, no publicables.
+- **Revalidación automática (§41.3):** los seis rasgos pasan, así que ninguno
+  queda en revisión. C sigue siendo el más justo: G4 (a) 0,84 y G4 (b) 0,75
+  (antes, 0,78). G3 dentro/fuera: O +0,44/−0,05 · C +0,19/+0,01 ·
+  E +0,27/−0,00 · A +0,54/−0,07 · N +0,41/+0,02 · H +0,53/−0,12.
+
+### 46.4 Kimi K3: qué pasaría si se publicara la forma corta (solo informativo)
+
+`python cuadro_publico_v3.py --con-forma-corta` (no es el cuadro publicado):
+
+- Kimi saldría con O 55, C 35, E 43, A 34, N 52 y H 47, «perfil próximo al
+  de los demás modelos», con O▲ y C▼ frágiles.
+- **Responsabilidad quedaría en revisión.** En la forma corta, con los 15
+  modelos, G4 (a) = 0,69 < 0,70, así que la revalidación de §41.3
+  suspendería las tres marcas robustas de C: Opus ▼, Sol ▼ y gemma4 ▲.
+- Argon ganaría H▼ robusta.
+
+Es un argumento más a favor de la regla de §45.2. Completar a Kimi con la
+forma completa son 1.530 − 612 = **918 llamadas más**. Al coste por llamada
+de esta tanda (0,00345 $), salen **≈ 3,2 $, 3,6 $ con margen**. No cabe en
+el saldo que queda (2,79 $).
+
+### 46.5 DeepSeek V4 Pro: **rasgo estable, sigue no interpretable**
+
+Pasada nueva completa (tres tramos, 2.094 tareas, semillas `R2310`), en
+`resultados/remedicion/deepseek_deepseek-v4-pro-0813@2026-10-23/`, con
+`informe_remedicion.json`.
+
+| índice | pasada original (O, 16-22/10) | pasada nueva (N, 23/24-10) | las dos juntas (J) | nivel en N |
+|---|---|---|---|---|
+| V1 Δ AB−BA | −0,295 | **−0,312** | −0,304 | **no interpretable** |
+| V1 fracción de A | 0,352 | **0,344** | 0,348 | **no interpretable** |
+| V2 no válidas | 0,0 % | 0,0 % | 0,0 % | válido |
+| V3 retest | 0,80 | 0,73 | 0,85 | válido |
+| V4 coherencia deseabilidad | 0,639 | **0,648** (Wilson 95 %: 0,60-0,70) | 0,643 | **no interpretable** |
+
+**Veredicto de §45.3: rasgo estable.** La pasada nueva vuelve a dar «no
+interpretable» en V4 y, esta vez, también en V1: el sesgo de posición, que
+antes rozaba el umbral, ahora lo cruza. Con las dos pasadas juntas, los tres
+índices están en la zona de no interpretable. DeepSeek V4 Pro sigue fuera
+de la norma y el cuadro no cambia por él.
+
+**Informativo:**
+
+- **La incoherencia se repite en las mismas situaciones.** Es incoherente en
+  la pasada nueva el 62 % de las que lo eran en la original (78 de 126),
+  frente al 20 % de las que eran coherentes. Con ruido, esas dos cifras
+  serían parecidas.
+- **Es posición, no indecisión.** De los 123 pares incoherentes de la pasada
+  nueva, 120 son «B» en los dos órdenes (en la original, 122 de 126).
+- El r de e por situación entre las dos pasadas es 0,77: la conducta se
+  repite, con el sesgo incluido.
+
+**Lectura.** Con semillas nuevas y otra fecha, DeepSeek V4 Pro vuelve a
+preferir la opción B al juzgar qué es admirable. El sesgo no es de aquella
+pasada, sino del modelo con este formato de pregunta. Para rehabilitarlo
+haría falta otro formato (por ejemplo, sin letras), y eso exige una sección
+propia.
+
+### 46.6 Cambios de código
+
+- `cuadro_publico_v3.py`:
+  - `PUBLICAR_FORMA_CORTA = False` y `panel_publico(publicar_corta=)` (§45.2);
+  - tabla «Pendientes de completar» en `CUADRO_PUBLICO.md` y
+    `pendientes_de_completar` en el json;
+  - `--con-forma-corta`, solo para comparar;
+  - `EQUIPARACION = "lineal"`, anotada como definitiva (§45.4).
+- `remedicion_validez.py` (nuevo, §45.3): mismo plan que el alta con otra
+  semilla, en una raíz aparte, por tramos y con el control de gasto del
+  alta; `--informe` da el veredicto. Después de versionar §45 solo se le
+  quitó un import sin uso que señaló ruff.
+- `test_alta_personalidad.py`:
+  - la re-medición repite ids y prompts con otra semilla;
+  - un modelo con forma corta no entra en el panel;
+  - los tests de seco y de «sin tope no lanza» pasan de glm-5.3, ya
+    completo, a mistral-large-4-0.
+- `ALTA_MODELO.md`: la regla de §45.2 y la re-medición.
+- `./verificar.sh`: **PUERTA COMPLETA: OK**. `web/datos.js` no cambia.
+
+### Qué queda (decisiones de David)
+
+- **Kimi K3:** completarlo con la forma completa (≈ 3,6 $ con margen) o
+  dejarlo pendiente.
+- **grok-4.5 y mistral-large-4-0** siguen sin alta.
+- **DeepSeek V4 Pro:** dejarlo fuera o diseñar un formato de deseabilidad
+  sin letras (en una sección).
+- **Datos en cuarentena del 17-10:** siguen sin tocar.

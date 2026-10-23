@@ -1,0 +1,116 @@
+{
+ "modelo": "deepseek/deepseek-v4-pro-0813",
+ "raiz": "resultados/remedicion/deepseek_deepseek-v4-pro-0813@2026-10-23",
+ "prefijo_semilla": "R2310",
+ "pasada_original": {
+  "valores": {
+   "V1_delta": 0.29512893982808025,
+   "V1_frac_A": 0.1475644699140401,
+   "V2_no_validas": 0.0,
+   "V3_retest": 0.7980466761121083,
+   "V4_coherencia": 0.6389684813753582
+  },
+  "niveles": {
+   "V1_delta": "aviso",
+   "V1_frac_A": "aviso",
+   "V2_no_validas": "válido",
+   "V3_retest": "válido",
+   "V4_coherencia": "no interpretable"
+  },
+  "nivel": "no interpretable",
+  "interpretable": false,
+  "motivo": "coherencia de la deseabilidad 0,64 (no interpretable)",
+  "detalle": {
+   "delta_con_signo": -0.29512893982808025,
+   "frac_A": 0.3524355300859599,
+   "n_elecciones": 1396,
+   "n_validas": 1396,
+   "n_situaciones": 349,
+   "n_situaciones_retest": 349,
+   "n_deseabilidad_pares": 349,
+   "frac_A_deseabilidad": 0.330945558739255
+  }
+ },
+ "pasada_nueva": {
+  "valores": {
+   "V1_delta": 0.3123209169054441,
+   "V1_frac_A": 0.15616045845272208,
+   "V2_no_validas": 0.0,
+   "V3_retest": 0.7258689496954692,
+   "V4_coherencia": 0.6475644699140402
+  },
+  "niveles": {
+   "V1_delta": "no interpretable",
+   "V1_frac_A": "no interpretable",
+   "V2_no_validas": "válido",
+   "V3_retest": "válido",
+   "V4_coherencia": "no interpretable"
+  },
+  "nivel": "no interpretable",
+  "interpretable": false,
+  "motivo": "posición (Δ AB−BA) 0,31 (no interpretable); posición (fracción de A) |A − 0,5| = 0,16 (no interpretable); coherencia de la deseabilidad 0,65 (no interpretable)",
+  "detalle": {
+   "delta_con_signo": -0.3123209169054441,
+   "frac_A": 0.3438395415472779,
+   "n_elecciones": 1396,
+   "n_validas": 1396,
+   "n_situaciones": 349,
+   "n_situaciones_retest": 349,
+   "n_deseabilidad_pares": 349,
+   "frac_A_deseabilidad": 0.332378223495702
+  }
+ },
+ "V4_nueva_wilson95": [
+  0.5960839859397691,
+  0.6958317065409363
+ ],
+ "V4_conjunta": 0.6432664756446992,
+ "V1_conjunto": {
+  "V1_delta": 0.3037249283667622,
+  "V1_frac_A": 0.15186246418338106,
+  "V2_no_validas": 0.0,
+  "V3_retest": 0.8524588358042379,
+  "V4_coherencia": null
+ },
+ "V1_conjunto_detalle": {
+  "delta_con_signo": -0.3037249283667622,
+  "frac_A": 0.34813753581661894,
+  "n_elecciones": 2792,
+  "n_validas": 2792,
+  "n_situaciones": 349,
+  "n_situaciones_retest": 349,
+  "n_deseabilidad_pares": 0,
+  "frac_A_deseabilidad": null
+ },
+ "niveles_conjuntos": {
+  "V1_delta": "no interpretable",
+  "V1_frac_A": "no interpretable",
+  "V4_coherencia": "no interpretable"
+ },
+ "pares_deseabilidad": {
+  "nueva": 349,
+  "original": 349,
+  "comunes": 349
+ },
+ "persistencia_incoherencia": {
+  "P(incoherente nueva | incoherente original)": 0.6190476190476191,
+  "P(incoherente nueva | coherente original)": 0.20179372197309417,
+  "n_incoherentes_original": 126
+ },
+ "incoherentes_por_posicion": {
+  "nueva": {
+   "A en los dos órdenes": 3,
+   "B en los dos órdenes": 120
+  },
+  "original": {
+   "A en los dos órdenes": 4,
+   "B en los dos órdenes": 122
+  }
+ },
+ "r_e_entre_pasadas": 0.7728405157246991,
+ "n_situaciones_r": 349,
+ "completo_minimo": true,
+ "tramo3_retest": true,
+ "veredicto": "rasgo estable: vuelve a salir no interpretable; sigue fuera de la norma",
+ "V4_nueva": 0.6475644699140402
+}
