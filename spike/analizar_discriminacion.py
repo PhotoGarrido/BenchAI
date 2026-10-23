@@ -28,7 +28,13 @@ EXTREMOS = ("openai_gpt-5.6-luna", "google_gemini-3.7-flash")
 #: Prefijos de organización de OpenRouter: la carpeta «org_modelo» es el id
 #: «org/modelo». Los ids de NaN no llevan organización ni guion bajo.
 ORGS = ("openai", "anthropic", "google", "x-ai", "moonshotai", "deepseek", "qwen",
-        "mistralai", "z-ai", "meta")
+        "mistralai", "z-ai", "meta", "minimax")
+
+#: Modelos medidos en personalidad con un id distinto del de su entrada del ISS
+#: (PERSONALIDAD.md §47): MiniMax M3.1 Flash se midió en el ISS en fase stealth
+#: como space-bunny-alpha (#low y #high, desvelado el 19-10-2026) y en
+#: personalidad, ya público, con su id de OpenRouter y el mismo #low.
+ISS_DE = {"minimax/minimax-m3.1-flash#low": "stealth/space-bunny-alpha#low"}
 
 
 def _id(dirname):
@@ -41,6 +47,9 @@ def iss_por_modelo():
     out = {}
     for x in e["entradas"]:
         out.setdefault(x["modelo"], x["iss"])
+    for m, iss_id in ISS_DE.items():
+        if iss_id in out:
+            out.setdefault(m, out[iss_id])
     return out
 
 

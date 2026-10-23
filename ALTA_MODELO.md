@@ -235,7 +235,16 @@ y 924 con la corta (−56 %). Lo ya medido (por ejemplo, el v1) no se repite.
 
    Sin historial, proyecta con la mediana del panel externo y lo avisa: en
    ese caso, mide antes unas pocas llamadas (el humo del paso 2) o lanza
-   con un tope bajo y vuelve a proyectar.
+   con un tope bajo y vuelve a proyectar. Esa mediana sobreestima mucho a los
+   modelos que contestan con una letra (Mistral Medium: 3,15 $ proyectados,
+   0,52 $ reales, §47.1), así que tras el humo se lanza con `--parcial` y el
+   tope que dé el humo. El humo casi no toca la deseabilidad: deja holgura en
+   el tope de los modelos que razonan (DeepSeek V4 Flash 0731 costó 2,3 × lo
+   proyectado).
+   Usa el **mismo id y sufijo de esfuerzo que su entrada del ISS**. Si el id
+   cambió (un stealth desvelado), mide el id público y añade la pareja a
+   `ISS_DE` en `analizar_discriminacion.py` (y su organización a `ORGS`), como
+   MiniMax M3.1 Flash ↔ `stealth/space-bunny-alpha#low` (§47.6).
 2. **Comprobar en seco** (sin red, modelo falso, directorio temporal):
    `--seco [--tope X]` recorre el plan entero, escribe los registros y los
    manifiestos y ejercita el tope. `--humo N --raiz DIR` hace N llamadas

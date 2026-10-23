@@ -4785,3 +4785,306 @@ propia.
 - **DeepSeek V4 Pro:** dejarlo fuera o diseñar un formato de deseabilidad
   sin letras (en una sección).
 - **Datos en cuarentena del 17-10:** siguen sin tocar.
+
+## 47. Alta de ocho modelos baratos del ISS con la forma completa (24-10-2026)
+
+**Decisión de David (24-10-2026).** Lanzar la **forma completa** en los ocho
+modelos baratos que ya están en el ISS y no en el cuadro de personalidad:
+`anthropic/claude-haiku-4.5`, `deepseek/deepseek-v3.2`,
+`deepseek/deepseek-v4-flash`, `deepseek/deepseek-v4-flash-0731`,
+`google/gemini-3.1-flash-lite`, `mistralai/mistral-medium-3-5`,
+`openai/gpt-6-luna#low` y MiniMax M3.1 Flash (en el ISS,
+`stealth/space-bunny-alpha` `#low` y `#high`). Se aplican los criterios de
+§41 y §45.2 sin cambios: cobertura, validez por modelo y revalidación
+automática. Ningún modelo tenía datos de personalidad previos (ni v1), así
+que cada uno necesita las 2.094 llamadas completas.
+
+**Ids.** Son los mismos, con el mismo sufijo de esfuerzo, que en su medición
+del ISS, para que el cuadro los empareje con su ISS: sin sufijo los seis
+primeros y `#low` Luna. MiniMax es la excepción, en 47.6.
+
+Comandos, desde `spike/`:
+
+```bash
+python alta_personalidad.py --modelo <los ocho> --proyectar
+python alta_personalidad.py --modelo <m> --humo 6 --raiz <temporal> --tope 0.10 --hilos 3 --parcial   # cada uno
+python alta_personalidad.py --modelo <m> --tope <tope> --hilos 8 --parcial                            # los ocho a la vez, con caffeinate -i
+python alta_personalidad.py --modelo deepseek/deepseek-v4-flash-0731 --tope 0.15 --hilos 8            # reanudación
+python cuadro_publico_v3.py
+```
+
+`--parcial` hace falta porque, sin historial propio, `--proyectar` usa la
+mediana del panel externo. Esa mediana sobreestima mucho a los modelos que
+contestan con una letra: Mistral Medium salía en 3,15 $ con margen y costó
+0,52 $. El tope real lo pone el control de gasto dentro del proceso.
+
+### 47.1 Presupuesto, humo y gasto real
+
+- **Saldo de OpenRouter** (`/credits`): **2,786 $ antes → 1,007 $ después**,
+  es decir, **1,780 $ gastados**, humo incluido, frente a un tope global de
+  2,60 $.
+- **Humo.** 6 tareas por fase y modelo, 144 llamadas en total, en una raíz
+  temporal fuera de `resultados/`. Costó 0,013 $ y sirvió para fijar el
+  coste por llamada con los tokens de cada modelo.
+- **Proyección con humo:** 1,58 $, 1,81 $ con margen × 1,15. Cabían los
+  ocho, así que no quedó ninguno fuera por presupuesto.
+- **Topes.** Suman 2,55 $ y se repartieron con holgura extra para los modelos
+  que razonan: Gemini 0,15 · V4 Flash 0731 0,17 · V3.2 0,15 · Luna 0,18 ·
+  V4 Flash 0,20 · MiniMax 0,45 · Haiku 4.5 0,55 · Mistral Medium 0,70.
+- **Gasto estimado por el proceso:** 1,754 $ (tokens × tarifa del 24-10,
+  añadida a `tarifas_openrouter.json`). Más el humo, cuadra con el real en
+  un 1 %. Esta vez OpenRouter no devolvió nada a nuestro favor.
+
+| modelo | solicitudes físicas (2.094 tareas) | ERROR_TECNICO | tokens/llamada (ent. / sal.) | proyección del humo | estimado por el proceso |
+|---|---|---|---|---|---|
+| google/gemini-3.1-flash-lite | 2.094 | 0 | 137 / 1 | 0,073 $ | 0,075 $ |
+| deepseek/deepseek-v4-flash-0731 | 2.136 | 0 | 231 / 555 | 0,078 $ | **0,180 $** |
+| deepseek/deepseek-v3.2 | 2.094 | 0 | 152 / 2 | 0,088 $ | 0,091 $ |
+| openai/gpt-6-luna#low | 2.094 | 0 | 144 / 55 | 0,080 $ | 0,087 $ |
+| deepseek/deepseek-v4-flash | 2.098 | 0 | 160 / 183 | 0,089 $ | 0,100 $ |
+| minimax/minimax-m3.1-flash#low | 2.094 | 0 | 324 / 153 | 0,252 $ | 0,295 $ |
+| anthropic/claude-haiku-4.5 | 2.094 | 0 | 175 / 4 | 0,407 $ | 0,409 $ |
+| mistralai/mistral-medium-3-5 | 2.122 (28 con 429, reintentadas) | 0 | 155 / 2 | 0,508 $ | 0,517 $ |
+| **total** | **16.826** | 0 | | 1,575 $ | 1,754 $ (real, con humo: 1,780 $) |
+
+- **DeepSeek V4 Flash 0731 costó 2,3 veces lo proyectado.** Pasa lo mismo que
+  con V4 Pro (§46.1): en la deseabilidad razona mucho más que en la conducta,
+  y las 18 llamadas del humo eran casi todas de conducta. El control de
+  gasto lo paró con su tope (0,17 $) al terminar el v3, con las 720 llamadas
+  de I1 sin lanzar. Se reanudó con el mismo comando y `--tope 0.15`, gastó
+  0,038 $ y quedó completo.
+- **Mistral Medium** recibió 28 respuestas 429 del proveedor y el propio
+  cliente las reintentó. Ningún registro quedó en `ERROR_TECNICO`: un fallo
+  técnico nunca cuenta como conducta.
+- Ningún modelo quedó con llamadas pendientes.
+
+### 47.2 Validez de cada modelo nuevo (§41.2)
+
+| modelo | Δ AB−BA | fracción de A | no válidas | retest | coherencia deseabilidad | nivel |
+|---|---|---|---|---|---|---|
+| anthropic/claude-haiku-4.5 | −0,18 | 0,41 | 0,6 % | 0,97 | 0,86 | **válido** |
+| deepseek/deepseek-v3.2 | **−0,25 ⚠** | **0,37 ⚠** | 0,0 % | 0,77 | 0,76 | **aviso** |
+| deepseek/deepseek-v4-flash | −0,10 | 0,45 | 0,6 % | 0,81 | 0,86 | **válido** |
+| deepseek/deepseek-v4-flash-0731 | −0,06 | 0,47 | 0,0 % | 0,87 | 0,86 | **válido** |
+| google/gemini-3.1-flash-lite | −0,03 | 0,48 | 0,0 % | 0,96 | 0,88 | **válido** |
+| minimax/minimax-m3.1-flash#low | −0,09 | 0,45 | 0,0 % | 0,75 | **0,73 ⚠** | **aviso** |
+| mistralai/mistral-medium-3-5 | **−0,21 ⚠** | **0,40 ⚠** | 0,0 % | 0,84 | 0,85 | **aviso** |
+| openai/gpt-6-luna#low | +0,04 | 0,52 | 0,0 % | 0,90 | 0,83 | **válido** |
+
+- **Ninguno sale no interpretable.** Cinco son válidos y tres tienen aviso:
+  publican con ⚠ («interpretar con cautela»).
+- **DeepSeek V3.2 y Mistral Medium** tienen el mismo sesgo de posición que
+  V4 Pro (§46.5), aunque más débil: prefieren «B». Están en la zona de aviso,
+  no en la de no interpretable (0,30 / 0,15).
+- **Haiku 4.5** roza el aviso en Δ (−0,18 frente a 0,20).
+- **MiniMax** tiene aviso por la coherencia de la deseabilidad (0,73 < 0,75).
+  Su retest (0,75) es el más bajo del cuadro.
+
+### 47.3 El cuadro antes y después
+
+- **Antes** (§46): 14 modelos, 7 laboratorios.
+- **Después: 22 modelos, 9 laboratorios.** Entran los ocho con la forma
+  completa, y entran por primera vez **mistralai** y **minimax**, cada uno
+  con un modelo.
+- No cambian:
+  - Kimi K3, en «Pendientes de completar»;
+  - DeepSeek V4 Pro, «no interpretable»;
+  - fuera por cobertura, `x-ai/grok-4.5`, `mistralai/mistral-large-4-0` y el
+    id de NaN sin etiqueta `deepseek-v4-flash`.
+
+**La escala de N cambia por regla.** Con 21 modelos completos y válidos en N,
+el banco entero de I1-N (72 situaciones, 12 por faceta) llega a
+G4 (a) 0,79 y G4 (b) 0,83. Las dos pasan de 0,70, así que
+`analizar_n_confirmacion.escala_cuadro` (§39.3, §40) usa el **banco completo
+sin seleccionar**, en lugar de las 19 situaciones que R1 elegía con 13
+modelos. Con banco completo no hay R4: las marcas de N pasan las cinco
+comprobaciones de §28, como los demás rasgos. Por eso las puntuaciones de N
+se comprimen hacia 50 (por ejemplo, qwen3.6 pasa de 74 a 56 y gemma4 de 68 a
+56). Es el cambio más grande del cuadro, y no es un cambio de los modelos
+sino de la escala.
+
+| modelo | ISS | O | C | E | A | N | H |
+|---|---|---|---|---|---|---|---|
+| **Haiku 4.5** (nuevo) | 13,6 | 49 | 44 | 44 | 34 | **57 ▲** | 45 |
+| Haiku 5.5 | 10,3 | 51 → 50 | 39 → 38 | 42 → 43 | 28 ▼ | 64 → 54 | 46 |
+| Opus 5.5 #low | 12,5 | 54 | 33 → 32 ▼ | 42 → 43 | 38 | 43 → 49 ▼ | 51 ▲ |
+| DeepSeek Flash@ | 21,1 | 50 → 49 | 36 → 35 | 34 → 35 ▼ | 31 | 62 → 53 | 49 ▲ |
+| **DeepSeek V3.2** ⚠ (nuevo) | 37,4 | 52 | 45 | 44 | 35 | 56 | 33 |
+| **DeepSeek V4 Flash** (nuevo) | 39,5 | 53 | 39 | 46 | 30 | 55 | 37 |
+| **DeepSeek V4 Flash 0731** (nuevo) | 40,2 | **47 ▼** | 38 | 41 | 31 | **50 ▼** | 44 |
+| gemma4 | 28,1 | 55 → 54 | **45 ▲ → 44** | 37 → 38 | 29 ▼ | **68 ▲ → 56** | 34 ▼ |
+| glm5.3-flash | 28,9 | 54 | 39 → 38 | 37 → 38 | 34 | 62 → 53 | 45 |
+| **Gemini 3.1 Flash Lite** (nuevo) | 34,9 | **60 ▲** | 40 | 46 | 35 | 53 | 35 |
+| Gemini 3.7 Flash | 55,2 | 36 ▼ | 39 → 38 | 52 → 53 ▲ | 47 ▲ | 51 → 52 | 37 |
+| Argon | — | 43 ▼ | 37 → 36 | 38 → 39 | 35 → 34 | 42 → 48 ▼ | 38 |
+| mimo | 12,6 | 56 → 55 | 40 → 39 | 43 → 44 | 36 | 62 → 53 | 42 |
+| **MiniMax M3.1 Flash #low** ⚠ (nuevo) | 7,9 † | 51 | 43 | 42 | 34 | 55 | 43 |
+| **Mistral Medium 3.5** ⚠ (nuevo) | 23,9 | **59 ▲** | 42 | 45 | 31 | 56 | 34 |
+| Luna (5.6) | 7,6 | 54 | 41 → 40 | 38 → 39 | 31 | 59 → 53 | 47 |
+| **GPT-6 Luna #low** (nuevo) | 13,9 | 52 | 35 | 37 | 33 | 52 | 48 |
+| Sol #low | 13,2 | 52 → 51 | 34 → 33 ▼ | 37 → 38 | 33 | 45 → 49 ▼ | 51 ▲ |
+| qwen3.6 | 23,2 | 54 → 53 | 42 → 41 | 42 → 43 | 35 | **74 ▲ → 56** | 34 ▼ |
+| qwen3.8-flash | 24,8 | 48 | 36 | 40 → 41 | 32 | 62 → 53 | 44 |
+| Qwen 3.8 Max #low | — | 49 | 36 → 35 | 47 → 48 ▲ | 33 | **50 → 49 ▼** | 44 |
+| GLM 5.3 | — | 55 | 38 → 37 | 42 → 43 | 34 | 54 → 51 | 47 |
+
+† ISS de `stealth/space-bunny-alpha#low` (47.6).
+
+**Marcas robustas: 21 → 24.**
+
+- **Se conservan 18 de las 21**, todas con el mismo signo.
+- **Se pierden 3, y ninguna cambia de signo**: pasan a frágiles.
+  - gemma4 C▲ (falla P3);
+  - gemma4 N▲ (falla P2 y P6);
+  - qwen3.6 N▲ (falla P3).
+
+  Las dos de N se explican por el cambio de escala: con las 72 situaciones,
+  el exceso de N de gemma4 y qwen3.6 se diluye (las dos quedan en 56, como
+  Mistral Medium y DeepSeek V3.2).
+- **Nuevas, 6:**
+  - en modelos nuevos: Haiku 4.5 N▲, DeepSeek V4 Flash 0731 O▼ y N▼, Gemini
+    3.1 Flash Lite O▲ y Mistral Medium O▲ (esta última con aviso de validez);
+  - en uno de antes: **Qwen 3.8 Max N▼**, que era «no publicable» con la
+    escala de 19 (cae sin qwen) y con el banco completo pasa las cinco
+    comprobaciones.
+- **Recuento de candidatas:** robustas 24 (antes 21) · frágiles 25 (7) · no
+  publicables 16 (12). Pruebas en BH: 132 (antes 84).
+
+**Retratos.** Hay retrato en 13 de 22 modelos (antes, 9 de 14). Cambian tres
+de los de antes:
+
+- **gemma4**: pierde «más Responsabilidad» y «más Neuroticismo». Queda
+  «menos Amabilidad (pone límites y se defiende); menos Honestidad-Humildad
+  (acepta ventajas y se promociona)».
+- **qwen3.6**: pierde «más Neuroticismo». Queda «menos Honestidad-Humildad».
+- **Qwen 3.8 Max**: gana «menos Neuroticismo (se mantiene sereno)», además de
+  «más Extraversión».
+
+Los retratos nuevos:
+
+- Haiku 4.5: «más Neuroticismo (reacciona, se preocupa)»;
+- DeepSeek V4 Flash 0731: «menos Apertura (prefiere lo conocido); menos
+  Neuroticismo (se mantiene sereno)»;
+- Gemini 3.1 Flash Lite: «más Apertura (curioso, busca lo nuevo)»;
+- Mistral Medium 3.5 ⚠: «más Apertura (curioso, busca lo nuevo)»;
+- DeepSeek V3.2 ⚠, DeepSeek V4 Flash, MiniMax M3.1 Flash ⚠ y GPT-6 Luna:
+  «perfil próximo al de los demás modelos».
+
+**Candidatas de los modelos de antes que cambian de nivel**, ninguna con
+marca publicada:
+
+- suben a frágil: gemma4 E▼, Sol E▼ y GLM 5.3 H▲;
+- bajan de frágil a no publicable: Gemini 3.7 Flash H▼, Argon H▼, mimo O▲ y
+  GLM 5.3 O▲;
+- dejan de ser candidatas: Haiku 5.5 N▲, mimo N▲, glm5.3-flash O▲, Luna C▲ y
+  O▲, y qwen3.8-flash A▼;
+- aparecen, sin pasar de frágil: Qwen 3.8 Max C▼, GLM 5.3 N▼, Haiku 5.5 H▲,
+  DeepSeek Flash@ C▼, Argon C▼ y qwen3.8-flash O▼.
+
+### 47.4 Fiabilidad de cada rasgo (G4) y revalidación automática
+
+| rasgo | G4 (a) antes → después | G4 (b) antes → después | G3 dentro / fuera después | listón §41.3 |
+|---|---|---|---|---|
+| Apertura | 0,93 → 0,89 | 0,90 → 0,89 | +0,44 / −0,04 | ✔ |
+| Responsabilidad | 0,84 → 0,84 | 0,75 → **0,82** | +0,21 / +0,04 | ✔ |
+| Extraversión | 0,91 → 0,92 | 0,89 → 0,86 | +0,22 / +0,03 | ✔ |
+| Amabilidad | 0,84 → **0,77** | 0,91 → 0,86 | +0,38 / −0,01 | ✔ |
+| Neuroticismo (19 → 72 situaciones) | 0,88 → **0,79** | 0,90 → 0,83 | +0,21 / +0,05 | ✔ |
+| Honestidad-Humildad | 0,94 → 0,93 | 0,93 → 0,91 | +0,46 / −0,15 | ✔ |
+
+- **Revalidación (§41.3): los seis rasgos pasan, ninguno queda en revisión.**
+- **Responsabilidad deja de ser el rasgo más justo.** Su G4 (b) sube de 0,75
+  a 0,82.
+- **Ahora los más justos son Amabilidad, con G4 (a) 0,77, y Neuroticismo,
+  con 0,79.** El de N es el del banco completo, que se elige justamente
+  porque ya pasa de 0,70.
+- G3 sigue teniendo dentro > fuera en todos los rasgos, aunque el margen se
+  estrecha en A, E y N.
+
+### 47.5 DeepSeek V4 Flash sin fecha: posible deriva
+
+En el ISS se midió el 23-07-2026, antes de que existiera la 0731 (publicada
+en OpenRouter el 31-07). Los metadatos de `/models` de hoy (24-10):
+
+- **`deepseek/deepseek-v4-flash`:**
+  - `created` 2026-04-24 y `hugging_face_id` `deepseek-ai/DeepSeek-V4-Flash`;
+  - la descripción es la del lanzamiento original («efficiency-optimized
+    MoE… 284B total, 13B activated»);
+  - tarifa de 0,091 / 0,182 $ por M (en `coste_run.PRECIOS`, del 04-08: 0,09 / 0,18).
+- **La familia tiene alias aparte:** `~deepseek/deepseek-v4-flash-latest`
+  (creado el 01-08, «always redirects to the latest model in the DeepSeek V4
+  Flash family») y `deepseek/deepseek-v4-flash-0731`, con su propia ficha y
+  su propio HF.
+- Las respuestas de hoy traen `model_returned` = `deepseek/deepseek-v4-flash`.
+
+**Lectura.** Nada en el catálogo indica que el id sin fecha se haya
+redirigido a la 0731: la redirección tiene su propio alias. La conducta
+tampoco se parece a la de la 0731:
+
+- tokens de salida: 183 frente a 555 por llamada;
+- O 53 frente a 47 ▼, y H 37 frente a 44;
+- N 55 frente a 50 ▼.
+
+Pero OpenRouter no garantiza que el proveedor sirva hoy los mismos pesos que
+en julio, y en julio no había manifiestos con `model_returned` con los que
+comparar. **Se anota como posible deriva entre su ISS (23-07) y su
+personalidad (24-10).**
+
+**No hay referencia de personalidad previa de este id,** así que la huella
+conductual de §43-44 (umbral calibrado en §44) **no se le puede aplicar**:
+no hay con qué comparar. Si se quiere vigilar, esta medición es la
+referencia de aquí en adelante.
+
+### 47.6 MiniMax M3.1 Flash: cómo casa con sus dos entradas del ISS
+
+- **En el ISS hay dos entradas** de la preview stealth, medidas el
+  28/29-09-2026, gratis:
+  - `stealth/space-bunny-alpha#low`, ISS 7,9;
+  - `stealth/space-bunny-alpha#high`, ISS 10,3.
+
+  `generar_benchmark.DESVELADOS` les da laboratorio MiniMax y nombre
+  MiniMax-M3.1-Flash (desvelado el 19-10). Las dos conservan el id con el
+  que se midieron.
+- **El id stealth ya no está en el catálogo de OpenRouter.** El público es
+  **`minimax/minimax-m3.1-flash`** (`created` 2026-10-19, HF
+  `MiniMaxAI/MiniMax-M3.1-Flash`, 0,15 / 0,60 $ por M, admite
+  `reasoning_effort`). Se midió con **`#low`**, como pedía la decisión.
+- **Emparejamiento, con el mínimo cambio** en
+  `analizar_discriminacion.py`, del que beben el cuadro y los demás
+  análisis que muestran el ISS:
+  - `"minimax"` entra en `ORGS`, para que la carpeta
+    `minimax_minimax-m3.1-flash#low` se lea como el id
+    `minimax/minimax-m3.1-flash#low` y su laboratorio sea `minimax` (P5);
+  - `ISS_DE = {"minimax/minimax-m3.1-flash#low":
+    "stealth/space-bunny-alpha#low"}`. Con ello `iss_por_modelo()` le da el
+    ISS de la entrada `#low` (7,9).
+- **La entrada `#high` del ISS se queda sin pareja de personalidad**, porque
+  no se midió con `#high`.
+- `alta_personalidad.py` no necesitó alias.
+- **Salvedad.** La personalidad es de la versión pública y el ISS es de la
+  preview stealth. Según DESVELADOS, la versión pública, si se mide en el
+  ISS, es otra entrada. El emparejamiento supone que es el mismo modelo, y
+  no está comprobado. Es la misma clase de posible deriva que en 47.5.
+- **Test nuevo:** `test_minimax_empareja_con_space_bunny_low`.
+
+### 47.7 Cambios de código
+
+- `tarifas_openrouter.json`: las ocho tarifas del catálogo de OpenRouter del
+  24-10.
+- `analizar_discriminacion.py`: `"minimax"` en `ORGS` y `ISS_DE` (47.6).
+- `test_alta_personalidad.py`: el test del emparejamiento de MiniMax.
+- `ALTA_MODELO.md`: cuándo hace falta `ISS_DE` y por qué `--parcial` sin
+  historial.
+- `./verificar.sh`: **PUERTA COMPLETA: OK**. `web/datos.js` no cambia.
+
+### Lo que quedó fuera
+
+- **De los ocho, nada:** los ocho están completos y en el cuadro.
+- **No se midió:** MiniMax con `#high`, porque la decisión era `#low`.
+- **Sigue fuera:**
+  - Kimi K3, pendiente de completar (≈ 3,6 $ con margen, §46.4);
+  - DeepSeek V4 Pro, no interpretable;
+  - `x-ai/grok-4.5` y `mistralai/mistral-large-4-0`, sin alta;
+  - el id de NaN `deepseek-v4-flash`, sin etiqueta.
+- **Saldo que queda:** ≈ 1,01 $, que no da para Kimi.
+- **Datos en cuarentena del 17-10:** siguen sin tocar.

@@ -183,6 +183,15 @@ def test_forma_corta_no_se_publica():
     assert set(pp["pendientes"]) <= set(pp2["formas"]) | set(pp2["no_interpretables"])
 
 
+def test_minimax_empareja_con_space_bunny_low():
+    """§47: MiniMax M3.1 Flash (#low, id público) toma el ISS de su medición stealth #low."""
+    from analizar_discriminacion import ISS_DE, _id, iss_por_modelo
+    iss = iss_por_modelo()
+    m = _id("minimax_minimax-m3.1-flash#low")
+    assert m == "minimax/minimax-m3.1-flash#low" and ISS_DE[m] == "stealth/space-bunny-alpha#low"
+    assert iss[m] == iss["stealth/space-bunny-alpha#low"] != iss["stealth/space-bunny-alpha#high"]
+
+
 if __name__ == "__main__":
     for nombre, f in list(globals().items()):
         if nombre.startswith("test_"):
