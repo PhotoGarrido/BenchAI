@@ -4451,3 +4451,149 @@ Sol. Para fechar cambios pequeños haría falta otra señal, por ejemplo la
 sensibilidad a la semilla del exploratorio, que habría que validar antes con
 criterios propios.
 
+
+## 45. Alta de GLM 5.3, Qwen 3.8 Max y Kimi K3, y re-medición de DeepSeek V4 Pro · decisiones de David y criterios fijados ANTES de medir (23-10-2026)
+
+**Decisiones de David (23-10-2026)** sobre lo que quedaba abierto en §42:
+
+1. **Se lanzan** `z-ai/glm-5.3` y `qwen/qwen3.8-max-0902#low` con la **forma
+   completa**, y `moonshotai/kimi-k3` con la **forma corta**. Los ids y
+   sufijos son los de su v1 (`resultados/personalidad_p1/<id>/`): GLM y Kimi
+   sin sufijo de esfuerzo, Qwen con `#low`.
+2. **La forma corta no se publica, se espera** (45.2).
+3. **DeepSeek V4 Pro se vuelve a medir** para saber si su «no interpretable»
+   es un rasgo estable del modelo o ruido de aquella pasada (45.3).
+4. **Equiparación lineal, definitiva** (45.4).
+5. Los datos en cuarentena del 17-10 (§22, §44) **no se tocan**: no hay
+   decisión.
+
+Esta sección se escribe y se versiona **antes de medir** DeepSeek V4 Pro. Las
+tres altas de la decisión 1 no tienen criterios propios: aplican los de §41
+sin cambios (cobertura, validez por modelo y revalidación). Los resultados
+van en §46.
+
+### 45.1 Presupuesto y orden
+
+Saldo de OpenRouter al empezar: **7,211 $** (`/credits`, 23-10 a las 23:42).
+Tope global de la tarea: **6,90 $**. Proyecciones de
+`alta_personalidad.py --proyectar` y `remedicion_validez.py --proyectar`,
+con los tokens de cada modelo en sus manifiestos y la tarifa del 23-10:
+
+| orden | modelo | forma | llamadas | proyección | con margen × 1,15 | `--tope` |
+|---|---|---|---|---|---|---|
+| 1 | z-ai/glm-5.3 | completa | 1.530 | 1,014 $ | 1,166 $ | 1,20 $ |
+| 2 | qwen/qwen3.8-max-0902#low | completa | 1.530 | 1,910 $ | 2,197 $ | 2,25 $ |
+| 3 | moonshotai/kimi-k3 | corta | 612 | 2,262 $ | 2,601 $ | 2,65 $ |
+| 4 | deepseek/deepseek-v4-pro-0813 (re-medición) | 45.3 | 2.094 | 0,783 $ | 0,901 $ | lo que quede |
+
+Los tres primeros suman 5,96 $ con margen y 6,10 $ de topes, así que caben y
+se lanzan a la vez, cada uno con su control de gasto dentro del proceso. La
+re-medición se lanza **después**, con `--tope` = 6,90 − gasto real de los
+tres (diferencia de `/credits`) − 0,05 de resguardo. Sus tramos van en orden
+de prioridad (45.3) y lo que no quepa queda pendiente y se informa.
+
+### 45.2 Regla: un modelo con solo la forma corta no entra en el cuadro público
+
+**Regla (decisión 2).** Un modelo que entra por cobertura con la forma corta
+en algún rasgo (§41.1) **no se publica**:
+
+- no entra en el panel: ni en la media de los demás, ni en d̄, ni en la
+  selección de la escala de N, ni en P5, ni en BH;
+- `CUADRO_PUBLICO.md` lo lista en «Pendientes de completar» con sus rasgos
+  en forma corta y sus índices de validez (informativos), sin puntuaciones,
+  marcas ni retrato; en el json, `pendientes_de_completar`;
+- entra solo cuando tenga la forma completa (≥ 95 % del banco de cada
+  rasgo), con el mismo comando de alta sin `--corta`, que mide solo lo que
+  falta.
+
+Se implementa en `cuadro_publico_v3.py` con la constante
+`PUBLICAR_FORMA_CORTA = False`. Toda la maquinaria de §41.1 (cálculo mixto,
+equiparación, revalidación en la forma corta) se conserva y se ejercita con
+`--con-forma-corta`, solo para comparar. Los datos cortos se guardan y
+cuentan para la forma completa: no se repiten.
+
+Razón: en la simulación de §42.1 un modelo corto conserva 18 de las 21 marcas
+robustas y gana 6 que no tiene con la completa (precisión 18/24). Hasta que
+se decida cuánto más exigirle, la forma corta sirve para abaratar el alta y
+para un pronóstico de validez, no para publicar.
+
+### 45.3 Re-medición de DeepSeek V4 Pro · diseño y criterios
+
+**Qué falló (§42.2).** V4 · coherencia de la deseabilidad = 0,639 (< 0,65,
+no interpretable). V1 · posición en el borde del aviso: Δ = −0,295 y
+|A − 0,5| = 0,148. De los 126 pares incoherentes, 122 son «B» en los dos
+órdenes. El retest dentro de la pasada era bueno (0,80).
+
+**Pregunta.** ¿Es un rasgo estable del modelo (se repite con semillas
+nuevas y otra fecha) o ruido de aquella pasada?
+
+**Diseño.** Una pasada nueva de los instrumentos que alimentan los índices
+de §41.2, en todo el banco del cuadro (349 situaciones: 229 del v3 en O, C,
+E y A, 48 de I1-H y 72 de I1-N), con `spike/remedicion_validez.py`:
+
+- **mismos** ids, prompts, nombres, temperatura (0,7) y `max_tokens` (60)
+  que la batería de alta, que reutiliza los `plan()` de los ejecutores;
+  mismo id de OpenRouter (`deepseek/deepseek-v4-pro-0813`, sin sufijo, como
+  en su v1, v3 e I1);
+- **semillas nuevas**: sha256(`"R2310|" + id`) en lugar de la del ejecutor;
+  cada registro lleva `semilla_prefijo: "R2310"`;
+- se escribe en una raíz aparte,
+  `resultados/remedicion/deepseek_deepseek-v4-pro-0813@2026-10-23/`, con la
+  estructura de carpetas de siempre. **No entra en el cuadro** ni en ningún
+  análisis salvo que el veredicto lo diga (abajo);
+- tres tramos, en este orden de prioridad, con el control de gasto en el
+  propio proceso:
+  1. **deseabilidad** AB y BA de las 349 (698 llamadas): da V4;
+  2. **conducta, réplica 0**, AB y BA (698): da V1 y V2;
+  3. **conducta, réplica 1** (698): da V3 dentro de la pasada nueva.
+
+  Con los tramos 1 y 2 basta para decidir. Sin el 3, V3 no se juzga en la
+  pasada nueva y el r de e entre pasadas se da como información.
+
+**Índices.** Los de §41.2, con los mismos umbrales y el mismo código
+(`validez_personalidad.evaluar(base=…)`), en tres conjuntos:
+
+- **(N) la pasada nueva sola**;
+- **(J) las dos pasadas juntas**: V4 = fracción de pares AB/BA coherentes
+  sobre los pares de las dos pasadas; V1 sobre todas las elecciones de las
+  dos;
+- (O) la original, ya conocida (§42.2).
+
+**Veredicto (fijado ahora):**
+
+| veredicto | condición | consecuencia |
+|---|---|---|
+| **sin datos suficientes** | menos del 95 % de los pares de deseabilidad (349) o de las elecciones de la réplica 0 (698) en (N) | se dice y se reanuda cuando haya saldo; sigue fuera |
+| **rasgo estable** | (N) vuelve a dar «no interpretable» en V4 o en V1 | sigue fuera de la norma, ahora con dos pasadas; el cuadro no cambia |
+| **ruido de aquella pasada** | (N) no tiene ningún índice «no interpretable» (V3 solo si hay tramo 3) **y** (J) tampoco, en V1 y V4 | **vuelve a ser interpretable** |
+| **no concluyente** | (N) pasa, pero (J) no | sigue fuera; se informa |
+
+Exigir también (J) evita rehabilitar al modelo por una sola pasada de
+suerte. Los umbrales son los de todos los modelos, sin margen añadido.
+
+**Si vuelve a ser interpretable:** entra en el cuadro con los datos de la
+**pasada nueva**, que sustituyen a la original (la original se conserva en
+sus ficheros). Para ello la pasada nueva debe estar completa (los tres
+tramos); si falta el tramo 3, se completa antes de publicarlo. Se regenera
+el cuadro y §46 dice qué marcas cambian.
+
+**Informativo, sin veto:**
+
+- intervalo de Wilson 95 % de V4 en (N);
+- persistencia de la incoherencia por situación: P(incoherente en N |
+  incoherente en O) frente a P(incoherente en N | coherente en O). Si la
+  incoherencia fuera ruido, las dos serían parecidas;
+- en los pares incoherentes, cuántos son «A» en los dos órdenes y cuántos
+  «B» (en O: 4 y 122);
+- r de e por situación entre las dos pasadas.
+
+Un fallo técnico (`ERROR_TECNICO`) nunca cuenta como conducta: se reintenta
+con el mismo comando.
+
+### 45.4 Equiparación lineal, definitiva
+
+`EQUIPARACION = "lineal"` en `cuadro_publico_v3.py` (media y desviación
+típica de los modelos completos, §42.1 y §42.6.1) queda **como definitiva**
+por decisión de David (23-10). Deja de ser una desviación pendiente. Con la
+regla de 45.2 no afecta a nada publicado hasta que vuelva a publicarse una
+forma corta.
