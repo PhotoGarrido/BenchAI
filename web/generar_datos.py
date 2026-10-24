@@ -694,10 +694,11 @@ def bloque_corpus() -> dict:
     base = RAIZ / "spike" / "resultados"
     carpetas = ({p.parent for p in base.rglob("manifest_run.json")}
                 | {p.parent for p in base.rglob("solicitudes.jsonl")})
-    # El piloto de personalidad (PERSONALIDAD.md, carpetas personalidad_* y la
-    # huella de §43-44 en huella/) es un instrumento aparte, aún no publicado:
-    # sus llamadas no entran en el corpus de PsicoBench que cita la web. Si se
-    # publica, se decide entonces.
+    # La personalidad (PERSONALIDAD.md, carpetas personalidad_* y la huella de
+    # §43-44 en huella/) es un instrumento aparte: su cuadro se publica en
+    # /personalidad (bloque `personalidad`), pero sus llamadas NO entran en el
+    # corpus de PsicoBench que cita la web. Decisión del 24-10-2026, al
+    # publicarlo: el corpus cuenta lo que sostiene el ISS, no todo lo medido.
     carpetas = {c for c in carpetas
                 if not any(parte.startswith("personalidad_") or parte == "huella"
                            for parte in c.relative_to(base).parts)}
@@ -884,6 +885,191 @@ def bloque_metodo() -> dict:
     }
 
 
+# ── 8. El cuadro de personalidad (/personalidad) ─────────────────────────────
+# Fuente única: el json que escribe `spike/cuadro_publico_v3.py` (PERSONALIDAD.md
+# §28-29 y §41). Aquí no se recalcula nada del cuadro: se copia lo publicable
+# —puntuación con IC, marca robusta, retrato, validez— y se cruza con el banco
+# solo para enlazar la ficha de /psicobench. Lo que el json no trae (la edición
+# y su fecha) se lee de PERSONALIDAD.md con su aguja.
+
+FUENTE_CUADRO = "spike/resultados/personalidad_fc/cuadro_publico.json"
+# La sección de PERSONALIDAD.md que deja el cuadro tal como está publicado. Es
+# lo único declarado a mano, y no es una cifra: la fecha sale del título de la
+# sección, y su cuerpo tiene que decir los mismos recuentos que el json. Si el
+# cuadro se rehace con otro alta, esto se para hasta que se apunte la sección
+# nueva.
+SECCION_CUADRO = 47
+RASGOS_CUADRO = ["O", "C", "E", "A", "N", "H"]
+
+
+def _seccion(rel: str, numero: int) -> tuple[str, str]:
+    """(fecha del título, cuerpo) de la sección `## n.` de un documento."""
+    texto = leer(rel)
+    m = re.search(rf"^## {numero}\. .*\((\d{{2}}-\d{{2}}-\d{{4}})\)\s*$", texto, re.M)
+    if not m:
+        raise SystemExit(f"[generar_datos] no encuentro la sección §{numero} con fecha en {rel}")
+    fin = re.search(r"^## \d+\. ", texto[m.end():], re.M)
+    return m.group(1), texto[m.end(): m.end() + fin.start() if fin else len(texto)]
+
+
+def _pearson(xs: list[float], ys: list[float]) -> float | None:
+    n = len(xs)
+    if n < 3:
+        return None
+    mx, my = sum(xs) / n, sum(ys) / n
+    sxy = sum((x - mx) * (y - my) for x, y in zip(xs, ys))
+    sxx = sum((x - mx) ** 2 for x in xs)
+    syy = sum((y - my) ** 2 for y in ys)
+    return round(sxy / (sxx * syy) ** 0.5, 2) if sxx and syy else None
+
+
+def bloque_personalidad(bench: dict) -> dict:
+    c = json.loads(leer(FUENTE_CUADRO))
+    disc = constantes("spike/analizar_discriminacion.py", {"ORGS", "ISS_DE"})
+    val = constantes("spike/validez_personalidad.py", {"UMBRALES", "NOMBRE_INDICE"})
+    # los listones de P1 y P6 que la página explica en llano: Q y las
+    # particiones son constantes; la tasa de signo va escrita en la condición
+    rob = constantes("spike/analizar_robustez_v3.py", {"Q", "N_PARTICIONES"})
+    exigir("spike/cuadro_publico_v3.py", 'paso = {"P1": p1[k]["tasa_signo"] >= .90,',
+           "el listón de P1 (tasa de signo en las mitades) que explica /personalidad")
+    orgs, iss_de = disc["ORGS"], disc["ISS_DE"]
+
+    def id_publico(carpeta: str) -> str:
+        # la misma regla que `analizar_discriminacion._id`: «org_modelo» → «org/modelo»
+        return (carpeta.replace("_", "/", 1) if "_" in carpeta and "/" not in carpeta
+                and carpeta.split("_")[0] in orgs else carpeta)
+
+    # Cada modelo del cuadro con su medición del banco: la PRIMERA entrada con
+    # ese `modelo`, que es la que `iss_por_modelo()` le da al cuadro, más los
+    # emparejamientos declarados en ISS_DE. El ISS del json tiene que coincidir
+    # con el de esa entrada; si no, el cruce está mal y no se publica.
+    primera: dict = {}
+    for e in bench["entradas"]:
+        primera.setdefault(e["modelo"], e)
+    for m, iss_id in iss_de.items():
+        if iss_id in primera:
+            primera.setdefault(m, primera[iss_id])
+
+    # El nombre del laboratorio, el del banco: se aprende de los modelos que
+    # tienen pareja y tiene que ser único por organización.
+    lab_de: dict = {}
+    for m in c["modelos"]:
+        e = primera.get(m["modelo"])
+        if e and lab_de.setdefault(m["laboratorio"], e["lab"]) != e["lab"]:
+            raise SystemExit(f"[generar_datos] la organización {m['laboratorio']} casa con dos "
+                             f"laboratorios del banco ({lab_de[m['laboratorio']]} y {e['lab']})")
+    faltan = sorted({m["laboratorio"] for m in c["modelos"]} - set(lab_de))
+    if faltan:
+        raise SystemExit(f"[generar_datos] sin nombre de laboratorio en el banco para: {faltan}")
+
+    ent = lambda x: int(f"{x:.0f}")  # noqa: E731 — el redondeo de CUADRO_PUBLICO.md
+    validez = c["validez_modelos"]["modelos"]
+    modelos = []
+    for m in c["modelos"]:
+        e = primera.get(m["modelo"])
+        if m["iss"] is not None and (e is None or abs(e["iss"] - m["iss"]) > 1e-9):
+            raise SystemExit(f"[generar_datos] el ISS de {m['modelo']} en el cuadro ({m['iss']}) "
+                             "no casa con su medición del banco")
+        rasgos = {}
+        for t in RASGOS_CUADRO:
+            r = m["rasgos"][t]
+            # solo la marca robusta es publicable (§28): `marca` ya lo es; la
+            # candidata frágil o no publicable no sale de aquí
+            if r["marca"] and r["nivel"] != "robusta":
+                raise SystemExit(f"[generar_datos] {m['modelo']} {t}: marca no robusta en el json")
+            rasgos[t] = {"p": round(r["puntuacion"], 2), "e": ent(r["puntuacion"]),
+                         "ic": [round(v, 2) for v in r["ic"]], "icE": [ent(v) for v in r["ic"]],
+                         "marca": r["marca"],
+                         "dif": round(r["comparacion"]["dif"], 2),
+                         "difIC": [round(v, 2) for v in r["comparacion"]["ic"]]}
+        v = validez[m["id"]]
+        modelos.append({
+            "id": m["modelo"], "lab": lab_de[m["laboratorio"]],
+            "iss": m["iss"], "psicobench": e["id"] if e and m["iss"] is not None else None,
+            # el ISS de otra id (ISS_DE: una preview stealth medida antes de
+            # desvelarse) y la fecha de esa medición, para avisarlo al lado
+            "issDe": e["modelo"] if e and m["iss"] is not None and e["modelo"] != m["modelo"] else None,
+            "fechaISS": e["fecha"] if e and m["iss"] is not None else None,
+            "rasgos": rasgos, "frase": m["frase"],
+            "conRetrato": any(rasgos[t]["marca"] for t in RASGOS_CUADRO),
+            "validez": m["validez"], "aviso": m["aviso_validez"],
+            "indices": {k: (None if x is None else round(x, 3)) for k, x in v["valores"].items()},
+            "niveles": v["niveles"],
+        })
+
+    # Fuera del cuadro, cada uno con el motivo que da el propio json
+    fuera = [{"id": x["modelo"], "tipo": "no interpretable", "motivo": x["motivo"]}
+             for x in c["no_interpretables"]]
+    fuera += [{"id": x["modelo"], "tipo": "pendiente de completar",
+               "motivo": "medido solo con la forma corta en " + ", ".join(x["rasgos_forma_corta"])}
+              for x in c["pendientes_de_completar"]]
+    fuera += [{"id": id_publico(k), "tipo": "sin cobertura", "motivo": motivo}
+              for k, motivo in sorted(c["fuera_por_cobertura_41"].items())]
+    # su medición del banco, si la tiene (con la misma regla de emparejamiento),
+    # para que un id de NaN como «deepseek-v4-flash» no se confunda con otro
+    for f in fuera:
+        f["psicobench"] = primera[f["id"]]["id"] if f["id"] in primera else None
+
+    labs = sorted({m["lab"] for m in modelos}, key=str.lower)
+    if len(labs) != len(c["laboratorios"]):
+        raise SystemExit("[generar_datos] laboratorios del cuadro y del banco no casan")
+    robustas = sum(1 for m in modelos for t in RASGOS_CUADRO if m["rasgos"][t]["marca"])
+    if robustas != c["recuento"]["robusta"]:
+        raise SystemExit("[generar_datos] el recuento de marcas robustas del json no casa con sus modelos")
+    con_retrato = sum(1 for m in modelos if m["conRetrato"])
+
+    # La edición: su fecha es la de la sección, y la sección tiene que contar
+    # lo mismo que el json
+    fecha, cuerpo = _seccion("PERSONALIDAD.md", SECCION_CUADRO)
+    for aguja in (f"Después: {len(modelos)} modelos, {len(labs)} laboratorios",
+                  f"→ {robustas}.**", f"Hay retrato en {con_retrato} de {len(modelos)} modelos"):
+        if aguja not in cuerpo:
+            raise SystemExit(
+                f"[generar_datos] FUENTE PERDIDA: «{aguja}» no está en PERSONALIDAD.md §{SECCION_CUADRO}.\n"
+                "  El cuadro ha cambiado: apunta SECCION_CUADRO a la sección que lo deja así.")
+    banco = re.search(r"_v(\d+)\.py$", c["generado_por"])
+    # la prosa de la página nombra las comprobaciones con letra: si cambia su
+    # número, la página tiene que cambiar con él
+    palabra = {3: "tres", 4: "cuatro", 5: "cinco", 6: "seis", 7: "siete"}
+    exigir("web/personalidad.html", f"las {palabra[len(c['comprobaciones'])]} comprobaciones",
+           "el número de comprobaciones de una marca robusta (§28)")
+
+    rev = c["revalidacion"]["banco_completo"]
+    rasgos = []
+    for t in RASGOS_CUADRO:
+        r, g = c["rasgos"][t], rev[t]
+        rasgos.append({
+            "clave": t, "nombre": r["nombre"], "alto": r["polo_alto"], "bajo": r["polo_bajo"],
+            "n": c["n_situaciones"][t], "conMarca": r["con_marca"], "enRevision": r["en_revision"],
+            "aviso": r["aviso"],
+            "g4a": round(g["G4a"], 2), "g4b": round(g["G4b"], 2),
+            "g3": [round(g["G3_dentro"], 2), round(g["G3_fuera"], 2)], "pasa": g["pasa"],
+        })
+
+    # Descriptivo, sin contraste: cómo va cada rasgo con el ISS entre los
+    # modelos que tienen los dos, y H con C en el propio cuadro (§37, §47)
+    con_iss = [m for m in modelos if m["iss"] is not None]
+    rel_iss = {t: {"r": _pearson([m["rasgos"][t]["p"] for m in con_iss], [m["iss"] for m in con_iss]),
+                   "n": len(con_iss)} for t in RASGOS_CUADRO}
+    hc = _pearson([m["rasgos"]["H"]["p"] for m in modelos], [m["rasgos"]["C"]["p"] for m in modelos])
+
+    return {
+        "fuente": FUENTE_CUADRO,
+        "seccion": SECCION_CUADRO, "fecha": fecha,
+        "banco": "v" + banco.group(1) if banco else None,
+        "nModelos": len(modelos), "nLabs": len(labs), "labs": labs,
+        "robustas": robustas, "conRetrato": con_retrato,
+        "candidatas": sum(c["recuento"].values()), "recuento": c["recuento"],
+        "comprobaciones": c["comprobaciones"], "pruebasBH": c["n_pruebas_bh"],
+        "listonSigno": 0.90, "particiones": rob["N_PARTICIONES"], "q": rob["Q"],
+        "umbralG4": c["validez_s28"]["umbral_G4"],
+        "rasgos": rasgos, "modelos": modelos, "fuera": fuera,
+        "umbrales": {k: list(v) for k, v in val["UMBRALES"].items()},
+        "nombreIndice": val["NOMBRE_INDICE"],
+        "relacionISS": rel_iss, "correlacionHC": {"r": hc, "n": len(modelos)},
+    }
+
+
 # ── ensamblado ──────────────────────────────────────────────────────────────
 
 
@@ -951,13 +1137,15 @@ def construir() -> str:
         "corpus": bloque_corpus(),
         "metodo": bloque_metodo(),
         "episodios": bloque_episodios(),
+        "personalidad": bloque_personalidad(bench),
     }
     cuerpo = json.dumps(datos, ensure_ascii=False, indent=1, sort_keys=False)
     return (
         "// Generado por web/generar_datos.py — NO EDITAR A MANO.\n"
         "// Fuentes: benchmark/psicobench.json · spike/experimento_*.py ·\n"
         "// spike/resultados/informe_*.md · episodios/*/replay.json ·\n"
-        "// EXPERIMENTOS.md · BENCHMARK.md · README.md\n"
+        "// spike/resultados/personalidad_fc/cuadro_publico.json ·\n"
+        "// EXPERIMENTOS.md · BENCHMARK.md · README.md · PERSONALIDAD.md\n"
         "// Se sirve como módulo JS (y no como fetch de un .json) para que la\n"
         "// web funcione abriendo index.html con doble clic, sin servidor.\n"
         f"window.PSICO = {cuerpo};\n"

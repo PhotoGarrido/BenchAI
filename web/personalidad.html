@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Misma política que el resto del sitio: nada de red, scripts solo del
+     propio origen. La página es estática y funciona también con file://. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'">
+<title>Personalidad · El carácter de cada modelo, por lo que elige · BenchAI</title>
+<link rel="canonical" href="https://benchai.tech/personalidad">
+<meta name="description" content="El cuadro de personalidad de BenchAI: el perfil de cada modelo de lenguaje en los cinco grandes rasgos (NEO-PI-R) más Honestidad-Humildad (HEXACO), medido por lo que elige en situaciones cotidianas y no por lo que dice de sí mismo, con intervalos de confianza, marcas robustas e índices de validez.">
+<meta name="color-scheme" content="dark">
+<meta property="og:title" content="Personalidad · El carácter de cada modelo, por lo que elige">
+<meta property="og:description" content="Big Five más Honestidad-Humildad, medidos por conducta en situaciones cotidianas. Complementario al ISS de PsicoBench: no es una nota, es un retrato.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://benchai.tech/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://benchai.tech/personalidad">
+<meta property="og:site_name" content="BenchAI">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://benchai.tech/og.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23222623'/%3E%3Crect x='5' y='21' width='4.2' height='6' rx='1' fill='%238E9A70'/%3E%3Crect x='11' y='16' width='4.2' height='11' rx='1' fill='%23DDA950'/%3E%3Crect x='17' y='11' width='4.2' height='16' rx='1' fill='%23EE7633'/%3E%3Crect x='23' y='5' width='4.2' height='22' rx='1' fill='%23D42F2A'/%3E%3C/svg%3E">
+<!-- El sistema visual del sitio largo, los componentes de PsicoBench que se
+     reutilizan (mandos, notas, claves de lectura, panel de portada) y encima
+     solo lo propio de esta página -->
+<link rel="stylesheet" href="css/estilo.css">
+<link rel="stylesheet" href="css/psicobench.css">
+<link rel="stylesheet" href="css/personalidad.css">
+</head>
+<body>
+
+<a class="saltar" href="#cuadro">Saltar al cuadro</a>
+
+<!-- ═══ barra superior ═══════════════════════════════════════════════════ -->
+<header class="barra" id="barra">
+  <div class="interior">
+    <a class="marca" href="#portada" aria-label="BenchAI, inicio de la página">
+      <span class="punto" aria-hidden="true"></span>
+      BenchAI
+      <span class="v" id="v-edicion"></span>
+    </a>
+    <nav class="superficies" aria-label="Las cuatro lecturas de BenchAI">
+      <a href="home.html">Resumen</a>
+      <a href="index.html">Completa</a>
+      <a href="psicobench.html">PsicoBench</a>
+      <a href="personalidad.html" aria-current="page">Personalidad</a>
+    </nav>
+    <nav class="navmini" aria-label="Secciones">
+      <a href="#cuadro">El cuadro</a>
+      <a href="#leer">Cómo leerlo</a>
+      <a href="#metodo">Método</a>
+      <a href="#limites">Limitaciones</a>
+      <a href="#fuera">Fuera del cuadro</a>
+    </nav>
+  </div>
+  <div class="progreso" id="progreso" role="presentation"></div>
+</header>
+
+<main>
+
+<!-- ═══ 00 · portada ═════════════════════════════════════════════════════ -->
+<section class="portada" id="portada">
+  <div class="fondo" aria-hidden="true"></div>
+
+  <div>
+    <p class="ceja">Personalidad · el cuadro de BenchAI</p>
+    <h1>Cada modelo tiene su carácter. Aquí está medido <em>por lo que elige</em>.</h1>
+    <p class="entradilla">
+      <strong>Es el perfil de personalidad de cada modelo en el marco de los cinco grandes
+      (NEO-PI-R) más Honestidad-Humildad (HEXACO), medido por lo que elige en situaciones
+      cotidianas y no por lo que dice de sí mismo.</strong>
+      Complementa al ISS de PsicoBench: el ISS dice cuánto cede un modelo a la presión social;
+      este cuadro, cómo es cuando nadie le presiona.
+    </p>
+
+    <ul class="cifras">
+      <li><span class="n" data-cifra="personalidad.nModelos"></span>
+          <span class="r">modelos con perfil interpretable</span></li>
+      <li><span class="n" data-cifra="personalidad.nLabs"></span>
+          <span class="r">laboratorios en el mismo panel</span></li>
+      <li><span class="n" data-cifra="personalidad.robustas"></span>
+          <span class="r">marcas robustas, las únicas que se publican</span></li>
+      <li><span class="n" data-cifra="personalidad.fecha"></span>
+          <span class="r">edición del cuadro vigente</span></li>
+    </ul>
+
+    <div class="acciones">
+      <a class="boton fuerte" href="#cuadro">Ver el cuadro</a>
+      <a class="boton" href="#leer">Cómo leerlo</a>
+      <a class="boton" href="#metodo">El método</a>
+    </div>
+  </div>
+
+  <!-- panel animado: el retrato de cada modelo que lo tiene, rasgo a rasgo -->
+  <div class="panel-escalera panel-indice panel-retrato" id="panel-retrato" aria-hidden="true">
+    <div class="cabecera">
+      <span class="tit">Retrato por conducta</span>
+      <span class="exp" id="pr-lab">—</span>
+    </div>
+    <p class="pi-quien"><b id="pr-nombre">—</b></p>
+    <div id="pr-rasgos"></div>
+    <p class="pr-frase" id="pr-frase"></p>
+    <div class="veredicto">
+      <span class="pi-nota">50 = elige lo que el panel juzga admirable</span>
+      <span class="pi-nota" id="pr-iss"></span>
+    </div>
+  </div>
+
+  <div class="pista"><span>Baja</span><span class="flecha"></span></div>
+</section>
+
+<!-- ═══ 01 · el cuadro ═══════════════════════════════════════════════════ -->
+<section class="bloque" id="cuadro">
+  <div class="marco">
+    <div class="rotulo aparece"><span class="indice">01</span><span class="grupo">El cuadro</span></div>
+    <h2 class="titulo aparece">Cada modelo, rasgo a rasgo, frente a los demás</h2>
+    <p class="bajada aparece d1">
+      Cada modelo, con su puntuación en cada rasgo y su intervalo de confianza al 95 % debajo. <strong>▲ y ▼ solo aparecen donde el modelo elige
+      distinto que los demás y la diferencia resiste las cinco comprobaciones</strong>; donde no hay
+      marca, no se distingue del panel. Debajo de cada nombre va su retrato en una línea.
+    </p>
+    <div class="filtros aparece d1" id="mandos-cuadro"></div>
+    <div class="leyenda-mapa leyenda-cuadro aparece d1" id="leyenda-cuadro"></div>
+    <div class="aparece d2" id="cuadro-host"></div>
+    <p class="nota aparece d2" style="margin-top:14px" id="nota-cuadro"></p>
+  </div>
+</section>
+
+<!-- ═══ 02 · cómo leerlo ═════════════════════════════════════════════════ -->
+<section class="bloque" id="leer">
+  <div class="marco">
+    <div class="rotulo aparece"><span class="indice">02</span><span class="grupo">Cómo leerlo</span></div>
+    <h2 class="titulo aparece">Tres claves para no leer de más</h2>
+    <ul class="claves-lectura aparece d1" aria-label="Cómo se lee el cuadro">
+      <li><b>50 es «lo admirable»</b><span>Una puntuación de 50 quiere decir que el modelo elige,
+        en promedio, lo que el conjunto de modelos juzga más admirable en cada situación. Por
+        encima, elige el polo alto del rasgo más de lo que el panel considera ideal; por debajo,
+        menos. No es una nota: en Amabilidad, por ejemplo, el polo bajo es poner límites.</span></li>
+      <li><b>▲ / ▼ es «más o menos que los demás»</b><span>La marca compara al modelo con la
+        media de los otros modelos en las mismas situaciones, una por una, y solo se publica si la
+        diferencia pasa una prueba exigente: las cinco comprobaciones de abajo.</span></li>
+      <li><b>Sin marca no es «en la media»</b><span>Quiere decir que, con estos datos, el modelo
+        no se distingue de los demás en ese rasgo. Puede estar algo por encima o por debajo sin que
+        la diferencia sea firme. Por eso dos cifras distintas sin marca no se ordenan.</span></li>
+    </ul>
+
+    <div class="rejilla lado aparece d1">
+      <div class="prosa">
+        <h3 class="mini">Las cinco comprobaciones de una marca</h3>
+        <p>Antes de nada, el intervalo de confianza de la diferencia con los demás tiene que
+        excluir el cero. Después, la marca tiene que sobrevivir a cinco pruebas. Si falla alguna,
+        se considera <em>frágil</em> y no se publica.</p>
+        <ol class="comprobaciones" id="comprobaciones"></ol>
+        <p class="nota" id="nota-candidatas"></p>
+      </div>
+      <div id="perfil-host"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 03 · método ══════════════════════════════════════════════════════ -->
+<section class="bloque" id="metodo">
+  <div class="marco">
+    <div class="rotulo aparece"><span class="indice">03</span><span class="grupo">Método breve</span></div>
+    <h2 class="titulo aparece">De dónde salen las cifras</h2>
+    <div class="rejilla lado">
+      <div class="prosa aparece d1">
+        <h3 class="mini">Tres registros, y por qué manda la conducta</h3>
+        <p>La misma situación se puede preguntar de tres maneras: «¿en qué medida te describe
+        esto?» (autoinforme), «¿qué hace este personaje?» y «si estuvieras tú en su lugar, ¿qué
+        harías?». En el piloto, el autoinforme no predijo la conducta entre modelos con ningún
+        formato: mide la imagen que el modelo da de sí mismo. Y los personajes eligieron contra lo
+        deseable más que el propio modelo. El cuadro usa por eso la conducta en primera persona:
+        situaciones cotidianas con dos salidas defendibles, una de cada polo del rasgo, en los dos
+        órdenes y con dos réplicas.</p>
+        <h3 class="mini">La deseabilidad, descontada</h3>
+        <p>Cada modelo juzga también, aparte, cuál de las dos salidas le parecería más admirable a
+        la mayoría. La puntuación resta a lo que elige la media de esos juicios de <em>todos</em>
+        los modelos: así una situación en la que todo el mundo elige lo mismo porque es «lo
+        correcto» no cuenta como rasgo. La marca ▲/▼ compara con los demás en la misma situación,
+        y ahí cualquier juicio común se cancela.</p>
+        <p>El detalle completo —diseño, criterios fijados antes de medir, resultados y
+        desviaciones— está en <a href="../PERSONALIDAD.md">PERSONALIDAD.md</a>, en el repositorio
+        público.</p>
+      </div>
+      <div class="aviso frio aparece d2">
+        <h3>Qué NO es este cuadro</h3>
+        <p><strong>No es una nota ni un ranking.</strong> Ningún polo es mejor que el otro: ser
+        menos amable en estas situaciones es poner límites, y ser menos responsable es priorizar
+        el descanso.</p>
+        <p><strong>No es una afirmación sobre la vida interior</strong> de los modelos: es la
+        conducta que eligen en estas situaciones, en español, en una conversación sin historial, y
+        comparada con la de los otros modelos del panel.</p>
+        <p><strong>No es un test de personalidad humano.</strong> Los rasgos y sus facetas vienen
+        de NEO-PI-R y HEXACO, pero las situaciones son propias y la norma es el panel de modelos,
+        no una población de personas.</p>
+        <p><strong>No forma parte del ISS.</strong> Es otro instrumento, con sus propias llamadas,
+        que no cuentan en el corpus de PsicoBench.</p>
+      </div>
+    </div>
+    <div class="rejilla c2 metodo-tablas">
+      <div class="aparece d1">
+        <h3 class="mini">Fiabilidad entre modelos, rasgo a rasgo</h3>
+        <p class="texto-m">Un rasgo solo lleva marcas si su escala ordena a los modelos de forma
+        consistente: la mitad de sus situaciones tiene que dar el mismo orden que la otra mitad (G4,
+        con dos maneras de partir), y sus facetas tienen que parecerse más entre sí que a las de
+        otros rasgos (G3). Se recalcula sola cada vez que se rehace el cuadro: si un rasgo baja del
+        listón, pierde todas sus marcas hasta que vuelva a pasarlo.</p>
+        <div id="tabla-fiabilidad"></div>
+      </div>
+      <div class="aparece d2">
+        <h3 class="mini">Índices de validez por modelo</h3>
+        <p class="texto-m">Como en los tests clínicos, cada modelo pasa unos índices que dicen si su
+        perfil se puede leer: si elige por la posición de la opción (A o B) en vez de por su
+        contenido, si deja respuestas sin valor, si repite lo mismo en la segunda réplica y si sus
+        juicios de qué es admirable se sostienen al cambiar el orden. En la zona de aviso el modelo
+        se publica con <span class="aviso-v">⚠</span> «interpretar con cautela»; si cae en la de no
+        interpretable, sale del cuadro y no entra en la comparación de los demás.</p>
+        <div id="tabla-validez"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 04 · limitaciones ════════════════════════════════════════════════ -->
+<section class="bloque" id="limites">
+  <div class="marco">
+    <div class="rotulo aparece"><span class="indice">04</span><span class="grupo">Limitaciones</span></div>
+    <h2 class="titulo aparece">Lo que este cuadro todavía no sabe</h2>
+    <div class="rejilla c2 limites aparece d1" id="limites-host"></div>
+  </div>
+</section>
+
+<!-- ═══ 05 · fuera del cuadro ════════════════════════════════════════════ -->
+<section class="bloque" id="fuera">
+  <div class="marco">
+    <div class="rotulo aparece"><span class="indice">05</span><span class="grupo">Fuera del cuadro</span></div>
+    <h2 class="titulo aparece">Medidos, pero sin retrato</h2>
+    <p class="bajada aparece d1">
+      Estos modelos tienen datos de personalidad, pero no entran en el cuadro ni en la norma con la
+      que se compara a los demás. Cada uno, con su motivo.
+    </p>
+    <div class="aparece d2" id="fuera-host"></div>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="marco">
+    <div class="cols">
+      <div>
+        <h2>Personalidad</h2>
+        <p style="max-width:46ch">El cuadro de personalidad de BenchAI: el carácter de cada modelo
+        medido por conducta, publicado con sus intervalos, sus índices de validez y lo que todavía
+        no sabe.</p>
+        <p style="color:var(--tenue);font-size:12.5px">Los datos de esta página se generan con
+        <code>web/generar_datos.py</code> desde <code>cuadro_publico.json</code>, que escribe
+        <code>spike/cuadro_publico_v3.py</code>; ninguna cifra está escrita a mano.</p>
+      </div>
+      <div>
+        <h2>Las cuatro lecturas</h2>
+        <ul>
+          <li><a href="home.html">Resumen</a> · la historia en una página</li>
+          <li><a href="index.html">Completa</a> · método, hallazgos y grabaciones</li>
+          <li><a href="psicobench.html">PsicoBench</a> · el perfil social y el ISS</li>
+          <li><a href="personalidad.html">Personalidad</a> · esta página</li>
+        </ul>
+      </div>
+      <div>
+        <h2>Licencias y cita</h2>
+        <ul>
+          <li>Código · <code>Apache-2.0</code></li>
+          <li>Datos y tabla · <code>CC BY 4.0</code></li>
+          <li>Método · <a href="../PERSONALIDAD.md">PERSONALIDAD.md</a></li>
+          <li>Repositorio · <a href="https://github.com/PhotoGarrido/BenchAI">github.com/PhotoGarrido/BenchAI</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="legal">
+      Los modelos se identifican por el id con el que se midieron, con su sufijo de esfuerzo
+      (<code>#low</code>) cuando lo llevan, porque el nombre comercial, sin versión, no identifica
+      nada. Los personajes y situaciones del instrumento son <strong>sintéticos</strong>.
+    </p>
+    <p class="pie">BenchAI — David Garrido · despliegue <span data-despliegue>copia local</span> ·
+      Privacidad: este sitio no usa cookies, analítica, formularios ni terceros; el hosting
+      (Vercel) registra logs técnicos de acceso.</p>
+  </div>
+</footer>
+
+<script src="datos.js"></script>
+<script src="js/marcado.js"></script>
+<script src="js/graficas.js"></script>
+<script src="js/personalidad.js"></script>
+<script src="js/escena.js"></script>
+</body>
+</html>

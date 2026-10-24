@@ -1,14 +1,16 @@
 # 🌐 `web/` — sitio divulgativo (prototipo v0.2)
 
-Tres páginas, tres lecturas, los mismos datos, y un conmutador «Resumen ·
-Completa · PsicoBench» en la barra de las tres para pasar de una a otra
-(visible también en móvil, donde el menú de secciones se esconde):
+Cuatro páginas, cuatro lecturas, los mismos datos, y un conmutador «Resumen ·
+Completa · PsicoBench · Personalidad» en la barra de las cuatro para pasar de
+una a otra (visible también en móvil, donde el menú de secciones se esconde;
+por debajo de 400 px ocupa la barra entera):
 
 | Página | Para quién | Qué cuenta |
 |---|---|---|
 | **`home.html`** | público interesado en IA | La pregunta, los tres experimentos con su versión disfrazada, un test para ponerse en la silla, el perfil de cada modelo y la escala del corpus. Enlaza a la versión larga en cada bloque. |
 | **`index.html`** | quien quiere el detalle | Las once secciones completas: método, los cuatro paradigmas, la disonancia, el portador, el benchmark con intervalos, la identidad, las grabaciones y los recursos. |
 | **`psicobench.html`** | quien viene por el benchmark | Solo PsicoBench, con lectura guiada: una pestaña por forma de presión con todas las mediciones nombradas y su IC, el mapa mediciones × ejes (ordenable, filtrable por lab, con intervalos y n por fila), el cara a cara de dos mediciones (radar superpuesto, deltas por eje, preajustes y sesiones reales lado a lado), cuatro mapas con nombre, la ficha por medición con dirección propia (`#m=id`), la escalera de versiones, la descarga CSV y la doctrina. Convive con el panel del instrumento de `/benchmark`, que es lo que regenera el banco. Plan y fases en `PLAN_WEB_BENCHMARK.md`. |
+| **`personalidad.html`** | quien quiere el carácter de cada modelo | El cuadro de personalidad por conducta (Big Five + Honestidad-Humildad, `PERSONALIDAD.md` §28): modelos × seis rasgos con puntuación, IC y ▲/▼ solo en las marcas robustas, ordenable por rasgo y filtrable por laboratorio, en tarjetas en el móvil; el retrato de una línea con su aviso ⚠ de validez explicado; el perfil de un modelo frente al panel (`#p=id`); cómo leerlo (las cinco comprobaciones en llano), método, fiabilidad por rasgo (G4/G3) e índices de validez; limitaciones; y los modelos fuera del cuadro con su motivo. Sale de `spike/resultados/personalidad_fc/cuadro_publico.json` (bloque `personalidad` de `datos.js`); la edición y su fecha, de la sección de `PERSONALIDAD.md` que la deja así (`SECCION_CUADRO`). La ficha de `/psicobench` enlaza aquí cuando su medición está en el cuadro. Sus llamadas no cuentan en el corpus de PsicoBench. |
 
 La home sigue el planteamiento divulgativo; el sitio largo sigue el hilo del
 guion del pódcast. Los dos leen **las cifras vigentes del repositorio**, no las
@@ -87,11 +89,14 @@ web/
 ├── home.html           la home divulgativa
 ├── index.html          el sitio largo
 ├── psicobench.html     la superficie propia del benchmark (/psicobench)
+├── personalidad.html   el cuadro de personalidad por conducta (/personalidad)
 ├── css/home.css        sistema visual de la home: cálido/frío, pergamino
 ├── css/estilo.css      sistema visual del sitio largo
 ├── css/psicobench.css  solo los componentes de PsicoBench; va ENCIMA de estilo.css
+├── css/personalidad.css el cuadro y sus piezas; va encima de estilo.css y psicobench.css
 ├── js/home.js          pictogramas, dosieres, chat ligero, infografía y test
 ├── js/psicobench.js    el mapa mediciones × ejes y las cifras de la página del benchmark
+├── js/personalidad.js  el cuadro de personalidad, el perfil frente al panel y su método
 ├── visor-embebido.html GENERADO desde viewer/index.html — no editar
 ├── visor-arranque.js   le pide al visor el episodio real en vez de su demo
 ├── js/graficas.js      biblioteca de gráficas SVG a mano, sin dependencias
