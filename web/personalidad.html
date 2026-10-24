@@ -102,7 +102,7 @@
     <div id="pr-rasgos"></div>
     <p class="pr-frase" id="pr-frase"></p>
     <div class="veredicto">
-      <span class="pi-nota">50 = elige lo que el panel juzga admirable</span>
+      <span class="pi-nota">cifra = puntos frente a la media de los demás · raya = media del panel</span>
       <span class="pi-nota" id="pr-iss"></span>
     </div>
   </div>
@@ -116,9 +116,11 @@
     <div class="rotulo aparece"><span class="indice">01</span><span class="grupo">El cuadro</span></div>
     <h2 class="titulo aparece">Cada modelo, rasgo a rasgo, frente a los demás</h2>
     <p class="bajada aparece d1">
-      Cada modelo, con su puntuación en cada rasgo y su intervalo de confianza al 95 % debajo. <strong>▲ y ▼ solo aparecen donde el modelo elige
-      distinto que los demás y la diferencia resiste las cinco comprobaciones</strong>; donde no hay
-      marca, no se distingue del panel. Debajo de cada nombre va su retrato en una línea.
+      Cada modelo, rasgo a rasgo, <strong>frente a la media de los demás</strong>: +5 quiere decir que elige el
+      polo alto del rasgo 5 puntos más que la media del resto de modelos, y debajo va su puesto entre todos.
+      Con «Puntuación 0–100» se ve la escala completa con su intervalo de confianza. <strong>▲ y ▼ solo aparecen donde
+      la diferencia resiste las cinco comprobaciones</strong>; donde no hay marca, no se distingue del panel.
+      Debajo de cada nombre va su retrato en una línea, y al pie, la media del panel.
     </p>
     <div class="filtros aparece d1" id="mandos-cuadro"></div>
     <div class="leyenda-mapa leyenda-cuadro aparece d1" id="leyenda-cuadro"></div>
@@ -131,8 +133,12 @@
 <section class="bloque" id="leer">
   <div class="marco">
     <div class="rotulo aparece"><span class="indice">02</span><span class="grupo">Cómo leerlo</span></div>
-    <h2 class="titulo aparece">Tres claves para no leer de más</h2>
+    <h2 class="titulo aparece">Cuatro claves para no leer de más</h2>
     <ul class="claves-lectura aparece d1" aria-label="Cómo se lee el cuadro">
+      <li><b>+5 es «5 puntos por encima de la media»</b><span>La vista por defecto compara cada
+        modelo con la media de los demás en las mismas situaciones: +5 es que elige el polo alto
+        del rasgo 5 puntos más que el resto; −5, 5 menos; 0, lo mismo. El puesto (1.º = el que más)
+        ordena a todos los modelos del cuadro en ese rasgo.</span></li>
       <li><b>50 es «lo admirable»</b><span>Una puntuación de 50 quiere decir que el modelo elige,
         en promedio, lo que el conjunto de modelos juzga más admirable en cada situación. Por
         encima, elige el polo alto del rasgo más de lo que el panel considera ideal; por debajo,

@@ -148,8 +148,12 @@ const RUTAS = [
       // pintadas como marcas robustas declaran los datos (ni una más)
       const filas = document.querySelectorAll("table.cuadro tbody tr");
       if (filas.length !== P.nModelos) f.push("filas del cuadro: " + filas.length + " (los datos declaran " + P.nModelos + ")");
-      const celdas = document.querySelectorAll("table.cuadro td.r").length;
+      const celdas = document.querySelectorAll("table.cuadro tbody td.r").length;
       if (celdas !== P.nModelos * P.rasgos.length) f.push("celdas de rasgo: " + celdas);
+      // vista por defecto: frente a la media (cifra con signo, barrita y puesto) y la fila de la media al pie
+      if (document.querySelectorAll("table.cuadro tbody td.r .barra-dif").length !== celdas) f.push("la vista frente a la media no pinta la barrita en todas las celdas");
+      if (!/^(0|[+\u2212][0-9]+)$/.test(document.querySelector("table.cuadro tbody td.r .v").firstChild.textContent)) f.push("la vista por defecto no es «frente a la media»");
+      if (document.querySelectorAll("table.cuadro tfoot tr.media-panel td.r").length !== P.rasgos.length) f.push("falta la fila de la media del panel");
       const marcas = document.querySelectorAll("table.cuadro td.r.sube, table.cuadro td.r.baja").length;
       const glifos = document.querySelectorAll("table.cuadro td.r .m").length;
       if (marcas !== P.robustas || glifos !== P.robustas) f.push("marcas pintadas: " + marcas + "/" + glifos + " (robustas: " + P.robustas + ")");
@@ -176,8 +180,12 @@ const RUTAS = [
     aserciones2: `(() => {
       const f = [];
       const P = window.PSICO.personalidad, t = P.rasgos.length - 1, k = P.rasgos[t].clave;
-      const v = Array.from(document.querySelectorAll("table.cuadro tbody tr")).map(tr => Number(tr.querySelectorAll("td.r")[t].querySelector(".v").firstChild.textContent));
+      const v = Array.from(document.querySelectorAll("table.cuadro tbody tr")).map(tr => Number(tr.querySelectorAll("td.r")[t].querySelector(".v").firstChild.textContent.replace("\u2212", "-")));
       if (v.some((x, i) => i && x > v[i - 1])) f.push("el orden por " + k + " no es de más a menos: " + v.join(","));
+      // la vista «Puntuación 0–100» vuelve a la escala con su intervalo
+      Array.from(document.querySelectorAll("#mandos-cuadro .chip")).find(b => b.textContent.startsWith("Puntuación"))?.click();
+      const p0 = Number(document.querySelector("table.cuadro tbody td.r .v").firstChild.textContent);
+      if (!(p0 >= 0 && p0 <= 100) || document.querySelector("table.cuadro tbody td.r .barra-dif")) f.push("la vista de puntuación no muestra la escala 0–100");
       const lab = P.labs[0];
       Array.from(document.querySelectorAll("#mandos-cuadro .chip")).find(b => b.firstChild.textContent === lab)?.click();
       const n = document.querySelectorAll("table.cuadro tbody tr").length;

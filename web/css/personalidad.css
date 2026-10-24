@@ -72,9 +72,9 @@ table.cuadro tbody tr.elegida td.id { box-shadow: inset 3px 0 0 var(--acento); }
    la tabla se queda para los lectores de pantalla. */
 @media (max-width: 860px) {
   .cuadro-envuelto { overflow: visible; border: none; background: none; }
-  table.cuadro, table.cuadro tbody { display: block; }
+  table.cuadro, table.cuadro tbody, table.cuadro tfoot { display: block; }
   table.cuadro thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
-  table.cuadro tbody tr { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); margin: 0 0 12px;
+  table.cuadro tbody tr, table.cuadro tfoot tr { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); margin: 0 0 12px;
     background: var(--sup); border: 1px solid var(--linea); }
   table.cuadro tbody tr:last-child td { border-bottom: none; }
   table.cuadro td { border-bottom: none; }
@@ -89,7 +89,7 @@ table.cuadro tbody tr.elegida td.id { box-shadow: inset 3px 0 0 var(--acento); }
   table.cuadro td.id .retrato, table.cuadro td.id .cautela { max-width: none; }
 }
 @media (max-width: 520px) {
-  table.cuadro tbody tr { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  table.cuadro tbody tr, table.cuadro tfoot tr { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   table.cuadro td.id { grid-column: 1 / 3; }
   table.cuadro td.iss { grid-column: 3 / 4; }
   /* la fila 2 de la tarjeta empieza en el 3.er hijo y la 3, en el 6.º */
@@ -106,6 +106,7 @@ ol.comprobaciones span { display: block; font-size: 14.5px; line-height: 1.5; co
 
 /* ── el perfil frente al panel ───────────────────────────────────────────── */
 .raya-panel { stroke: var(--tenue); stroke-width: 1.5; stroke-opacity: .55; }
+.media-panel-m { fill: var(--tinta); fill-opacity: .7; }
 .pista-perfil { stroke-opacity: .5; }
 .ic-perfil { stroke: var(--tinta); stroke-opacity: .55; stroke-width: 3; }
 .punto-perfil { fill: var(--s1); stroke: var(--sup); stroke-width: 2; }
@@ -150,8 +151,20 @@ table.fuera-t td.motivo-f { white-space: normal; min-width: 240px; color: var(--
 .panel-retrato .pi-fila.sube { --c: var(--e6); }
 .panel-retrato .pi-fila.baja { --c: var(--e1); }
 .panel-retrato .pi-fila .via { overflow: visible; }
-.panel-retrato .pi-fila .via .cincuenta { position: absolute; left: 50%; top: -3px; bottom: -3px; width: 1px; background: var(--tinta-2); opacity: .6; }
+.panel-retrato .pi-fila .via .media-raya { position: absolute; left: 50%; top: -4px; bottom: -4px; width: 2px; margin-left: -1px; background: var(--tinta); opacity: .75; }
 .panel-retrato .pi-fila.sube .nom, .panel-retrato .pi-fila.baja .nom { color: var(--tinta); font-weight: 600; }
 .pr-frase { margin: 12px 0 0; min-height: 3em; font: italic 14px/1.5 var(--serif); color: var(--tinta-2); }
 .panel-retrato .pi-fila .nom { min-width: 0; overflow-wrap: anywhere; }
 @media (max-width: 400px) { .panel-retrato .pi-fila { grid-template-columns: minmax(0, 1fr) 64px 40px; gap: 8px; } }
+
+/* ── frente a la media: barrita divergente y fila de la media del panel ───── */
+table.cuadro td.r .barra-dif { position: relative; display: block; height: 4px; margin: 5px auto 0; width: 64px; max-width: 90%;
+  background: color-mix(in srgb, var(--tenue) 22%, transparent); border-radius: 2px; }
+table.cuadro td.r .barra-dif::after { content: ""; position: absolute; left: 50%; top: -2px; bottom: -2px; width: 1px; background: var(--tinta-2); }
+table.cuadro td.r .barra-dif i { position: absolute; top: 0; bottom: 0; border-radius: 2px; background: var(--e6); }
+table.cuadro td.r .barra-dif i.neg { background: var(--e1); }
+table.cuadro tfoot tr.media-panel td { border-top: 2px solid var(--linea); background: color-mix(in srgb, var(--tenue) 10%, var(--sup)); }
+table.cuadro tfoot .nombre-media { font: 600 12.5px/1.3 var(--sans); color: var(--tinta); }
+table.cuadro tfoot td.r .v { color: var(--tinta-2); }
+@media (max-width: 860px) { table.cuadro tfoot tr.media-panel td { border-top: none; } table.cuadro tfoot tr.media-panel td.id { border-bottom: 1px solid var(--linea); } }
+table.cuadro tfoot .nota-media { margin: 4px 0 0; font: 500 12px/1.4 var(--sans); color: var(--tenue); }

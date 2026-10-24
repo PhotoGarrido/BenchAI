@@ -48,6 +48,23 @@
   };
   const icTxt = (r) => `${r.icE[0]}–${r.icE[1]}`;
 
+  /* Frente a la media: la diferencia con la media de los DEMÁS modelos en las
+     mismas situaciones (r.dif, la misma comparación que decide la marca), el
+     puesto del modelo en el rasgo y la media del panel. Todo se calcula aquí
+     desde el cuadro; nada va escrito a mano. */
+  const MENOS = "−";
+  const difTxt = (v) => { const n = Math.round(v); return n === 0 ? "0" : (n > 0 ? "+" : MENOS) + Math.abs(n); };
+  const MEDIA = Object.fromEntries(RASGOS.map((r) => [r.clave, MODELOS.reduce((a, m) => a + m.rasgos[r.clave].p, 0) / MODELOS.length]));
+  const PUESTO = {};
+  RASGOS.forEach((r) => MODELOS.slice().sort((a, b) => b.rasgos[r.clave].p - a.rasgos[r.clave].p)
+    .forEach((m, i) => { (PUESTO[m.id] = PUESTO[m.id] || {})[r.clave] = i + 1; }));
+  const DIF_MAX = Math.max(1, ...MODELOS.flatMap((m) => RASGOS.map((r) => Math.abs(m.rasgos[r.clave].dif))));
+  const puestoTxt = (m, t) => `${PUESTO[m.id][t]}.º de ${MODELOS.length}`;
+  const frenteMedia = (m, t) => {
+    const n = Math.round(m.rasgos[t].dif);
+    return n === 0 ? "igual que la media de los demás" : `${Math.abs(n)} ${Math.abs(n) === 1 ? "punto" : "puntos"} ${n > 0 ? "por encima" : "por debajo"} de la media de los demás`;
+  };
+
   /* El aviso de validez en palabras: qué índice lo motiva y qué quiere decir.
      Las cifras exactas van al lado, tal cual las da el cuadro. */
   const LLANO = {
@@ -61,10 +78,21 @@
     .filter(([, nivel]) => nivel !== "válido").map(([k]) => LLANO[k] || P.nombreIndice[k] || k))).join("; ");
 
   /* ══ el cuadro ══════════════════════════════════════════════════════════ */
-  const estado = { clave: "id", asc: true, labs: new Set(labs), elegido: null };
-  const valorOrden = (m, k) => (k === "id" ? m.id : k === "iss" ? m.iss : m.rasgos[k].p);
+  const estado = { clave: "id", asc: true, labs: new Set(labs), elegido: null, vista: "media" };
+  const valorOrden = (m, k) => (k === "id" ? m.id : k === "iss" ? m.iss : estado.vista === "media" ? m.rasgos[k].dif : m.rasgos[k].p);
 
   const mandos = document.getElementById("mandos-cuadro");
+  const VISTAS = [{ k: "media", t: "Frente a la media" }, { k: "puntuacion", t: "Puntuación 0–100" }];
+  const chipsVista = new Map();
+  const grupoVista = h("div", { class: "grupo-m", role: "group", "aria-label": "Qué cifra mostrar" },
+    [h("span", { class: "et", text: "Mostrar" })]);
+  VISTAS.forEach((v) => {
+    const chip = h("button", { type: "button", class: "chip", "aria-pressed": "false", text: v.t });
+    chip.addEventListener("click", () => { estado.vista = v.k; pintar(); });
+    chipsVista.set(v.k, chip);
+    grupoVista.appendChild(chip);
+  });
+  mandos.appendChild(grupoVista);
   const COLS_ORDEN = [{ k: "id", t: "Modelo" }, { k: "iss", t: "ISS" }].concat(RASGOS.map((r) => ({ k: r.clave, t: r.nombre })));
   const chipsOrden = new Map();
   const grupoOrden = h("div", { class: "grupo-m", role: "group", "aria-label": "Ordenar el cuadro" },
@@ -114,20 +142,54 @@
   const envuelto = h("div", { class: "cuadro-envuelto" });
   host.appendChild(envuelto);
 
+  /* barrita divergente: desde la media (centro) hacia arriba o hacia abajo */
+  function barraDif(dif) {
+    const i = h("i", {});
+    const ancho = (Math.min(1, Math.abs(dif) / DIF_MAX) * 50).toFixed(1) + "%";
+    i.style.width = ancho;
+    i.style.left = dif >= 0 ? "50%" : `calc(50% - ${ancho})`;
+    if (dif < 0) i.className = "neg";
+    return h("span", { class: "barra-dif", "aria-hidden": "true" }, [i]);
+  }
+
   function celdaRasgo(m, t) {
     const r = m.rasgos[t];
     const td = h("td", { class: "r" + (r.marca === "▲" ? " sube" : r.marca === "▼" ? " baja" : ""), "data-et": R[t].nombre });
-    td.appendChild(h("span", { class: "v" }, [T(String(r.e)), r.marca ? h("b", { class: "m", text: r.marca }) : null].filter(Boolean)));
-    td.appendChild(h("small", { class: "ic", text: icTxt(r) }));
-    td.setAttribute("aria-label", `${R[t].nombre}: ${r.e}, IC ${icTxt(r)}; ${quienEs(m, t)}`);
+    const cifra = estado.vista === "media" ? difTxt(r.dif) : String(r.e);
+    td.appendChild(h("span", { class: "v" }, [T(cifra), r.marca ? h("b", { class: "m", text: r.marca }) : null].filter(Boolean)));
+    if (estado.vista === "media") {
+      td.appendChild(barraDif(r.dif));
+      td.appendChild(h("small", { class: "ic", text: puestoTxt(m, t) }));
+    } else {
+      td.appendChild(h("small", { class: "ic", text: icTxt(r) }));
+    }
+    td.setAttribute("aria-label", `${R[t].nombre}: ${frenteMedia(m, t)} (puesto ${puestoTxt(m, t)}); puntuación ${r.e}, IC ${icTxt(r)}; ${quienEs(m, t)}`);
     G.conGlobo(td, () => une(
       mk`<div class="g-tit">${R[t].nombre} · ${m.id}</div>`,
-      mk`<div class="g-fila"><span>Puntuación</span><b>${r.e}</b></div>`,
-      mk`<div class="g-fila"><span>IC 95 %</span><b>${icTxt(r)}</b></div>`,
-      mk`<div class="g-fila"><span>Frente a los demás</span><b>${(r.dif >= 0 ? "+" : "") + dec(r.dif, 1)} [${dec(r.difIC[0], 1)}, ${dec(r.difIC[1], 1)}]</b></div>`,
+      mk`<div class="g-fila"><span>Frente a la media de los demás</span><b>${difTxt(r.dif)} [${dec(r.difIC[0], 1)}, ${dec(r.difIC[1], 1)}]</b></div>`,
+      mk`<div class="g-fila"><span>Puesto en el rasgo</span><b>${puestoTxt(m, t)}</b></div>`,
+      mk`<div class="g-fila"><span>Puntuación (IC 95 %)</span><b>${r.e} (${icTxt(r)})</b></div>`,
+      mk`<div class="g-fila"><span>Media del panel</span><b>${dec(MEDIA[t], 0)}</b></div>`,
       mk`<div class="g-nota">${r.marca ? `${sentido(r.marca)} ${R[t].nombre}: marca robusta` : "sin marca robusta: no se distingue del panel"}</div>`));
     td.removeAttribute("tabindex");
     return td;
+  }
+
+  /* la fila de la media del panel, al pie del cuadro */
+  function filaMedia() {
+    const tr = h("tr", { class: "fila media-panel" });
+    const td0 = h("td", { class: "id fija" });
+    td0.appendChild(h("span", { class: "nombre-media", text: "Media del panel" }));
+    td0.appendChild(h("p", { class: "nota-media", text: `los ${MODELOS.length} modelos del cuadro; es la referencia del «frente a la media»` }));
+    tr.appendChild(td0);
+    tr.appendChild(h("td", { class: "iss", "data-et": "ISS" }, [h("span", { class: "sin", text: "" })]));
+    RASGOS.forEach((r) => {
+      const td = h("td", { class: "r", "data-et": r.nombre });
+      td.appendChild(h("span", { class: "v", text: estado.vista === "media" ? "0" : dec(MEDIA[r.clave], 0) }));
+      td.appendChild(h("small", { class: "ic", text: estado.vista === "media" ? `= ${dec(MEDIA[r.clave], 0)} puntos` : "media" }));
+      tr.appendChild(td);
+    });
+    return tr;
   }
 
   function celdaModelo(m) {
@@ -162,6 +224,7 @@
       chip.setAttribute("aria-pressed", String(estado.clave === k));
       chip.textContent = COLS_ORDEN.find((c) => c.k === k).t + (estado.clave === k ? (estado.asc ? " ↑" : " ↓") : "");
     });
+    chipsVista.forEach((chip, k) => chip.setAttribute("aria-pressed", String(estado.vista === k)));
     const todos = estado.labs.size === labs.length;
     chipTodos.setAttribute("aria-pressed", String(todos));
     chipsLab.forEach((chip, lab) => chip.setAttribute("aria-pressed", String(!todos && estado.labs.has(lab))));
@@ -177,10 +240,12 @@
 
     envuelto.textContent = "";
     const t = h("table", { class: "cuadro" });
-    t.appendChild(h("caption", { class: "solo-lector", text: "Cuadro de personalidad: puntuación de cada modelo en cada rasgo, con su intervalo de confianza y la marca robusta si la hay" }));
+    t.appendChild(h("caption", { class: "solo-lector", text: estado.vista === "media"
+      ? "Cuadro de personalidad: cada modelo en cada rasgo frente a la media de los demás modelos, con su puesto y la marca robusta si la hay"
+      : "Cuadro de personalidad: puntuación de cada modelo en cada rasgo, con su intervalo de confianza y la marca robusta si la hay" }));
     const tr = h("tr", {});
     const cabs = [{ k: "id", t: "Modelo", sub: "y su retrato", fija: true }, { k: "iss", t: "ISS", sub: "PsicoBench", n: true }]
-      .concat(RASGOS.map((r) => ({ k: r.clave, t: r.nombre, sub: "alto: " + r.alto, n: true, r })));
+      .concat(RASGOS.map((r) => ({ k: r.clave, t: r.nombre, sub: "+ = " + r.alto, n: true, r })));
     cabs.forEach((c) => {
       const th = h("th", { scope: "col", class: (c.fija ? "fija" : "") + (c.n ? " n" : "") + (c.r ? " rasgo" : ""),
         "aria-sort": estado.clave === c.k ? (estado.asc ? "ascending" : "descending") : "none" });
@@ -200,6 +265,7 @@
       tb.appendChild(fila);
     });
     t.appendChild(tb);
+    t.appendChild(h("tfoot", {}, [filaMedia()]));
     envuelto.appendChild(t);
   }
   pintar();
@@ -240,7 +306,7 @@
 
   const figPerfil = G.figura({
     titulo: "Su perfil frente al panel",
-    sub: "Cada raya gris es otro modelo del cuadro; el punto es el elegido, con su intervalo. La línea discontinua es 50: lo que el panel juzga admirable.",
+    sub: "Cada raya gris es otro modelo del cuadro y los triangulitos marcan la media del panel; el punto es el elegido, con su intervalo, y la cifra es su distancia a la media de los demás. La línea discontinua es 50: lo que el panel juzga admirable.",
     controles: [selPerfil],
     pie: mk`Se ve dónde cae el modelo en cada rasgo respecto a los demás. La marca ▲/▼ no sale de esta figura —que un punto quede en un extremo no basta—, sino de comparar situación a situación con las cinco comprobaciones.`,
   });
@@ -275,18 +341,22 @@
         const v = o.rasgos[r.clave].p;
         g.appendChild(G.el("line", { x1: x(v), y1: cy - 7, x2: x(v), y2: cy + 7, class: "raya-panel" }));
       });
+      const xm = x(MEDIA[r.clave]);
+      g.appendChild(G.el("path", { d: `M${xm} ${cy - 11} l5 -6 h-10 z M${xm} ${cy + 11} l5 6 h-10 z`, class: "media-panel-m" }));
       const s = m.rasgos[r.clave];
       g.appendChild(G.el("line", { x1: x(s.ic[0]), y1: cy, x2: x(s.ic[1]), y2: cy, class: "ic-l ic-perfil" }));
       const punto = G.el("circle", { cx: x(s.p), cy, r: 6, class: "punto-perfil" + (s.marca ? " con-marca" : "") });
       g.appendChild(punto);
       marcas.push(punto);
       g.appendChild(G.el("text", { x: Math.min(x(s.ic[1]) + 8, W - 2), y: cy + 4, class: "et-val et-perfil", "text-anchor": x(s.ic[1]) + 48 > W ? "end" : "start" },
-        [T(String(s.e) + (s.marca ? " " + s.marca : ""))]));
+        [T(difTxt(s.dif) + (s.marca ? " " + s.marca : ""))]));
       const hit = G.el("rect", { x: 0, y: y0, width: W, height: FILA, class: "viz-hit", role: "img",
         "aria-label": `${r.nombre}: ${s.e}, IC ${icTxt(s)}; ${quienEs(m, r.clave)}` });
       const media = MODELOS.filter((o) => o.id !== m.id).reduce((a, o) => a + o.rasgos[r.clave].p, 0) / (MODELOS.length - 1);
       G.conGlobo(hit, () => une(
         mk`<div class="g-tit">${r.nombre} · ${m.id}</div>`,
+        mk`<div class="g-fila"><span>Frente a la media de los demás</span><b>${difTxt(s.dif)}</b></div>`,
+        mk`<div class="g-fila"><span>Puesto en el rasgo</span><b>${puestoTxt(m, r.clave)}</b></div>`,
         mk`<div class="g-fila"><span>Puntuación</span><b>${s.e} [${icTxt(s)}]</b></div>`,
         mk`<div class="g-fila"><span>Media de los demás</span><b>${dec(media, 0)}</b></div>`,
         mk`<div class="g-nota">${quienEs(m, r.clave)}</div>`), marcas);
@@ -298,11 +368,11 @@
     const m = MODELOS.find((z) => z.id === elegidoPerfil);
     figPerfil._tabla.textContent = "";
     figPerfil._tabla.appendChild(G.tabla(
-      [{ t: "Rasgo" }, { t: "Puntuación", n: true }, { t: "IC 95 %", n: true }, { t: "Media de los demás", n: true }, { t: "Marca" }],
+      [{ t: "Rasgo" }, { t: "Frente a la media", n: true }, { t: "Puesto", n: true }, { t: "Puntuación", n: true }, { t: "IC 95 %", n: true }, { t: "Media de los demás", n: true }, { t: "Marca" }],
       RASGOS.map((r) => {
         const s = m.rasgos[r.clave];
         const media = MODELOS.filter((o) => o.id !== m.id).reduce((a, o) => a + o.rasgos[r.clave].p, 0) / (MODELOS.length - 1);
-        return [r.nombre, { v: String(s.e), destaca: !!s.marca }, icTxt(s), dec(media, 0), s.marca ? `${s.marca} ${sentido(s.marca)} que los demás` : "sin marca"];
+        return [r.nombre, { v: difTxt(s.dif), destaca: !!s.marca }, puestoTxt(m, r.clave), String(s.e), icTxt(s), dec(media, 0), s.marca ? `${s.marca} ${sentido(s.marca)} que los demás` : "sin marca"];
       })));
   }
   G.navegable(figPerfil, "Perfil frente al panel");
@@ -415,10 +485,10 @@
     if (!host) return;
     const quieto = matchMedia("(prefers-reduced-motion: reduce)").matches;
     const filas = RASGOS.map((r) => {
-      const via = h("span", { class: "via" }, [h("i", {}), h("em", { class: "cincuenta" })]);
+      const via = h("span", { class: "via" }, [h("i", {}), h("em", { class: "media-raya" })]);
       const val = h("span", { class: "val" });
       host.appendChild(h("div", { class: "pi-fila" }, [h("span", { class: "nom", text: r.nombre }), via, val]));
-      return { r, barra: via.firstChild, val, fila: via.parentNode };
+      return { r, barra: via.firstChild, media: via.lastChild, val, fila: via.parentNode };
     });
     const elN = document.getElementById("pr-nombre"), elL = document.getElementById("pr-lab");
     const elF = document.getElementById("pr-frase"), elI = document.getElementById("pr-iss");
@@ -430,9 +500,10 @@
       filas.forEach((f) => {
         const s = m.rasgos[f.r.clave];
         f.barra.style.width = Math.max(0, Math.min(100, s.p)).toFixed(1) + "%";
+        f.media.style.left = Math.max(0, Math.min(100, MEDIA[f.r.clave])).toFixed(1) + "%";
         f.fila.classList.toggle("sube", s.marca === "▲");
         f.fila.classList.toggle("baja", s.marca === "▼");
-        f.val.textContent = s.e + (s.marca ? " " + s.marca : "");
+        f.val.textContent = difTxt(s.dif) + (s.marca ? " " + s.marca : "");
       });
     }
     const ciclo = MODELOS.filter((m) => m.conRetrato);
