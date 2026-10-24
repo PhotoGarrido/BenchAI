@@ -1,0 +1,41 @@
+{
+  "commit": "1553046cab7c64f650deae76376986fa5b539c2d",
+  "python": "3.12.4",
+  "parser_version": "2.5",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "remedicion_validez.py",
+    "--modelo",
+    "deepseek/deepseek-v4-pro-0813",
+    "--tope",
+    "1.00",
+    "--hilos",
+    "8"
+  ],
+  "args": {
+    "modelo": "deepseek/deepseek-v4-pro-0813",
+    "forma": "remedicion",
+    "tope": 1.0,
+    "hilos": 8,
+    "seco": false,
+    "prefijo_semilla": "R2310",
+    "origen": "remedicion_validez.py (PERSONALIDAD.md §45.3)",
+    "tramo": "rep0",
+    "fase": "I1-H",
+    "n_pendientes": 96,
+    "version_bateria": "HNF-1",
+    "items_sha256": "6876fc330c0a2982aa9ed39f0394199fdf87f46f6bcf512ed6e153723f7314b3"
+  },
+  "hashes": {},
+  "inicio": "2026-10-24T00:16:17",
+  "status": "completed",
+  "fin": "2026-10-24T00:17:59",
+  "solicitudes": 96,
+  "errores": 0,
+  "fallo_escritura": false,
+  "gasto_estimado": 0.7392
+}

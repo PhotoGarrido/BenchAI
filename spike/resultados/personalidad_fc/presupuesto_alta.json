@@ -1,0 +1,456 @@
+{
+ "saldo": 7.21,
+ "margen": 1.15,
+ "tarifas": {
+  "fecha": "2026-10-23",
+  "fuente": "catálogo público de OpenRouter (https://openrouter.ai/api/v1/models, sin clave), consultado el 23-10-2026 para el alta de personalidad (PERSONALIDAD.md §41.4-42)",
+  "unidad": "USD por millón de tokens (entrada, salida); el sufijo #nivel y la etiqueta @medición no cambian la tarifa",
+  "usd_por_millon": {
+   "anthropic/claude-haiku-5.5": [
+    0.1,
+    0.5
+   ],
+   "anthropic/claude-opus-5.5": [
+    4.0,
+    20.0
+   ],
+   "deepseek/deepseek-v4-pro-0813": [
+    0.66,
+    1.98
+   ],
+   "google/gemini-3.7-flash": [
+    0.75,
+    3.75
+   ],
+   "google/gemini-4-argon": [
+    2.0,
+    10.0
+   ],
+   "mistralai/mistral-large-4-0": [
+    1.36,
+    4.18
+   ],
+   "moonshotai/kimi-k3": [
+    0.239,
+    11.936
+   ],
+   "openai/gpt-5.6-luna": [
+    0.2,
+    1.2
+   ],
+   "openai/gpt-6.1-sol": [
+    2.0,
+    10.0
+   ],
+   "qwen/qwen3.8-max-0902": [
+    2.0,
+    6.0
+   ],
+   "x-ai/grok-4.5": [
+    2.0,
+    6.0
+   ],
+   "z-ai/glm-5.3": [
+    0.7,
+    2.2
+   ]
+  }
+ },
+ "modelos": {
+  "x-ai/grok-4.5": {
+   "completa": {
+    "modelo": "x-ai/grok-4.5",
+    "forma": "completa",
+    "llamadas": {
+     "v3": 810,
+     "I1-H": 288,
+     "I1-N": 432
+    },
+    "total_llamadas": 1530,
+    "coste_llamada": 0.003308107079119572,
+    "tokens_llamada": [
+     340.1838191552647,
+     437.9565734681737
+    ],
+    "fuente_tokens": "historial propio (1681 llamadas)",
+    "tarifa": [
+     2.0,
+     6.0
+    ],
+    "coste": 5.061403831052945,
+    "coste_margen": 5.820614405710886
+   },
+   "corta": {
+    "modelo": "x-ai/grok-4.5",
+    "forma": "corta",
+    "llamadas": {
+     "v3": 444,
+     "I1-H": 102,
+     "I1-N": 66
+    },
+    "total_llamadas": 612,
+    "coste_llamada": 0.003308107079119572,
+    "tokens_llamada": [
+     340.1838191552647,
+     437.9565734681737
+    ],
+    "fuente_tokens": "historial propio (1681 llamadas)",
+    "tarifa": [
+     2.0,
+     6.0
+    ],
+    "coste": 2.024561532421178,
+    "coste_margen": 2.3282457622843546
+   }
+  },
+  "moonshotai/kimi-k3": {
+   "completa": {
+    "modelo": "moonshotai/kimi-k3",
+    "forma": "completa",
+    "llamadas": {
+     "v3": 810,
+     "I1-H": 288,
+     "I1-N": 432
+    },
+    "total_llamadas": 1530,
+    "coste_llamada": 0.003696142107546049,
+    "tokens_llamada": [
+     253.51931075460487,
+     304.5870469399881
+    ],
+    "fuente_tokens": "historial propio (1683 llamadas)",
+    "tarifa": [
+     0.239,
+     11.936
+    ],
+    "coste": 5.655097424545454,
+    "coste_margen": 6.503362038227272
+   },
+   "corta": {
+    "modelo": "moonshotai/kimi-k3",
+    "forma": "corta",
+    "llamadas": {
+     "v3": 444,
+     "I1-H": 102,
+     "I1-N": 66
+    },
+    "total_llamadas": 612,
+    "coste_llamada": 0.003696142107546049,
+    "tokens_llamada": [
+     253.51931075460487,
+     304.5870469399881
+    ],
+    "fuente_tokens": "historial propio (1683 llamadas)",
+    "tarifa": [
+     0.239,
+     11.936
+    ],
+    "coste": 2.2620389698181818,
+    "coste_margen": 2.6013448152909087
+   }
+  },
+  "mistralai/mistral-large-4-0": {
+   "completa": {
+    "modelo": "mistralai/mistral-large-4-0",
+    "forma": "completa",
+    "llamadas": {
+     "v3": 810,
+     "I1-H": 288,
+     "I1-N": 432
+    },
+    "total_llamadas": 1530,
+    "coste_llamada": 0.004851605002970885,
+    "tokens_llamada": [
+     134.71004159239453,
+     1116.8419489007724
+    ],
+    "fuente_tokens": "historial propio (1683 llamadas)",
+    "tarifa": [
+     1.36,
+     4.18
+    ],
+    "coste": 7.422955654545454,
+    "coste_margen": 8.536399002727272
+   },
+   "corta": {
+    "modelo": "mistralai/mistral-large-4-0",
+    "forma": "corta",
+    "llamadas": {
+     "v3": 444,
+     "I1-H": 102,
+     "I1-N": 66
+    },
+    "total_llamadas": 612,
+    "coste_llamada": 0.004851605002970885,
+    "tokens_llamada": [
+     134.71004159239453,
+     1116.8419489007724
+    ],
+    "fuente_tokens": "historial propio (1683 llamadas)",
+    "tarifa": [
+     1.36,
+     4.18
+    ],
+    "coste": 2.969182261818182,
+    "coste_margen": 3.4145596010909087
+   }
+  },
+  "qwen/qwen3.8-max-0902#low": {
+   "completa": {
+    "modelo": "qwen/qwen3.8-max-0902#low",
+    "forma": "completa",
+    "llamadas": {
+     "v3": 810,
+     "I1-H": 288,
+     "I1-N": 432
+    },
+    "total_llamadas": 1530,
+    "coste_llamada": 0.0012486698393813205,
+    "tokens_llamada": [
+     178.33254015466983,
+     148.66745984533017
+    ],
+    "fuente_tokens": "historial propio (1681 llamadas)",
+    "tarifa": [
+     2.0,
+     6.0
+    ],
+    "coste": 1.9104648542534204,
+    "coste_margen": 2.1970345823914332
+   },
+   "corta": {
+    "modelo": "qwen/qwen3.8-max-0902#low",
+    "forma": "corta",
+    "llamadas": {
+     "v3": 444,
+     "I1-H": 102,
+     "I1-N": 66
+    },
+    "total_llamadas": 612,
+    "coste_llamada": 0.0012486698393813205,
+    "tokens_llamada": [
+     178.33254015466983,
+     148.66745984533017
+    ],
+    "fuente_tokens": "historial propio (1681 llamadas)",
+    "tarifa": [
+     2.0,
+     6.0
+    ],
+    "coste": 0.7641859417013681,
+    "coste_margen": 0.8788138329565732
+   }
+  },
+  "z-ai/glm-5.3": {
+   "completa": {
+    "modelo": "z-ai/glm-5.3",
+    "forma": "completa",
+    "llamadas": {
+     "v3": 810,
+     "I1-H": 288,
+     "I1-N": 432
+    },
+    "total_llamadas": 1530,
+    "coste_llamada": 0.0006624855791962176,
+    "tokens_llamada": [
+     151.43971631205673,
+     252.94444444444446
+    ],
+    "fuente_tokens": "historial propio (1692 llamadas)",
+    "tarifa": [
+     0.7,
+     2.2
+    ],
+    "coste": 1.0136029361702128,
+    "coste_margen": 1.1656433765957446
+   },
+   "corta": {
+    "modelo": "z-ai/glm-5.3",
+    "forma": "corta",
+    "llamadas": {
+     "v3": 444,
+     "I1-H": 102,
+     "I1-N": 66
+    },
+    "total_llamadas": 612,
+    "coste_llamada": 0.0006624855791962176,
+    "tokens_llamada": [
+     151.43971631205673,
+     252.94444444444446
+    ],
+    "fuente_tokens": "historial propio (1692 llamadas)",
+    "tarifa": [
+     0.7,
+     2.2
+    ],
+    "coste": 0.40544117446808514,
+    "coste_margen": 0.4662573506382979
+   }
+  }
+ },
+ "pronostico_validez": {
+  "x-ai/grok-4.5": {
+   "valores": {
+    "V1_delta": 0.26063829787234044,
+    "V1_frac_A": 0.13287671232876713,
+    "V2_no_validas": 0.02925531914893617,
+    "V3_retest": 0.7515064762978105,
+    "V4_coherencia": 0.7204301075268817
+   },
+   "niveles": {
+    "V1_delta": "aviso",
+    "V1_frac_A": "aviso",
+    "V2_no_validas": "válido",
+    "V3_retest": "válido",
+    "V4_coherencia": "aviso"
+   },
+   "nivel": "aviso",
+   "interpretable": true,
+   "motivo": "posición (Δ AB−BA) 0,26 (aviso); posición (fracción de A) |A − 0,5| = 0,13 (aviso); coherencia de la deseabilidad 0,72 (aviso)",
+   "detalle": {
+    "delta_con_signo": -0.26063829787234044,
+    "frac_A": 0.36712328767123287,
+    "n_elecciones": 376,
+    "n_validas": 365,
+    "n_situaciones": 94,
+    "n_situaciones_retest": 93,
+    "n_deseabilidad_pares": 93,
+    "frac_A_deseabilidad": 0.39037433155080214
+   }
+  },
+  "moonshotai/kimi-k3": {
+   "valores": {
+    "V1_delta": 0.06914893617021277,
+    "V1_frac_A": 0.03457446808510639,
+    "V2_no_validas": 0.0,
+    "V3_retest": 0.8410605458998245,
+    "V4_coherencia": 0.7978723404255319
+   },
+   "niveles": {
+    "V1_delta": "válido",
+    "V1_frac_A": "válido",
+    "V2_no_validas": "válido",
+    "V3_retest": "válido",
+    "V4_coherencia": "válido"
+   },
+   "nivel": "válido",
+   "interpretable": true,
+   "motivo": "",
+   "detalle": {
+    "delta_con_signo": -0.06914893617021277,
+    "frac_A": 0.4654255319148936,
+    "n_elecciones": 376,
+    "n_validas": 376,
+    "n_situaciones": 94,
+    "n_situaciones_retest": 94,
+    "n_deseabilidad_pares": 94,
+    "frac_A_deseabilidad": 0.48404255319148937
+   }
+  },
+  "mistralai/mistral-large-4-0": {
+   "valores": {
+    "V1_delta": 0.06914893617021277,
+    "V1_frac_A": 0.03457446808510639,
+    "V2_no_validas": 0.0,
+    "V3_retest": 0.8100977623242601,
+    "V4_coherencia": 0.8297872340425532
+   },
+   "niveles": {
+    "V1_delta": "válido",
+    "V1_frac_A": "válido",
+    "V2_no_validas": "válido",
+    "V3_retest": "válido",
+    "V4_coherencia": "válido"
+   },
+   "nivel": "válido",
+   "interpretable": true,
+   "motivo": "",
+   "detalle": {
+    "delta_con_signo": -0.06914893617021277,
+    "frac_A": 0.4654255319148936,
+    "n_elecciones": 376,
+    "n_validas": 376,
+    "n_situaciones": 94,
+    "n_situaciones_retest": 94,
+    "n_deseabilidad_pares": 94,
+    "frac_A_deseabilidad": 0.48936170212765956
+   }
+  },
+  "qwen/qwen3.8-max-0902#low": {
+   "valores": {
+    "V1_delta": 0.11702127659574468,
+    "V1_frac_A": 0.05851063829787234,
+    "V2_no_validas": 0.0,
+    "V3_retest": 0.8278113225046784,
+    "V4_coherencia": 0.776595744680851
+   },
+   "niveles": {
+    "V1_delta": "válido",
+    "V1_frac_A": "válido",
+    "V2_no_validas": "válido",
+    "V3_retest": "válido",
+    "V4_coherencia": "válido"
+   },
+   "nivel": "válido",
+   "interpretable": true,
+   "motivo": "",
+   "detalle": {
+    "delta_con_signo": -0.11702127659574468,
+    "frac_A": 0.44148936170212766,
+    "n_elecciones": 376,
+    "n_validas": 376,
+    "n_situaciones": 94,
+    "n_situaciones_retest": 94,
+    "n_deseabilidad_pares": 94,
+    "frac_A_deseabilidad": 0.4734042553191489
+   }
+  },
+  "z-ai/glm-5.3": {
+   "valores": {
+    "V1_delta": 0.0,
+    "V1_frac_A": 0.0,
+    "V2_no_validas": 0.005319148936170213,
+    "V3_retest": 0.7983011057544127,
+    "V4_coherencia": 0.851063829787234
+   },
+   "niveles": {
+    "V1_delta": "válido",
+    "V1_frac_A": "válido",
+    "V2_no_validas": "válido",
+    "V3_retest": "válido",
+    "V4_coherencia": "válido"
+   },
+   "nivel": "válido",
+   "interpretable": true,
+   "motivo": "",
+   "detalle": {
+    "delta_con_signo": 0.0,
+    "frac_A": 0.5,
+    "n_elecciones": 376,
+    "n_validas": 374,
+    "n_situaciones": 94,
+    "n_situaciones_retest": 94,
+    "n_deseabilidad_pares": 94,
+    "frac_A_deseabilidad": 0.4787234042553192
+   }
+  }
+ },
+ "caben": {
+  "corta": {
+   "modelos": [
+    "z-ai/glm-5.3",
+    "qwen/qwen3.8-max-0902#low",
+    "x-ai/grok-4.5",
+    "moonshotai/kimi-k3"
+   ],
+   "gasto_margen": 6.274661761170135
+  },
+  "completa": {
+   "modelos": [
+    "z-ai/glm-5.3",
+    "qwen/qwen3.8-max-0902#low"
+   ],
+   "gasto_margen": 3.362677958987178
+  }
+ }
+}

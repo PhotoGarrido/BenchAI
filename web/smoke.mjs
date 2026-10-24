@@ -42,8 +42,8 @@ const RUTAS = [
       if (!window.PSICO) f.push("window.PSICO no cargó");
       if (!document.querySelector(".botonera .llave-b")) f.push("la botonera no montó");
       if (!document.querySelector(".firmas .fila-f")) f.push("las firmas no montaron");
-      // las tres lecturas, siempre a mano, con la actual marcada; y el progreso de lectura
-      if (document.querySelectorAll(".superficies a").length !== 3) f.push("falta el conmutador de superficies");
+      // las cuatro lecturas, siempre a mano, con la actual marcada; y el progreso de lectura
+      if (document.querySelectorAll(".superficies a").length !== 4) f.push("falta el conmutador de las cuatro superficies");
       if (!document.querySelector('.superficies a[aria-current="page"]')) f.push("el conmutador no marca la página actual");
       if (!document.getElementById("progreso")) f.push("sin barra de progreso");
       return f;
@@ -78,7 +78,7 @@ const RUTAS = [
       const celdas = document.querySelectorAll("table.mapa td.c").length;
       if (celdas < n * 8) f.push("celdas de eje: " + celdas + " (esperaba ≥ " + (n * 8) + ")");
       if (!document.getElementById("ultima-medicion")?.textContent.trim()) f.push("sin fecha de última medición");
-      if (document.querySelectorAll(".superficies a").length !== 3) f.push("falta el conmutador de superficies");
+      if (document.querySelectorAll(".superficies a").length !== 4) f.push("falta el conmutador de las cuatro superficies");
       if (!document.querySelector('.superficies a[aria-current="page"]')) f.push("el conmutador no marca la página actual");
       if (!document.getElementById("progreso")) f.push("sin barra de progreso");
       if (!document.querySelectorAll("#pi-componentes .pi-fila").length) f.push("el panel del índice de la portada no montó");
@@ -114,6 +114,12 @@ const RUTAS = [
       // F4: ficha montada con sus ocho ejes y la escalera con una línea por medición
       if (document.querySelectorAll(".ficha-hoja .ficha-ejes li").length !== 8) f.push("la ficha no tiene los ocho ejes");
       if (document.querySelectorAll("#escalera-host .linea-v").length !== n) f.push("escalera de versiones: esperaba " + n + " líneas");
+      // la ficha lleva su retrato de personalidad si, y solo si, la medición
+      // es la que el cuadro empareja con su modelo
+      const idFicha = (document.querySelector(".ficha-hoja h3")?.textContent || "").trim();
+      const enCuadro = ((window.PSICO || {}).personalidad || { modelos: [] }).modelos.some(m => m.psicobench === idFicha);
+      const lineaPers = document.querySelector(".ficha-hoja .ficha-personalidad a[href*='personalidad']");
+      if (enCuadro !== !!lineaPers) f.push("la ficha de " + idFicha + (enCuadro ? " no lleva" : " lleva sin estar en el cuadro") + " su línea de personalidad");
       return f;
     })()`,
     preparar: `(() => {
@@ -126,6 +132,57 @@ const RUTAS = [
       const det = document.querySelector("table.mapa tr.detalle");
       if (!det) f.push("el detalle de la fila no se abrió");
       else if (det.querySelectorAll(".d-eje").length < 8) f.push("el detalle no trae los ocho ejes");
+      return f;
+    })()`,
+  },
+  {
+    ruta: "/personalidad",
+    aserciones: `(() => {
+      const f = [];
+      const P = (window.PSICO || {}).personalidad;
+      if (!P) return ["window.PSICO.personalidad no cargó"];
+      if (document.querySelectorAll(".superficies a").length !== 4) f.push("falta el conmutador de las cuatro superficies");
+      if (!document.querySelector('.superficies a[aria-current="page"]')?.textContent.includes("Personalidad")) f.push("el conmutador no marca Personalidad");
+      if (!document.getElementById("progreso")) f.push("sin barra de progreso");
+      // el cuadro: una fila por modelo, seis rasgos por fila, y tantas marcas
+      // pintadas como marcas robustas declaran los datos (ni una más)
+      const filas = document.querySelectorAll("table.cuadro tbody tr");
+      if (filas.length !== P.nModelos) f.push("filas del cuadro: " + filas.length + " (los datos declaran " + P.nModelos + ")");
+      const celdas = document.querySelectorAll("table.cuadro td.r").length;
+      if (celdas !== P.nModelos * P.rasgos.length) f.push("celdas de rasgo: " + celdas);
+      const marcas = document.querySelectorAll("table.cuadro td.r.sube, table.cuadro td.r.baja").length;
+      const glifos = document.querySelectorAll("table.cuadro td.r .m").length;
+      if (marcas !== P.robustas || glifos !== P.robustas) f.push("marcas pintadas: " + marcas + "/" + glifos + " (robustas: " + P.robustas + ")");
+      const avisos = P.modelos.filter(m => m.validez === "aviso").length;
+      if (document.querySelectorAll("table.cuadro .cautela").length !== avisos) f.push("avisos ⚠ explicados: esperaba " + avisos);
+      if (document.querySelectorAll("table.cuadro .retrato").length !== P.nModelos) f.push("falta algún retrato");
+      if (!(document.getElementById("v-edicion")?.textContent || "").includes(P.fecha)) f.push("la barra no lleva la fecha de la edición");
+      if (document.querySelectorAll("#perfil-host circle.punto-perfil").length !== P.rasgos.length) f.push("el perfil frente al panel no dibuja los " + P.rasgos.length + " rasgos");
+      if (document.querySelectorAll("#comprobaciones li").length !== P.comprobaciones.length) f.push("faltan comprobaciones explicadas");
+      if (document.querySelectorAll("#fuera-host tbody tr").length !== P.fuera.length) f.push("modelos fuera: esperaba " + P.fuera.length);
+      if (document.querySelectorAll("#limites-host .limite").length < 4) f.push("las limitaciones no montaron");
+      if (document.querySelectorAll("#tabla-fiabilidad tbody tr").length !== P.rasgos.length) f.push("la tabla de fiabilidad no tiene un rasgo por fila");
+      if (!document.querySelector('a[href*="PERSONALIDAD.md"]')) f.push("no enlaza PERSONALIDAD.md");
+      // el ISS enlaza a la ficha de /psicobench de cada modelo que lo tiene
+      const conISS = P.modelos.filter(m => m.psicobench).length;
+      if (document.querySelectorAll('table.cuadro td.iss a[href*="#m="]').length !== conISS) f.push("enlaces a la ficha de PsicoBench: esperaba " + conISS);
+      return f;
+    })()`,
+    preparar: `(() => {
+      // ordenar por el último rasgo (de más a menos) y filtrar un laboratorio
+      Array.from(document.querySelectorAll("#mandos-cuadro .chip")).find(b => b.textContent.startsWith(window.PSICO.personalidad.rasgos.slice(-1)[0].nombre))?.click();
+      return true;
+    })()`,
+    aserciones2: `(() => {
+      const f = [];
+      const P = window.PSICO.personalidad, t = P.rasgos.length - 1, k = P.rasgos[t].clave;
+      const v = Array.from(document.querySelectorAll("table.cuadro tbody tr")).map(tr => Number(tr.querySelectorAll("td.r")[t].querySelector(".v").firstChild.textContent));
+      if (v.some((x, i) => i && x > v[i - 1])) f.push("el orden por " + k + " no es de más a menos: " + v.join(","));
+      const lab = P.labs[0];
+      Array.from(document.querySelectorAll("#mandos-cuadro .chip")).find(b => b.firstChild.textContent === lab)?.click();
+      const n = document.querySelectorAll("table.cuadro tbody tr").length;
+      const esperado = P.modelos.filter(m => m.lab === lab).length;
+      if (n !== esperado) f.push("filtro por " + lab + ": " + n + " filas (esperaba " + esperado + ")");
       return f;
     })()`,
   },
@@ -287,7 +344,12 @@ async function probarRuta(spec) {
   await evalua(`(() => {
     const d = document.documentElement;
     const extra = d.scrollWidth - d.clientWidth;
-    return extra > 2 ? ["desborde horizontal a 390px: " + extra + "px"] : [];
+    const f = extra > 2 ? ["desborde horizontal a 390px: " + extra + "px"] : [];
+    // la barra es fija y el documento recorta en horizontal: un conmutador
+    // que no cabe no desborda la página, se corta sin avisar. Se mide aparte.
+    const ult = document.querySelector(".superficies a:last-child");
+    if (ult && ult.getBoundingClientRect().right > d.clientWidth + 1) f.push("el conmutador de superficies no cabe a 390px");
+    return f;
   })()`, "móvil");
   await c.enviar("Emulation.clearDeviceMetricsOverride");
   if (spec.preparar) {

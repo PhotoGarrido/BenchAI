@@ -1,0 +1,44 @@
+{
+  "commit": "4e4b7b4ca3a9c72b431b5515612be78efc89f3ac",
+  "python": "3.12.4",
+  "parser_version": "2.5",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "experimento_personalidad_hn_finos.py",
+    "--i1n",
+    "--formatos",
+    "BI",
+    "--externo",
+    "--hilos",
+    "8",
+    "--modelo",
+    "anthropic/claude-haiku-5.5"
+  ],
+  "args": {
+    "modelo": "anthropic/claude-haiku-5.5",
+    "humo": 0,
+    "formatos": "BI",
+    "plan": false,
+    "parejas": false,
+    "i1h": false,
+    "i1n": true,
+    "externo": true,
+    "hilos": 8,
+    "version_bateria": "HNF-1",
+    "n_tareas": 288,
+    "n_pendientes": 288,
+    "items_sha256": "6876fc330c0a2982aa9ed39f0394199fdf87f46f6bcf512ed6e153723f7314b3",
+    "parejas_sha256": "8103a2cbe66e6e17216103eefa976fef8fe5118936254224b83bdbf3109d49b1"
+  },
+  "hashes": {},
+  "inicio": "2026-10-22T14:35:03",
+  "status": "completed",
+  "fin": "2026-10-22T14:35:50",
+  "solicitudes": 288,
+  "errores": 0,
+  "fallo_escritura": false
+}

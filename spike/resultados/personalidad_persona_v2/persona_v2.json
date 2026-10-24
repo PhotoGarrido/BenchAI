@@ -1,0 +1,1029 @@
+{
+  "modelos": {
+    "anthropic_claude-haiku-5.5": {
+      "O": {
+        "elasticidad": [
+          76.66666666666667,
+          60.0,
+          90.0
+        ],
+        "bajo": 20.0,
+        "medio": 30.0,
+        "alto": 96.66666666666667,
+        "gradiente": true,
+        "comprobacion": {
+          "bajo": 1.5,
+          "medio": 2.25,
+          "alto": 5.0
+        },
+        "posicion_neutro": 0.3695652173913044,
+        "elasticidad_v1": 83.33333333333334
+      },
+      "C": {
+        "elasticidad": [
+          46.666666666666664,
+          26.666666666666668,
+          66.66666666666666
+        ],
+        "bajo": 13.333333333333334,
+        "medio": 33.33333333333333,
+        "alto": 60.0,
+        "gradiente": true,
+        "comprobacion": {
+          "bajo": 1.25,
+          "medio": 3.5,
+          "alto": 4.75
+        },
+        "posicion_neutro": 0.17857142857142858,
+        "elasticidad_v1": 53.333333333333336
+      },
+      "E": {
+        "elasticidad": [
+          63.33333333333333,
+          46.666666666666664,
+          80.0
+        ],
+        "bajo": 3.3333333333333335,
+        "medio": 0.0,
+        "alto": 66.66666666666666,
+        "gradiente": false,
+        "comprobacion": {
+          "bajo": 2.0,
+          "medio": 2.0,
+          "alto": 4.75
+        },
+        "posicion_neutro": 0.4736842105263158,
+        "elasticidad_v1": 90.0
+      },
+      "A": {
+        "elasticidad": [
+          46.666666666666664,
+          30.0,
+          63.33333333333333
+        ],
+        "bajo": 3.3333333333333335,
+        "medio": 33.33333333333333,
+        "alto": 50.0,
+        "gradiente": true,
+        "comprobacion": {
+          "bajo": 2.0,
+          "medio": 3.5,
+          "alto": 4.25
+        },
+        "posicion_neutro": 0.25,
+        "elasticidad_v1": 93.33333333333333
+      },
+      "N": {
+        "elasticidad": [
+          33.33333333333333,
+          13.333333333333334,
+          53.333333333333336
+        ],
+        "bajo": 36.666666666666664,
+        "medio": 43.333333333333336,
+        "alto": 70.0,
+        "gradiente": true,
+        "comprobacion": {
+          "bajo": 1.0,
+          "medio": 2.5,
+          "alto": 4.0
+        },
+        "posicion_neutro": 1.0500000000000003,
+        "elasticidad_v1": 60.0
+      },
+      "H": {
+        "elasticidad": [
+          96.55172413793103,
+          89.65517241379311,
+          100.0
+        ],
+        "bajo": 0.0,
+        "medio": 34.48275862068966,
+        "alto": 96.55172413793103,
+        "gradiente": true,
+        "comprobacion": {
+          "bajo": 1.75,
+          "medio": 3.5,
+          "alto": 4.25
+        },
+        "posicion_neutro": 0.3214285714285714,
+        "elasticidad_v1": 96.55172413793103
+      }
+    },
+    "deepseek-v4-flash": {
+      "O": {
+        "elasticidad": [
+          66.66666666666666,
+          50.0,
+          83.33333333333334
+        ],
+        "bajo": 10.0,
+        "medio": 20.0,
+        "alto": 76.66666666666667,
+        "gradiente": true,
+        "comprobacion": {
+          "bajo": 1.0,
+          "medio": 2.25,
+          "alto": 5.0
+        },
+        "posicion_neutro": 0.39999999999999986,
+        "elasticidad_v1": 63.33333333333333
+      },
+      "C": {
+        "elasticidad": [
+          16.666666666666664,
+          -6.666666666666667,
+          40.0
+        ],
+        "bajo": 26.666666666666668,
+        "medio": 16.666666666666664,
+        "alto": 43.333333333333336,
+        "gradiente": false,
+        "comprobacion": {
+          "bajo": 1.0,
+          "medio": 3.75,
+          "alto": 5.0
+        },
+        "posicion_neutro": -0.5,
+        "elasticidad_v1": 30.0
+      },
+      "E": {
+        "elasticidad": [
+          60.0,
+          43.333333333333336,
+          76.66666666666667
+        ],
+        "bajo": 3.3333333333333335,
+        "medio": 3.3333333333333335,
+        "alto": 63.33333333333333,
+        "gradiente": true,
+        "comprobacion": {
+          "bajo": 2.0,
+          "medio": 2.75,
+          "alto": 5.0
+        },
+        "posicion_neutro": 0.3888888888888889,
+        "elasticidad_v1": 93.33333333333333
+      },
+      "A": {
+        "elasticidad": [
+          43.333333333333336,
+          26.666666666666668,
+          60.0
+        ],
+        "bajo": 3.3333333333333335,
+        "medio": 50.0,
+        "alto": 46.666666666666664,
+        "gradiente": false,
+        "comprobacion": {
+          "bajo": 1.75,
+          "medio": 4.0,
+          "alto": 5.0
+        },
+        "posicion_neutro": 0.5384615384615384,
+        "elasticidad_v1": 90.0
+      },
+      "N": {
+        "elasticidad": [
+          36.666666666666664,
+          16.666666666666664,
+          56.666666666666664
+        ],
+        "bajo": 43.333333333333336,
+        "medio": 50.0,
+        "alto": 80.0,
+        "gradiente": true,
+        "comprobacion": {
+          "bajo": 1.0,
+          "medio": 2.5,
+          "alto": 4.25
+        },
+        "posicion_neutro": 0.6818181818181818,
+        "elasticidad_v1": 63.33333333333333
+      },
+      "H": {
+        "elasticidad": [
+          82.75862068965517,
+          68.96551724137932,
+          96.55172413793103
+        ],
+        "bajo": 10.344827586206897,
+        "medio": 55.172413793103445,
+        "alto": 93.10344827586206,
+        "gradiente": true,
+        "comprobacion": {
+          "bajo": 1.75,
+          "medio": 4.0,
+          "alto": 5.0
+        },
+        "posicion_neutro": 0.3125,
+        "elasticidad_v1": 86.20689655172413
+      }
+    },
+    "gemma4": {
+      "O": {
+        "elasticidad": [
+          76.66666666666667,
+          60.0,
+          90.0
+        ],
+        "bajo": 20.0,
+        "medio": 26.666666666666668,
+        "alto": 96.66666666666667,
+        "gradiente": true,
+        "comprobacion": {
+          "bajo": 1.0,
+          "medio": 2.5,
+          "alto": 5.0
+        },
+        "posicion_neutro": 0.2946859903381643,
+        "elasticidad_v1": 86.66666666666667
+      },
+      "C": {
+        "elasticidad": [
+          43.333333333333336,
+          20.0,
+          66.66666666666666
+        ],
+        "bajo": 26.666666666666668,
+        "medio": 40.0,
+        "alto": 70.0,
+        "gradiente": true,
+        "comprobacion": {
+          "bajo": 1.0,
+          "medio": 3.5,
+          "alto": 5.0
+        },
+        "posicion_neutro": 0.08516483516483513,
+        "elasticidad_v1": 43.333333333333336
+      },
+      "E": {
+        "elasticidad": [
+          66.66666666666666,
+          49.91666666666667,
+          83.33333333333334
+        ],
+        "bajo": 6.666666666666667,
+        "medio": 3.3333333333333335,
+        "alto": 73.33333333333333,
+        "gradiente": false,
+        "comprobacion": {
+          "bajo": 2.0,
+          "medio": 3.0,
+          "alto": 4.5
+        },
+        "posicion_neutro": 0.22999999999999998,
+        "elasticidad_v1": 93.33333333333333
+      },
+      "A": {
+        "elasticidad": [
+          46.666666666666664,
+          30.0,
+          63.33333333333333
+        ],
+        "bajo": 3.3333333333333335,
+        "medio": 60.0,
+        "alto": 50.0,
+        "gradiente": false,
+        "comprobacion": {
+          "bajo": 1.75,
+          "medio": 3.75,
+          "alto": 5.0
+        },
+        "posicion_neutro": 0.2857142857142857,
+        "elasticidad_v1": 96.66666666666667
+      },
+      "N": {
+        "elasticidad": [
+          33.33333333333333,
+          13.333333333333334,
+          53.333333333333336
+        ],
+        "bajo": 40.0,
+        "medio": 67.85714285714286,
+        "alto": 73.33333333333333,
+        "gradiente": true,
+        "comprobacion": {
+          "bajo": 1.0,
+          "medio": 2.5,
+          "alto": 4.25
+        },
+        "posicion_neutro": 0.9724137931034484,
+        "elasticidad_v1": 86.66666666666667
+      },
+      "H": {
+        "elasticidad": [
+          65.51724137931035,
+          44.827586206896555,
+          82.75862068965517
+        ],
+        "bajo": 3.4482758620689653,
+        "medio": 37.93103448275862,
+        "alto": 68.96551724137932,
+        "gradiente": true,
+        "comprobacion": {
+          "bajo": 1.0,
+          "medio": 3.75,
+          "alto": 4.5
+        },
+        "posicion_neutro": 0.28947368421052627,
+        "elasticidad_v1": 89.65517241379311
+      }
+    },
+    "glm5.3-flash": {
+      "O": {
+        "elasticidad": [
+          90.0,
+          76.66666666666667,
+          100.0
+        ],
+        "bajo": 3.3333333333333335,
+        "medio": 10.0,
+        "alto": 93.33333333333333,
+        "gradiente": true,
+        "comprobacion": {
+          "bajo": 1.0,
+          "medio": 2.0,
+          "alto": 5.0
+        },
+        "posicion_neutro": 0.4444444444444445,
+        "elasticidad_v1": 86.66666666666667
+      },
+      "C": {
+        "elasticidad": [
+          33.33333333333333,
+          6.666666666666667,
+          56.666666666666664
+        ],
+        "bajo": 20.0,
+        "medio": 16.666666666666664,
+        "alto": 53.333333333333336,
+        "gradiente": false,
+        "comprobacion": {
+          "bajo": 1.0,
+          "medio": 3.5,
+          "alto": 5.0
+        },
+        "posicion_neutro": -0.10000000000000006,
+        "elasticidad_v1": 50.0
+      },
+      "E": {
+        "elasticidad": [
+          93.33333333333333,
+          83.33333333333334,
+          100.0
+        ],
+        "bajo": 0.0,
+        "medio": 0.0,
+        "alto": 93.33333333333333,
+        "gradiente": true,
+        "comprobacion": {
+          "bajo": 2.0,
+          "medio": 2.75,
+          "alto": 5.0
+        },
+        "posicion_neutro": 0.3571428571428571,
+        "elasticidad_v1": 93.33333333333333
+      },
+      "A": {
+        "elasticidad": [
+          73.33333333333333,
+          56.666666666666664,
+          90.0
+        ],
+        "bajo": 3.3333333333333335,
+        "medio": 60.0,
+        "alto": 76.66666666666667,
+        "gradiente": true,
+        "comprobacion": {
+          "bajo": 1.25,
+          "medio": 3.5,
+          "alto": 5.0
+        },
+        "posicion_neutro": 0.3181818181818182,
+        "elasticidad_v1": 93.33333333333333
+      },
+      "N": {
+        "elasticidad": [
+          56.666666666666664,
+          36.666666666666664,
+          76.66666666666667
+        ],
+        "bajo": 16.666666666666664,
+        "medio": 53.333333333333336,
+        "alto": 73.33333333333333,
+        "gradiente": true,
+        "comprobacion": {
+          "bajo": 1.0,
+          "medio": 2.25,
+          "alto": 4.75
+        },
+        "posicion_neutro": 0.7941176470588237,
+        "elasticidad_v1": 76.66666666666667
+      },
+      "H": {
+        "elasticidad": [
+          89.65517241379311,
+          72.41379310344827,
+          100.0
+        ],
+        "bajo": 3.4482758620689653,
+        "medio": 31.03448275862069,
+        "alto": 93.10344827586206,
+        "gradiente": true,
+        "comprobacion": {
+          "bajo": 1.5,
+          "medio": 3.75,
+          "alto": 4.75
+        },
+        "posicion_neutro": 0.36538461538461536,
+        "elasticidad_v1": 100.0
+      }
+    },
+    "google_gemini-3.7-flash": {
+      "O": {
+        "elasticidad": [
+          70.0,
+          53.333333333333336,
+          86.66666666666667
+        ],
+        "bajo": 10.0,
+        "medio": 0.0,
+        "alto": 80.0,
+        "gradiente": false,
+        "comprobacion": {
+          "bajo": 1.25,
+          "medio": 2.0,
+          "alto": 5.0
+        },
+        "posicion_neutro": 0.4285714285714286,
+        "elasticidad_v1": 76.66666666666667
+      },
+      "C": {
+        "elasticidad": [
+          66.66666666666666,
+          46.666666666666664,
+          83.33333333333334
+        ],
+        "bajo": 20.0,
+        "medio": 13.333333333333334,
+        "alto": 86.66666666666667,
+        "gradiente": false,
+        "comprobacion": {
+          "bajo": 1.0,
+          "medio": 3.5,
+          "alto": 5.0
+        },
+        "posicion_neutro": 0.09999999999999996,
+        "elasticidad_v1": 66.66666666666666
+      },
+      "E": {
+        "elasticidad": [
+          96.66666666666667,
+          90.0,
+          100.0
+        ],
+        "bajo": 0.0,
+        "medio": 0.0,
+        "alto": 96.66666666666667,
+        "gradiente": true,
+        "comprobacion": {
+          "bajo": 1.75,
+          "medio": 2.75,
+          "alto": 5.0
+        },
+        "posicion_neutro": 0.29310344827586204,
+        "elasticidad_v1": 96.66666666666667
+      },
+      "A": {
+        "elasticidad": [
+          56.666666666666664,
+          36.666666666666664,
+          76.66666666666667
+        ],
+        "bajo": 20.0,
+        "medio": 46.666666666666664,
+        "alto": 76.66666666666667,
+        "gradiente": true,
+        "comprobacion": {
+          "bajo": 1.5,
+          "medio": 3.5,
+          "alto": 5.0
+        },
+        "posicion_neutro": 0.029411764705882346,
+        "elasticidad_v1": 73.33333333333333
+      },
+      "N": {
+        "elasticidad": [
+          43.333333333333336,
+          23.333333333333332,
+          63.33333333333333
+        ],
+        "bajo": 23.333333333333332,
+        "medio": 33.33333333333333,
+        "alto": 66.66666666666666,
+        "gradiente": true,
+        "comprobacion": {
+          "bajo": 1.0,
+          "medio": 2.5,
+          "alto": 4.5
+        },
+        "posicion_neutro": 0.8461538461538461,
+        "elasticidad_v1": 63.33333333333333
+      },
+      "H": {
+        "elasticidad": [
+          79.3103448275862,
+          62.06896551724138,
+          93.10344827586206
+        ],
+        "bajo": 0.0,
+        "medio": 20.689655172413794,
+        "alto": 79.3103448275862,
+        "gradiente": true,
+        "comprobacion": {
+          "bajo": 1.25,
+          "medio": 3.75,
+          "alto": 5.0
+        },
+        "posicion_neutro": 0.34782608695652173,
+        "elasticidad_v1": 62.06896551724138
+      }
+    },
+    "mimo-v2.6-flash": {
+      "O": {
+        "elasticidad": [
+          63.33333333333333,
+          46.666666666666664,
+          80.0
+        ],
+        "bajo": 26.666666666666668,
+        "medio": 30.0,
+        "alto": 90.0,
+        "gradiente": true,
+        "comprobacion": {
+          "bajo": 1.0,
+          "medio": 2.25,
+          "alto": 5.0
+        },
+        "posicion_neutro": 0.2894736842105263,
+        "elasticidad_v1": 63.33333333333333
+      },
+      "C": {
+        "elasticidad": [
+          13.333333333333334,
+          -6.666666666666667,
+          33.33333333333333
+        ],
+        "bajo": 33.33333333333333,
+        "medio": 36.666666666666664,
+        "alto": 46.666666666666664,
+        "gradiente": true,
+        "comprobacion": {
+          "bajo": 1.0,
+          "medio": 3.5,
+          "alto": 5.0
+        },
+        "posicion_neutro": 0.0,
+        "elasticidad_v1": 40.0
+      },
+      "E": {
+        "elasticidad": [
+          43.333333333333336,
+          26.666666666666668,
+          60.0
+        ],
+        "bajo": 10.0,
+        "medio": 0.0,
+        "alto": 53.333333333333336,
+        "gradiente": false,
+        "comprobacion": {
+          "bajo": 2.0,
+          "medio": 2.25,
+          "alto": 4.75
+        },
+        "posicion_neutro": 0.7307692307692307,
+        "elasticidad_v1": 86.66666666666667
+      },
+      "A": {
+        "elasticidad": [
+          30.0,
+          13.333333333333334,
+          46.666666666666664
+        ],
+        "bajo": 23.333333333333332,
+        "medio": 40.0,
+        "alto": 53.333333333333336,
+        "gradiente": true,
+        "comprobacion": {
+          "bajo": 1.75,
+          "medio": 3.5,
+          "alto": 5.0
+        },
+        "posicion_neutro": 0.33333333333333326,
+        "elasticidad_v1": 76.66666666666667
+      },
+      "N": {
+        "elasticidad": [
+          20.0,
+          0.0,
+          40.0
+        ],
+        "bajo": 60.0,
+        "medio": 53.333333333333336,
+        "alto": 80.0,
+        "gradiente": false,
+        "comprobacion": {
+          "bajo": 1.0,
+          "medio": 2.75,
+          "alto": 3.75
+        },
+        "posicion_neutro": 1.1666666666666665,
+        "elasticidad_v1": 66.66666666666666
+      },
+      "H": {
+        "elasticidad": [
+          68.96551724137932,
+          51.724137931034484,
+          86.20689655172413
+        ],
+        "bajo": 6.896551724137931,
+        "medio": 62.06896551724138,
+        "alto": 75.86206896551724,
+        "gradiente": true,
+        "comprobacion": {
+          "bajo": 1.25,
+          "medio": 3.5,
+          "alto": 4.5
+        },
+        "posicion_neutro": 0.4,
+        "elasticidad_v1": 89.65517241379311
+      }
+    },
+    "openai_gpt-5.6-luna": {
+      "O": {
+        "elasticidad": [
+          90.0,
+          80.0,
+          100.0
+        ],
+        "bajo": 10.0,
+        "medio": 30.0,
+        "alto": 100.0,
+        "gradiente": true,
+        "comprobacion": {
+          "bajo": 1.0,
+          "medio": 2.75,
+          "alto": 5.0
+        },
+        "posicion_neutro": 0.4814814814814815,
+        "elasticidad_v1": 70.0
+      },
+      "C": {
+        "elasticidad": [
+          30.0,
+          6.666666666666667,
+          53.333333333333336
+        ],
+        "bajo": 30.0,
+        "medio": 30.0,
+        "alto": 60.0,
+        "gradiente": true,
+        "comprobacion": {
+          "bajo": 1.5,
+          "medio": 3.75,
+          "alto": 5.0
+        },
+        "posicion_neutro": 0.055555555555555546,
+        "elasticidad_v1": 56.666666666666664
+      },
+      "E": {
+        "elasticidad": [
+          66.66666666666666,
+          50.0,
+          83.33333333333334
+        ],
+        "bajo": 6.666666666666667,
+        "medio": 3.3333333333333335,
+        "alto": 73.33333333333333,
+        "gradiente": false,
+        "comprobacion": {
+          "bajo": 1.75,
+          "medio": 3.0,
+          "alto": 4.75
+        },
+        "posicion_neutro": 0.35000000000000003,
+        "elasticidad_v1": 100.0
+      },
+      "A": {
+        "elasticidad": [
+          66.66666666666666,
+          50.0,
+          83.33333333333334
+        ],
+        "bajo": 3.3333333333333335,
+        "medio": 30.0,
+        "alto": 70.0,
+        "gradiente": true,
+        "comprobacion": {
+          "bajo": 1.5,
+          "medio": 3.5,
+          "alto": 5.0
+        },
+        "posicion_neutro": 0.12500000000000003,
+        "elasticidad_v1": 90.0
+      },
+      "N": {
+        "elasticidad": [
+          30.0,
+          13.333333333333334,
+          46.666666666666664
+        ],
+        "bajo": 53.333333333333336,
+        "medio": 53.333333333333336,
+        "alto": 83.33333333333334,
+        "gradiente": true,
+        "comprobacion": {
+          "bajo": 1.0,
+          "medio": 2.5,
+          "alto": 4.75
+        },
+        "posicion_neutro": 0.6666666666666664,
+        "elasticidad_v1": 66.66666666666666
+      },
+      "H": {
+        "elasticidad": [
+          79.3103448275862,
+          58.620689655172406,
+          93.10344827586206
+        ],
+        "bajo": 6.896551724137931,
+        "medio": 55.172413793103445,
+        "alto": 86.20689655172413,
+        "gradiente": true,
+        "comprobacion": {
+          "bajo": 1.5,
+          "medio": 3.75,
+          "alto": 4.75
+        },
+        "posicion_neutro": 0.45652173913043476,
+        "elasticidad_v1": 100.0
+      }
+    },
+    "qwen3.6": {
+      "O": {
+        "elasticidad": [
+          60.0,
+          43.333333333333336,
+          76.66666666666667
+        ],
+        "bajo": 16.666666666666664,
+        "medio": 46.666666666666664,
+        "alto": 76.66666666666667,
+        "gradiente": true,
+        "comprobacion": {
+          "bajo": 1.0,
+          "medio": 3.5,
+          "alto": 5.0
+        },
+        "posicion_neutro": 0.5555555555555556,
+        "elasticidad_v1": 53.333333333333336
+      },
+      "C": {
+        "elasticidad": [
+          -3.3333333333333335,
+          -23.333333333333332,
+          16.666666666666664
+        ],
+        "bajo": 40.0,
+        "medio": 36.666666666666664,
+        "alto": 36.666666666666664,
+        "gradiente": false,
+        "comprobacion": {
+          "bajo": 1.0,
+          "medio": 3.75,
+          "alto": 5.0
+        },
+        "posicion_neutro": null,
+        "elasticidad_v1": 26.666666666666668
+      },
+      "E": {
+        "elasticidad": [
+          46.666666666666664,
+          30.0,
+          63.33333333333333
+        ],
+        "bajo": 13.333333333333334,
+        "medio": 3.3333333333333335,
+        "alto": 60.0,
+        "gradiente": false,
+        "comprobacion": {
+          "bajo": 2.0,
+          "medio": 2.0,
+          "alto": 4.5
+        },
+        "posicion_neutro": 0.46428571428571425,
+        "elasticidad_v1": 90.0
+      },
+      "A": {
+        "elasticidad": [
+          40.0,
+          23.333333333333332,
+          56.666666666666664
+        ],
+        "bajo": 3.3333333333333335,
+        "medio": 40.0,
+        "alto": 43.333333333333336,
+        "gradiente": true,
+        "comprobacion": {
+          "bajo": 1.25,
+          "medio": 4.0,
+          "alto": 5.0
+        },
+        "posicion_neutro": 0.5833333333333333,
+        "elasticidad_v1": 90.0
+      },
+      "N": {
+        "elasticidad": [
+          36.666666666666664,
+          16.666666666666664,
+          56.666666666666664
+        ],
+        "bajo": 43.333333333333336,
+        "medio": 73.33333333333333,
+        "alto": 80.0,
+        "gradiente": true,
+        "comprobacion": {
+          "bajo": 1.0,
+          "medio": 2.25,
+          "alto": 4.5
+        },
+        "posicion_neutro": 0.9090909090909092,
+        "elasticidad_v1": 66.66666666666666
+      },
+      "H": {
+        "elasticidad": [
+          58.620689655172406,
+          37.93103448275862,
+          75.86206896551724
+        ],
+        "bajo": 13.793103448275861,
+        "medio": 44.827586206896555,
+        "alto": 72.41379310344827,
+        "gradiente": true,
+        "comprobacion": {
+          "bajo": 1.5,
+          "medio": 3.5,
+          "alto": 4.75
+        },
+        "posicion_neutro": 0.2647058823529411,
+        "elasticidad_v1": 93.10344827586206
+      }
+    },
+    "qwen3.8-flash": {
+      "O": {
+        "elasticidad": [
+          73.33333333333333,
+          56.666666666666664,
+          86.66666666666667
+        ],
+        "bajo": 20.0,
+        "medio": 20.0,
+        "alto": 93.33333333333333,
+        "gradiente": true,
+        "comprobacion": {
+          "bajo": 1.0,
+          "medio": 2.25,
+          "alto": 5.0
+        },
+        "posicion_neutro": 0.2272727272727272,
+        "elasticidad_v1": 70.0
+      },
+      "C": {
+        "elasticidad": [
+          20.0,
+          -3.3333333333333335,
+          43.333333333333336
+        ],
+        "bajo": 33.33333333333333,
+        "medio": 20.0,
+        "alto": 53.333333333333336,
+        "gradiente": false,
+        "comprobacion": {
+          "bajo": 1.0,
+          "medio": 3.25,
+          "alto": 5.0
+        },
+        "posicion_neutro": -0.6666666666666665,
+        "elasticidad_v1": 46.666666666666664
+      },
+      "E": {
+        "elasticidad": [
+          76.66666666666667,
+          60.0,
+          90.0
+        ],
+        "bajo": 10.0,
+        "medio": 6.666666666666667,
+        "alto": 86.66666666666667,
+        "gradiente": false,
+        "comprobacion": {
+          "bajo": 1.75,
+          "medio": 2.75,
+          "alto": 4.75
+        },
+        "posicion_neutro": 0.49999999999999994,
+        "elasticidad_v1": 93.33333333333333
+      },
+      "A": {
+        "elasticidad": [
+          31.03448275862069,
+          10.344827586206897,
+          51.724137931034484
+        ],
+        "bajo": 6.666666666666667,
+        "medio": 36.666666666666664,
+        "alto": 37.93103448275862,
+        "gradiente": true,
+        "comprobacion": {
+          "bajo": 1.25,
+          "medio": 3.5,
+          "alto": 5.0
+        },
+        "posicion_neutro": 0.31985294117647056,
+        "elasticidad_v1": 96.66666666666667
+      },
+      "N": {
+        "elasticidad": [
+          40.0,
+          13.333333333333334,
+          63.33333333333333
+        ],
+        "bajo": 30.0,
+        "medio": 43.333333333333336,
+        "alto": 70.0,
+        "gradiente": true,
+        "comprobacion": {
+          "bajo": 1.0,
+          "medio": 2.5,
+          "alto": 4.25
+        },
+        "posicion_neutro": 0.9166666666666666,
+        "elasticidad_v1": 70.0
+      },
+      "H": {
+        "elasticidad": [
+          72.41379310344827,
+          55.172413793103445,
+          86.20689655172413
+        ],
+        "bajo": 20.689655172413794,
+        "medio": 41.37931034482759,
+        "alto": 93.10344827586206,
+        "gradiente": true,
+        "comprobacion": {
+          "bajo": 1.0,
+          "medio": 4.0,
+          "alto": 4.5
+        },
+        "posicion_neutro": 0.2142857142857143,
+        "elasticidad_v1": 96.55172413793103
+      }
+    }
+  },
+  "criterios": {
+    "B1": {
+      "E": 68.14814814814814,
+      "A": 48.26309067688378,
+      "H": 77.01149425287355
+    },
+    "B1_cumple": true,
+    "B2": {
+      "O": 3.9166666666666665,
+      "C": 3.888888888888889,
+      "E": 2.861111111111111,
+      "A": 3.361111111111111,
+      "N": 3.3333333333333335,
+      "H": 3.2777777777777777
+    },
+    "B2_cumple": true,
+    "B3": {
+      "O": true,
+      "C": true,
+      "E": false,
+      "A": true,
+      "N": true,
+      "H": true
+    },
+    "B3_cumple": true,
+    "B4": {
+      "O": 2.025,
+      "C": 3.203389830508474,
+      "E": 3.73904576436222,
+      "A": 2.4784514243973703,
+      "N": 1.81651376146789,
+      "H": 2.506329113924051
+    },
+    "B4_cumple": true
+  }
+}

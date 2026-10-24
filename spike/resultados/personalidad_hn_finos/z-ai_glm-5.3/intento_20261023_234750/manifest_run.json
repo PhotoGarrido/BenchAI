@@ -1,0 +1,39 @@
+{
+  "commit": "f111d07788227406039a0f17eec22fc6a867d5af",
+  "python": "3.12.4",
+  "parser_version": "2.5",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "alta_personalidad.py",
+    "--modelo",
+    "z-ai/glm-5.3",
+    "--tope",
+    "1.20",
+    "--hilos",
+    "8"
+  ],
+  "args": {
+    "modelo": "z-ai/glm-5.3",
+    "forma": "completa",
+    "tope": 1.2,
+    "hilos": 8,
+    "seco": false,
+    "origen": "alta_personalidad.py (PERSONALIDAD.md §41.4)",
+    "fase": "I1-N",
+    "n_pendientes": 432,
+    "version_bateria": "HNF-1",
+    "items_sha256": "6876fc330c0a2982aa9ed39f0394199fdf87f46f6bcf512ed6e153723f7314b3"
+  },
+  "hashes": {},
+  "inicio": "2026-10-23T23:47:50",
+  "status": "completed",
+  "fin": "2026-10-23T23:48:29",
+  "solicitudes": 432,
+  "errores": 0,
+  "fallo_escritura": false,
+  "gasto_estimado": 0.3903
+}

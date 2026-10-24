@@ -1,0 +1,36 @@
+{
+  "commit": "cbdef9099a6a8c20381bdb8c29aeb3b428774139",
+  "python": "3.12.4",
+  "parser_version": "2.5",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "experimento_personalidad_hn_finos.py",
+    "--modelo",
+    "qwen3.6",
+    "--formatos",
+    "D3"
+  ],
+  "args": {
+    "modelo": "qwen3.6",
+    "humo": 0,
+    "formatos": "D3",
+    "plan": false,
+    "parejas": false,
+    "version_bateria": "HNF-1",
+    "n_tareas": 144,
+    "n_pendientes": 144,
+    "items_sha256": "6876fc330c0a2982aa9ed39f0394199fdf87f46f6bcf512ed6e153723f7314b3",
+    "parejas_sha256": null
+  },
+  "hashes": {},
+  "inicio": "2026-10-21T16:42:53",
+  "status": "completed",
+  "fin": "2026-10-21T16:58:56",
+  "solicitudes": 145,
+  "errores": 1,
+  "fallo_escritura": false
+}

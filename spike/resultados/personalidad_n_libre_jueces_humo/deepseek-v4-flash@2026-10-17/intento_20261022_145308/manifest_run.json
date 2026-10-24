@@ -1,0 +1,39 @@
+{
+  "commit": "56676e582b5177b6f487b7f60bde5c138811e065",
+  "python": "3.12.4",
+  "parser_version": "2.5",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "experimento_personalidad_n_libre.py",
+    "--humo",
+    "--juez",
+    "deepseek-v4-flash@2026-10-17",
+    "--hilos",
+    "1"
+  ],
+  "args": {
+    "modelo": null,
+    "juez": "deepseek-v4-flash@2026-10-17",
+    "humo": true,
+    "por_faceta": null,
+    "max_tareas": null,
+    "externo": false,
+    "hilos": 1,
+    "plan": false,
+    "version_bateria": "NLB-1",
+    "n_tareas": 42,
+    "n_pendientes": 42,
+    "items_sha256": "a1bab5133665d46166872c82a99d4ca729d51b04f276a77fd5e45d8a42071d24"
+  },
+  "hashes": {},
+  "inicio": "2026-10-22T14:53:08",
+  "status": "completed",
+  "fin": "2026-10-22T14:57:25",
+  "solicitudes": 42,
+  "errores": 0,
+  "fallo_escritura": false
+}

@@ -1,0 +1,32 @@
+{
+  "commit": "803049fe6212e2465d6c751c1aa1666ae48d4acc",
+  "python": "3.12.4",
+  "parser_version": "2.5",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "huella_modelo.py",
+    "--modelo",
+    "glm5.3-flash",
+    "--huella",
+    "ambas",
+    "--tanda",
+    "t2"
+  ],
+  "args": {
+    "modelo": "glm5.3-flash",
+    "etiqueta": "t2",
+    "n": 83,
+    "seleccion_sha256": "4201db2bc53070372b5ed752202b1d57a8c511c04daf6ea3db53f6c1cf00fb8f"
+  },
+  "hashes": {},
+  "inicio": "2026-10-23T00:45:57",
+  "status": "completed",
+  "fin": "2026-10-23T00:55:08",
+  "solicitudes": 83,
+  "errores": 0,
+  "fallo_escritura": false
+}

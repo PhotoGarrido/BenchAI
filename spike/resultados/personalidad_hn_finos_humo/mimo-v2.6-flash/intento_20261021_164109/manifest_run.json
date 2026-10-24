@@ -1,0 +1,36 @@
+{
+  "commit": "ce10f754d36301a1d496e6e4d199ed97ee9a9bf0",
+  "python": "3.12.4",
+  "parser_version": "2.5",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "experimento_personalidad_hn_finos.py",
+    "--modelo",
+    "mimo-v2.6-flash",
+    "--humo",
+    "2"
+  ],
+  "args": {
+    "modelo": "mimo-v2.6-flash",
+    "humo": 2,
+    "formatos": "GR,BI,DS,D3,FC",
+    "plan": false,
+    "parejas": false,
+    "version_bateria": "HNF-1",
+    "n_tareas": 8,
+    "n_pendientes": 8,
+    "items_sha256": "6876fc330c0a2982aa9ed39f0394199fdf87f46f6bcf512ed6e153723f7314b3",
+    "parejas_sha256": null
+  },
+  "hashes": {},
+  "inicio": "2026-10-21T16:41:09",
+  "status": "completed",
+  "fin": "2026-10-21T16:41:37",
+  "solicitudes": 8,
+  "errores": 0,
+  "fallo_escritura": false
+}

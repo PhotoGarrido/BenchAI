@@ -27,7 +27,9 @@ import re
 import sys
 
 RAIZ = pathlib.Path(__file__).resolve().parent
-REPO = "https://github.com/PhotoGarrido/PsicoAI/blob/main/"
+# el repositorio público (el mismo que `publicar.REPO_WEB`; se llamaba PsicoAI
+# hasta el 18-08-2026 y GitHub redirige, pero el enlace bueno es este)
+REPO = "https://github.com/PhotoGarrido/BenchAI/blob/main/"
 
 # El orden importa: `datos.js` define window.PSICO, `js/marcado.js` define
 # window.MARCADO, y el resto los consume.
@@ -36,9 +38,11 @@ SCRIPTS = {
                    "js/reproductor.js", "js/pagina.js", "js/escena.js"],
     "home.html": ["datos.js", "js/marcado.js", "js/home.js"],
     "psicobench.html": ["datos.js", "js/marcado.js", "js/graficas.js", "js/psicobench.js", "js/escena.js"],
+    "personalidad.html": ["datos.js", "js/marcado.js", "js/graficas.js", "js/personalidad.js", "js/escena.js"],
 }
 HOJAS = {"index.html": ["css/estilo.css"], "home.html": ["css/home.css"],
-         "psicobench.html": ["css/estilo.css", "css/psicobench.css"]}
+         "psicobench.html": ["css/estilo.css", "css/psicobench.css"],
+         "personalidad.html": ["css/estilo.css", "css/psicobench.css", "css/personalidad.css"]}
 
 
 def blindar(js: str) -> str:
