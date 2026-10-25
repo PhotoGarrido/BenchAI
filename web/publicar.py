@@ -171,6 +171,9 @@ def _copiar(destino: pathlib.Path, previa: bool = False) -> None:
                      .replace('href="home.html"', 'href="/"')
                      .replace('href="index.html', 'href="/completo')
                      .replace('href="psicobench.html', 'href="/psicobench'), encoding="utf-8")
+    # la copia de trabajo de psicobench.js arma sus «Fuente ·» con el mismo
+    # REPO() que el original: misma reescritura a GitHub
+    _reescribir_repo_js(destino / "verloop" / "psicobench.js")
     (destino / "robots.txt").write_text(ROBOTS_PREVIA, encoding="utf-8")
 
 
@@ -236,15 +239,19 @@ def _reescribir_enlaces(destino: pathlib.Path) -> None:
 
     # Y los que construye el guion: `REPO()` de pagina.js arma cada «Fuente ·»
     # en caliente, así que la reescritura del HTML no los alcanzaba.
+    for nombre in ("pagina.js", "psicobench.js"):
+        _reescribir_repo_js(destino / "js" / nombre)
+
+
+def _reescribir_repo_js(js: pathlib.Path) -> None:
+    """`REPO()` enlaza a `../<ruta>` del repositorio: en la web, a GitHub."""
     viejo = 'const REPO = (r) => mk`<a href="../${r}">${r}</a>`;'
     nuevo = ('const REPO = (r) => mk`<a href="' + REPO_WEB
              + '${r}" target="_blank" rel="noopener">${r}</a>`;')
-    for nombre in ("pagina.js", "psicobench.js"):
-        js = destino / "js" / nombre
-        texto = js.read_text(encoding="utf-8")
-        if viejo not in texto:
-            raise SystemExit(f"[publicar] REPO() ha cambiado de forma en {nombre}: revisa la reescritura")
-        js.write_text(texto.replace(viejo, nuevo), encoding="utf-8")
+    texto = js.read_text(encoding="utf-8")
+    if viejo not in texto:
+        raise SystemExit(f"[publicar] REPO() ha cambiado de forma en {js.name}: revisa la reescritura")
+    js.write_text(texto.replace(viejo, nuevo), encoding="utf-8")
 
 
 def _iguales(a: pathlib.Path, b: pathlib.Path) -> bool:

@@ -1,6 +1,6 @@
 # Plan · rediseño de `/psicobench` en la línea «Verloop»
 
-**Fecha**: 24-10-2026 (aprobado el 25-10-2026) · **Estado**: en implementación, **fase 0 hecha** · **Rama**: `feature/psicobench-verloop` (desde `main`; el repo no tiene `develop`) · **Diseño de referencia**: lienzo «BenchAI · tres direcciones», pizarra *PsicoBench · /psicobench en la línea Verloop* con la portada «Lámina A · Morph» (octógono de un solo modelo, animado).
+**Fecha**: 24-10-2026 (aprobado el 25-10-2026) · **Estado**: en implementación, **fases 0 y 1 hechas** · **Rama**: `feature/psicobench-verloop` (desde `main`; el repo no tiene `develop`) · **Diseño de referencia**: lienzo «BenchAI · tres direcciones», pizarra *PsicoBench · /psicobench en la línea Verloop* con la portada «Lámina A · Morph» (octógono de un solo modelo, animado).
 
 **Qué se rediseña**: solo la superficie `/psicobench`. La home (`/`) y el sitio largo (`/completo`) no se tocan en esta rama; si la dirección gusta, se extiende después con los mismos tokens.
 
@@ -67,14 +67,19 @@ Es el paquete de producción más `/psicobench-nueva`, `verloop/` y `fonts/`, co
 - **Capturas de referencia** de la página vigente en producción, de página completa: `docs/verloop/antes/psicobench-{1440,390,320}.jpg`. Se toman por tramos de ventana, porque la portada actual se dimensiona con `vh` y estirar la ventana la deformaba.
 - Comprobado: paquete de producción construido y al día (`--check`), sin piezas de la previa; ningún fichero de la lista blanca cambia frente a `main`; `marcado.prueba.cjs`, `generar_datos.py --check` y `test_xss_estatico.py` en verde.
 
-### Fase 1 · Tokens y base (1 día)
-- Ampliar `web/verloop/tokens.css` con el grano y las definiciones SVG compartidas (`#grano`, `#halo`, `#espectro`) y las cabeceras de sección.
-- En `graficas.js`: paleta `G.PAL.verloop` (ocho tonos por eje + gradiente ISS) y opciones nuevas en `figura()`: `relleno: "gradiente"` y `halo: true`. Opcionales y **desactivadas por defecto**, para que `/`, `/completo` y la `/psicobench` vigente no cambien ni un píxel.
-- `web/verloop/psicobench.js` como copia de trabajo de `web/js/psicobench.js` que consume esas opciones; la página nueva carga `datos.js`, `js/marcado.js`, `js/graficas.js` y este fichero.
+### Fase 1 · Tokens y base — **hecha (25-10-2026)**
+- **Desviación del plan, a mejor**: no hace falta una paleta `G.PAL.verloop` ni una opción `relleno` en `graficas.js`. La biblioteca no escribe colores —los pide a variables CSS (`--s1…--s4`, `--o1…--o4`, la escala `--e0…--e9`, `--tinta`, `--reja`…)— y mide las etiquetas con `--sans` y `--mono` de `:root`. Así que el tema entero va en CSS y `/`, `/completo` y la `/psicobench` vigente no cambian.
+- **Registro Verloop** en `web/verloop/psicobench.css`, encima de `estilo.css` y `psicobench.css` (que siguen dando la estructura): un solo registro negro en lugar de grafito/papel, escala espectral `--e0…--e9` (frío y apagado → caliente y encendido; texto blanco en e0–e1 y negro de e2 en adelante, todo ≥ 4,5:1), series A cian / B magenta, familias nuevas en `:root`, cabeceras de sección con el número grande del color de su bloque, botones y chips en píldora, cajas de 4 px y grano en la portada. Gana por especificidad (`body.verloop`, `.verloop section:nth-of-type(…)`), sin `!important`.
+- **`graficas.js`**: un único cambio, la opción `halo` del octógono (copia difuminada bajo cada perfil, con su `<filter>` por figura), apagada por defecto. Es el único fichero de la lista blanca de producción que cambia en la rama.
+- **`web/verloop/psicobench.js`**: copia de trabajo del original con dos diferencias, anotadas en su cabecera: los dos octógonos piden `halo`, y al cargar las fuentes autoalojadas se redibujan todas las figuras (el canvas que mide las etiquetas no las pide por sí mismo).
+- **`web/psicobench-verloop.html`**: ya es la página completa, generada desde la vigente; solo cambian la cabecera (`noindex`, hojas Verloop), la clase `verloop` del `body`, el aviso flotante de previa (franja inferior en móvil) y el guion de la copia de trabajo.
+- **`publicar.py`**: la previa reescribe también el `REPO()` de la copia de trabajo, con la misma función que el original (`_reescribir_repo_js`).
+- Ajuste en `tokens.css`: la regla de color de los enlaces se limita a los enlaces sin clase, para no pisar chips ni botones.
+- Comprobado: `smoke.mjs` en verde contra la previa local para `/`, `/completo`, `/psicobench`, `/benchmark` y `/viewer` (con el `graficas.js` nuevo); en `/psicobench-nueva`, las 9 figuras dibujadas, los 39 perfiles del mapa, los halos en los dos octógonos, las tres familias cargadas, sin errores de consola y sin desborde horizontal a 390 px; paquete de producción al día, marcado, datos y XSS estático en verde.
 
 ### Fase 2 · Portada «Lámina A · Morph» (2 días)
 - Bloque `#portada` en dos columnas: copy (eyebrow, `<h1>` con `clamp(64px, 8.2vw, 118px)`, párrafo, CTAs, contadores con los ids actuales `#n-labs`, `#n-ejes`, `#ultima-medicion`) y la lámina.
-- **La lámina reutiliza `G.octogono()`** con cuatro opciones nuevas, desactivadas por defecto: `fondo: "perfiles"` (las 39 polilíneas finas coloreadas por ISS, pulsables), `halo: true`, `cunas: true` (ocho sectores invisibles por eje que emiten `hover`/`focus` con el índice) y `animar: true`. El tooltip (`globo`) se amplía a una **lectura fija** bajo la gráfica: nombre y paradigma del eje, definición, valor con IC y n.
+- **La lámina reutiliza `G.octogono()`** con tres opciones nuevas más, desactivadas por defecto (`halo` ya existe desde la fase 1): `fondo: "perfiles"` (las 39 polilíneas finas coloreadas por ISS, pulsables), `cunas: true` (ocho sectores invisibles por eje que emiten `hover`/`focus` con el índice) y `animar: true`. El tooltip (`globo`) se amplía a una **lectura fija** bajo la gráfica: nombre y paradigma del eje, definición, valor con IC y n.
 - **Animación de cambio de modelo** (`animar: true`): interpolación de los ocho vértices con `requestAnimationFrame` (900 ms, `easeOutCubic`), contador del ISS en paralelo, onda circular y destello del polígono por remontado de nodo, nombre con barrido. Con `prefers-reduced-motion`: cambio instantáneo.
 - **Animación de eje**: transiciones CSS sobre `transform` de la etiqueta, `stroke` del radio, `r` del vértice y `fill-opacity` del sector; la lectura entra con `fadeup`.
 - **Cambio de modelo**: botones anterior / siguiente (por ISS) y clic sobre un perfil fino (`tabindex="0"` + Enter, zona de golpe de 8 px). El modelo elegido va al hash `#m=<id>`, el mismo de la ficha.
@@ -115,9 +120,10 @@ Orden de trabajo, de menos a más riesgo:
 | Archivo | Hasta el cambio | En el cambio (§7) |
 |---|---|---|
 | `web/psicobench-verloop.html` | **Nuevo**, solo en la previa | Pasa a ser `web/psicobench.html` |
-| `web/verloop/tokens.css`, `web/verloop/psicobench.css`, `web/verloop/psicobench.js` | **Nuevos**, solo en la previa | Entran en la lista blanca |
+| `web/verloop/tokens.css` (fase 0), `web/verloop/psicobench.css`, `web/verloop/psicobench.js` (fase 1) | **Nuevos**, solo en la previa | Entran en la lista blanca |
 | `web/fonts/*.woff2` + `OFL-*.txt` | **Nuevos** (fase 0), solo en la previa | Entran en la lista blanca |
-| `web/js/graficas.js` | Opciones nuevas, desactivadas por defecto | Sin cambios |
+| `web/js/graficas.js` | Opciones nuevas del octógono, desactivadas por defecto (`halo` en la fase 1) | Sin cambios |
+| `web/css/estilo.css` | **Intacto**: el registro Verloop va encima | Sin cambios (lo siguen usando `/completo` y la página nueva) |
 | `web/psicobench.html`, `web/css/psicobench.css`, `web/js/psicobench.js` | **Intactos** | Se retiran (quedan en el historial para volver atrás) |
 | `web/publicar.py` | `--previa` y guarda (fase 0) | Lista blanca nueva; la guarda se adapta |
 | `web/servir_previa.py` | **Nuevo** (fase 0) | Se conserva para futuras previas |

@@ -608,10 +608,15 @@
   }
 
   /* ── 5. octógono (perfil de una medición sobre los 8 ejes) ─────────────── */
+  /*  `o.halo` (opcional, apagado por defecto): bajo cada perfil, una copia
+      difuminada de su color. Solo la usa la versión en preparación de
+      PsicoBench; sin la opción, el octógono se dibuja exactamente igual. */
+  let haloN = 0;
   function octogono(o) {
     const ejes = o.ejes;                      // [{clave, nombre}]
     const n = ejes.length;
     const ang = (i) => (i / n) * Math.PI * 2 - Math.PI / 2;
+    const haloId = o.halo ? "halo-oct-" + (++haloN) : null;
     let series = [];
     let capa = null, geo = null;
 
@@ -622,6 +627,10 @@
       capa.textContent = "";
       series.forEach((s) => {
         const pts = ejes.map((e, i) => pt(i, Math.max(0, Math.min(1, s.valores[e.clave] || 0))).join(",")).join(" ");
+        if (haloId) capa.appendChild(el("polygon", {
+          points: pts, fill: s.color, filter: `url(#${haloId})`, class: "halo anim-fade",
+          "pointer-events": "none", "aria-hidden": "true",
+        }));
         capa.appendChild(el("polygon", {
           points: pts, fill: s.color, "fill-opacity": series.length > 1 ? 0.14 : 0.2,
           stroke: s.color, "stroke-width": 2, "stroke-linejoin": "round", class: "anim-fade",
@@ -652,6 +661,8 @@
       geo = { pt };
 
       const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, width: W, height: H, role: "img", "aria-label": o.titulo, class: "radar" });
+      if (haloId) svg.appendChild(el("defs", {}, [el("filter", { id: haloId, x: "-40%", y: "-40%", width: "180%", height: "180%" },
+        [el("feGaussianBlur", { stdDeviation: Math.round(R / 9) })])]));
       const g = el("g", {}); svg.appendChild(g);
 
       [0.25, 0.5, 0.75, 1].forEach((r) => {

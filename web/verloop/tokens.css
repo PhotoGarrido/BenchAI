@@ -72,6 +72,8 @@
   /* el ISS como gradiente (0 → 60 y más) */
   --v-iss: linear-gradient(90deg, #4AF2FF 0%, #B46CFF 33%, #FF3D8A 66%, #FF8A1F 100%);
   --v-espectro: linear-gradient(90deg, #4AF2FF 0%, #7B3DFF 30%, #FF3D8A 55%, #FF8A1F 80%, #FFD36E 100%);
+  /* grano: ruido fractal en gris como imagen (la CSP admite img-src data:) */
+  --v-grano: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 
   /* tipografía */
   --v-display: "Big Shoulders Display", Impact, "Arial Narrow", sans-serif;
@@ -100,8 +102,10 @@
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
-.verloop a { color: var(--v-texto); }
-.verloop a:hover { color: #FFB3D1; }
+/* solo los enlaces de texto (sin clase): chips, botones y pestañas llevan su
+   propio color, y una regla general sobre `a` se lo pisaba */
+.verloop a:where(:not([class])) { color: var(--v-texto); text-decoration-color: rgba(255, 255, 255, .35); text-underline-offset: 3px; }
+.verloop a:where(:not([class])):hover { color: #FFB3D1; text-decoration-color: currentColor; }
 .verloop :focus-visible { outline: 2px solid var(--v-eje-conf); outline-offset: 3px; }
 
 /* ── utilidades del sistema ───────────────────────────────────────────── */
