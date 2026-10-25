@@ -64,15 +64,16 @@ body.verloop,
 .verloop .portada { isolation: isolate; grid-template-columns: minmax(0, .9fr) minmax(0, 1.25fr); gap: 40px; align-items: start; padding-top: 92px; }
 @media (max-width: 940px) { .verloop .portada { grid-template-columns: 1fr; } }
 .verloop .portada .portada-copia { display: flex; flex-direction: column; }
+/* las cifras, en fila flexible: la fecha («17-10-2026») no se parte ni
+   desborda; si no cabe, baja entera a la línea siguiente */
 .verloop .portada .cifras {
-  order: 3; grid-template-columns: repeat(4, minmax(0, 1fr)); max-width: none;
+  order: 3; display: flex; flex-wrap: wrap; gap: 16px 28px; max-width: none;
   margin: 28px 0 0; padding-top: 16px; border-top: 1px solid var(--linea);
 }
-.verloop .portada .cifras li { border-left: 0; padding-left: 0; }
-/* la fecha («17-10-2026») no se parte: el cuerpo baja con el ancho */
+.verloop .portada .cifras li { flex: 0 1 auto; border-left: 0; padding-left: 0; }
 .verloop .portada .cifras .n { font-size: clamp(32px, 3.2vw, 44px); white-space: nowrap; }
+.verloop .portada .cifras .r { max-width: 17ch; }
 .verloop .portada .acciones { order: 2; }
-@media (max-width: 560px) { .verloop .portada .cifras { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .verloop .portada .fondo {
   inset: -10% -30% auto -30%; height: 130%; filter: saturate(1.15);
   background:
