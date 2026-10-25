@@ -144,53 +144,75 @@ const RUTAS = [
       if (document.querySelectorAll(".superficies a").length !== 4) f.push("falta el conmutador de las cuatro superficies");
       if (!document.querySelector('.superficies a[aria-current="page"]')?.textContent.includes("Personalidad")) f.push("el conmutador no marca Personalidad");
       if (!document.getElementById("progreso")) f.push("sin barra de progreso");
-      // el cuadro: una fila por modelo, seis rasgos por fila, y tantas marcas
-      // pintadas como marcas robustas declaran los datos (ni una más)
-      const filas = document.querySelectorAll("table.cuadro tbody tr");
-      if (filas.length !== P.nModelos) f.push("filas del cuadro: " + filas.length + " (los datos declaran " + P.nModelos + ")");
-      const celdas = document.querySelectorAll("table.cuadro tbody td.r").length;
-      if (celdas !== P.nModelos * P.rasgos.length) f.push("celdas de rasgo: " + celdas);
-      // vista por defecto: frente a la media (cifra con signo, barrita y puesto) y la fila de la media al pie
-      if (document.querySelectorAll("table.cuadro tbody td.r .barra-dif").length !== celdas) f.push("la vista frente a la media no pinta la barrita en todas las celdas");
-      if (!/^(0|[+\u2212][0-9]+)$/.test(document.querySelector("table.cuadro tbody td.r .v").firstChild.textContent)) f.push("la vista por defecto no es «frente a la media»");
-      if (document.querySelectorAll("table.cuadro tfoot tr.media-panel td.r").length !== P.rasgos.length) f.push("falta la fila de la media del panel");
-      const marcas = document.querySelectorAll("table.cuadro td.r.sube, table.cuadro td.r.baja").length;
-      const glifos = document.querySelectorAll("table.cuadro td.r .m").length;
-      if (marcas !== P.robustas || glifos !== P.robustas) f.push("marcas pintadas: " + marcas + "/" + glifos + " (robustas: " + P.robustas + ")");
-      const avisos = P.modelos.filter(m => m.validez === "aviso").length;
-      if (document.querySelectorAll("table.cuadro .cautela").length !== avisos) f.push("avisos ⚠ explicados: esperaba " + avisos);
-      if (document.querySelectorAll("table.cuadro .retrato").length !== P.nModelos) f.push("falta algún retrato");
       if (!(document.getElementById("v-edicion")?.textContent || "").includes(P.fecha)) f.push("la barra no lleva la fecha de la edición");
-      if (document.querySelectorAll("#perfil-host circle.punto-perfil").length !== P.rasgos.length) f.push("el perfil frente al panel no dibuja los " + P.rasgos.length + " rasgos");
-      if (document.querySelectorAll("#comprobaciones li").length !== P.comprobaciones.length) f.push("faltan comprobaciones explicadas");
-      if (document.querySelectorAll("#fuera-host tbody tr").length !== P.fuera.length) f.push("modelos fuera: esperaba " + P.fuera.length);
-      if (document.querySelectorAll("#limites-host .limite").length < 4) f.push("las limitaciones no montaron");
-      if (document.querySelectorAll("#tabla-fiabilidad tbody tr").length !== P.rasgos.length) f.push("la tabla de fiabilidad no tiene un rasgo por fila");
-      if (!document.querySelector('a[href*="PERSONALIDAD.md"]')) f.push("no enlaza PERSONALIDAD.md");
+      // la portada: el radar animado con el polígono de un modelo sobre el panel
+      if (!document.querySelector("#pr-lienzo svg polygon.poligono-m")) f.push("el radar de la portada no dibujó el polígono");
+      if (document.querySelectorAll("#pr-lienzo .rp-fantasma").length !== P.nModelos) f.push("la portada no dibuja el panel entero de fondo");
+      // las fichas: una por modelo, un radar por ficha con seis vértices, y
+      // tantas marcas pintadas (vértice, línea y adjetivo firme) como
+      // marcas robustas declaran los datos, ni una más
+      const fichas = Array.from(document.querySelectorAll("#fichas-host article.ficha-m"));
+      if (fichas.length !== P.nModelos) f.push("fichas: " + fichas.length + " (los datos declaran " + P.nModelos + ")");
+      const sinRadar = fichas.filter(a => a.querySelectorAll("svg.radar-p").length !== 1 || a.querySelectorAll("svg.radar-p circle.vertice").length !== P.rasgos.length);
+      if (sinRadar.length) f.push("fichas sin su radar de " + P.rasgos.length + " vértices: " + sinRadar.map(a => a.dataset.id).join(", "));
+      const vert = document.querySelectorAll("#fichas-host circle.vertice.con-marca").length;
+      const lineas = document.querySelectorAll("#fichas-host .rasgo-l.sube, #fichas-host .rasgo-l.baja").length;
+      const firmes = document.querySelectorAll("#fichas-host .desc b.firme").length;
+      if (vert !== P.robustas || lineas !== P.robustas || firmes !== P.robustas) f.push("marcas pintadas: vértices " + vert + ", líneas " + lineas + ", frases " + firmes + " (robustas: " + P.robustas + ")");
+      // y cada una en su sitio: el vértice marcado de cada ficha es el rasgo con marca en los datos
+      const mal = P.modelos.filter(m => {
+        const a = document.querySelector('#fichas-host article.ficha-m[data-id="' + CSS.escape(m.id) + '"]');
+        const pintadas = Array.from(a ? a.querySelectorAll("circle.vertice.con-marca") : []).map(c => c.dataset.rasgo).sort().join("");
+        return pintadas !== P.rasgos.filter(r => m.rasgos[r.clave].marca).map(r => r.clave).sort().join("");
+      }).map(m => m.id);
+      if (mal.length) f.push("vértices marcados que no casan con los datos: " + mal.join(", "));
+      if (document.querySelectorAll("#fichas-host .fm-rasgos li").length !== P.nModelos * P.rasgos.length) f.push("falta alguna línea de rasgo");
+      if (fichas.some(a => !a.querySelector(".fm-desc")?.textContent.trim())) f.push("alguna ficha sin descripción general");
+      const equilibrados = P.modelos.filter(m => !P.rasgos.some(r => m.rasgos[r.clave].marca)).length;
+      if (fichas.filter(a => a.querySelector(".fm-desc").textContent.startsWith("Perfil equilibrado")).length !== equilibrados) f.push("los perfiles sin marcas no dicen «perfil equilibrado»: esperaba " + equilibrados);
+      const avisos = P.modelos.filter(m => m.validez === "aviso").length;
+      if (document.querySelectorAll("#fichas-host .cautela").length !== avisos) f.push("avisos ⚠ explicados: esperaba " + avisos);
       // el ISS enlaza a la ficha de /psicobench de cada modelo que lo tiene
       const conISS = P.modelos.filter(m => m.psicobench).length;
-      if (document.querySelectorAll('table.cuadro td.iss a[href*="#m="]').length !== conISS) f.push("enlaces a la ficha de PsicoBench: esperaba " + conISS);
+      if (document.querySelectorAll('#fichas-host a.iss[href*="#m="]').length !== conISS) f.push("enlaces a la ficha de PsicoBench: esperaba " + conISS);
+      if (document.querySelectorAll("#tabla-comparar tbody tr").length !== P.nModelos) f.push("la tabla de comparación no tiene un modelo por fila");
+      // curiosidades: las de rasgo con su tira y las del panel
+      const curio = document.querySelectorAll("#curiosidades-host .curio");
+      if (curio.length < 10) f.push("curiosidades montadas: " + curio.length + " (esperaba ≥10)");
+      if (Array.from(curio).some(c => !c.querySelector(".curio-quien")?.textContent.trim())) f.push("alguna curiosidad sin protagonista");
+      if (document.querySelectorAll("#curiosidades-host .tira-c i.uno").length < 6) f.push("las tiras de las curiosidades no montaron");
+      // qué es y metodología
+      if (!document.querySelector("#ejemplo-ficha svg.radar-p")) f.push("el ejemplo de cómo leer una ficha no dibujó su radar");
+      if (document.querySelectorAll("#comprobaciones li").length !== P.comprobaciones.length) f.push("faltan comprobaciones explicadas");
+      if (document.querySelectorAll("#fuera-host li").length !== P.fuera.length) f.push("modelos fuera: esperaba " + P.fuera.length);
+      if (document.querySelectorAll("#limites-host li").length < 4) f.push("las limitaciones no montaron");
+      if (!document.querySelector('a[href*="PERSONALIDAD.md"]')) f.push("no enlaza PERSONALIDAD.md");
       return f;
     })()`,
     preparar: `(() => {
-      // ordenar por el último rasgo (de más a menos) y filtrar un laboratorio
-      Array.from(document.querySelectorAll("#mandos-cuadro .chip")).find(b => b.textContent.startsWith(window.PSICO.personalidad.rasgos.slice(-1)[0].nombre))?.click();
+      // filtrar por el primer laboratorio
+      Array.from(document.querySelectorAll("#mandos-fichas .chip-lab")).find(b => b.dataset.lab === window.PSICO.personalidad.labs[0])?.click();
       return true;
     })()`,
     aserciones2: `(() => {
       const f = [];
-      const P = window.PSICO.personalidad, t = P.rasgos.length - 1, k = P.rasgos[t].clave;
-      const v = Array.from(document.querySelectorAll("table.cuadro tbody tr")).map(tr => Number(tr.querySelectorAll("td.r")[t].querySelector(".v").firstChild.textContent.replace("\u2212", "-")));
-      if (v.some((x, i) => i && x > v[i - 1])) f.push("el orden por " + k + " no es de más a menos: " + v.join(","));
-      // la vista «Puntuación 0–100» vuelve a la escala con su intervalo
-      Array.from(document.querySelectorAll("#mandos-cuadro .chip")).find(b => b.textContent.startsWith("Puntuación"))?.click();
-      const p0 = Number(document.querySelector("table.cuadro tbody td.r .v").firstChild.textContent);
-      if (!(p0 >= 0 && p0 <= 100) || document.querySelector("table.cuadro tbody td.r .barra-dif")) f.push("la vista de puntuación no muestra la escala 0–100");
-      const lab = P.labs[0];
-      Array.from(document.querySelectorAll("#mandos-cuadro .chip")).find(b => b.firstChild.textContent === lab)?.click();
-      const n = document.querySelectorAll("table.cuadro tbody tr").length;
-      const esperado = P.modelos.filter(m => m.lab === lab).length;
-      if (n !== esperado) f.push("filtro por " + lab + ": " + n + " filas (esperaba " + esperado + ")");
+      const P = window.PSICO.personalidad, lab = P.labs[0];
+      const visibles = () => Array.from(document.querySelectorAll("#fichas-host article.ficha-m")).filter(a => !a.hidden);
+      let n = visibles().length, esperado = P.modelos.filter(m => m.lab === lab).length;
+      if (n !== esperado) f.push("filtro por " + lab + ": " + n + " fichas (esperaba " + esperado + ")");
+      if (visibles().some(a => a.dataset.lab !== lab)) f.push("el filtro deja ver fichas de otro laboratorio");
+      // vuelta a todos, ordenar por el último rasgo de más a menos, y buscar
+      document.querySelector("#mandos-fichas button.chip:not(.chip-lab)")?.click();
+      const t = P.rasgos[P.rasgos.length - 1].clave, sel = document.querySelector("#mandos-fichas select.sel-orden");
+      sel.value = "+" + t; sel.dispatchEvent(new Event("change"));
+      const ids = visibles().map(a => a.dataset.id);
+      if (ids.length !== P.nModelos) f.push("tras «Todos» se ven " + ids.length + " fichas");
+      const v = ids.map(id => P.modelos.find(m => m.id === id).rasgos[t].dif);
+      if (v.some((x, i) => i && x > v[i - 1])) f.push("el orden por " + t + " no es de más a menos");
+      const buscar = document.querySelector("#mandos-fichas input.buscar-f"), q = P.modelos[0].id;
+      buscar.value = q; buscar.dispatchEvent(new Event("input"));
+      n = visibles().length; esperado = P.modelos.filter(m => (m.id + " " + m.lab).toLowerCase().includes(q.toLowerCase())).length;
+      if (n !== esperado) f.push("búsqueda «" + q + "»: " + n + " fichas (esperaba " + esperado + ")");
       return f;
     })()`,
   },

@@ -795,7 +795,7 @@
     const per = PERSONALIDAD.get(e.id);
     if (per) hoja.appendChild(h("p", { class: "ficha-nota ficha-personalidad", html: mk`<b>Personalidad${per.validez === "aviso" ? " ⚠" : ""}:</b>
       ${per.frase}${per.validez === "aviso" ? " (interpretar con cautela)" : ""}. Medida por conducta en situaciones cotidianas,
-      aparte del ISS. <a href="${enlacePersonalidad(per.id)}">Su perfil en el cuadro de personalidad →</a>` }));
+      aparte del ISS. <a href="${enlacePersonalidad(per.id)}">Su ficha en el test de personalidad →</a>` }));
 
     const figO = G.octogono({ titulo: "Perfil sobre los ocho ejes", sub: "Pasa el ratón por un vértice para ver el intervalo.", ejes: ejesOct, sinTabla: false });
     figO._pinta([{ nombre: e.id, valores: e.ejes, ic: e.ejesIC, color: G.PAL.s1 }]);
