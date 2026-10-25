@@ -7,6 +7,13 @@ despliega la raíz del repo con exclusiones — se copia lo permitido y punto.
 
   python3 web/publicar.py            # escribe publicacion/
   python3 web/publicar.py --check    # falla si está desfasada (para CI)
+  python3 web/publicar.py --previa   # escribe publicacion-previa/ (NO producción)
+
+La previa es el mismo paquete más la versión en preparación de PsicoBench
+(«Verloop», PLAN_PSICOBENCH_VERLOOP.md) en /psicobench-nueva, con su
+carpeta `verloop/` y las fuentes de `fonts/`, y un robots.txt que lo cierra
+todo. El paquete de producción no la lleva nunca: si una pieza de la previa
+apareciera en `publicacion/`, el script se para (ver `_sin_previa`).
 
 Lo que sale:
   /                     web/home.html          la home divulgativa
@@ -59,8 +66,29 @@ PIEZAS: list[tuple[str, str]] = [
 # consultan en el repositorio.
 FUERA = {".DS_Store", "linaje.json", ".vercel"}
 
+# Solo en la previa: la versión en preparación de /psicobench. El cambio a
+# producción es un commit propio que la mueve a `web/psicobench.html`; hasta
+# entonces estas piezas no pueden llegar a `publicacion/`.
+SALIDA_PREVIA = RAIZ / "publicacion-previa"
+PIEZAS_PREVIA: list[tuple[str, str]] = [
+    ("web/psicobench-verloop.html", "psicobench-nueva.html"),
+    ("web/verloop/", "verloop/"),
+    ("web/fonts/", "fonts/"),
+]
+ROBOTS_PREVIA = ("# Previa de BenchAI: no se indexa nada de este despliegue.\n"
+                 "User-agent: *\nDisallow: /\n")
 
-def _copiar(destino: pathlib.Path) -> None:
+
+def _sin_previa(destino: pathlib.Path) -> None:
+    """Guarda: el paquete de producción no lleva nada de la previa."""
+    colados = [d for _, d in PIEZAS_PREVIA if (destino / d.rstrip("/")).exists()]
+    if colados:
+        raise SystemExit("[publicar] el paquete de producción lleva piezas de la "
+                         f"previa: {', '.join(colados)}. La versión nueva solo "
+                         "sale con --previa.")
+
+
+def _copiar(destino: pathlib.Path, previa: bool = False) -> None:
     # El enlace con Vercel (`.vercel/project.json`) vive dentro del paquete y
     # se regenera CADA vez: si se borrase, el siguiente despliegue crearia un
     # proyecto nuevo en lugar de actualizar el que ya sirve el dominio.
@@ -77,7 +105,7 @@ def _copiar(destino: pathlib.Path) -> None:
     if guardado is not None:
         shutil.copytree(guardado, destino / ".vercel")
         shutil.rmtree(guardado)
-    for origen_rel, dest_rel in PIEZAS:
+    for origen_rel, dest_rel in PIEZAS + (PIEZAS_PREVIA if previa else []):
         origen = RAIZ / origen_rel.rstrip("/")
         dest = destino / dest_rel.rstrip("/")
         if "*" not in origen_rel and not origen.exists():
@@ -132,6 +160,18 @@ def _copiar(destino: pathlib.Path) -> None:
     for f in (destino / "index.html", comp, ps):
         f.write_text(f.read_text(encoding="utf-8")
                      .replace('href="psicobench.html', 'href="/psicobench'), encoding="utf-8")
+
+    if not previa:
+        _sin_previa(destino)
+        return
+    # La previa: la página nueva enlaza a sus hermanas como la vigente, y el
+    # despliegue entero queda fuera de los buscadores.
+    nueva = destino / "psicobench-nueva.html"
+    nueva.write_text(nueva.read_text(encoding="utf-8")
+                     .replace('href="home.html"', 'href="/"')
+                     .replace('href="index.html', 'href="/completo')
+                     .replace('href="psicobench.html', 'href="/psicobench'), encoding="utf-8")
+    (destino / "robots.txt").write_text(ROBOTS_PREVIA, encoding="utf-8")
 
 
 FAVICON_RAMPA = (
@@ -218,7 +258,20 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--check", action="store_true",
                     help="falla si publicacion/ no coincide con las fuentes")
+    ap.add_argument("--previa", action="store_true",
+                    help="escribe publicacion-previa/ con la versión en preparación "
+                         "de /psicobench (nunca es el paquete de producción)")
     args = ap.parse_args()
+
+    if args.previa and args.check:
+        ap.error("--previa y --check no se combinan: la previa no se versiona ni se verifica en CI")
+
+    if args.previa:
+        _copiar(SALIDA_PREVIA, previa=True)
+        n = sum(1 for _ in SALIDA_PREVIA.rglob("*") if _.is_file())
+        print(f"[publicar] {SALIDA_PREVIA.relative_to(RAIZ)}/ con {n} ficheros "
+              "(previa: /psicobench-nueva, robots cerrado; NO es producción)")
+        return 0
 
     if args.check:
         if not SALIDA.exists():

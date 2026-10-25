@@ -1,0 +1,164 @@
+# Plan · rediseño de `/psicobench` en la línea «Verloop»
+
+**Fecha**: 24-10-2026 (aprobado el 25-10-2026) · **Estado**: en implementación, **fase 0 hecha** · **Rama**: `feature/psicobench-verloop` (desde `main`; el repo no tiene `develop`) · **Diseño de referencia**: lienzo «BenchAI · tres direcciones», pizarra *PsicoBench · /psicobench en la línea Verloop* con la portada «Lámina A · Morph» (octógono de un solo modelo, animado).
+
+**Qué se rediseña**: solo la superficie `/psicobench`. La home (`/`) y el sitio largo (`/completo`) no se tocan en esta rama; si la dirección gusta, se extiende después con los mismos tokens.
+
+**Qué no cambia**: ni una cifra. Todo sigue saliendo de `benchmark/psicobench.json` → `web/generar_datos.py` → `datos.js`; la doctrina (medición ≠ modelo, empates por IC, n/c, «no es un ranking de calidad») y las ocho secciones se conservan tal cual. Las primitivas de `web/js/graficas.js` (`figura()` con tabla alternativa, `globo`, `navegable`, formato español) se reutilizan y, donde haga falta, se extienden con opciones; no se bifurcan.
+
+**Regla de despliegue**: la versión nueva **no se publica** en benchai.tech hasta que esté validada entera. Hasta entonces vive en paralelo a la vigente y solo se ve en una previa (§2). El cambio a producción es un paso aparte, con su propio PR (§7).
+
+---
+
+## 1 · Lo que define la dirección (resumen visual)
+
+| Elemento | Hoy | Verloop |
+|---|---|---|
+| Fondo | Carbón cálido / crema | Negro `#07070A`, cajas `#0F0E14`, bordes `#2A2833` |
+| Display | Condensada en mayúsculas | **Big Shoulders Display 900**, mayúsculas, interlineado **0,94** (0,86 en el lienzo; en navegador las tildes de las mayúsculas tocaban la línea de arriba) |
+| Texto / etiquetas | Sans + mono | **Inter Tight** (cuerpo) + **JetBrains Mono** (etiquetas, cifras tabulares) |
+| Color de datos | Una «escala de dureza» única | **Un tono por eje** (8 tonos espectrales) con saturación = valor; negro = cero. ISS en gradiente cian → violeta → magenta → naranja |
+| Portada | Hero + panel del ISS | **Lámina A · Morph**: columna de copy a la izquierda (titular a 118 px, párrafo, CTAs, contadores) y, a la derecha, el octógono a media página con **un solo modelo** sobre los 39 perfiles finos. **Animado**: al cambiar de modelo el perfil se transforma (los ocho vértices se interpolan en 900 ms, el ISS cuenta hasta el nuevo valor, el halo y el borde cambian al color del ISS) y una onda circular sale del centro con un destello del polígono; el nombre entra con un barrido. Al pasar por un eje, su etiqueta se desplaza y crece, el radio toma el color del eje, el vértice se agranda, el sector se ilumina y la lectura (nombre, paradigma, definición, valor con IC y n) entra deslizándose. Modelo anterior/siguiente con botones o pulsando un perfil fino |
+| Textura | Ninguna | Grano (feTurbulence) al 22 % en modo overlay sobre portada y paneles de color |
+| Gráficas | Serif claro, denso | Mismas gráficas; barras con gradiente, bigotes blancos, octógono con halo difuminado, mapas con cuadrantes rotulados |
+
+---
+
+## 2 · Despliegue en sombra: cómo se mantiene fuera de producción
+
+Producción solo se publica desde `main`: `.github/workflows/desplegar.yml` corre tras la CI verde de un push a `main` y despliega el paquete de lista blanca de `web/publicar.py`; los despliegues automáticos de Git en Vercel están apagados (`vercel.json`). Sobre eso, tres capas:
+
+1. **La rama no se fusiona con `main` hasta el cambio.** Todo el trabajo de las fases 1–5 vive en `feature/psicobench-verloop`. La rama **no tiene upstream** configurado, así que un `git push` sin argumentos no puede ir a `main` por accidente. Para no divergir de las altas de modelos que lleguen a `main`, se trae `main` a la rama (`git merge origin/main`) al empezar cada fase.
+2. **La página nueva vive en paralelo a la vigente.** `web/psicobench.html` no se toca. La nueva es `web/psicobench-verloop.html` (`noindex, nofollow`, canónico a `/psicobench`, aviso visible de «versión en preparación»), con sus piezas en `web/verloop/` y las fuentes en `web/fonts/`. Ninguna de las tres rutas está en la lista blanca del paquete de producción.
+3. **Guarda en el paquete.** `publicar.py` se para si alguna pieza de la previa aparece en `publicacion/` (`_sin_previa`), y `--check` lo comprueba en CI. Así, aunque la rama se fusionara por error, la página nueva no saldría.
+
+**La previa** (lo único que enseña la versión nueva):
+
+```bash
+python3 web/publicar.py --previa      # publicacion-previa/ (ignorada por git)
+python3 web/servir_previa.py          # http://127.0.0.1:8743/psicobench-nueva
+```
+
+Es el paquete de producción más `/psicobench-nueva`, `verloop/` y `fonts/`, con un `robots.txt` que cierra todo. `servir_previa.py` sirve rutas limpias como `cleanUrls` de Vercel y manda `Cache-Control: no-store` para que cada `--previa` se vea al recargar. En `.claude/launch.json` queda como servidor «previa».
+
+**Previa compartible** (opcional, solo con tu OK en cada ocasión): un despliegue de Vercel **sin `--prod`** del directorio `publicacion-previa/`, enlazado al proyecto existente con las variables de `desplegar.yml` (`VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`). Da una URL `*.vercel.app` que no se asigna al dominio; Vercel añade `X-Robots-Tag: noindex` a las previews y el `robots.txt` de la previa lo refuerza.
+
+---
+
+## 3 · Restricciones del proyecto que condicionan la implementación
+
+1. **Sin terceros.** El pie dice «este sitio no usa cookies, analítica, formularios ni terceros» y la CSP es `font-src 'self'`. Las fuentes se autoalojan (hecho en la fase 0, ver §4).
+2. **Ninguna cifra a mano.** Contadores, perfiles, colores por ISS y lecturas se calculan en el JS desde `B.entradas`. `verificar.sh` y los `--check` de CI deben seguir en verde.
+3. **Accesibilidad como está hoy.** Cada `figura()` conserva su tabla alternativa y la navegación por teclado. Contrastes WCAG sobre `#07070A`, medidos: blanco 20,1:1, `#C9C6D4` 12,0:1, `#9A97A6` 7,0:1, `#6F6C7A` 3,9:1 (solo decorativo o ≥ 24 px). Los ocho tonos de eje pasan 4,5:1 sobre negro salvo **Obediencia `#7B3DFF` (3,8:1)**: vale para barras, rellenos y texto ≥ 24 px, nunca para texto pequeño. Celdas de calor con texto negro cuando la saturación supera 0,5. El texto con `-webkit-text-stroke` («a su manera.») lleva relleno de respaldo.
+4. **Móvil a 320 px y táctil** (segunda pasada de la revisión web, PR #28): titulares sin guiones automáticos (`hyphens: manual`, solo se parte una palabra que no cabe entera); chips y botones de 44 px; la tabla del mapa mantiene el scroll horizontal con el aviso actual; el halo se desactiva por debajo de 768 px.
+5. **Rendimiento.** El grano es un único `<rect>` con filtro y `pointer-events: none`; el halo se dibuja una vez por cambio de modelo, no por hover. Los 39 polígonos del octógono y las 39 polilíneas de la escalera son vectores ligeros; no se añaden librerías.
+6. **Ramas.** El repo trabaja con ramas que van a `main` por PR (no hay `develop`). Esta rama sigue el nombre del plan, `feature/psicobench-verloop`, y solo llega a `main` en el cambio (§7).
+
+---
+
+## 4 · Fases (cada una revisable por sí sola en la previa)
+
+### Fase 0 · Preparación — **hecha (25-10-2026)**
+- Rama `feature/psicobench-verloop` desde `origin/main` en el worktree `.claude/worktrees/psicobench-verloop`, sin upstream.
+- **Fuentes** en `web/fonts/`: subconjuntos variables woff2 generados con fontTools desde los TTF de `github.com/google/fonts` (latín, latín extendido A, puntuación, flechas, formas geométricas y los símbolos `× − ≈ ≤ ≥`). Big Shoulders Display 2.002 (eje 100–900, 56 KB), Inter Tight 3.004 (100–900, 69 KB, con `tnum`), JetBrains Mono 2.211 (100–800, 46 KB): **171 KB en total**. Ninguna declara nombre reservado; la OFL de cada una va junto a su fichero y la tabla de `THIRD_PARTY_NOTICES.md` las recoge. El subconjunto latín de Google Fonts se descartó porque no trae la flecha → que usan todos los enlaces del diseño. Ninguna de las tres tiene ⇄: el diseño usará ↔.
+- **Tokens** en `web/verloop/tokens.css`: `@font-face`, variables de color, tipografía, ritmo y utilidades (`.v-big`, `.v-mono`, `.v-num`, `.v-caja`, `.v-chip`, `.v-btn`, `.v-trazo`, `.v-grad-texto`), todo bajo el prefijo `--v-` / `.v-` para que no choque con `estilo.css`.
+- **Esqueleto** `web/psicobench-verloop.html`: misma CSP que la vigente, `noindex`, aviso de versión no publicada, muestras tipográficas y de color. Validado en la previa local: las tres familias cargan con la CSP, sin errores de consola, enlaces reescritos a `/`, `/completo` y `/psicobench`, bien a 1440 y a 320 px. La prueba destapó dos fallos ya corregidos: el botón relleno perdía el texto (la regla de color de los enlaces le ganaba en especificidad) y `hyphens: auto` partía «PRE-SIÓN».
+- **Previa**: `publicar.py --previa`, guarda `_sin_previa`, `web/servir_previa.py`, `publicacion-previa/` en `.gitignore`, servidor «previa» en `.claude/launch.json`. El test anti-XSS estático incluye la página nueva (sus `.js` ya entraban por el barrido de `web/`).
+- **Capturas de referencia** de la página vigente en producción, de página completa: `docs/verloop/antes/psicobench-{1440,390,320}.jpg`. Se toman por tramos de ventana, porque la portada actual se dimensiona con `vh` y estirar la ventana la deformaba.
+- Comprobado: paquete de producción construido y al día (`--check`), sin piezas de la previa; ningún fichero de la lista blanca cambia frente a `main`; `marcado.prueba.cjs`, `generar_datos.py --check` y `test_xss_estatico.py` en verde.
+
+### Fase 1 · Tokens y base (1 día)
+- Ampliar `web/verloop/tokens.css` con el grano y las definiciones SVG compartidas (`#grano`, `#halo`, `#espectro`) y las cabeceras de sección.
+- En `graficas.js`: paleta `G.PAL.verloop` (ocho tonos por eje + gradiente ISS) y opciones nuevas en `figura()`: `relleno: "gradiente"` y `halo: true`. Opcionales y **desactivadas por defecto**, para que `/`, `/completo` y la `/psicobench` vigente no cambien ni un píxel.
+- `web/verloop/psicobench.js` como copia de trabajo de `web/js/psicobench.js` que consume esas opciones; la página nueva carga `datos.js`, `js/marcado.js`, `js/graficas.js` y este fichero.
+
+### Fase 2 · Portada «Lámina A · Morph» (2 días)
+- Bloque `#portada` en dos columnas: copy (eyebrow, `<h1>` con `clamp(64px, 8.2vw, 118px)`, párrafo, CTAs, contadores con los ids actuales `#n-labs`, `#n-ejes`, `#ultima-medicion`) y la lámina.
+- **La lámina reutiliza `G.octogono()`** con cuatro opciones nuevas, desactivadas por defecto: `fondo: "perfiles"` (las 39 polilíneas finas coloreadas por ISS, pulsables), `halo: true`, `cunas: true` (ocho sectores invisibles por eje que emiten `hover`/`focus` con el índice) y `animar: true`. El tooltip (`globo`) se amplía a una **lectura fija** bajo la gráfica: nombre y paradigma del eje, definición, valor con IC y n.
+- **Animación de cambio de modelo** (`animar: true`): interpolación de los ocho vértices con `requestAnimationFrame` (900 ms, `easeOutCubic`), contador del ISS en paralelo, onda circular y destello del polígono por remontado de nodo, nombre con barrido. Con `prefers-reduced-motion`: cambio instantáneo.
+- **Animación de eje**: transiciones CSS sobre `transform` de la etiqueta, `stroke` del radio, `r` del vértice y `fill-opacity` del sector; la lectura entra con `fadeup`.
+- **Cambio de modelo**: botones anterior / siguiente (por ISS) y clic sobre un perfil fino (`tabindex="0"` + Enter, zona de golpe de 8 px). El modelo elegido va al hash `#m=<id>`, el mismo de la ficha.
+- Teclado y lectores: cada sector de eje es focusable y anuncia la lectura en `aria-live="polite"`.
+- El panel flotante del ISS (`#panel-indice`) no pasa a la versión nueva: lo sustituye la tarjeta del modelo.
+
+### Fase 3 · Secciones 01–08, estilo y gráficas (3 días)
+Orden de trabajo, de menos a más riesgo:
+1. **Cabeceras de sección** (número grande a color + título + párrafo en rejilla de tres columnas) y cajas: solo CSS.
+2. **01 El índice**: barras apiladas con los cuatro componentes en gradiente y bigote blanco; tarjetas de componentes con borde superior de color.
+3. **02 Quién cede**: chips de eje con borde superior de su tono; panel de cabecera con las cuatro cifras; ranking con bigotes.
+4. **03 El mapa**: celdas de calor con el tono del eje, columna «reconoce» en gris; filtros con conteo. Se actualiza la leyenda: ya no es «un solo color para toda la web».
+5. **04 Cara a cara**: octógono con halo, tabla de deltas con «sí» en lima; tiras de sesión con el punto negro para «lo juzga injusto».
+6. **05 Mapas con nombre**: cuadrantes en mono gris; puntos coloreados por ISS; réplicas con suelo de ruido en lima discontinua.
+7. **06 Ficha**: ISS en gradiente de texto (solo cifras ≥ 40 px), diez secundarias en tarjetas, eje a eje con la cifra en el tono del eje; arranca en el modelo del hash `#m=`.
+8. **07 Escalera de versiones**: líneas coloreadas por ISS v0.4 y etiquetas a la derecha con separación mínima de 11,5 px.
+9. **08 Método** y pie en tres columnas.
+
+### Fase 4 · Interacción, móvil y estados (1 día)
+- Comprobar que sobreviven: hash `#m=`, selectores A/B e intercambio, reordenación por cabecera y filtros de laboratorio, descarga CSV/JSON, progreso de lectura.
+- Móvil 390 y 320: titular a 64 px, rejillas a una columna, tabla con scroll, halo desactivado.
+- `prefers-reduced-motion`, `prefers-contrast: more` (quitar grano), impresión.
+
+### Fase 5 · Validación completa (1 día) — la puerta del cambio
+- `web/smoke.mjs` contra la previa local, con aserciones nuevas para `/psicobench-nueva` (lámina con 39 perfiles y 8 sectores, cambio de modelo, lectura de eje, ocho secciones con sus tablas).
+- `marcado.prueba.cjs`, `generar_datos.py --check`, `publicar.py --check`, `test_xss_estatico.py`, `verificar.sh`.
+- Lighthouse sobre la previa: accesibilidad ≥ 95, sin errores de contraste; rendimiento en móvil ≥ 85.
+- Cruzado en Safari (`mix-blend-mode`, `backdrop-filter`), Firefox y Chrome Android.
+- Capturas «después» en `docs/verloop/despues/` a 1440, 390 y 320, frente a las de la fase 0 y a la pizarra del lienzo.
+- **Tu validación** sobre la previa (local o compartible). Solo con tu visto bueno se pasa al §7.
+
+**Estimación total**: 8 días de trabajo efectivo, cada fase revisable en la previa.
+
+---
+
+## 5 · Archivos afectados
+
+| Archivo | Hasta el cambio | En el cambio (§7) |
+|---|---|---|
+| `web/psicobench-verloop.html` | **Nuevo**, solo en la previa | Pasa a ser `web/psicobench.html` |
+| `web/verloop/tokens.css`, `web/verloop/psicobench.css`, `web/verloop/psicobench.js` | **Nuevos**, solo en la previa | Entran en la lista blanca |
+| `web/fonts/*.woff2` + `OFL-*.txt` | **Nuevos** (fase 0), solo en la previa | Entran en la lista blanca |
+| `web/js/graficas.js` | Opciones nuevas, desactivadas por defecto | Sin cambios |
+| `web/psicobench.html`, `web/css/psicobench.css`, `web/js/psicobench.js` | **Intactos** | Se retiran (quedan en el historial para volver atrás) |
+| `web/publicar.py` | `--previa` y guarda (fase 0) | Lista blanca nueva; la guarda se adapta |
+| `web/servir_previa.py` | **Nuevo** (fase 0) | Se conserva para futuras previas |
+| `web/smoke.mjs` | Aserciones para `/psicobench-nueva` | Las de `/psicobench` pasan a las nuevas |
+| `spike/test_xss_estatico.py` | Incluye la página nueva (fase 0) | Lista de HTML actualizada |
+| `web/generar_datos.py` | Sin cambios previstos | Sin cambios |
+| `THIRD_PARTY_NOTICES.md` | Fuentes (fase 0) | — |
+| `CHANGELOG.md` | — | Entrada de la versión |
+
+---
+
+## 6 · Riesgos y mitigaciones
+
+- **Divergencia con `main`**: las altas de modelos cambian `datos.js` y `psicobench.json` a menudo. Mitigación: `git merge origin/main` al empezar cada fase; la página nueva no escribe cifras a mano, así que absorbe las altas sin tocarla.
+- **Filtros SVG en móvil** (`feGaussianBlur` del halo, `feTurbulence` del grano): coste de pintado alto en gamas bajas. Mitigación: halo una vez por cambio de modelo y desactivado por debajo de 768 px; grano desactivado con `prefers-reduced-motion` o `prefers-contrast: more`.
+- **Hover sobre 39 polilíneas finas**: zonas de acierto de 1,2 px. Mitigación: trazo de golpe de 8 px transparente (`pointer-events: stroke`) y foco por teclado; en táctil, botones.
+- **Texto en gradiente** (`background-clip: text`): pierde contraste en la parte naranja. Mitigación: solo en cifras ≥ 40 px, nunca en cuerpo.
+- **Violeta de Obediencia** (`#7B3DFF`, 3,8:1): solo en barras, rellenos y texto ≥ 24 px.
+- **Palabras largas en mayúsculas a 320 px** («susceptibilidad», «provocabilidad»): `overflow-wrap: break-word` en los titulares; se revisa cada `<h2>` en la fase 4.
+- **Doctrina del color**: la web dice hoy «un solo color para toda la web: la escala de dureza». Con el tono por eje se reescriben esas dos leyendas en la versión nueva.
+- **Cambio de personalidad visual solo en una superficie**: `/psicobench` quedará distinta de `/` y `/completo` hasta que se extienda. Se dice en el CHANGELOG.
+
+---
+
+## 7 · El cambio a producción (cuando la fase 5 esté validada)
+
+Un PR propio de `feature/psicobench-verloop` a `main`, preparado y revisado en la previa antes de abrirlo:
+
+1. `git merge origin/main` y previa final.
+2. Un commit de cambio: `web/psicobench-verloop.html` → `web/psicobench.html` (sin `noindex` ni aviso, canónico y metadatos de la vigente); `web/verloop/` y `web/fonts/` a la lista blanca; la guarda `_sin_previa` se adapta; se retiran `css/psicobench.css` y `js/psicobench.js` de la versión anterior.
+3. `smoke.mjs` con las aserciones nuevas en `/psicobench`; CI en verde.
+4. Merge a `main` → `desplegar.yml` publica y corre el smoke contra producción.
+5. **Volver atrás**: revertir el commit de cambio y fusionar el revert; la página anterior vuelve íntegra.
+
+---
+
+## 8 · Decisiones (cerradas el 25-10-2026)
+
+1. **Tono por eje** en lugar de la escala de dureza única, reescribiendo las dos leyendas que la mencionan.
+2. **El modelo de la portada y el de la ficha comparten el hash `#m=<id>`.**
+3. **Se retira el panel del ISS de la portada**; lo sustituye la tarjeta del modelo bajo el octógono. El panel en bucle sigue en `/`.
+4. **Fuentes autoalojadas** (hecho en la fase 0).
+5. **Alcance**: solo `/psicobench` en esta rama; `/` y `/completo` en ramas posteriores con los mismos tokens.
+6. **Despliegue en sombra** (añadida): nada de la versión nueva llega a benchai.tech hasta validarla entera; se valida en la previa y se publica con el cambio del §7.

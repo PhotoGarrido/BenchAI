@@ -12,6 +12,12 @@
       "runtimeExecutable": "python3",
       "runtimeArgs": ["-m", "http.server", "8742", "--directory", "publicacion"],
       "port": 8742
+    },
+    {
+      "name": "previa",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["web/servir_previa.py", "8743"],
+      "port": 8743
     }
   ]
 }
