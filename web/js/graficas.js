@@ -608,19 +608,130 @@
   }
 
   /* ── 5. octógono (perfil de una medición sobre los 8 ejes) ─────────────── */
-  /*  `o.halo` (opcional, apagado por defecto): bajo cada perfil, una copia
-      difuminada de su color. Solo la usa la versión en preparación de
-      PsicoBench; sin la opción, el octógono se dibuja exactamente igual. */
+  /*  Opciones de la versión en preparación de PsicoBench, todas apagadas por
+      defecto (sin ellas, el octógono se dibuja exactamente igual):
+        · `halo`: bajo cada perfil, una copia difuminada de su color;
+        · `fondo`: [{id, nombre, valores, color}] perfiles finos detrás, que
+          se pulsan (`alElegirFondo(f)`);
+        · `cunas`: el eje bajo el puntero se enciende (por ángulo, sin tapar
+          los perfiles finos) y se avisa con `alEje(i | -1)`; con el teclado,
+          un sector por eje recorrible con las flechas (`navegable`);
+        · `animar`: al cambiar de serie los vértices viajan de un perfil a
+          otro (`duracion` ms) y sale una onda del centro; con movimiento
+          reducido, cambio instantáneo;
+        · `anchoMax`, `radioMax`, `tipoEtiqueta`, `claseEtiqueta`: tamaño y
+          letra de la lámina de portada; `cortos` (un rótulo por eje) se usa
+          por debajo de `anchoCortos` px para que el radio no se quede en nada;
+          `e.largo` es el nombre que se anuncia en cada sector.
+      Con `fondo`, `cunas` o `animar` los nodos del perfil son persistentes y
+      se actualizan en su sitio (el color también transiciona).            */
   let haloN = 0;
   function octogono(o) {
-    const ejes = o.ejes;                      // [{clave, nombre}]
+    const ejes = o.ejes;                      // [{clave, nombre, color?}]
     const n = ejes.length;
     const ang = (i) => (i / n) * Math.PI * 2 - Math.PI / 2;
     const haloId = o.halo ? "halo-oct-" + (++haloN) : null;
+    const lamina = !!(o.fondo || o.cunas || o.animar);
+    const quieto = typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
     let series = [];
     let capa = null, geo = null;
+    // solo en modo lámina
+    let nodos = [], mostrados = null, tween = 0, activo = -1, marcasEje = [], capaPulso = null;
+
+    const valoresDe = (s) => ejes.map((e) => Math.max(0, Math.min(1, s.valores[e.clave] || 0)));
+    const puntosDe = (vals) => vals.map((v, i) => geo.pt(i, v).join(",")).join(" ");
+
+    function construye() {
+      capa.textContent = "";
+      nodos = series.map(() => {
+        const nd = {};
+        if (haloId) capa.appendChild(nd.halo = el("polygon", { filter: `url(#${haloId})`, class: "halo",
+          "pointer-events": "none", "aria-hidden": "true" }));
+        capa.appendChild(nd.poly = el("polygon", { "fill-opacity": series.length > 1 ? 0.14 : 0.16,
+          "stroke-width": 2.5, "stroke-linejoin": "round", class: "perfil", "pointer-events": "none" }));
+        nd.vertices = ejes.map(() => {
+          const c = el("circle", { r: 4, stroke: PAL.sup, "stroke-width": 2, class: "vertice", "pointer-events": "none" });
+          capa.appendChild(c);
+          return c;
+        });
+        return nd;
+      });
+    }
+    function colorea() {
+      nodos.forEach((nd, k) => {
+        const c = series[k].color;
+        if (nd.halo) nd.halo.setAttribute("fill", c);
+        nd.poly.setAttribute("fill", c); nd.poly.setAttribute("stroke", c);
+        nd.vertices.forEach((v) => v.setAttribute("fill", c));
+      });
+    }
+    function marcaActivo() {
+      marcasEje.forEach((m, i) => [m.etiqueta, m.radio, m.luz].forEach((x) => x && x.classList.toggle("activo", i === activo)));
+      nodos.forEach((nd) => nd.vertices.forEach((v, i) => v.classList.toggle("activo", i === activo)));
+    }
+    function coloca(vals) {
+      mostrados = vals;
+      nodos.forEach((nd, k) => {
+        const pts = puntosDe(vals[k]);
+        if (nd.halo) nd.halo.setAttribute("points", pts);
+        nd.poly.setAttribute("points", pts);
+        nd.vertices.forEach((c, i) => { const [x, y] = geo.pt(i, vals[k][i]); c.setAttribute("cx", x); c.setAttribute("cy", y); });
+      });
+      marcasEje.forEach((m, i) => m.cuna && m.cuna.setAttribute("aria-label", (ejes[i].largo || ejes[i].nombre) + ": " +
+        series.map((s) => s.nombre + " " + pc(s.valores[ejes[i].clave] || 0)).join(", ")));
+      marcaActivo();
+    }
+    function activar(i) {
+      if (i === activo) return;
+      activo = i;
+      marcaActivo();
+      if (o.alEje) o.alEje(i);
+    }
+    function pulso() {
+      if (!capaPulso || !series.length) return;
+      const { cx, cy, R } = geo, c = series[0].color;
+      const onda = el("circle", { cx, cy, r: R * 1.12, fill: "none", stroke: c, "stroke-width": 3, class: "onda", "pointer-events": "none" });
+      const destello = el("polygon", { points: puntosDe(valoresDe(series[0])), fill: "#FFFFFF", class: "destello", "pointer-events": "none" });
+      capaPulso.append(onda, destello);
+      setTimeout(() => { onda.remove(); destello.remove(); }, 1300);
+    }
+    function anima(desde, destino) {
+      cancelAnimationFrame(tween);
+      const dur = o.duracion || 900, t0 = performance.now();
+      const paso = (ahora) => {
+        const t = Math.min(1, (ahora - t0) / dur), f = 1 - Math.pow(1 - t, 3);
+        coloca(destino.map((v, k) => v.map((x, i) => desde[k][i] + (x - desde[k][i]) * f)));
+        if (t < 1) tween = requestAnimationFrame(paso);
+      };
+      tween = requestAnimationFrame(paso);
+    }
+    function pintaLamina(nuevas) {
+      const antes = mostrados, mismas = !!antes && antes.length === nuevas.length;
+      series = nuevas;
+      if (!capa) return;
+      if (!series.length) { cancelAnimationFrame(tween); capa.textContent = ""; nodos = []; mostrados = null; return; }
+      const destino = series.map(valoresDe);
+      if (nodos.length !== series.length || !capa.contains(nodos[0].poly)) construye();
+      colorea();
+      cancelAnimationFrame(tween);
+      if (!o.animar || quieto || !mismas) { coloca(destino); return; }
+      pulso();
+      anima(antes, destino);
+    }
+    // primer dibujo (y redibujos por cambio de ancho) del modo lámina: la
+    // primera vez, con `animar`, el perfil crece desde el centro
+    function montaLamina() {
+      if (!series.length) return;
+      construye(); colorea();
+      const destino = series.map(valoresDe);
+      if (!mostrados && o.animar && !quieto) {
+        coloca(series.map(() => ejes.map(() => 0)));
+        anima(mostrados, destino);
+      } else coloca(mostrados || destino);
+    }
 
     function pinta(nuevas) {
+      if (lamina) return pintaLamina(nuevas);
       series = nuevas;
       if (!capa) return;
       const { pt } = geo;
@@ -652,31 +763,65 @@
     adaptable(fig, (Wl) => {
       // las etiquetas radiales viven fuera del radio: el radio sale de lo
       // que quede tras reservarles su ancho a ambos lados
-      const lab = anchoMax(ejes.map((e) => e.nombre), "serie");
-      const W = Math.min(Wl, 600);
-      const R = Math.max(64, Math.min(150, W / 2 - lab - 18));
+      const W = Math.min(Wl, o.anchoMax || 600);
+      const rotulos = o.cortos && W < (o.anchoCortos || 560) ? o.cortos : ejes.map((e) => e.nombre);
+      const lab = anchoMax(rotulos, o.tipoEtiqueta || "serie");
+      const R = Math.max(64, Math.min(o.radioMax || 150, W / 2 - lab - 18));
       const H = Math.round(2 * R + 2 * 30 + 16);
       const cx = W / 2, cy = H / 2 + 2;
       const pt = (i, r) => [cx + Math.cos(ang(i)) * r * R, cy + Math.sin(ang(i)) * r * R];
-      geo = { pt };
+      geo = { pt, cx, cy, R };
 
       const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, width: W, height: H, role: "img", "aria-label": o.titulo, class: "radar" });
       if (haloId) svg.appendChild(el("defs", {}, [el("filter", { id: haloId, x: "-40%", y: "-40%", width: "180%", height: "180%" },
         [el("feGaussianBlur", { stdDeviation: Math.round(R / 9) })])]));
       const g = el("g", {}); svg.appendChild(g);
 
+      // sector de un eje: ±media separación alrededor de su ángulo
+      const sector = (i, r) => {
+        const a0 = ang(i) - Math.PI / n, a1 = ang(i) + Math.PI / n;
+        return `M ${cx} ${cy} L ${cx + Math.cos(a0) * r} ${cy + Math.sin(a0) * r} A ${r} ${r} 0 0 1 ${cx + Math.cos(a1) * r} ${cy + Math.sin(a1) * r} Z`;
+      };
+      marcasEje = [];
+      if (o.cunas) ejes.forEach((e, i) => {
+        const luz = el("path", { d: sector(i, R * 1.04), class: "cuna-luz", fill: e.color || PAL.tinta, "pointer-events": "none", "aria-hidden": "true" });
+        g.appendChild(luz);
+        marcasEje[i] = { luz };
+      });
+
       [0.25, 0.5, 0.75, 1].forEach((r) => {
         const pts = ejes.map((_, i) => pt(i, r).join(",")).join(" ");
         g.appendChild(el("polygon", { points: pts, fill: "none", class: r === 1 ? "radar-borde" : "radar-anillo" }));
       });
+
+      if (o.fondo) {
+        const gf = el("g", { class: "fondo-perfiles", "aria-hidden": "true" });
+        o.fondo.forEach((f) => {
+          const pts = puntosDe(valoresDe(f));
+          const grupo = el("g", { class: "perfil-fondo" }, [el("title", {}, [txt(f.nombre || f.id)])]);
+          grupo.appendChild(el("polygon", { points: pts, fill: "none", stroke: f.color, class: "perfil-fino" }));
+          grupo.appendChild(el("polygon", { points: pts, fill: "none", stroke: "transparent", "stroke-width": 8,
+            class: "perfil-golpe", "pointer-events": "stroke" }));
+          if (o.alElegirFondo) grupo.addEventListener("click", () => o.alElegirFondo(f));
+          gf.appendChild(grupo);
+        });
+        g.appendChild(gf);
+      }
+
       ejes.forEach((e, i) => {
         const [x2, y2] = pt(i, 1);
-        g.appendChild(el("line", { x1: cx, y1: cy, x2, y2, class: "radar-radio" }));
+        const radio = el("line", { x1: cx, y1: cy, x2, y2, class: "radar-radio",
+          style: lamina && e.color ? `--c:${e.color}` : null });
+        g.appendChild(radio);
         const [lx, ly] = pt(i, 1.1);
         const anc = Math.abs(lx - cx) < 10 ? "middle" : lx > cx ? "start" : "end";
         const dx = Math.abs(lx - cx) < 10 ? 0 : lx > cx ? 6 : -6;
         const dy = Math.abs(ly - cy) < 10 ? 4 : ly > cy ? 12 : -2;
-        g.appendChild(el("text", { x: lx + dx, y: ly + dy, class: "et-serie", "text-anchor": anc }, [txt(e.nombre)]));
+        const etiqueta = el("text", { x: lx + dx, y: ly + dy, class: o.claseEtiqueta || "et-serie", "text-anchor": anc,
+          // hacia fuera al encenderse (lo mueve el CSS de la página)
+          style: o.cunas ? `--dx:${(Math.cos(ang(i)) * 10).toFixed(1)}px;--dy:${(Math.sin(ang(i)) * 10).toFixed(1)}px` : null }, [txt(rotulos[i])]);
+        g.appendChild(etiqueta);
+        if (o.cunas) Object.assign(marcasEje[i], { radio, etiqueta });
       });
       // escala radial sobre el eje vertical, retirada a la izquierda del radio
       [0.5, 1].forEach((r) => {
@@ -686,10 +831,41 @@
 
       capa = el("g", { class: "capa-perfil" });
       g.appendChild(capa);
-      pinta(series);
+      capaPulso = lamina ? el("g", { class: "capa-pulso", "aria-hidden": "true" }) : null;
+      if (capaPulso) g.appendChild(capaPulso);
+
+      if (o.cunas) {
+        // con el teclado: un sector por eje, parada de las flechas de `navegable`
+        ejes.forEach((e, i) => {
+          const cuna = el("path", { d: sector(i, R * 1.2), class: "viz-hit cuna", role: "img", tabindex: "-1", "pointer-events": "none" });
+          cuna.addEventListener("focus", () => activar(i));
+          cuna.addEventListener("blur", () => setTimeout(() => {
+            if (!svg.contains(document.activeElement)) activar(-1);
+          }, 0));
+          g.appendChild(cuna);
+          marcasEje[i].cuna = cuna;
+        });
+        // con el puntero: el eje sale del ángulo, así los perfiles finos de
+        // debajo siguen recibiendo el clic
+        const desdePuntero = (ev) => {
+          const r = svg.getBoundingClientRect(), k = W / (r.width || W);
+          const x = (ev.clientX - r.left) * k - cx, y = (ev.clientY - r.top) * k - cy;
+          if (Math.hypot(x, y) > R * 1.3) return activar(-1);
+          const i = Math.round((Math.atan2(y, x) + Math.PI / 2) / (2 * Math.PI / n));
+          activar(((i % n) + n) % n);
+        };
+        svg.addEventListener("pointermove", desdePuntero);
+        svg.addEventListener("pointerdown", desdePuntero);
+        svg.addEventListener("pointerleave", () => activar(-1));
+      }
+
+      if (lamina) montaLamina();
+      else pinta(series);
       return svg;
     });
+    if (o.cunas) fig._nav = o.titulo;
     fig._pinta = pinta;
+    fig._activarEje = (i) => activar(i);
     fig._tablaEjes = (ss) => {
       fig._tabla.textContent = "";
       fig._tabla.appendChild(tabla(

@@ -1,6 +1,6 @@
 # Plan · rediseño de `/psicobench` en la línea «Verloop»
 
-**Fecha**: 24-10-2026 (aprobado el 25-10-2026) · **Estado**: en implementación, **fases 0 y 1 hechas** · **Rama**: `feature/psicobench-verloop` (desde `main`; el repo no tiene `develop`) · **Diseño de referencia**: lienzo «BenchAI · tres direcciones», pizarra *PsicoBench · /psicobench en la línea Verloop* con la portada «Lámina A · Morph» (octógono de un solo modelo, animado).
+**Fecha**: 24-10-2026 (aprobado el 25-10-2026) · **Estado**: en implementación, **fases 0, 1 y 2 hechas** · **Rama**: `feature/psicobench-verloop` (desde `main`; el repo no tiene `develop`) · **Diseño de referencia**: lienzo «BenchAI · tres direcciones», pizarra *PsicoBench · /psicobench en la línea Verloop* con la portada «Lámina A · Morph» (octógono de un solo modelo, animado).
 
 **Qué se rediseña**: solo la superficie `/psicobench`. La home (`/`) y el sitio largo (`/completo`) no se tocan en esta rama; si la dirección gusta, se extiende después con los mismos tokens.
 
@@ -77,7 +77,19 @@ Es el paquete de producción más `/psicobench-nueva`, `verloop/` y `fonts/`, co
 - Ajuste en `tokens.css`: la regla de color de los enlaces se limita a los enlaces sin clase, para no pisar chips ni botones.
 - Comprobado: `smoke.mjs` en verde contra la previa local para `/`, `/completo`, `/psicobench`, `/benchmark` y `/viewer` (con el `graficas.js` nuevo); en `/psicobench-nueva`, las 9 figuras dibujadas, los 39 perfiles del mapa, los halos en los dos octógonos, las tres familias cargadas, sin errores de consola y sin desborde horizontal a 390 px; paquete de producción al día, marcado, datos y XSS estático en verde.
 
-### Fase 2 · Portada «Lámina A · Morph» (2 días)
+### Fase 2 · Portada «Lámina A · Morph» — **hecha (25-10-2026)**
+
+Lo construido, y dónde se apartó de lo previsto (debajo, el plan original):
+- **`G.octogono()`** con las opciones `fondo`, `cunas`, `animar`, `anchoMax`, `radioMax`, `tipoEtiqueta`, `claseEtiqueta`, `cortos`/`anchoCortos` y `e.largo`, todas apagadas por defecto: sin ellas el código sigue el camino de siempre, y el smoke de las cinco páginas de producción pasa. En modo lámina los nodos del perfil son persistentes y se actualizan en su sitio (el color transiciona) y la primera vez el perfil crece desde el centro.
+- **El eje activo sale del ángulo del puntero** sobre el SVG, no de sectores encima: unos sectores encima habrían tapado el clic a los 39 perfiles finos. Los sectores siguen existiendo como paradas de teclado (`navegable`: el SVG es una parada y las flechas recorren los ocho ejes), con su valor en `aria-label` y el nombre completo del eje.
+- **Los perfiles finos son solo de puntero** (`aria-hidden`), con zona de golpe de 8 px y `<title>`: 39 paradas de tabulador serían un muro. Con teclado se cambia de medición con los botones ◀ ▶ (44 px).
+- **Medición de arranque**: la de `#m=<id>` si viene en la dirección; si no, la mediana del banco por ISS (un perfil con forma, ni el más plano ni el mayor).
+- **Hash compartido en los dos sentidos** (decisión 2): la lámina escribe `#m=<id>` con `replaceState` y repinta la ficha; el selector de la ficha y un cambio de hash mueven la lámina.
+- **Tamaño**: el radio sale del ancho y también de la altura de la ventana, para que lámina y tarjetas se vean enteras sin bajar (medido a 1440×900, 1280×800, 1366×768 y 1920×1080); por debajo de 560 px los rótulos pasan a una palabra («CONF.», «OBED.»…) y el radio crece de ~70 a 113 px a 390 px. La lámina se alinea arriba de la portada.
+- **Animaciones**: interpolación de 900 ms (`easeOutCubic`) por `requestAnimationFrame`, contador del ISS en paralelo, onda y destello que se retiran a los 1,3 s, nombre con barrido, lectura que sube; hover con rótulo que sale y crece, radio del color del eje, sector iluminado y vértice de 9 px. Con `prefers-reduced-motion`, todo instantáneo y sin onda.
+- **Prueba**: `web/previa_lamina.prueba.mjs` (Chrome headless, sin dependencias) comprueba 18 puntos: estructura, 9 formas intermedias en un cambio, contador, onda, hash y ficha, hover real, teclado y anuncio, clic en un perfil, arranque desde `#m=`, movimiento reducido y consola sin errores. El panel del navegador integrado, oculto, da 2 fotogramas por segundo y no sirve para medir la animación.
+
+Plan original:
 - Bloque `#portada` en dos columnas: copy (eyebrow, `<h1>` con `clamp(64px, 8.2vw, 118px)`, párrafo, CTAs, contadores con los ids actuales `#n-labs`, `#n-ejes`, `#ultima-medicion`) y la lámina.
 - **La lámina reutiliza `G.octogono()`** con tres opciones nuevas más, desactivadas por defecto (`halo` ya existe desde la fase 1): `fondo: "perfiles"` (las 39 polilíneas finas coloreadas por ISS, pulsables), `cunas: true` (ocho sectores invisibles por eje que emiten `hover`/`focus` con el índice) y `animar: true`. El tooltip (`globo`) se amplía a una **lectura fija** bajo la gráfica: nombre y paradigma del eje, definición, valor con IC y n.
 - **Animación de cambio de modelo** (`animar: true`): interpolación de los ocho vértices con `requestAnimationFrame` (900 ms, `easeOutCubic`), contador del ISS en paralelo, onda circular y destello del polígono por remontado de nodo, nombre con barrido. Con `prefers-reduced-motion`: cambio instantáneo.
@@ -127,6 +139,7 @@ Orden de trabajo, de menos a más riesgo:
 | `web/psicobench.html`, `web/css/psicobench.css`, `web/js/psicobench.js` | **Intactos** | Se retiran (quedan en el historial para volver atrás) |
 | `web/publicar.py` | `--previa` y guarda (fase 0) | Lista blanca nueva; la guarda se adapta |
 | `web/servir_previa.py` | **Nuevo** (fase 0) | Se conserva para futuras previas |
+| `web/previa_lamina.prueba.mjs` | **Nuevo** (fase 2): prueba de la lámina en Chrome headless | Pasa a apuntar a `/psicobench` |
 | `web/smoke.mjs` | Aserciones para `/psicobench-nueva` | Las de `/psicobench` pasan a las nuevas |
 | `spike/test_xss_estatico.py` | Incluye la página nueva (fase 0) | Lista de HTML actualizada |
 | `web/generar_datos.py` | Sin cambios previstos | Sin cambios |
@@ -139,7 +152,7 @@ Orden de trabajo, de menos a más riesgo:
 
 - **Divergencia con `main`**: las altas de modelos cambian `datos.js` y `psicobench.json` a menudo. Mitigación: `git merge origin/main` al empezar cada fase; la página nueva no escribe cifras a mano, así que absorbe las altas sin tocarla.
 - **Filtros SVG en móvil** (`feGaussianBlur` del halo, `feTurbulence` del grano): coste de pintado alto en gamas bajas. Mitigación: halo una vez por cambio de modelo y desactivado por debajo de 768 px; grano desactivado con `prefers-reduced-motion` o `prefers-contrast: more`.
-- **Hover sobre 39 polilíneas finas**: zonas de acierto de 1,2 px. Mitigación: trazo de golpe de 8 px transparente (`pointer-events: stroke`) y foco por teclado; en táctil, botones.
+- **Hover sobre 39 polilíneas finas**: zonas de acierto de 1,2 px. Mitigación (hecha en la fase 2): trazo de golpe de 8 px transparente (`pointer-events: stroke`); con teclado y en táctil, los botones ◀ ▶.
 - **Texto en gradiente** (`background-clip: text`): pierde contraste en la parte naranja. Mitigación: solo en cifras ≥ 40 px, nunca en cuerpo.
 - **Violeta de Obediencia** (`#7B3DFF`, 3,8:1): solo en barras, rellenos y texto ≥ 24 px.
 - **Palabras largas en mayúsculas a 320 px** («susceptibilidad», «provocabilidad»): `overflow-wrap: break-word` en los titulares; se revisa cada `<h2>` en la fase 4.

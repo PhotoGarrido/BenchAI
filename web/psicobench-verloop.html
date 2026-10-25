@@ -76,7 +76,7 @@
 <section class="portada" id="portada">
   <div class="fondo" aria-hidden="true"></div>
 
-  <div>
+  <div class="portada-copia">
     <p class="ceja">PsicoBench · el benchmark de presión social de BenchAI</p>
     <h1>Cada modelo cede a la presión <em>a su manera</em>. Aquí está medido.</h1>
     <p class="entradilla">
@@ -107,17 +107,34 @@
     </div>
   </div>
 
-  <!-- panel animado: el índice de cada medición, componente a componente -->
-  <div class="panel-escalera panel-indice" id="panel-indice" aria-hidden="true">
-    <div class="cabecera">
-      <span class="tit">Índice de susceptibilidad social</span>
-      <span class="exp" id="pi-pos">—</span>
-    </div>
-    <p class="pi-quien"><b id="pi-nombre">—</b><span id="pi-via">—</span></p>
-    <div id="pi-componentes"></div>
-    <div class="veredicto">
-      <span>ISS <b id="pi-iss">—</b> <span class="pi-ic" id="pi-ic"></span></span>
-      <span class="pi-nota">media de los cuatro · 0–100</span>
+  <!-- la lámina: el perfil de UNA medición sobre los ocho ejes, que se
+       transforma al cambiar de medición. Lo monta verloop/psicobench.js;
+       ninguna cifra está escrita aquí. -->
+  <div class="lamina" id="lamina">
+    <div id="lamina-octogono"></div>
+    <div class="lamina-pie">
+      <div class="lamina-modelo">
+        <div class="lm-cab">
+          <span class="lm-pos" id="lm-pos">—</span>
+          <span class="lm-pasos">
+            <button type="button" class="chip" id="lm-ant" aria-label="Medición anterior, por ISS">◀</button>
+            <button type="button" class="chip" id="lm-sig" aria-label="Medición siguiente, por ISS">▶</button>
+          </span>
+        </div>
+        <p class="lm-nombre" id="lm-nombre">—</p>
+        <div class="lm-pie">
+          <span class="lm-via" id="lm-via">—</span>
+          <span class="lm-iss"><b id="lm-iss">—</b> <span id="lm-ic"></span></span>
+        </div>
+      </div>
+      <div class="lamina-lectura" id="lamina-lectura" aria-live="polite">
+        <div class="ll-caja" id="ll-caja">
+          <span class="ll-ceja" id="ll-ceja">Ocho formas de ceder</span>
+          <p class="ll-titulo" id="ll-titulo">Pasa por un eje</p>
+          <p class="ll-valor"><b id="ll-valor"></b> <span id="ll-ic"></span></p>
+          <p class="ll-def" id="ll-def">Cada vértice es la proporción de sesiones en que la medición cede a esa forma de presión; al pasar por el eje aparece su intervalo.</p>
+        </div>
+      </div>
     </div>
   </div>
 

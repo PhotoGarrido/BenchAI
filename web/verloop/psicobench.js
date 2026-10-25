@@ -12,7 +12,9 @@
    con el original, y nada más:
      · los dos octógonos piden `halo: true` (cara a cara y ficha);
      · al cargar las fuentes autoalojadas se redibujan las gráficas, porque
-       `graficas.js` mide las etiquetas con ellas.
+       `graficas.js` mide las etiquetas con ellas;
+     · fase 2: la lámina de la portada (`laminaPortada`) sustituye al panel
+       del índice en bucle, y comparte el hash #m=<id> con la ficha.
    Las fases 2 y 3 del plan la irán separando; en el cambio a producción
    sustituye al original.
    =========================================================================== */
@@ -1080,43 +1082,128 @@
     válidas en algún eje. Las métricas secundarias (disonancia, vacuna, aliado, objeción, reconocimiento) no entran en el índice: se
     publican al lado, no dentro. Un índice alto no hace peor modelo; hace un perfil distinto, relevante según dónde vaya a trabajar.`);
 
-  /* ══ el panel de la portada: el índice de cada medición, componente a
-     componente, en bucle (como la escalera animada del sitio largo) ═══════ */
-  (function panelIndice() {
-    const host = document.getElementById("pi-componentes");
-    if (!host) return;
+  /* ══ la lámina de la portada: el perfil de UNA medición, que se transforma
+     al pasar a otra (Lámina A · Morph, PLAN_PSICOBENCH_VERLOOP.md fase 2).
+     Sustituye al panel del índice en bucle de la página vigente. ══════════ */
+  const lamina = (function laminaPortada() {
+    const host = document.getElementById("lamina-octogono");
+    if (!host) return null;
     const quieto = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const filas = COMPONENTES.map((c) => {
-      const via = h("span", { class: "via" }, [h("i", {})]);
-      const val = h("span", { class: "val" });
-      host.appendChild(h("div", { class: "pi-fila", style: `--c:${c.color}` }, [h("span", { class: "nom", text: c.nombre }), via, val]));
-      return { c, barra: via.firstChild, val };
+    // un tono por eje (decisión 1 del plan); los mismos que tokens.css
+    const TONO = { conf: "#4AF2FF", obed: "#7B3DFF", auto: "#FF3D8A", brief: "#FF8A1F",
+      prov: "#FFD36E", sold: "#C6FF4A", denu: "#2FD6A0", sico: "#B46CFF" };
+    // el ISS como color: el gradiente de la escala, de frío (cede poco) a
+    // caliente; satura en 60, por encima del máximo del banco
+    const PARADAS = [[74, 242, 255], [180, 108, 255], [255, 61, 138], [255, 138, 31]];
+    const colorISS = (v) => {
+      const s = Math.max(0, Math.min(1, v / 60)) * 3, k = Math.min(2, Math.floor(s)), f = s - k;
+      return "rgb(" + [0, 1, 2].map((j) => Math.round(PARADAS[k][j] + (PARADAS[k + 1][j] - PARADAS[k][j]) * f)).join(",") + ")";
+    };
+    const nombreEje = (c) => CORTO_EJE[c].toUpperCase();
+
+    const raiz = document.getElementById("lamina");
+    const el = (id) => document.getElementById(id);
+    const elPos = el("lm-pos"), elNombre = el("lm-nombre"), elVia = el("lm-via"), elISS = el("lm-iss"), elIC = el("lm-ic");
+    const caja = el("ll-caja"), llCeja = el("ll-ceja"), llTit = el("ll-titulo"), llVal = el("ll-valor"), llIC = el("ll-ic"), llDef = el("ll-def");
+    const reanima = (n, clase) => { n.classList.remove(clase); void n.offsetWidth; n.classList.add(clase); };
+
+    let k = -1, ejeActivo = -1, issMostrado = null, rafISS = 0;
+
+    const fig = G.octogono({
+      titulo: "Perfil de la medición elegida sobre los ocho ejes",
+      clase: "lamina-fig", ejes: ORDEN_EJES.map((c) => ({ clave: c, nombre: nombreEje(c), largo: EJE[c].nombre, color: TONO[c] })),
+      halo: true, cunas: true, animar: true, duracion: 900,
+      // el radio también cabe en la ALTURA de la ventana: lámina y tarjetas
+      // tienen que verse enteras sin bajar (1280×800, 1366×768)
+      anchoMax: 720, radioMax: Math.max(150, Math.min(250, Math.round((innerHeight - 360) / 2))),
+      tipoEtiqueta: "mono", claseEtiqueta: "et-lamina",
+      // en el móvil, rótulos de una palabra: el radio crece de ~70 a ~115 px
+      cortos: ["CONF.", "OBED.", "ABUSO", "CLIMA", "PROV.", "ÓRDEN.", "SILEN.", "SICOF."], anchoCortos: 560,
+      fondo: porISS.map((e) => ({ id: e.id, nombre: `${e.id} · ISS ${dec(e.iss, 1)} — pulsa para verla`, valores: e.ejes, color: colorISS(e.iss) })),
+      alElegirFondo: (f) => ir(f.id),
+      alEje: (i) => { ejeActivo = i; leer(); },
     });
-    const elNombre = document.getElementById("pi-nombre"), elVia = document.getElementById("pi-via");
-    const elISS = document.getElementById("pi-iss"), elIC = document.getElementById("pi-ic"), elPos = document.getElementById("pi-pos");
-    function pinta(e) {
-      elNombre.textContent = e.id;
-      elVia.textContent = `${e.lab} · ${e.proveedor} · ${e.fecha}`;
-      elISS.textContent = dec(e.iss, 1);
-      elIC.textContent = `[${dec(e.issIC[0], 1)}–${dec(e.issIC[1], 1)}]`;
-      elPos.textContent = "posición " + rango(e);
-      filas.forEach((f) => {
-        const v = Math.max(0, Math.min(1, f.c.fn(e)));
-        f.barra.style.width = (v * 100).toFixed(1) + "%";
-        f.val.textContent = pc(f.c.fn(e));
-      });
+    host.appendChild(fig);
+
+    function cuentaISS(destino) {
+      cancelAnimationFrame(rafISS);
+      const desde = issMostrado == null || quieto ? destino : issMostrado;
+      const t0 = performance.now();
+      const paso = (ahora) => {
+        const t = Math.min(1, (ahora - t0) / 900), f = 1 - Math.pow(1 - t, 3);
+        issMostrado = desde + (destino - desde) * f;
+        elISS.textContent = dec(issMostrado, 1);
+        if (t < 1) rafISS = requestAnimationFrame(paso);
+      };
+      if (desde === destino) { issMostrado = destino; elISS.textContent = dec(destino, 1); }
+      else rafISS = requestAnimationFrame(paso);
     }
-    // de más a menos, para que la primera imagen sea la que más llena el panel
-    const ciclo = porISS.slice().reverse();
-    let k = 0;
-    pinta(ciclo[0]);
-    if (quieto) return;
-    setInterval(() => { k = (k + 1) % ciclo.length; pinta(ciclo[k]); }, 1700);
+
+    function leer() {
+      const e = porISS[k];
+      if (!e) return;
+      if (ejeActivo < 0) {
+        caja.style.removeProperty("--ll-c");
+        llCeja.textContent = "Ocho formas de ceder";
+        llTit.textContent = "Pasa por un eje";
+        llVal.textContent = "ISS " + dec(e.iss, 1);
+        llIC.textContent = "posición " + rango(e);
+        llDef.textContent = "Cada vértice es la proporción de sesiones en que la medición cede a esa forma de presión; al pasar por el eje aparece su intervalo.";
+      } else {
+        const c = ORDEN_EJES[ejeActivo], ic = e.ejesIC[c], nn = e.ejesN[c];
+        caja.style.setProperty("--ll-c", TONO[c]);
+        llCeja.textContent = `Eje ${ejeActivo + 1} de ${ORDEN_EJES.length} · ${FUENTE_EJE(c)}`;
+        llTit.textContent = EJE[c].nombre;
+        llVal.textContent = pc(e.ejes[c]);
+        llIC.textContent = [ic ? "IC 95 % " + G.rangoIC(ic) : "", nn ? "n = " + ES.format(suma(nn.turnos)) : ""].filter(Boolean).join(" · ");
+        const def = QUE_EJE(c);
+        llDef.textContent = def.charAt(0).toUpperCase() + def.slice(1) + ".";
+      }
+      reanima(caja, "entra");
+    }
+
+    // `desdeFicha`: el cambio viene del selector de la ficha; no se devuelve
+    function ir(id, desdeFicha) {
+      const nk = porISS.findIndex((e) => e.id === id);
+      if (nk < 0 || nk === k) return;
+      k = nk;
+      const e = porISS[k], color = colorISS(e.iss);
+      raiz.style.setProperty("--lm-c", color);
+      fig._pinta([{ nombre: e.id, valores: e.ejes, ic: e.ejesIC, color }]);
+      fig._tablaEjes([{ nombre: e.id, valores: e.ejes }]);
+      elPos.textContent = `Posición ${rango(e)} · ${k + 1} de ${porISS.length} por ISS`;
+      elNombre.textContent = e.id;
+      reanima(elNombre, "entra");
+      elVia.textContent = `${e.lab} · ${e.proveedor} · ${e.fecha}`;
+      elIC.textContent = `[${dec(e.issIC[0], 1)}–${dec(e.issIC[1], 1)}]`;
+      cuentaISS(e.iss);
+      leer();
+      if (!desdeFicha) {
+        // decisión 2 del plan: la lámina y la ficha comparten #m=<id>
+        history.replaceState(null, "", "#m=" + encodeURIComponent(e.id));
+        if (selFicha.value !== e.id) { selFicha.value = e.id; pintarFicha(e.id); }
+      }
+    }
+    el("lm-ant").addEventListener("click", () => ir(porISS[(k - 1 + porISS.length) % porISS.length].id));
+    el("lm-sig").addEventListener("click", () => ir(porISS[(k + 1) % porISS.length].id));
+    return { ir };
   })();
 
   /* ══ arranque ════════════════════════════════════════════════════════════ */
   pintarSesiones();
   if (!desdeHash()) pintarFicha(porISS[0].id);
+  if (lamina) {
+    // con #m=<id>, la lámina arranca en esa medición; sin él, en la mediana
+    // del banco por ISS (un perfil con forma, ni el más plano ni el mayor)
+    const m = /^#m=(.+)$/.exec(decodeURIComponent(location.hash || ""));
+    const enHash = m && porISS.find((e) => e.id === m[1]);
+    lamina.ir((enHash || porISS[Math.floor(porISS.length / 2)]).id, true);
+    selFicha.addEventListener("change", () => lamina.ir(selFicha.value, true));
+    addEventListener("hashchange", () => {
+      const mm = /^#m=(.+)$/.exec(decodeURIComponent(location.hash || ""));
+      if (mm) lamina.ir(mm[1], true);
+    });
+  }
 
   /* ══ fuentes: `graficas.js` mide cada etiqueta con canvas y la familia de
      `--sans` / `--mono`. Las fuentes autoalojadas llegan después del primer

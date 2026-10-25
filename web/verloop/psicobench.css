@@ -58,8 +58,21 @@ body.verloop,
 .verloop .navmini a[aria-current="true"] { color: var(--tinta); background: rgba(255, 255, 255, .08); }
 .verloop .progreso { background: var(--v-espectro); }
 
-/* ── portada (provisional: la fase 2 la sustituye por la lámina) ──────── */
-.verloop .portada { isolation: isolate; }
+/* ── portada: copia a la izquierda, lámina a la derecha (fase 2) ──────── */
+/* la lámina se alinea arriba: centrada respecto a una columna de texto más
+   alta que la ventana, sus tarjetas caían por debajo del pliegue */
+.verloop .portada { isolation: isolate; grid-template-columns: minmax(0, .9fr) minmax(0, 1.25fr); gap: 40px; align-items: start; padding-top: 92px; }
+@media (max-width: 940px) { .verloop .portada { grid-template-columns: 1fr; } }
+.verloop .portada .portada-copia { display: flex; flex-direction: column; }
+.verloop .portada .cifras {
+  order: 3; grid-template-columns: repeat(4, minmax(0, 1fr)); max-width: none;
+  margin: 28px 0 0; padding-top: 16px; border-top: 1px solid var(--linea);
+}
+.verloop .portada .cifras li { border-left: 0; padding-left: 0; }
+/* la fecha («17-10-2026») no se parte: el cuerpo baja con el ancho */
+.verloop .portada .cifras .n { font-size: clamp(32px, 3.2vw, 44px); white-space: nowrap; }
+.verloop .portada .acciones { order: 2; }
+@media (max-width: 560px) { .verloop .portada .cifras { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .verloop .portada .fondo {
   inset: -10% -30% auto -30%; height: 130%; filter: saturate(1.15);
   background:
@@ -70,7 +83,8 @@ body.verloop,
 }
 .verloop .ceja { font-family: var(--mono); font-weight: 500; letter-spacing: .1em; color: var(--tinta); }
 .verloop .ceja::before { background: var(--v-espectro); }
-.verloop .portada h1 { font-size: clamp(48px, 6.6vw, 104px); line-height: .94; letter-spacing: -.005em; font-weight: 900; }
+.verloop .portada h1 { font-size: clamp(44px, 5.6vw, 88px); line-height: .94; letter-spacing: -.005em; font-weight: 900; }
+.verloop .portada .entradilla { font-size: clamp(15px, 1.1vw, 16px); }
 .verloop .portada h1 em { color: var(--plano); -webkit-text-stroke: 2px var(--tinta); }
 @supports not (-webkit-text-stroke: 2px #fff) { .verloop .portada h1 em { color: var(--acento); } }
 .verloop .cifras li { border-left-color: var(--tinta); }
@@ -135,6 +149,86 @@ body.verloop section .tira td.c.p8 span, body.verloop section .tira td.c.p9 span
 /* ── el halo de los octógonos (opción `halo` de graficas.js) ───────────── */
 .verloop .radar .halo { fill-opacity: .5; }
 @media (max-width: 767px) { .verloop .radar .halo { display: none; } }
+
+/* ═══ la lámina de la portada (Lámina A · Morph) ═════════════════════════ */
+.lamina { position: relative; z-index: 1; min-width: 0; display: flex; flex-direction: column; gap: 10px; --lm-c: #B46CFF; }
+/* el resplandor detrás del octógono sigue al color del ISS de la medición */
+.lamina::before {
+  content: ""; position: absolute; left: 12%; right: 12%; top: 6%; height: 62%; z-index: -1;
+  border-radius: 50%; background-color: var(--lm-c); opacity: .22; filter: blur(70px);
+  transition: background-color .8s var(--v-facil);
+}
+/* la figura va sin caja; su título queda para los lectores de pantalla y
+   el botón «Tabla» (la alternativa en texto) se queda, discreto, arriba */
+.verloop figure.lamina-fig { background: transparent; border: 0; padding: 0; }
+.verloop figure.lamina-fig .viz-cabecera { position: absolute; top: 0; right: 0; z-index: 2; }
+.verloop figure.lamina-fig .viz-cabecera > div:first-child {
+  position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+}
+.verloop figure.lamina-fig .tabla-envuelta { max-height: 520px; overflow: auto; padding-top: 52px; }
+
+/* ejes: etiqueta, radio y sector se encienden juntos */
+.verloop .et-lamina {
+  font: 500 11px var(--mono); letter-spacing: .06em; fill: var(--tenue);
+  transform-box: fill-box; transform-origin: center;
+  transition: transform .35s var(--v-facil), fill .25s;
+}
+.verloop .et-lamina.activo { fill: #FFFFFF; transform: translate(var(--dx), var(--dy)) scale(1.25); }
+.verloop .lamina-fig .radar-radio { transition: stroke .25s, stroke-width .25s, stroke-opacity .25s; }
+.verloop .lamina-fig .radar-radio.activo { stroke: var(--c); stroke-width: 2.5; stroke-opacity: 1; }
+.verloop .cuna-luz { fill-opacity: 0; transition: fill-opacity .3s; }
+.verloop .cuna-luz.activo { fill-opacity: .14; }
+.verloop .lamina-fig .viz-hit.cuna { fill: transparent; outline: none; }
+.verloop .lamina-fig .vertice { transition: r .3s var(--v-facil); }
+.verloop .lamina-fig .vertice.activo { r: 9px; }
+.verloop .lamina-fig .perfil, .verloop .lamina-fig .halo { transition: fill .8s, stroke .8s; }
+.verloop .lamina-fig svg:focus-visible { outline: 2px solid var(--lm-c); outline-offset: 6px; border-radius: 4px; }
+
+/* los 39 perfiles finos: se pulsan para ir a esa medición */
+.verloop .perfil-fino { stroke-width: 1; stroke-opacity: .2; transition: stroke-opacity .2s, stroke-width .2s; }
+.verloop .perfil-fondo { cursor: pointer; }
+.verloop .perfil-fondo:hover .perfil-fino { stroke-opacity: 1; stroke-width: 2; }
+
+/* cambio de medición: una onda sale del centro y el perfil destella */
+.verloop .onda { transform-box: fill-box; transform-origin: center; animation: v-onda 1.1s cubic-bezier(.1, .7, .2, 1) forwards; }
+@keyframes v-onda { from { transform: scale(.05); opacity: .9; } to { transform: scale(1); opacity: 0; } }
+.verloop .destello { animation: v-destello .6s ease-out forwards; }
+@keyframes v-destello { from { opacity: .55; } to { opacity: 0; } }
+
+/* tarjeta de la medición y lectura del eje */
+.lamina-pie { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 10px; }
+@media (max-width: 560px) { .lamina-pie { grid-template-columns: 1fr; } }
+.lamina-modelo, .ll-caja {
+  min-width: 0; padding: 12px 16px; border-radius: 4px; box-sizing: border-box;
+  background: rgba(7, 7, 10, .62); backdrop-filter: blur(10px);
+}
+.lamina-modelo { border: 1px solid var(--lm-c); transition: border-color .6s; display: flex; flex-direction: column; gap: 6px; }
+.lm-cab { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.lm-pos { font: 500 10.5px/1.3 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--lm-c); transition: color .6s; }
+.lm-pasos { display: flex; gap: 4px; }
+.verloop .lm-pasos .chip { min-width: 44px; min-height: 44px; padding: 0; justify-content: center; font-size: 12px; }
+.lm-nombre { margin: 0; font: 900 34px/.95 var(--display); text-transform: uppercase; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.lm-nombre.entra { animation: v-nombre .55s var(--v-facil) both; }
+@keyframes v-nombre { from { opacity: 0; transform: translateX(-18px) skewX(-6deg); letter-spacing: .08em; } to { opacity: 1; transform: none; letter-spacing: 0; } }
+.lm-pie { display: flex; justify-content: space-between; align-items: flex-end; gap: 10px; flex-wrap: wrap; }
+.lm-via { font: 500 10.5px/1.4 var(--mono); color: var(--tenue); }
+.lm-iss { font: 500 11px var(--mono); color: var(--tenue); white-space: nowrap; }
+.lm-iss b { font: 900 40px/1 var(--display); color: var(--tinta); font-variant-numeric: tabular-nums; }
+.lamina-lectura { min-width: 0; display: flex; }
+.ll-caja { flex: 1; border: 1px solid var(--ll-c, rgba(255, 255, 255, .14)); transition: border-color .3s; }
+.ll-caja.entra { animation: v-sube .4s var(--v-facil) both; }
+@keyframes v-sube { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.ll-ceja { display: block; font: 500 10.5px/1.3 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--tinta); }
+.ll-titulo { margin: 4px 0 0; font: 900 24px/1 var(--display); text-transform: uppercase; }
+.ll-valor { margin: 6px 0 0; font: 500 11px/1.3 var(--mono); color: var(--tenue); }
+.ll-valor b { font: 900 30px/1 var(--display); color: var(--ll-c, var(--tinta)); margin-right: 6px; }
+.ll-def { margin: 6px 0 0; font-size: 12px; line-height: 1.5; color: var(--tenue); }
+
+@media (prefers-reduced-motion: reduce) {
+  .lamina::before, .lamina-modelo, .lm-pos, .ll-caja { transition: none; }
+  .lm-nombre.entra, .ll-caja.entra, .verloop .onda, .verloop .destello { animation: none; }
+  .verloop .onda, .verloop .destello { display: none; }
+}
 
 /* ── aviso de versión en preparación (solo existe en la previa) ────────── */
 .v-previa {
