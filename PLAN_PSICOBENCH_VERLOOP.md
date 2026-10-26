@@ -1,6 +1,6 @@
 # Plan · rediseño de `/psicobench` en la línea «Verloop»
 
-**Fecha**: 24-10-2026 (aprobado el 25-10-2026) · **Estado**: en implementación, **fases 0, 1 y 2 hechas** · **Rama**: `feature/psicobench-verloop` (desde `main`; el repo no tiene `develop`) · **Diseño de referencia**: lienzo «BenchAI · tres direcciones», pizarra *PsicoBench · /psicobench en la línea Verloop* con la portada «Lámina A · Morph» (octógono de un solo modelo, animado).
+**Fecha**: 24-10-2026 (aprobado el 25-10-2026) · **Estado**: en implementación, **fases 0, 1, 2 y 3 hechas** · **Rama**: `feature/psicobench-verloop` (desde `main`; el repo no tiene `develop`) · **Diseño de referencia**: lienzo «BenchAI · tres direcciones», pizarra *PsicoBench · /psicobench en la línea Verloop* con la portada «Lámina A · Morph» (octógono de un solo modelo, animado).
 
 **Qué se rediseña**: solo la superficie `/psicobench`. La home (`/`) y el sitio largo (`/completo`) no se tocan en esta rama; si la dirección gusta, se extiende después con los mismos tokens.
 
@@ -98,8 +98,22 @@ Plan original:
 - Teclado y lectores: cada sector de eje es focusable y anuncia la lectura en `aria-live="polite"`.
 - El panel flotante del ISS (`#panel-indice`) no pasa a la versión nueva: lo sustituye la tarjeta del modelo.
 
-### Fase 3 · Secciones 01–08, estilo y gráficas (3 días)
-Orden de trabajo, de menos a más riesgo:
+### Fase 3 · Secciones 01–08, estilo y gráficas — **hecha (26-10-2026)**
+
+Lo construido, y dónde se apartó de lo previsto (debajo, el plan original):
+- **Un solo origen de color en la copia de trabajo**: `TONO` (un tono por eje, más «gris» para lo que no entra en el índice), `TONO_TEXTO` (el violeta de obediencia aclarado a `#A98BFF` para texto pequeño), `colorISS` (antes vivía dentro de la lámina) y `tonoEje(eje, v)`, que mezcla del fondo de celda `#15141C` al tono con curva de raíz (`0,3 + 0,7·√v`): el banco vive entre 0 y 50 y una mezcla lineal ahí salía turbia. La tinta encima se elige por contraste; el peor caso de todos los ejes y valores es 4,59:1. La escala espectral única (`peldano`, clases `p0–p9`) deja de usarse en esta página; `graficas.js` no se toca en esta fase.
+- **Cabeceras**: rejilla de tres columnas solo desde 1000 px (número y rótulo, título, entradilla); por debajo, como antes.
+- **01**: componentes con color fijo (`--v-comp-*`), bigotes blancos en todas las gráficas, y cada tarjeta con una barra del rango que ocupa ese componente en el banco.
+- **02**: pestaña, titular de la prosa y cifras en cajas con el tono del eje; las barras, en el tono del eje y más intensas cuanto más cede. El pie ya no habla de «escala de dureza».
+- **03**: cada columna con su tono (filete superior en la cabecera y celdas), «reconoce» en gris y separada; leyenda nueva con la rampa y los nueve tonos.
+- **04**: «sí» en lima; las tiras toman el tono de la prueba (Milgram, obediencia; Asch, conformidad…), con el punto negro centrado para «en privado la cree injusta»; en la prisión cada día va en el tono de su marco y el punto pasa a la esquina, porque la casilla lleva su número.
+- **05**: puntos por ISS (y el ISS en el globo), cuadrantes en mono gris, suelo de ruido de las réplicas en lima discontinua.
+- **06**: la hoja lleva el filete y la cifra del ISS en el color de su medición (gradiente de texto desde el cian, 76 px), el octógono también; eje a eje con la cifra y el punto en el tono del eje; secundarias en tarjetas.
+- **07**: líneas, puntos y etiquetas en el color del ISS vigente; la separación entre etiquetas ya era de 12,5 px.
+- **08**: las cuatro notas del método en cajas numeradas y el aviso «Qué NO es» ocupando dos columnas; el pie ya tenía tres columnas y solo cambia la tipografía de sus títulos.
+- **Comprobado**: sin desbordes horizontales de 320 a 1920 px (los 2 px de un texto de SVG a 320 px ya están en la página vigente y no dan scroll), y la batería completa de §2 en verde.
+
+Plan original. Orden de trabajo, de menos a más riesgo:
 1. **Cabeceras de sección** (número grande a color + título + párrafo en rejilla de tres columnas) y cajas: solo CSS.
 2. **01 El índice**: barras apiladas con los cuatro componentes en gradiente y bigote blanco; tarjetas de componentes con borde superior de color.
 3. **02 Quién cede**: chips de eje con borde superior de su tono; panel de cabecera con las cuatro cifras; ranking con bigotes.

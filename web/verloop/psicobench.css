@@ -244,3 +244,113 @@ body.verloop section .tira td.c.p8 span, body.verloop section .tira td.c.p9 span
 @media (max-width: 640px) {
   .v-previa { left: 0; right: 0; bottom: 0; max-width: none; border-radius: 0; padding: 6px 16px; gap: 8px; font-size: 11.5px; }
 }
+
+/* ═══ fase 3: las secciones 01–08 ════════════════════════════════════════
+   Cada eje pinta con su tono (TONO en psicobench.js, --v-eje-* aquí) y el
+   ISS con su gradiente; los colores por valor llegan en línea desde el JS
+   (fondo y tinta de cada celda), y aquí se pone la forma. ─────────────── */
+
+/* ── cabeceras: número, título y entradilla en tres columnas ───────────── */
+@media (min-width: 1000px) {
+  .verloop section.bloque > .marco {
+    display: grid; align-items: end; column-gap: 48px;
+    grid-template-columns: minmax(190px, .42fr) minmax(0, 1.5fr) minmax(0, 1fr);
+  }
+  .verloop section.bloque > .marco > * { grid-column: 1 / -1; min-width: 0; }
+  .verloop section.bloque > .marco > .rotulo {
+    grid-column: 1; grid-row: 1; flex-direction: column; align-items: flex-start; gap: 14px; margin: 0 0 64px;
+  }
+  .verloop section.bloque > .marco > h2.titulo { grid-column: 2; grid-row: 1; margin: 0 0 64px; max-width: 16ch; font-size: clamp(40px, 4.3vw, 68px); }
+  .verloop section.bloque > .marco > .bajada { grid-column: 3; grid-row: 1; margin: 0 0 64px; font-size: 16px; max-width: 48ch; }
+  .verloop .rotulo .grupo { padding-bottom: 0; }
+}
+
+/* ── los bigotes: blancos sobre cualquier tono ─────────────────────────── */
+.verloop .ic-l { stroke: #FFFFFF; stroke-opacity: .72; stroke-width: 1.5; }
+
+/* ── 01 · el índice: tarjetas de componente con su rango en el banco ───── */
+.verloop .componentes { gap: 16px; }
+.verloop .componente { padding: 18px 18px 16px; background: var(--sup); }
+.verloop .componente h3 { font: 900 30px/.95 var(--display); text-transform: uppercase; letter-spacing: .01em; color: var(--c); margin: 4px 0 12px; }
+.verloop .componente .rango { position: relative; height: 6px; margin: 0 0 12px; background: var(--sup-3); border-radius: 3px; }
+.verloop .componente .rango i { position: absolute; top: 0; bottom: 0; background: var(--c); border-radius: 3px; }
+.verloop .componente p { font-size: 13px; line-height: 1.5; }
+.verloop .claves-lectura b { font-family: var(--display); font-weight: 900; font-size: 22px; text-transform: uppercase; letter-spacing: .01em; }
+
+/* ── 02 · quién cede a qué: la pestaña y la prosa toman el tono del eje ── */
+.verloop .chip.pestana { border-top: 3px solid var(--linea); }
+.verloop .chip.pestana:hover { border-top-color: var(--c); }
+.verloop .chip.pestana[aria-pressed="true"] { border-top-color: var(--c); }
+.verloop #prosa-eje h3 { font: 900 clamp(40px, 4vw, 60px)/.9 var(--display); text-transform: uppercase; color: var(--c); margin: 0 0 10px; overflow-wrap: break-word; }
+.verloop #prosa-eje .fuente-eje { color: var(--c-texto); }
+.verloop #prosa-eje .cifras-eje { gap: 10px; }
+.verloop #prosa-eje .cifras-eje li { border: 1px solid var(--linea); border-top: 2px solid var(--c); border-radius: 4px; background: var(--sup); padding: 12px 14px 12px; }
+.verloop #prosa-eje .cifras-eje .n { font: 900 40px/.9 var(--display); letter-spacing: 0; }
+
+/* ── 03 · el mapa: cada columna en el tono de su eje ───────────────────── */
+.verloop table.mapa thead th.eje, .verloop table.mapa thead th.sec { box-shadow: inset 0 3px 0 var(--c); }
+.verloop table.mapa td.c.tono { font-weight: 600; }
+.verloop table.mapa thead th.sec, .verloop table.mapa tbody td.c:last-child { border-left: 1px solid var(--linea); }
+.verloop .leyenda-mapa { gap: 10px 22px; }
+.verloop .leyenda-mapa .rampa i { width: 22px; border-radius: 1px; }
+.verloop .leyenda-mapa .tonos { display: flex; flex-wrap: wrap; gap: 6px 14px; }
+.verloop .leyenda-mapa .tono { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+.verloop .leyenda-mapa .tono i { display: block; width: 10px; height: 10px; border-radius: 2px; }
+
+/* ── 04 · cara a cara: «sí» en lima y tiras en el tono de la prueba ───── */
+.verloop table.deltas td.si { color: #C6FF4A; font-weight: 600; }
+.verloop .tira td.c.lleno i { background: var(--tono, var(--tinta)); border-color: var(--tono, var(--tinta)); }
+.verloop .tira td.c.medio i { background: linear-gradient(90deg, var(--tono, var(--tinta)) 50%, var(--sup) 50%); border-color: var(--tono, var(--tinta)); }
+.verloop .tira td.c.destaca i { border-color: var(--tono); box-shadow: inset 0 0 0 3px var(--sup), inset 0 0 0 18px var(--tono); }
+/* injusta en privado: un punto negro en el centro de la casilla */
+.verloop .tira td.c.priv::after { top: 50%; bottom: auto; width: 6px; height: 6px; margin: -3px 0 0 -3px; background: #07070A; }
+/* en la prisión la casilla lleva su número: el punto va a la esquina */
+.verloop .tira td.c.nivel.priv::after { top: 2px; left: auto; right: 2px; width: 5px; height: 5px; margin: 0; background: var(--tinta-celda, var(--tinta)); }
+.verloop .tira td.c.nivel.tono span { color: var(--tinta-celda); }
+.verloop .tira td.c.nivel { border-radius: 2px; }
+.verloop .leyenda-tira i.lleno { background: var(--tono, var(--tinta)); border-color: var(--tono, var(--tinta)); }
+.verloop .leyenda-tira i.medio { background: linear-gradient(90deg, var(--tono, var(--tinta)) 50%, var(--sup) 50%); border-color: var(--tono, var(--tinta)); }
+.verloop .leyenda-tira i.destaca { border-color: var(--tono); box-shadow: inset 0 0 0 2px var(--sup), inset 0 0 0 11px var(--tono); }
+.verloop .leyenda-tira i.priv { width: 11px; height: 11px; border: 0; border-radius: 0; vertical-align: -1px; background: radial-gradient(circle, #07070A 0 2.4px, var(--tono, var(--tinta)) 2.9px); }
+.verloop .sesion .cab .iss { font-family: var(--display); font-weight: 900; }
+
+/* ── 05 · mapas con nombre: cuadrantes en mono y suelo de ruido en lima ── */
+.verloop .cuadrante { font: 500 10.5px var(--mono); fill: var(--tenue); letter-spacing: .06em; }
+.verloop .punto { stroke: var(--sup); stroke-width: 1.5; }
+.verloop #mapas .ref-l { stroke: #C6FF4A; stroke-dasharray: 4 4; }
+.verloop #mapas .ref-t { fill: #C6FF4A; font-family: var(--mono); font-weight: 500; }
+
+/* ── 06 · ficha: el ISS en su gradiente, secundarias en tarjeta ────────── */
+.verloop .ficha-hoja { border-top-color: var(--c-iss, var(--tinta)); }
+.verloop .ficha-cab .indice-ficha .v { font: 900 76px/.88 var(--display); letter-spacing: 0; }
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .verloop .ficha-cab .indice-ficha .v {
+    background: linear-gradient(90deg, #4AF2FF, var(--c-iss, #4AF2FF)); -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+}
+.verloop .ficha-ejes .val { color: var(--c-texto, var(--tinta)); font-family: var(--display); font-weight: 900; font-size: 22px; }
+.verloop .ficha-ejes .nom::before { content: ""; display: inline-block; width: 8px; height: 8px; margin-right: 7px; border-radius: 2px; background: var(--c); }
+.verloop .ficha-sec { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; }
+.verloop .ficha-sec li { border: 1px solid var(--linea); border-radius: 4px; background: var(--sup-2); padding: 10px 12px 11px; }
+.verloop .ficha-sec .n { font: 900 28px/.95 var(--display); letter-spacing: 0; }
+.verloop .ficha-sec .r { margin-top: 5px; }
+@media (max-width: 640px) { .verloop .ficha-cab .indice-ficha .v { font-size: 52px; } }
+
+/* ── 07 · escalera: cada línea en el color de su ISS vigente ───────────── */
+.verloop .linea-v { stroke: var(--c, var(--tinta)); opacity: .62; }
+.verloop .linea-v.resalte { stroke: var(--c, var(--tinta)); opacity: 1; stroke-width: 2.6; }
+.verloop .punto-v, .verloop .punto-v.resalte { fill: var(--c, var(--tinta)); stroke: var(--sup); }
+.verloop .et-v { fill: var(--c, var(--tinta-2)); }
+
+/* ── 08 · método: cuatro cajas numeradas y el aviso, en tres columnas ──── */
+.verloop .metodo-cajas { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; counter-reset: caja; }
+.verloop .caja-metodo { counter-increment: caja; background: var(--sup); border: 1px solid var(--linea); border-radius: 4px; padding: 22px 22px 20px; min-width: 0; }
+.verloop .caja-metodo::before { content: counter(caja, decimal-leading-zero); display: block; font: 500 12px/1 var(--mono); letter-spacing: .1em; color: var(--tenue); margin-bottom: 14px; }
+.verloop .caja-metodo h3.mini { font: 900 28px/.95 var(--display); text-transform: uppercase; letter-spacing: .01em; margin: 0 0 12px; }
+.verloop .caja-metodo p { font-size: 14.5px; color: var(--tinta-2); margin: 0 0 .8em; }
+.verloop .caja-metodo p:last-child { margin-bottom: 0; }
+.verloop .caja-metodo p.filtros { margin-top: 14px; }
+.verloop .metodo-cajas .aviso { grid-column: span 2; margin: 0; }
+@media (max-width: 1000px) { .verloop .metodo-cajas { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .verloop .metodo-cajas { grid-template-columns: 1fr; } .verloop .metodo-cajas .aviso { grid-column: auto; } }
+.verloop footer.pie h2 { font: 900 28px/1 var(--display); text-transform: uppercase; letter-spacing: .01em; }

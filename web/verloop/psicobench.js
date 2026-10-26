@@ -14,7 +14,11 @@
      · al cargar las fuentes autoalojadas se redibujan las gráficas, porque
        `graficas.js` mide las etiquetas con ellas;
      · fase 2: la lámina de la portada (`laminaPortada`) sustituye al panel
-       del índice en bucle, y comparte el hash #m=<id> con la ficha.
+       del índice en bucle, y comparte el hash #m=<id> con la ficha;
+     · fase 3: cada eje pinta con su tono (`TONO`, `tonoEje`) en vez de la
+       escala de dureza única, y el ISS con su gradiente (`colorISS`): el
+       ranking del índice, las barras eje a eje, el mapa, las tiras de
+       sesión, los mapas con nombre, la ficha y la escalera.
    Las fases 2 y 3 del plan la irán separando; en el cambio a producción
    sustituye al original.
    =========================================================================== */
@@ -62,10 +66,40 @@
   const rango = (e) => e.posicion == null ? "n/c"
     : tamGrupo[e.posicion] > 1 ? `${e.posicion}–${e.posicion + tamGrupo[e.posicion] - 1}` : String(e.posicion);
 
-  // peldaño de la escala de dureza para un valor 0–1; el cero no lleva tinta
-  const peldano = (v) => Math.max(0, Math.min(9, Math.floor(v * 10 - 1e-9)));
   const n100 = (v) => (v == null ? "—" : String(Math.round(v * 100)));
   const suma = (xs) => (Array.isArray(xs) ? xs.reduce((a, b) => a + b, 0) : xs);
+
+  /* ── color (fase 3): un tono por eje y el ISS como gradiente ──────────── */
+  // los mismos que tokens.css (--v-eje-*); «gris» es lo que no es un eje
+  // (reconoce el paradigma), que se lee pero no cuenta en el índice
+  const TONO = { conf: "#4AF2FF", obed: "#7B3DFF", auto: "#FF3D8A", brief: "#FF8A1F",
+    prov: "#FFD36E", sold: "#C6FF4A", denu: "#2FD6A0", sico: "#B46CFF", gris: "#9A97A6" };
+  // para texto pequeño: el violeta de obediencia (3,8:1) se aclara a 6,4:1
+  const TONO_TEXTO = Object.assign({}, TONO, { obed: "#A98BFF" });
+  // el ISS como color: de frío (cede poco) a caliente; satura en 60, por
+  // encima del máximo del banco
+  const PARADAS = [[74, 242, 255], [180, 108, 255], [255, 61, 138], [255, 138, 31]];
+  const colorISS = (v) => {
+    const s = Math.max(0, Math.min(1, v / 60)) * 3, k = Math.min(2, Math.floor(s)), f = s - k;
+    return "rgb(" + [0, 1, 2].map((j) => Math.round(PARADAS[k][j] + (PARADAS[k + 1][j] - PARADAS[k][j]) * f)).join(",") + ")";
+  };
+  const aRGB = (hex) => [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
+  const FONDO_CELDA = [21, 20, 28]; // #15141C: el cero, apenas sobre la caja
+  const lum = (c) => {
+    const [r, g, b] = c.map((v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; });
+    return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  };
+  /** Un valor 0–1 en el tono de su eje: del fondo de celda al tono pleno,
+   *  con un mínimo visible para todo lo que no es cero. Devuelve el fondo y
+   *  la tinta que da más contraste encima (blanco o negro). */
+  function tonoEje(c, v) {
+    const t = aRGB(TONO[c] || TONO.gris);
+    // raíz: el banco vive entre 0 y 50 y una mezcla lineal ahí queda turbia
+    const f = v > 0 ? 0.3 + 0.7 * Math.sqrt(Math.min(1, v)) : 0;
+    const m = FONDO_CELDA.map((b, j) => Math.round(b + (t[j] - b) * f));
+    const L = lum(m);
+    return { fondo: `rgb(${m.join(",")})`, tinta: (L + 0.05) / 0.05 > 1.05 / (L + 0.05) ? "#07070A" : "#FFFFFF" };
+  }
 
   /* ── columnas del mapa ─────────────────────────────────────────────────── */
   const COLS = [
@@ -117,18 +151,23 @@
   /* ── leyenda ───────────────────────────────────────────────────────────── */
   const leyenda = document.getElementById("leyenda-mapa");
   leyenda.appendChild(h("span", {}, [h("i", { class: "cero", "aria-hidden": "true" }), document.createTextNode("0 = no cede")]));
-  leyenda.appendChild(h("span", { class: "rampa", "aria-label": "escala de 1 a 100, de menos a más" },
-    Array.from({ length: 10 }, (_, i) => h("i", { class: "p" + i }))));
-  leyenda.appendChild(h("span", { text: "→ 100 = cede siempre · un solo color para toda la web: la escala de dureza" }));
+  leyenda.appendChild(h("span", { class: "rampa", "aria-label": "de 1 a 100, cada eje en su tono: más intenso = cede más" },
+    [0.05, 0.25, 0.5, 0.75, 1].map((v) => h("i", { style: `background:${tonoEje("auto", v).fondo}` }))));
+  leyenda.appendChild(h("span", { text: "→ 100 = cede siempre" }));
+  leyenda.appendChild(h("span", { class: "tonos", "aria-label": "un tono por forma de presión" },
+    ORDEN_EJES.map((c) => h("span", { class: "tono" }, [h("i", { style: `background:${TONO[c]}`, "aria-hidden": "true" }), document.createTextNode(CORTO_EJE[c])]))));
+  leyenda.appendChild(h("span", { class: "tono" }, [h("i", { style: `background:${TONO.gris}`, "aria-hidden": "true" }), document.createTextNode("Reconoce (no entra en el índice)")]));
 
   /* ── celdas ────────────────────────────────────────────────────────────── */
-  function celdaEje(valor, globo) {
+  function celdaEje(valor, globo, eje) {
     const td = h("td", { class: "c" });
     if (valor == null) { td.classList.add("na"); td.textContent = "—"; return td; }
     if (valor <= 0) { td.classList.add("cero"); td.textContent = n100(valor); }
     else {
-      const p = peldano(valor);
-      td.classList.add("p" + p, p >= 5 ? "oscuro" : "claro");
+      // fase 3: el tono de su eje, no un peldaño de la escala única
+      const t = tonoEje(eje, valor);
+      td.classList.add("tono");
+      td.style.background = t.fondo; td.style.color = t.tinta;
       td.textContent = n100(valor);
     }
     if (globo) G.conGlobo(td, globo);
@@ -201,7 +240,8 @@
     const t = h("table", { class: "mapa" });
     const tr = h("tr", {});
     COLS.forEach((c) => {
-      const th = h("th", { scope: "col", class: (c.n ? "n " : "") + (c.fija ? "fija " : "") + (c.eje ? "eje" : ""),
+      const th = h("th", { scope: "col", class: (c.n ? "n " : "") + (c.fija ? "fija " : "") + (c.eje ? "eje" : "") + (c.sec ? "sec" : ""),
+        style: c.eje ? `--c:${TONO[c.k]}` : c.sec ? `--c:${TONO.gris}` : null,
         "aria-sort": estado.clave === c.k ? (estado.asc ? "ascending" : "descending") : "none" });
       const b = h("button", { type: "button", class: "cab", title: c.eje ? EJE[c.k].definicion : null }, [
         document.createTextNode((estado.porLab && c.k === "id" ? "Laboratorio" : c.t) +
@@ -247,8 +287,8 @@
       iss.appendChild(h("small", { text: e.grupo ? `${dec(e.issMin, 1)} – ${dec(e.issMax, 1)}` : `${dec(e.issIC[0], 1)} – ${dec(e.issIC[1], 1)}` }));
       fila.appendChild(iss);
 
-      ORDEN_EJES.forEach((c) => fila.appendChild(celdaEje(e.ejes[c], e.grupo ? null : globoEje(e, c))));
-      fila.appendChild(celdaEje(e.reconocimiento, null));
+      ORDEN_EJES.forEach((c) => fila.appendChild(celdaEje(e.ejes[c], e.grupo ? null : globoEje(e, c), c)));
+      fila.appendChild(celdaEje(e.reconocimiento, null, "gris"));
 
       if (!e.grupo) fila.addEventListener("click", () => { estado.abierta = abierta ? null : e.id; pintar(); });
       tb.appendChild(fila);
@@ -278,7 +318,7 @@
   const chipsEje = new Map();
   mandosEjes.setAttribute("role", "tablist");
   ORDEN_PESTANAS.forEach((c) => {
-    const chip = h("button", { type: "button", class: "chip pestana", role: "tab", "aria-pressed": "false", "aria-selected": "false" }, [
+    const chip = h("button", { type: "button", class: "chip pestana", role: "tab", "aria-pressed": "false", "aria-selected": "false", style: `--c:${TONO[c]}` }, [
       document.createTextNode(TITULO_EJE[c] || EJE[c].nombre),
       h("small", { text: `${EJE[c].nombre} · ${FUENTE_EJE(c)}` }),
     ]);
@@ -293,7 +333,7 @@
     const datos = orden.map((e) => ({
       id: e.id, etiqueta: e.id,
       valor: Math.max(0, e.ejes[c]), ic: e.ejesIC[c] ? e.ejesIC[c].map((v) => Math.max(0, v)) : null,
-      color: e.ejes[c] > 0 ? `var(--e${peldano(e.ejes[c])})` : "var(--sup-3)",
+      color: e.ejes[c] > 0 ? tonoEje(c, e.ejes[c]).fondo : "var(--sup-3)",
       nota: `${e.lab} · ${e.proveedor} · ${e.fecha}` +
         (e.ejesN[c] ? ` · n = ${ES.format(suma(e.ejesN[c].turnos))} turnos en ${ES.format(suma(e.ejesN[c].cadenas))} cadenas` : "") +
         (e.ejes[c] < 0 ? ` · valor neto real: ${pc(e.ejes[c])}` : "") +
@@ -304,7 +344,7 @@
       sub: "Barra = proporción; bigote = intervalo de confianza al 95 %. Si dos bigotes se solapan, el orden entre esas dos no significa nada.",
       datos, max: 1, ticks: [0, 0.25, 0.5, 0.75, 1], altoFila: 22, alPulsar: (d) => abrirHash(d.id),
       nombreFila: "Medición", nombreValor: EJE[c].nombre,
-      pie: mk`${EJE[c].definicion}. El color de cada barra es la escala de dureza del sitio, la misma del mapa.`,
+      pie: mk`${EJE[c].definicion}. Cada barra va en el tono de este eje, más intenso cuanto más cede: el mismo de su columna en el mapa.`,
       fuente: mk`PsicoBench v${B.version} · eje <b>${c}</b> · ${REPO("benchmark/psicobench.json")}`,
     });
     hostRanking.textContent = "";
@@ -316,6 +356,8 @@
     const ceros = valores.filter((v) => v <= 0).length;
     const nTipico = orden[0].ejesN[c] ? suma(orden[0].ejesN[c].turnos) : null;
     hostProsa.textContent = "";
+    hostProsa.style.setProperty("--c", TONO[c]);
+    hostProsa.style.setProperty("--c-texto", TONO_TEXTO[c]);
     hostProsa.appendChild(h("h3", { text: EJE[c].nombre }));
     hostProsa.appendChild(h("p", { class: "fuente-eje", text: `paradigma: ${FUENTE_EJE(c)} · clave ${c}` }));
     hostProsa.appendChild(h("p", { text: QUE_EJE(c).replace(/^\w/, (m) => m.toUpperCase()) + "." }));
@@ -376,8 +418,8 @@
 
   /** Una tira: filas = sujetos {s, d, j}; `celda(cd, cj, i)` devuelve las
    *  clases de la celda i; `cabecera(i)` el texto de la columna. */
-  function tira(sujetos, nCols, cabecera, celda, critica) {
-    const t = h("table", { class: "tira" });
+  function tira(sujetos, nCols, cabecera, celda, critica, eje) {
+    const t = h("table", { class: "tira", style: eje ? `--tono:${TONO[eje]}` : null });
     const cab = h("tr", {}, [h("th", { scope: "col" })].concat(
       Array.from({ length: nCols }, (_, i) => h("th", { scope: "col", class: critica && critica(i) ? "critica" : null,
         title: cabecera.titulo ? cabecera.titulo(i) : null, text: cabecera.texto(i) }))));
@@ -388,7 +430,7 @@
       for (let i = 0; i < nCols; i++) {
         const cd = sj.d[i] || " ", cj = sj.j[i] || " ";
         const r = celda(cd, cj, i, sj);
-        const td = h("td", { class: "c " + r.clases, title: r.titulo }, [h("i", {})]);
+        const td = h("td", { class: "c " + r.clases, title: r.titulo, style: r.estilo || null }, [h("i", {})]);
         if (r.texto != null) td.appendChild(h("span", { text: r.texto }));
         tr.appendChild(td);
       }
@@ -413,7 +455,7 @@
           clases: (cd === "A" ? "lleno" : cd === "R" ? "hueco" : "nada") + (cd === "A" && cj === "N" ? " priv" : "") + (i + 1 === M.nivelCritico ? " destaca-col" : ""),
           titulo: cd === " " ? "no llegó a este nivel" : `Nivel ${i + 1} · ${cd === "A" ? "aplica" : "rehúsa"} · en privado ${cj === "N" ? "lo considera injusto" : cj === "S" ? "lo considera justo" : "sin dato"}`,
         }),
-        (i) => i + 1 === M.nivelCritico),
+        (i) => i + 1 === M.nivelCritico, "obed"),
       leyendaTira([["lleno", "aplica la sanción"], ["", "rehúsa (la sesión acaba)"], ["priv", "en privado la cree injusta"]]),
     ];
   }
@@ -431,7 +473,7 @@
           clases: cd === "C" ? "lleno" + (cj === "c" ? " priv" : "") : cd === "R" ? "hueco" : cd === "n" ? "fallo" : cd === "·" ? "suave" : "nada duda",
           titulo: cd === "C" ? "conforma con la mayoría" + (cj === "c" ? " (también en privado)" : cj === "r" ? " (en privado mantiene la correcta)" : "") : cd === "R" ? "resiste" : cd === "n" ? "falla una ronda neutra" : cd === "·" ? "ronda neutra, acierta" : "sin dato",
         }),
-        (i) => crit.has(i + 1)),
+        (i) => crit.has(i + 1), "conf"),
       leyendaTira([["lleno", "conforma"], ["", "resiste"], ["priv", "también cede en privado"], ["suave", "ronda neutra"]]),
     ];
   }
@@ -448,7 +490,7 @@
         (cd, cj) => ({
           clases: (cd === "C" ? "lleno" : cd === "M" ? "medio" : cd === "D" ? "destaca" : "nada duda") + (cd === "C" && cj === "g" ? " priv" : ""),
           titulo: cd === "C" ? "calla" : cd === "M" ? "lo comenta informalmente" : cd === "D" ? "denuncia por el canal formal" : "sin dato",
-        })),
+        }), null, "denu"),
       leyendaTira([["lleno", "calla"], ["medio", "comenta"], ["destaca", "denuncia"], ["priv", "calla y en privado lo cree grave"]]),
     ];
   }
@@ -465,7 +507,7 @@
         (cd, cj) => ({
           clases: (cd === "P" ? "lleno" : cd === "x" ? "medio" : cd === "=" ? "hueco" : "nada duda") + (cd === "P" && cj === "p" ? " priv" : ""),
           titulo: cd === "P" ? "cede a la opinión contraria" : cd === "x" ? "cambia a otra opción" : cd === "=" ? "mantiene su criterio" : "sin dato",
-        })),
+        }), null, "sico"),
       leyendaTira([["lleno", "cede"], ["medio", "cambia a otra"], ["", "mantiene"], ["priv", "también en privado"]]),
     ];
   }
@@ -483,12 +525,14 @@
           (cd, cj) => {
             const n = cd === "?" || cd === " " ? null : Number(cd);
             const esc = n == null ? null : PR.escala[n];
+            const t = n > 0 ? tonoEje(eje, n / maxNivel) : null;
             return {
-              clases: n == null ? "nada duda" : "nivel " + (n > 0 ? "p" + peldano(n / maxNivel) : "suave") + (n / maxNivel >= 0.5 ? " oscuro" : "") + (cj === "N" ? " priv" : ""),
+              clases: n == null ? "nada duda" : "nivel" + (n > 0 ? " tono" : " suave") + (cj === "N" ? " priv" : ""),
+              estilo: t ? `background:${t.fondo};--tinta-celda:${t.tinta}` : null,
               titulo: esc ? `Nivel ${n} ${esc.palabra}: ${esc.desc}${cj === "N" ? " · en privado no lo cree justo" : cj === "S" ? " · lo cree justo" : ""}` : "sin dato",
               texto: n == null ? "?" : String(n),
             };
-          }),
+          }, null, eje),
       ]);
       if (p.alto) {
         bloque.appendChild(h("blockquote", { class: "cita" }, [
@@ -531,8 +575,11 @@
     return col;
   }
 
+  // el tono de la prueba elegida, para las tiras y su leyenda
+  const EJE_PARADIGMA = { milgram: "obed", asch: "conf", denuncia: "denu", sicofancia: "sico" };
   function pintarSesiones() {
     hostS.textContent = "";
+    hostS.style.setProperty("--tono", TONO[EJE_PARADIGMA[paradigma]] || TONO.gris);
     hostS.appendChild(columna(selA.value));
     hostS.appendChild(columna(selB.value));
     pintarComparacion();
@@ -670,11 +717,13 @@
         const x = px(o.x.fn(e)) + jx, y = py(o.y.fn(e)) + jy;
         cx.set(e.id, [x, y]);
         // sin la clase `marca`: en estilo.css es la marca de la barra (display flex…)
-        const c = G.el("circle", { cx: x, cy: y, r: estrecho ? 5 : 5.5, class: "punto anim-fade", "fill-opacity": 0.8 });
+        // fase 3: cada punto en el color de su ISS (el mismo que la lámina)
+        const c = G.el("circle", { cx: x, cy: y, r: estrecho ? 5 : 5.5, class: "punto anim-fade", "fill-opacity": 0.9, style: `fill:${colorISS(e.iss)}` });
         G.conGlobo(c, () => window.MARCADO.une(
           mk`<div class="g-tit">${e.id}</div>`,
           mk`<div class="g-fila"><span>${o.x.nombre}</span><b>${pc(o.x.fn(e))}</b></div>`,
           mk`<div class="g-fila"><span>${o.y.nombre}</span><b>${pc(o.y.fn(e))}</b></div>`,
+          mk`<div class="g-fila"><span>ISS</span><b>${dec(e.iss, 1)}</b></div>`,
           mk`<div class="g-nota">${e.lab} · ${e.proveedor} · ${e.fecha} · pulsa para abrir la ficha</div>`), marcas);
         c.addEventListener("click", () => abrirHash(e.id));
         g.appendChild(c);
@@ -709,7 +758,7 @@
   const r = (a, b) => (B.correlaciones[a] && B.correlaciones[a][b] != null ? B.correlaciones[a][b] : null);
   hostMapas.appendChild(dispersion({
     titulo: "Las dos obediencias",
-    sub: "Derecha = obedece; arriba = lo hace juzgándolo injusto en privado (a sabiendas); abajo-derecha = obedece convencido.",
+    sub: "Derecha = obedece; arriba = lo hace juzgándolo injusto en privado (a sabiendas); abajo-derecha = obedece convencido. El color de cada punto es su ISS.",
     x: { nombre: "Obediencia (Milgram, supera el crítico)", fn: (e) => e.ejes.obed },
     y: { nombre: "Disonancia (aplica lo que juzga injusto)", fn: (e) => e.disonancia },
     cuadrantes: ["se niega, convencido de que es injusto", "obedece a sabiendas", "se niega convencido", "obedece convencido"],
@@ -781,7 +830,7 @@
     const x = S.entradas[id] || {};
     hostFicha.textContent = "";
     enlaceFicha.textContent = "enlace: #m=" + id;
-    const hoja = h("article", { class: "ficha-hoja", "aria-label": "Ficha de " + id });
+    const hoja = h("article", { class: "ficha-hoja", "aria-label": "Ficha de " + id, style: `--c-iss:${colorISS(e.iss)}` });
     hoja.appendChild(h("div", { class: "ficha-cab" }, [
       h("div", {}, [
         h("h3", { text: e.id }),
@@ -796,7 +845,7 @@
     if (e.nota) hoja.appendChild(h("p", { class: "ficha-nota", text: e.nota }));
 
     const figO = G.octogono({ halo: true, titulo: "Perfil sobre los ocho ejes", sub: "Pasa el ratón por un vértice para ver el intervalo.", ejes: ejesOct, sinTabla: false });
-    figO._pinta([{ nombre: e.id, valores: e.ejes, ic: e.ejesIC, color: G.PAL.s1 }]);
+    figO._pinta([{ nombre: e.id, valores: e.ejes, ic: e.ejesIC, color: colorISS(e.iss) }]);
     figO._tablaEjes([{ nombre: e.id, valores: e.ejes, ic: e.ejesIC }]);
 
     const lista = h("ul", { class: "ficha-ejes" }, ORDEN_EJES.map((c) => {
@@ -805,10 +854,10 @@
       const mas = otros.filter((z) => z.ejes[c] > v).length, menos = otros.filter((z) => z.ejes[c] < v).length;
       const indist = otros.filter((z) => solapan(z.ejesIC[c], ic)).length;
       const barra = h("div", { class: "barra", "aria-hidden": "true" }, [
-        h("i", { style: `width:${Math.max(0, Math.min(1, v)) * 100}%;background:${v > 0 ? `var(--e${peldano(v)})` : "transparent"}` }),
+        h("i", { style: `width:${Math.max(0, Math.min(1, v)) * 100}%;background:${v > 0 ? tonoEje(c, v).fondo : "transparent"}` }),
         ic ? h("b", { style: `left:${Math.max(0, ic[0]) * 100}%;width:${Math.max(0, Math.min(1, ic[1]) - Math.max(0, ic[0])) * 100}%` }) : null,
       ].filter(Boolean));
-      return h("li", {}, [
+      return h("li", { style: `--c:${TONO[c]};--c-texto:${TONO_TEXTO[c]}` }, [
         h("span", { class: "nom", text: EJE[c].nombre, title: EJE[c].definicion }),
         h("span", { class: "val", text: n100(v) }),
         barra,
@@ -911,11 +960,13 @@
       orden.forEach((e, k) => {
         const pts = e.versiones.map((v, i) => (v.iss == null ? null : [cx(i), cy(v.iss), v])).filter(Boolean);
         const grupo = [];
-        const linea = G.el("polyline", { points: pts.map((p) => p[0] + "," + p[1]).join(" "), class: "linea-v" });
+        // fase 3: cada línea en el color de su ISS vigente, el de la lámina
+        const tinte = colorISS(e.iss);
+        const linea = G.el("polyline", { points: pts.map((p) => p[0] + "," + p[1]).join(" "), class: "linea-v", style: `--c:${tinte}` });
         g.appendChild(linea); grupo.push(linea);
         pts.forEach(([x, y, v]) => {
           if (v.ic) { const w = G.el("line", { x1: x, y1: cy(v.ic[0]), x2: x, y2: cy(v.ic[1]), class: "ic-v" }); g.appendChild(w); grupo.push(w); }
-          const c = G.el("circle", { cx: x, cy: y, r: 3.5, class: "punto-v anim-fade" }); g.appendChild(c); grupo.push(c);
+          const c = G.el("circle", { cx: x, cy: y, r: 3.5, class: "punto-v anim-fade", style: `--c:${tinte}` }); g.appendChild(c); grupo.push(c);
         });
         // una línea gruesa e invisible encima: el blanco para el dedo
         const blanco = G.el("polyline", { points: pts.map((p) => p[0] + "," + p[1]).join(" "), class: "linea-blanco" });
@@ -923,7 +974,7 @@
         if (conNombres) {
           const ult = pts[pts.length - 1];
           const guia = G.el("line", { x1: ult[0] + 5, y1: ult[1], x2: W - P.r + 8, y2: ys[k], class: "reja-l" });
-          const et = G.el("text", { x: W - P.r + 12, y: ys[k] + 4, class: "et-v anim-fade" }, [T(e.id)]);
+          const et = G.el("text", { x: W - P.r + 12, y: ys[k] + 4, class: "et-v anim-fade", style: `--c:${tinte}` }, [T(e.id)]);
           g.appendChild(guia); g.appendChild(et); grupo.push(guia, et);
           hit = G.el("rect", { x: W - P.r + 8, y: ys[k] - 6, width: P.r - 8, height: 12.5, class: "viz-hit", role: "img",
             "aria-label": `${e.id}: ` + e.versiones.map((v) => `v${v.v} ${v.iss == null ? "—" : dec(v.iss, 1)}`).join(", ") });
@@ -970,19 +1021,20 @@
   mandosDesc.appendChild(h("a", { class: "chip", href: "../benchmark/psicobench.json", text: "JSON completo" }));
 
   /* ══ el índice: de qué está hecho, y las mediciones ordenadas por él ══════ */
+  // (fase 3: cada componente con su color fijo, --v-comp-* de tokens.css)
   // Los cuatro componentes de la media jerárquica (v0.4), tal como los
   // declara `B.notaISS`; cada uno pesa un cuarto. Se recalculan desde los
   // ejes publicados y se comprueba que cuadran con el ISS publicado: si un
   // día el instrumento cambia de fórmula, el ranking vuelve a barras planas
   // y el smoke lo señala, en vez de dibujar una descomposición falsa.
   const COMPONENTES = [
-    { k: "iguales", nombre: "Cesión a iguales", que: "media de la conformidad (Asch) y la sicofancia de opinión (N3b)", color: G.PAL.s3,
+    { k: "iguales", nombre: "Cesión a iguales", que: "media de la conformidad (Asch) y la sicofancia de opinión (N3b)", color: "#4AF2FF",
       fn: (e) => (e.ejes.conf + e.ejes.sico) / 2 },
-    { k: "obediencia", nombre: "Obediencia", que: "nivel medio de ruptura en la escalera de Milgram, sobre diez", color: G.PAL.s1,
+    { k: "obediencia", nombre: "Obediencia", que: "nivel medio de ruptura en la escalera de Milgram, sobre diez", color: "#FF3D8A",
       fn: (e) => e.rupturaMedia / 10 },
-    { k: "abuso", nombre: "Abuso de poder", que: "media de los cuatro marcos de la prisión (P1, P1b, P2, P2b)", color: G.PAL.s4,
+    { k: "abuso", nombre: "Abuso de poder", que: "media de los cuatro marcos de la prisión (P1, P1b, P2, P2b)", color: "#FF8A1F",
       fn: (e) => (e.ejes.auto + e.ejes.brief + e.ejes.prov + e.ejes.sold) / 4 },
-    { k: "silencio", nombre: "Silencio", que: "callar ante la irregularidad creciente de la propia autoridad (N2)", color: G.PAL.s2,
+    { k: "silencio", nombre: "Silencio", que: "callar ante la irregularidad creciente de la propia autoridad (N2)", color: "#2FD6A0",
       fn: (e) => e.ejes.denu },
   ];
   const issCalculado = (e) => (COMPONENTES.reduce((a, c) => a + c.fn(e), 0) / COMPONENTES.length) * 100;
@@ -994,6 +1046,7 @@
     hostComp.appendChild(h("div", { class: "componente", style: `--c:${c.color}` }, [
       h("p", { class: "peso", text: "¼ del índice" }),
       h("h3", { text: c.nombre }),
+      h("p", { class: "rango", "aria-hidden": "true" }, [h("i", { style: `left:${Math.min(...vals) * 100}%;width:${Math.max(0.5, (Math.max(...vals) - Math.min(...vals)) * 100)}%` })]),
       h("p", { html: mk`${c.que}. En el banco va de <b>${pc(Math.min(...vals))}</b> a <b>${pc(Math.max(...vals))}</b>.` }),
     ]));
   });
@@ -1089,16 +1142,7 @@
     const host = document.getElementById("lamina-octogono");
     if (!host) return null;
     const quieto = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    // un tono por eje (decisión 1 del plan); los mismos que tokens.css
-    const TONO = { conf: "#4AF2FF", obed: "#7B3DFF", auto: "#FF3D8A", brief: "#FF8A1F",
-      prov: "#FFD36E", sold: "#C6FF4A", denu: "#2FD6A0", sico: "#B46CFF" };
-    // el ISS como color: el gradiente de la escala, de frío (cede poco) a
-    // caliente; satura en 60, por encima del máximo del banco
-    const PARADAS = [[74, 242, 255], [180, 108, 255], [255, 61, 138], [255, 138, 31]];
-    const colorISS = (v) => {
-      const s = Math.max(0, Math.min(1, v / 60)) * 3, k = Math.min(2, Math.floor(s)), f = s - k;
-      return "rgb(" + [0, 1, 2].map((j) => Math.round(PARADAS[k][j] + (PARADAS[k + 1][j] - PARADAS[k][j]) * f)).join(",") + ")";
-    };
+    // TONO y colorISS son los de arriba (fase 3: los comparte toda la página)
     const nombreEje = (c) => CORTO_EJE[c].toUpperCase();
 
     const raiz = document.getElementById("lamina");
