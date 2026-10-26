@@ -796,13 +796,18 @@
 
       if (o.fondo) {
         const gf = el("g", { class: "fondo-perfiles", "aria-hidden": "true" });
+        // con el dedo, un toque es para leer el eje: los perfiles finos (8 px
+        // de golpe, 39 a la vez) cambiarían de medición sin querer. En táctil
+        // se cambia con los botones; el clic de ratón sigue eligiendo.
+        let tipoPuntero = "mouse";
+        svg.addEventListener("pointerdown", (ev) => { tipoPuntero = ev.pointerType || "mouse"; }, true);
         o.fondo.forEach((f) => {
           const pts = puntosDe(valoresDe(f));
           const grupo = el("g", { class: "perfil-fondo" }, [el("title", {}, [txt(f.nombre || f.id)])]);
           grupo.appendChild(el("polygon", { points: pts, fill: "none", stroke: f.color, class: "perfil-fino" }));
           grupo.appendChild(el("polygon", { points: pts, fill: "none", stroke: "transparent", "stroke-width": 8,
             class: "perfil-golpe", "pointer-events": "stroke" }));
-          if (o.alElegirFondo) grupo.addEventListener("click", () => o.alElegirFondo(f));
+          if (o.alElegirFondo) grupo.addEventListener("click", () => { if (tipoPuntero !== "touch") o.alElegirFondo(f); });
           gf.appendChild(grupo);
         });
         g.appendChild(gf);
@@ -856,7 +861,9 @@
         };
         svg.addEventListener("pointermove", desdePuntero);
         svg.addEventListener("pointerdown", desdePuntero);
-        svg.addEventListener("pointerleave", () => activar(-1));
+        // con el dedo, `pointerleave` llega justo al levantarlo: la lectura se
+        // apagaba en el acto. En táctil se queda hasta el siguiente toque.
+        svg.addEventListener("pointerleave", (ev) => { if (ev.pointerType === "mouse") activar(-1); });
       }
 
       if (lamina) montaLamina();

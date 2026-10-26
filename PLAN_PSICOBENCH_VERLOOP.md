@@ -1,6 +1,6 @@
 # Plan · rediseño de `/psicobench` en la línea «Verloop»
 
-**Fecha**: 24-10-2026 (aprobado el 25-10-2026) · **Estado**: en implementación, **fases 0, 1, 2 y 3 hechas** · **Rama**: `feature/psicobench-verloop` (desde `main`; el repo no tiene `develop`) · **Diseño de referencia**: lienzo «BenchAI · tres direcciones», pizarra *PsicoBench · /psicobench en la línea Verloop* con la portada «Lámina A · Morph» (octógono de un solo modelo, animado).
+**Fecha**: 24-10-2026 (aprobado el 25-10-2026) · **Estado**: en implementación, **fases 0 a 4 hechas** · **Rama**: `feature/psicobench-verloop` (desde `main`; el repo no tiene `develop`) · **Diseño de referencia**: lienzo «BenchAI · tres direcciones», pizarra *PsicoBench · /psicobench en la línea Verloop* con la portada «Lámina A · Morph» (octógono de un solo modelo, animado).
 
 **Qué se rediseña**: solo la superficie `/psicobench`. La home (`/`) y el sitio largo (`/completo`) no se tocan en esta rama; si la dirección gusta, se extiende después con los mismos tokens.
 
@@ -124,7 +124,17 @@ Plan original. Orden de trabajo, de menos a más riesgo:
 8. **07 Escalera de versiones**: líneas coloreadas por ISS v0.4 y etiquetas a la derecha con separación mínima de 11,5 px.
 9. **08 Método** y pie en tres columnas.
 
-### Fase 4 · Interacción, móvil y estados (1 día)
+### Fase 4 · Interacción, móvil y estados — **hecha (26-10-2026)**
+
+Lo construido, y dónde se apartó de lo previsto (debajo, el plan original):
+- **Prueba nueva, `web/previa_interaccion.prueba.mjs`** (Chrome headless, sin dependencias, como la de la lámina): 46 comprobaciones. Cubre `#m=` en los dos sentidos (dirección → ficha y lámina; selector de la ficha → dirección; un id desconocido no rompe), A/B con intercambio y «…como B» desde la ficha, las seis pruebas de sesión con su tono, las ocho pestañas de eje, la reordenación por cabecera en los dos sentidos, el filtro por laboratorio, «Todos» y agrupar, la fila desplegable, el CSV (cabecera y 39 filas, leído del propio blob) y el enlace al JSON, la barra de progreso y la sección activa del menú, 390 y 320 px (sin scroll horizontal, mapa desplazable en su caja, sin halo, método a una columna), el toque en táctil y los tres estados (movimiento reducido, más contraste, impresión con su PDF). Todo pasaba salvo lo táctil.
+- **Dos fallos táctiles de la lámina, corregidos en `graficas.js`** (solo afectan al modo lámina, que solo usa la página nueva): al levantar el dedo llegaba `pointerleave` y la lectura del eje se apagaba en el acto (ahora solo apaga la salida del ratón); y un toque para leer un eje caía casi siempre en alguno de los 39 perfiles finos y cambiaba de medición sin querer (ahora, con el dedo, se cambia con ◀ ▶, de 44 px; el clic de ratón sigue eligiendo perfil).
+- **Más contraste**: además del grano, fuera resplandores, cristal y el texto hueco del titular; textos secundarios y líneas más claros.
+- **Impresión, que la página vigente no tiene**: registro claro (también los tokens propios, o los enlaces salían en blanco), `color-scheme: light` (con `dark` Chrome pinta de negro los márgenes de la hoja), sin barra, aviso, mandos ni botones, cada sección en hoja nueva, gráficas al ancho de la hoja y nunca más altas que ella (un SVG no se parte y, si no cabe, se pisa con lo que sigue), mapa compacto y la cifra de sección con interlineado 1 (con 0,8 se salía de su caja y dejaba una hoja casi en blanco). Sale en 24 hojas A4.
+- **Titular a 44 px en móvil, no a 64**: a 390 px, 64 px son ocho líneas y empujan la lámina dos pantallas abajo; 44 px son cinco y se lee de un vistazo.
+- **Falsa alarma documentada**: los enlaces relativos al repositorio (`../BENCHMARK.md`) dan 404 en el dominio si se piden tal cual, pero `publicar.py` ya los reescribe a GitHub al empaquetar; en la previa y en producción funcionan.
+
+Plan original:
 - Comprobar que sobreviven: hash `#m=`, selectores A/B e intercambio, reordenación por cabecera y filtros de laboratorio, descarga CSV/JSON, progreso de lectura.
 - Móvil 390 y 320: titular a 64 px, rejillas a una columna, tabla con scroll, halo desactivado.
 - `prefers-reduced-motion`, `prefers-contrast: more` (quitar grano), impresión.
@@ -148,12 +158,13 @@ Plan original. Orden de trabajo, de menos a más riesgo:
 | `web/psicobench-verloop.html` | **Nuevo**, solo en la previa | Pasa a ser `web/psicobench.html` |
 | `web/verloop/tokens.css` (fase 0), `web/verloop/psicobench.css`, `web/verloop/psicobench.js` (fase 1) | **Nuevos**, solo en la previa | Entran en la lista blanca |
 | `web/fonts/*.woff2` + `OFL-*.txt` | **Nuevos** (fase 0), solo en la previa | Entran en la lista blanca |
-| `web/js/graficas.js` | Opciones nuevas del octógono, desactivadas por defecto (`halo` en la fase 1) | Sin cambios |
+| `web/js/graficas.js` | Opciones nuevas del octógono, desactivadas por defecto (`halo` en la fase 1); en la fase 4, dos arreglos táctiles que solo tocan el modo lámina | Sin cambios |
 | `web/css/estilo.css` | **Intacto**: el registro Verloop va encima | Sin cambios (lo siguen usando `/completo` y la página nueva) |
 | `web/psicobench.html`, `web/css/psicobench.css`, `web/js/psicobench.js` | **Intactos** | Se retiran (quedan en el historial para volver atrás) |
 | `web/publicar.py` | `--previa` y guarda (fase 0) | Lista blanca nueva; la guarda se adapta |
 | `web/servir_previa.py` | **Nuevo** (fase 0) | Se conserva para futuras previas |
 | `web/previa_lamina.prueba.mjs` | **Nuevo** (fase 2): prueba de la lámina en Chrome headless | Pasa a apuntar a `/psicobench` |
+| `web/previa_interaccion.prueba.mjs` | **Nuevo** (fase 4): interacción, estrecho, táctil y estados | Pasa a apuntar a `/psicobench` |
 | `web/smoke.mjs` | Aserciones para `/psicobench-nueva` | Las de `/psicobench` pasan a las nuevas |
 | `spike/test_xss_estatico.py` | Incluye la página nueva (fase 0) | Lista de HTML actualizada |
 | `web/generar_datos.py` | Sin cambios previstos | Sin cambios |

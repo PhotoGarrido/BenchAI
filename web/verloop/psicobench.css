@@ -354,3 +354,72 @@ body.verloop section .tira td.c.p8 span, body.verloop section .tira td.c.p9 span
 @media (max-width: 1000px) { .verloop .metodo-cajas { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 640px) { .verloop .metodo-cajas { grid-template-columns: 1fr; } .verloop .metodo-cajas .aviso { grid-column: auto; } }
 .verloop footer.pie h2 { font: 900 28px/1 var(--display); text-transform: uppercase; letter-spacing: .01em; }
+
+/* ═══ fase 4: estados ═══════════════════════════════════════════════════
+   Movimiento reducido ya lo cubren tokens.css y la lámina. Aquí, alto
+   contraste e impresión, que la página vigente no tiene. ─────────────── */
+
+/* ── más contraste: fuera grano, resplandores, cristal y texto hueco ───── */
+@media (prefers-contrast: more) {
+  body.verloop, .verloop section:nth-of-type(odd), .verloop section:nth-of-type(even) {
+    --tinta-2: #E6E4EE; --tenue: #C9C6D4; --linea: #6F6C7A; --base: #8A8796; --anillo: rgba(255, 255, 255, .4);
+  }
+  .verloop .portada .fondo, .verloop .lamina::before { display: none; }
+  .verloop .portada h1 em { color: var(--acento); -webkit-text-stroke: 0; }
+  .verloop .barra, .verloop .panel-escalera, .verloop .lamina-modelo, .verloop .ll-caja { backdrop-filter: none; background: var(--plano); }
+  .verloop .perfil-fino { stroke-opacity: .45; }
+  .verloop .reja-l { stroke-opacity: 1; }
+}
+
+/* ── impresión: registro claro, sin mandos, cada gráfica entera ────────── */
+@media print {
+  @page { margin: 14mm 12mm; }
+  body.verloop, .verloop section:nth-of-type(odd), .verloop section:nth-of-type(even) {
+    --plano: #FFFFFF; --plano-alt: #F4F3F7; --sup: #FFFFFF; --sup-2: #F4F3F7; --sup-3: #E6E4EC;
+    --tinta: #000000; --tinta-2: #26242E; --tenue: #4F4C5A; --linea: #C9C6D4; --reja: #E4E2EA; --base: #9A97A6;
+    --anillo: rgba(0, 0, 0, .25);
+  }
+  /* los tokens propios (tokens.css) también: los enlaces salían en blanco */
+  :root { --v-fondo: #FFFFFF; --v-caja: #FFFFFF; --v-caja-2: #F4F3F7; --v-pista: #E6E4EC; --v-borde: #C9C6D4; --v-borde-2: #9A97A6;
+    --v-texto: #000000; --v-texto-2: #26242E; --v-tenue: #4F4C5A; --v-apagado: #6F6C7A; }
+  .verloop a { color: #000000; }
+  .verloop, .verloop * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  /* el sitio declara color-scheme: dark, y con él Chrome pinta de negro los márgenes de la hoja */
+  :root { color-scheme: light; }
+  html, body.verloop { background: #FFFFFF; color: #000000; }
+  /* fuera lo que solo sirve en pantalla */
+  .verloop .barra, .verloop .progreso, .verloop .v-previa, .verloop .portada .fondo, .verloop .portada::after,
+  .verloop .lamina::before, .verloop .acciones, .verloop .filtros, .verloop .acciones-viz, .verloop .pista-tabla,
+  .verloop #lm-ant, .verloop #lm-sig, .verloop .ficha-acciones, .verloop .radar .halo { display: none !important; }
+  /* lo que entra al hacer scroll, ya puesto */
+  .verloop .aparece, .verloop .anim-fade { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .verloop .anim-barra { transform: none !important; transition: none !important; }
+  .verloop .portada { padding-top: 0; min-height: 0; }
+  .verloop section.bloque { padding: 0; break-before: page; }
+  .verloop section + section { border-top: 0; }
+  .verloop h2.titulo { font-size: 40px; }
+  /* con interlineado .8 la cifra se sale de su caja por arriba y se pinta al pie de la hoja anterior */
+  .verloop .rotulo .indice { font-size: 56px; line-height: 1; }
+  .verloop h2, .verloop h3 { break-after: avoid; }
+  .verloop .rotulo { break-inside: avoid; }
+  .verloop .componente, .verloop .caja-metodo, .verloop .sesion, .verloop .aviso,
+  .verloop .cifras-eje li, .verloop .ficha-sec li, .verloop .marco-p { break-inside: avoid; }
+  /* las gráficas se dibujan al ancho de la pantalla: en papel, al de la hoja
+     y nunca más altas que ella (un SVG no se parte: si no cabe, se pisa con
+     lo que viene detrás) */
+  .verloop figure.viz svg { width: auto; max-width: 100%; height: auto; max-height: 240mm; }
+  .verloop figure.viz .viz-lienzo { break-inside: avoid; }
+  .verloop .ic-l { stroke: #000000; stroke-opacity: .55; }
+  .verloop .lamina-modelo, .verloop .ll-caja, .verloop .panel-escalera { background: #FFFFFF; backdrop-filter: none; }
+  .verloop .portada h1 em { color: #000000; -webkit-text-stroke: 0; text-decoration: underline; text-decoration-thickness: 3px; }
+  .verloop .ficha-cab .indice-ficha .v { background: none; color: #000000; }
+  /* el mapa entero en la hoja, sin la columna fija */
+  .verloop .mapa-envuelto { overflow: visible; max-height: none; }
+  .verloop table.mapa { width: 100%; min-width: 0; font-size: 8px; }
+  .verloop table.mapa th, .verloop table.mapa td { padding: 2px 3px; position: static; min-width: 0; width: auto; }
+  .verloop table.mapa thead th .cab { min-width: 0 !important; padding: 2px 0; font-size: 8px; white-space: normal; }
+  .verloop table.mapa thead th .cab small { white-space: normal; font-size: 7px; }
+  .verloop table.mapa td.id .nombre, .verloop table.mapa td.c, .verloop table.mapa td.iss { font-size: 8px; }
+  .verloop table.mapa .via, .verloop table.mapa td.iss small { display: none !important; }
+  .verloop .tabla-envuelta { display: none; }
+}
