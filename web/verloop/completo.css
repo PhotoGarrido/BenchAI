@@ -1,0 +1,32 @@
+/* ===========================================================================
+   BenchAI · la lectura completa «Verloop» · lo propio de la página
+   ---------------------------------------------------------------------------
+   Va DESPUÉS de `verloop/sitio.css` (el registro común) y encima de
+   `css/estilo.css`. PLAN_WEB_VERLOOP.md, fase B.
+   =========================================================================== */
+
+/* ── el número de cada sección, en su color (el mismo orden de tonos que
+   PsicoBench: cian para el índice, magenta para la obediencia…) ───────── */
+.verloop #pregunta { --c-seccion: #4AF2FF; }
+.verloop #metodo { --c-seccion: #B46CFF; }
+.verloop #experimentos { --c-seccion: #FF3D8A; }
+.verloop #disonancia { --c-seccion: #FF8A1F; }
+.verloop #portador { --c-seccion: #FFD36E; }
+.verloop #benchmark { --c-seccion: #4AF2FF; }
+.verloop #identidad { --c-seccion: #C6FF4A; }
+.verloop #modelos { --c-seccion: #2FD6A0; }
+.verloop #grabaciones { --c-seccion: #FF3D8A; }
+.verloop #cierre { --c-seccion: #B46CFF; }
+.verloop #recursos { --c-seccion: #FFFFFF; }
+
+/* ── la escalera viva, bajo el titular: a lo ancho del marco ──────────── */
+.verloop .escalera-bloque .panel-escalera { max-width: none; margin-top: 18px; padding: 28px 32px; }
+@media (max-width: 640px) { .verloop .escalera-bloque .panel-escalera { padding: 18px 16px; } }
+
+/* ── la coda del cierre: la frase de Milgram y la pregunta que deja ─────── */
+.verloop .coda { max-width: 980px; margin: 0 auto; text-align: center; }
+.verloop .coda p { font: 500 clamp(20px, 2.2vw, 28px)/1.4 var(--sans); color: var(--tinta); letter-spacing: -.01em; margin: 0; }
+.verloop .coda .pregunta-final {
+  margin-top: 36px; font: 900 clamp(28px, 3.2vw, 46px)/.98 var(--display); text-transform: uppercase; letter-spacing: .005em;
+  color: var(--c-seccion, var(--s1));
+}

@@ -321,6 +321,8 @@ if (PREVIA) RUTAS.push({
     if (document.querySelectorAll("#perfil .cifras li").length !== 4) f.push("las cuatro cifras no están");
     if (!document.getElementById("ultima-medicion")?.textContent.trim()) f.push("sin fecha de última medición");
     if (document.querySelectorAll(".superficies a").length !== 4) f.push("falta el conmutador de las cuatro superficies");
+    if (!Array.from(document.querySelectorAll(".superficies a")).some(a => a.getAttribute("href") === "/completo-nueva")) f.push("el conmutador no lleva a /completo-nueva");
+    if (document.querySelector(".v-previa a")?.getAttribute("href") !== "/psicobench") f.push("el aviso no lleva a la página vigente");
     // como en /psicobench: la ficha lleva su línea de personalidad si y solo si la medición está en el cuadro
     const idF = document.querySelector("#mandos-ficha select")?.value;
     const enCuadro = (P.personalidad || { modelos: [] }).modelos.some(m => m.psicobench === idF);
@@ -366,6 +368,32 @@ if (PREVIA) RUTAS.push({
     const det = document.querySelector("table.mapa tr.detalle");
     if (!det || det.querySelectorAll(".d-eje").length < 8) f.push("el detalle de la fila no se abrió con sus ocho ejes");
     if (!document.getElementById("lamina").dataset.transicion && !document.getElementById("lamina").dataset.particulas) f.push("la flecha de la lámina no arrancó el chasquido");
+    return f;
+  })()`,
+});
+
+if (PREVIA) RUTAS.push({
+  ruta: "/completo-nueva",
+  aserciones: `(() => {
+    const f = [];
+    if (!window.PSICO) return ["window.PSICO no cargó"];
+    if (!/noindex/.test(document.querySelector('meta[name="robots"]')?.content || "")) f.push("la previa no lleva noindex");
+    if (!document.querySelector(".v-previa")) f.push("falta el aviso de versión no publicada");
+    if (!document.body.classList.contains("verloop")) f.push("sin el registro Verloop");
+    // las mismas piezas que la vigente: figuras, consola y grabación
+    const n = document.querySelectorAll("figure.viz").length;
+    if (n < 14) f.push("figuras montadas: " + n + " (esperaba ≥14)");
+    if (!document.querySelectorAll("#consola-milgram *").length) f.push("la consola no montó");
+    if (!document.querySelectorAll("#grabacion *").length) f.push("la grabación no montó");
+    // portada en dos bloques: el titular y, debajo, las cifras y la escalera viva
+    if (document.querySelector("#portada .panel-escalera")) f.push("la escalera sigue dentro de la portada");
+    if (document.querySelectorAll("#escalera.vistazo .cifras li").length !== 4) f.push("las cuatro cifras no están bajo el titular");
+    if (!document.querySelectorAll("#pe-peldanos > *").length) f.push("la escalera animada no montó");
+    // el conmutador lleva a las hermanas NUEVAS, y el aviso a la vigente
+    const sup = Array.from(document.querySelectorAll(".superficies a")).map(a => a.getAttribute("href"));
+    if (sup.length !== 4) f.push("falta el conmutador de las cuatro superficies");
+    if (!sup.includes("/psicobench-nueva")) f.push("el conmutador no lleva a /psicobench-nueva: " + sup.join(" "));
+    if (document.querySelector(".v-previa a")?.getAttribute("href") !== "/completo") f.push("el aviso no lleva a la página vigente");
     return f;
   })()`,
 });

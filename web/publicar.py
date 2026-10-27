@@ -74,9 +74,19 @@ FUERA = {".DS_Store", "linaje.json", ".vercel"}
 SALIDA_PREVIA = RAIZ / "publicacion-previa"
 PIEZAS_PREVIA: list[tuple[str, str]] = [
     ("web/psicobench-verloop.html", "psicobench-nueva.html"),
+    ("web/completo-verloop.html", "completo-nueva.html"),
     ("web/verloop/", "verloop/"),
     ("web/fonts/", "fonts/"),
 ]
+# Las páginas nuevas se enlazan ENTRE SÍ por su fichero `-verloop` (así
+# funcionan también abiertas a mano) y a la vigente por el suyo; en la previa
+# cada uno pasa a su ruta limpia (PLAN_WEB_VERLOOP.md §2).
+RUTAS_PREVIA = {
+    "inicio-verloop.html": "/inicio-nuevo",
+    "completo-verloop.html": "/completo-nueva",
+    "psicobench-verloop.html": "/psicobench-nueva",
+    "personalidad-verloop.html": "/personalidad-nueva",
+}
 ROBOTS_PREVIA = ("# Previa de BenchAI: no se indexa nada de este despliegue.\n"
                  "User-agent: *\nDisallow: /\n")
 
@@ -170,14 +180,20 @@ def _copiar(destino: pathlib.Path, previa: bool = False) -> None:
     if not previa:
         _sin_previa(destino)
         return
-    # La previa: la página nueva enlaza a sus hermanas como la vigente, y el
-    # despliegue entero queda fuera de los buscadores.
-    nueva = destino / "psicobench-nueva.html"
-    nueva.write_text(nueva.read_text(encoding="utf-8")
-                     .replace('href="home.html"', 'href="/"')
-                     .replace('href="index.html', 'href="/completo')
-                     .replace('href="psicobench.html', 'href="/psicobench')
-                     .replace('href="personalidad.html', 'href="/personalidad'), encoding="utf-8")
+    # La previa: cada página nueva enlaza a sus hermanas nuevas y a las
+    # vigentes por la ruta limpia, y el despliegue entero queda fuera de los
+    # buscadores.
+    for _, dest_rel in PIEZAS_PREVIA:
+        if not dest_rel.endswith(".html"):
+            continue
+        nueva = destino / dest_rel
+        t = nueva.read_text(encoding="utf-8")
+        for fichero, ruta in RUTAS_PREVIA.items():
+            t = t.replace(f'href="{fichero}', f'href="{ruta}')
+        nueva.write_text(t.replace('href="home.html"', 'href="/"')
+                         .replace('href="index.html', 'href="/completo')
+                         .replace('href="psicobench.html', 'href="/psicobench')
+                         .replace('href="personalidad.html', 'href="/personalidad'), encoding="utf-8")
     # la copia de trabajo de psicobench.js arma sus «Fuente ·» con el mismo
     # REPO() que el original: misma reescritura a GitHub
     _reescribir_repo_js(destino / "verloop" / "psicobench.js")

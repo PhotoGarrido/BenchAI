@@ -19,33 +19,11 @@
 .verloop .panel-escalera { box-shadow: none; background: rgba(7, 7, 10, .66); backdrop-filter: blur(16px); border-color: rgba(255, 255, 255, .14); }
 
 /* ── el banco de un vistazo: cifras arriba, lámina y tarjetas debajo ──── */
-.verloop .lamina-bloque { padding: 72px 0 120px; }
-.verloop .lamina-bloque .cifras {
-  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 1.45fr); gap: 0; max-width: none;
-  margin: 0 0 72px; padding: 0; border-top: 1px solid var(--linea); border-bottom: 1px solid var(--linea);
-}
-.verloop .lamina-bloque .cifras li { border-left: 1px solid var(--linea); padding: 22px 24px 24px; min-width: 0; }
-.verloop .lamina-bloque .cifras li:first-child { border-left: 0; padding-left: 0; }
-.verloop .lamina-bloque .cifras .n { font: 900 clamp(40px, 4.6vw, 68px)/.9 var(--display); letter-spacing: 0; white-space: nowrap; }
-.verloop .lamina-bloque .cifras .r { font-size: 12.5px; margin-top: 10px; max-width: 24ch; }
-@media (max-width: 900px) {
-  .verloop .lamina-bloque .cifras { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .verloop .lamina-bloque .cifras .n { font-size: clamp(36px, 9vw, 56px); }
-  .verloop .lamina-bloque .cifras li:nth-child(3) { border-left: 0; padding-left: 0; }
-  .verloop .lamina-bloque .cifras li:nth-child(n+3) { border-top: 1px solid var(--linea); }
-}
-/* estrecho: las tres cifras en fila y la fecha, que es larga, en la suya */
-@media (max-width: 520px) {
-  .verloop .lamina-bloque .cifras { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .verloop .lamina-bloque .cifras li:nth-child(3) { border-left: 1px solid var(--linea); padding-left: 14px; border-top: 0; }
-  .verloop .lamina-bloque .cifras li:nth-child(4) { grid-column: 1 / -1; border-left: 0; padding-left: 0; }
-}
-@media (max-width: 640px) { .verloop .lamina-bloque { padding: 40px 0 72px; } .verloop .lamina-bloque .cifras { margin-bottom: 48px; } .verloop .lamina-bloque .cifras li { padding: 16px 14px 18px; } }
+/* (la franja de cifras y el relleno del bloque son de `.vistazo`, en sitio.css) */
 /* la ficha: el bloque entero es la medición, con una flecha en cada
    extremo; al pulsarla, la escena se deshace en polvo hacia ese lado
    (`chasquido` en psicobench.js) y aparece la siguiente. El lienzo del
    polvo va encima y desborda la ficha, así que el bloque recorta en x. */
-.verloop .lamina-bloque { overflow-x: clip; }
 .verloop .lamina-bloque .lamina {
   display: block; position: relative; isolation: isolate; margin-top: 18px;
   padding: 44px 72px; border-radius: 6px; background: rgba(15, 14, 20, .35);

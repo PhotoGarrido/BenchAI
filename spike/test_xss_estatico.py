@@ -34,7 +34,7 @@ JS = ["panel/app.js", "viewer/app.js"] + WEB_JS
 HTML = ["panel/index.html", "viewer/index.html", "benchmark/index.html",
         "web/home.html", "web/index.html", "web/psicobench.html",
         # la versión en preparación de /psicobench (solo sale en la previa)
-        "web/psicobench-verloop.html",
+        "web/psicobench-verloop.html", "web/completo-verloop.html",
         "web/personalidad.html", "web/visor-embebido.html"]
 # La única puerta a innerHTML de `web/`, con su nombre por escrito.
 PUERTA_MARCADO = "web/js/marcado.js"
