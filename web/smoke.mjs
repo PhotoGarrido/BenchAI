@@ -320,7 +320,11 @@ if (PREVIA) RUTAS.push({
     if (!document.getElementById("lm-ant") || !document.getElementById("lm-sig") || !document.getElementById("lamina-polvo")) f.push("faltan las flechas o el lienzo del chasquido");
     if (document.querySelectorAll("#perfil .cifras li").length !== 4) f.push("las cuatro cifras no están");
     if (!document.getElementById("ultima-medicion")?.textContent.trim()) f.push("sin fecha de última medición");
-    if (document.querySelectorAll(".superficies a").length !== 3) f.push("falta el conmutador de superficies");
+    if (document.querySelectorAll(".superficies a").length !== 4) f.push("falta el conmutador de las cuatro superficies");
+    // como en /psicobench: la ficha lleva su línea de personalidad si y solo si la medición está en el cuadro
+    const idF = document.querySelector("#mandos-ficha select")?.value;
+    const enCuadro = (P.personalidad || { modelos: [] }).modelos.some(m => m.psicobench === idF);
+    if (enCuadro !== !!document.querySelector(".ficha-hoja .ficha-personalidad a[href*='personalidad']")) f.push("la línea de personalidad de la ficha no cuadra con el cuadro");
     if (!document.getElementById("progreso")) f.push("sin barra de progreso");
     // 01: componentes y ranking descompuesto, con la fórmula que cuadra
     if (document.querySelectorAll("#componentes .componente").length !== 4) f.push("los cuatro componentes del índice no montaron");
