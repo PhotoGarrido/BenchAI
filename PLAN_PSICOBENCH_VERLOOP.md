@@ -1,6 +1,6 @@
 # Plan · rediseño de `/psicobench` en la línea «Verloop»
 
-**Fecha**: 24-10-2026 (aprobado el 25-10-2026) · **Estado**: en implementación, **fases 0 a 4 hechas** · **Rama**: `feature/psicobench-verloop` (desde `main`; el repo no tiene `develop`) · **Diseño de referencia**: lienzo «BenchAI · tres direcciones», pizarra *PsicoBench · /psicobench en la línea Verloop* con la portada «Lámina A · Morph» (octógono de un solo modelo, animado).
+**Fecha**: 24-10-2026 (aprobado el 25-10-2026) · **Estado**: en implementación, **fases 0 a 5 hechas; falta tu validación (y Safari/Firefox a mano)** · **Rama**: `feature/psicobench-verloop` (desde `main`; el repo no tiene `develop`) · **Diseño de referencia**: lienzo «BenchAI · tres direcciones», pizarra *PsicoBench · /psicobench en la línea Verloop* con la portada «Lámina A · Morph» (octógono de un solo modelo, animado).
 
 **Qué se rediseña**: solo la superficie `/psicobench`. La home (`/`) y el sitio largo (`/completo`) no se tocan en esta rama; si la dirección gusta, se extiende después con los mismos tokens.
 
@@ -152,7 +152,17 @@ Al ver el esqueleto de la fase 0 (titular solo, a todo el ancho) preferiste esa 
 - **Las notas sueltas de cada sección van a todo el ancho** (la de «Posición.» bajo la clasificación ocupaba seis líneas en la medida de lectura).
 - Pruebas: la de la lámina comprueba el chasquido (máscara, polvo pintado, cambio a mitad, limpieza y cola de dos clics con vuelta al final); la de interacción, el deslizamiento táctil.
 
-### Fase 5 · Validación completa (1 día) — la puerta del cambio
+### Fase 5 · Validación completa — **hecha (28-10-2026), salvo lo que es tuyo**
+
+Resultados, sobre la rama con `main` fusionado (incluye `/personalidad`, PR #32):
+- **`main` traído a la rama** (36 commits; un conflicto en la lista HTML del test XSS) y portado a la copia de trabajo lo que `main` cambió en la página vigente: conmutador de cuatro lecturas, pie y la línea de personalidad en la ficha. `publicar.py --previa` reescribe también `personalidad.html` → `/personalidad`.
+- **Smoke** con `--previa`: aserciones nuevas para `/psicobench-nueva` (noindex y aviso, lámina con 39 perfiles y 8 sectores, flechas y lienzo, cifras, componentes y fórmula del ISS, pestañas y barras, celdas en tono = valores > 0, radar A/B, deltas, sesiones, tres mapas y 3 × 39 puntos, ficha y su línea de personalidad, sin escalera, siete secciones, la flecha arranca el chasquido). Sin `--previa`, el smoke contra producción no cambia. **7/7 rutas OK.**
+- **`verificar.sh` completo: PUERTA COMPLETA OK.** También `publicar.py --check`, `generar_datos.py --check`, `marcado.prueba.cjs`, test XSS, prueba de la lámina (25 comprobaciones) y de interacción (47).
+- **Lighthouse no está instalado** y descargarlo es tu decisión; en su lugar, una auditoría propia por CDP con el perfil móvil de Lighthouse (412 × 823, CPU × 4, «slow 4G») y sus curvas de puntuación, **aproximada**: primero dio 74–82 (TBT 495–959 ms, CLS 0,143 por el cambio de fuente del titular) frente a 90 de la vigente. Arreglos: las tres fuentes **precargadas** y sin redibujar las gráficas si ya estaban → **CLS 0, TBT 300–400 ms, nota aproximada 86–90**. Accesibilidad: sin fallos de estructura (lang, título, ids, nombres, alt, h1 y saltos de título) ni interactivos sin nombre en el árbol de accesibilidad; **contraste: 0 textos por debajo del mínimo** de 1126, tras dos arreglos (celdas con negro puro, 4,59:1 en el peor caso; titular hueco con color transparente).
+- **Cruzado**: Chrome de escritorio y Android emulado (390, 320 y táctil) automatizados. **Firefox** (158, instalado) no abre su puerto de WebDriver BiDi en este equipo ni termina en modo `-screenshot`, y **Safari** necesita activar la automatización remota con permisos de administrador: los dos quedan para tu revisión a mano (puntos a mirar: máscara del chasquido, `color-mix` en el borde de la ficha, `backdrop-filter`, el texto hueco y el lienzo del polvo).
+- **Capturas «después»** en `docs/verloop/despues/` a 1440, 390 y 320.
+
+Plan original:
 - `web/smoke.mjs` contra la previa local, con aserciones nuevas para `/psicobench-nueva` (lámina con 39 perfiles y 8 sectores, cambio de modelo, lectura de eje, ocho secciones con sus tablas).
 - `marcado.prueba.cjs`, `generar_datos.py --check`, `publicar.py --check`, `test_xss_estatico.py`, `verificar.sh`.
 - Lighthouse sobre la previa: accesibilidad ≥ 95, sin errores de contraste; rendimiento en móvil ≥ 85.
