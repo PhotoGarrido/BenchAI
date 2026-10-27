@@ -1,0 +1,3 @@
+Datos parciales de qwen/qwen3.8-max-0902 con razonamiento por defecto (16-10-2026).
+Se detuvo a las ~160 llamadas: proyectaba 11,9 $ (797 tokens de salida por llamada) y desbordaba el
+presupuesto de la tanda. Se repitió entera como qwen/qwen3.8-max-0902#low. No entra en ningún análisis.

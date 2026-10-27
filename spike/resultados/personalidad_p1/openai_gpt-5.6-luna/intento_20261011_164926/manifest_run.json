@@ -1,0 +1,31 @@
+{
+  "commit": "1dcf122bad8b2cd7e1fb01cad722709aeebd34e9",
+  "python": "3.12.4",
+  "parser_version": "2.5",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "experimento_personalidad_p1.py",
+    "--modelo",
+    "openai/gpt-5.6-luna",
+    "--hilos",
+    "6"
+  ],
+  "args": {
+    "modelo": "openai/gpt-5.6-luna",
+    "hilos": 6,
+    "version_bateria": "P1",
+    "n_tareas": 1443,
+    "n_pendientes": 1443
+  },
+  "hashes": {},
+  "inicio": "2026-10-11T16:49:26",
+  "status": "completed",
+  "fin": "2026-10-11T16:53:40",
+  "solicitudes": 1443,
+  "errores": 0,
+  "fallo_escritura": false
+}

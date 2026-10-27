@@ -19,9 +19,10 @@ Lo que sale:
   /                     web/home.html          la home divulgativa
   /completo             web/index.html         el sitio largo
   /psicobench           web/psicobench.html    la superficie propia del benchmark
+  /personalidad         web/personalidad.html  el cuadro de personalidad por conducta
   /benchmark            benchmark/index.html   el panel del instrumento
   /visor                viewer/index.html      el visor de replays
-  … y los estáticos que esas cuatro necesitan, incluidos los episodios que
+  … y los estáticos que esas páginas necesitan, incluidos los episodios que
   el visor reproduce.
 """
 
@@ -48,6 +49,7 @@ PIEZAS: list[tuple[str, str]] = [
     ("web/home.html", "index.html"),
     ("web/index.html", "completo.html"),
     ("web/psicobench.html", "psicobench.html"),
+    ("web/personalidad.html", "personalidad.html"),
     ("web/visor-embebido.html", "visor-embebido.html"),
     ("web/visor-arranque.js", "visor-arranque.js"),
     ("web/datos.js", "datos.js"),
@@ -151,15 +153,19 @@ def _copiar(destino: pathlib.Path, previa: bool = False) -> None:
     idx.write_text(idx.read_text(encoding="utf-8")
                    .replace('href="index.html', 'href="/completo')
                    .replace('href="home.html"', 'href="/"'), encoding="utf-8")
-    # la página del benchmark enlaza a sus hermanas por nombre de fichero
+    # la página del benchmark y la de personalidad enlazan a sus hermanas por
+    # nombre de fichero
     ps = destino / "psicobench.html"
-    ps.write_text(ps.read_text(encoding="utf-8")
-                  .replace('href="home.html"', 'href="/"')
-                  .replace('href="index.html', 'href="/completo'), encoding="utf-8")
-    # y las tres se enlazan entre sí por la ruta limpia
-    for f in (destino / "index.html", comp, ps):
+    pe = destino / "personalidad.html"
+    for f in (ps, pe):
         f.write_text(f.read_text(encoding="utf-8")
-                     .replace('href="psicobench.html', 'href="/psicobench'), encoding="utf-8")
+                     .replace('href="home.html"', 'href="/"')
+                     .replace('href="index.html', 'href="/completo'), encoding="utf-8")
+    # y las cuatro se enlazan entre sí por la ruta limpia
+    for f in (destino / "index.html", comp, ps, pe):
+        f.write_text(f.read_text(encoding="utf-8")
+                     .replace('href="psicobench.html', 'href="/psicobench')
+                     .replace('href="personalidad.html', 'href="/personalidad'), encoding="utf-8")
 
     if not previa:
         _sin_previa(destino)
@@ -170,7 +176,8 @@ def _copiar(destino: pathlib.Path, previa: bool = False) -> None:
     nueva.write_text(nueva.read_text(encoding="utf-8")
                      .replace('href="home.html"', 'href="/"')
                      .replace('href="index.html', 'href="/completo')
-                     .replace('href="psicobench.html', 'href="/psicobench'), encoding="utf-8")
+                     .replace('href="psicobench.html', 'href="/psicobench')
+                     .replace('href="personalidad.html', 'href="/personalidad'), encoding="utf-8")
     # la copia de trabajo de psicobench.js arma sus «Fuente ·» con el mismo
     # REPO() que el original: misma reescritura a GitHub
     _reescribir_repo_js(destino / "verloop" / "psicobench.js")

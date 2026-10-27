@@ -1,0 +1,7209 @@
+{
+  "definicion": "PERSONALIDAD.md §28: conducta comparada",
+  "generado_por": "spike/cuadro_publico_v3.py",
+  "semilla": 20261010,
+  "seleccion": [
+    "personalidad_v3_seleccion.json"
+  ],
+  "n_situaciones": {
+    "O": 59,
+    "C": 56,
+    "E": 57,
+    "A": 57,
+    "N": 72,
+    "H": 48
+  },
+  "escala_H": "I1-H en binario: 48 situaciones calibradas por dificultad, 12 por faceta (PERSONALIDAD.md §36-37)",
+  "fuera_por_cobertura": {
+    "deepseek-v4-flash": 0.4104803493449782,
+    "mistralai_mistral-large-4-0": 0.4104803493449782,
+    "moonshotai_kimi-k3": 0.7336244541484717,
+    "x-ai_grok-4.5": 0.4104803493449782
+  },
+  "laboratorios": [
+    "anthropic",
+    "deepseek",
+    "google",
+    "minimax",
+    "mistralai",
+    "openai",
+    "qwen",
+    "xiaomi",
+    "z-ai"
+  ],
+  "comprobaciones": [
+    "P1",
+    "P2",
+    "P3",
+    "P5",
+    "P6"
+  ],
+  "n_pruebas_bh": 132,
+  "rasgos": {
+    "O": {
+      "nombre": "Apertura",
+      "polo_alto": "curioso, busca lo nuevo",
+      "polo_bajo": "prefiere lo conocido",
+      "con_marca": true,
+      "aviso": null,
+      "en_revision": false
+    },
+    "C": {
+      "nombre": "Responsabilidad",
+      "polo_alto": "cumple y planifica",
+      "polo_bajo": "prioriza descanso y flexibilidad",
+      "con_marca": true,
+      "aviso": null,
+      "en_revision": false
+    },
+    "E": {
+      "nombre": "Extraversión",
+      "polo_alto": "busca gente y protagonismo",
+      "polo_bajo": "prefiere calma y segundo plano",
+      "con_marca": true,
+      "aviso": null,
+      "en_revision": false
+    },
+    "A": {
+      "nombre": "Amabilidad",
+      "polo_alto": "cede y coopera",
+      "polo_bajo": "pone límites y se defiende",
+      "con_marca": true,
+      "aviso": null,
+      "en_revision": false
+    },
+    "N": {
+      "nombre": "Neuroticismo",
+      "polo_alto": "reacciona, se preocupa",
+      "polo_bajo": "se mantiene sereno",
+      "con_marca": true,
+      "aviso": null,
+      "en_revision": false
+    },
+    "H": {
+      "nombre": "Honestidad-Humildad",
+      "polo_alto": "sincero, renuncia a ventajas",
+      "polo_bajo": "acepta ventajas y se promociona",
+      "con_marca": true,
+      "aviso": null,
+      "en_revision": false
+    }
+  },
+  "escala_N": "I1-N en binario, 72, sin seleccionar (PERSONALIDAD.md §39-40)",
+  "recuento": {
+    "robusta": 24,
+    "frágil": 25,
+    "no publicable": 16
+  },
+  "modelos": [
+    {
+      "id": "anthropic_claude-haiku-4.5",
+      "modelo": "anthropic/claude-haiku-4.5",
+      "laboratorio": "anthropic",
+      "iss": 13.6,
+      "rasgos": {
+        "O": {
+          "puntuacion": 49.17180277349769,
+          "ic": [
+            43.62384437596302,
+            54.39137134052388
+          ],
+          "comparacion": {
+            "dif": -2.1690879741727196,
+            "ic": [
+              -5.616760828625234,
+              1.4797719935431801
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "C": {
+          "puntuacion": 44.2775974025974,
+          "ic": [
+            38.898133116883116,
+            49.85846185064935
+          ],
+          "comparacion": {
+            "dif": 6.033871882086168,
+            "ic": [
+              2.547300170068027,
+              9.499185090702946
+            ]
+          },
+          "marca": "",
+          "candidata": "▲",
+          "nivel": "frágil",
+          "motivo": "falla P3",
+          "q": 0.00264
+        },
+        "E": {
+          "puntuacion": 43.79984051036683,
+          "ic": [
+            39.09489633173844,
+            48.624900318979265
+          ],
+          "comparacion": {
+            "dif": 1.6604010025062657,
+            "ic": [
+              -1.682069757727652,
+              4.940215121136168
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "A": {
+          "puntuacion": 34.250398724082935,
+          "ic": [
+            30.22228867623604,
+            38.337818979266345
+          ],
+          "comparacion": {
+            "dif": 0.7518796992481205,
+            "ic": [
+              -1.7650898078529658,
+              3.425751879699246
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "N": {
+          "puntuacion": 56.59722222222222,
+          "ic": [
+            53.550741792929294,
+            59.86505681818181
+          ],
+          "comparacion": {
+            "dif": 3.8773148148148158,
+            "ic": [
+              1.620163690476191,
+              6.514756944444443
+            ]
+          },
+          "marca": "▲",
+          "candidata": "▲",
+          "nivel": "robusta",
+          "motivo": "pasa P1–P3, P5, P6",
+          "q": 0.0018857142857142855
+        },
+        "H": {
+          "puntuacion": 44.95738636363636,
+          "ic": [
+            40.15092329545455,
+            49.40814393939394
+          ],
+          "comparacion": {
+            "dif": 2.9761904761904763,
+            "ic": [
+              0.057250330687831176,
+              5.68390376984127
+            ]
+          },
+          "marca": "",
+          "candidata": "▲",
+          "nivel": "no publicable",
+          "motivo": "falla 4 (P2 P3 P5 P6); cae sin deepseek, google, mistralai, qwen, xiaomi",
+          "q": 0.0852406779661017
+        }
+      },
+      "frase": "más Neuroticismo (reacciona, se preocupa)",
+      "frase_md": "**más Neuroticismo** (reacciona, se preocupa)",
+      "fragiles": [
+        "C▲"
+      ],
+      "forma": {
+        "O": "completa",
+        "C": "completa",
+        "E": "completa",
+        "A": "completa",
+        "N": "completa",
+        "H": "completa"
+      },
+      "interpretable": true,
+      "validez": "válido",
+      "aviso_validez": null
+    },
+    {
+      "id": "anthropic_claude-haiku-5.5",
+      "modelo": "anthropic/claude-haiku-5.5",
+      "laboratorio": "anthropic",
+      "iss": 10.3,
+      "rasgos": {
+        "O": {
+          "puntuacion": 50.442989214175654,
+          "ic": [
+            45.203678736517716,
+            55.87490369799691
+          ],
+          "comparacion": {
+            "dif": -0.8373688458434216,
+            "ic": [
+              -5.0854183481302115,
+              3.4575094161958546
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "C": {
+          "puntuacion": 38.250811688311686,
+          "ic": [
+            33.50091314935065,
+            43.16203327922078
+          ],
+          "comparacion": {
+            "dif": -0.2799036281179135,
+            "ic": [
+              -3.4121669501133782,
+              3.1321747448979593
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "E": {
+          "puntuacion": 42.922647527910684,
+          "ic": [
+            38.038277511961724,
+            47.827452153110045
+          ],
+          "comparacion": {
+            "dif": 0.741436925647452,
+            "ic": [
+              -3.1537176274018384,
+              4.584638680033416
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "A": {
+          "puntuacion": 27.890749601275918,
+          "ic": [
+            23.743022328548648,
+            32.13716108452951
+          ],
+          "comparacion": {
+            "dif": -5.9106098579782795,
+            "ic": [
+              -9.492742272347536,
+              -2.130325814536341
+            ]
+          },
+          "marca": "▼",
+          "candidata": "▼",
+          "nivel": "robusta",
+          "motivo": "pasa P1–P3, P5, P6",
+          "q": 0.005279999999999999
+        },
+        "N": {
+          "puntuacion": 54.166666666666664,
+          "ic": [
+            51.40427714646464,
+            57.27588383838384
+          ],
+          "comparacion": {
+            "dif": 1.3310185185185186,
+            "ic": [
+              -0.9015376984126984,
+              3.687169312169312
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "H": {
+          "puntuacion": 45.99905303030303,
+          "ic": [
+            40.600733901515156,
+            50.9487452651515
+          ],
+          "comparacion": {
+            "dif": 4.067460317460317,
+            "ic": [
+              0.18580522486772522,
+              7.936611276455026
+            ]
+          },
+          "marca": "",
+          "candidata": "▲",
+          "nivel": "no publicable",
+          "motivo": "falla 3 (P3 P5 P6); cae sin deepseek, google, mistralai, qwen",
+          "q": 0.0852406779661017
+        }
+      },
+      "frase": "menos Amabilidad (pone límites y se defiende)",
+      "frase_md": "**menos Amabilidad** (pone límites y se defiende)",
+      "fragiles": [],
+      "forma": {
+        "O": "completa",
+        "C": "completa",
+        "E": "completa",
+        "A": "completa",
+        "N": "completa",
+        "H": "completa"
+      },
+      "interpretable": true,
+      "validez": "válido",
+      "aviso_validez": null
+    },
+    {
+      "id": "anthropic_claude-opus-5.5#low",
+      "modelo": "anthropic/claude-opus-5.5#low",
+      "laboratorio": "anthropic",
+      "iss": 12.5,
+      "rasgos": {
+        "O": {
+          "puntuacion": 53.83281972265023,
+          "ic": [
+            49.6528312788906,
+            57.89724576271186
+          ],
+          "comparacion": {
+            "dif": 2.7138821630347056,
+            "ic": [
+              -1.4001546946462184,
+              7.085687382297552
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "C": {
+          "puntuacion": 32.447240259740255,
+          "ic": [
+            28.3882913961039,
+            36.72940340909091
+          ],
+          "comparacion": {
+            "dif": -6.3598356009070285,
+            "ic": [
+              -9.163035005668934,
+              -3.7303358843537437
+            ]
+          },
+          "marca": "▼",
+          "candidata": "▼",
+          "nivel": "robusta",
+          "motivo": "pasa P1–P3, P5, P6",
+          "q": 0.0004714285714285714
+        },
+        "E": {
+          "puntuacion": 42.70334928229665,
+          "ic": [
+            38.556618819776716,
+            46.910386762360446
+          ],
+          "comparacion": {
+            "dif": 0.5116959064327489,
+            "ic": [
+              -2.7360066833751047,
+              3.6661967418546326
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "A": {
+          "puntuacion": 37.53987240829346,
+          "ic": [
+            32.714812599681025,
+            42.38486842105263
+          ],
+          "comparacion": {
+            "dif": 4.197994987468672,
+            "ic": [
+              0.4908103592314122,
+              7.936507936507937
+            ]
+          },
+          "marca": "",
+          "candidata": "▲",
+          "nivel": "no publicable",
+          "motivo": "falla 3 (P2 P3 P6)",
+          "q": 0.056423529411764706
+        },
+        "N": {
+          "puntuacion": 48.958333333333336,
+          "ic": [
+            46.27485795454545,
+            51.4520202020202
+          ],
+          "comparacion": {
+            "dif": -4.1253306878306875,
+            "ic": [
+              -6.8206431878306875,
+              -1.6116898148148169
+            ]
+          },
+          "marca": "▼",
+          "candidata": "▼",
+          "nivel": "robusta",
+          "motivo": "pasa P1–P3, P5, P6",
+          "q": 0.005279999999999999
+        },
+        "H": {
+          "puntuacion": 50.946969696969695,
+          "ic": [
+            46.33049242424242,
+            55.20833333333333
+          ],
+          "comparacion": {
+            "dif": 9.250992063492063,
+            "ic": [
+              6.0015707671957665,
+              12.86820023148148
+            ]
+          },
+          "marca": "▲",
+          "candidata": "▲",
+          "nivel": "robusta",
+          "motivo": "pasa P1–P3, P5, P6",
+          "q": 0.0004714285714285714
+        }
+      },
+      "frase": "menos Responsabilidad (prioriza descanso y flexibilidad); más Honestidad-Humildad (sincero, renuncia a ventajas); menos Neuroticismo (se mantiene sereno)",
+      "frase_md": "**menos Responsabilidad** (prioriza descanso y flexibilidad); **más Honestidad-Humildad** (sincero, renuncia a ventajas); **menos Neuroticismo** (se mantiene sereno)",
+      "fragiles": [],
+      "forma": {
+        "O": "completa",
+        "C": "completa",
+        "E": "completa",
+        "A": "completa",
+        "N": "completa",
+        "H": "completa"
+      },
+      "interpretable": true,
+      "validez": "válido",
+      "aviso_validez": null
+    },
+    {
+      "id": "deepseek-v4-flash@2026-10-17",
+      "modelo": "deepseek-v4-flash@2026-10-17",
+      "laboratorio": "deepseek",
+      "iss": 21.1,
+      "rasgos": {
+        "O": {
+          "puntuacion": 49.17180277349769,
+          "ic": [
+            42.98921417565485,
+            55.200789676425266
+          ],
+          "comparacion": {
+            "dif": -2.1690879741727196,
+            "ic": [
+              -5.83804143126177,
+              1.588142319074518
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "C": {
+          "puntuacion": 34.679383116883116,
+          "ic": [
+            30.052759740259738,
+            39.752435064935064
+          ],
+          "comparacion": {
+            "dif": -4.021400226757369,
+            "ic": [
+              -7.2813031462585025,
+              -0.5951495181405896
+            ]
+          },
+          "marca": "",
+          "candidata": "▼",
+          "nivel": "no publicable",
+          "motivo": "falla 3 (P2 P3 P6)",
+          "q": 0.051114893617021276
+        },
+        "E": {
+          "puntuacion": 35.02791068580542,
+          "ic": [
+            30.541267942583733,
+            39.87290669856459
+          ],
+          "comparacion": {
+            "dif": -7.529239766081871,
+            "ic": [
+              -10.422149122807019,
+              -4.77234753550543
+            ]
+          },
+          "marca": "▼",
+          "candidata": "▼",
+          "nivel": "robusta",
+          "motivo": "pasa P1–P3, P5, P6",
+          "q": 0.0004714285714285714
+        },
+        "A": {
+          "puntuacion": 31.18022328548644,
+          "ic": [
+            27.173046251993625,
+            34.888357256778306
+          ],
+          "comparacion": {
+            "dif": -2.4644945697577274,
+            "ic": [
+              -4.4903926482873855,
+              -0.22974101921470358
+            ]
+          },
+          "marca": "",
+          "candidata": "▼",
+          "nivel": "no publicable",
+          "motivo": "falla 4 (P2 P3 P5 P6); cae sin google",
+          "q": 0.07212857142857143
+        },
+        "N": {
+          "puntuacion": 53.125,
+          "ic": [
+            50.22017045454545,
+            56.218434343434346
+          ],
+          "comparacion": {
+            "dif": 0.23974867724867752,
+            "ic": [
+              -1.8849206349206347,
+              2.273685515873015
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "H": {
+          "puntuacion": 48.603219696969695,
+          "ic": [
+            44.032907196969695,
+            52.93560606060606
+          ],
+          "comparacion": {
+            "dif": 6.795634920634921,
+            "ic": [
+              3.971560846560847,
+              9.743613591269838
+            ]
+          },
+          "marca": "▲",
+          "candidata": "▲",
+          "nivel": "robusta",
+          "motivo": "pasa P1–P3, P5, P6",
+          "q": 0.0004714285714285714
+        }
+      },
+      "frase": "menos Extraversión (prefiere calma y segundo plano); más Honestidad-Humildad (sincero, renuncia a ventajas)",
+      "frase_md": "**menos Extraversión** (prefiere calma y segundo plano); **más Honestidad-Humildad** (sincero, renuncia a ventajas)",
+      "fragiles": [],
+      "forma": {
+        "O": "completa",
+        "C": "completa",
+        "E": "completa",
+        "A": "completa",
+        "N": "completa",
+        "H": "completa"
+      },
+      "interpretable": true,
+      "validez": "válido",
+      "aviso_validez": null
+    },
+    {
+      "id": "deepseek_deepseek-v3.2",
+      "modelo": "deepseek/deepseek-v3.2",
+      "laboratorio": "deepseek",
+      "iss": 37.4,
+      "rasgos": {
+        "O": {
+          "puntuacion": 52.3497688751926,
+          "ic": [
+            46.95637519260401,
+            57.357473035439135
+          ],
+          "comparacion": {
+            "dif": 1.1602098466505246,
+            "ic": [
+              -2.663438256658595,
+              4.957038606403015
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "C": {
+          "puntuacion": 44.500811688311686,
+          "ic": [
+            39.16396103896104,
+            50.44795048701298
+          ],
+          "comparacion": {
+            "dif": 6.267715419501134,
+            "ic": [
+              2.731540532879819,
+              9.765004960317459
+            ]
+          },
+          "marca": "",
+          "candidata": "▲",
+          "nivel": "frágil",
+          "motivo": "falla P3",
+          "q": 0.003422222222222222
+        },
+        "E": {
+          "puntuacion": 44.45773524720893,
+          "ic": [
+            40.5103668261563,
+            48.38616427432216
+          ],
+          "comparacion": {
+            "dif": 2.3496240601503757,
+            "ic": [
+              -0.6372702589807853,
+              5.503341687552213
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "A": {
+          "puntuacion": 35.12759170653908,
+          "ic": [
+            31.478767942583733,
+            38.91646730462519
+          ],
+          "comparacion": {
+            "dif": 1.6708437761069341,
+            "ic": [
+              -1.514724310776942,
+              4.793494152046782
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "N": {
+          "puntuacion": 55.55555555555556,
+          "ic": [
+            52.556423611111114,
+            58.72790404040404
+          ],
+          "comparacion": {
+            "dif": 2.7860449735449735,
+            "ic": [
+              0.29761904761904795,
+              5.275917658730152
+            ]
+          },
+          "marca": "",
+          "candidata": "▲",
+          "nivel": "no publicable",
+          "motivo": "falla 3 (P2 P3 P6)",
+          "q": 0.05199183673469388
+        },
+        "H": {
+          "puntuacion": 33.23863636363636,
+          "ic": [
+            28.26645359848485,
+            38.02083333333333
+          ],
+          "comparacion": {
+            "dif": -9.300595238095239,
+            "ic": [
+              -13.28156001984127,
+              -5.018187830687831
+            ]
+          },
+          "marca": "",
+          "candidata": "▼",
+          "nivel": "frágil",
+          "motivo": "falla P3",
+          "q": 0.0004714285714285714
+        }
+      },
+      "frase": "perfil próximo al de los demás modelos",
+      "frase_md": "perfil próximo al de los demás modelos",
+      "fragiles": [
+        "C▲",
+        "H▼"
+      ],
+      "forma": {
+        "O": "completa",
+        "C": "completa",
+        "E": "completa",
+        "A": "completa",
+        "N": "completa",
+        "H": "completa"
+      },
+      "interpretable": true,
+      "validez": "aviso",
+      "aviso_validez": "posición (Δ AB−BA) 0,25 (aviso); posición (fracción de A) |A − 0,5| = 0,13 (aviso)"
+    },
+    {
+      "id": "deepseek_deepseek-v4-flash",
+      "modelo": "deepseek/deepseek-v4-flash",
+      "laboratorio": "deepseek",
+      "iss": 39.5,
+      "rasgos": {
+        "O": {
+          "puntuacion": 53.197226502311246,
+          "ic": [
+            48.13125963020031,
+            58.22467257318952
+          ],
+          "comparacion": {
+            "dif": 2.048022598870057,
+            "ic": [
+              -0.8106335754640835,
+              4.711629001883238
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "C": {
+          "puntuacion": 38.697240259740255,
+          "ic": [
+            34.51603084415584,
+            43.18181818181818
+          ],
+          "comparacion": {
+            "dif": 0.18778344671201833,
+            "ic": [
+              -2.7857497165532874,
+              3.398348922902492
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "E": {
+          "puntuacion": 45.55422647527911,
+          "ic": [
+            41.4274322169059,
+            49.561901913875595
+          ],
+          "comparacion": {
+            "dif": 3.4983291562238934,
+            "ic": [
+              0.866489139515455,
+              6.109022556390976
+            ]
+          },
+          "marca": "",
+          "candidata": "▲",
+          "nivel": "frágil",
+          "motivo": "falla P2 P3",
+          "q": 0.030359999999999998
+        },
+        "A": {
+          "puntuacion": 30.3030303030303,
+          "ic": [
+            26.714015151515152,
+            33.89154704944178
+          ],
+          "comparacion": {
+            "dif": -3.383458646616541,
+            "ic": [
+              -5.440685045948204,
+              -0.9816207184628234
+            ]
+          },
+          "marca": "",
+          "candidata": "▼",
+          "nivel": "frágil",
+          "motivo": "falla P3",
+          "q": 0.022926315789473684
+        },
+        "N": {
+          "puntuacion": 54.513888888888886,
+          "ic": [
+            52.162247474747474,
+            57.086489898989896
+          ],
+          "comparacion": {
+            "dif": 1.6947751322751323,
+            "ic": [
+              0.33874834656084657,
+              3.1913442460317447
+            ]
+          },
+          "marca": "",
+          "candidata": "▲",
+          "nivel": "frágil",
+          "motivo": "falla P2 P3",
+          "q": 0.03872
+        },
+        "H": {
+          "puntuacion": 37.14488636363637,
+          "ic": [
+            31.557765151515152,
+            42.63790246212121
+          ],
+          "comparacion": {
+            "dif": -5.208333333333333,
+            "ic": [
+              -9.21833664021164,
+              -1.2226149140211688
+            ]
+          },
+          "marca": "",
+          "candidata": "▼",
+          "nivel": "frágil",
+          "motivo": "falla P3",
+          "q": 0.02809230769230769
+        }
+      },
+      "frase": "perfil próximo al de los demás modelos",
+      "frase_md": "perfil próximo al de los demás modelos",
+      "fragiles": [
+        "E▲",
+        "A▼",
+        "N▲",
+        "H▼"
+      ],
+      "forma": {
+        "O": "completa",
+        "C": "completa",
+        "E": "completa",
+        "A": "completa",
+        "N": "completa",
+        "H": "completa"
+      },
+      "interpretable": true,
+      "validez": "válido",
+      "aviso_validez": null
+    },
+    {
+      "id": "deepseek_deepseek-v4-flash-0731",
+      "modelo": "deepseek/deepseek-v4-flash-0731",
+      "laboratorio": "deepseek",
+      "iss": 40.2,
+      "rasgos": {
+        "O": {
+          "puntuacion": 46.62942989214176,
+          "ic": [
+            41.71754622496148,
+            51.65735747303543
+          ],
+          "comparacion": {
+            "dif": -4.832526230831314,
+            "ic": [
+              -7.765587167070218,
+              -1.6140368576809259
+            ]
+          },
+          "marca": "▼",
+          "candidata": "▼",
+          "nivel": "robusta",
+          "motivo": "pasa P1–P3, P5, P6",
+          "q": 0.0037714285714285714
+        },
+        "C": {
+          "puntuacion": 37.58116883116883,
+          "ic": [
+            32.95200892857143,
+            42.249898538961034
+          ],
+          "comparacion": {
+            "dif": -0.9814342403628116,
+            "ic": [
+              -3.7877338435374144,
+              1.9313350340136044
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "E": {
+          "puntuacion": 41.38755980861244,
+          "ic": [
+            36.5420653907496,
+            46.3127990430622
+          ],
+          "comparacion": {
+            "dif": -0.8667502088554722,
+            "ic": [
+              -4.490653717627402,
+              2.5383771929824523
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "A": {
+          "puntuacion": 30.960925039872407,
+          "ic": [
+            26.753887559808614,
+            34.92922647527911
+          ],
+          "comparacion": {
+            "dif": -2.6942355889724308,
+            "ic": [
+              -5.482978279030911,
+              0.04359857978278031
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "N": {
+          "puntuacion": 50.34722222222222,
+          "ic": [
+            48.53140782828283,
+            52.146859217171716
+          ],
+          "comparacion": {
+            "dif": -2.6703042328042326,
+            "ic": [
+              -4.092261904761904,
+              -1.2731481481481481
+            ]
+          },
+          "marca": "▼",
+          "candidata": "▼",
+          "nivel": "robusta",
+          "motivo": "pasa P1–P3, P5, P6",
+          "q": 0.0007764705882352942
+        },
+        "H": {
+          "puntuacion": 44.43655303030303,
+          "ic": [
+            38.73106060606061,
+            49.74017518939394
+          ],
+          "comparacion": {
+            "dif": 2.430555555555556,
+            "ic": [
+              -0.6284102182539684,
+              5.179398148148149
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        }
+      },
+      "frase": "menos Apertura (prefiere lo conocido); menos Neuroticismo (se mantiene sereno)",
+      "frase_md": "**menos Apertura** (prefiere lo conocido); **menos Neuroticismo** (se mantiene sereno)",
+      "fragiles": [],
+      "forma": {
+        "O": "completa",
+        "C": "completa",
+        "E": "completa",
+        "A": "completa",
+        "N": "completa",
+        "H": "completa"
+      },
+      "interpretable": true,
+      "validez": "válido",
+      "aviso_validez": null
+    },
+    {
+      "id": "gemma4",
+      "modelo": "gemma4",
+      "laboratorio": "google",
+      "iss": 28.1,
+      "rasgos": {
+        "O": {
+          "puntuacion": 54.25654853620955,
+          "ic": [
+            48.8828967642527,
+            59.32251540832049
+          ],
+          "comparacion": {
+            "dif": 3.157788539144472,
+            "ic": [
+              -1.3222188592951292,
+              7.479906510626846
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "C": {
+          "puntuacion": 43.83116883116883,
+          "ic": [
+            38.96002435064935,
+            49.00618912337662
+          ],
+          "comparacion": {
+            "dif": 5.566184807256236,
+            "ic": [
+              1.859853316326531,
+              9.311224489795917
+            ]
+          },
+          "marca": "",
+          "candidata": "▲",
+          "nivel": "frágil",
+          "motivo": "falla P3",
+          "q": 0.00825
+        },
+        "E": {
+          "puntuacion": 37.65948963317385,
+          "ic": [
+            32.734748803827756,
+            42.724780701754376
+          ],
+          "comparacion": {
+            "dif": -4.77234753550543,
+            "ic": [
+              -8.469350459482039,
+              -1.12729741019215
+            ]
+          },
+          "marca": "",
+          "candidata": "▼",
+          "nivel": "frágil",
+          "motivo": "falla P2 P3",
+          "q": 0.03560930232558139
+        },
+        "A": {
+          "puntuacion": 28.98724082934609,
+          "ic": [
+            25.01993620414673,
+            32.775618022328544
+          ],
+          "comparacion": {
+            "dif": -4.761904761904762,
+            "ic": [
+              -7.456140350877192,
+              -2.307591896407687
+            ]
+          },
+          "marca": "▼",
+          "candidata": "▼",
+          "nivel": "robusta",
+          "motivo": "pasa P1–P3, P5, P6",
+          "q": 0.0007764705882352942
+        },
+        "N": {
+          "puntuacion": 55.55555555555556,
+          "ic": [
+            52.65112058080808,
+            58.66477272727273
+          ],
+          "comparacion": {
+            "dif": 2.786044973544974,
+            "ic": [
+              0.25628306878306883,
+              5.307539682539682
+            ]
+          },
+          "marca": "",
+          "candidata": "▲",
+          "nivel": "frágil",
+          "motivo": "falla P2 P6",
+          "q": 0.056423529411764706
+        },
+        "H": {
+          "puntuacion": 33.7594696969697,
+          "ic": [
+            27.862807765151516,
+            39.70170454545455
+          ],
+          "comparacion": {
+            "dif": -8.754960317460316,
+            "ic": [
+              -13.728505291005291,
+              -3.868530919312172
+            ]
+          },
+          "marca": "▼",
+          "candidata": "▼",
+          "nivel": "robusta",
+          "motivo": "pasa P1–P3, P5, P6",
+          "q": 0.0007764705882352942
+        }
+      },
+      "frase": "menos Amabilidad (pone límites y se defiende); menos Honestidad-Humildad (acepta ventajas y se promociona)",
+      "frase_md": "**menos Amabilidad** (pone límites y se defiende); **menos Honestidad-Humildad** (acepta ventajas y se promociona)",
+      "fragiles": [
+        "C▲",
+        "E▼",
+        "N▲"
+      ],
+      "forma": {
+        "O": "completa",
+        "C": "completa",
+        "E": "completa",
+        "A": "completa",
+        "N": "completa",
+        "H": "completa"
+      },
+      "interpretable": true,
+      "validez": "válido",
+      "aviso_validez": null
+    },
+    {
+      "id": "glm5.3-flash",
+      "modelo": "glm5.3-flash",
+      "laboratorio": "z-ai",
+      "iss": 28.9,
+      "rasgos": {
+        "O": {
+          "puntuacion": 53.83281972265023,
+          "ic": [
+            49.17180277349769,
+            58.16689137134052
+          ],
+          "comparacion": {
+            "dif": 2.7138821630347065,
+            "ic": [
+              -0.5520244821092274,
+              6.080256255044391
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "C": {
+          "puntuacion": 38.250811688311686,
+          "ic": [
+            33.724127435064936,
+            43.019987824675326
+          ],
+          "comparacion": {
+            "dif": -0.2799036281179135,
+            "ic": [
+              -3.0652990362811785,
+              2.4802473072562354
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "E": {
+          "puntuacion": 38.09808612440192,
+          "ic": [
+            34.110845295055825,
+            42.04595295055821
+          ],
+          "comparacion": {
+            "dif": -4.312865497076023,
+            "ic": [
+              -7.2786131996658305,
+              -1.314745196324149
+            ]
+          },
+          "marca": "",
+          "candidata": "▼",
+          "nivel": "frágil",
+          "motivo": "falla P2",
+          "q": 0.018857142857142857
+        },
+        "A": {
+          "puntuacion": 34.0311004784689,
+          "ic": [
+            30.14304226475279,
+            37.81947767145135
+          ],
+          "comparacion": {
+            "dif": 0.5221386800334173,
+            "ic": [
+              -1.974989557226399,
+              3.122911445279864
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "N": {
+          "puntuacion": 53.125,
+          "ic": [
+            50.55200441919192,
+            55.744949494949495
+          ],
+          "comparacion": {
+            "dif": 0.2397486772486776,
+            "ic": [
+              -2.0008680555555554,
+              2.6124338624338623
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "H": {
+          "puntuacion": 44.95738636363637,
+          "ic": [
+            39.819483901515156,
+            49.81060606060606
+          ],
+          "comparacion": {
+            "dif": 2.9761904761904763,
+            "ic": [
+              -0.9425636574074077,
+              6.718129960317455
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        }
+      },
+      "frase": "perfil próximo al de los demás modelos",
+      "frase_md": "perfil próximo al de los demás modelos",
+      "fragiles": [
+        "E▼"
+      ],
+      "forma": {
+        "O": "completa",
+        "C": "completa",
+        "E": "completa",
+        "A": "completa",
+        "N": "completa",
+        "H": "completa"
+      },
+      "interpretable": true,
+      "validez": "válido",
+      "aviso_validez": null
+    },
+    {
+      "id": "google_gemini-3.1-flash-lite",
+      "modelo": "google/gemini-3.1-flash-lite",
+      "laboratorio": "google",
+      "iss": 34.9,
+      "rasgos": {
+        "O": {
+          "puntuacion": 60.40061633281972,
+          "ic": [
+            54.83387904468413,
+            66.02609784283513
+          ],
+          "comparacion": {
+            "dif": 9.594430992736077,
+            "ic": [
+              5.942208097928437,
+              13.263384449825127
+            ]
+          },
+          "marca": "▲",
+          "candidata": "▲",
+          "nivel": "robusta",
+          "motivo": "pasa P1–P3, P5, P6",
+          "q": 0.0004714285714285714
+        },
+        "C": {
+          "puntuacion": 40.259740259740255,
+          "ic": [
+            34.43334009740259,
+            46.002435064935064
+          ],
+          "comparacion": {
+            "dif": 1.8246882086167806,
+            "ic": [
+              -1.8638392857142851,
+              5.4718501984126915
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "E": {
+          "puntuacion": 45.99282296650718,
+          "ic": [
+            41.26794258373206,
+            51.01724481658692
+          ],
+          "comparacion": {
+            "dif": 3.9578111946532997,
+            "ic": [
+              0.17726608187134518,
+              7.717209690893901
+            ]
+          },
+          "marca": "",
+          "candidata": "▲",
+          "nivel": "no publicable",
+          "motivo": "falla 4 (P2 P3 P5 P6); cae sin deepseek, google, openai, z-ai",
+          "q": 0.0991047619047619
+        },
+        "A": {
+          "puntuacion": 34.688995215311,
+          "ic": [
+            30.681818181818183,
+            38.71660685805422
+          ],
+          "comparacion": {
+            "dif": 1.2113617376775274,
+            "ic": [
+              -2.057226399331663,
+              4.479949874686717
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "N": {
+          "puntuacion": 53.125,
+          "ic": [
+            50.31565656565657,
+            56.4709595959596
+          ],
+          "comparacion": {
+            "dif": 0.2397486772486772,
+            "ic": [
+              -2.0422040343915344,
+              2.869130291005288
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "H": {
+          "puntuacion": 35.06155303030303,
+          "ic": [
+            29.000355113636363,
+            41.24230587121211
+          ],
+          "comparacion": {
+            "dif": -7.390873015873015,
+            "ic": [
+              -12.851562499999998,
+              -2.537719080687831
+            ]
+          },
+          "marca": "",
+          "candidata": "▼",
+          "nivel": "frágil",
+          "motivo": "falla P3",
+          "q": 0.0124
+        }
+      },
+      "frase": "más Apertura (curioso, busca lo nuevo)",
+      "frase_md": "**más Apertura** (curioso, busca lo nuevo)",
+      "fragiles": [
+        "H▼"
+      ],
+      "forma": {
+        "O": "completa",
+        "C": "completa",
+        "E": "completa",
+        "A": "completa",
+        "N": "completa",
+        "H": "completa"
+      },
+      "interpretable": true,
+      "validez": "válido",
+      "aviso_validez": null
+    },
+    {
+      "id": "google_gemini-3.7-flash",
+      "modelo": "google/gemini-3.7-flash",
+      "laboratorio": "google",
+      "iss": 55.2,
+      "rasgos": {
+        "O": {
+          "puntuacion": 35.612480739599384,
+          "ic": [
+            30.50751155624037,
+            40.600924499229585
+          ],
+          "comparacion": {
+            "dif": -16.37409200968523,
+            "ic": [
+              -20.564635458703254,
+              -12.240718321226797
+            ]
+          },
+          "marca": "▼",
+          "candidata": "▼",
+          "nivel": "robusta",
+          "motivo": "pasa P1–P3, P5, P6",
+          "q": 0.0004714285714285714
+        },
+        "C": {
+          "puntuacion": 38.0275974025974,
+          "ic": [
+            32.3046875,
+            43.85196834415584
+          ],
+          "comparacion": {
+            "dif": -0.5137471655328794,
+            "ic": [
+              -5.0672300170068025,
+              4.473232001133778
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "E": {
+          "puntuacion": 53.0103668261563,
+          "ic": [
+            48.38516746411483,
+            57.796052631578945
+          ],
+          "comparacion": {
+            "dif": 11.30952380952381,
+            "ic": [
+              5.8688387635756065,
+              16.740288220551374
+            ]
+          },
+          "marca": "▲",
+          "candidata": "▲",
+          "nivel": "robusta",
+          "motivo": "pasa P1–P3, P5, P6",
+          "q": 0.0004714285714285714
+        },
+        "A": {
+          "puntuacion": 46.5311004784689,
+          "ic": [
+            41.1872009569378,
+            52.17354465709729
+          ],
+          "comparacion": {
+            "dif": 13.617376775271511,
+            "ic": [
+              7.455879281537176,
+              19.527986633249792
+            ]
+          },
+          "marca": "▲",
+          "candidata": "▲",
+          "nivel": "robusta",
+          "motivo": "pasa P1–P3, P5, P6",
+          "q": 0.0004714285714285714
+        },
+        "N": {
+          "puntuacion": 52.25694444444444,
+          "ic": [
+            49.30555555555556,
+            55.60290404040404
+          ],
+          "comparacion": {
+            "dif": -0.6696428571428573,
+            "ic": [
+              -4.332217261904762,
+              2.6457093253968242
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "H": {
+          "puntuacion": 36.8844696969697,
+          "ic": [
+            32.00757575757576,
+            41.59564393939394
+          ],
+          "comparacion": {
+            "dif": -5.4811507936507935,
+            "ic": [
+              -10.842633928571429,
+              -0.12638475529101462
+            ]
+          },
+          "marca": "",
+          "candidata": "▼",
+          "nivel": "no publicable",
+          "motivo": "falla 4 (P2 P3 P5 P6); cae sin anthropic, openai, z-ai",
+          "q": 0.09325161290322581
+        }
+      },
+      "frase": "menos Apertura (prefiere lo conocido); más Extraversión (busca gente y protagonismo); más Amabilidad (cede y coopera)",
+      "frase_md": "**menos Apertura** (prefiere lo conocido); **más Extraversión** (busca gente y protagonismo); **más Amabilidad** (cede y coopera)",
+      "fragiles": [],
+      "forma": {
+        "O": "completa",
+        "C": "completa",
+        "E": "completa",
+        "A": "completa",
+        "N": "completa",
+        "H": "completa"
+      },
+      "interpretable": true,
+      "validez": "válido",
+      "aviso_validez": null
+    },
+    {
+      "id": "google_gemini-4-argon",
+      "modelo": "google/gemini-4-argon",
+      "laboratorio": "google",
+      "iss": null,
+      "rasgos": {
+        "O": {
+          "puntuacion": 42.604006163328194,
+          "ic": [
+            37.66676296866975,
+            47.56676938880329
+          ],
+          "comparacion": {
+            "dif": -9.04963680387409,
+            "ic": [
+              -12.409200968523002,
+              -5.618946731234869
+            ]
+          },
+          "marca": "▼",
+          "candidata": "▼",
+          "nivel": "robusta",
+          "motivo": "pasa P1–P3, P5, P6",
+          "q": 0.0004714285714285714
+        },
+        "C": {
+          "puntuacion": 35.64664502164502,
+          "ic": [
+            30.911627435064936,
+            41.18658685064935
+          ],
+          "comparacion": {
+            "dif": -3.008078231292516,
+            "ic": [
+              -5.782312925170067,
+              -0.08397108843537937
+            ]
+          },
+          "marca": "",
+          "candidata": "▼",
+          "nivel": "no publicable",
+          "motivo": "falla 4 (P2 P3 P5 P6); cae sin google, minimax, mistralai",
+          "q": 0.0913
+        },
+        "E": {
+          "puntuacion": 38.75598086124402,
+          "ic": [
+            34.15071770334929,
+            43.60097687400319
+          ],
+          "comparacion": {
+            "dif": -3.623642439431913,
+            "ic": [
+              -7.2162176274018375,
+              0.21955931495405032
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "A": {
+          "puntuacion": 34.46969696969697,
+          "ic": [
+            30.101176236044658,
+            38.956339712918655
+          ],
+          "comparacion": {
+            "dif": 0.981620718462824,
+            "ic": [
+              -1.9635025062656637,
+              4.062499999999999
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "N": {
+          "puntuacion": 48.263888888888886,
+          "ic": [
+            45.2801452020202,
+            51.23106060606061
+          ],
+          "comparacion": {
+            "dif": -4.852843915343915,
+            "ic": [
+              -7.614293981481482,
+              -2.314814814814815
+            ]
+          },
+          "marca": "▼",
+          "candidata": "▼",
+          "nivel": "robusta",
+          "motivo": "pasa P1–P3, P5, P6",
+          "q": 0.00264
+        },
+        "H": {
+          "puntuacion": 37.665719696969695,
+          "ic": [
+            32.08570075757576,
+            43.142361111111114
+          ],
+          "comparacion": {
+            "dif": -4.662698412698414,
+            "ic": [
+              -9.015376984126982,
+              -0.2229042658730181
+            ]
+          },
+          "marca": "",
+          "candidata": "▼",
+          "nivel": "no publicable",
+          "motivo": "falla 4 (P2 P3 P5 P6); cae sin anthropic, openai",
+          "q": 0.07064444444444444
+        }
+      },
+      "frase": "menos Apertura (prefiere lo conocido); menos Neuroticismo (se mantiene sereno)",
+      "frase_md": "**menos Apertura** (prefiere lo conocido); **menos Neuroticismo** (se mantiene sereno)",
+      "fragiles": [],
+      "forma": {
+        "O": "completa",
+        "C": "completa",
+        "E": "completa",
+        "A": "completa",
+        "N": "completa",
+        "H": "completa"
+      },
+      "interpretable": true,
+      "validez": "válido",
+      "aviso_validez": null
+    },
+    {
+      "id": "mimo-v2.6-flash",
+      "modelo": "mimo-v2.6-flash",
+      "laboratorio": "xiaomi",
+      "iss": 12.6,
+      "rasgos": {
+        "O": {
+          "puntuacion": 55.104006163328194,
+          "ic": [
+            49.80739599383667,
+            60.054410631741135
+          ],
+          "comparacion": {
+            "dif": 4.045601291364004,
+            "ic": [
+              0.012947269303201012,
+              7.835704196933011
+            ]
+          },
+          "marca": "",
+          "candidata": "▲",
+          "nivel": "no publicable",
+          "motivo": "falla 4 (P2 P3 P5 P6); cae sin anthropic, deepseek, google, minimax, qwen",
+          "q": 0.1023
+        },
+        "C": {
+          "puntuacion": 38.92045454545455,
+          "ic": [
+            34.679383116883116,
+            43.69013798701298
+          ],
+          "comparacion": {
+            "dif": 0.4216269841269841,
+            "ic": [
+              -2.7884070294784573,
+              3.848054846938774
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "E": {
+          "puntuacion": 43.79984051036683,
+          "ic": [
+            39.25289074960128,
+            47.9066985645933
+          ],
+          "comparacion": {
+            "dif": 1.6604010025062657,
+            "ic": [
+              -1.1069340016708438,
+              4.595342522974099
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "A": {
+          "puntuacion": 36.004784688995215,
+          "ic": [
+            32.1356658692185,
+            40.032894736842096
+          ],
+          "comparacion": {
+            "dif": 2.589807852965748,
+            "ic": [
+              -0.24018379281537167,
+              5.565998329156223
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "N": {
+          "puntuacion": 52.951388888888886,
+          "ic": [
+            50.70943813131313,
+            55.39812184343434
+          ],
+          "comparacion": {
+            "dif": 0.05787037037037061,
+            "ic": [
+              -1.4219576719576716,
+              1.8435846560846565
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "H": {
+          "puntuacion": 41.571969696969695,
+          "ic": [
+            36.9537168560606,
+            46.04699337121212
+          ],
+          "comparacion": {
+            "dif": -0.5704365079365078,
+            "ic": [
+              -3.910486937830688,
+              2.529968584656084
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        }
+      },
+      "frase": "perfil próximo al de los demás modelos",
+      "frase_md": "perfil próximo al de los demás modelos",
+      "fragiles": [],
+      "forma": {
+        "O": "completa",
+        "C": "completa",
+        "E": "completa",
+        "A": "completa",
+        "N": "completa",
+        "H": "completa"
+      },
+      "interpretable": true,
+      "validez": "válido",
+      "aviso_validez": null
+    },
+    {
+      "id": "minimax_minimax-m3.1-flash#low",
+      "modelo": "minimax/minimax-m3.1-flash#low",
+      "laboratorio": "minimax",
+      "iss": 7.9,
+      "rasgos": {
+        "O": {
+          "puntuacion": 50.654853620955315,
+          "ic": [
+            45.37702234206471,
+            55.77908320493066
+          ],
+          "comparacion": {
+            "dif": -0.6154156577885389,
+            "ic": [
+              -4.392487220877051,
+              3.248755716976056
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "C": {
+          "puntuacion": 43.16152597402597,
+          "ic": [
+            38.35227272727273,
+            48.01136363636363
+          ],
+          "comparacion": {
+            "dif": 4.8646541950113384,
+            "ic": [
+              1.3533694727891155,
+              8.584980867346937
+            ]
+          },
+          "marca": "",
+          "candidata": "▲",
+          "nivel": "frágil",
+          "motivo": "falla P2",
+          "q": 0.021266666666666666
+        },
+        "E": {
+          "puntuacion": 41.826156299840505,
+          "ic": [
+            37.46012759170654,
+            46.2923644338118
+          ],
+          "comparacion": {
+            "dif": -0.4072681704260648,
+            "ic": [
+              -4.010025062656641,
+              3.091322055137844
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "A": {
+          "puntuacion": 34.46969696969697,
+          "ic": [
+            30.7411283891547,
+            38.25807416267942
+          ],
+          "comparacion": {
+            "dif": 0.9816207184628236,
+            "ic": [
+              -2.3292606516290726,
+              4.688805346700083
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "N": {
+          "puntuacion": 55.38194444444444,
+          "ic": [
+            52.98295454545455,
+            57.986111111111114
+          ],
+          "comparacion": {
+            "dif": 2.6041666666666665,
+            "ic": [
+              0.5040922619047621,
+              4.654637896825396
+            ]
+          },
+          "marca": "",
+          "candidata": "▲",
+          "nivel": "frágil",
+          "motivo": "falla P2 P3",
+          "q": 0.0378
+        },
+        "H": {
+          "puntuacion": 42.87405303030303,
+          "ic": [
+            38.56534090909091,
+            47.0419034090909
+          ],
+          "comparacion": {
+            "dif": 0.793650793650794,
+            "ic": [
+              -2.972780257936508,
+              4.4850570436507935
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        }
+      },
+      "frase": "perfil próximo al de los demás modelos",
+      "frase_md": "perfil próximo al de los demás modelos",
+      "fragiles": [
+        "C▲",
+        "N▲"
+      ],
+      "forma": {
+        "O": "completa",
+        "C": "completa",
+        "E": "completa",
+        "A": "completa",
+        "N": "completa",
+        "H": "completa"
+      },
+      "interpretable": true,
+      "validez": "aviso",
+      "aviso_validez": "coherencia de la deseabilidad 0,73 (aviso)"
+    },
+    {
+      "id": "mistralai_mistral-medium-3-5",
+      "modelo": "mistralai/mistral-medium-3-5",
+      "laboratorio": "mistralai",
+      "iss": 23.9,
+      "rasgos": {
+        "O": {
+          "puntuacion": 58.9175654853621,
+          "ic": [
+            53.81307781201849,
+            63.963790446841294
+          ],
+          "comparacion": {
+            "dif": 8.040758676351897,
+            "ic": [
+              4.637476459510358,
+              11.461696260425068
+            ]
+          },
+          "marca": "▲",
+          "candidata": "▲",
+          "nivel": "robusta",
+          "motivo": "pasa P1–P3, P5, P6",
+          "q": 0.0004714285714285714
+        },
+        "C": {
+          "puntuacion": 42.26866883116883,
+          "ic": [
+            36.82984983766234,
+            47.686688311688314
+          ],
+          "comparacion": {
+            "dif": 3.9292800453514745,
+            "ic": [
+              0.45670351473922915,
+              7.582642431972787
+            ]
+          },
+          "marca": "",
+          "candidata": "▲",
+          "nivel": "no publicable",
+          "motivo": "falla 4 (P2 P3 P5 P6); cae sin qwen",
+          "q": 0.06726923076923076
+        },
+        "E": {
+          "puntuacion": 44.677033492822964,
+          "ic": [
+            40.68979266347687,
+            48.68421052631579
+          ],
+          "comparacion": {
+            "dif": 2.579365079365079,
+            "ic": [
+              0.09346282372598201,
+              5.3678467000835415
+            ]
+          },
+          "marca": "",
+          "candidata": "▲",
+          "nivel": "no publicable",
+          "motivo": "falla 4 (P2 P3 P5 P6); cae sin deepseek, minimax, mistralai, openai, z-ai",
+          "q": 0.1076
+        },
+        "A": {
+          "puntuacion": 31.399521531100476,
+          "ic": [
+            27.749700956937797,
+            35.00797448165869
+          ],
+          "comparacion": {
+            "dif": -2.234753550543024,
+            "ic": [
+              -4.699248120300751,
+              0.3558375104427693
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "N": {
+          "puntuacion": 55.90277777777778,
+          "ic": [
+            53.108822601010104,
+            59.043955176767675
+          ],
+          "comparacion": {
+            "dif": 3.1498015873015874,
+            "ic": [
+              0.677703373015873,
+              5.696097883597884
+            ]
+          },
+          "marca": "",
+          "candidata": "▲",
+          "nivel": "frágil",
+          "motivo": "falla P3",
+          "q": 0.03425714285714286
+        },
+        "H": {
+          "puntuacion": 34.28030303030303,
+          "ic": [
+            28.691998106060606,
+            39.93903882575757
+          ],
+          "comparacion": {
+            "dif": -8.209325396825397,
+            "ic": [
+              -12.51829117063492,
+              -4.16232638888889
+            ]
+          },
+          "marca": "",
+          "candidata": "▼",
+          "nivel": "frágil",
+          "motivo": "falla P3",
+          "q": 0.0004714285714285714
+        }
+      },
+      "frase": "más Apertura (curioso, busca lo nuevo)",
+      "frase_md": "**más Apertura** (curioso, busca lo nuevo)",
+      "fragiles": [
+        "N▲",
+        "H▼"
+      ],
+      "forma": {
+        "O": "completa",
+        "C": "completa",
+        "E": "completa",
+        "A": "completa",
+        "N": "completa",
+        "H": "completa"
+      },
+      "interpretable": true,
+      "validez": "aviso",
+      "aviso_validez": "posición (Δ AB−BA) 0,21 (aviso); posición (fracción de A) |A − 0,5| = 0,10 (aviso)"
+    },
+    {
+      "id": "openai_gpt-5.6-luna",
+      "modelo": "openai/gpt-5.6-luna",
+      "laboratorio": "openai",
+      "iss": 7.6,
+      "rasgos": {
+        "O": {
+          "puntuacion": 53.83281972265023,
+          "ic": [
+            49.13280046224961,
+            58.76348228043143
+          ],
+          "comparacion": {
+            "dif": 2.7138821630347056,
+            "ic": [
+              -0.6189467312348663,
+              6.063357546408395
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "C": {
+          "puntuacion": 40.259740259740255,
+          "ic": [
+            35.61231737012987,
+            45.008624188311686
+          ],
+          "comparacion": {
+            "dif": 1.8246882086167804,
+            "ic": [
+              -1.460282029478458,
+              5.081490929705212
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "E": {
+          "puntuacion": 39.19457735247209,
+          "ic": [
+            34.44926236044657,
+            44.03907496012759
+          ],
+          "comparacion": {
+            "dif": -3.164160401002506,
+            "ic": [
+              -6.464860066833751,
+              0.3553153717627386
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "A": {
+          "puntuacion": 30.522328548644335,
+          "ic": [
+            27.052930622009573,
+            34.15171451355661
+          ],
+          "comparacion": {
+            "dif": -3.1537176274018375,
+            "ic": [
+              -5.410401002506266,
+              -0.8978174603174613
+            ]
+          },
+          "marca": "",
+          "candidata": "▼",
+          "nivel": "frágil",
+          "motivo": "falla P2 P3",
+          "q": 0.021762162162162164
+        },
+        "N": {
+          "puntuacion": 52.604166666666664,
+          "ic": [
+            50.25213068181818,
+            55.224116161616166
+          ],
+          "comparacion": {
+            "dif": -0.3058862433862432,
+            "ic": [
+              -2.0174024470899474,
+              1.6865079365079367
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "H": {
+          "puntuacion": 47.30113636363637,
+          "ic": [
+            42.234848484848484,
+            51.75248579545454
+          ],
+          "comparacion": {
+            "dif": 5.4315476190476195,
+            "ic": [
+              2.7611400462962967,
+              8.27225942460317
+            ]
+          },
+          "marca": "",
+          "candidata": "▲",
+          "nivel": "frágil",
+          "motivo": "falla P3",
+          "q": 0.0013894736842105264
+        }
+      },
+      "frase": "perfil próximo al de los demás modelos",
+      "frase_md": "perfil próximo al de los demás modelos",
+      "fragiles": [
+        "A▼",
+        "H▲"
+      ],
+      "forma": {
+        "O": "completa",
+        "C": "completa",
+        "E": "completa",
+        "A": "completa",
+        "N": "completa",
+        "H": "completa"
+      },
+      "interpretable": true,
+      "validez": "válido",
+      "aviso_validez": null
+    },
+    {
+      "id": "openai_gpt-6-luna#low",
+      "modelo": "openai/gpt-6-luna#low",
+      "laboratorio": "openai",
+      "iss": 13.9,
+      "rasgos": {
+        "O": {
+          "puntuacion": 51.50231124807396,
+          "ic": [
+            45.838790446841294,
+            57.261171032357474
+          ],
+          "comparacion": {
+            "dif": 0.2723970944309933,
+            "ic": [
+              -3.38991458165187,
+              3.8313828356201185
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "C": {
+          "puntuacion": 35.125811688311686,
+          "ic": [
+            31.02627840909091,
+            39.451095779220765
+          ],
+          "comparacion": {
+            "dif": -3.553713151927437,
+            "ic": [
+              -6.873582766439909,
+              -0.3183460884353764
+            ]
+          },
+          "marca": "",
+          "candidata": "▼",
+          "nivel": "no publicable",
+          "motivo": "falla 4 (P2 P3 P5 P6); cae sin minimax",
+          "q": 0.09325161290322581
+        },
+        "E": {
+          "puntuacion": 37.00159489633174,
+          "ic": [
+            32.73524720893142,
+            41.348185805422645
+          ],
+          "comparacion": {
+            "dif": -5.461570593149541,
+            "ic": [
+              -9.022556390977444,
+              -2.015194235588974
+            ]
+          },
+          "marca": "",
+          "candidata": "▼",
+          "nivel": "frágil",
+          "motivo": "falla P3",
+          "q": 0.012423529411764707
+        },
+        "A": {
+          "puntuacion": 32.71531100478469,
+          "ic": [
+            28.70813397129187,
+            36.96222089314195
+          ],
+          "comparacion": {
+            "dif": -0.8563074352548037,
+            "ic": [
+              -3.5194757727652464,
+              1.9324352548036732
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "N": {
+          "puntuacion": 52.43055555555556,
+          "ic": [
+            50.01578282828283,
+            55.06668244949495
+          ],
+          "comparacion": {
+            "dif": -0.4877645502645499,
+            "ic": [
+              -2.629174933862434,
+              1.5211640211640214
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "H": {
+          "puntuacion": 48.34280303030303,
+          "ic": [
+            42.96875,
+            53.60026041666666
+          ],
+          "comparacion": {
+            "dif": 6.52281746031746,
+            "ic": [
+              2.4294188161375674,
+              10.367166832010582
+            ]
+          },
+          "marca": "",
+          "candidata": "▲",
+          "nivel": "frágil",
+          "motivo": "falla P3",
+          "q": 0.006812903225806451
+        }
+      },
+      "frase": "perfil próximo al de los demás modelos",
+      "frase_md": "perfil próximo al de los demás modelos",
+      "fragiles": [
+        "E▼",
+        "H▲"
+      ],
+      "forma": {
+        "O": "completa",
+        "C": "completa",
+        "E": "completa",
+        "A": "completa",
+        "N": "completa",
+        "H": "completa"
+      },
+      "interpretable": true,
+      "validez": "válido",
+      "aviso_validez": null
+    },
+    {
+      "id": "openai_gpt-6.1-sol#low",
+      "modelo": "openai/gpt-6.1-sol#low",
+      "laboratorio": "openai",
+      "iss": 13.2,
+      "rasgos": {
+        "O": {
+          "puntuacion": 51.2904468412943,
+          "ic": [
+            46.243258859784284,
+            56.08724961479198
+          ],
+          "comparacion": {
+            "dif": 0.05044390637611017,
+            "ic": [
+              -3.7969969061070747,
+              3.7767352703793375
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "C": {
+          "puntuacion": 32.893668831168824,
+          "ic": [
+            28.59172077922078,
+            37.155539772727266
+          ],
+          "comparacion": {
+            "dif": -5.892148526077096,
+            "ic": [
+              -9.06046272675737,
+              -2.8374787414966005
+            ]
+          },
+          "marca": "▼",
+          "candidata": "▼",
+          "nivel": "robusta",
+          "motivo": "pasa P1–P3, P5, P6",
+          "q": 0.0022956521739130433
+        },
+        "E": {
+          "puntuacion": 38.31738437001595,
+          "ic": [
+            33.89104864433811,
+            43.18231658692185
+          ],
+          "comparacion": {
+            "dif": -4.08312447786132,
+            "ic": [
+              -7.5723162071846275,
+              -0.6161236424394324
+            ]
+          },
+          "marca": "",
+          "candidata": "▼",
+          "nivel": "frágil",
+          "motivo": "falla P3 P6",
+          "q": 0.06799245283018868
+        },
+        "A": {
+          "puntuacion": 32.71531100478469,
+          "ic": [
+            28.249601275917065,
+            37.400817384370015
+          ],
+          "comparacion": {
+            "dif": -0.8563074352548035,
+            "ic": [
+              -3.978696741854637,
+              2.329521720969085
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "N": {
+          "puntuacion": 49.479166666666664,
+          "ic": [
+            46.58972537878788,
+            52.20999053030303
+          ],
+          "comparacion": {
+            "dif": -3.5796957671957674,
+            "ic": [
+              -6.349413029100528,
+              -0.8595816798941808
+            ]
+          },
+          "marca": "▼",
+          "candidata": "▼",
+          "nivel": "robusta",
+          "motivo": "pasa P1–P3, P5, P6",
+          "q": 0.034126829268292684
+        },
+        "H": {
+          "puntuacion": 50.68655303030303,
+          "ic": [
+            45.99905303030303,
+            54.87748579545454
+          ],
+          "comparacion": {
+            "dif": 8.978174603174603,
+            "ic": [
+              5.44797867063492,
+              12.698516038359788
+            ]
+          },
+          "marca": "▲",
+          "candidata": "▲",
+          "nivel": "robusta",
+          "motivo": "pasa P1–P3, P5, P6",
+          "q": 0.0004714285714285714
+        }
+      },
+      "frase": "menos Responsabilidad (prioriza descanso y flexibilidad); más Honestidad-Humildad (sincero, renuncia a ventajas); menos Neuroticismo (se mantiene sereno)",
+      "frase_md": "**menos Responsabilidad** (prioriza descanso y flexibilidad); **más Honestidad-Humildad** (sincero, renuncia a ventajas); **menos Neuroticismo** (se mantiene sereno)",
+      "fragiles": [
+        "E▼"
+      ],
+      "forma": {
+        "O": "completa",
+        "C": "completa",
+        "E": "completa",
+        "A": "completa",
+        "N": "completa",
+        "H": "completa"
+      },
+      "interpretable": true,
+      "validez": "válido",
+      "aviso_validez": null
+    },
+    {
+      "id": "qwen3.6",
+      "modelo": "qwen3.6",
+      "laboratorio": "qwen",
+      "iss": 23.2,
+      "rasgos": {
+        "O": {
+          "puntuacion": 53.40909090909091,
+          "ic": [
+            47.611710323574734,
+            59.01386748844376
+          ],
+          "comparacion": {
+            "dif": 2.2699757869249404,
+            "ic": [
+              -1.0904291094969059,
+              5.8653652138821615
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "C": {
+          "puntuacion": 40.70616883116883,
+          "ic": [
+            35.36881087662338,
+            45.90148133116883
+          ],
+          "comparacion": {
+            "dif": 2.2923752834467126,
+            "ic": [
+              -1.552136479591836,
+              6.331490929705214
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "E": {
+          "puntuacion": 42.922647527910684,
+          "ic": [
+            37.758672248803826,
+            47.92663476874003
+          ],
+          "comparacion": {
+            "dif": 0.741436925647452,
+            "ic": [
+              -3.049812030075188,
+              4.803936925647451
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "A": {
+          "puntuacion": 34.90829346092504,
+          "ic": [
+            30.681319776714513,
+            38.995713716108455
+          ],
+          "comparacion": {
+            "dif": 1.4411027568922308,
+            "ic": [
+              -1.869256474519632,
+              4.92925020885547
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "N": {
+          "puntuacion": 55.90277777777778,
+          "ic": [
+            52.430160984848484,
+            59.31226325757576
+          ],
+          "comparacion": {
+            "dif": 3.1498015873015874,
+            "ic": [
+              0.5700231481481483,
+              5.862061838624335
+            ]
+          },
+          "marca": "",
+          "candidata": "▲",
+          "nivel": "frágil",
+          "motivo": "falla P3",
+          "q": 0.04562608695652175
+        },
+        "H": {
+          "puntuacion": 33.7594696969697,
+          "ic": [
+            28.787878787878785,
+            38.47123579545454
+          ],
+          "comparacion": {
+            "dif": -8.754960317460318,
+            "ic": [
+              -13.149698247354497,
+              -4.752604166666671
+            ]
+          },
+          "marca": "▼",
+          "candidata": "▼",
+          "nivel": "robusta",
+          "motivo": "pasa P1–P3, P5, P6",
+          "q": 0.0013894736842105264
+        }
+      },
+      "frase": "menos Honestidad-Humildad (acepta ventajas y se promociona)",
+      "frase_md": "**menos Honestidad-Humildad** (acepta ventajas y se promociona)",
+      "fragiles": [
+        "N▲"
+      ],
+      "forma": {
+        "O": "completa",
+        "C": "completa",
+        "E": "completa",
+        "A": "completa",
+        "N": "completa",
+        "H": "completa"
+      },
+      "interpretable": true,
+      "validez": "válido",
+      "aviso_validez": null
+    },
+    {
+      "id": "qwen3.8-flash",
+      "modelo": "qwen3.8-flash",
+      "laboratorio": "qwen",
+      "iss": 24.8,
+      "rasgos": {
+        "O": {
+          "puntuacion": 47.68875192604006,
+          "ic": [
+            41.871147919876734,
+            53.89108243451464
+          ],
+          "comparacion": {
+            "dif": -3.722760290556901,
+            "ic": [
+              -7.470658461124561,
+              -0.3655501748722137
+            ]
+          },
+          "marca": "",
+          "candidata": "▼",
+          "nivel": "no publicable",
+          "motivo": "falla 4 (P2 P3 P5 P6); cae sin mistralai, z-ai",
+          "q": 0.0852406779661017
+        },
+        "C": {
+          "puntuacion": 35.57224025974026,
+          "ic": [
+            30.012175324675326,
+            40.767552759740255
+          ],
+          "comparacion": {
+            "dif": -3.086026077097505,
+            "ic": [
+              -6.225375566893423,
+              0.20195578231292544
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "E": {
+          "puntuacion": 40.729665071770334,
+          "ic": [
+            36.68261562998405,
+            44.83801834130781
+          ],
+          "comparacion": {
+            "dif": -1.555973266499582,
+            "ic": [
+              -3.7596595655806184,
+              0.4284147869674176
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "A": {
+          "puntuacion": 31.618819776714513,
+          "ic": [
+            28.029804625199365,
+            35.227272727272734
+          ],
+          "comparacion": {
+            "dif": -2.0050125313283202,
+            "ic": [
+              -4.281537176274018,
+              0.26133040935672397
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "N": {
+          "puntuacion": 53.47222222222222,
+          "ic": [
+            51.420059974747474,
+            55.713383838383834
+          ],
+          "comparacion": {
+            "dif": 0.6035052910052913,
+            "ic": [
+              -1.289889219576719,
+              2.414227843915343
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "H": {
+          "puntuacion": 43.65530303030303,
+          "ic": [
+            38.777817234848484,
+            48.34339488636363
+          ],
+          "comparacion": {
+            "dif": 1.6121031746031746,
+            "ic": [
+              -1.446965939153439,
+              4.617332175925926
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        }
+      },
+      "frase": "perfil próximo al de los demás modelos",
+      "frase_md": "perfil próximo al de los demás modelos",
+      "fragiles": [],
+      "forma": {
+        "O": "completa",
+        "C": "completa",
+        "E": "completa",
+        "A": "completa",
+        "N": "completa",
+        "H": "completa"
+      },
+      "interpretable": true,
+      "validez": "válido",
+      "aviso_validez": null
+    },
+    {
+      "id": "qwen_qwen3.8-max-0902#low",
+      "modelo": "qwen/qwen3.8-max-0902#low",
+      "laboratorio": "qwen",
+      "iss": null,
+      "rasgos": {
+        "O": {
+          "puntuacion": 48.74807395993837,
+          "ic": [
+            43.585805084745765,
+            54.006163328197225
+          ],
+          "comparacion": {
+            "dif": -2.6129943502824853,
+            "ic": [
+              -6.150877723970944,
+              0.7639729620661803
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "C": {
+          "puntuacion": 35.34902597402598,
+          "ic": [
+            30.782771915584416,
+            40.119724025974016
+          ],
+          "comparacion": {
+            "dif": -3.319869614512471,
+            "ic": [
+              -6.041666666666666,
+              -0.4145408163265308
+            ]
+          },
+          "marca": "",
+          "candidata": "▼",
+          "nivel": "frágil",
+          "motivo": "falla P3 P6",
+          "q": 0.05199183673469388
+        },
+        "E": {
+          "puntuacion": 48.185805422647526,
+          "ic": [
+            43.18131977671451,
+            53.11154306220095
+          ],
+          "comparacion": {
+            "dif": 6.255221386800334,
+            "ic": [
+              2.6837928153717625,
+              9.889828738512946
+            ]
+          },
+          "marca": "▲",
+          "candidata": "▲",
+          "nivel": "robusta",
+          "motivo": "pasa P1–P3, P5, P6",
+          "q": 0.0018857142857142855
+        },
+        "A": {
+          "puntuacion": 33.153907496012756,
+          "ic": [
+            29.30572169059011,
+            37.02153110047847
+          ],
+          "comparacion": {
+            "dif": -0.39682539682539686,
+            "ic": [
+              -2.788220551378446,
+              1.9945697577276524
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "N": {
+          "puntuacion": 49.30555555555556,
+          "ic": [
+            47.12752525252525,
+            51.388888888888886
+          ],
+          "comparacion": {
+            "dif": -3.761574074074074,
+            "ic": [
+              -5.902984457671957,
+              -1.9097222222222223
+            ]
+          },
+          "marca": "▼",
+          "candidata": "▼",
+          "nivel": "robusta",
+          "motivo": "pasa P1–P3, P5, P6",
+          "q": 0.0004714285714285714
+        },
+        "H": {
+          "puntuacion": 43.65530303030303,
+          "ic": [
+            39.27556818181818,
+            48.08238636363636
+          ],
+          "comparacion": {
+            "dif": 1.6121031746031746,
+            "ic": [
+              -1.7939814814814818,
+              4.90265376984127
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        }
+      },
+      "frase": "más Extraversión (busca gente y protagonismo); menos Neuroticismo (se mantiene sereno)",
+      "frase_md": "**más Extraversión** (busca gente y protagonismo); **menos Neuroticismo** (se mantiene sereno)",
+      "fragiles": [
+        "C▼"
+      ],
+      "forma": {
+        "O": "completa",
+        "C": "completa",
+        "E": "completa",
+        "A": "completa",
+        "N": "completa",
+        "H": "completa"
+      },
+      "interpretable": true,
+      "validez": "válido",
+      "aviso_validez": null
+    },
+    {
+      "id": "z-ai_glm-5.3",
+      "modelo": "z-ai/glm-5.3",
+      "laboratorio": "z-ai",
+      "iss": null,
+      "rasgos": {
+        "O": {
+          "puntuacion": 54.68027734976887,
+          "ic": [
+            50.05681818181818,
+            59.476117103235744
+          ],
+          "comparacion": {
+            "dif": 3.601694915254238,
+            "ic": [
+              0.2681934355663178,
+              6.844817729351622
+            ]
+          },
+          "marca": "",
+          "candidata": "▲",
+          "nivel": "no publicable",
+          "motivo": "falla 4 (P2 P3 P5 P6); cae sin google, qwen",
+          "q": 0.072
+        },
+        "C": {
+          "puntuacion": 36.688311688311686,
+          "ic": [
+            32.40614853896104,
+            41.1531047077922
+          ],
+          "comparacion": {
+            "dif": -1.9168083900226753,
+            "ic": [
+              -4.861199688208617,
+              0.8080888605442165
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "E": {
+          "puntuacion": 42.70334928229665,
+          "ic": [
+            37.87629585326954,
+            47.74720893141946
+          ],
+          "comparacion": {
+            "dif": 0.5116959064327484,
+            "ic": [
+              -3.205931495405179,
+              4.218880534670008
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "A": {
+          "puntuacion": 34.250398724082935,
+          "ic": [
+            30.283094098883574,
+            38.39762759170654
+          ],
+          "comparacion": {
+            "dif": 0.7518796992481206,
+            "ic": [
+              -1.9744674185463649,
+              3.6241645781119445
+            ]
+          },
+          "marca": "",
+          "candidata": "",
+          "nivel": null,
+          "motivo": null,
+          "q": null
+        },
+        "N": {
+          "puntuacion": 50.69444444444444,
+          "ic": [
+            48.847458964646464,
+            52.778172348484844
+          ],
+          "comparacion": {
+            "dif": -2.3065476190476186,
+            "ic": [
+              -3.720444775132275,
+              -0.9672619047619047
+            ]
+          },
+          "marca": "",
+          "candidata": "▼",
+          "nivel": "frágil",
+          "motivo": "falla P2 P3",
+          "q": 0.0022956521739130433
+        },
+        "H": {
+          "puntuacion": 46.78030303030303,
+          "ic": [
+            42.73141571969697,
+            50.78125
+          ],
+          "comparacion": {
+            "dif": 4.885912698412699,
+            "ic": [
+              2.219638723544974,
+              7.531415343915342
+            ]
+          },
+          "marca": "",
+          "candidata": "▲",
+          "nivel": "frágil",
+          "motivo": "falla P3",
+          "q": 0.003046153846153846
+        }
+      },
+      "frase": "perfil próximo al de los demás modelos",
+      "frase_md": "perfil próximo al de los demás modelos",
+      "fragiles": [
+        "N▼",
+        "H▲"
+      ],
+      "forma": {
+        "O": "completa",
+        "C": "completa",
+        "E": "completa",
+        "A": "completa",
+        "N": "completa",
+        "H": "completa"
+      },
+      "interpretable": true,
+      "validez": "válido",
+      "aviso_validez": null
+    }
+  ],
+  "validez_s28": {
+    "G3": {
+      "O": {
+        "dentro": 0.4431218766032133,
+        "fuera": -0.03735392135609714
+      },
+      "C": {
+        "dentro": 0.21306664267241845,
+        "fuera": 0.04432518236925566
+      },
+      "E": {
+        "dentro": 0.22052486735251772,
+        "fuera": 0.03391296359297381
+      },
+      "A": {
+        "dentro": 0.37823814415167456,
+        "fuera": -0.005887381887190235
+      },
+      "N": {
+        "dentro": 0.2066573311438541,
+        "fuera": 0.04992587416455016
+      },
+      "H": {
+        "dentro": 0.45924772497562505,
+        "fuera": -0.1525795036921398
+      }
+    },
+    "G4": {
+      "O": 0.8948857394720894,
+      "C": 0.8438439981351958,
+      "E": 0.9171663975706132,
+      "A": 0.7693928302348391,
+      "N": 0.7882597941447576,
+      "H": 0.9259810718388705
+    },
+    "umbral_G4": 0.7,
+    "conflictos": [],
+    "escenario_g4_no_decidido": {
+      "rasgos_con_marca": [
+        "O",
+        "C",
+        "E",
+        "A",
+        "N",
+        "H"
+      ],
+      "marcas": {
+        "anthropic_claude-haiku-4.5": {
+          "O": "",
+          "C": "",
+          "E": "",
+          "A": "",
+          "N": "▲",
+          "H": ""
+        },
+        "anthropic_claude-haiku-5.5": {
+          "O": "",
+          "C": "",
+          "E": "",
+          "A": "▼",
+          "N": "",
+          "H": ""
+        },
+        "anthropic_claude-opus-5.5#low": {
+          "O": "",
+          "C": "▼",
+          "E": "",
+          "A": "",
+          "N": "▼",
+          "H": "▲"
+        },
+        "deepseek-v4-flash@2026-10-17": {
+          "O": "",
+          "C": "",
+          "E": "▼",
+          "A": "",
+          "N": "",
+          "H": "▲"
+        },
+        "deepseek_deepseek-v3.2": {
+          "O": "",
+          "C": "",
+          "E": "",
+          "A": "",
+          "N": "",
+          "H": ""
+        },
+        "deepseek_deepseek-v4-flash": {
+          "O": "",
+          "C": "",
+          "E": "",
+          "A": "",
+          "N": "",
+          "H": ""
+        },
+        "deepseek_deepseek-v4-flash-0731": {
+          "O": "▼",
+          "C": "",
+          "E": "",
+          "A": "",
+          "N": "▼",
+          "H": ""
+        },
+        "gemma4": {
+          "O": "",
+          "C": "",
+          "E": "",
+          "A": "▼",
+          "N": "",
+          "H": "▼"
+        },
+        "glm5.3-flash": {
+          "O": "",
+          "C": "",
+          "E": "",
+          "A": "",
+          "N": "",
+          "H": ""
+        },
+        "google_gemini-3.1-flash-lite": {
+          "O": "▲",
+          "C": "",
+          "E": "",
+          "A": "",
+          "N": "",
+          "H": ""
+        },
+        "google_gemini-3.7-flash": {
+          "O": "▼",
+          "C": "",
+          "E": "▲",
+          "A": "▲",
+          "N": "",
+          "H": ""
+        },
+        "google_gemini-4-argon": {
+          "O": "▼",
+          "C": "",
+          "E": "",
+          "A": "",
+          "N": "▼",
+          "H": ""
+        },
+        "mimo-v2.6-flash": {
+          "O": "",
+          "C": "",
+          "E": "",
+          "A": "",
+          "N": "",
+          "H": ""
+        },
+        "minimax_minimax-m3.1-flash#low": {
+          "O": "",
+          "C": "",
+          "E": "",
+          "A": "",
+          "N": "",
+          "H": ""
+        },
+        "mistralai_mistral-medium-3-5": {
+          "O": "▲",
+          "C": "",
+          "E": "",
+          "A": "",
+          "N": "",
+          "H": ""
+        },
+        "openai_gpt-5.6-luna": {
+          "O": "",
+          "C": "",
+          "E": "",
+          "A": "",
+          "N": "",
+          "H": ""
+        },
+        "openai_gpt-6-luna#low": {
+          "O": "",
+          "C": "",
+          "E": "",
+          "A": "",
+          "N": "",
+          "H": ""
+        },
+        "openai_gpt-6.1-sol#low": {
+          "O": "",
+          "C": "▼",
+          "E": "",
+          "A": "",
+          "N": "▼",
+          "H": "▲"
+        },
+        "qwen3.6": {
+          "O": "",
+          "C": "",
+          "E": "",
+          "A": "",
+          "N": "",
+          "H": "▼"
+        },
+        "qwen3.8-flash": {
+          "O": "",
+          "C": "",
+          "E": "",
+          "A": "",
+          "N": "",
+          "H": ""
+        },
+        "qwen_qwen3.8-max-0902#low": {
+          "O": "",
+          "C": "",
+          "E": "▲",
+          "A": "",
+          "N": "▼",
+          "H": ""
+        },
+        "z-ai_glm-5.3": {
+          "O": "",
+          "C": "",
+          "E": "",
+          "A": "",
+          "N": "",
+          "H": ""
+        }
+      },
+      "frases": {
+        "anthropic_claude-haiku-4.5": "más Neuroticismo (reacciona, se preocupa)",
+        "anthropic_claude-haiku-5.5": "menos Amabilidad (pone límites y se defiende)",
+        "anthropic_claude-opus-5.5#low": "menos Responsabilidad (prioriza descanso y flexibilidad); menos Neuroticismo (se mantiene sereno); más Honestidad-Humildad (sincero, renuncia a ventajas)",
+        "deepseek-v4-flash@2026-10-17": "menos Extraversión (prefiere calma y segundo plano); más Honestidad-Humildad (sincero, renuncia a ventajas)",
+        "deepseek_deepseek-v3.2": "perfil próximo al de los demás modelos",
+        "deepseek_deepseek-v4-flash": "perfil próximo al de los demás modelos",
+        "deepseek_deepseek-v4-flash-0731": "menos Apertura (prefiere lo conocido); menos Neuroticismo (se mantiene sereno)",
+        "gemma4": "menos Amabilidad (pone límites y se defiende); menos Honestidad-Humildad (acepta ventajas y se promociona)",
+        "glm5.3-flash": "perfil próximo al de los demás modelos",
+        "google_gemini-3.1-flash-lite": "más Apertura (curioso, busca lo nuevo)",
+        "google_gemini-3.7-flash": "menos Apertura (prefiere lo conocido); más Extraversión (busca gente y protagonismo); más Amabilidad (cede y coopera)",
+        "google_gemini-4-argon": "menos Apertura (prefiere lo conocido); menos Neuroticismo (se mantiene sereno)",
+        "mimo-v2.6-flash": "perfil próximo al de los demás modelos",
+        "minimax_minimax-m3.1-flash#low": "perfil próximo al de los demás modelos",
+        "mistralai_mistral-medium-3-5": "más Apertura (curioso, busca lo nuevo)",
+        "openai_gpt-5.6-luna": "perfil próximo al de los demás modelos",
+        "openai_gpt-6-luna#low": "perfil próximo al de los demás modelos",
+        "openai_gpt-6.1-sol#low": "menos Responsabilidad (prioriza descanso y flexibilidad); menos Neuroticismo (se mantiene sereno); más Honestidad-Humildad (sincero, renuncia a ventajas)",
+        "qwen3.6": "menos Honestidad-Humildad (acepta ventajas y se promociona)",
+        "qwen3.8-flash": "perfil próximo al de los demás modelos",
+        "qwen_qwen3.8-max-0902#low": "más Extraversión (busca gente y protagonismo); menos Neuroticismo (se mantiene sereno)",
+        "z-ai_glm-5.3": "perfil próximo al de los demás modelos"
+      }
+    }
+  },
+  "marcas_candidatas": {
+    "anthropic_claude-haiku-4.5|C": {
+      "marca": "▲",
+      "dif": 6.033871882086168,
+      "ic": [
+        2.547300170068027,
+        9.499185090702946
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": false,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [
+        "P3"
+      ],
+      "nivel": "frágil",
+      "nivel_sin_regla_N": "frágil",
+      "motivo": "falla P3",
+      "p": 0.0005,
+      "q": 0.00264,
+      "q_sin_N": 0.00275,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.695,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▲",
+        "rep1": "▲",
+        "AB": "",
+        "BA": "▲",
+        "sin anthropic": "▲",
+        "sin deepseek": "▲",
+        "sin google": "▲",
+        "sin minimax": "▲",
+        "sin mistralai": "▲",
+        "sin openai": "▲",
+        "sin qwen": "▲",
+        "sin xiaomi": "▲",
+        "sin z-ai": "▲"
+      }
+    },
+    "anthropic_claude-haiku-4.5|N": {
+      "marca": "▲",
+      "dif": 3.8773148148148158,
+      "ic": [
+        1.620163690476191,
+        6.514756944444443
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [],
+      "nivel": "robusta",
+      "nivel_sin_regla_N": "robusta",
+      "motivo": "pasa P1–P3, P5, P6",
+      "p": 0.0003,
+      "q": 0.0018857142857142855,
+      "q_sin_N": null,
+      "p1": {
+        "tasa_signo": 0.995,
+        "tasa_sig_ambas": 0.48,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▲",
+        "rep1": "▲",
+        "AB": "▲",
+        "BA": "▲",
+        "sin anthropic": "▲",
+        "sin deepseek": "▲",
+        "sin google": "▲",
+        "sin minimax": "▲",
+        "sin mistralai": "▲",
+        "sin openai": "▲",
+        "sin qwen": "▲",
+        "sin xiaomi": "▲",
+        "sin z-ai": "▲"
+      }
+    },
+    "anthropic_claude-haiku-4.5|H": {
+      "marca": "▲",
+      "dif": 2.9761904761904763,
+      "ic": [
+        0.057250330687831176,
+        5.68390376984127
+      ],
+      "paso": {
+        "P1": true,
+        "P2": false,
+        "P3": false,
+        "P5": false,
+        "P6": 0.0
+      },
+      "fallos": [
+        "P2",
+        "P3",
+        "P5",
+        "P6"
+      ],
+      "nivel": "no publicable",
+      "nivel_sin_regla_N": "no publicable",
+      "motivo": "falla 4 (P2 P3 P5 P6); cae sin deepseek, google, mistralai, qwen, xiaomi",
+      "p": 0.0381,
+      "q": 0.0852406779661017,
+      "q_sin_N": 0.09110869565217392,
+      "p1": {
+        "tasa_signo": 0.97,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [
+        "deepseek",
+        "google",
+        "mistralai",
+        "qwen",
+        "xiaomi"
+      ],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▲",
+        "rep1": "",
+        "AB": "",
+        "BA": "▲",
+        "sin anthropic": "▲",
+        "sin deepseek": "",
+        "sin google": "",
+        "sin minimax": "▲",
+        "sin mistralai": "",
+        "sin openai": "▲",
+        "sin qwen": "",
+        "sin xiaomi": "",
+        "sin z-ai": "▲"
+      }
+    },
+    "anthropic_claude-haiku-5.5|A": {
+      "marca": "▼",
+      "dif": -5.9106098579782795,
+      "ic": [
+        -9.492742272347536,
+        -2.130325814536341
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [],
+      "nivel": "robusta",
+      "nivel_sin_regla_N": "robusta",
+      "motivo": "pasa P1–P3, P5, P6",
+      "p": 0.0012,
+      "q": 0.005279999999999999,
+      "q_sin_N": 0.005499999999999999,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.365,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "▼",
+        "AB": "▼",
+        "BA": "▼",
+        "sin anthropic": "▼",
+        "sin deepseek": "▼",
+        "sin google": "▼",
+        "sin minimax": "▼",
+        "sin mistralai": "▼",
+        "sin openai": "▼",
+        "sin qwen": "▼",
+        "sin xiaomi": "▼",
+        "sin z-ai": "▼"
+      }
+    },
+    "anthropic_claude-haiku-5.5|H": {
+      "marca": "▲",
+      "dif": 4.067460317460317,
+      "ic": [
+        0.18580522486772522,
+        7.936611276455026
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": false,
+        "P5": false,
+        "P6": 0.0
+      },
+      "fallos": [
+        "P3",
+        "P5",
+        "P6"
+      ],
+      "nivel": "no publicable",
+      "nivel_sin_regla_N": "no publicable",
+      "motivo": "falla 3 (P3 P5 P6); cae sin deepseek, google, mistralai, qwen",
+      "p": 0.0378,
+      "q": 0.0852406779661017,
+      "q_sin_N": 0.09110869565217392,
+      "p1": {
+        "tasa_signo": 0.985,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [
+        "deepseek",
+        "google",
+        "mistralai",
+        "qwen"
+      ],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▲",
+        "rep1": "▲",
+        "AB": "▲",
+        "BA": "",
+        "sin anthropic": "▲",
+        "sin deepseek": "",
+        "sin google": "",
+        "sin minimax": "▲",
+        "sin mistralai": "",
+        "sin openai": "▲",
+        "sin qwen": "",
+        "sin xiaomi": "▲",
+        "sin z-ai": "▲"
+      }
+    },
+    "anthropic_claude-opus-5.5#low|C": {
+      "marca": "▼",
+      "dif": -6.3598356009070285,
+      "ic": [
+        -9.163035005668934,
+        -3.7303358843537437
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [],
+      "nivel": "robusta",
+      "nivel_sin_regla_N": "robusta",
+      "motivo": "pasa P1–P3, P5, P6",
+      "p": 5e-05,
+      "q": 0.0004714285714285714,
+      "q_sin_N": 0.0004230769230769231,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.95,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "▼",
+        "AB": "▼",
+        "BA": "▼",
+        "sin anthropic": "▼",
+        "sin deepseek": "▼",
+        "sin google": "▼",
+        "sin minimax": "▼",
+        "sin mistralai": "▼",
+        "sin openai": "▼",
+        "sin qwen": "▼",
+        "sin xiaomi": "▼",
+        "sin z-ai": "▼"
+      }
+    },
+    "anthropic_claude-opus-5.5#low|A": {
+      "marca": "▲",
+      "dif": 4.197994987468672,
+      "ic": [
+        0.4908103592314122,
+        7.936507936507937
+      ],
+      "paso": {
+        "P1": true,
+        "P2": false,
+        "P3": false,
+        "P5": true,
+        "P6": 0.0
+      },
+      "fallos": [
+        "P2",
+        "P3",
+        "P6"
+      ],
+      "nivel": "no publicable",
+      "nivel_sin_regla_N": "no publicable",
+      "motivo": "falla 3 (P2 P3 P6)",
+      "p": 0.0215,
+      "q": 0.056423529411764706,
+      "q_sin_N": 0.06223684210526315,
+      "p1": {
+        "tasa_signo": 0.985,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▲",
+        "rep1": "",
+        "AB": "▲",
+        "BA": "",
+        "sin anthropic": "▲",
+        "sin deepseek": "▲",
+        "sin google": "▲",
+        "sin minimax": "▲",
+        "sin mistralai": "▲",
+        "sin openai": "▲",
+        "sin qwen": "▲",
+        "sin xiaomi": "▲",
+        "sin z-ai": "▲"
+      }
+    },
+    "anthropic_claude-opus-5.5#low|N": {
+      "marca": "▼",
+      "dif": -4.1253306878306875,
+      "ic": [
+        -6.8206431878306875,
+        -1.6116898148148169
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [],
+      "nivel": "robusta",
+      "nivel_sin_regla_N": "robusta",
+      "motivo": "pasa P1–P3, P5, P6",
+      "p": 0.0012,
+      "q": 0.005279999999999999,
+      "q_sin_N": null,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.32,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "▼",
+        "AB": "▼",
+        "BA": "▼",
+        "sin anthropic": "▼",
+        "sin deepseek": "▼",
+        "sin google": "▼",
+        "sin minimax": "▼",
+        "sin mistralai": "▼",
+        "sin openai": "▼",
+        "sin qwen": "▼",
+        "sin xiaomi": "▼",
+        "sin z-ai": "▼"
+      }
+    },
+    "anthropic_claude-opus-5.5#low|H": {
+      "marca": "▲",
+      "dif": 9.250992063492063,
+      "ic": [
+        6.0015707671957665,
+        12.86820023148148
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [],
+      "nivel": "robusta",
+      "nivel_sin_regla_N": "robusta",
+      "motivo": "pasa P1–P3, P5, P6",
+      "p": 5e-05,
+      "q": 0.0004714285714285714,
+      "q_sin_N": 0.0004230769230769231,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 1.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▲",
+        "rep1": "▲",
+        "AB": "▲",
+        "BA": "▲",
+        "sin anthropic": "▲",
+        "sin deepseek": "▲",
+        "sin google": "▲",
+        "sin minimax": "▲",
+        "sin mistralai": "▲",
+        "sin openai": "▲",
+        "sin qwen": "▲",
+        "sin xiaomi": "▲",
+        "sin z-ai": "▲"
+      }
+    },
+    "deepseek-v4-flash@2026-10-17|C": {
+      "marca": "▼",
+      "dif": -4.021400226757369,
+      "ic": [
+        -7.2813031462585025,
+        -0.5951495181405896
+      ],
+      "paso": {
+        "P1": true,
+        "P2": false,
+        "P3": false,
+        "P5": true,
+        "P6": 0.0
+      },
+      "fallos": [
+        "P2",
+        "P3",
+        "P6"
+      ],
+      "nivel": "no publicable",
+      "nivel_sin_regla_N": "no publicable",
+      "motivo": "falla 3 (P2 P3 P6)",
+      "p": 0.0182,
+      "q": 0.051114893617021276,
+      "q_sin_N": 0.05561111111111112,
+      "p1": {
+        "tasa_signo": 0.985,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "",
+        "AB": "▼",
+        "BA": "",
+        "sin anthropic": "▼",
+        "sin deepseek": "▼",
+        "sin google": "▼",
+        "sin minimax": "▼",
+        "sin mistralai": "▼",
+        "sin openai": "▼",
+        "sin qwen": "▼",
+        "sin xiaomi": "▼",
+        "sin z-ai": "▼"
+      }
+    },
+    "deepseek-v4-flash@2026-10-17|E": {
+      "marca": "▼",
+      "dif": -7.529239766081871,
+      "ic": [
+        -10.422149122807019,
+        -4.77234753550543
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [],
+      "nivel": "robusta",
+      "nivel_sin_regla_N": "robusta",
+      "motivo": "pasa P1–P3, P5, P6",
+      "p": 5e-05,
+      "q": 0.0004714285714285714,
+      "q_sin_N": 0.0004230769230769231,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.995,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "▼",
+        "AB": "▼",
+        "BA": "▼",
+        "sin anthropic": "▼",
+        "sin deepseek": "▼",
+        "sin google": "▼",
+        "sin minimax": "▼",
+        "sin mistralai": "▼",
+        "sin openai": "▼",
+        "sin qwen": "▼",
+        "sin xiaomi": "▼",
+        "sin z-ai": "▼"
+      }
+    },
+    "deepseek-v4-flash@2026-10-17|A": {
+      "marca": "▼",
+      "dif": -2.4644945697577274,
+      "ic": [
+        -4.4903926482873855,
+        -0.22974101921470358
+      ],
+      "paso": {
+        "P1": true,
+        "P2": false,
+        "P3": false,
+        "P5": false,
+        "P6": 0.0
+      },
+      "fallos": [
+        "P2",
+        "P3",
+        "P5",
+        "P6"
+      ],
+      "nivel": "no publicable",
+      "nivel_sin_regla_N": "no publicable",
+      "motivo": "falla 4 (P2 P3 P5 P6); cae sin google",
+      "p": 0.0306,
+      "q": 0.07212857142857143,
+      "q_sin_N": 0.07827906976744185,
+      "p1": {
+        "tasa_signo": 0.985,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [
+        "google"
+      ],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "",
+        "rep1": "▼",
+        "AB": "▼",
+        "BA": "",
+        "sin anthropic": "▼",
+        "sin deepseek": "▼",
+        "sin google": "",
+        "sin minimax": "▼",
+        "sin mistralai": "▼",
+        "sin openai": "▼",
+        "sin qwen": "▼",
+        "sin xiaomi": "▼",
+        "sin z-ai": "▼"
+      }
+    },
+    "deepseek-v4-flash@2026-10-17|H": {
+      "marca": "▲",
+      "dif": 6.795634920634921,
+      "ic": [
+        3.971560846560847,
+        9.743613591269838
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [],
+      "nivel": "robusta",
+      "nivel_sin_regla_N": "robusta",
+      "motivo": "pasa P1–P3, P5, P6",
+      "p": 5e-05,
+      "q": 0.0004714285714285714,
+      "q_sin_N": 0.0004230769230769231,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.98,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▲",
+        "rep1": "▲",
+        "AB": "▲",
+        "BA": "▲",
+        "sin anthropic": "▲",
+        "sin deepseek": "▲",
+        "sin google": "▲",
+        "sin minimax": "▲",
+        "sin mistralai": "▲",
+        "sin openai": "▲",
+        "sin qwen": "▲",
+        "sin xiaomi": "▲",
+        "sin z-ai": "▲"
+      }
+    },
+    "deepseek_deepseek-v3.2|C": {
+      "marca": "▲",
+      "dif": 6.267715419501134,
+      "ic": [
+        2.731540532879819,
+        9.765004960317459
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": false,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [
+        "P3"
+      ],
+      "nivel": "frágil",
+      "nivel_sin_regla_N": "frágil",
+      "motivo": "falla P3",
+      "p": 0.0007,
+      "q": 0.003422222222222222,
+      "q_sin_N": 0.0035,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.555,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▲",
+        "rep1": "▲",
+        "AB": "",
+        "BA": "▲",
+        "sin anthropic": "▲",
+        "sin deepseek": "▲",
+        "sin google": "▲",
+        "sin minimax": "▲",
+        "sin mistralai": "▲",
+        "sin openai": "▲",
+        "sin qwen": "▲",
+        "sin xiaomi": "▲",
+        "sin z-ai": "▲"
+      }
+    },
+    "deepseek_deepseek-v3.2|N": {
+      "marca": "▲",
+      "dif": 2.7860449735449735,
+      "ic": [
+        0.29761904761904795,
+        5.275917658730152
+      ],
+      "paso": {
+        "P1": true,
+        "P2": false,
+        "P3": false,
+        "P5": true,
+        "P6": 0.0
+      },
+      "fallos": [
+        "P2",
+        "P3",
+        "P6"
+      ],
+      "nivel": "no publicable",
+      "nivel_sin_regla_N": "no publicable",
+      "motivo": "falla 3 (P2 P3 P6)",
+      "p": 0.0191,
+      "q": 0.05199183673469388,
+      "q_sin_N": null,
+      "p1": {
+        "tasa_signo": 0.975,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "",
+        "rep1": "▲",
+        "AB": "",
+        "BA": "▲",
+        "sin anthropic": "▲",
+        "sin deepseek": "▲",
+        "sin google": "▲",
+        "sin minimax": "▲",
+        "sin mistralai": "▲",
+        "sin openai": "▲",
+        "sin qwen": "▲",
+        "sin xiaomi": "▲",
+        "sin z-ai": "▲"
+      }
+    },
+    "deepseek_deepseek-v3.2|H": {
+      "marca": "▼",
+      "dif": -9.300595238095239,
+      "ic": [
+        -13.28156001984127,
+        -5.018187830687831
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": false,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [
+        "P3"
+      ],
+      "nivel": "frágil",
+      "nivel_sin_regla_N": "frágil",
+      "motivo": "falla P3",
+      "p": 5e-05,
+      "q": 0.0004714285714285714,
+      "q_sin_N": 0.0004230769230769231,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.945,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "▼",
+        "AB": "▼",
+        "BA": "",
+        "sin anthropic": "▼",
+        "sin deepseek": "▼",
+        "sin google": "▼",
+        "sin minimax": "▼",
+        "sin mistralai": "▼",
+        "sin openai": "▼",
+        "sin qwen": "▼",
+        "sin xiaomi": "▼",
+        "sin z-ai": "▼"
+      }
+    },
+    "deepseek_deepseek-v4-flash|E": {
+      "marca": "▲",
+      "dif": 3.4983291562238934,
+      "ic": [
+        0.866489139515455,
+        6.109022556390976
+      ],
+      "paso": {
+        "P1": true,
+        "P2": false,
+        "P3": false,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [
+        "P2",
+        "P3"
+      ],
+      "nivel": "frágil",
+      "nivel_sin_regla_N": "frágil",
+      "motivo": "falla P2 P3",
+      "p": 0.0092,
+      "q": 0.030359999999999998,
+      "q_sin_N": 0.029764705882352943,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▲",
+        "rep1": "",
+        "AB": "",
+        "BA": "▲",
+        "sin anthropic": "▲",
+        "sin deepseek": "▲",
+        "sin google": "▲",
+        "sin minimax": "▲",
+        "sin mistralai": "▲",
+        "sin openai": "▲",
+        "sin qwen": "▲",
+        "sin xiaomi": "▲",
+        "sin z-ai": "▲"
+      }
+    },
+    "deepseek_deepseek-v4-flash|A": {
+      "marca": "▼",
+      "dif": -3.383458646616541,
+      "ic": [
+        -5.440685045948204,
+        -0.9816207184628234
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": false,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [
+        "P3"
+      ],
+      "nivel": "frágil",
+      "nivel_sin_regla_N": "frágil",
+      "motivo": "falla P3",
+      "p": 0.0066,
+      "q": 0.022926315789473684,
+      "q_sin_N": 0.0226875,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.015,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "▼",
+        "AB": "",
+        "BA": "▼",
+        "sin anthropic": "▼",
+        "sin deepseek": "▼",
+        "sin google": "▼",
+        "sin minimax": "▼",
+        "sin mistralai": "▼",
+        "sin openai": "▼",
+        "sin qwen": "▼",
+        "sin xiaomi": "▼",
+        "sin z-ai": "▼"
+      }
+    },
+    "deepseek_deepseek-v4-flash|N": {
+      "marca": "▲",
+      "dif": 1.6947751322751323,
+      "ic": [
+        0.33874834656084657,
+        3.1913442460317447
+      ],
+      "paso": {
+        "P1": true,
+        "P2": false,
+        "P3": false,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [
+        "P2",
+        "P3"
+      ],
+      "nivel": "frágil",
+      "nivel_sin_regla_N": "frágil",
+      "motivo": "falla P2 P3",
+      "p": 0.0132,
+      "q": 0.03872,
+      "q_sin_N": null,
+      "p1": {
+        "tasa_signo": 0.97,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▲",
+        "rep1": "",
+        "AB": "",
+        "BA": "",
+        "sin anthropic": "▲",
+        "sin deepseek": "▲",
+        "sin google": "▲",
+        "sin minimax": "▲",
+        "sin mistralai": "▲",
+        "sin openai": "▲",
+        "sin qwen": "▲",
+        "sin xiaomi": "▲",
+        "sin z-ai": "▲"
+      }
+    },
+    "deepseek_deepseek-v4-flash|H": {
+      "marca": "▼",
+      "dif": -5.208333333333333,
+      "ic": [
+        -9.21833664021164,
+        -1.2226149140211688
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": false,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [
+        "P3"
+      ],
+      "nivel": "frágil",
+      "nivel_sin_regla_N": "frágil",
+      "motivo": "falla P3",
+      "p": 0.0083,
+      "q": 0.02809230769230769,
+      "q_sin_N": 0.02766666666666667,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "▼",
+        "AB": "",
+        "BA": "▼",
+        "sin anthropic": "▼",
+        "sin deepseek": "▼",
+        "sin google": "▼",
+        "sin minimax": "▼",
+        "sin mistralai": "▼",
+        "sin openai": "▼",
+        "sin qwen": "▼",
+        "sin xiaomi": "▼",
+        "sin z-ai": "▼"
+      }
+    },
+    "deepseek_deepseek-v4-flash-0731|O": {
+      "marca": "▼",
+      "dif": -4.832526230831314,
+      "ic": [
+        -7.765587167070218,
+        -1.6140368576809259
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [],
+      "nivel": "robusta",
+      "nivel_sin_regla_N": "robusta",
+      "motivo": "pasa P1–P3, P5, P6",
+      "p": 0.0008,
+      "q": 0.0037714285714285714,
+      "q_sin_N": 0.0038260869565217397,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.365,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "▼",
+        "AB": "▼",
+        "BA": "▼",
+        "sin anthropic": "▼",
+        "sin deepseek": "▼",
+        "sin google": "▼",
+        "sin minimax": "▼",
+        "sin mistralai": "▼",
+        "sin openai": "▼",
+        "sin qwen": "▼",
+        "sin xiaomi": "▼",
+        "sin z-ai": "▼"
+      }
+    },
+    "deepseek_deepseek-v4-flash-0731|N": {
+      "marca": "▼",
+      "dif": -2.6703042328042326,
+      "ic": [
+        -4.092261904761904,
+        -1.2731481481481481
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [],
+      "nivel": "robusta",
+      "nivel_sin_regla_N": "robusta",
+      "motivo": "pasa P1–P3, P5, P6",
+      "p": 0.0001,
+      "q": 0.0007764705882352942,
+      "q_sin_N": null,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.68,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "▼",
+        "AB": "▼",
+        "BA": "▼",
+        "sin anthropic": "▼",
+        "sin deepseek": "▼",
+        "sin google": "▼",
+        "sin minimax": "▼",
+        "sin mistralai": "▼",
+        "sin openai": "▼",
+        "sin qwen": "▼",
+        "sin xiaomi": "▼",
+        "sin z-ai": "▼"
+      }
+    },
+    "gemma4|C": {
+      "marca": "▲",
+      "dif": 5.566184807256236,
+      "ic": [
+        1.859853316326531,
+        9.311224489795917
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": false,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [
+        "P3"
+      ],
+      "nivel": "frágil",
+      "nivel_sin_regla_N": "frágil",
+      "motivo": "falla P3",
+      "p": 0.002,
+      "q": 0.00825,
+      "q_sin_N": 0.008461538461538461,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.175,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▲",
+        "rep1": "▲",
+        "AB": "",
+        "BA": "▲",
+        "sin anthropic": "▲",
+        "sin deepseek": "▲",
+        "sin google": "▲",
+        "sin minimax": "▲",
+        "sin mistralai": "▲",
+        "sin openai": "▲",
+        "sin qwen": "▲",
+        "sin xiaomi": "▲",
+        "sin z-ai": "▲"
+      }
+    },
+    "gemma4|E": {
+      "marca": "▼",
+      "dif": -4.77234753550543,
+      "ic": [
+        -8.469350459482039,
+        -1.12729741019215
+      ],
+      "paso": {
+        "P1": true,
+        "P2": false,
+        "P3": false,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [
+        "P2",
+        "P3"
+      ],
+      "nivel": "frágil",
+      "nivel_sin_regla_N": "frágil",
+      "motivo": "falla P2 P3",
+      "p": 0.0116,
+      "q": 0.03560930232558139,
+      "q_sin_N": 0.036457142857142855,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "",
+        "rep1": "▼",
+        "AB": "",
+        "BA": "▼",
+        "sin anthropic": "▼",
+        "sin deepseek": "▼",
+        "sin google": "▼",
+        "sin minimax": "▼",
+        "sin mistralai": "▼",
+        "sin openai": "▼",
+        "sin qwen": "▼",
+        "sin xiaomi": "▼",
+        "sin z-ai": "▼"
+      }
+    },
+    "gemma4|A": {
+      "marca": "▼",
+      "dif": -4.761904761904762,
+      "ic": [
+        -7.456140350877192,
+        -2.307591896407687
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [],
+      "nivel": "robusta",
+      "nivel_sin_regla_N": "robusta",
+      "motivo": "pasa P1–P3, P5, P6",
+      "p": 0.0001,
+      "q": 0.0007764705882352942,
+      "q_sin_N": 0.0007333333333333334,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.74,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "▼",
+        "AB": "▼",
+        "BA": "▼",
+        "sin anthropic": "▼",
+        "sin deepseek": "▼",
+        "sin google": "▼",
+        "sin minimax": "▼",
+        "sin mistralai": "▼",
+        "sin openai": "▼",
+        "sin qwen": "▼",
+        "sin xiaomi": "▼",
+        "sin z-ai": "▼"
+      }
+    },
+    "gemma4|N": {
+      "marca": "▲",
+      "dif": 2.786044973544974,
+      "ic": [
+        0.25628306878306883,
+        5.307539682539682
+      ],
+      "paso": {
+        "P1": true,
+        "P2": false,
+        "P3": true,
+        "P5": true,
+        "P6": 0.0
+      },
+      "fallos": [
+        "P2",
+        "P6"
+      ],
+      "nivel": "frágil",
+      "nivel_sin_regla_N": "frágil",
+      "motivo": "falla P2 P6",
+      "p": 0.0218,
+      "q": 0.056423529411764706,
+      "q_sin_N": null,
+      "p1": {
+        "tasa_signo": 0.99,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▲",
+        "rep1": "",
+        "AB": "▲",
+        "BA": "▲",
+        "sin anthropic": "▲",
+        "sin deepseek": "▲",
+        "sin google": "▲",
+        "sin minimax": "▲",
+        "sin mistralai": "▲",
+        "sin openai": "▲",
+        "sin qwen": "▲",
+        "sin xiaomi": "▲",
+        "sin z-ai": "▲"
+      }
+    },
+    "gemma4|H": {
+      "marca": "▼",
+      "dif": -8.754960317460316,
+      "ic": [
+        -13.728505291005291,
+        -3.868530919312172
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [],
+      "nivel": "robusta",
+      "nivel_sin_regla_N": "robusta",
+      "motivo": "pasa P1–P3, P5, P6",
+      "p": 0.0001,
+      "q": 0.0007764705882352942,
+      "q_sin_N": 0.0007333333333333334,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.685,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "▼",
+        "AB": "▼",
+        "BA": "▼",
+        "sin anthropic": "▼",
+        "sin deepseek": "▼",
+        "sin google": "▼",
+        "sin minimax": "▼",
+        "sin mistralai": "▼",
+        "sin openai": "▼",
+        "sin qwen": "▼",
+        "sin xiaomi": "▼",
+        "sin z-ai": "▼"
+      }
+    },
+    "glm5.3-flash|E": {
+      "marca": "▼",
+      "dif": -4.312865497076023,
+      "ic": [
+        -7.2786131996658305,
+        -1.314745196324149
+      ],
+      "paso": {
+        "P1": true,
+        "P2": false,
+        "P3": true,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [
+        "P2"
+      ],
+      "nivel": "frágil",
+      "nivel_sin_regla_N": "frágil",
+      "motivo": "falla P2",
+      "p": 0.005,
+      "q": 0.018857142857142857,
+      "q_sin_N": 0.018965517241379314,
+      "p1": {
+        "tasa_signo": 0.995,
+        "tasa_sig_ambas": 0.07,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "",
+        "rep1": "▼",
+        "AB": "▼",
+        "BA": "▼",
+        "sin anthropic": "▼",
+        "sin deepseek": "▼",
+        "sin google": "▼",
+        "sin minimax": "▼",
+        "sin mistralai": "▼",
+        "sin openai": "▼",
+        "sin qwen": "▼",
+        "sin xiaomi": "▼",
+        "sin z-ai": "▼"
+      }
+    },
+    "google_gemini-3.1-flash-lite|O": {
+      "marca": "▲",
+      "dif": 9.594430992736077,
+      "ic": [
+        5.942208097928437,
+        13.263384449825127
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [],
+      "nivel": "robusta",
+      "nivel_sin_regla_N": "robusta",
+      "motivo": "pasa P1–P3, P5, P6",
+      "p": 5e-05,
+      "q": 0.0004714285714285714,
+      "q_sin_N": 0.0004230769230769231,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.99,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▲",
+        "rep1": "▲",
+        "AB": "▲",
+        "BA": "▲",
+        "sin anthropic": "▲",
+        "sin deepseek": "▲",
+        "sin google": "▲",
+        "sin minimax": "▲",
+        "sin mistralai": "▲",
+        "sin openai": "▲",
+        "sin qwen": "▲",
+        "sin xiaomi": "▲",
+        "sin z-ai": "▲"
+      }
+    },
+    "google_gemini-3.1-flash-lite|E": {
+      "marca": "▲",
+      "dif": 3.9578111946532997,
+      "ic": [
+        0.17726608187134518,
+        7.717209690893901
+      ],
+      "paso": {
+        "P1": true,
+        "P2": false,
+        "P3": false,
+        "P5": false,
+        "P6": 0.0
+      },
+      "fallos": [
+        "P2",
+        "P3",
+        "P5",
+        "P6"
+      ],
+      "nivel": "no publicable",
+      "nivel_sin_regla_N": "no publicable",
+      "motivo": "falla 4 (P2 P3 P5 P6); cae sin deepseek, google, openai, z-ai",
+      "p": 0.0473,
+      "q": 0.0991047619047619,
+      "q_sin_N": 0.10406,
+      "p1": {
+        "tasa_signo": 0.955,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [
+        "deepseek",
+        "google",
+        "openai",
+        "z-ai"
+      ],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "",
+        "rep1": "▲",
+        "AB": "▲",
+        "BA": "",
+        "sin anthropic": "▲",
+        "sin deepseek": "",
+        "sin google": "",
+        "sin minimax": "▲",
+        "sin mistralai": "▲",
+        "sin openai": "",
+        "sin qwen": "▲",
+        "sin xiaomi": "▲",
+        "sin z-ai": ""
+      }
+    },
+    "google_gemini-3.1-flash-lite|H": {
+      "marca": "▼",
+      "dif": -7.390873015873015,
+      "ic": [
+        -12.851562499999998,
+        -2.537719080687831
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": false,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [
+        "P3"
+      ],
+      "nivel": "frágil",
+      "nivel_sin_regla_N": "frágil",
+      "motivo": "falla P3",
+      "p": 0.0031,
+      "q": 0.0124,
+      "q_sin_N": 0.012571428571428572,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.185,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "▼",
+        "AB": "",
+        "BA": "▼",
+        "sin anthropic": "▼",
+        "sin deepseek": "▼",
+        "sin google": "▼",
+        "sin minimax": "▼",
+        "sin mistralai": "▼",
+        "sin openai": "▼",
+        "sin qwen": "▼",
+        "sin xiaomi": "▼",
+        "sin z-ai": "▼"
+      }
+    },
+    "google_gemini-3.7-flash|O": {
+      "marca": "▼",
+      "dif": -16.37409200968523,
+      "ic": [
+        -20.564635458703254,
+        -12.240718321226797
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [],
+      "nivel": "robusta",
+      "nivel_sin_regla_N": "robusta",
+      "motivo": "pasa P1–P3, P5, P6",
+      "p": 5e-05,
+      "q": 0.0004714285714285714,
+      "q_sin_N": 0.0004230769230769231,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 1.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "▼",
+        "AB": "▼",
+        "BA": "▼",
+        "sin anthropic": "▼",
+        "sin deepseek": "▼",
+        "sin google": "▼",
+        "sin minimax": "▼",
+        "sin mistralai": "▼",
+        "sin openai": "▼",
+        "sin qwen": "▼",
+        "sin xiaomi": "▼",
+        "sin z-ai": "▼"
+      }
+    },
+    "google_gemini-3.7-flash|E": {
+      "marca": "▲",
+      "dif": 11.30952380952381,
+      "ic": [
+        5.8688387635756065,
+        16.740288220551374
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [],
+      "nivel": "robusta",
+      "nivel_sin_regla_N": "robusta",
+      "motivo": "pasa P1–P3, P5, P6",
+      "p": 5e-05,
+      "q": 0.0004714285714285714,
+      "q_sin_N": 0.0004230769230769231,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.86,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▲",
+        "rep1": "▲",
+        "AB": "▲",
+        "BA": "▲",
+        "sin anthropic": "▲",
+        "sin deepseek": "▲",
+        "sin google": "▲",
+        "sin minimax": "▲",
+        "sin mistralai": "▲",
+        "sin openai": "▲",
+        "sin qwen": "▲",
+        "sin xiaomi": "▲",
+        "sin z-ai": "▲"
+      }
+    },
+    "google_gemini-3.7-flash|A": {
+      "marca": "▲",
+      "dif": 13.617376775271511,
+      "ic": [
+        7.455879281537176,
+        19.527986633249792
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [],
+      "nivel": "robusta",
+      "nivel_sin_regla_N": "robusta",
+      "motivo": "pasa P1–P3, P5, P6",
+      "p": 5e-05,
+      "q": 0.0004714285714285714,
+      "q_sin_N": 0.0004230769230769231,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.89,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▲",
+        "rep1": "▲",
+        "AB": "▲",
+        "BA": "▲",
+        "sin anthropic": "▲",
+        "sin deepseek": "▲",
+        "sin google": "▲",
+        "sin minimax": "▲",
+        "sin mistralai": "▲",
+        "sin openai": "▲",
+        "sin qwen": "▲",
+        "sin xiaomi": "▲",
+        "sin z-ai": "▲"
+      }
+    },
+    "google_gemini-3.7-flash|H": {
+      "marca": "▼",
+      "dif": -5.4811507936507935,
+      "ic": [
+        -10.842633928571429,
+        -0.12638475529101462
+      ],
+      "paso": {
+        "P1": true,
+        "P2": false,
+        "P3": false,
+        "P5": false,
+        "P6": 0.0
+      },
+      "fallos": [
+        "P2",
+        "P3",
+        "P5",
+        "P6"
+      ],
+      "nivel": "no publicable",
+      "nivel_sin_regla_N": "no publicable",
+      "motivo": "falla 4 (P2 P3 P5 P6); cae sin anthropic, openai, z-ai",
+      "p": 0.0436,
+      "q": 0.09325161290322581,
+      "q_sin_N": 0.09832653061224489,
+      "p1": {
+        "tasa_signo": 0.975,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [
+        "anthropic",
+        "openai",
+        "z-ai"
+      ],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "",
+        "AB": "",
+        "BA": "▼",
+        "sin anthropic": "",
+        "sin deepseek": "▼",
+        "sin google": "▼",
+        "sin minimax": "▼",
+        "sin mistralai": "▼",
+        "sin openai": "",
+        "sin qwen": "▼",
+        "sin xiaomi": "▼",
+        "sin z-ai": ""
+      }
+    },
+    "google_gemini-4-argon|O": {
+      "marca": "▼",
+      "dif": -9.04963680387409,
+      "ic": [
+        -12.409200968523002,
+        -5.618946731234869
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [],
+      "nivel": "robusta",
+      "nivel_sin_regla_N": "robusta",
+      "motivo": "pasa P1–P3, P5, P6",
+      "p": 5e-05,
+      "q": 0.0004714285714285714,
+      "q_sin_N": 0.0004230769230769231,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.995,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "▼",
+        "AB": "▼",
+        "BA": "▼",
+        "sin anthropic": "▼",
+        "sin deepseek": "▼",
+        "sin google": "▼",
+        "sin minimax": "▼",
+        "sin mistralai": "▼",
+        "sin openai": "▼",
+        "sin qwen": "▼",
+        "sin xiaomi": "▼",
+        "sin z-ai": "▼"
+      }
+    },
+    "google_gemini-4-argon|C": {
+      "marca": "▼",
+      "dif": -3.008078231292516,
+      "ic": [
+        -5.782312925170067,
+        -0.08397108843537937
+      ],
+      "paso": {
+        "P1": true,
+        "P2": false,
+        "P3": false,
+        "P5": false,
+        "P6": 0.0
+      },
+      "fallos": [
+        "P2",
+        "P3",
+        "P5",
+        "P6"
+      ],
+      "nivel": "no publicable",
+      "nivel_sin_regla_N": "no publicable",
+      "motivo": "falla 4 (P2 P3 P5 P6); cae sin google, minimax, mistralai",
+      "p": 0.0415,
+      "q": 0.0913,
+      "q_sin_N": 0.09712765957446809,
+      "p1": {
+        "tasa_signo": 0.96,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [
+        "google",
+        "minimax",
+        "mistralai"
+      ],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "",
+        "AB": "▼",
+        "BA": "",
+        "sin anthropic": "▼",
+        "sin deepseek": "▼",
+        "sin google": "",
+        "sin minimax": "",
+        "sin mistralai": "",
+        "sin openai": "▼",
+        "sin qwen": "▼",
+        "sin xiaomi": "▼",
+        "sin z-ai": "▼"
+      }
+    },
+    "google_gemini-4-argon|N": {
+      "marca": "▼",
+      "dif": -4.852843915343915,
+      "ic": [
+        -7.614293981481482,
+        -2.314814814814815
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [],
+      "nivel": "robusta",
+      "nivel_sin_regla_N": "robusta",
+      "motivo": "pasa P1–P3, P5, P6",
+      "p": 0.0005,
+      "q": 0.00264,
+      "q_sin_N": null,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.515,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "▼",
+        "AB": "▼",
+        "BA": "▼",
+        "sin anthropic": "▼",
+        "sin deepseek": "▼",
+        "sin google": "▼",
+        "sin minimax": "▼",
+        "sin mistralai": "▼",
+        "sin openai": "▼",
+        "sin qwen": "▼",
+        "sin xiaomi": "▼",
+        "sin z-ai": "▼"
+      }
+    },
+    "google_gemini-4-argon|H": {
+      "marca": "▼",
+      "dif": -4.662698412698414,
+      "ic": [
+        -9.015376984126982,
+        -0.2229042658730181
+      ],
+      "paso": {
+        "P1": true,
+        "P2": false,
+        "P3": false,
+        "P5": false,
+        "P6": 0.0
+      },
+      "fallos": [
+        "P2",
+        "P3",
+        "P5",
+        "P6"
+      ],
+      "nivel": "no publicable",
+      "nivel_sin_regla_N": "no publicable",
+      "motivo": "falla 4 (P2 P3 P5 P6); cae sin anthropic, openai",
+      "p": 0.0289,
+      "q": 0.07064444444444444,
+      "q_sin_N": 0.07753658536585366,
+      "p1": {
+        "tasa_signo": 0.955,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [
+        "anthropic",
+        "openai"
+      ],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "",
+        "AB": "▼",
+        "BA": "",
+        "sin anthropic": "",
+        "sin deepseek": "▼",
+        "sin google": "▼",
+        "sin minimax": "▼",
+        "sin mistralai": "▼",
+        "sin openai": "",
+        "sin qwen": "▼",
+        "sin xiaomi": "▼",
+        "sin z-ai": "▼"
+      }
+    },
+    "mimo-v2.6-flash|O": {
+      "marca": "▲",
+      "dif": 4.045601291364004,
+      "ic": [
+        0.012947269303201012,
+        7.835704196933011
+      ],
+      "paso": {
+        "P1": true,
+        "P2": false,
+        "P3": false,
+        "P5": false,
+        "P6": 0.0
+      },
+      "fallos": [
+        "P2",
+        "P3",
+        "P5",
+        "P6"
+      ],
+      "nivel": "no publicable",
+      "nivel_sin_regla_N": "no publicable",
+      "motivo": "falla 4 (P2 P3 P5 P6); cae sin anthropic, deepseek, google, minimax, qwen",
+      "p": 0.0496,
+      "q": 0.1023,
+      "q_sin_N": 0.10682692307692308,
+      "p1": {
+        "tasa_signo": 0.945,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [
+        "anthropic",
+        "deepseek",
+        "google",
+        "minimax",
+        "qwen"
+      ],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "",
+        "rep1": "▲",
+        "AB": "▲",
+        "BA": "",
+        "sin anthropic": "",
+        "sin deepseek": "",
+        "sin google": "",
+        "sin minimax": "",
+        "sin mistralai": "▲",
+        "sin openai": "▲",
+        "sin qwen": "",
+        "sin xiaomi": "▲",
+        "sin z-ai": "▲"
+      }
+    },
+    "minimax_minimax-m3.1-flash#low|C": {
+      "marca": "▲",
+      "dif": 4.8646541950113384,
+      "ic": [
+        1.3533694727891155,
+        8.584980867346937
+      ],
+      "paso": {
+        "P1": true,
+        "P2": false,
+        "P3": true,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [
+        "P2"
+      ],
+      "nivel": "frágil",
+      "nivel_sin_regla_N": "frágil",
+      "motivo": "falla P2",
+      "p": 0.0058,
+      "q": 0.021266666666666666,
+      "q_sin_N": 0.021266666666666663,
+      "p1": {
+        "tasa_signo": 0.995,
+        "tasa_sig_ambas": 0.03,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▲",
+        "rep1": "",
+        "AB": "▲",
+        "BA": "▲",
+        "sin anthropic": "▲",
+        "sin deepseek": "▲",
+        "sin google": "▲",
+        "sin minimax": "▲",
+        "sin mistralai": "▲",
+        "sin openai": "▲",
+        "sin qwen": "▲",
+        "sin xiaomi": "▲",
+        "sin z-ai": "▲"
+      }
+    },
+    "minimax_minimax-m3.1-flash#low|N": {
+      "marca": "▲",
+      "dif": 2.6041666666666665,
+      "ic": [
+        0.5040922619047621,
+        4.654637896825396
+      ],
+      "paso": {
+        "P1": true,
+        "P2": false,
+        "P3": false,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [
+        "P2",
+        "P3"
+      ],
+      "nivel": "frágil",
+      "nivel_sin_regla_N": "frágil",
+      "motivo": "falla P2 P3",
+      "p": 0.0126,
+      "q": 0.0378,
+      "q_sin_N": null,
+      "p1": {
+        "tasa_signo": 0.99,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "",
+        "rep1": "▲",
+        "AB": "",
+        "BA": "▲",
+        "sin anthropic": "▲",
+        "sin deepseek": "▲",
+        "sin google": "▲",
+        "sin minimax": "▲",
+        "sin mistralai": "▲",
+        "sin openai": "▲",
+        "sin qwen": "▲",
+        "sin xiaomi": "▲",
+        "sin z-ai": "▲"
+      }
+    },
+    "mistralai_mistral-medium-3-5|O": {
+      "marca": "▲",
+      "dif": 8.040758676351897,
+      "ic": [
+        4.637476459510358,
+        11.461696260425068
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [],
+      "nivel": "robusta",
+      "nivel_sin_regla_N": "robusta",
+      "motivo": "pasa P1–P3, P5, P6",
+      "p": 5e-05,
+      "q": 0.0004714285714285714,
+      "q_sin_N": 0.0004230769230769231,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.965,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▲",
+        "rep1": "▲",
+        "AB": "▲",
+        "BA": "▲",
+        "sin anthropic": "▲",
+        "sin deepseek": "▲",
+        "sin google": "▲",
+        "sin minimax": "▲",
+        "sin mistralai": "▲",
+        "sin openai": "▲",
+        "sin qwen": "▲",
+        "sin xiaomi": "▲",
+        "sin z-ai": "▲"
+      }
+    },
+    "mistralai_mistral-medium-3-5|C": {
+      "marca": "▲",
+      "dif": 3.9292800453514745,
+      "ic": [
+        0.45670351473922915,
+        7.582642431972787
+      ],
+      "paso": {
+        "P1": true,
+        "P2": false,
+        "P3": false,
+        "P5": false,
+        "P6": 0.0
+      },
+      "fallos": [
+        "P2",
+        "P3",
+        "P5",
+        "P6"
+      ],
+      "nivel": "no publicable",
+      "nivel_sin_regla_N": "no publicable",
+      "motivo": "falla 4 (P2 P3 P5 P6); cae sin qwen",
+      "p": 0.0265,
+      "q": 0.06726923076923076,
+      "q_sin_N": 0.07474358974358974,
+      "p1": {
+        "tasa_signo": 0.98,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [
+        "qwen"
+      ],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▲",
+        "rep1": "",
+        "AB": "",
+        "BA": "▲",
+        "sin anthropic": "▲",
+        "sin deepseek": "▲",
+        "sin google": "▲",
+        "sin minimax": "▲",
+        "sin mistralai": "▲",
+        "sin openai": "▲",
+        "sin qwen": "",
+        "sin xiaomi": "▲",
+        "sin z-ai": "▲"
+      }
+    },
+    "mistralai_mistral-medium-3-5|E": {
+      "marca": "▲",
+      "dif": 2.579365079365079,
+      "ic": [
+        0.09346282372598201,
+        5.3678467000835415
+      ],
+      "paso": {
+        "P1": true,
+        "P2": false,
+        "P3": false,
+        "P5": false,
+        "P6": 0.0
+      },
+      "fallos": [
+        "P2",
+        "P3",
+        "P5",
+        "P6"
+      ],
+      "nivel": "no publicable",
+      "nivel_sin_regla_N": "no publicable",
+      "motivo": "falla 4 (P2 P3 P5 P6); cae sin deepseek, minimax, mistralai, openai, z-ai",
+      "p": 0.0538,
+      "q": 0.1076,
+      "q_sin_N": 0.11166037735849058,
+      "p1": {
+        "tasa_signo": 0.96,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [
+        "deepseek",
+        "minimax",
+        "mistralai",
+        "openai",
+        "z-ai"
+      ],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "",
+        "rep1": "▲",
+        "AB": "",
+        "BA": "▲",
+        "sin anthropic": "▲",
+        "sin deepseek": "",
+        "sin google": "▲",
+        "sin minimax": "",
+        "sin mistralai": "",
+        "sin openai": "",
+        "sin qwen": "▲",
+        "sin xiaomi": "▲",
+        "sin z-ai": ""
+      }
+    },
+    "mistralai_mistral-medium-3-5|N": {
+      "marca": "▲",
+      "dif": 3.1498015873015874,
+      "ic": [
+        0.677703373015873,
+        5.696097883597884
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": false,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [
+        "P3"
+      ],
+      "nivel": "frágil",
+      "nivel_sin_regla_N": "frágil",
+      "motivo": "falla P3",
+      "p": 0.0109,
+      "q": 0.03425714285714286,
+      "q_sin_N": null,
+      "p1": {
+        "tasa_signo": 0.995,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▲",
+        "rep1": "▲",
+        "AB": "",
+        "BA": "▲",
+        "sin anthropic": "▲",
+        "sin deepseek": "▲",
+        "sin google": "▲",
+        "sin minimax": "▲",
+        "sin mistralai": "▲",
+        "sin openai": "▲",
+        "sin qwen": "▲",
+        "sin xiaomi": "▲",
+        "sin z-ai": "▲"
+      }
+    },
+    "mistralai_mistral-medium-3-5|H": {
+      "marca": "▼",
+      "dif": -8.209325396825397,
+      "ic": [
+        -12.51829117063492,
+        -4.16232638888889
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": false,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [
+        "P3"
+      ],
+      "nivel": "frágil",
+      "nivel_sin_regla_N": "frágil",
+      "motivo": "falla P3",
+      "p": 5e-05,
+      "q": 0.0004714285714285714,
+      "q_sin_N": 0.0004230769230769231,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.885,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "▼",
+        "AB": "▼",
+        "BA": "",
+        "sin anthropic": "▼",
+        "sin deepseek": "▼",
+        "sin google": "▼",
+        "sin minimax": "▼",
+        "sin mistralai": "▼",
+        "sin openai": "▼",
+        "sin qwen": "▼",
+        "sin xiaomi": "▼",
+        "sin z-ai": "▼"
+      }
+    },
+    "openai_gpt-5.6-luna|A": {
+      "marca": "▼",
+      "dif": -3.1537176274018375,
+      "ic": [
+        -5.410401002506266,
+        -0.8978174603174613
+      ],
+      "paso": {
+        "P1": true,
+        "P2": false,
+        "P3": false,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [
+        "P2",
+        "P3"
+      ],
+      "nivel": "frágil",
+      "nivel_sin_regla_N": "frágil",
+      "motivo": "falla P2 P3",
+      "p": 0.0061,
+      "q": 0.021762162162162164,
+      "q_sin_N": 0.02164516129032258,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.02,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "",
+        "rep1": "▼",
+        "AB": "",
+        "BA": "▼",
+        "sin anthropic": "▼",
+        "sin deepseek": "▼",
+        "sin google": "▼",
+        "sin minimax": "▼",
+        "sin mistralai": "▼",
+        "sin openai": "▼",
+        "sin qwen": "▼",
+        "sin xiaomi": "▼",
+        "sin z-ai": "▼"
+      }
+    },
+    "openai_gpt-5.6-luna|H": {
+      "marca": "▲",
+      "dif": 5.4315476190476195,
+      "ic": [
+        2.7611400462962967,
+        8.27225942460317
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": false,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [
+        "P3"
+      ],
+      "nivel": "frágil",
+      "nivel_sin_regla_N": "frágil",
+      "motivo": "falla P3",
+      "p": 0.0002,
+      "q": 0.0013894736842105264,
+      "q_sin_N": 0.0012941176470588236,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.625,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▲",
+        "rep1": "▲",
+        "AB": "▲",
+        "BA": "",
+        "sin anthropic": "▲",
+        "sin deepseek": "▲",
+        "sin google": "▲",
+        "sin minimax": "▲",
+        "sin mistralai": "▲",
+        "sin openai": "▲",
+        "sin qwen": "▲",
+        "sin xiaomi": "▲",
+        "sin z-ai": "▲"
+      }
+    },
+    "openai_gpt-6-luna#low|C": {
+      "marca": "▼",
+      "dif": -3.553713151927437,
+      "ic": [
+        -6.873582766439909,
+        -0.3183460884353764
+      ],
+      "paso": {
+        "P1": true,
+        "P2": false,
+        "P3": false,
+        "P5": false,
+        "P6": 0.0
+      },
+      "fallos": [
+        "P2",
+        "P3",
+        "P5",
+        "P6"
+      ],
+      "nivel": "no publicable",
+      "nivel_sin_regla_N": "no publicable",
+      "motivo": "falla 4 (P2 P3 P5 P6); cae sin minimax",
+      "p": 0.0438,
+      "q": 0.09325161290322581,
+      "q_sin_N": 0.09832653061224489,
+      "p1": {
+        "tasa_signo": 0.97,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [
+        "minimax"
+      ],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "",
+        "AB": "",
+        "BA": "▼",
+        "sin anthropic": "▼",
+        "sin deepseek": "▼",
+        "sin google": "▼",
+        "sin minimax": "",
+        "sin mistralai": "▼",
+        "sin openai": "▼",
+        "sin qwen": "▼",
+        "sin xiaomi": "▼",
+        "sin z-ai": "▼"
+      }
+    },
+    "openai_gpt-6-luna#low|E": {
+      "marca": "▼",
+      "dif": -5.461570593149541,
+      "ic": [
+        -9.022556390977444,
+        -2.015194235588974
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": false,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [
+        "P3"
+      ],
+      "nivel": "frágil",
+      "nivel_sin_regla_N": "frágil",
+      "motivo": "falla P3",
+      "p": 0.0032,
+      "q": 0.012423529411764707,
+      "q_sin_N": 0.012571428571428572,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.07,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "▼",
+        "AB": "",
+        "BA": "▼",
+        "sin anthropic": "▼",
+        "sin deepseek": "▼",
+        "sin google": "▼",
+        "sin minimax": "▼",
+        "sin mistralai": "▼",
+        "sin openai": "▼",
+        "sin qwen": "▼",
+        "sin xiaomi": "▼",
+        "sin z-ai": "▼"
+      }
+    },
+    "openai_gpt-6-luna#low|H": {
+      "marca": "▲",
+      "dif": 6.52281746031746,
+      "ic": [
+        2.4294188161375674,
+        10.367166832010582
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": false,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [
+        "P3"
+      ],
+      "nivel": "frágil",
+      "nivel_sin_regla_N": "frágil",
+      "motivo": "falla P3",
+      "p": 0.0016,
+      "q": 0.006812903225806451,
+      "q_sin_N": 0.007040000000000001,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.29,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▲",
+        "rep1": "▲",
+        "AB": "▲",
+        "BA": "",
+        "sin anthropic": "▲",
+        "sin deepseek": "▲",
+        "sin google": "▲",
+        "sin minimax": "▲",
+        "sin mistralai": "▲",
+        "sin openai": "▲",
+        "sin qwen": "▲",
+        "sin xiaomi": "▲",
+        "sin z-ai": "▲"
+      }
+    },
+    "openai_gpt-6.1-sol#low|C": {
+      "marca": "▼",
+      "dif": -5.892148526077096,
+      "ic": [
+        -9.06046272675737,
+        -2.8374787414966005
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [],
+      "nivel": "robusta",
+      "nivel_sin_regla_N": "robusta",
+      "motivo": "pasa P1–P3, P5, P6",
+      "p": 0.0004,
+      "q": 0.0022956521739130433,
+      "q_sin_N": 0.0023157894736842107,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.545,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "▼",
+        "AB": "▼",
+        "BA": "▼",
+        "sin anthropic": "▼",
+        "sin deepseek": "▼",
+        "sin google": "▼",
+        "sin minimax": "▼",
+        "sin mistralai": "▼",
+        "sin openai": "▼",
+        "sin qwen": "▼",
+        "sin xiaomi": "▼",
+        "sin z-ai": "▼"
+      }
+    },
+    "openai_gpt-6.1-sol#low|E": {
+      "marca": "▼",
+      "dif": -4.08312447786132,
+      "ic": [
+        -7.5723162071846275,
+        -0.6161236424394324
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": false,
+        "P5": true,
+        "P6": 0.0
+      },
+      "fallos": [
+        "P3",
+        "P6"
+      ],
+      "nivel": "frágil",
+      "nivel_sin_regla_N": "frágil",
+      "motivo": "falla P3 P6",
+      "p": 0.0273,
+      "q": 0.06799245283018868,
+      "q_sin_N": 0.075075,
+      "p1": {
+        "tasa_signo": 0.995,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "▼",
+        "AB": "",
+        "BA": "▼",
+        "sin anthropic": "▼",
+        "sin deepseek": "▼",
+        "sin google": "▼",
+        "sin minimax": "▼",
+        "sin mistralai": "▼",
+        "sin openai": "▼",
+        "sin qwen": "▼",
+        "sin xiaomi": "▼",
+        "sin z-ai": "▼"
+      }
+    },
+    "openai_gpt-6.1-sol#low|N": {
+      "marca": "▼",
+      "dif": -3.5796957671957674,
+      "ic": [
+        -6.349413029100528,
+        -0.8595816798941808
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [],
+      "nivel": "robusta",
+      "nivel_sin_regla_N": "robusta",
+      "motivo": "pasa P1–P3, P5, P6",
+      "p": 0.0106,
+      "q": 0.034126829268292684,
+      "q_sin_N": null,
+      "p1": {
+        "tasa_signo": 0.985,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "▼",
+        "AB": "▼",
+        "BA": "▼",
+        "sin anthropic": "▼",
+        "sin deepseek": "▼",
+        "sin google": "▼",
+        "sin minimax": "▼",
+        "sin mistralai": "▼",
+        "sin openai": "▼",
+        "sin qwen": "▼",
+        "sin xiaomi": "▼",
+        "sin z-ai": "▼"
+      }
+    },
+    "openai_gpt-6.1-sol#low|H": {
+      "marca": "▲",
+      "dif": 8.978174603174603,
+      "ic": [
+        5.44797867063492,
+        12.698516038359788
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [],
+      "nivel": "robusta",
+      "nivel_sin_regla_N": "robusta",
+      "motivo": "pasa P1–P3, P5, P6",
+      "p": 5e-05,
+      "q": 0.0004714285714285714,
+      "q_sin_N": 0.0004230769230769231,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 1.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▲",
+        "rep1": "▲",
+        "AB": "▲",
+        "BA": "▲",
+        "sin anthropic": "▲",
+        "sin deepseek": "▲",
+        "sin google": "▲",
+        "sin minimax": "▲",
+        "sin mistralai": "▲",
+        "sin openai": "▲",
+        "sin qwen": "▲",
+        "sin xiaomi": "▲",
+        "sin z-ai": "▲"
+      }
+    },
+    "qwen3.6|N": {
+      "marca": "▲",
+      "dif": 3.1498015873015874,
+      "ic": [
+        0.5700231481481483,
+        5.862061838624335
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": false,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [
+        "P3"
+      ],
+      "nivel": "frágil",
+      "nivel_sin_regla_N": "frágil",
+      "motivo": "falla P3",
+      "p": 0.0159,
+      "q": 0.04562608695652175,
+      "q_sin_N": null,
+      "p1": {
+        "tasa_signo": 0.98,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▲",
+        "rep1": "▲",
+        "AB": "▲",
+        "BA": "",
+        "sin anthropic": "▲",
+        "sin deepseek": "▲",
+        "sin google": "▲",
+        "sin minimax": "▲",
+        "sin mistralai": "▲",
+        "sin openai": "▲",
+        "sin qwen": "▲",
+        "sin xiaomi": "▲",
+        "sin z-ai": "▲"
+      }
+    },
+    "qwen3.6|H": {
+      "marca": "▼",
+      "dif": -8.754960317460318,
+      "ic": [
+        -13.149698247354497,
+        -4.752604166666671
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [],
+      "nivel": "robusta",
+      "nivel_sin_regla_N": "robusta",
+      "motivo": "pasa P1–P3, P5, P6",
+      "p": 0.0002,
+      "q": 0.0013894736842105264,
+      "q_sin_N": 0.0012941176470588236,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.87,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "▼",
+        "AB": "▼",
+        "BA": "▼",
+        "sin anthropic": "▼",
+        "sin deepseek": "▼",
+        "sin google": "▼",
+        "sin minimax": "▼",
+        "sin mistralai": "▼",
+        "sin openai": "▼",
+        "sin qwen": "▼",
+        "sin xiaomi": "▼",
+        "sin z-ai": "▼"
+      }
+    },
+    "qwen3.8-flash|O": {
+      "marca": "▼",
+      "dif": -3.722760290556901,
+      "ic": [
+        -7.470658461124561,
+        -0.3655501748722137
+      ],
+      "paso": {
+        "P1": true,
+        "P2": false,
+        "P3": false,
+        "P5": false,
+        "P6": 0.0
+      },
+      "fallos": [
+        "P2",
+        "P3",
+        "P5",
+        "P6"
+      ],
+      "nivel": "no publicable",
+      "nivel_sin_regla_N": "no publicable",
+      "motivo": "falla 4 (P2 P3 P5 P6); cae sin mistralai, z-ai",
+      "p": 0.0375,
+      "q": 0.0852406779661017,
+      "q_sin_N": 0.09110869565217392,
+      "p1": {
+        "tasa_signo": 0.98,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [
+        "mistralai",
+        "z-ai"
+      ],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "",
+        "AB": "",
+        "BA": "▼",
+        "sin anthropic": "▼",
+        "sin deepseek": "▼",
+        "sin google": "▼",
+        "sin minimax": "▼",
+        "sin mistralai": "",
+        "sin openai": "▼",
+        "sin qwen": "▼",
+        "sin xiaomi": "▼",
+        "sin z-ai": ""
+      }
+    },
+    "qwen_qwen3.8-max-0902#low|C": {
+      "marca": "▼",
+      "dif": -3.319869614512471,
+      "ic": [
+        -6.041666666666666,
+        -0.4145408163265308
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": false,
+        "P5": true,
+        "P6": 0.0
+      },
+      "fallos": [
+        "P3",
+        "P6"
+      ],
+      "nivel": "frágil",
+      "nivel_sin_regla_N": "frágil",
+      "motivo": "falla P3 P6",
+      "p": 0.0193,
+      "q": 0.05199183673469388,
+      "q_sin_N": 0.057378378378378385,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "▼",
+        "AB": "▼",
+        "BA": "",
+        "sin anthropic": "▼",
+        "sin deepseek": "▼",
+        "sin google": "▼",
+        "sin minimax": "▼",
+        "sin mistralai": "▼",
+        "sin openai": "▼",
+        "sin qwen": "▼",
+        "sin xiaomi": "▼",
+        "sin z-ai": "▼"
+      }
+    },
+    "qwen_qwen3.8-max-0902#low|E": {
+      "marca": "▲",
+      "dif": 6.255221386800334,
+      "ic": [
+        2.6837928153717625,
+        9.889828738512946
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [],
+      "nivel": "robusta",
+      "nivel_sin_regla_N": "robusta",
+      "motivo": "pasa P1–P3, P5, P6",
+      "p": 0.0003,
+      "q": 0.0018857142857142855,
+      "q_sin_N": 0.001833333333333333,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.69,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▲",
+        "rep1": "▲",
+        "AB": "▲",
+        "BA": "▲",
+        "sin anthropic": "▲",
+        "sin deepseek": "▲",
+        "sin google": "▲",
+        "sin minimax": "▲",
+        "sin mistralai": "▲",
+        "sin openai": "▲",
+        "sin qwen": "▲",
+        "sin xiaomi": "▲",
+        "sin z-ai": "▲"
+      }
+    },
+    "qwen_qwen3.8-max-0902#low|N": {
+      "marca": "▼",
+      "dif": -3.761574074074074,
+      "ic": [
+        -5.902984457671957,
+        -1.9097222222222223
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [],
+      "nivel": "robusta",
+      "nivel_sin_regla_N": "robusta",
+      "motivo": "pasa P1–P3, P5, P6",
+      "p": 5e-05,
+      "q": 0.0004714285714285714,
+      "q_sin_N": null,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.895,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "▼",
+        "AB": "▼",
+        "BA": "▼",
+        "sin anthropic": "▼",
+        "sin deepseek": "▼",
+        "sin google": "▼",
+        "sin minimax": "▼",
+        "sin mistralai": "▼",
+        "sin openai": "▼",
+        "sin qwen": "▼",
+        "sin xiaomi": "▼",
+        "sin z-ai": "▼"
+      }
+    },
+    "z-ai_glm-5.3|O": {
+      "marca": "▲",
+      "dif": 3.601694915254238,
+      "ic": [
+        0.2681934355663178,
+        6.844817729351622
+      ],
+      "paso": {
+        "P1": true,
+        "P2": false,
+        "P3": false,
+        "P5": false,
+        "P6": 0.0
+      },
+      "fallos": [
+        "P2",
+        "P3",
+        "P5",
+        "P6"
+      ],
+      "nivel": "no publicable",
+      "nivel_sin_regla_N": "no publicable",
+      "motivo": "falla 4 (P2 P3 P5 P6); cae sin google, qwen",
+      "p": 0.03,
+      "q": 0.072,
+      "q_sin_N": 0.07827906976744185,
+      "p1": {
+        "tasa_signo": 0.98,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [
+        "google",
+        "qwen"
+      ],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▲",
+        "rep1": "",
+        "AB": "▲",
+        "BA": "",
+        "sin anthropic": "▲",
+        "sin deepseek": "▲",
+        "sin google": "",
+        "sin minimax": "▲",
+        "sin mistralai": "▲",
+        "sin openai": "▲",
+        "sin qwen": "",
+        "sin xiaomi": "▲",
+        "sin z-ai": "▲"
+      }
+    },
+    "z-ai_glm-5.3|N": {
+      "marca": "▼",
+      "dif": -2.3065476190476186,
+      "ic": [
+        -3.720444775132275,
+        -0.9672619047619047
+      ],
+      "paso": {
+        "P1": true,
+        "P2": false,
+        "P3": false,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [
+        "P2",
+        "P3"
+      ],
+      "nivel": "frágil",
+      "nivel_sin_regla_N": "frágil",
+      "motivo": "falla P2 P3",
+      "p": 0.0004,
+      "q": 0.0022956521739130433,
+      "q_sin_N": null,
+      "p1": {
+        "tasa_signo": 0.995,
+        "tasa_sig_ambas": 0.555,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "",
+        "rep1": "▼",
+        "AB": "",
+        "BA": "▼",
+        "sin anthropic": "▼",
+        "sin deepseek": "▼",
+        "sin google": "▼",
+        "sin minimax": "▼",
+        "sin mistralai": "▼",
+        "sin openai": "▼",
+        "sin qwen": "▼",
+        "sin xiaomi": "▼",
+        "sin z-ai": "▼"
+      }
+    },
+    "z-ai_glm-5.3|H": {
+      "marca": "▲",
+      "dif": 4.885912698412699,
+      "ic": [
+        2.219638723544974,
+        7.531415343915342
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": false,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [
+        "P3"
+      ],
+      "nivel": "frágil",
+      "nivel_sin_regla_N": "frágil",
+      "motivo": "falla P3",
+      "p": 0.0006,
+      "q": 0.003046153846153846,
+      "q_sin_N": 0.0031428571428571426,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.545,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▲",
+        "rep1": "▲",
+        "AB": "▲",
+        "BA": "",
+        "sin anthropic": "▲",
+        "sin deepseek": "▲",
+        "sin google": "▲",
+        "sin minimax": "▲",
+        "sin mistralai": "▲",
+        "sin openai": "▲",
+        "sin qwen": "▲",
+        "sin xiaomi": "▲",
+        "sin z-ai": "▲"
+      }
+    }
+  },
+  "validez_modelos": {
+    "criterio": "PERSONALIDAD.md §41.2",
+    "modelos": {
+      "anthropic_claude-haiku-4.5": {
+        "valores": {
+          "V1_delta": 0.1777456647398844,
+          "V1_frac_A": 0.08717579250720459,
+          "V2_no_validas": 0.0057306590257879654,
+          "V3_retest": 0.9722619555646883,
+          "V4_coherencia": 0.8624641833810889
+        },
+        "niveles": {
+          "V1_delta": "válido",
+          "V1_frac_A": "válido",
+          "V2_no_validas": "válido",
+          "V3_retest": "válido",
+          "V4_coherencia": "válido"
+        },
+        "nivel": "válido",
+        "interpretable": true,
+        "motivo": "",
+        "detalle": {
+          "delta_con_signo": -0.1777456647398844,
+          "frac_A": 0.4128242074927954,
+          "n_elecciones": 1396,
+          "n_validas": 1388,
+          "n_situaciones": 349,
+          "n_situaciones_retest": 348,
+          "n_deseabilidad_pares": 349,
+          "frac_A_deseabilidad": 0.4684813753581662
+        }
+      },
+      "anthropic_claude-haiku-5.5": {
+        "valores": {
+          "V1_delta": 0.04154727793696275,
+          "V1_frac_A": 0.02077363896848139,
+          "V2_no_validas": 0.0,
+          "V3_retest": 0.9250029628441363,
+          "V4_coherencia": 0.8968481375358166
+        },
+        "niveles": {
+          "V1_delta": "válido",
+          "V1_frac_A": "válido",
+          "V2_no_validas": "válido",
+          "V3_retest": "válido",
+          "V4_coherencia": "válido"
+        },
+        "nivel": "válido",
+        "interpretable": true,
+        "motivo": "",
+        "detalle": {
+          "delta_con_signo": -0.04154727793696275,
+          "frac_A": 0.4792263610315186,
+          "n_elecciones": 1396,
+          "n_validas": 1396,
+          "n_situaciones": 349,
+          "n_situaciones_retest": 349,
+          "n_deseabilidad_pares": 349,
+          "frac_A_deseabilidad": 0.5
+        }
+      },
+      "anthropic_claude-opus-5.5#low": {
+        "valores": {
+          "V1_delta": 0.05300859598853868,
+          "V1_frac_A": 0.026504297994269344,
+          "V2_no_validas": 0.0,
+          "V3_retest": 0.9594026030460758,
+          "V4_coherencia": 0.9169054441260746
+        },
+        "niveles": {
+          "V1_delta": "válido",
+          "V1_frac_A": "válido",
+          "V2_no_validas": "válido",
+          "V3_retest": "válido",
+          "V4_coherencia": "válido"
+        },
+        "nivel": "válido",
+        "interpretable": true,
+        "motivo": "",
+        "detalle": {
+          "delta_con_signo": -0.05300859598853868,
+          "frac_A": 0.47349570200573066,
+          "n_elecciones": 1396,
+          "n_validas": 1396,
+          "n_situaciones": 349,
+          "n_situaciones_retest": 349,
+          "n_deseabilidad_pares": 349,
+          "frac_A_deseabilidad": 0.49283667621776506
+        }
+      },
+      "deepseek-v4-flash@2026-10-17": {
+        "valores": {
+          "V1_delta": 0.09455587392550144,
+          "V1_frac_A": 0.04727793696275073,
+          "V2_no_validas": 0.0,
+          "V3_retest": 0.9494092677546487,
+          "V4_coherencia": 0.8022922636103151
+        },
+        "niveles": {
+          "V1_delta": "válido",
+          "V1_frac_A": "válido",
+          "V2_no_validas": "válido",
+          "V3_retest": "válido",
+          "V4_coherencia": "válido"
+        },
+        "nivel": "válido",
+        "interpretable": true,
+        "motivo": "",
+        "detalle": {
+          "delta_con_signo": -0.09455587392550144,
+          "frac_A": 0.45272206303724927,
+          "n_elecciones": 1396,
+          "n_validas": 1396,
+          "n_situaciones": 349,
+          "n_situaciones_retest": 349,
+          "n_deseabilidad_pares": 349,
+          "frac_A_deseabilidad": 0.4871060171919771
+        }
+      },
+      "deepseek_deepseek-v3.2": {
+        "valores": {
+          "V1_delta": 0.2507163323782235,
+          "V1_frac_A": 0.12535816618911177,
+          "V2_no_validas": 0.0,
+          "V3_retest": 0.767204684067466,
+          "V4_coherencia": 0.7593123209169055
+        },
+        "niveles": {
+          "V1_delta": "aviso",
+          "V1_frac_A": "aviso",
+          "V2_no_validas": "válido",
+          "V3_retest": "válido",
+          "V4_coherencia": "válido"
+        },
+        "nivel": "aviso",
+        "interpretable": true,
+        "motivo": "posición (Δ AB−BA) 0,25 (aviso); posición (fracción de A) |A − 0,5| = 0,13 (aviso)",
+        "detalle": {
+          "delta_con_signo": -0.2507163323782235,
+          "frac_A": 0.3746418338108882,
+          "n_elecciones": 1396,
+          "n_validas": 1396,
+          "n_situaciones": 349,
+          "n_situaciones_retest": 349,
+          "n_deseabilidad_pares": 349,
+          "frac_A_deseabilidad": 0.4140401146131805
+        }
+      },
+      "deepseek_deepseek-v4-flash": {
+        "valores": {
+          "V1_delta": 0.10289855072463767,
+          "V1_frac_A": 0.05082912761355446,
+          "V2_no_validas": 0.0064469914040114614,
+          "V3_retest": 0.8097232024962676,
+          "V4_coherencia": 0.8625730994152047
+        },
+        "niveles": {
+          "V1_delta": "válido",
+          "V1_frac_A": "válido",
+          "V2_no_validas": "válido",
+          "V3_retest": "válido",
+          "V4_coherencia": "válido"
+        },
+        "nivel": "válido",
+        "interpretable": true,
+        "motivo": "",
+        "detalle": {
+          "delta_con_signo": -0.10289855072463767,
+          "frac_A": 0.44917087238644554,
+          "n_elecciones": 1396,
+          "n_validas": 1387,
+          "n_situaciones": 349,
+          "n_situaciones_retest": 349,
+          "n_deseabilidad_pares": 342,
+          "frac_A_deseabilidad": 0.4833574529667149
+        }
+      },
+      "deepseek_deepseek-v4-flash-0731": {
+        "valores": {
+          "V1_delta": 0.055873925501432664,
+          "V1_frac_A": 0.027936962750716332,
+          "V2_no_validas": 0.0,
+          "V3_retest": 0.868839822260716,
+          "V4_coherencia": 0.8567335243553008
+        },
+        "niveles": {
+          "V1_delta": "válido",
+          "V1_frac_A": "válido",
+          "V2_no_validas": "válido",
+          "V3_retest": "válido",
+          "V4_coherencia": "válido"
+        },
+        "nivel": "válido",
+        "interpretable": true,
+        "motivo": "",
+        "detalle": {
+          "delta_con_signo": -0.055873925501432664,
+          "frac_A": 0.47206303724928367,
+          "n_elecciones": 1396,
+          "n_validas": 1396,
+          "n_situaciones": 349,
+          "n_situaciones_retest": 349,
+          "n_deseabilidad_pares": 349,
+          "frac_A_deseabilidad": 0.45988538681948427
+        }
+      },
+      "deepseek_deepseek-v4-pro-0813": {
+        "valores": {
+          "V1_delta": 0.29512893982808025,
+          "V1_frac_A": 0.1475644699140401,
+          "V2_no_validas": 0.0,
+          "V3_retest": 0.7980466761121083,
+          "V4_coherencia": 0.6389684813753582
+        },
+        "niveles": {
+          "V1_delta": "aviso",
+          "V1_frac_A": "aviso",
+          "V2_no_validas": "válido",
+          "V3_retest": "válido",
+          "V4_coherencia": "no interpretable"
+        },
+        "nivel": "no interpretable",
+        "interpretable": false,
+        "motivo": "coherencia de la deseabilidad 0,64 (no interpretable)",
+        "detalle": {
+          "delta_con_signo": -0.29512893982808025,
+          "frac_A": 0.3524355300859599,
+          "n_elecciones": 1396,
+          "n_validas": 1396,
+          "n_situaciones": 349,
+          "n_situaciones_retest": 349,
+          "n_deseabilidad_pares": 349,
+          "frac_A_deseabilidad": 0.330945558739255
+        }
+      },
+      "gemma4": {
+        "valores": {
+          "V1_delta": 0.08882521489971347,
+          "V1_frac_A": 0.044476327116212355,
+          "V2_no_validas": 0.0014326647564469914,
+          "V3_retest": 0.9455746512642922,
+          "V4_coherencia": 0.8252148997134671
+        },
+        "niveles": {
+          "V1_delta": "válido",
+          "V1_frac_A": "válido",
+          "V2_no_validas": "válido",
+          "V3_retest": "válido",
+          "V4_coherencia": "válido"
+        },
+        "nivel": "válido",
+        "interpretable": true,
+        "motivo": "",
+        "detalle": {
+          "delta_con_signo": -0.08882521489971347,
+          "frac_A": 0.45552367288378764,
+          "n_elecciones": 1396,
+          "n_validas": 1394,
+          "n_situaciones": 349,
+          "n_situaciones_retest": 349,
+          "n_deseabilidad_pares": 349,
+          "frac_A_deseabilidad": 0.4871060171919771
+        }
+      },
+      "glm5.3-flash": {
+        "valores": {
+          "V1_delta": 0.1017191977077364,
+          "V1_frac_A": 0.050859598853868204,
+          "V2_no_validas": 0.0,
+          "V3_retest": 0.8717674977165913,
+          "V4_coherencia": 0.830945558739255
+        },
+        "niveles": {
+          "V1_delta": "válido",
+          "V1_frac_A": "válido",
+          "V2_no_validas": "válido",
+          "V3_retest": "válido",
+          "V4_coherencia": "válido"
+        },
+        "nivel": "válido",
+        "interpretable": true,
+        "motivo": "",
+        "detalle": {
+          "delta_con_signo": -0.1017191977077364,
+          "frac_A": 0.4491404011461318,
+          "n_elecciones": 1396,
+          "n_validas": 1396,
+          "n_situaciones": 349,
+          "n_situaciones_retest": 349,
+          "n_deseabilidad_pares": 349,
+          "frac_A_deseabilidad": 0.5243553008595988
+        }
+      },
+      "google_gemini-3.1-flash-lite": {
+        "valores": {
+          "V1_delta": 0.034383954154727794,
+          "V1_frac_A": 0.017191977077363918,
+          "V2_no_validas": 0.0,
+          "V3_retest": 0.9596380259059594,
+          "V4_coherencia": 0.8825214899713467
+        },
+        "niveles": {
+          "V1_delta": "válido",
+          "V1_frac_A": "válido",
+          "V2_no_validas": "válido",
+          "V3_retest": "válido",
+          "V4_coherencia": "válido"
+        },
+        "nivel": "válido",
+        "interpretable": true,
+        "motivo": "",
+        "detalle": {
+          "delta_con_signo": -0.034383954154727794,
+          "frac_A": 0.4828080229226361,
+          "n_elecciones": 1396,
+          "n_validas": 1396,
+          "n_situaciones": 349,
+          "n_situaciones_retest": 349,
+          "n_deseabilidad_pares": 349,
+          "frac_A_deseabilidad": 0.5243553008595988
+        }
+      },
+      "google_gemini-3.7-flash": {
+        "valores": {
+          "V1_delta": 0.055873925501432664,
+          "V1_frac_A": 0.027936962750716332,
+          "V2_no_validas": 0.0,
+          "V3_retest": 0.9021574432127923,
+          "V4_coherencia": 0.8988439306358381
+        },
+        "niveles": {
+          "V1_delta": "válido",
+          "V1_frac_A": "válido",
+          "V2_no_validas": "válido",
+          "V3_retest": "válido",
+          "V4_coherencia": "válido"
+        },
+        "nivel": "válido",
+        "interpretable": true,
+        "motivo": "",
+        "detalle": {
+          "delta_con_signo": -0.055873925501432664,
+          "frac_A": 0.47206303724928367,
+          "n_elecciones": 1396,
+          "n_validas": 1396,
+          "n_situaciones": 349,
+          "n_situaciones_retest": 349,
+          "n_deseabilidad_pares": 346,
+          "frac_A_deseabilidad": 0.4719424460431655
+        }
+      },
+      "google_gemini-4-argon": {
+        "valores": {
+          "V1_delta": 0.0893371757925072,
+          "V1_frac_A": 0.04036363636363638,
+          "V2_no_validas": 0.01504297994269341,
+          "V3_retest": 0.8868773952503138,
+          "V4_coherencia": 0.9169054441260746
+        },
+        "niveles": {
+          "V1_delta": "válido",
+          "V1_frac_A": "válido",
+          "V2_no_validas": "válido",
+          "V3_retest": "válido",
+          "V4_coherencia": "válido"
+        },
+        "nivel": "válido",
+        "interpretable": true,
+        "motivo": "",
+        "detalle": {
+          "delta_con_signo": -0.0893371757925072,
+          "frac_A": 0.4596363636363636,
+          "n_elecciones": 1396,
+          "n_validas": 1375,
+          "n_situaciones": 349,
+          "n_situaciones_retest": 348,
+          "n_deseabilidad_pares": 349,
+          "frac_A_deseabilidad": 0.4813753581661891
+        }
+      },
+      "mimo-v2.6-flash": {
+        "valores": {
+          "V1_delta": 0.0014326647564469914,
+          "V1_frac_A": 0.0007163323782235498,
+          "V2_no_validas": 0.0,
+          "V3_retest": 0.8613807918658614,
+          "V4_coherencia": 0.7535816618911175
+        },
+        "niveles": {
+          "V1_delta": "válido",
+          "V1_frac_A": "válido",
+          "V2_no_validas": "válido",
+          "V3_retest": "válido",
+          "V4_coherencia": "válido"
+        },
+        "nivel": "válido",
+        "interpretable": true,
+        "motivo": "",
+        "detalle": {
+          "delta_con_signo": 0.0014326647564469914,
+          "frac_A": 0.5007163323782235,
+          "n_elecciones": 1396,
+          "n_validas": 1396,
+          "n_situaciones": 349,
+          "n_situaciones_retest": 349,
+          "n_deseabilidad_pares": 349,
+          "frac_A_deseabilidad": 0.4799426934097421
+        }
+      },
+      "minimax_minimax-m3.1-flash#low": {
+        "valores": {
+          "V1_delta": 0.09455587392550144,
+          "V1_frac_A": 0.04727793696275073,
+          "V2_no_validas": 0.0,
+          "V3_retest": 0.7538890869705044,
+          "V4_coherencia": 0.7335243553008596
+        },
+        "niveles": {
+          "V1_delta": "válido",
+          "V1_frac_A": "válido",
+          "V2_no_validas": "válido",
+          "V3_retest": "válido",
+          "V4_coherencia": "aviso"
+        },
+        "nivel": "aviso",
+        "interpretable": true,
+        "motivo": "coherencia de la deseabilidad 0,73 (aviso)",
+        "detalle": {
+          "delta_con_signo": -0.09455587392550144,
+          "frac_A": 0.45272206303724927,
+          "n_elecciones": 1396,
+          "n_validas": 1396,
+          "n_situaciones": 349,
+          "n_situaciones_retest": 349,
+          "n_deseabilidad_pares": 349,
+          "frac_A_deseabilidad": 0.4326647564469914
+        }
+      },
+      "mistralai_mistral-medium-3-5": {
+        "valores": {
+          "V1_delta": 0.20630372492836677,
+          "V1_frac_A": 0.1031518624641834,
+          "V2_no_validas": 0.0,
+          "V3_retest": 0.8352385311952069,
+          "V4_coherencia": 0.8510028653295129
+        },
+        "niveles": {
+          "V1_delta": "aviso",
+          "V1_frac_A": "aviso",
+          "V2_no_validas": "válido",
+          "V3_retest": "válido",
+          "V4_coherencia": "válido"
+        },
+        "nivel": "aviso",
+        "interpretable": true,
+        "motivo": "posición (Δ AB−BA) 0,21 (aviso); posición (fracción de A) |A − 0,5| = 0,10 (aviso)",
+        "detalle": {
+          "delta_con_signo": -0.20630372492836677,
+          "frac_A": 0.3968481375358166,
+          "n_elecciones": 1396,
+          "n_validas": 1396,
+          "n_situaciones": 349,
+          "n_situaciones_retest": 349,
+          "n_deseabilidad_pares": 349,
+          "frac_A_deseabilidad": 0.45415472779369626
+        }
+      },
+      "openai_gpt-5.6-luna": {
+        "valores": {
+          "V1_delta": 0.015759312320916905,
+          "V1_frac_A": 0.007879656160458492,
+          "V2_no_validas": 0.0,
+          "V3_retest": 0.90830296837116,
+          "V4_coherencia": 0.8194842406876791
+        },
+        "niveles": {
+          "V1_delta": "válido",
+          "V1_frac_A": "válido",
+          "V2_no_validas": "válido",
+          "V3_retest": "válido",
+          "V4_coherencia": "válido"
+        },
+        "nivel": "válido",
+        "interpretable": true,
+        "motivo": "",
+        "detalle": {
+          "delta_con_signo": 0.015759312320916905,
+          "frac_A": 0.5078796561604585,
+          "n_elecciones": 1396,
+          "n_validas": 1396,
+          "n_situaciones": 349,
+          "n_situaciones_retest": 349,
+          "n_deseabilidad_pares": 349,
+          "frac_A_deseabilidad": 0.5128939828080229
+        }
+      },
+      "openai_gpt-6-luna#low": {
+        "valores": {
+          "V1_delta": 0.03724928366762178,
+          "V1_frac_A": 0.01862464183381085,
+          "V2_no_validas": 0.0,
+          "V3_retest": 0.9034259769190093,
+          "V4_coherencia": 0.828080229226361
+        },
+        "niveles": {
+          "V1_delta": "válido",
+          "V1_frac_A": "válido",
+          "V2_no_validas": "válido",
+          "V3_retest": "válido",
+          "V4_coherencia": "válido"
+        },
+        "nivel": "válido",
+        "interpretable": true,
+        "motivo": "",
+        "detalle": {
+          "delta_con_signo": 0.03724928366762178,
+          "frac_A": 0.5186246418338109,
+          "n_elecciones": 1396,
+          "n_validas": 1396,
+          "n_situaciones": 349,
+          "n_situaciones_retest": 349,
+          "n_deseabilidad_pares": 349,
+          "frac_A_deseabilidad": 0.45702005730659023
+        }
+      },
+      "openai_gpt-6.1-sol#low": {
+        "valores": {
+          "V1_delta": 0.06446991404011461,
+          "V1_frac_A": 0.0322349570200573,
+          "V2_no_validas": 0.0,
+          "V3_retest": 0.9745808959241644,
+          "V4_coherencia": 0.8882521489971347
+        },
+        "niveles": {
+          "V1_delta": "válido",
+          "V1_frac_A": "válido",
+          "V2_no_validas": "válido",
+          "V3_retest": "válido",
+          "V4_coherencia": "válido"
+        },
+        "nivel": "válido",
+        "interpretable": true,
+        "motivo": "",
+        "detalle": {
+          "delta_con_signo": -0.06446991404011461,
+          "frac_A": 0.4677650429799427,
+          "n_elecciones": 1396,
+          "n_validas": 1396,
+          "n_situaciones": 349,
+          "n_situaciones_retest": 349,
+          "n_deseabilidad_pares": 349,
+          "frac_A_deseabilidad": 0.4584527220630373
+        }
+      },
+      "qwen3.6": {
+        "valores": {
+          "V1_delta": 0.004297994269340974,
+          "V1_frac_A": 0.0021489971346705383,
+          "V2_no_validas": 0.0,
+          "V3_retest": 0.8506854075863023,
+          "V4_coherencia": 0.7621776504297995
+        },
+        "niveles": {
+          "V1_delta": "válido",
+          "V1_frac_A": "válido",
+          "V2_no_validas": "válido",
+          "V3_retest": "válido",
+          "V4_coherencia": "válido"
+        },
+        "nivel": "válido",
+        "interpretable": true,
+        "motivo": "",
+        "detalle": {
+          "delta_con_signo": 0.004297994269340974,
+          "frac_A": 0.5021489971346705,
+          "n_elecciones": 1396,
+          "n_validas": 1396,
+          "n_situaciones": 349,
+          "n_situaciones_retest": 349,
+          "n_deseabilidad_pares": 349,
+          "frac_A_deseabilidad": 0.5214899713467048
+        }
+      },
+      "qwen3.8-flash": {
+        "valores": {
+          "V1_delta": 0.11174785100286533,
+          "V1_frac_A": 0.055873925501432664,
+          "V2_no_validas": 0.0,
+          "V3_retest": 0.8185071135581918,
+          "V4_coherencia": 0.7736389684813754
+        },
+        "niveles": {
+          "V1_delta": "válido",
+          "V1_frac_A": "válido",
+          "V2_no_validas": "válido",
+          "V3_retest": "válido",
+          "V4_coherencia": "válido"
+        },
+        "nivel": "válido",
+        "interpretable": true,
+        "motivo": "",
+        "detalle": {
+          "delta_con_signo": -0.11174785100286533,
+          "frac_A": 0.44412607449856734,
+          "n_elecciones": 1396,
+          "n_validas": 1396,
+          "n_situaciones": 349,
+          "n_situaciones_retest": 349,
+          "n_deseabilidad_pares": 349,
+          "frac_A_deseabilidad": 0.48424068767908307
+        }
+      },
+      "qwen_qwen3.8-max-0902#low": {
+        "valores": {
+          "V1_delta": 0.1017191977077364,
+          "V1_frac_A": 0.050859598853868204,
+          "V2_no_validas": 0.0,
+          "V3_retest": 0.8970524585174915,
+          "V4_coherencia": 0.8424068767908309
+        },
+        "niveles": {
+          "V1_delta": "válido",
+          "V1_frac_A": "válido",
+          "V2_no_validas": "válido",
+          "V3_retest": "válido",
+          "V4_coherencia": "válido"
+        },
+        "nivel": "válido",
+        "interpretable": true,
+        "motivo": "",
+        "detalle": {
+          "delta_con_signo": -0.1017191977077364,
+          "frac_A": 0.4491404011461318,
+          "n_elecciones": 1396,
+          "n_validas": 1396,
+          "n_situaciones": 349,
+          "n_situaciones_retest": 349,
+          "n_deseabilidad_pares": 349,
+          "frac_A_deseabilidad": 0.48424068767908307
+        }
+      },
+      "z-ai_glm-5.3": {
+        "valores": {
+          "V1_delta": 0.04154727793696275,
+          "V1_frac_A": 0.020803443328550886,
+          "V2_no_validas": 0.0014326647564469914,
+          "V3_retest": 0.8609945920033861,
+          "V4_coherencia": 0.833810888252149
+        },
+        "niveles": {
+          "V1_delta": "válido",
+          "V1_frac_A": "válido",
+          "V2_no_validas": "válido",
+          "V3_retest": "válido",
+          "V4_coherencia": "válido"
+        },
+        "nivel": "válido",
+        "interpretable": true,
+        "motivo": "",
+        "detalle": {
+          "delta_con_signo": 0.04154727793696275,
+          "frac_A": 0.5208034433285509,
+          "n_elecciones": 1396,
+          "n_validas": 1394,
+          "n_situaciones": 349,
+          "n_situaciones_retest": 349,
+          "n_deseabilidad_pares": 349,
+          "frac_A_deseabilidad": 0.5
+        }
+      }
+    }
+  },
+  "no_interpretables": [
+    {
+      "id": "deepseek_deepseek-v4-pro-0813",
+      "modelo": "deepseek/deepseek-v4-pro-0813",
+      "interpretable": false,
+      "motivo": "coherencia de la deseabilidad 0,64 (no interpretable)",
+      "valores": {
+        "V1_delta": 0.29512893982808025,
+        "V1_frac_A": 0.1475644699140401,
+        "V2_no_validas": 0.0,
+        "V3_retest": 0.7980466761121083,
+        "V4_coherencia": 0.6389684813753582
+      }
+    }
+  ],
+  "fuera_por_cobertura_41": {
+    "deepseek-v4-flash": "O, C, E, A del v3 41 % (sin la forma corta completa), I1-H 0 %, I1-N 0 %",
+    "mistralai_mistral-large-4-0": "O, C, E, A del v3 41 % (sin la forma corta completa), I1-H 0 %, I1-N 0 %",
+    "x-ai_grok-4.5": "O, C, E, A del v3 41 % (sin la forma corta completa), I1-H 0 %, I1-N 0 %"
+  },
+  "pendientes_de_completar": [
+    {
+      "id": "moonshotai_kimi-k3",
+      "modelo": "moonshotai/kimi-k3",
+      "criterio": "PERSONALIDAD.md §45.2",
+      "rasgos_forma_corta": [
+        "O",
+        "C",
+        "E",
+        "A",
+        "N",
+        "H"
+      ],
+      "validez": "válido",
+      "valores_validez": {
+        "V1_delta": 0.05102040816326531,
+        "V1_frac_A": 0.025510204081632626,
+        "V2_no_validas": 0.0,
+        "V3_retest": 0.839081597426219,
+        "V4_coherencia": 0.8469387755102041
+      }
+    }
+  ],
+  "revalidacion": {
+    "criterio": "PERSONALIDAD.md §41.3",
+    "banco_completo": {
+      "O": {
+        "G4a": 0.8948857394720894,
+        "G4b": 0.8873341666200603,
+        "G3_dentro": 0.4431218766032133,
+        "G3_fuera": -0.03735392135609714,
+        "n_items": 59,
+        "pasa": true,
+        "motivo": ""
+      },
+      "C": {
+        "G4a": 0.8438439981351958,
+        "G4b": 0.817203961864083,
+        "G3_dentro": 0.21306664267241845,
+        "G3_fuera": 0.04432518236925566,
+        "n_items": 56,
+        "pasa": true,
+        "motivo": ""
+      },
+      "E": {
+        "G4a": 0.9171663975706132,
+        "G4b": 0.8556926913404765,
+        "G3_dentro": 0.22052486735251772,
+        "G3_fuera": 0.03391296359297381,
+        "n_items": 57,
+        "pasa": true,
+        "motivo": ""
+      },
+      "A": {
+        "G4a": 0.7693928302348391,
+        "G4b": 0.8566399848199249,
+        "G3_dentro": 0.37823814415167456,
+        "G3_fuera": -0.005887381887190235,
+        "n_items": 57,
+        "pasa": true,
+        "motivo": ""
+      },
+      "N": {
+        "G4a": 0.7882597941447576,
+        "G4b": 0.8257144907461653,
+        "G3_dentro": 0.2066573311438541,
+        "G3_fuera": 0.04992587416455016,
+        "n_items": 72,
+        "pasa": true,
+        "motivo": ""
+      },
+      "H": {
+        "G4a": 0.9259810718388705,
+        "G4b": 0.913597125515095,
+        "G3_dentro": 0.45924772497562505,
+        "G3_fuera": -0.1525795036921398,
+        "n_items": 48,
+        "pasa": true,
+        "motivo": ""
+      }
+    },
+    "forma_corta": null,
+    "en_revision": {}
+  },
+  "forma_corta": {
+    "fichero": "personalidad_forma_corta.json",
+    "equiparacion": {}
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "commit": "1dcf122bad8b2cd7e1fb01cad722709aeebd34e9",
+  "python": "3.12.4",
+  "parser_version": "2.5",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "personalidad_fc.py",
+    "--deseab",
+    "--modelo",
+    "qwen3.8-flash"
+  ],
+  "args": {
+    "modelo": "qwen3.8-flash",
+    "tipo": "deseab",
+    "n_tareas": 120,
+    "n_pendientes": 120
+  },
+  "hashes": {},
+  "inicio": "2026-10-11T16:46:34",
+  "status": "completed",
+  "fin": "2026-10-11T16:59:41",
+  "solicitudes": 120,
+  "errores": 0,
+  "fallo_escritura": false
+}

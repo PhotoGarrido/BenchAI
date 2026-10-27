@@ -1,0 +1,29 @@
+{
+  "commit": "1dcf122bad8b2cd7e1fb01cad722709aeebd34e9",
+  "python": "3.12.4",
+  "parser_version": "2.5",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "calibrar_deseabilidad.py",
+    "--modelo",
+    "mimo-v2.6-flash"
+  ],
+  "args": {
+    "modelo": "mimo-v2.6-flash",
+    "version": "P1-cal",
+    "n_tareas": 504,
+    "n_pendientes": 504,
+    "candidatos_sha256": "d04c0931881a68ac7a45513a287e10f6fa02cd17e120a719674813ad5b82ab30"
+  },
+  "hashes": {},
+  "inicio": "2026-10-10T12:35:11",
+  "status": "completed",
+  "fin": "2026-10-10T13:41:19",
+  "solicitudes": 507,
+  "errores": 3,
+  "fallo_escritura": false
+}

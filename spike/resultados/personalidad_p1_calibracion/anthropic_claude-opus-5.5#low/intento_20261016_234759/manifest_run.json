@@ -1,0 +1,32 @@
+{
+  "commit": "1dcf122bad8b2cd7e1fb01cad722709aeebd34e9",
+  "python": "3.12.4",
+  "parser_version": "2.5",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "calibrar_deseabilidad.py",
+    "--modelo",
+    "anthropic/claude-opus-5.5#low",
+    "--solo-seleccion",
+    "--hilos",
+    "6"
+  ],
+  "args": {
+    "modelo": "anthropic/claude-opus-5.5#low",
+    "version": "P1-cal",
+    "n_tareas": 358,
+    "n_pendientes": 358,
+    "candidatos_sha256": "79a425cb477f2be810afa5e1fd6a66896011cbe80d20057ca83f64cd263d36f5"
+  },
+  "hashes": {},
+  "inicio": "2026-10-16T23:47:59",
+  "status": "completed",
+  "fin": "2026-10-16T23:51:35",
+  "solicitudes": 360,
+  "errores": 0,
+  "fallo_escritura": false
+}

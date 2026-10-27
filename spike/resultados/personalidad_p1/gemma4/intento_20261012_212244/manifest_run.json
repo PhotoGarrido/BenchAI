@@ -1,0 +1,31 @@
+{
+  "commit": "1dcf122bad8b2cd7e1fb01cad722709aeebd34e9",
+  "python": "3.12.4",
+  "parser_version": "2.5",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "experimento_personalidad_p1.py",
+    "--modelo",
+    "gemma4",
+    "--replica-r3"
+  ],
+  "args": {
+    "modelo": "gemma4",
+    "hilos": 1,
+    "replica_r3": true,
+    "version_bateria": "P1",
+    "n_tareas": 1801,
+    "n_pendientes": 358
+  },
+  "hashes": {},
+  "inicio": "2026-10-12T21:22:44",
+  "status": "completed",
+  "fin": "2026-10-12T22:04:22",
+  "solicitudes": 362,
+  "errores": 4,
+  "fallo_escritura": false
+}

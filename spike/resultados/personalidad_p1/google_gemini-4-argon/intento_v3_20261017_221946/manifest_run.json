@@ -1,0 +1,30 @@
+{
+  "commit": "1dcf122bad8b2cd7e1fb01cad722709aeebd34e9",
+  "python": "3.12.4",
+  "parser_version": "2.5",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "experimento_personalidad_v3.py",
+    "--modelo",
+    "google/gemini-4-argon",
+    "--hilos",
+    "6"
+  ],
+  "args": {
+    "modelo": "google/gemini-4-argon",
+    "version": "v3",
+    "n_pendientes": 1248,
+    "seleccion_sha256": "1f821dfb05ab269783518f00344dd74cdf691264950f057c504d9ad6bc77bacc"
+  },
+  "hashes": {},
+  "inicio": "2026-10-17T22:19:46",
+  "status": "completed",
+  "fin": "2026-10-17T22:30:31",
+  "solicitudes": 1248,
+  "errores": 0,
+  "fallo_escritura": false
+}

@@ -1,0 +1,189 @@
+{
+  "modelos": [
+    "anthropic_claude-haiku-5.5",
+    "anthropic_claude-opus-5.5#low",
+    "deepseek-v4-flash",
+    "deepseek_deepseek-v4-pro-0813",
+    "gemma4",
+    "glm5.3-flash",
+    "google_gemini-3.7-flash",
+    "google_gemini-4-argon",
+    "mimo-v2.6-flash",
+    "mistralai_mistral-large-4-0",
+    "moonshotai_kimi-k3",
+    "openai_gpt-5.6-luna",
+    "openai_gpt-6.1-sol#low",
+    "qwen3.6",
+    "qwen3.8-flash",
+    "qwen_qwen3.8-max-0902#low",
+    "x-ai_grok-4.5",
+    "z-ai_glm-5.3"
+  ],
+  "frontera": [
+    "openai_gpt-6.1-sol#low",
+    "anthropic_claude-opus-5.5#low",
+    "google_gemini-4-argon",
+    "x-ai_grok-4.5",
+    "moonshotai_kimi-k3",
+    "deepseek_deepseek-v4-pro-0813",
+    "qwen_qwen3.8-max-0902#low",
+    "mistralai_mistral-large-4-0",
+    "z-ai_glm-5.3"
+  ],
+  "E1": {
+    "discrimina": {
+      "O": 2.132157983540513,
+      "C": 2.5873989297293076,
+      "E": 2.1994806781732095,
+      "A": 2.257053291536051,
+      "N": 1.8922470433639969,
+      "H": 2.788258548588795
+    },
+    "rasgos_ge2": 5,
+    "modelos_con_rasgo": 9,
+    "cumple": false
+  },
+  "E2": {
+    "r": 0.9765922584886028,
+    "n": 108,
+    "dif_media": 1.4793529161345258,
+    "cumple": true
+  },
+  "E3": {
+    "balance": {
+      "openai_gpt-6.1-sol#low": {
+        "O": 0.5833333333333334,
+        "C": 0.5,
+        "E": 0.65,
+        "A": 0.5166666666666667,
+        "N": 0.4666666666666667,
+        "H": 0.7068965517241379
+      },
+      "anthropic_claude-opus-5.5#low": {
+        "O": 0.7333333333333333,
+        "C": 0.36666666666666664,
+        "E": 0.55,
+        "A": 0.6333333333333333,
+        "N": 0.35,
+        "H": 0.6896551724137931
+      },
+      "google_gemini-4-argon": {
+        "O": 0.6666666666666666,
+        "C": 0.43333333333333335,
+        "E": 0.48333333333333334,
+        "A": 0.5,
+        "N": 0.43333333333333335,
+        "H": 0.603448275862069
+      },
+      "x-ai_grok-4.5": {
+        "O": 0.7333333333333333,
+        "C": 0.5833333333333334,
+        "E": 0.5333333333333333,
+        "A": 0.6,
+        "N": 0.4166666666666667,
+        "H": 0.6896551724137931
+      },
+      "moonshotai_kimi-k3": {
+        "O": 0.65,
+        "C": 0.55,
+        "E": 0.7333333333333333,
+        "A": 0.65,
+        "N": 0.4166666666666667,
+        "H": 0.6379310344827587
+      },
+      "deepseek_deepseek-v4-pro-0813": {
+        "O": 0.6,
+        "C": 0.5166666666666667,
+        "E": 0.43333333333333335,
+        "A": 0.6,
+        "N": 0.4166666666666667,
+        "H": 0.5172413793103449
+      },
+      "qwen_qwen3.8-max-0902#low": {
+        "O": 0.65,
+        "C": 0.45,
+        "E": 0.65,
+        "A": 0.6666666666666666,
+        "N": 0.36666666666666664,
+        "H": 0.5517241379310345
+      },
+      "mistralai_mistral-large-4-0": {
+        "O": 0.5666666666666667,
+        "C": 0.5333333333333333,
+        "E": 0.5166666666666667,
+        "A": 0.5166666666666667,
+        "N": 0.55,
+        "H": 0.5689655172413793
+      },
+      "z-ai_glm-5.3": {
+        "O": 0.8333333333333334,
+        "C": 0.43333333333333335,
+        "E": 0.5,
+        "A": 0.55,
+        "N": 0.5,
+        "H": 0.7758620689655172
+      }
+    },
+    "por_modelo": {
+      "openai_gpt-6.1-sol#low": true,
+      "anthropic_claude-opus-5.5#low": true,
+      "google_gemini-4-argon": true,
+      "x-ai_grok-4.5": true,
+      "moonshotai_kimi-k3": true,
+      "deepseek_deepseek-v4-pro-0813": true,
+      "qwen_qwen3.8-max-0902#low": true,
+      "mistralai_mistral-large-4-0": true,
+      "z-ai_glm-5.3": false
+    },
+    "cumple": false
+  },
+  "E4": {
+    "tasa": {
+      "anthropic_claude-haiku-5.5": 0.0,
+      "anthropic_claude-opus-5.5#low": 0.0,
+      "deepseek-v4-flash": 0.0,
+      "deepseek_deepseek-v4-pro-0813": 0.0,
+      "gemma4": 0.0,
+      "glm5.3-flash": 0.0,
+      "google_gemini-3.7-flash": 0.0,
+      "google_gemini-4-argon": 0.012569832402234637,
+      "mimo-v2.6-flash": 0.0,
+      "mistralai_mistral-large-4-0": 0.0,
+      "moonshotai_kimi-k3": 0.0,
+      "openai_gpt-5.6-luna": 0.0,
+      "openai_gpt-6.1-sol#low": 0.0,
+      "qwen3.6": 0.0,
+      "qwen3.8-flash": 0.0,
+      "qwen_qwen3.8-max-0902#low": 0.0,
+      "x-ai_grok-4.5": 0.027932960893854747,
+      "z-ai_glm-5.3": 0.004189944134078212
+    },
+    "cumple": true
+  },
+  "E5": {
+    "reconoce": [
+      8,
+      27
+    ],
+    "cumple": true
+  },
+  "E6": {
+    "pp": [
+      4.376163873370578,
+      2.177607076350093,
+      6.522992965032071
+    ],
+    "cumple": 1.0
+  },
+  "E7": {
+    "elasticidad_media": {
+      "O": 84.07407407407408,
+      "C": 48.888888888888886,
+      "E": 79.25925925925927,
+      "A": 73.70370370370371,
+      "N": 45.555555555555564,
+      "H": 86.59003831417625
+    },
+    "cumple": true
+  }
+}

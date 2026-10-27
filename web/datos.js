@@ -1,7 +1,8 @@
 // Generado por web/generar_datos.py — NO EDITAR A MANO.
 // Fuentes: benchmark/psicobench.json · spike/experimento_*.py ·
 // spike/resultados/informe_*.md · episodios/*/replay.json ·
-// EXPERIMENTOS.md · BENCHMARK.md · README.md
+// spike/resultados/personalidad_fc/cuadro_publico.json ·
+// EXPERIMENTOS.md · BENCHMARK.md · README.md · PERSONALIDAD.md
 // Se sirve como módulo JS (y no como fetch de un .json) para que la
 // web funcione abriendo index.html con doble clic, sin servidor.
 window.PSICO = {
@@ -29709,5 +29710,3233 @@ window.PSICO = {
     }
    ]
   }
- ]
+ ],
+ "personalidad": {
+  "fuente": "spike/resultados/personalidad_fc/cuadro_publico.json",
+  "seccion": 47,
+  "fecha": "24-10-2026",
+  "banco": "v3",
+  "nModelos": 22,
+  "nLabs": 9,
+  "labs": [
+   "Alibaba",
+   "Anthropic",
+   "DeepSeek",
+   "Google",
+   "MiniMax",
+   "Mistral",
+   "OpenAI",
+   "Xiaomi",
+   "Zhipu"
+  ],
+  "robustas": 24,
+  "conRetrato": 13,
+  "candidatas": 65,
+  "recuento": {
+   "robusta": 24,
+   "frágil": 25,
+   "no publicable": 16
+  },
+  "comprobaciones": [
+   "P1",
+   "P2",
+   "P3",
+   "P5",
+   "P6"
+  ],
+  "pruebasBH": 132,
+  "listonSigno": 0.9,
+  "particiones": 200,
+  "q": 0.05,
+  "umbralG4": 0.7,
+  "rasgos": [
+   {
+    "clave": "O",
+    "nombre": "Apertura",
+    "alto": "curioso, busca lo nuevo",
+    "bajo": "prefiere lo conocido",
+    "n": 59,
+    "conMarca": true,
+    "enRevision": false,
+    "aviso": null,
+    "g4a": 0.89,
+    "g4b": 0.89,
+    "g3": [
+     0.44,
+     -0.04
+    ],
+    "pasa": true
+   },
+   {
+    "clave": "C",
+    "nombre": "Responsabilidad",
+    "alto": "cumple y planifica",
+    "bajo": "prioriza descanso y flexibilidad",
+    "n": 56,
+    "conMarca": true,
+    "enRevision": false,
+    "aviso": null,
+    "g4a": 0.84,
+    "g4b": 0.82,
+    "g3": [
+     0.21,
+     0.04
+    ],
+    "pasa": true
+   },
+   {
+    "clave": "E",
+    "nombre": "Extraversión",
+    "alto": "busca gente y protagonismo",
+    "bajo": "prefiere calma y segundo plano",
+    "n": 57,
+    "conMarca": true,
+    "enRevision": false,
+    "aviso": null,
+    "g4a": 0.92,
+    "g4b": 0.86,
+    "g3": [
+     0.22,
+     0.03
+    ],
+    "pasa": true
+   },
+   {
+    "clave": "A",
+    "nombre": "Amabilidad",
+    "alto": "cede y coopera",
+    "bajo": "pone límites y se defiende",
+    "n": 57,
+    "conMarca": true,
+    "enRevision": false,
+    "aviso": null,
+    "g4a": 0.77,
+    "g4b": 0.86,
+    "g3": [
+     0.38,
+     -0.01
+    ],
+    "pasa": true
+   },
+   {
+    "clave": "N",
+    "nombre": "Neuroticismo",
+    "alto": "reacciona, se preocupa",
+    "bajo": "se mantiene sereno",
+    "n": 72,
+    "conMarca": true,
+    "enRevision": false,
+    "aviso": null,
+    "g4a": 0.79,
+    "g4b": 0.83,
+    "g3": [
+     0.21,
+     0.05
+    ],
+    "pasa": true
+   },
+   {
+    "clave": "H",
+    "nombre": "Honestidad-Humildad",
+    "alto": "sincero, renuncia a ventajas",
+    "bajo": "acepta ventajas y se promociona",
+    "n": 48,
+    "conMarca": true,
+    "enRevision": false,
+    "aviso": null,
+    "g4a": 0.93,
+    "g4b": 0.91,
+    "g3": [
+     0.46,
+     -0.15
+    ],
+    "pasa": true
+   }
+  ],
+  "modelos": [
+   {
+    "id": "anthropic/claude-haiku-4.5",
+    "lab": "Anthropic",
+    "iss": 13.6,
+    "psicobench": "claude-haiku-4.5",
+    "issDe": null,
+    "fechaISS": "24-07-2026",
+    "rasgos": {
+     "O": {
+      "p": 49.17,
+      "e": 49,
+      "ic": [
+       43.62,
+       54.39
+      ],
+      "icE": [
+       44,
+       54
+      ],
+      "marca": "",
+      "dif": -2.17,
+      "difIC": [
+       -5.62,
+       1.48
+      ]
+     },
+     "C": {
+      "p": 44.28,
+      "e": 44,
+      "ic": [
+       38.9,
+       49.86
+      ],
+      "icE": [
+       39,
+       50
+      ],
+      "marca": "",
+      "dif": 6.03,
+      "difIC": [
+       2.55,
+       9.5
+      ]
+     },
+     "E": {
+      "p": 43.8,
+      "e": 44,
+      "ic": [
+       39.09,
+       48.62
+      ],
+      "icE": [
+       39,
+       49
+      ],
+      "marca": "",
+      "dif": 1.66,
+      "difIC": [
+       -1.68,
+       4.94
+      ]
+     },
+     "A": {
+      "p": 34.25,
+      "e": 34,
+      "ic": [
+       30.22,
+       38.34
+      ],
+      "icE": [
+       30,
+       38
+      ],
+      "marca": "",
+      "dif": 0.75,
+      "difIC": [
+       -1.77,
+       3.43
+      ]
+     },
+     "N": {
+      "p": 56.6,
+      "e": 57,
+      "ic": [
+       53.55,
+       59.87
+      ],
+      "icE": [
+       54,
+       60
+      ],
+      "marca": "▲",
+      "dif": 3.88,
+      "difIC": [
+       1.62,
+       6.51
+      ]
+     },
+     "H": {
+      "p": 44.96,
+      "e": 45,
+      "ic": [
+       40.15,
+       49.41
+      ],
+      "icE": [
+       40,
+       49
+      ],
+      "marca": "",
+      "dif": 2.98,
+      "difIC": [
+       0.06,
+       5.68
+      ]
+     }
+    },
+    "frase": "más Neuroticismo (reacciona, se preocupa)",
+    "conRetrato": true,
+    "validez": "válido",
+    "aviso": null,
+    "indices": {
+     "V1_delta": 0.178,
+     "V1_frac_A": 0.087,
+     "V2_no_validas": 0.006,
+     "V3_retest": 0.972,
+     "V4_coherencia": 0.862
+    },
+    "niveles": {
+     "V1_delta": "válido",
+     "V1_frac_A": "válido",
+     "V2_no_validas": "válido",
+     "V3_retest": "válido",
+     "V4_coherencia": "válido"
+    }
+   },
+   {
+    "id": "anthropic/claude-haiku-5.5",
+    "lab": "Anthropic",
+    "iss": 10.3,
+    "psicobench": "claude-haiku-5.5",
+    "issDe": null,
+    "fechaISS": "07-10-2026",
+    "rasgos": {
+     "O": {
+      "p": 50.44,
+      "e": 50,
+      "ic": [
+       45.2,
+       55.87
+      ],
+      "icE": [
+       45,
+       56
+      ],
+      "marca": "",
+      "dif": -0.84,
+      "difIC": [
+       -5.09,
+       3.46
+      ]
+     },
+     "C": {
+      "p": 38.25,
+      "e": 38,
+      "ic": [
+       33.5,
+       43.16
+      ],
+      "icE": [
+       34,
+       43
+      ],
+      "marca": "",
+      "dif": -0.28,
+      "difIC": [
+       -3.41,
+       3.13
+      ]
+     },
+     "E": {
+      "p": 42.92,
+      "e": 43,
+      "ic": [
+       38.04,
+       47.83
+      ],
+      "icE": [
+       38,
+       48
+      ],
+      "marca": "",
+      "dif": 0.74,
+      "difIC": [
+       -3.15,
+       4.58
+      ]
+     },
+     "A": {
+      "p": 27.89,
+      "e": 28,
+      "ic": [
+       23.74,
+       32.14
+      ],
+      "icE": [
+       24,
+       32
+      ],
+      "marca": "▼",
+      "dif": -5.91,
+      "difIC": [
+       -9.49,
+       -2.13
+      ]
+     },
+     "N": {
+      "p": 54.17,
+      "e": 54,
+      "ic": [
+       51.4,
+       57.28
+      ],
+      "icE": [
+       51,
+       57
+      ],
+      "marca": "",
+      "dif": 1.33,
+      "difIC": [
+       -0.9,
+       3.69
+      ]
+     },
+     "H": {
+      "p": 46.0,
+      "e": 46,
+      "ic": [
+       40.6,
+       50.95
+      ],
+      "icE": [
+       41,
+       51
+      ],
+      "marca": "",
+      "dif": 4.07,
+      "difIC": [
+       0.19,
+       7.94
+      ]
+     }
+    },
+    "frase": "menos Amabilidad (pone límites y se defiende)",
+    "conRetrato": true,
+    "validez": "válido",
+    "aviso": null,
+    "indices": {
+     "V1_delta": 0.042,
+     "V1_frac_A": 0.021,
+     "V2_no_validas": 0.0,
+     "V3_retest": 0.925,
+     "V4_coherencia": 0.897
+    },
+    "niveles": {
+     "V1_delta": "válido",
+     "V1_frac_A": "válido",
+     "V2_no_validas": "válido",
+     "V3_retest": "válido",
+     "V4_coherencia": "válido"
+    }
+   },
+   {
+    "id": "anthropic/claude-opus-5.5#low",
+    "lab": "Anthropic",
+    "iss": 12.5,
+    "psicobench": "claude-opus-5.5#low",
+    "issDe": null,
+    "fechaISS": "22-09-2026",
+    "rasgos": {
+     "O": {
+      "p": 53.83,
+      "e": 54,
+      "ic": [
+       49.65,
+       57.9
+      ],
+      "icE": [
+       50,
+       58
+      ],
+      "marca": "",
+      "dif": 2.71,
+      "difIC": [
+       -1.4,
+       7.09
+      ]
+     },
+     "C": {
+      "p": 32.45,
+      "e": 32,
+      "ic": [
+       28.39,
+       36.73
+      ],
+      "icE": [
+       28,
+       37
+      ],
+      "marca": "▼",
+      "dif": -6.36,
+      "difIC": [
+       -9.16,
+       -3.73
+      ]
+     },
+     "E": {
+      "p": 42.7,
+      "e": 43,
+      "ic": [
+       38.56,
+       46.91
+      ],
+      "icE": [
+       39,
+       47
+      ],
+      "marca": "",
+      "dif": 0.51,
+      "difIC": [
+       -2.74,
+       3.67
+      ]
+     },
+     "A": {
+      "p": 37.54,
+      "e": 38,
+      "ic": [
+       32.71,
+       42.38
+      ],
+      "icE": [
+       33,
+       42
+      ],
+      "marca": "",
+      "dif": 4.2,
+      "difIC": [
+       0.49,
+       7.94
+      ]
+     },
+     "N": {
+      "p": 48.96,
+      "e": 49,
+      "ic": [
+       46.27,
+       51.45
+      ],
+      "icE": [
+       46,
+       51
+      ],
+      "marca": "▼",
+      "dif": -4.13,
+      "difIC": [
+       -6.82,
+       -1.61
+      ]
+     },
+     "H": {
+      "p": 50.95,
+      "e": 51,
+      "ic": [
+       46.33,
+       55.21
+      ],
+      "icE": [
+       46,
+       55
+      ],
+      "marca": "▲",
+      "dif": 9.25,
+      "difIC": [
+       6.0,
+       12.87
+      ]
+     }
+    },
+    "frase": "menos Responsabilidad (prioriza descanso y flexibilidad); más Honestidad-Humildad (sincero, renuncia a ventajas); menos Neuroticismo (se mantiene sereno)",
+    "conRetrato": true,
+    "validez": "válido",
+    "aviso": null,
+    "indices": {
+     "V1_delta": 0.053,
+     "V1_frac_A": 0.027,
+     "V2_no_validas": 0.0,
+     "V3_retest": 0.959,
+     "V4_coherencia": 0.917
+    },
+    "niveles": {
+     "V1_delta": "válido",
+     "V1_frac_A": "válido",
+     "V2_no_validas": "válido",
+     "V3_retest": "válido",
+     "V4_coherencia": "válido"
+    }
+   },
+   {
+    "id": "deepseek-v4-flash@2026-10-17",
+    "lab": "DeepSeek",
+    "iss": 21.1,
+    "psicobench": "deepseek-v4-flash-1017",
+    "issDe": null,
+    "fechaISS": "17-10-2026",
+    "rasgos": {
+     "O": {
+      "p": 49.17,
+      "e": 49,
+      "ic": [
+       42.99,
+       55.2
+      ],
+      "icE": [
+       43,
+       55
+      ],
+      "marca": "",
+      "dif": -2.17,
+      "difIC": [
+       -5.84,
+       1.59
+      ]
+     },
+     "C": {
+      "p": 34.68,
+      "e": 35,
+      "ic": [
+       30.05,
+       39.75
+      ],
+      "icE": [
+       30,
+       40
+      ],
+      "marca": "",
+      "dif": -4.02,
+      "difIC": [
+       -7.28,
+       -0.6
+      ]
+     },
+     "E": {
+      "p": 35.03,
+      "e": 35,
+      "ic": [
+       30.54,
+       39.87
+      ],
+      "icE": [
+       31,
+       40
+      ],
+      "marca": "▼",
+      "dif": -7.53,
+      "difIC": [
+       -10.42,
+       -4.77
+      ]
+     },
+     "A": {
+      "p": 31.18,
+      "e": 31,
+      "ic": [
+       27.17,
+       34.89
+      ],
+      "icE": [
+       27,
+       35
+      ],
+      "marca": "",
+      "dif": -2.46,
+      "difIC": [
+       -4.49,
+       -0.23
+      ]
+     },
+     "N": {
+      "p": 53.12,
+      "e": 53,
+      "ic": [
+       50.22,
+       56.22
+      ],
+      "icE": [
+       50,
+       56
+      ],
+      "marca": "",
+      "dif": 0.24,
+      "difIC": [
+       -1.88,
+       2.27
+      ]
+     },
+     "H": {
+      "p": 48.6,
+      "e": 49,
+      "ic": [
+       44.03,
+       52.94
+      ],
+      "icE": [
+       44,
+       53
+      ],
+      "marca": "▲",
+      "dif": 6.8,
+      "difIC": [
+       3.97,
+       9.74
+      ]
+     }
+    },
+    "frase": "menos Extraversión (prefiere calma y segundo plano); más Honestidad-Humildad (sincero, renuncia a ventajas)",
+    "conRetrato": true,
+    "validez": "válido",
+    "aviso": null,
+    "indices": {
+     "V1_delta": 0.095,
+     "V1_frac_A": 0.047,
+     "V2_no_validas": 0.0,
+     "V3_retest": 0.949,
+     "V4_coherencia": 0.802
+    },
+    "niveles": {
+     "V1_delta": "válido",
+     "V1_frac_A": "válido",
+     "V2_no_validas": "válido",
+     "V3_retest": "válido",
+     "V4_coherencia": "válido"
+    }
+   },
+   {
+    "id": "deepseek/deepseek-v3.2",
+    "lab": "DeepSeek",
+    "iss": 37.4,
+    "psicobench": "deepseek-v3.2",
+    "issDe": null,
+    "fechaISS": "23-07-2026",
+    "rasgos": {
+     "O": {
+      "p": 52.35,
+      "e": 52,
+      "ic": [
+       46.96,
+       57.36
+      ],
+      "icE": [
+       47,
+       57
+      ],
+      "marca": "",
+      "dif": 1.16,
+      "difIC": [
+       -2.66,
+       4.96
+      ]
+     },
+     "C": {
+      "p": 44.5,
+      "e": 45,
+      "ic": [
+       39.16,
+       50.45
+      ],
+      "icE": [
+       39,
+       50
+      ],
+      "marca": "",
+      "dif": 6.27,
+      "difIC": [
+       2.73,
+       9.77
+      ]
+     },
+     "E": {
+      "p": 44.46,
+      "e": 44,
+      "ic": [
+       40.51,
+       48.39
+      ],
+      "icE": [
+       41,
+       48
+      ],
+      "marca": "",
+      "dif": 2.35,
+      "difIC": [
+       -0.64,
+       5.5
+      ]
+     },
+     "A": {
+      "p": 35.13,
+      "e": 35,
+      "ic": [
+       31.48,
+       38.92
+      ],
+      "icE": [
+       31,
+       39
+      ],
+      "marca": "",
+      "dif": 1.67,
+      "difIC": [
+       -1.51,
+       4.79
+      ]
+     },
+     "N": {
+      "p": 55.56,
+      "e": 56,
+      "ic": [
+       52.56,
+       58.73
+      ],
+      "icE": [
+       53,
+       59
+      ],
+      "marca": "",
+      "dif": 2.79,
+      "difIC": [
+       0.3,
+       5.28
+      ]
+     },
+     "H": {
+      "p": 33.24,
+      "e": 33,
+      "ic": [
+       28.27,
+       38.02
+      ],
+      "icE": [
+       28,
+       38
+      ],
+      "marca": "",
+      "dif": -9.3,
+      "difIC": [
+       -13.28,
+       -5.02
+      ]
+     }
+    },
+    "frase": "perfil próximo al de los demás modelos",
+    "conRetrato": false,
+    "validez": "aviso",
+    "aviso": "posición (Δ AB−BA) 0,25 (aviso); posición (fracción de A) |A − 0,5| = 0,13 (aviso)",
+    "indices": {
+     "V1_delta": 0.251,
+     "V1_frac_A": 0.125,
+     "V2_no_validas": 0.0,
+     "V3_retest": 0.767,
+     "V4_coherencia": 0.759
+    },
+    "niveles": {
+     "V1_delta": "aviso",
+     "V1_frac_A": "aviso",
+     "V2_no_validas": "válido",
+     "V3_retest": "válido",
+     "V4_coherencia": "válido"
+    }
+   },
+   {
+    "id": "deepseek/deepseek-v4-flash",
+    "lab": "DeepSeek",
+    "iss": 39.5,
+    "psicobench": "deepseek-v4-flash",
+    "issDe": null,
+    "fechaISS": "23-07-2026",
+    "rasgos": {
+     "O": {
+      "p": 53.2,
+      "e": 53,
+      "ic": [
+       48.13,
+       58.22
+      ],
+      "icE": [
+       48,
+       58
+      ],
+      "marca": "",
+      "dif": 2.05,
+      "difIC": [
+       -0.81,
+       4.71
+      ]
+     },
+     "C": {
+      "p": 38.7,
+      "e": 39,
+      "ic": [
+       34.52,
+       43.18
+      ],
+      "icE": [
+       35,
+       43
+      ],
+      "marca": "",
+      "dif": 0.19,
+      "difIC": [
+       -2.79,
+       3.4
+      ]
+     },
+     "E": {
+      "p": 45.55,
+      "e": 46,
+      "ic": [
+       41.43,
+       49.56
+      ],
+      "icE": [
+       41,
+       50
+      ],
+      "marca": "",
+      "dif": 3.5,
+      "difIC": [
+       0.87,
+       6.11
+      ]
+     },
+     "A": {
+      "p": 30.3,
+      "e": 30,
+      "ic": [
+       26.71,
+       33.89
+      ],
+      "icE": [
+       27,
+       34
+      ],
+      "marca": "",
+      "dif": -3.38,
+      "difIC": [
+       -5.44,
+       -0.98
+      ]
+     },
+     "N": {
+      "p": 54.51,
+      "e": 55,
+      "ic": [
+       52.16,
+       57.09
+      ],
+      "icE": [
+       52,
+       57
+      ],
+      "marca": "",
+      "dif": 1.69,
+      "difIC": [
+       0.34,
+       3.19
+      ]
+     },
+     "H": {
+      "p": 37.14,
+      "e": 37,
+      "ic": [
+       31.56,
+       42.64
+      ],
+      "icE": [
+       32,
+       43
+      ],
+      "marca": "",
+      "dif": -5.21,
+      "difIC": [
+       -9.22,
+       -1.22
+      ]
+     }
+    },
+    "frase": "perfil próximo al de los demás modelos",
+    "conRetrato": false,
+    "validez": "válido",
+    "aviso": null,
+    "indices": {
+     "V1_delta": 0.103,
+     "V1_frac_A": 0.051,
+     "V2_no_validas": 0.006,
+     "V3_retest": 0.81,
+     "V4_coherencia": 0.863
+    },
+    "niveles": {
+     "V1_delta": "válido",
+     "V1_frac_A": "válido",
+     "V2_no_validas": "válido",
+     "V3_retest": "válido",
+     "V4_coherencia": "válido"
+    }
+   },
+   {
+    "id": "deepseek/deepseek-v4-flash-0731",
+    "lab": "DeepSeek",
+    "iss": 40.2,
+    "psicobench": "deepseek-v4-flash-0731@OpenRouter",
+    "issDe": null,
+    "fechaISS": "04-08-2026",
+    "rasgos": {
+     "O": {
+      "p": 46.63,
+      "e": 47,
+      "ic": [
+       41.72,
+       51.66
+      ],
+      "icE": [
+       42,
+       52
+      ],
+      "marca": "▼",
+      "dif": -4.83,
+      "difIC": [
+       -7.77,
+       -1.61
+      ]
+     },
+     "C": {
+      "p": 37.58,
+      "e": 38,
+      "ic": [
+       32.95,
+       42.25
+      ],
+      "icE": [
+       33,
+       42
+      ],
+      "marca": "",
+      "dif": -0.98,
+      "difIC": [
+       -3.79,
+       1.93
+      ]
+     },
+     "E": {
+      "p": 41.39,
+      "e": 41,
+      "ic": [
+       36.54,
+       46.31
+      ],
+      "icE": [
+       37,
+       46
+      ],
+      "marca": "",
+      "dif": -0.87,
+      "difIC": [
+       -4.49,
+       2.54
+      ]
+     },
+     "A": {
+      "p": 30.96,
+      "e": 31,
+      "ic": [
+       26.75,
+       34.93
+      ],
+      "icE": [
+       27,
+       35
+      ],
+      "marca": "",
+      "dif": -2.69,
+      "difIC": [
+       -5.48,
+       0.04
+      ]
+     },
+     "N": {
+      "p": 50.35,
+      "e": 50,
+      "ic": [
+       48.53,
+       52.15
+      ],
+      "icE": [
+       49,
+       52
+      ],
+      "marca": "▼",
+      "dif": -2.67,
+      "difIC": [
+       -4.09,
+       -1.27
+      ]
+     },
+     "H": {
+      "p": 44.44,
+      "e": 44,
+      "ic": [
+       38.73,
+       49.74
+      ],
+      "icE": [
+       39,
+       50
+      ],
+      "marca": "",
+      "dif": 2.43,
+      "difIC": [
+       -0.63,
+       5.18
+      ]
+     }
+    },
+    "frase": "menos Apertura (prefiere lo conocido); menos Neuroticismo (se mantiene sereno)",
+    "conRetrato": true,
+    "validez": "válido",
+    "aviso": null,
+    "indices": {
+     "V1_delta": 0.056,
+     "V1_frac_A": 0.028,
+     "V2_no_validas": 0.0,
+     "V3_retest": 0.869,
+     "V4_coherencia": 0.857
+    },
+    "niveles": {
+     "V1_delta": "válido",
+     "V1_frac_A": "válido",
+     "V2_no_validas": "válido",
+     "V3_retest": "válido",
+     "V4_coherencia": "válido"
+    }
+   },
+   {
+    "id": "gemma4",
+    "lab": "Google",
+    "iss": 28.1,
+    "psicobench": "gemma4",
+    "issDe": null,
+    "fechaISS": "13-09-2026",
+    "rasgos": {
+     "O": {
+      "p": 54.26,
+      "e": 54,
+      "ic": [
+       48.88,
+       59.32
+      ],
+      "icE": [
+       49,
+       59
+      ],
+      "marca": "",
+      "dif": 3.16,
+      "difIC": [
+       -1.32,
+       7.48
+      ]
+     },
+     "C": {
+      "p": 43.83,
+      "e": 44,
+      "ic": [
+       38.96,
+       49.01
+      ],
+      "icE": [
+       39,
+       49
+      ],
+      "marca": "",
+      "dif": 5.57,
+      "difIC": [
+       1.86,
+       9.31
+      ]
+     },
+     "E": {
+      "p": 37.66,
+      "e": 38,
+      "ic": [
+       32.73,
+       42.72
+      ],
+      "icE": [
+       33,
+       43
+      ],
+      "marca": "",
+      "dif": -4.77,
+      "difIC": [
+       -8.47,
+       -1.13
+      ]
+     },
+     "A": {
+      "p": 28.99,
+      "e": 29,
+      "ic": [
+       25.02,
+       32.78
+      ],
+      "icE": [
+       25,
+       33
+      ],
+      "marca": "▼",
+      "dif": -4.76,
+      "difIC": [
+       -7.46,
+       -2.31
+      ]
+     },
+     "N": {
+      "p": 55.56,
+      "e": 56,
+      "ic": [
+       52.65,
+       58.66
+      ],
+      "icE": [
+       53,
+       59
+      ],
+      "marca": "",
+      "dif": 2.79,
+      "difIC": [
+       0.26,
+       5.31
+      ]
+     },
+     "H": {
+      "p": 33.76,
+      "e": 34,
+      "ic": [
+       27.86,
+       39.7
+      ],
+      "icE": [
+       28,
+       40
+      ],
+      "marca": "▼",
+      "dif": -8.75,
+      "difIC": [
+       -13.73,
+       -3.87
+      ]
+     }
+    },
+    "frase": "menos Amabilidad (pone límites y se defiende); menos Honestidad-Humildad (acepta ventajas y se promociona)",
+    "conRetrato": true,
+    "validez": "válido",
+    "aviso": null,
+    "indices": {
+     "V1_delta": 0.089,
+     "V1_frac_A": 0.044,
+     "V2_no_validas": 0.001,
+     "V3_retest": 0.946,
+     "V4_coherencia": 0.825
+    },
+    "niveles": {
+     "V1_delta": "válido",
+     "V1_frac_A": "válido",
+     "V2_no_validas": "válido",
+     "V3_retest": "válido",
+     "V4_coherencia": "válido"
+    }
+   },
+   {
+    "id": "glm5.3-flash",
+    "lab": "Zhipu",
+    "iss": 28.9,
+    "psicobench": "glm5.3-flash",
+    "issDe": null,
+    "fechaISS": "13-09-2026",
+    "rasgos": {
+     "O": {
+      "p": 53.83,
+      "e": 54,
+      "ic": [
+       49.17,
+       58.17
+      ],
+      "icE": [
+       49,
+       58
+      ],
+      "marca": "",
+      "dif": 2.71,
+      "difIC": [
+       -0.55,
+       6.08
+      ]
+     },
+     "C": {
+      "p": 38.25,
+      "e": 38,
+      "ic": [
+       33.72,
+       43.02
+      ],
+      "icE": [
+       34,
+       43
+      ],
+      "marca": "",
+      "dif": -0.28,
+      "difIC": [
+       -3.07,
+       2.48
+      ]
+     },
+     "E": {
+      "p": 38.1,
+      "e": 38,
+      "ic": [
+       34.11,
+       42.05
+      ],
+      "icE": [
+       34,
+       42
+      ],
+      "marca": "",
+      "dif": -4.31,
+      "difIC": [
+       -7.28,
+       -1.31
+      ]
+     },
+     "A": {
+      "p": 34.03,
+      "e": 34,
+      "ic": [
+       30.14,
+       37.82
+      ],
+      "icE": [
+       30,
+       38
+      ],
+      "marca": "",
+      "dif": 0.52,
+      "difIC": [
+       -1.97,
+       3.12
+      ]
+     },
+     "N": {
+      "p": 53.12,
+      "e": 53,
+      "ic": [
+       50.55,
+       55.74
+      ],
+      "icE": [
+       51,
+       56
+      ],
+      "marca": "",
+      "dif": 0.24,
+      "difIC": [
+       -2.0,
+       2.61
+      ]
+     },
+     "H": {
+      "p": 44.96,
+      "e": 45,
+      "ic": [
+       39.82,
+       49.81
+      ],
+      "icE": [
+       40,
+       50
+      ],
+      "marca": "",
+      "dif": 2.98,
+      "difIC": [
+       -0.94,
+       6.72
+      ]
+     }
+    },
+    "frase": "perfil próximo al de los demás modelos",
+    "conRetrato": false,
+    "validez": "válido",
+    "aviso": null,
+    "indices": {
+     "V1_delta": 0.102,
+     "V1_frac_A": 0.051,
+     "V2_no_validas": 0.0,
+     "V3_retest": 0.872,
+     "V4_coherencia": 0.831
+    },
+    "niveles": {
+     "V1_delta": "válido",
+     "V1_frac_A": "válido",
+     "V2_no_validas": "válido",
+     "V3_retest": "válido",
+     "V4_coherencia": "válido"
+    }
+   },
+   {
+    "id": "google/gemini-3.1-flash-lite",
+    "lab": "Google",
+    "iss": 34.9,
+    "psicobench": "gemini-3.1-flash-lite",
+    "issDe": null,
+    "fechaISS": "23-07-2026",
+    "rasgos": {
+     "O": {
+      "p": 60.4,
+      "e": 60,
+      "ic": [
+       54.83,
+       66.03
+      ],
+      "icE": [
+       55,
+       66
+      ],
+      "marca": "▲",
+      "dif": 9.59,
+      "difIC": [
+       5.94,
+       13.26
+      ]
+     },
+     "C": {
+      "p": 40.26,
+      "e": 40,
+      "ic": [
+       34.43,
+       46.0
+      ],
+      "icE": [
+       34,
+       46
+      ],
+      "marca": "",
+      "dif": 1.82,
+      "difIC": [
+       -1.86,
+       5.47
+      ]
+     },
+     "E": {
+      "p": 45.99,
+      "e": 46,
+      "ic": [
+       41.27,
+       51.02
+      ],
+      "icE": [
+       41,
+       51
+      ],
+      "marca": "",
+      "dif": 3.96,
+      "difIC": [
+       0.18,
+       7.72
+      ]
+     },
+     "A": {
+      "p": 34.69,
+      "e": 35,
+      "ic": [
+       30.68,
+       38.72
+      ],
+      "icE": [
+       31,
+       39
+      ],
+      "marca": "",
+      "dif": 1.21,
+      "difIC": [
+       -2.06,
+       4.48
+      ]
+     },
+     "N": {
+      "p": 53.12,
+      "e": 53,
+      "ic": [
+       50.32,
+       56.47
+      ],
+      "icE": [
+       50,
+       56
+      ],
+      "marca": "",
+      "dif": 0.24,
+      "difIC": [
+       -2.04,
+       2.87
+      ]
+     },
+     "H": {
+      "p": 35.06,
+      "e": 35,
+      "ic": [
+       29.0,
+       41.24
+      ],
+      "icE": [
+       29,
+       41
+      ],
+      "marca": "",
+      "dif": -7.39,
+      "difIC": [
+       -12.85,
+       -2.54
+      ]
+     }
+    },
+    "frase": "más Apertura (curioso, busca lo nuevo)",
+    "conRetrato": true,
+    "validez": "válido",
+    "aviso": null,
+    "indices": {
+     "V1_delta": 0.034,
+     "V1_frac_A": 0.017,
+     "V2_no_validas": 0.0,
+     "V3_retest": 0.96,
+     "V4_coherencia": 0.883
+    },
+    "niveles": {
+     "V1_delta": "válido",
+     "V1_frac_A": "válido",
+     "V2_no_validas": "válido",
+     "V3_retest": "válido",
+     "V4_coherencia": "válido"
+    }
+   },
+   {
+    "id": "google/gemini-3.7-flash",
+    "lab": "Google",
+    "iss": 55.2,
+    "psicobench": "gemini-3.7-flash",
+    "issDe": null,
+    "fechaISS": "22-08-2026",
+    "rasgos": {
+     "O": {
+      "p": 35.61,
+      "e": 36,
+      "ic": [
+       30.51,
+       40.6
+      ],
+      "icE": [
+       31,
+       41
+      ],
+      "marca": "▼",
+      "dif": -16.37,
+      "difIC": [
+       -20.56,
+       -12.24
+      ]
+     },
+     "C": {
+      "p": 38.03,
+      "e": 38,
+      "ic": [
+       32.3,
+       43.85
+      ],
+      "icE": [
+       32,
+       44
+      ],
+      "marca": "",
+      "dif": -0.51,
+      "difIC": [
+       -5.07,
+       4.47
+      ]
+     },
+     "E": {
+      "p": 53.01,
+      "e": 53,
+      "ic": [
+       48.39,
+       57.8
+      ],
+      "icE": [
+       48,
+       58
+      ],
+      "marca": "▲",
+      "dif": 11.31,
+      "difIC": [
+       5.87,
+       16.74
+      ]
+     },
+     "A": {
+      "p": 46.53,
+      "e": 47,
+      "ic": [
+       41.19,
+       52.17
+      ],
+      "icE": [
+       41,
+       52
+      ],
+      "marca": "▲",
+      "dif": 13.62,
+      "difIC": [
+       7.46,
+       19.53
+      ]
+     },
+     "N": {
+      "p": 52.26,
+      "e": 52,
+      "ic": [
+       49.31,
+       55.6
+      ],
+      "icE": [
+       49,
+       56
+      ],
+      "marca": "",
+      "dif": -0.67,
+      "difIC": [
+       -4.33,
+       2.65
+      ]
+     },
+     "H": {
+      "p": 36.88,
+      "e": 37,
+      "ic": [
+       32.01,
+       41.6
+      ],
+      "icE": [
+       32,
+       42
+      ],
+      "marca": "",
+      "dif": -5.48,
+      "difIC": [
+       -10.84,
+       -0.13
+      ]
+     }
+    },
+    "frase": "menos Apertura (prefiere lo conocido); más Extraversión (busca gente y protagonismo); más Amabilidad (cede y coopera)",
+    "conRetrato": true,
+    "validez": "válido",
+    "aviso": null,
+    "indices": {
+     "V1_delta": 0.056,
+     "V1_frac_A": 0.028,
+     "V2_no_validas": 0.0,
+     "V3_retest": 0.902,
+     "V4_coherencia": 0.899
+    },
+    "niveles": {
+     "V1_delta": "válido",
+     "V1_frac_A": "válido",
+     "V2_no_validas": "válido",
+     "V3_retest": "válido",
+     "V4_coherencia": "válido"
+    }
+   },
+   {
+    "id": "google/gemini-4-argon",
+    "lab": "Google",
+    "iss": null,
+    "psicobench": null,
+    "issDe": null,
+    "fechaISS": null,
+    "rasgos": {
+     "O": {
+      "p": 42.6,
+      "e": 43,
+      "ic": [
+       37.67,
+       47.57
+      ],
+      "icE": [
+       38,
+       48
+      ],
+      "marca": "▼",
+      "dif": -9.05,
+      "difIC": [
+       -12.41,
+       -5.62
+      ]
+     },
+     "C": {
+      "p": 35.65,
+      "e": 36,
+      "ic": [
+       30.91,
+       41.19
+      ],
+      "icE": [
+       31,
+       41
+      ],
+      "marca": "",
+      "dif": -3.01,
+      "difIC": [
+       -5.78,
+       -0.08
+      ]
+     },
+     "E": {
+      "p": 38.76,
+      "e": 39,
+      "ic": [
+       34.15,
+       43.6
+      ],
+      "icE": [
+       34,
+       44
+      ],
+      "marca": "",
+      "dif": -3.62,
+      "difIC": [
+       -7.22,
+       0.22
+      ]
+     },
+     "A": {
+      "p": 34.47,
+      "e": 34,
+      "ic": [
+       30.1,
+       38.96
+      ],
+      "icE": [
+       30,
+       39
+      ],
+      "marca": "",
+      "dif": 0.98,
+      "difIC": [
+       -1.96,
+       4.06
+      ]
+     },
+     "N": {
+      "p": 48.26,
+      "e": 48,
+      "ic": [
+       45.28,
+       51.23
+      ],
+      "icE": [
+       45,
+       51
+      ],
+      "marca": "▼",
+      "dif": -4.85,
+      "difIC": [
+       -7.61,
+       -2.31
+      ]
+     },
+     "H": {
+      "p": 37.67,
+      "e": 38,
+      "ic": [
+       32.09,
+       43.14
+      ],
+      "icE": [
+       32,
+       43
+      ],
+      "marca": "",
+      "dif": -4.66,
+      "difIC": [
+       -9.02,
+       -0.22
+      ]
+     }
+    },
+    "frase": "menos Apertura (prefiere lo conocido); menos Neuroticismo (se mantiene sereno)",
+    "conRetrato": true,
+    "validez": "válido",
+    "aviso": null,
+    "indices": {
+     "V1_delta": 0.089,
+     "V1_frac_A": 0.04,
+     "V2_no_validas": 0.015,
+     "V3_retest": 0.887,
+     "V4_coherencia": 0.917
+    },
+    "niveles": {
+     "V1_delta": "válido",
+     "V1_frac_A": "válido",
+     "V2_no_validas": "válido",
+     "V3_retest": "válido",
+     "V4_coherencia": "válido"
+    }
+   },
+   {
+    "id": "mimo-v2.6-flash",
+    "lab": "Xiaomi",
+    "iss": 12.6,
+    "psicobench": "mimo-v2.6-flash",
+    "issDe": null,
+    "fechaISS": "28-09-2026",
+    "rasgos": {
+     "O": {
+      "p": 55.1,
+      "e": 55,
+      "ic": [
+       49.81,
+       60.05
+      ],
+      "icE": [
+       50,
+       60
+      ],
+      "marca": "",
+      "dif": 4.05,
+      "difIC": [
+       0.01,
+       7.84
+      ]
+     },
+     "C": {
+      "p": 38.92,
+      "e": 39,
+      "ic": [
+       34.68,
+       43.69
+      ],
+      "icE": [
+       35,
+       44
+      ],
+      "marca": "",
+      "dif": 0.42,
+      "difIC": [
+       -2.79,
+       3.85
+      ]
+     },
+     "E": {
+      "p": 43.8,
+      "e": 44,
+      "ic": [
+       39.25,
+       47.91
+      ],
+      "icE": [
+       39,
+       48
+      ],
+      "marca": "",
+      "dif": 1.66,
+      "difIC": [
+       -1.11,
+       4.6
+      ]
+     },
+     "A": {
+      "p": 36.0,
+      "e": 36,
+      "ic": [
+       32.14,
+       40.03
+      ],
+      "icE": [
+       32,
+       40
+      ],
+      "marca": "",
+      "dif": 2.59,
+      "difIC": [
+       -0.24,
+       5.57
+      ]
+     },
+     "N": {
+      "p": 52.95,
+      "e": 53,
+      "ic": [
+       50.71,
+       55.4
+      ],
+      "icE": [
+       51,
+       55
+      ],
+      "marca": "",
+      "dif": 0.06,
+      "difIC": [
+       -1.42,
+       1.84
+      ]
+     },
+     "H": {
+      "p": 41.57,
+      "e": 42,
+      "ic": [
+       36.95,
+       46.05
+      ],
+      "icE": [
+       37,
+       46
+      ],
+      "marca": "",
+      "dif": -0.57,
+      "difIC": [
+       -3.91,
+       2.53
+      ]
+     }
+    },
+    "frase": "perfil próximo al de los demás modelos",
+    "conRetrato": false,
+    "validez": "válido",
+    "aviso": null,
+    "indices": {
+     "V1_delta": 0.001,
+     "V1_frac_A": 0.001,
+     "V2_no_validas": 0.0,
+     "V3_retest": 0.861,
+     "V4_coherencia": 0.754
+    },
+    "niveles": {
+     "V1_delta": "válido",
+     "V1_frac_A": "válido",
+     "V2_no_validas": "válido",
+     "V3_retest": "válido",
+     "V4_coherencia": "válido"
+    }
+   },
+   {
+    "id": "minimax/minimax-m3.1-flash#low",
+    "lab": "MiniMax",
+    "iss": 7.9,
+    "psicobench": "space-bunny-alpha#low",
+    "issDe": "stealth/space-bunny-alpha#low",
+    "fechaISS": "28-09-2026",
+    "rasgos": {
+     "O": {
+      "p": 50.65,
+      "e": 51,
+      "ic": [
+       45.38,
+       55.78
+      ],
+      "icE": [
+       45,
+       56
+      ],
+      "marca": "",
+      "dif": -0.62,
+      "difIC": [
+       -4.39,
+       3.25
+      ]
+     },
+     "C": {
+      "p": 43.16,
+      "e": 43,
+      "ic": [
+       38.35,
+       48.01
+      ],
+      "icE": [
+       38,
+       48
+      ],
+      "marca": "",
+      "dif": 4.86,
+      "difIC": [
+       1.35,
+       8.58
+      ]
+     },
+     "E": {
+      "p": 41.83,
+      "e": 42,
+      "ic": [
+       37.46,
+       46.29
+      ],
+      "icE": [
+       37,
+       46
+      ],
+      "marca": "",
+      "dif": -0.41,
+      "difIC": [
+       -4.01,
+       3.09
+      ]
+     },
+     "A": {
+      "p": 34.47,
+      "e": 34,
+      "ic": [
+       30.74,
+       38.26
+      ],
+      "icE": [
+       31,
+       38
+      ],
+      "marca": "",
+      "dif": 0.98,
+      "difIC": [
+       -2.33,
+       4.69
+      ]
+     },
+     "N": {
+      "p": 55.38,
+      "e": 55,
+      "ic": [
+       52.98,
+       57.99
+      ],
+      "icE": [
+       53,
+       58
+      ],
+      "marca": "",
+      "dif": 2.6,
+      "difIC": [
+       0.5,
+       4.65
+      ]
+     },
+     "H": {
+      "p": 42.87,
+      "e": 43,
+      "ic": [
+       38.57,
+       47.04
+      ],
+      "icE": [
+       39,
+       47
+      ],
+      "marca": "",
+      "dif": 0.79,
+      "difIC": [
+       -2.97,
+       4.49
+      ]
+     }
+    },
+    "frase": "perfil próximo al de los demás modelos",
+    "conRetrato": false,
+    "validez": "aviso",
+    "aviso": "coherencia de la deseabilidad 0,73 (aviso)",
+    "indices": {
+     "V1_delta": 0.095,
+     "V1_frac_A": 0.047,
+     "V2_no_validas": 0.0,
+     "V3_retest": 0.754,
+     "V4_coherencia": 0.734
+    },
+    "niveles": {
+     "V1_delta": "válido",
+     "V1_frac_A": "válido",
+     "V2_no_validas": "válido",
+     "V3_retest": "válido",
+     "V4_coherencia": "aviso"
+    }
+   },
+   {
+    "id": "mistralai/mistral-medium-3-5",
+    "lab": "Mistral",
+    "iss": 23.9,
+    "psicobench": "mistral-medium-3-5",
+    "issDe": null,
+    "fechaISS": "24-07-2026",
+    "rasgos": {
+     "O": {
+      "p": 58.92,
+      "e": 59,
+      "ic": [
+       53.81,
+       63.96
+      ],
+      "icE": [
+       54,
+       64
+      ],
+      "marca": "▲",
+      "dif": 8.04,
+      "difIC": [
+       4.64,
+       11.46
+      ]
+     },
+     "C": {
+      "p": 42.27,
+      "e": 42,
+      "ic": [
+       36.83,
+       47.69
+      ],
+      "icE": [
+       37,
+       48
+      ],
+      "marca": "",
+      "dif": 3.93,
+      "difIC": [
+       0.46,
+       7.58
+      ]
+     },
+     "E": {
+      "p": 44.68,
+      "e": 45,
+      "ic": [
+       40.69,
+       48.68
+      ],
+      "icE": [
+       41,
+       49
+      ],
+      "marca": "",
+      "dif": 2.58,
+      "difIC": [
+       0.09,
+       5.37
+      ]
+     },
+     "A": {
+      "p": 31.4,
+      "e": 31,
+      "ic": [
+       27.75,
+       35.01
+      ],
+      "icE": [
+       28,
+       35
+      ],
+      "marca": "",
+      "dif": -2.23,
+      "difIC": [
+       -4.7,
+       0.36
+      ]
+     },
+     "N": {
+      "p": 55.9,
+      "e": 56,
+      "ic": [
+       53.11,
+       59.04
+      ],
+      "icE": [
+       53,
+       59
+      ],
+      "marca": "",
+      "dif": 3.15,
+      "difIC": [
+       0.68,
+       5.7
+      ]
+     },
+     "H": {
+      "p": 34.28,
+      "e": 34,
+      "ic": [
+       28.69,
+       39.94
+      ],
+      "icE": [
+       29,
+       40
+      ],
+      "marca": "",
+      "dif": -8.21,
+      "difIC": [
+       -12.52,
+       -4.16
+      ]
+     }
+    },
+    "frase": "más Apertura (curioso, busca lo nuevo)",
+    "conRetrato": true,
+    "validez": "aviso",
+    "aviso": "posición (Δ AB−BA) 0,21 (aviso); posición (fracción de A) |A − 0,5| = 0,10 (aviso)",
+    "indices": {
+     "V1_delta": 0.206,
+     "V1_frac_A": 0.103,
+     "V2_no_validas": 0.0,
+     "V3_retest": 0.835,
+     "V4_coherencia": 0.851
+    },
+    "niveles": {
+     "V1_delta": "aviso",
+     "V1_frac_A": "aviso",
+     "V2_no_validas": "válido",
+     "V3_retest": "válido",
+     "V4_coherencia": "válido"
+    }
+   },
+   {
+    "id": "openai/gpt-5.6-luna",
+    "lab": "OpenAI",
+    "iss": 7.6,
+    "psicobench": "gpt-5.6-luna",
+    "issDe": null,
+    "fechaISS": "23-07-2026",
+    "rasgos": {
+     "O": {
+      "p": 53.83,
+      "e": 54,
+      "ic": [
+       49.13,
+       58.76
+      ],
+      "icE": [
+       49,
+       59
+      ],
+      "marca": "",
+      "dif": 2.71,
+      "difIC": [
+       -0.62,
+       6.06
+      ]
+     },
+     "C": {
+      "p": 40.26,
+      "e": 40,
+      "ic": [
+       35.61,
+       45.01
+      ],
+      "icE": [
+       36,
+       45
+      ],
+      "marca": "",
+      "dif": 1.82,
+      "difIC": [
+       -1.46,
+       5.08
+      ]
+     },
+     "E": {
+      "p": 39.19,
+      "e": 39,
+      "ic": [
+       34.45,
+       44.04
+      ],
+      "icE": [
+       34,
+       44
+      ],
+      "marca": "",
+      "dif": -3.16,
+      "difIC": [
+       -6.46,
+       0.36
+      ]
+     },
+     "A": {
+      "p": 30.52,
+      "e": 31,
+      "ic": [
+       27.05,
+       34.15
+      ],
+      "icE": [
+       27,
+       34
+      ],
+      "marca": "",
+      "dif": -3.15,
+      "difIC": [
+       -5.41,
+       -0.9
+      ]
+     },
+     "N": {
+      "p": 52.6,
+      "e": 53,
+      "ic": [
+       50.25,
+       55.22
+      ],
+      "icE": [
+       50,
+       55
+      ],
+      "marca": "",
+      "dif": -0.31,
+      "difIC": [
+       -2.02,
+       1.69
+      ]
+     },
+     "H": {
+      "p": 47.3,
+      "e": 47,
+      "ic": [
+       42.23,
+       51.75
+      ],
+      "icE": [
+       42,
+       52
+      ],
+      "marca": "",
+      "dif": 5.43,
+      "difIC": [
+       2.76,
+       8.27
+      ]
+     }
+    },
+    "frase": "perfil próximo al de los demás modelos",
+    "conRetrato": false,
+    "validez": "válido",
+    "aviso": null,
+    "indices": {
+     "V1_delta": 0.016,
+     "V1_frac_A": 0.008,
+     "V2_no_validas": 0.0,
+     "V3_retest": 0.908,
+     "V4_coherencia": 0.819
+    },
+    "niveles": {
+     "V1_delta": "válido",
+     "V1_frac_A": "válido",
+     "V2_no_validas": "válido",
+     "V3_retest": "válido",
+     "V4_coherencia": "válido"
+    }
+   },
+   {
+    "id": "openai/gpt-6-luna#low",
+    "lab": "OpenAI",
+    "iss": 13.9,
+    "psicobench": "gpt-6-luna#low",
+    "issDe": null,
+    "fechaISS": "22-09-2026",
+    "rasgos": {
+     "O": {
+      "p": 51.5,
+      "e": 52,
+      "ic": [
+       45.84,
+       57.26
+      ],
+      "icE": [
+       46,
+       57
+      ],
+      "marca": "",
+      "dif": 0.27,
+      "difIC": [
+       -3.39,
+       3.83
+      ]
+     },
+     "C": {
+      "p": 35.13,
+      "e": 35,
+      "ic": [
+       31.03,
+       39.45
+      ],
+      "icE": [
+       31,
+       39
+      ],
+      "marca": "",
+      "dif": -3.55,
+      "difIC": [
+       -6.87,
+       -0.32
+      ]
+     },
+     "E": {
+      "p": 37.0,
+      "e": 37,
+      "ic": [
+       32.74,
+       41.35
+      ],
+      "icE": [
+       33,
+       41
+      ],
+      "marca": "",
+      "dif": -5.46,
+      "difIC": [
+       -9.02,
+       -2.02
+      ]
+     },
+     "A": {
+      "p": 32.72,
+      "e": 33,
+      "ic": [
+       28.71,
+       36.96
+      ],
+      "icE": [
+       29,
+       37
+      ],
+      "marca": "",
+      "dif": -0.86,
+      "difIC": [
+       -3.52,
+       1.93
+      ]
+     },
+     "N": {
+      "p": 52.43,
+      "e": 52,
+      "ic": [
+       50.02,
+       55.07
+      ],
+      "icE": [
+       50,
+       55
+      ],
+      "marca": "",
+      "dif": -0.49,
+      "difIC": [
+       -2.63,
+       1.52
+      ]
+     },
+     "H": {
+      "p": 48.34,
+      "e": 48,
+      "ic": [
+       42.97,
+       53.6
+      ],
+      "icE": [
+       43,
+       54
+      ],
+      "marca": "",
+      "dif": 6.52,
+      "difIC": [
+       2.43,
+       10.37
+      ]
+     }
+    },
+    "frase": "perfil próximo al de los demás modelos",
+    "conRetrato": false,
+    "validez": "válido",
+    "aviso": null,
+    "indices": {
+     "V1_delta": 0.037,
+     "V1_frac_A": 0.019,
+     "V2_no_validas": 0.0,
+     "V3_retest": 0.903,
+     "V4_coherencia": 0.828
+    },
+    "niveles": {
+     "V1_delta": "válido",
+     "V1_frac_A": "válido",
+     "V2_no_validas": "válido",
+     "V3_retest": "válido",
+     "V4_coherencia": "válido"
+    }
+   },
+   {
+    "id": "openai/gpt-6.1-sol#low",
+    "lab": "OpenAI",
+    "iss": 13.2,
+    "psicobench": "gpt-6.1-sol#low",
+    "issDe": null,
+    "fechaISS": "04-10-2026",
+    "rasgos": {
+     "O": {
+      "p": 51.29,
+      "e": 51,
+      "ic": [
+       46.24,
+       56.09
+      ],
+      "icE": [
+       46,
+       56
+      ],
+      "marca": "",
+      "dif": 0.05,
+      "difIC": [
+       -3.8,
+       3.78
+      ]
+     },
+     "C": {
+      "p": 32.89,
+      "e": 33,
+      "ic": [
+       28.59,
+       37.16
+      ],
+      "icE": [
+       29,
+       37
+      ],
+      "marca": "▼",
+      "dif": -5.89,
+      "difIC": [
+       -9.06,
+       -2.84
+      ]
+     },
+     "E": {
+      "p": 38.32,
+      "e": 38,
+      "ic": [
+       33.89,
+       43.18
+      ],
+      "icE": [
+       34,
+       43
+      ],
+      "marca": "",
+      "dif": -4.08,
+      "difIC": [
+       -7.57,
+       -0.62
+      ]
+     },
+     "A": {
+      "p": 32.72,
+      "e": 33,
+      "ic": [
+       28.25,
+       37.4
+      ],
+      "icE": [
+       28,
+       37
+      ],
+      "marca": "",
+      "dif": -0.86,
+      "difIC": [
+       -3.98,
+       2.33
+      ]
+     },
+     "N": {
+      "p": 49.48,
+      "e": 49,
+      "ic": [
+       46.59,
+       52.21
+      ],
+      "icE": [
+       47,
+       52
+      ],
+      "marca": "▼",
+      "dif": -3.58,
+      "difIC": [
+       -6.35,
+       -0.86
+      ]
+     },
+     "H": {
+      "p": 50.69,
+      "e": 51,
+      "ic": [
+       46.0,
+       54.88
+      ],
+      "icE": [
+       46,
+       55
+      ],
+      "marca": "▲",
+      "dif": 8.98,
+      "difIC": [
+       5.45,
+       12.7
+      ]
+     }
+    },
+    "frase": "menos Responsabilidad (prioriza descanso y flexibilidad); más Honestidad-Humildad (sincero, renuncia a ventajas); menos Neuroticismo (se mantiene sereno)",
+    "conRetrato": true,
+    "validez": "válido",
+    "aviso": null,
+    "indices": {
+     "V1_delta": 0.064,
+     "V1_frac_A": 0.032,
+     "V2_no_validas": 0.0,
+     "V3_retest": 0.975,
+     "V4_coherencia": 0.888
+    },
+    "niveles": {
+     "V1_delta": "válido",
+     "V1_frac_A": "válido",
+     "V2_no_validas": "válido",
+     "V3_retest": "válido",
+     "V4_coherencia": "válido"
+    }
+   },
+   {
+    "id": "qwen3.6",
+    "lab": "Alibaba",
+    "iss": 23.2,
+    "psicobench": "qwen3.6",
+    "issDe": null,
+    "fechaISS": "04-08-2026",
+    "rasgos": {
+     "O": {
+      "p": 53.41,
+      "e": 53,
+      "ic": [
+       47.61,
+       59.01
+      ],
+      "icE": [
+       48,
+       59
+      ],
+      "marca": "",
+      "dif": 2.27,
+      "difIC": [
+       -1.09,
+       5.87
+      ]
+     },
+     "C": {
+      "p": 40.71,
+      "e": 41,
+      "ic": [
+       35.37,
+       45.9
+      ],
+      "icE": [
+       35,
+       46
+      ],
+      "marca": "",
+      "dif": 2.29,
+      "difIC": [
+       -1.55,
+       6.33
+      ]
+     },
+     "E": {
+      "p": 42.92,
+      "e": 43,
+      "ic": [
+       37.76,
+       47.93
+      ],
+      "icE": [
+       38,
+       48
+      ],
+      "marca": "",
+      "dif": 0.74,
+      "difIC": [
+       -3.05,
+       4.8
+      ]
+     },
+     "A": {
+      "p": 34.91,
+      "e": 35,
+      "ic": [
+       30.68,
+       39.0
+      ],
+      "icE": [
+       31,
+       39
+      ],
+      "marca": "",
+      "dif": 1.44,
+      "difIC": [
+       -1.87,
+       4.93
+      ]
+     },
+     "N": {
+      "p": 55.9,
+      "e": 56,
+      "ic": [
+       52.43,
+       59.31
+      ],
+      "icE": [
+       52,
+       59
+      ],
+      "marca": "",
+      "dif": 3.15,
+      "difIC": [
+       0.57,
+       5.86
+      ]
+     },
+     "H": {
+      "p": 33.76,
+      "e": 34,
+      "ic": [
+       28.79,
+       38.47
+      ],
+      "icE": [
+       29,
+       38
+      ],
+      "marca": "▼",
+      "dif": -8.75,
+      "difIC": [
+       -13.15,
+       -4.75
+      ]
+     }
+    },
+    "frase": "menos Honestidad-Humildad (acepta ventajas y se promociona)",
+    "conRetrato": true,
+    "validez": "válido",
+    "aviso": null,
+    "indices": {
+     "V1_delta": 0.004,
+     "V1_frac_A": 0.002,
+     "V2_no_validas": 0.0,
+     "V3_retest": 0.851,
+     "V4_coherencia": 0.762
+    },
+    "niveles": {
+     "V1_delta": "válido",
+     "V1_frac_A": "válido",
+     "V2_no_validas": "válido",
+     "V3_retest": "válido",
+     "V4_coherencia": "válido"
+    }
+   },
+   {
+    "id": "qwen3.8-flash",
+    "lab": "Alibaba",
+    "iss": 24.8,
+    "psicobench": "qwen3.8-flash",
+    "issDe": null,
+    "fechaISS": "13-09-2026",
+    "rasgos": {
+     "O": {
+      "p": 47.69,
+      "e": 48,
+      "ic": [
+       41.87,
+       53.89
+      ],
+      "icE": [
+       42,
+       54
+      ],
+      "marca": "",
+      "dif": -3.72,
+      "difIC": [
+       -7.47,
+       -0.37
+      ]
+     },
+     "C": {
+      "p": 35.57,
+      "e": 36,
+      "ic": [
+       30.01,
+       40.77
+      ],
+      "icE": [
+       30,
+       41
+      ],
+      "marca": "",
+      "dif": -3.09,
+      "difIC": [
+       -6.23,
+       0.2
+      ]
+     },
+     "E": {
+      "p": 40.73,
+      "e": 41,
+      "ic": [
+       36.68,
+       44.84
+      ],
+      "icE": [
+       37,
+       45
+      ],
+      "marca": "",
+      "dif": -1.56,
+      "difIC": [
+       -3.76,
+       0.43
+      ]
+     },
+     "A": {
+      "p": 31.62,
+      "e": 32,
+      "ic": [
+       28.03,
+       35.23
+      ],
+      "icE": [
+       28,
+       35
+      ],
+      "marca": "",
+      "dif": -2.01,
+      "difIC": [
+       -4.28,
+       0.26
+      ]
+     },
+     "N": {
+      "p": 53.47,
+      "e": 53,
+      "ic": [
+       51.42,
+       55.71
+      ],
+      "icE": [
+       51,
+       56
+      ],
+      "marca": "",
+      "dif": 0.6,
+      "difIC": [
+       -1.29,
+       2.41
+      ]
+     },
+     "H": {
+      "p": 43.66,
+      "e": 44,
+      "ic": [
+       38.78,
+       48.34
+      ],
+      "icE": [
+       39,
+       48
+      ],
+      "marca": "",
+      "dif": 1.61,
+      "difIC": [
+       -1.45,
+       4.62
+      ]
+     }
+    },
+    "frase": "perfil próximo al de los demás modelos",
+    "conRetrato": false,
+    "validez": "válido",
+    "aviso": null,
+    "indices": {
+     "V1_delta": 0.112,
+     "V1_frac_A": 0.056,
+     "V2_no_validas": 0.0,
+     "V3_retest": 0.819,
+     "V4_coherencia": 0.774
+    },
+    "niveles": {
+     "V1_delta": "válido",
+     "V1_frac_A": "válido",
+     "V2_no_validas": "válido",
+     "V3_retest": "válido",
+     "V4_coherencia": "válido"
+    }
+   },
+   {
+    "id": "qwen/qwen3.8-max-0902#low",
+    "lab": "Alibaba",
+    "iss": null,
+    "psicobench": null,
+    "issDe": null,
+    "fechaISS": null,
+    "rasgos": {
+     "O": {
+      "p": 48.75,
+      "e": 49,
+      "ic": [
+       43.59,
+       54.01
+      ],
+      "icE": [
+       44,
+       54
+      ],
+      "marca": "",
+      "dif": -2.61,
+      "difIC": [
+       -6.15,
+       0.76
+      ]
+     },
+     "C": {
+      "p": 35.35,
+      "e": 35,
+      "ic": [
+       30.78,
+       40.12
+      ],
+      "icE": [
+       31,
+       40
+      ],
+      "marca": "",
+      "dif": -3.32,
+      "difIC": [
+       -6.04,
+       -0.41
+      ]
+     },
+     "E": {
+      "p": 48.19,
+      "e": 48,
+      "ic": [
+       43.18,
+       53.11
+      ],
+      "icE": [
+       43,
+       53
+      ],
+      "marca": "▲",
+      "dif": 6.26,
+      "difIC": [
+       2.68,
+       9.89
+      ]
+     },
+     "A": {
+      "p": 33.15,
+      "e": 33,
+      "ic": [
+       29.31,
+       37.02
+      ],
+      "icE": [
+       29,
+       37
+      ],
+      "marca": "",
+      "dif": -0.4,
+      "difIC": [
+       -2.79,
+       1.99
+      ]
+     },
+     "N": {
+      "p": 49.31,
+      "e": 49,
+      "ic": [
+       47.13,
+       51.39
+      ],
+      "icE": [
+       47,
+       51
+      ],
+      "marca": "▼",
+      "dif": -3.76,
+      "difIC": [
+       -5.9,
+       -1.91
+      ]
+     },
+     "H": {
+      "p": 43.66,
+      "e": 44,
+      "ic": [
+       39.28,
+       48.08
+      ],
+      "icE": [
+       39,
+       48
+      ],
+      "marca": "",
+      "dif": 1.61,
+      "difIC": [
+       -1.79,
+       4.9
+      ]
+     }
+    },
+    "frase": "más Extraversión (busca gente y protagonismo); menos Neuroticismo (se mantiene sereno)",
+    "conRetrato": true,
+    "validez": "válido",
+    "aviso": null,
+    "indices": {
+     "V1_delta": 0.102,
+     "V1_frac_A": 0.051,
+     "V2_no_validas": 0.0,
+     "V3_retest": 0.897,
+     "V4_coherencia": 0.842
+    },
+    "niveles": {
+     "V1_delta": "válido",
+     "V1_frac_A": "válido",
+     "V2_no_validas": "válido",
+     "V3_retest": "válido",
+     "V4_coherencia": "válido"
+    }
+   },
+   {
+    "id": "z-ai/glm-5.3",
+    "lab": "Zhipu",
+    "iss": null,
+    "psicobench": null,
+    "issDe": null,
+    "fechaISS": null,
+    "rasgos": {
+     "O": {
+      "p": 54.68,
+      "e": 55,
+      "ic": [
+       50.06,
+       59.48
+      ],
+      "icE": [
+       50,
+       59
+      ],
+      "marca": "",
+      "dif": 3.6,
+      "difIC": [
+       0.27,
+       6.84
+      ]
+     },
+     "C": {
+      "p": 36.69,
+      "e": 37,
+      "ic": [
+       32.41,
+       41.15
+      ],
+      "icE": [
+       32,
+       41
+      ],
+      "marca": "",
+      "dif": -1.92,
+      "difIC": [
+       -4.86,
+       0.81
+      ]
+     },
+     "E": {
+      "p": 42.7,
+      "e": 43,
+      "ic": [
+       37.88,
+       47.75
+      ],
+      "icE": [
+       38,
+       48
+      ],
+      "marca": "",
+      "dif": 0.51,
+      "difIC": [
+       -3.21,
+       4.22
+      ]
+     },
+     "A": {
+      "p": 34.25,
+      "e": 34,
+      "ic": [
+       30.28,
+       38.4
+      ],
+      "icE": [
+       30,
+       38
+      ],
+      "marca": "",
+      "dif": 0.75,
+      "difIC": [
+       -1.97,
+       3.62
+      ]
+     },
+     "N": {
+      "p": 50.69,
+      "e": 51,
+      "ic": [
+       48.85,
+       52.78
+      ],
+      "icE": [
+       49,
+       53
+      ],
+      "marca": "",
+      "dif": -2.31,
+      "difIC": [
+       -3.72,
+       -0.97
+      ]
+     },
+     "H": {
+      "p": 46.78,
+      "e": 47,
+      "ic": [
+       42.73,
+       50.78
+      ],
+      "icE": [
+       43,
+       51
+      ],
+      "marca": "",
+      "dif": 4.89,
+      "difIC": [
+       2.22,
+       7.53
+      ]
+     }
+    },
+    "frase": "perfil próximo al de los demás modelos",
+    "conRetrato": false,
+    "validez": "válido",
+    "aviso": null,
+    "indices": {
+     "V1_delta": 0.042,
+     "V1_frac_A": 0.021,
+     "V2_no_validas": 0.001,
+     "V3_retest": 0.861,
+     "V4_coherencia": 0.834
+    },
+    "niveles": {
+     "V1_delta": "válido",
+     "V1_frac_A": "válido",
+     "V2_no_validas": "válido",
+     "V3_retest": "válido",
+     "V4_coherencia": "válido"
+    }
+   }
+  ],
+  "fuera": [
+   {
+    "id": "deepseek/deepseek-v4-pro-0813",
+    "tipo": "no interpretable",
+    "motivo": "coherencia de la deseabilidad 0,64 (no interpretable)",
+    "psicobench": null
+   },
+   {
+    "id": "moonshotai/kimi-k3",
+    "tipo": "pendiente de completar",
+    "motivo": "medido solo con la forma corta en O, C, E, A, N, H",
+    "psicobench": "kimi-k3"
+   },
+   {
+    "id": "deepseek-v4-flash",
+    "tipo": "sin cobertura",
+    "motivo": "O, C, E, A del v3 41 % (sin la forma corta completa), I1-H 0 %, I1-N 0 %",
+    "psicobench": "deepseek-v4.1-flash"
+   },
+   {
+    "id": "mistralai/mistral-large-4-0",
+    "tipo": "sin cobertura",
+    "motivo": "O, C, E, A del v3 41 % (sin la forma corta completa), I1-H 0 %, I1-N 0 %",
+    "psicobench": "mistral-large-4-0"
+   },
+   {
+    "id": "x-ai/grok-4.5",
+    "tipo": "sin cobertura",
+    "motivo": "O, C, E, A del v3 41 % (sin la forma corta completa), I1-H 0 %, I1-N 0 %",
+    "psicobench": "grok-4.5"
+   }
+  ],
+  "umbrales": {
+   "V1_delta": [
+    0.2,
+    0.3
+   ],
+   "V1_frac_A": [
+    0.1,
+    0.15
+   ],
+   "V2_no_validas": [
+    0.05,
+    0.1
+   ],
+   "V3_retest": [
+    0.6,
+    0.4
+   ],
+   "V4_coherencia": [
+    0.75,
+    0.65
+   ]
+  },
+  "nombreIndice": {
+   "V1_delta": "posición (Δ AB−BA)",
+   "V1_frac_A": "posición (fracción de A)",
+   "V2_no_validas": "no válidas",
+   "V3_retest": "retest",
+   "V4_coherencia": "coherencia de la deseabilidad"
+  },
+  "relacionISS": {
+   "O": {
+    "r": -0.38,
+    "n": 19
+   },
+   "C": {
+    "r": 0.12,
+    "n": 19
+   },
+   "E": {
+    "r": 0.54,
+    "n": 19
+   },
+   "A": {
+    "r": 0.4,
+    "n": 19
+   },
+   "N": {
+    "r": 0.02,
+    "n": 19
+   },
+   "H": {
+    "r": -0.59,
+    "n": 19
+   }
+  },
+  "correlacionHC": {
+   "r": -0.64,
+   "n": 22
+  }
+ }
 };

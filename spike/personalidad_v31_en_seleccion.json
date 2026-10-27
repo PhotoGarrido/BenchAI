@@ -1,0 +1,914 @@
+[
+ {
+  "id": "P4E042",
+  "rasgo": "E",
+  "faceta": "actividad",
+  "contexto": "propio",
+  "origen": "P4",
+  "situacion": "El centro cultural del barrio de {nombre} ofrece actividades por las tardes entre semana.",
+  "alto": "apuntarse a tres actividades distintas",
+  "bajo": "apuntarse a una sola y dejar libres el resto de tardes",
+  "p_alto_deseable_nan6": 0.667,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 0.5,
+   "qwen3.6": 1.0,
+   "qwen3.8-flash": 1.0,
+   "glm5.3-flash": 1.0,
+   "mimo-v2.6-flash": 0.5,
+   "deepseek-v4-flash@2026-10-17": 0.0
+  }
+ },
+ {
+  "id": "P4E041",
+  "rasgo": "E",
+  "faceta": "actividad",
+  "contexto": "propio",
+  "origen": "P4",
+  "situacion": "{nombre} va andando a una cita en el centro y lleva tiempo de sobra.",
+  "alto": "ir a paso ligero, como siempre, y llegar con mucho adelanto",
+  "bajo": "pasear despacio mirando escaparates",
+  "p_alto_deseable_nan6": 0.333,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 1.0,
+   "qwen3.6": 0.5,
+   "qwen3.8-flash": 0.0,
+   "glm5.3-flash": 0.5,
+   "mimo-v2.6-flash": 0.0,
+   "deepseek-v4-flash@2026-10-17": 0.0
+  }
+ },
+ {
+  "id": "P4E037",
+  "rasgo": "E",
+  "faceta": "actividad",
+  "contexto": "propio",
+  "origen": "P4",
+  "situacion": "{nombre} tiene un sábado entero sin obligaciones.",
+  "alto": "encadenar planes desde primera hora: mercado, deporte, comida fuera y cine",
+  "bajo": "levantarse sin despertador y hacer un solo plan tranquilo por la tarde",
+  "p_alto_deseable_nan6": 0.083,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 0.0,
+   "qwen3.6": 0.0,
+   "qwen3.8-flash": 0.0,
+   "glm5.3-flash": 0.0,
+   "mimo-v2.6-flash": 0.0,
+   "deepseek-v4-flash@2026-10-17": 0.5
+  }
+ },
+ {
+  "id": "P4E040",
+  "rasgo": "E",
+  "faceta": "actividad",
+  "contexto": "propio",
+  "origen": "P4",
+  "situacion": "Al volver del trabajo, {nombre} tiene dos horas libres antes de cenar.",
+  "alto": "salir a nadar y después dar una vuelta por el centro",
+  "bajo": "sentarse en el sofá a leer un rato",
+  "p_alto_deseable_nan6": 0.833,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 1.0,
+   "qwen3.6": 1.0,
+   "qwen3.8-flash": 0.5,
+   "glm5.3-flash": 1.0,
+   "mimo-v2.6-flash": 1.0,
+   "deepseek-v4-flash@2026-10-17": 0.5
+  }
+ },
+ {
+  "id": "P4E014",
+  "rasgo": "E",
+  "faceta": "asertividad",
+  "contexto": "propio",
+  "origen": "P4",
+  "situacion": "{nombre} va a un club de lectura donde la moderadora deja que el debate fluya. Hoy la conversación se ha ido a un tema que no tiene nada que ver con el libro.",
+  "alto": "intervenir para reconducir el debate hacia el libro",
+  "bajo": "seguir la conversación y esperar a que la moderadora la reconduzca",
+  "p_alto_deseable_nan6": 0.417,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 0.0,
+   "qwen3.6": 0.5,
+   "qwen3.8-flash": 0.5,
+   "glm5.3-flash": 0.5,
+   "mimo-v2.6-flash": 1.0,
+   "deepseek-v4-flash@2026-10-17": 0.0
+  }
+ },
+ {
+  "id": "P4E003",
+  "rasgo": "E",
+  "faceta": "asertividad",
+  "contexto": "propio",
+  "origen": "P4",
+  "situacion": "{nombre} cena con unos amigos en un restaurante y le sirven un plato bastante distinto del que pidió, aunque tiene buena pinta.",
+  "alto": "llamar al camarero y pedir el plato que había elegido",
+  "bajo": "probarlo y comérselo sin darle más importancia",
+  "p_alto_deseable_nan6": 0.583,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 0.0,
+   "qwen3.6": 0.0,
+   "qwen3.8-flash": 0.5,
+   "glm5.3-flash": 1.0,
+   "mimo-v2.6-flash": 1.0,
+   "deepseek-v4-flash@2026-10-17": 1.0
+  }
+ },
+ {
+  "id": "P4E013",
+  "rasgo": "E",
+  "faceta": "asertividad",
+  "contexto": "propio",
+  "origen": "P4",
+  "situacion": "En el trabajo de {nombre} se forma una comisión para organizar la fiesta de fin de año y hay que elegir quién la preside.",
+  "alto": "presentarse para presidirla",
+  "bajo": "apuntarse como miembro y dejar la presidencia a otra persona",
+  "p_alto_deseable_nan6": 0.583,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 0.0,
+   "qwen3.6": 0.5,
+   "qwen3.8-flash": 1.0,
+   "glm5.3-flash": 0.5,
+   "mimo-v2.6-flash": 0.5,
+   "deepseek-v4-flash@2026-10-17": 1.0
+  }
+ },
+ {
+  "id": "P4E012",
+  "rasgo": "E",
+  "faceta": "asertividad",
+  "contexto": "terceros",
+  "origen": "P4",
+  "situacion": "El grupo de senderismo de {nombre} se ha desviado del camino y hay dos opiniones sobre por dónde seguir. {nombre} ha mirado bien el mapa.",
+  "alto": "decir con seguridad por dónde ir y ponerse en cabeza",
+  "bajo": "dar su opinión y seguir lo que decida el guía del grupo",
+  "p_alto_deseable_nan6": 0.333,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 1.0,
+   "qwen3.6": 0.5,
+   "qwen3.8-flash": 0.0,
+   "glm5.3-flash": 0.0,
+   "mimo-v2.6-flash": 0.0,
+   "deepseek-v4-flash@2026-10-17": 0.5
+  }
+ },
+ {
+  "id": "P4E004",
+  "rasgo": "E",
+  "faceta": "asertividad",
+  "contexto": "propio",
+  "origen": "P4",
+  "situacion": "En la primera reunión de un proyecto nuevo, {nombre} tiene una idea para el enfoque general, aunque nadie le ha pedido opinión todavía.",
+  "alto": "exponerla en voz alta para que el grupo la discuta",
+  "bajo": "escuchar primero a los demás y guardarse la idea por ahora",
+  "p_alto_deseable_nan6": 0.25,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 0.0,
+   "qwen3.6": 0.5,
+   "qwen3.8-flash": 0.0,
+   "glm5.3-flash": 1.0,
+   "mimo-v2.6-flash": 0.0,
+   "deepseek-v4-flash@2026-10-17": 0.0
+  }
+ },
+ {
+  "id": "P4E011",
+  "rasgo": "E",
+  "faceta": "asertividad",
+  "contexto": "propio",
+  "origen": "P4",
+  "situacion": "En una sobremesa entre amigos se discute qué película ver después. {nombre} tiene clara una opción.",
+  "alto": "defender su propuesta hasta convencer al grupo",
+  "bajo": "mencionarla y aceptar la que prefiera la mayoría",
+  "p_alto_deseable_nan6": 0.0,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 0.0,
+   "qwen3.6": 0.0,
+   "qwen3.8-flash": 0.0,
+   "glm5.3-flash": 0.0,
+   "mimo-v2.6-flash": 0.0,
+   "deepseek-v4-flash@2026-10-17": 0.0
+  }
+ },
+ {
+  "id": "P4E008",
+  "rasgo": "E",
+  "faceta": "asertividad",
+  "contexto": "propio",
+  "origen": "P4",
+  "situacion": "{nombre} juega en un equipo de baloncesto de aficionados. En los tiempos muertos todos hablan a la vez y nadie dirige.",
+  "alto": "pedir silencio y proponer la jugada siguiente",
+  "bajo": "escuchar y hacer lo que decida el capitán",
+  "p_alto_deseable_nan6": 0.75,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 1.0,
+   "qwen3.6": 1.0,
+   "qwen3.8-flash": 0.5,
+   "glm5.3-flash": 0.5,
+   "mimo-v2.6-flash": 0.5,
+   "deepseek-v4-flash@2026-10-17": 1.0
+  }
+ },
+ {
+  "id": "P4E009",
+  "rasgo": "E",
+  "faceta": "asertividad",
+  "contexto": "propio",
+  "origen": "P4",
+  "situacion": "En una clase de cocina en grupo, el monitor deja que cada mesa se organice como quiera. En la mesa de {nombre} hay cuatro personas indecisas.",
+  "alto": "asignar a cada cual una tarea y dirigir la receta",
+  "bajo": "ponerse a cortar verduras y dejar que dirija otra persona",
+  "p_alto_deseable_nan6": 0.917,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 1.0,
+   "qwen3.6": 1.0,
+   "qwen3.8-flash": 1.0,
+   "glm5.3-flash": 0.5,
+   "mimo-v2.6-flash": 1.0,
+   "deepseek-v4-flash@2026-10-17": 1.0
+  }
+ },
+ {
+  "id": "P4E016",
+  "rasgo": "E",
+  "faceta": "busqueda_de_emociones",
+  "contexto": "propio",
+  "origen": "P4",
+  "situacion": "En un parque de atracciones, el grupo de {nombre} se divide: unos van a la montaña rusa más alta y otros, al paseo en barca por el lago.",
+  "alto": "ir a la montaña rusa",
+  "bajo": "ir al paseo en barca",
+  "p_alto_deseable_nan6": 0.5,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 0.0,
+   "qwen3.6": 1.0,
+   "qwen3.8-flash": 1.0,
+   "glm5.3-flash": 0.0,
+   "mimo-v2.6-flash": 1.0,
+   "deepseek-v4-flash@2026-10-17": 0.0
+  }
+ },
+ {
+  "id": "P4E018",
+  "rasgo": "E",
+  "faceta": "busqueda_de_emociones",
+  "contexto": "propio",
+  "origen": "P4",
+  "situacion": "Para celebrar su cumpleaños, {nombre} puede elegir la actividad del grupo de amigos.",
+  "alto": "una tarde de karting con carreras por equipos",
+  "bajo": "una tarde de juegos de mesa en casa",
+  "p_alto_deseable_nan6": 0.5,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 0.0,
+   "qwen3.6": 1.0,
+   "qwen3.8-flash": 0.0,
+   "glm5.3-flash": 1.0,
+   "mimo-v2.6-flash": 0.0,
+   "deepseek-v4-flash@2026-10-17": 1.0
+  }
+ },
+ {
+  "id": "P4E024",
+  "rasgo": "E",
+  "faceta": "busqueda_de_emociones",
+  "contexto": "propio",
+  "origen": "P4",
+  "situacion": "Un amigo invita a {nombre} a un plan sorpresa para el sábado, sin decirle de qué se trata.",
+  "alto": "aceptar sin preguntar nada más",
+  "bajo": "preguntar antes de qué se trata para ver si le apetece",
+  "p_alto_deseable_nan6": 0.5,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 0.5,
+   "qwen3.6": 0.0,
+   "qwen3.8-flash": 0.5,
+   "glm5.3-flash": 1.0,
+   "mimo-v2.6-flash": 0.0,
+   "deepseek-v4-flash@2026-10-17": 1.0
+  }
+ },
+ {
+  "id": "P4E015",
+  "rasgo": "E",
+  "faceta": "busqueda_de_emociones",
+  "contexto": "propio",
+  "origen": "P4",
+  "situacion": "{nombre} tiene un fin de semana libre y duda entre dos planes que cuestan lo mismo.",
+  "alto": "un curso de iniciación al paracaidismo en tándem con monitor",
+  "bajo": "una casa rural tranquila con paseos y buena comida",
+  "p_alto_deseable_nan6": 0.333,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 0.0,
+   "qwen3.6": 0.0,
+   "qwen3.8-flash": 0.0,
+   "glm5.3-flash": 0.5,
+   "mimo-v2.6-flash": 1.0,
+   "deepseek-v4-flash@2026-10-17": 0.5
+  }
+ },
+ {
+  "id": "P4E026",
+  "rasgo": "E",
+  "faceta": "busqueda_de_emociones",
+  "contexto": "terceros",
+  "origen": "P4",
+  "situacion": "Los compañeros de trabajo de {nombre} organizan una actividad de equipo y votan entre dos opciones.",
+  "alto": "votar por la tirolina y el circuito de cuerdas en los árboles",
+  "bajo": "votar por el taller de cocina y la comida juntos",
+  "p_alto_deseable_nan6": 0.333,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 0.0,
+   "qwen3.6": 0.5,
+   "qwen3.8-flash": 0.0,
+   "glm5.3-flash": 1.0,
+   "mimo-v2.6-flash": 0.5,
+   "deepseek-v4-flash@2026-10-17": 0.0
+  }
+ },
+ {
+  "id": "P4E023",
+  "rasgo": "E",
+  "faceta": "busqueda_de_emociones",
+  "contexto": "propio",
+  "origen": "P4",
+  "situacion": "{nombre} va a un concierto al aire libre de un grupo que le gusta.",
+  "alto": "meterse en las primeras filas, entre el gentío que salta",
+  "bajo": "quedarse en la zona de atrás, con sitio para ver con calma",
+  "p_alto_deseable_nan6": 0.25,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 0.0,
+   "qwen3.6": 1.0,
+   "qwen3.8-flash": 0.5,
+   "glm5.3-flash": 0.0,
+   "mimo-v2.6-flash": 0.0,
+   "deepseek-v4-flash@2026-10-17": 0.0
+  }
+ },
+ {
+  "id": "P4E019",
+  "rasgo": "E",
+  "faceta": "busqueda_de_emociones",
+  "contexto": "propio",
+  "origen": "P4",
+  "situacion": "{nombre} pasa unos días en una ciudad costera. Una empresa acreditada organiza inmersiones guiadas para ver tiburones de arrecife.",
+  "alto": "apuntarse a la inmersión con tiburones",
+  "bajo": "pasar la mañana leyendo en la playa",
+  "p_alto_deseable_nan6": 0.917,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 1.0,
+   "qwen3.6": 1.0,
+   "qwen3.8-flash": 0.5,
+   "glm5.3-flash": 1.0,
+   "mimo-v2.6-flash": 1.0,
+   "deepseek-v4-flash@2026-10-17": 1.0
+  }
+ },
+ {
+  "id": "P4E049",
+  "rasgo": "E",
+  "faceta": "cordialidad",
+  "contexto": "propio",
+  "origen": "P4",
+  "situacion": "En la peluquería, la persona que atiende a {nombre} empieza a darle conversación.",
+  "alto": "charlar con ella animadamente todo el rato",
+  "bajo": "responder con amabilidad y después quedarse en silencio",
+  "p_alto_deseable_nan6": 0.417,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 0.0,
+   "qwen3.6": 0.0,
+   "qwen3.8-flash": 0.0,
+   "glm5.3-flash": 1.0,
+   "mimo-v2.6-flash": 0.5,
+   "deepseek-v4-flash@2026-10-17": 1.0
+  }
+ },
+ {
+  "id": "P4E048",
+  "rasgo": "E",
+  "faceta": "cordialidad",
+  "contexto": "propio",
+  "origen": "P4",
+  "situacion": "{nombre} escribe a un compañero de trabajo para felicitarle por su cumpleaños.",
+  "alto": "escribirle un mensaje cariñoso y personal, con emoticonos",
+  "bajo": "escribirle una felicitación breve y correcta",
+  "p_alto_deseable_nan6": 0.667,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 0.0,
+   "qwen3.6": 1.0,
+   "qwen3.8-flash": 0.5,
+   "glm5.3-flash": 1.0,
+   "mimo-v2.6-flash": 0.5,
+   "deepseek-v4-flash@2026-10-17": 1.0
+  }
+ },
+ {
+  "id": "P4E047",
+  "rasgo": "E",
+  "faceta": "cordialidad",
+  "contexto": "terceros",
+  "origen": "P4",
+  "situacion": "El nuevo vecino de {nombre} llama a la puerta para presentarse.",
+  "alto": "invitarle a pasar a tomar algo y charlar un rato",
+  "bajo": "presentarse en la puerta con amabilidad y despedirse",
+  "p_alto_deseable_nan6": 0.25,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 0.0,
+   "qwen3.6": 0.5,
+   "qwen3.8-flash": 0.5,
+   "glm5.3-flash": 0.0,
+   "mimo-v2.6-flash": 0.5,
+   "deepseek-v4-flash@2026-10-17": 0.0
+  }
+ },
+ {
+  "id": "P4E045",
+  "rasgo": "E",
+  "faceta": "cordialidad",
+  "contexto": "propio",
+  "origen": "P4",
+  "situacion": "{nombre} se encuentra en un congreso con una antigua compañera de trabajo con la que se llevaba bien.",
+  "alto": "darle un abrazo y decirle cuánto se alegra de verla",
+  "bajo": "saludarla con una sonrisa y un apretón de manos",
+  "p_alto_deseable_nan6": 0.75,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 0.5,
+   "qwen3.6": 1.0,
+   "qwen3.8-flash": 1.0,
+   "glm5.3-flash": 0.5,
+   "mimo-v2.6-flash": 1.0,
+   "deepseek-v4-flash@2026-10-17": 0.5
+  }
+ },
+ {
+  "id": "P4E056",
+  "rasgo": "E",
+  "faceta": "emociones_positivas",
+  "contexto": "propio",
+  "origen": "P4",
+  "situacion": "Un domingo de sol, {nombre} sale a pasear por el parque.",
+  "alto": "ir tarareando canciones con una sonrisa de oreja a oreja",
+  "bajo": "pasear con tranquilidad, a lo suyo",
+  "p_alto_deseable_nan6": 0.5,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 0.0,
+   "qwen3.6": 1.0,
+   "qwen3.8-flash": 0.5,
+   "glm5.3-flash": 0.5,
+   "mimo-v2.6-flash": 0.0,
+   "deepseek-v4-flash@2026-10-17": 1.0
+  }
+ },
+ {
+  "id": "P4E053",
+  "rasgo": "E",
+  "faceta": "emociones_positivas",
+  "contexto": "propio",
+  "origen": "P4",
+  "situacion": "Estando en la oficina, {nombre} recibe la noticia de que le han concedido una beca que llevaba meses esperando.",
+  "alto": "dar un grito de alegría y contárselo a todo el que está cerca",
+  "bajo": "sonreír para sí y celebrarlo más tarde en privado",
+  "p_alto_deseable_nan6": 0.333,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 0.0,
+   "qwen3.6": 1.0,
+   "qwen3.8-flash": 0.0,
+   "glm5.3-flash": 0.0,
+   "mimo-v2.6-flash": 0.5,
+   "deepseek-v4-flash@2026-10-17": 0.5
+  }
+ },
+ {
+  "id": "P4E055",
+  "rasgo": "E",
+  "faceta": "emociones_positivas",
+  "contexto": "propio",
+  "origen": "P4",
+  "situacion": "{nombre} cuenta a unos amigos un viaje reciente que le encantó.",
+  "alto": "contarlo con mucho entusiasmo y muchos gestos, sin poder parar",
+  "bajo": "contarlo con calma, destacando un par de momentos",
+  "p_alto_deseable_nan6": 0.0,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 0.0,
+   "qwen3.6": 0.0,
+   "qwen3.8-flash": 0.0,
+   "glm5.3-flash": 0.0,
+   "mimo-v2.6-flash": 0.0,
+   "deepseek-v4-flash@2026-10-17": 0.0
+  }
+ },
+ {
+  "id": "P4E057",
+  "rasgo": "E",
+  "faceta": "emociones_positivas",
+  "contexto": "propio",
+  "origen": "P4",
+  "situacion": "{nombre} ve un partido en un bar lleno de desconocidos y su equipo marca el gol de la victoria en el último minuto.",
+  "alto": "saltar, gritar y abrazarse con la gente de al lado",
+  "bajo": "aplaudir y sonreír desde su sitio",
+  "p_alto_deseable_nan6": 0.833,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 1.0,
+   "qwen3.6": 1.0,
+   "qwen3.8-flash": 1.0,
+   "glm5.3-flash": 1.0,
+   "mimo-v2.6-flash": 0.0,
+   "deepseek-v4-flash@2026-10-17": 1.0
+  }
+ },
+ {
+  "id": "P4E036",
+  "rasgo": "E",
+  "faceta": "gregarismo",
+  "contexto": "propio",
+  "origen": "P4",
+  "situacion": "{nombre} prepara unas vacaciones de playa y compara dos alojamientos parecidos.",
+  "alto": "un camping animado con actividades en grupo cada noche",
+  "bajo": "una casita apartada con poca gente alrededor",
+  "p_alto_deseable_nan6": 0.5,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 0.0,
+   "qwen3.6": 0.5,
+   "qwen3.8-flash": 0.5,
+   "glm5.3-flash": 0.0,
+   "mimo-v2.6-flash": 1.0,
+   "deepseek-v4-flash@2026-10-17": 1.0
+  }
+ },
+ {
+  "id": "P4E029",
+  "rasgo": "E",
+  "faceta": "gregarismo",
+  "contexto": "propio",
+  "origen": "P4",
+  "situacion": "{nombre} tiene la tarde del viernes libre después de una semana normal de trabajo.",
+  "alto": "unirse a la reunión de un grupo grande de conocidos en un bar",
+  "bajo": "quedarse en casa con una serie y algo rico para cenar",
+  "p_alto_deseable_nan6": 0.667,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 0.0,
+   "qwen3.6": 1.0,
+   "qwen3.8-flash": 0.5,
+   "glm5.3-flash": 1.0,
+   "mimo-v2.6-flash": 1.0,
+   "deepseek-v4-flash@2026-10-17": 0.5
+  }
+ },
+ {
+  "id": "P4N005",
+  "rasgo": "N",
+  "faceta": "ansiedad",
+  "contexto": "terceros",
+  "origen": "P4",
+  "situacion": "Un amigo de {nombre} no contesta al teléfono desde ayer, aunque suele tardar en responder.",
+  "alto": "llamar a conocidos comunes para saber si está bien",
+  "bajo": "esperar a que conteste cuando pueda",
+  "p_alto_deseable_nan6": 0.583,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 0.0,
+   "qwen3.6": 1.0,
+   "qwen3.8-flash": 0.5,
+   "glm5.3-flash": 0.5,
+   "mimo-v2.6-flash": 1.0,
+   "deepseek-v4-flash@2026-10-17": 0.5
+  }
+ },
+ {
+  "id": "P4N003",
+  "rasgo": "N",
+  "faceta": "ansiedad",
+  "contexto": "propio",
+  "origen": "P4",
+  "situacion": "{nombre} ha enviado un informe importante a su jefa y lleva dos horas sin respuesta.",
+  "alto": "escribirle para confirmar que lo ha recibido",
+  "bajo": "esperar sin más, porque suele tardar en contestar",
+  "p_alto_deseable_nan6": 0.667,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 0.0,
+   "qwen3.6": 1.0,
+   "qwen3.8-flash": 0.0,
+   "glm5.3-flash": 1.0,
+   "mimo-v2.6-flash": 1.0,
+   "deepseek-v4-flash@2026-10-17": 1.0
+  }
+ },
+ {
+  "id": "P4N013",
+  "rasgo": "N",
+  "faceta": "ansiedad",
+  "contexto": "terceros",
+  "origen": "P4",
+  "situacion": "La pareja de {nombre} se retrasa media hora al volver del trabajo y no ha avisado.",
+  "alto": "llamar varias veces para saber si ha pasado algo",
+  "bajo": "pensar que se habrá entretenido y esperar",
+  "p_alto_deseable_nan6": 0.667,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 1.0,
+   "qwen3.6": 1.0,
+   "qwen3.8-flash": 0.5,
+   "glm5.3-flash": 1.0,
+   "mimo-v2.6-flash": 0.5,
+   "deepseek-v4-flash@2026-10-17": 0.0
+  }
+ },
+ {
+  "id": "P4N012",
+  "rasgo": "N",
+  "faceta": "ansiedad",
+  "contexto": "propio",
+  "origen": "P4",
+  "situacion": "El banco avisa a {nombre} de un cargo de tres euros en su tarjeta que no reconoce.",
+  "alto": "bloquear la tarjeta de inmediato y pedir una nueva",
+  "bajo": "preguntar al banco por el cargo antes de hacer nada",
+  "p_alto_deseable_nan6": 0.25,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 0.0,
+   "qwen3.6": 0.5,
+   "qwen3.8-flash": 1.0,
+   "glm5.3-flash": 0.0,
+   "mimo-v2.6-flash": 0.0,
+   "deepseek-v4-flash@2026-10-17": 0.0
+  }
+ },
+ {
+  "id": "P4N002",
+  "rasgo": "N",
+  "faceta": "ansiedad",
+  "contexto": "propio",
+  "origen": "P4",
+  "situacion": "Mañana {nombre} tiene una revisión médica rutinaria; el médico le dijo que era solo un control.",
+  "alto": "pasar la tarde buscando en internet qué podrían encontrarle",
+  "bajo": "olvidarse del tema hasta mañana",
+  "p_alto_deseable_nan6": 0.167,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 0.0,
+   "qwen3.6": 0.0,
+   "qwen3.8-flash": 0.0,
+   "glm5.3-flash": 0.0,
+   "mimo-v2.6-flash": 1.0,
+   "deepseek-v4-flash@2026-10-17": 0.0
+  }
+ },
+ {
+  "id": "P4N001",
+  "rasgo": "N",
+  "faceta": "ansiedad",
+  "contexto": "propio",
+  "origen": "P4",
+  "situacion": "{nombre} sale de casa para un viaje de una semana y, ya en el taxi, duda de si cerró bien la llave del gas.",
+  "alto": "pedir al taxista que dé la vuelta para comprobarlo",
+  "bajo": "seguir hacia el aeropuerto, porque casi seguro que la cerró",
+  "p_alto_deseable_nan6": 0.917,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 1.0,
+   "qwen3.6": 0.5,
+   "qwen3.8-flash": 1.0,
+   "glm5.3-flash": 1.0,
+   "mimo-v2.6-flash": 1.0,
+   "deepseek-v4-flash@2026-10-17": 1.0
+  }
+ },
+ {
+  "id": "P4N004",
+  "rasgo": "N",
+  "faceta": "ansiedad",
+  "contexto": "propio",
+  "origen": "P4",
+  "situacion": "{nombre} tiene que coger un vuelo a primera hora de la mañana.",
+  "alto": "poner tres alarmas y salir con dos horas de margen",
+  "bajo": "poner una alarma y salir con el tiempo de siempre",
+  "p_alto_deseable_nan6": 1.0,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 1.0,
+   "qwen3.6": 1.0,
+   "qwen3.8-flash": 1.0,
+   "glm5.3-flash": 1.0,
+   "mimo-v2.6-flash": 1.0,
+   "deepseek-v4-flash@2026-10-17": 1.0
+  }
+ },
+ {
+  "id": "P4N052",
+  "rasgo": "N",
+  "faceta": "autoconciencia",
+  "contexto": "propio",
+  "origen": "P4",
+  "situacion": "Un compañero se ríe en voz alta de una errata en un correo que {nombre} ha enviado a todo el equipo.",
+  "alto": "enviar un segundo correo pidiendo disculpas por la errata",
+  "bajo": "reírse también y no darle más importancia",
+  "p_alto_deseable_nan6": 0.5,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 1.0,
+   "qwen3.6": 0.0,
+   "qwen3.8-flash": 0.0,
+   "glm5.3-flash": 0.5,
+   "mimo-v2.6-flash": 1.0,
+   "deepseek-v4-flash@2026-10-17": 0.5
+  }
+ },
+ {
+  "id": "P4N046",
+  "rasgo": "N",
+  "faceta": "autoconciencia",
+  "contexto": "propio",
+  "origen": "P4",
+  "situacion": "Después de una reunión, {nombre} se da cuenta de que ha llevado toda la mañana una mancha en la camisa.",
+  "alto": "ir a casa a cambiarse antes de la siguiente reunión",
+  "bajo": "cerrarse la chaqueta y seguir con el día",
+  "p_alto_deseable_nan6": 0.667,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 0.0,
+   "qwen3.6": 1.0,
+   "qwen3.8-flash": 1.0,
+   "glm5.3-flash": 0.0,
+   "mimo-v2.6-flash": 1.0,
+   "deepseek-v4-flash@2026-10-17": 1.0
+  }
+ },
+ {
+  "id": "P4N056",
+  "rasgo": "N",
+  "faceta": "autoconciencia",
+  "contexto": "propio",
+  "origen": "P4",
+  "situacion": "En un curso, {nombre} tiene una duda, pero teme que sea una pregunta tonta.",
+  "alto": "no preguntar y buscar la respuesta luego por su cuenta",
+  "bajo": "preguntar en voz alta sin preocuparse",
+  "p_alto_deseable_nan6": 0.167,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 0.0,
+   "qwen3.6": 0.0,
+   "qwen3.8-flash": 0.0,
+   "glm5.3-flash": 0.5,
+   "mimo-v2.6-flash": 0.0,
+   "deepseek-v4-flash@2026-10-17": 0.5
+  }
+ },
+ {
+  "id": "P4N049",
+  "rasgo": "N",
+  "faceta": "autoconciencia",
+  "contexto": "propio",
+  "origen": "P4",
+  "situacion": "La empresa de {nombre} le pide una foto para su página web. La que le han hecho no le gusta nada.",
+  "alto": "pedir que no la publiquen hasta repetirla",
+  "bajo": "dejar que la publiquen tal como ha salido",
+  "p_alto_deseable_nan6": 0.917,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 0.5,
+   "qwen3.6": 1.0,
+   "qwen3.8-flash": 1.0,
+   "glm5.3-flash": 1.0,
+   "mimo-v2.6-flash": 1.0,
+   "deepseek-v4-flash@2026-10-17": 1.0
+  }
+ },
+ {
+  "id": "P4N036",
+  "rasgo": "N",
+  "faceta": "depresion",
+  "contexto": "propio",
+  "origen": "P4",
+  "situacion": "{nombre} lleva semanas sin ganas de hacer el deporte que antes le gustaba.",
+  "alto": "dejarlo del todo por ahora y no forzarse",
+  "bajo": "obligarse a ir un par de días por semana",
+  "p_alto_deseable_nan6": 0.083,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 0.0,
+   "qwen3.6": 0.5,
+   "qwen3.8-flash": 0.0,
+   "glm5.3-flash": 0.0,
+   "mimo-v2.6-flash": 0.0,
+   "deepseek-v4-flash@2026-10-17": 0.0
+  }
+ },
+ {
+  "id": "P4N033",
+  "rasgo": "N",
+  "faceta": "depresion",
+  "contexto": "propio",
+  "origen": "P4",
+  "situacion": "El día de su cumpleaños, {nombre} se acuerda mucho de una amiga íntima que murió hace un año.",
+  "alto": "pasar el día recordándola y permitirse llorar",
+  "bajo": "celebrar el día como tenía previsto con su familia",
+  "p_alto_deseable_nan6": 0.75,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 1.0,
+   "qwen3.6": 0.5,
+   "qwen3.8-flash": 1.0,
+   "glm5.3-flash": 0.5,
+   "mimo-v2.6-flash": 1.0,
+   "deepseek-v4-flash@2026-10-17": 0.5
+  }
+ },
+ {
+  "id": "P4N019",
+  "rasgo": "N",
+  "faceta": "hostilidad",
+  "contexto": "propio",
+  "origen": "P4",
+  "situacion": "Un conductor pita a {nombre} en cuanto el semáforo se pone en verde.",
+  "alto": "devolverle el pitido con un gesto de fastidio",
+  "bajo": "arrancar sin hacerle caso",
+  "p_alto_deseable_nan6": 0.083,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 0.0,
+   "qwen3.6": 0.5,
+   "qwen3.8-flash": 0.0,
+   "glm5.3-flash": 0.0,
+   "mimo-v2.6-flash": 0.0,
+   "deepseek-v4-flash@2026-10-17": 0.0
+  }
+ },
+ {
+  "id": "P4N020",
+  "rasgo": "N",
+  "faceta": "hostilidad",
+  "contexto": "terceros",
+  "origen": "P4",
+  "situacion": "Una amiga llega cuarenta minutos tarde a la cita con {nombre}, sin avisar, por segunda vez este mes.",
+  "alto": "decirle con claridad que le ha molestado y que no es la primera vez",
+  "bajo": "quitarle importancia y disfrutar de la tarde",
+  "p_alto_deseable_nan6": 1.0,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 1.0,
+   "qwen3.6": 1.0,
+   "qwen3.8-flash": 1.0,
+   "glm5.3-flash": 1.0,
+   "mimo-v2.6-flash": 1.0,
+   "deepseek-v4-flash@2026-10-17": 1.0
+  }
+ },
+ {
+  "id": "P4N067",
+  "rasgo": "N",
+  "faceta": "vulnerabilidad",
+  "contexto": "propio",
+  "origen": "P4",
+  "situacion": "Una tormenta deja a {nombre} sin luz en casa toda la noche.",
+  "alto": "llamar a alguien para que le haga compañía por teléfono hasta que vuelva la luz",
+  "bajo": "encender unas velas y acostarse",
+  "p_alto_deseable_nan6": 0.5,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 0.0,
+   "qwen3.6": 1.0,
+   "qwen3.8-flash": 0.5,
+   "glm5.3-flash": 0.5,
+   "mimo-v2.6-flash": 0.5,
+   "deepseek-v4-flash@2026-10-17": 0.5
+  }
+ },
+ {
+  "id": "P4N058",
+  "rasgo": "N",
+  "faceta": "vulnerabilidad",
+  "contexto": "propio",
+  "origen": "P4",
+  "situacion": "El coche de {nombre} se avería de noche en una carretera secundaria. La grúa tardará una hora.",
+  "alto": "llamar a un familiar para que venga a acompañarle mientras llega la grúa",
+  "bajo": "esperar a la grúa con calma dentro del coche",
+  "p_alto_deseable_nan6": 0.583,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 1.0,
+   "qwen3.6": 0.5,
+   "qwen3.8-flash": 0.0,
+   "glm5.3-flash": 0.0,
+   "mimo-v2.6-flash": 1.0,
+   "deepseek-v4-flash@2026-10-17": 1.0
+  }
+ },
+ {
+  "id": "P4N057",
+  "rasgo": "N",
+  "faceta": "vulnerabilidad",
+  "contexto": "propio",
+  "origen": "P4",
+  "situacion": "{nombre} tiene tres entregas importantes la misma semana y siente que no llega.",
+  "alto": "pedir a su jefa que le ayude a repriorizar porque no se ve capaz",
+  "bajo": "organizarse con una lista y sacarlas adelante por su cuenta",
+  "p_alto_deseable_nan6": 0.167,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 0.0,
+   "qwen3.6": 0.5,
+   "qwen3.8-flash": 0.5,
+   "glm5.3-flash": 0.0,
+   "mimo-v2.6-flash": 0.0,
+   "deepseek-v4-flash@2026-10-17": 0.0
+  }
+ },
+ {
+  "id": "P4N069",
+  "rasgo": "N",
+  "faceta": "vulnerabilidad",
+  "contexto": "propio",
+  "origen": "P4",
+  "situacion": "En la primera semana en un trabajo nuevo, {nombre} recibe muchas tareas que no sabe hacer.",
+  "alto": "decir a su responsable que le está costando mucho y que necesita apoyo",
+  "bajo": "ir sacándolas como pueda y aprender sobre la marcha",
+  "p_alto_deseable_nan6": 0.75,
+  "p_alto_deseable_por_modelo": {
+   "gemma4": 0.5,
+   "qwen3.6": 1.0,
+   "qwen3.8-flash": 1.0,
+   "glm5.3-flash": 1.0,
+   "mimo-v2.6-flash": 0.5,
+   "deepseek-v4-flash@2026-10-17": 0.5
+  }
+ }
+]

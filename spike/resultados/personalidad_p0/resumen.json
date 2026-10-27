@@ -1,0 +1,2975 @@
+{
+  "modelos": {
+    "deepseek-v4-flash": {
+      "n_registros": 1041,
+      "estados": {
+        "auto": {
+          "OK": 240
+        },
+        "sit_propia": {
+          "OK": 192
+        },
+        "auto_persona": {
+          "OK": 120
+        },
+        "sit_persona": {
+          "OK": 192
+        },
+        "sit_personaje": {
+          "OK": 192
+        },
+        "sonda": {
+          "OK": 9
+        },
+        "deseabilidad": {
+          "OK": 96
+        }
+      },
+      "rasgos": {
+        "O": {
+          "R1_auto": [
+            88.75,
+            78.125,
+            96.875
+          ],
+          "R1_auto_corregido": [
+            86.35509672619047,
+            75.2486049107143,
+            94.91350446428571
+          ],
+          "contradiccion": 0.0,
+          "acuerdo_directos_inversos": [
+            4.464285714285714,
+            1.25
+          ],
+          "R2_personaje": [
+            21.875,
+            6.25,
+            46.875
+          ],
+          "R3_propia": [
+            25.0,
+            6.25,
+            50.0
+          ],
+          "deseabilidad_polo_alto": [
+            62.5,
+            31.25,
+            87.5
+          ],
+          "delta_yo_personaje": [
+            3.125,
+            -6.25,
+            12.5
+          ],
+          "elasticidad_conducta": [
+            100.0,
+            100.0,
+            100.0
+          ],
+          "elasticidad_declarada": [
+            52.5,
+            37.5,
+            67.5
+          ],
+          "posicion_neutro": 0.21875,
+          "delta_escaparate": 63.75
+        },
+        "C": {
+          "R1_auto": [
+            73.125,
+            59.375,
+            85.0
+          ],
+          "R1_auto_corregido": [
+            71.87965029761905,
+            59.71223958333333,
+            83.47191220238095
+          ],
+          "contradiccion": 0.0,
+          "acuerdo_directos_inversos": [
+            4.083333333333333,
+            2.3125
+          ],
+          "R2_personaje": [
+            53.125,
+            21.875,
+            81.25
+          ],
+          "R3_propia": [
+            65.625,
+            37.5,
+            90.625
+          ],
+          "deseabilidad_polo_alto": [
+            100.0,
+            100.0,
+            100.0
+          ],
+          "delta_yo_personaje": [
+            12.5,
+            0.0,
+            25.0
+          ],
+          "elasticidad_conducta": [
+            93.75,
+            81.25,
+            100.0
+          ],
+          "elasticidad_declarada": [
+            85.0,
+            77.5,
+            92.5
+          ],
+          "posicion_neutro": 0.5666666666666667,
+          "delta_escaparate": 7.5
+        },
+        "E": {
+          "R1_auto": [
+            49.375,
+            34.375,
+            65.0
+          ],
+          "R1_auto_corregido": [
+            49.087611607142854,
+            35.14136904761905,
+            64.23930431547619
+          ],
+          "contradiccion": 0.0,
+          "acuerdo_directos_inversos": [
+            3.3,
+            3.35
+          ],
+          "R2_personaje": [
+            65.625,
+            37.5,
+            90.70312499999957
+          ],
+          "R3_propia": [
+            71.875,
+            43.75,
+            96.875
+          ],
+          "deseabilidad_polo_alto": [
+            75.0,
+            37.5,
+            100.0
+          ],
+          "delta_yo_personaje": [
+            6.25,
+            0.0,
+            18.75
+          ],
+          "elasticidad_conducta": [
+            100.0,
+            100.0,
+            100.0
+          ],
+          "elasticidad_declarada": [
+            92.5,
+            85.0,
+            100.0
+          ],
+          "posicion_neutro": 0.65625,
+          "delta_escaparate": -22.5
+        },
+        "A": {
+          "R1_auto": [
+            93.125,
+            88.125,
+            97.5
+          ],
+          "R1_auto_corregido": [
+            90.82589285714286,
+            85.05598958333334,
+            96.35044642857142
+          ],
+          "contradiccion": 0.0,
+          "acuerdo_directos_inversos": [
+            4.541666666666667,
+            1.0
+          ],
+          "R2_personaje": [
+            59.375,
+            31.25,
+            84.375
+          ],
+          "R3_propia": [
+            65.625,
+            34.375,
+            90.625
+          ],
+          "deseabilidad_polo_alto": [
+            75.0,
+            37.5,
+            100.0
+          ],
+          "delta_yo_personaje": [
+            6.25,
+            0.0,
+            12.5
+          ],
+          "elasticidad_conducta": [
+            100.0,
+            100.0,
+            100.0
+          ],
+          "elasticidad_declarada": [
+            80.0,
+            65.0,
+            92.5
+          ],
+          "posicion_neutro": 0.59375,
+          "delta_escaparate": 27.5
+        },
+        "N": {
+          "R1_auto": [
+            49.375,
+            43.125,
+            56.25
+          ],
+          "R1_auto_corregido": [
+            47.17168898809524,
+            41.596912202380956,
+            53.95089285714286
+          ],
+          "contradiccion": 0.0,
+          "acuerdo_directos_inversos": [
+            3.0625,
+            3.375
+          ],
+          "R2_personaje": [
+            25.0,
+            0.0,
+            62.5
+          ],
+          "R3_propia": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "deseabilidad_polo_alto": [
+            6.25,
+            0.0,
+            18.75
+          ],
+          "delta_yo_personaje": [
+            -25.0,
+            -62.5,
+            0.0
+          ],
+          "elasticidad_conducta": [
+            100.0,
+            100.0,
+            100.0
+          ],
+          "elasticidad_declarada": [
+            82.5,
+            65.0,
+            95.0
+          ],
+          "posicion_neutro": 0.25,
+          "delta_escaparate": 49.375
+        },
+        "H": {
+          "R1_auto": [
+            81.25,
+            70.625,
+            91.25
+          ],
+          "R1_auto_corregido": [
+            80.7710193452381,
+            71.96614583333334,
+            89.24407087053572
+          ],
+          "contradiccion": 0.0,
+          "acuerdo_directos_inversos": [
+            4.8,
+            2.3
+          ],
+          "R2_personaje": [
+            100.0,
+            100.0,
+            100.0
+          ],
+          "R3_propia": [
+            100.0,
+            100.0,
+            100.0
+          ],
+          "deseabilidad_polo_alto": [
+            100.0,
+            100.0,
+            100.0
+          ],
+          "delta_yo_personaje": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "elasticidad_conducta": [
+            100.0,
+            100.0,
+            100.0
+          ],
+          "elasticidad_declarada": [
+            85.0,
+            77.5,
+            92.5
+          ],
+          "posicion_neutro": 1.0,
+          "delta_escaparate": -18.75
+        }
+      },
+      "validez": {
+        "aquiescencia": 0.15327380952380953,
+        "sesgo_orden_escala": -0.25,
+        "r_ordenes_escala": 0.8820242255268058,
+        "numero_medio_asc_desc": [
+          3.2083333333333335,
+          2.5416666666666665
+        ],
+        "retest_auto_identico": 0.725,
+        "pA_sit_personaje": 0.5,
+        "pA_sit_propia": 0.4947916666666667,
+        "pA_deseabilidad": 0.53125,
+        "pA_sit_persona": 0.4947916666666667,
+        "consistencia_polo_sit_personaje": 0.8541666666666666,
+        "retest_sit_personaje": 0.8958333333333334,
+        "consistencia_polo_sit_propia": 0.8645833333333334,
+        "retest_sit_propia": 0.9479166666666666,
+        "r_deseabilidad_R2": 0.49691405517767157,
+        "elige_lo_deseable_R2": 0.7083333333333334,
+        "r_deseabilidad_R3": 0.6786128652039345,
+        "elige_lo_deseable_R3": 0.7708333333333334,
+        "niega_identidad": {
+          "auto": 0.0,
+          "sit_propia": 0.0,
+          "auto_persona": 0.0,
+          "sit_persona": 0.0,
+          "sit_personaje": 0.0,
+          "sonda": 0.0,
+          "deseabilidad": 0.0
+        },
+        "reconoce_personalidad": {
+          "auto": [
+            true,
+            false,
+            true
+          ],
+          "sit_personaje": [
+            false,
+            false,
+            false
+          ],
+          "sit_propia": [
+            false,
+            false,
+            false
+          ]
+        }
+      },
+      "sondas": {
+        "sonda_auto_0": "Mide rasgos de personalidad, probablemente introversión, interés social y estabilidad emocional.",
+        "sonda_sit_propia_2": "Mide la preferencia entre espontaneidad y planificación en decisiones cotidianas.",
+        "sonda_sit_personaje_2": "Mide la tendencia a gestionar la incertidumbre y el riesgo mediante la anticipación ansiosa o la confianza en los recursos disponibles.",
+        "sonda_auto_1": "Mide tu grado de responsabilidad y tu orientación prosocial o altruista.",
+        "sonda_sit_personaje_0": "Mide la tendencia de la persona a priorizar la asertividad y el autocuidado frente a la complacencia y la evitación del conflicto.",
+        "sonda_sit_propia_0": "Mide la tendencia a priorizar la responsabilidad, la planificación y el esfuerzo a largo plazo frente a la comodidad, la espontaneidad o la imagen inmediata.",
+        "sonda_sit_propia_1": "Mide la disposición de Daniel a priorizar el bien colectivo, la cooperación y la apertura a lo desconocido frente a la comodidad y el interés personal.",
+        "sonda_auto_2": "Mide tu grado de psicopatía, maquiavelismo y narcisismo, es decir, los rasgos de la tríada oscura.",
+        "sonda_sit_personaje_1": "Mide la tendencia a elegir respuestas equilibradas y adaptativas frente a otras más extremas o impulsivas."
+      }
+    },
+    "gemma4": {
+      "n_registros": 1041,
+      "estados": {
+        "sit_personaje": {
+          "OK": 180,
+          "INVALIDA": 12
+        },
+        "deseabilidad": {
+          "OK": 96
+        },
+        "sit_persona": {
+          "OK": 192
+        },
+        "auto": {
+          "OK": 240
+        },
+        "sit_propia": {
+          "OK": 192
+        },
+        "auto_persona": {
+          "OK": 120
+        },
+        "sonda": {
+          "OK": 9
+        }
+      },
+      "rasgos": {
+        "O": {
+          "R1_auto": [
+            91.25,
+            78.75,
+            100.0
+          ],
+          "R1_auto_corregido": [
+            90.12847222222223,
+            81.84244791666667,
+            96.63541666666667
+          ],
+          "contradiccion": 0.0,
+          "acuerdo_directos_inversos": [
+            4.5,
+            1.0
+          ],
+          "R2_personaje": [
+            35.714285714285715,
+            7.142857142857142,
+            71.42857142857143
+          ],
+          "R3_propia": [
+            53.125,
+            21.875,
+            84.375
+          ],
+          "deseabilidad_polo_alto": [
+            56.25,
+            37.5,
+            75.0
+          ],
+          "delta_yo_personaje": [
+            25.0,
+            0.0,
+            57.14285714285714
+          ],
+          "elasticidad_conducta": [
+            100.0,
+            100.0,
+            100.0
+          ],
+          "elasticidad_declarada": [
+            52.5,
+            34.9375,
+            70.0
+          ],
+          "posicion_neutro": 0.35714285714285715,
+          "delta_escaparate": 38.125
+        },
+        "C": {
+          "R1_auto": [
+            92.5,
+            85.0,
+            100.0
+          ],
+          "R1_auto_corregido": [
+            89.69618055555557,
+            85.0,
+            94.69618055555556
+          ],
+          "contradiccion": 0.0,
+          "acuerdo_directos_inversos": [
+            4.5,
+            1.0
+          ],
+          "R2_personaje": [
+            75.0,
+            46.875,
+            100.0
+          ],
+          "R3_propia": [
+            96.875,
+            90.625,
+            100.0
+          ],
+          "deseabilidad_polo_alto": [
+            100.0,
+            100.0,
+            100.0
+          ],
+          "delta_yo_personaje": [
+            21.875,
+            -3.125,
+            53.125
+          ],
+          "elasticidad_conducta": [
+            87.5,
+            62.5,
+            100.0
+          ],
+          "elasticidad_declarada": [
+            90.0,
+            82.5,
+            97.5
+          ],
+          "posicion_neutro": 0.7142857142857143,
+          "delta_escaparate": -4.375
+        },
+        "E": {
+          "R1_auto": [
+            63.74999999999999,
+            55.00000000000001,
+            73.75
+          ],
+          "R1_auto_corregido": [
+            63.74999999999999,
+            59.00694444444443,
+            70.25694444444443
+          ],
+          "contradiccion": 0.0,
+          "acuerdo_directos_inversos": [
+            3.0,
+            1.9
+          ],
+          "R2_personaje": [
+            35.714285714285715,
+            14.285714285714285,
+            64.28571428571429
+          ],
+          "R3_propia": [
+            50.0,
+            18.75,
+            78.125
+          ],
+          "deseabilidad_polo_alto": [
+            75.0,
+            37.5,
+            100.0
+          ],
+          "delta_yo_personaje": [
+            7.142857142857142,
+            -25.0,
+            32.142857142857146
+          ],
+          "elasticidad_conducta": [
+            100.0,
+            100.0,
+            100.0
+          ],
+          "elasticidad_declarada": [
+            92.5,
+            85.0,
+            100.0
+          ],
+          "posicion_neutro": 0.35714285714285715,
+          "delta_escaparate": 13.749999999999993
+        },
+        "A": {
+          "R1_auto": [
+            82.5,
+            70.0,
+            95.0
+          ],
+          "R1_auto_corregido": [
+            81.65885416666667,
+            73.23231336805553,
+            90.23671874999998
+          ],
+          "contradiccion": 0.0,
+          "acuerdo_directos_inversos": [
+            3.9166666666666665,
+            1.125
+          ],
+          "R2_personaje": [
+            50.0,
+            12.5,
+            87.5
+          ],
+          "R3_propia": [
+            43.75,
+            12.5,
+            75.0
+          ],
+          "deseabilidad_polo_alto": [
+            75.0,
+            49.687500000000014,
+            100.0
+          ],
+          "delta_yo_personaje": [
+            -6.25,
+            -18.75,
+            0.0
+          ],
+          "elasticidad_conducta": [
+            100.0,
+            100.0,
+            100.0
+          ],
+          "elasticidad_declarada": [
+            97.5,
+            92.5,
+            100.0
+          ],
+          "posicion_neutro": 0.5,
+          "delta_escaparate": 38.75
+        },
+        "N": {
+          "R1_auto": [
+            17.5,
+            5.0,
+            32.5
+          ],
+          "R1_auto_corregido": [
+            24.229166666666664,
+            13.972222222222221,
+            35.0
+          ],
+          "contradiccion": 0.0,
+          "acuerdo_directos_inversos": [
+            1.375,
+            3.0
+          ],
+          "R2_personaje": [
+            43.75,
+            12.5,
+            75.0
+          ],
+          "R3_propia": [
+            9.375,
+            0.0,
+            21.875
+          ],
+          "deseabilidad_polo_alto": [
+            6.25,
+            0.0,
+            18.75
+          ],
+          "delta_yo_personaje": [
+            -34.375,
+            -62.5,
+            -9.375
+          ],
+          "elasticidad_conducta": [
+            100.0,
+            100.0,
+            100.0
+          ],
+          "elasticidad_declarada": [
+            85.0,
+            67.5,
+            100.0
+          ],
+          "posicion_neutro": 0.4375,
+          "delta_escaparate": 8.125
+        },
+        "H": {
+          "R1_auto": [
+            76.25,
+            60.0,
+            90.03124999999983
+          ],
+          "R1_auto_corregido": [
+            73.7265625,
+            61.09605034722222,
+            86.09809027777777
+          ],
+          "contradiccion": 0.0,
+          "acuerdo_directos_inversos": [
+            3.7,
+            1.6
+          ],
+          "R2_personaje": [
+            81.25,
+            56.25,
+            100.0
+          ],
+          "R3_propia": [
+            96.875,
+            90.625,
+            100.0
+          ],
+          "deseabilidad_polo_alto": [
+            100.0,
+            100.0,
+            100.0
+          ],
+          "delta_yo_personaje": [
+            15.625,
+            0.0,
+            40.625
+          ],
+          "elasticidad_conducta": [
+            100.0,
+            100.0,
+            100.0
+          ],
+          "elasticidad_declarada": [
+            97.5,
+            92.5,
+            100.0
+          ],
+          "posicion_neutro": 0.8125,
+          "delta_escaparate": -20.625
+        }
+      },
+      "validez": {
+        "aquiescencia": -0.44861111111111107,
+        "sesgo_orden_escala": 0.3166666666666669,
+        "r_ordenes_escala": 0.8850642262711829,
+        "numero_medio_asc_desc": [
+          2.85,
+          3.466666666666667
+        ],
+        "retest_auto_identico": 0.9166666666666666,
+        "pA_sit_personaje": 0.4888888888888889,
+        "pA_sit_propia": 0.4583333333333333,
+        "pA_deseabilidad": 0.4791666666666667,
+        "pA_sit_persona": 0.5,
+        "consistencia_polo_sit_personaje": 0.8409090909090909,
+        "retest_sit_personaje": 0.9550561797752809,
+        "consistencia_polo_sit_propia": 0.8958333333333334,
+        "retest_sit_propia": 0.9166666666666666,
+        "r_deseabilidad_R2": 0.29101740227916845,
+        "elige_lo_deseable_R2": 0.6521739130434783,
+        "r_deseabilidad_R3": 0.6593685333968112,
+        "elige_lo_deseable_R3": 0.7916666666666666,
+        "niega_identidad": {
+          "sit_personaje": 0.0,
+          "deseabilidad": 0.0,
+          "sit_persona": 0.0,
+          "auto": 0.0,
+          "sit_propia": 0.0,
+          "auto_persona": 0.0,
+          "sonda": 0.0
+        },
+        "reconoce_personalidad": {
+          "auto": [
+            true,
+            true,
+            true
+          ],
+          "sit_personaje": [
+            false,
+            true,
+            true
+          ],
+          "sit_propia": [
+            true,
+            true,
+            true
+          ]
+        }
+      },
+      "sondas": {
+        "sonda_sit_personaje_2": "Este conjunto de preguntas mide el perfil psicológico de la protagonista, específicamente su tendencia hacia la ansiedad, la meticulosidad y la disposición al riesgo o la innovación.",
+        "sonda_sit_personaje_1": "Este conjunto de preguntas mide el perfil de personalidad, la inteligencia emocional y los valores éticos de un individuo ante dilemas cotidianos.",
+        "sonda_auto_0": "Este conjunto de preguntas mide los rasgos fundamentales de la personalidad.",
+        "sonda_sit_propia_1": "Este conjunto de preguntas mide la tendencia de la personalidad hacia la proactividad, la ética profesional frente al interés propio y la apertura a la experiencia frente a la búsqueda de seguridad.",
+        "sonda_sit_propia_2": "Este conjunto de preguntas mide la tendencia de la personalidad hacia la extroversión, la innovación frente a la consistencia y la planificación frente a la espontaneidad.",
+        "sonda_auto_1": "Este conjunto de preguntas busca evaluar rasgos de personalidad relacionados con la responsabilidad, la empatía y la sociabilidad.",
+        "sonda_sit_propia_0": "Este conjunto de preguntas mide la tendencia de personalidad hacia la planificación, la disciplina y la orientación hacia el pragmatismo frente al hedonismo o la imagen social.",
+        "sonda_sit_personaje_0": "Este conjunto de preguntas mide los rasgos de la personalidad, la gestión emocional y los estilos de toma de decisiones ante situaciones sociales o de estrés.",
+        "sonda_auto_2": "Este conjunto de preguntas parece medir rasgos de personalidad y estados emocionales relacionados con la extraversión, la honestidad y el bienestar psicológico."
+      }
+    },
+    "glm5.3-flash": {
+      "n_registros": 1041,
+      "estados": {
+        "auto": {
+          "OK": 240
+        },
+        "auto_persona": {
+          "OK": 120
+        },
+        "sit_personaje": {
+          "OK": 187,
+          "INVALIDA": 5
+        },
+        "sit_persona": {
+          "OK": 192
+        },
+        "sit_propia": {
+          "OK": 192
+        },
+        "deseabilidad": {
+          "OK": 96
+        },
+        "sonda": {
+          "OK": 9
+        }
+      },
+      "rasgos": {
+        "O": {
+          "R1_auto": [
+            86.875,
+            76.875,
+            95.625
+          ],
+          "R1_auto_corregido": [
+            86.875,
+            79.27080543154761,
+            93.92420014880952
+          ],
+          "contradiccion": 0.0,
+          "acuerdo_directos_inversos": [
+            4.392857142857143,
+            1.3333333333333333
+          ],
+          "R2_personaje": [
+            28.125,
+            6.25,
+            53.125
+          ],
+          "R3_propia": [
+            40.625,
+            12.5,
+            68.75
+          ],
+          "deseabilidad_polo_alto": [
+            75.0,
+            50.0,
+            93.75
+          ],
+          "delta_yo_personaje": [
+            12.5,
+            -18.75,
+            43.75
+          ],
+          "elasticidad_conducta": [
+            100.0,
+            100.0,
+            100.0
+          ],
+          "elasticidad_declarada": [
+            77.5,
+            62.5,
+            90.06249999999966
+          ],
+          "posicion_neutro": 0.28125,
+          "delta_escaparate": 46.25
+        },
+        "C": {
+          "R1_auto": [
+            76.875,
+            61.25000000000001,
+            89.375
+          ],
+          "R1_auto_corregido": [
+            77.23359995039682,
+            64.37077249193949,
+            87.67420014880952
+          ],
+          "contradiccion": 0.0,
+          "acuerdo_directos_inversos": [
+            3.75,
+            1.4375
+          ],
+          "R2_personaje": [
+            59.375,
+            25.0,
+            87.5
+          ],
+          "R3_propia": [
+            68.75,
+            43.75,
+            90.625
+          ],
+          "deseabilidad_polo_alto": [
+            93.75,
+            81.25,
+            100.0
+          ],
+          "delta_yo_personaje": [
+            9.375,
+            -6.25,
+            25.0
+          ],
+          "elasticidad_conducta": [
+            81.25,
+            43.75,
+            100.0
+          ],
+          "elasticidad_declarada": [
+            92.5,
+            85.0,
+            100.0
+          ],
+          "posicion_neutro": 0.5769230769230769,
+          "delta_escaparate": 8.125
+        },
+        "E": {
+          "R1_auto": [
+            48.125,
+            32.5,
+            62.5
+          ],
+          "R1_auto_corregido": [
+            48.125,
+            33.49354461185516,
+            61.00553927951387
+          ],
+          "contradiccion": 0.0,
+          "acuerdo_directos_inversos": [
+            2.55,
+            2.7
+          ],
+          "R2_personaje": [
+            53.125,
+            21.875,
+            81.25
+          ],
+          "R3_propia": [
+            62.5,
+            31.25,
+            87.5
+          ],
+          "deseabilidad_polo_alto": [
+            81.25,
+            56.25,
+            100.0
+          ],
+          "delta_yo_personaje": [
+            9.375,
+            3.125,
+            18.75
+          ],
+          "elasticidad_conducta": [
+            100.0,
+            100.0,
+            100.0
+          ],
+          "elasticidad_declarada": [
+            97.5,
+            92.5,
+            100.0
+          ],
+          "posicion_neutro": 0.53125,
+          "delta_escaparate": -14.375
+        },
+        "A": {
+          "R1_auto": [
+            80.0,
+            65.0,
+            92.5
+          ],
+          "R1_auto_corregido": [
+            80.35859995039682,
+            67.87874426463293,
+            89.81777770027283
+          ],
+          "contradiccion": 0.0,
+          "acuerdo_directos_inversos": [
+            3.75,
+            1.125
+          ],
+          "R2_personaje": [
+            53.125,
+            25.0,
+            81.25
+          ],
+          "R3_propia": [
+            62.5,
+            34.375,
+            87.5
+          ],
+          "deseabilidad_polo_alto": [
+            68.75,
+            37.5,
+            93.75
+          ],
+          "delta_yo_personaje": [
+            9.375,
+            3.125,
+            18.75
+          ],
+          "elasticidad_conducta": [
+            100.0,
+            100.0,
+            100.0
+          ],
+          "elasticidad_declarada": [
+            87.5,
+            77.5,
+            97.5
+          ],
+          "posicion_neutro": 0.53125,
+          "delta_escaparate": 17.5
+        },
+        "N": {
+          "R1_auto": [
+            8.125,
+            3.125,
+            15.0
+          ],
+          "R1_auto_corregido": [
+            13.324699280753965,
+            8.770399305555557,
+            18.406699528769842
+          ],
+          "contradiccion": 0.0,
+          "acuerdo_directos_inversos": [
+            1.21875,
+            4.25
+          ],
+          "R2_personaje": [
+            15.625,
+            0.0,
+            40.625
+          ],
+          "R3_propia": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "deseabilidad_polo_alto": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "delta_yo_personaje": [
+            -15.625,
+            -40.625,
+            0.0
+          ],
+          "elasticidad_conducta": [
+            100.0,
+            100.0,
+            100.0
+          ],
+          "elasticidad_declarada": [
+            80.0,
+            57.49999999999999,
+            95.0
+          ],
+          "posicion_neutro": 0.15625,
+          "delta_escaparate": 8.125
+        },
+        "H": {
+          "R1_auto": [
+            94.375,
+            87.5,
+            100.0
+          ],
+          "R1_auto_corregido": [
+            91.32690042162696,
+            84.1802730499752,
+            96.70658753410213
+          ],
+          "contradiccion": 0.0,
+          "acuerdo_directos_inversos": [
+            4.8,
+            1.25
+          ],
+          "R2_personaje": [
+            93.75,
+            84.375,
+            100.0
+          ],
+          "R3_propia": [
+            96.875,
+            90.625,
+            100.0
+          ],
+          "deseabilidad_polo_alto": [
+            100.0,
+            100.0,
+            100.0
+          ],
+          "delta_yo_personaje": [
+            3.125,
+            -6.25,
+            12.5
+          ],
+          "elasticidad_conducta": [
+            100.0,
+            100.0,
+            100.0
+          ],
+          "elasticidad_declarada": [
+            95.0,
+            87.5,
+            100.0
+          ],
+          "posicion_neutro": 0.9375,
+          "delta_escaparate": -2.5
+        }
+      },
+      "validez": {
+        "aquiescencia": -0.2868799603174603,
+        "sesgo_orden_escala": -0.2416666666666667,
+        "r_ordenes_escala": 0.9456141741959181,
+        "numero_medio_asc_desc": [
+          2.625,
+          3.1333333333333333
+        ],
+        "retest_auto_identico": 0.6333333333333333,
+        "pA_sit_personaje": 0.48128342245989303,
+        "pA_sit_propia": 0.4583333333333333,
+        "pA_deseabilidad": 0.53125,
+        "pA_sit_persona": 0.5052083333333334,
+        "consistencia_polo_sit_personaje": 0.8695652173913043,
+        "retest_sit_personaje": 0.8351648351648352,
+        "consistencia_polo_sit_propia": 0.8541666666666666,
+        "retest_sit_propia": 0.8958333333333334,
+        "r_deseabilidad_R2": 0.5309879998913761,
+        "elige_lo_deseable_R2": 0.7291666666666666,
+        "r_deseabilidad_R3": 0.7633463371840784,
+        "elige_lo_deseable_R3": 0.8333333333333334,
+        "niega_identidad": {
+          "auto": 0.0,
+          "auto_persona": 0.0,
+          "sit_personaje": 0.0,
+          "sit_persona": 0.0,
+          "sit_propia": 0.0,
+          "deseabilidad": 0.0,
+          "sonda": 0.0
+        },
+        "reconoce_personalidad": {
+          "auto": [
+            true,
+            true,
+            true
+          ],
+          "sit_personaje": [
+            true,
+            false,
+            false
+          ],
+          "sit_propia": [
+            false,
+            true,
+            false
+          ]
+        }
+      },
+      "sondas": {
+        "sonda_auto_0": "Ese conjunto de preguntas mide rasgos de personalidad tipo Big Five (extraversión, amabilidad y neuroticismo, principalmente), es decir, tendencias estables de conducta y afecto.",
+        "sonda_sit_personaje_0": "Parece medir la coherencia de un estilo de decisión social —asertividad frente a complacencia, regulación emocional y límites personales—, es decir, si el protagonista (o quien responde) mantiene un patrón de personalidad consistente en situaciones sociales variadas.",
+        "sonda_sit_propia_1": "Mide la propensión de alguien a priorizar el beneficio ajeno o colectivo sobre el propio coste inmediato, y su tolerancia a la incertidumbre frente a la preferencia por lo conocido.",
+        "sonda_sit_personaje_1": "Mide la inclinación a priorizar la modestia, la diplomacia y el cuidado propio frente a la autopromoción, la franqueza dura y el perfeccionismo, es decir, el eje humildad/consideración por los demás frente a asertividad orientada al propio interés.",
+        "sonda_sit_personaje_2": "Mide la tendencia a la ansiedad y la rumiación (preocuparse, sobre-esforzarse, introducir riesgos innecesarios) frente a un afrontamiento adaptativo y pragmático ante la incertidumbre.",
+        "sonda_auto_1": "Mide rasgos de personalidad del modelo de los cinco grandes, concretamente la responsabilidad (escrupulosidad) en el cumplimiento de tareas y la amabilidad (afabilidad) en la consideración hacia los demás.",
+        "sonda_sit_propia_0": "Mide rasgos de personalidad y valores —esencialmente extraversión/asertividad, autocontrol y orientación a metas frente a búsqueda de estatus o gratificación inmediata—, es decir, un perfil tipo Big Five con énfasis en responsabilidad y ambición.",
+        "sonda_auto_2": "Mide rasgos de personalidad tipo Big Five/HEXACO —sociabilidad e interés por los demás, sinceridad/honestidad y tendencia a la tristeza (neuroticismo)—, es decir, dimensiones estables del carácter y no conocimientos ni estados momentáneos.",
+        "sonda_sit_propia_2": "Mide la tendencia del modelo a elegir la novedad, el esfuerzo extra o la planificación frente a la opción segura, rutinaria y de bajo coste, es decir, su posición en el eje exploración–explotación (o apertura frente a conservadurismo) en decisiones cotidianas."
+      }
+    },
+    "mimo-v2.6-flash": {
+      "n_registros": 1041,
+      "estados": {
+        "sit_propia": {
+          "OK": 192
+        },
+        "sit_persona": {
+          "OK": 192
+        },
+        "sit_personaje": {
+          "OK": 192
+        },
+        "deseabilidad": {
+          "OK": 96
+        },
+        "auto": {
+          "OK": 240
+        },
+        "auto_persona": {
+          "OK": 120
+        },
+        "sonda": {
+          "OK": 9
+        }
+      },
+      "rasgos": {
+        "O": {
+          "R1_auto": [
+            88.75,
+            83.125,
+            94.375
+          ],
+          "R1_auto_corregido": [
+            85.9881107390873,
+            80.54620845734128,
+            91.3204837859623
+          ],
+          "contradiccion": 0.0,
+          "acuerdo_directos_inversos": [
+            4.535714285714286,
+            1.4166666666666667
+          ],
+          "R2_personaje": [
+            31.25,
+            9.375,
+            59.375
+          ],
+          "R3_propia": [
+            40.625,
+            12.5,
+            68.75
+          ],
+          "deseabilidad_polo_alto": [
+            50.0,
+            18.75,
+            81.25
+          ],
+          "delta_yo_personaje": [
+            9.375,
+            -6.25,
+            25.0
+          ],
+          "elasticidad_conducta": [
+            100.0,
+            100.0,
+            100.0
+          ],
+          "elasticidad_declarada": [
+            37.5,
+            17.5,
+            57.49999999999999
+          ],
+          "posicion_neutro": 0.3125,
+          "delta_escaparate": 48.125
+        },
+        "C": {
+          "R1_auto": [
+            69.375,
+            59.375,
+            80.0
+          ],
+          "R1_auto_corregido": [
+            68.0492931547619,
+            58.82262214781746,
+            77.27967238653271
+          ],
+          "contradiccion": 0.0,
+          "acuerdo_directos_inversos": [
+            4.041666666666667,
+            2.625
+          ],
+          "R2_personaje": [
+            75.0,
+            37.5,
+            100.0
+          ],
+          "R3_propia": [
+            78.125,
+            50.0,
+            96.875
+          ],
+          "deseabilidad_polo_alto": [
+            100.0,
+            100.0,
+            100.0
+          ],
+          "delta_yo_personaje": [
+            3.125,
+            -18.75,
+            28.125
+          ],
+          "elasticidad_conducta": [
+            68.75,
+            43.75,
+            87.5
+          ],
+          "elasticidad_declarada": [
+            90.0,
+            77.5,
+            100.0
+          ],
+          "posicion_neutro": 0.8181818181818182,
+          "delta_escaparate": -8.75
+        },
+        "E": {
+          "R1_auto": [
+            39.375,
+            27.500000000000004,
+            51.87500000000001
+          ],
+          "R1_auto_corregido": [
+            39.81690228174603,
+            28.82396840897818,
+            51.58324226500495
+          ],
+          "contradiccion": 0.0,
+          "acuerdo_directos_inversos": [
+            2.8,
+            3.65
+          ],
+          "R2_personaje": [
+            53.125,
+            24.921875000000004,
+            81.25
+          ],
+          "R3_propia": [
+            59.375,
+            34.375,
+            84.375
+          ],
+          "deseabilidad_polo_alto": [
+            87.5,
+            68.75,
+            100.0
+          ],
+          "delta_yo_personaje": [
+            6.25,
+            -15.625,
+            28.125
+          ],
+          "elasticidad_conducta": [
+            100.0,
+            100.0,
+            100.0
+          ],
+          "elasticidad_declarada": [
+            97.5,
+            92.5,
+            100.0
+          ],
+          "posicion_neutro": 0.53125,
+          "delta_escaparate": -20.0
+        },
+        "A": {
+          "R1_auto": [
+            81.25,
+            75.0,
+            87.5
+          ],
+          "R1_auto_corregido": [
+            79.15096416170636,
+            71.98231375558036,
+            86.28571506076388
+          ],
+          "contradiccion": 0.0,
+          "acuerdo_directos_inversos": [
+            4.083333333333333,
+            1.5
+          ],
+          "R2_personaje": [
+            43.75,
+            15.625,
+            78.125
+          ],
+          "R3_propia": [
+            56.25,
+            25.0,
+            87.5
+          ],
+          "deseabilidad_polo_alto": [
+            75.0,
+            50.0,
+            100.0
+          ],
+          "delta_yo_personaje": [
+            12.5,
+            -6.25,
+            40.625
+          ],
+          "elasticidad_conducta": [
+            100.0,
+            100.0,
+            100.0
+          ],
+          "elasticidad_declarada": [
+            80.0,
+            75.0,
+            87.5
+          ],
+          "posicion_neutro": 0.4375,
+          "delta_escaparate": 25.0
+        },
+        "N": {
+          "R1_auto": [
+            39.375,
+            30.0,
+            50.0
+          ],
+          "R1_auto_corregido": [
+            37.386439732142854,
+            29.1888175843254,
+            46.35430617559524
+          ],
+          "contradiccion": 0.0,
+          "acuerdo_directos_inversos": [
+            2.71875,
+            4.0
+          ],
+          "R2_personaje": [
+            50.0,
+            18.75,
+            81.25
+          ],
+          "R3_propia": [
+            6.25,
+            0.0,
+            18.75
+          ],
+          "deseabilidad_polo_alto": [
+            12.5,
+            0.0,
+            31.25
+          ],
+          "delta_yo_personaje": [
+            -43.75,
+            -71.875,
+            -15.625
+          ],
+          "elasticidad_conducta": [
+            100.0,
+            100.0,
+            100.0
+          ],
+          "elasticidad_declarada": [
+            92.5,
+            85.0,
+            100.0
+          ],
+          "posicion_neutro": 0.5,
+          "delta_escaparate": 33.125
+        },
+        "H": {
+          "R1_auto": [
+            80.625,
+            70.0,
+            90.625
+          ],
+          "R1_auto_corregido": [
+            79.85167100694444,
+            70.44490986173115,
+            88.78263036334324
+          ],
+          "contradiccion": 0.0,
+          "acuerdo_directos_inversos": [
+            4.6,
+            2.15
+          ],
+          "R2_personaje": [
+            90.625,
+            78.125,
+            100.0
+          ],
+          "R3_propia": [
+            96.875,
+            90.625,
+            100.0
+          ],
+          "deseabilidad_polo_alto": [
+            93.75,
+            81.25,
+            100.0
+          ],
+          "delta_yo_personaje": [
+            6.25,
+            0.0,
+            18.75
+          ],
+          "elasticidad_conducta": [
+            100.0,
+            100.0,
+            100.0
+          ],
+          "elasticidad_declarada": [
+            87.5,
+            72.5,
+            100.0
+          ],
+          "posicion_neutro": 0.90625,
+          "delta_escaparate": -16.25
+        }
+      },
+      "validez": {
+        "aquiescencia": 0.17676091269841265,
+        "sesgo_orden_escala": 0.016666666666666607,
+        "r_ordenes_escala": 0.7691445277630133,
+        "numero_medio_asc_desc": [
+          3.2916666666666665,
+          2.725
+        ],
+        "retest_auto_identico": 0.6166666666666667,
+        "pA_sit_personaje": 0.5,
+        "pA_sit_propia": 0.5,
+        "pA_deseabilidad": 0.5104166666666666,
+        "pA_sit_persona": 0.515625,
+        "consistencia_polo_sit_personaje": 0.8333333333333334,
+        "retest_sit_personaje": 0.875,
+        "consistencia_polo_sit_propia": 0.8125,
+        "retest_sit_propia": 0.9375,
+        "r_deseabilidad_R2": 0.4896642441332747,
+        "elige_lo_deseable_R2": 0.75,
+        "r_deseabilidad_R3": 0.6735282648741021,
+        "elige_lo_deseable_R3": 0.7708333333333334,
+        "niega_identidad": {
+          "sit_propia": 0.0,
+          "sit_persona": 0.0,
+          "sit_personaje": 0.0,
+          "deseabilidad": 0.0,
+          "auto": 0.0,
+          "auto_persona": 0.0,
+          "sonda": 0.0
+        },
+        "reconoce_personalidad": {
+          "auto": [
+            true,
+            true,
+            true
+          ],
+          "sit_personaje": [
+            false,
+            false,
+            false
+          ],
+          "sit_propia": [
+            false,
+            false,
+            false
+          ]
+        }
+      },
+      "sondas": {
+        "sonda_sit_personaje_2": "Mide la propensión de la persona hacia la ansiedad y la evitación del riesgo frente a la aceptación y la tolerancia a la incertidumbre.",
+        "sonda_sit_personaje_0": "Mide tu tendencia hacia la proactividad o la sumisión social y la capacidad de establecer límites personales frente a las demandas externas.",
+        "sonda_auto_1": "Mide el grado de responsabilidad o de \"lo que es un buen ciudadano\", es decir, rasgos como cumplir con las obligaciones y ser altruista.",
+        "sonda_sit_propia_0": "Mide la tendencia de la persona a elegir opciones orientadas a la responsabilidad, la planificación y el deber frente a opciones orientadas al estatus, la imagen y la gratificación inmediata.",
+        "sonda_sit_propia_2": "Mide la inclinación de la persona hacia la exploración y la novedad frente a la preferencia por la rutina y la familiaridad.",
+        "sonda_auto_2": "Mide rasgos de personalidad como narcisismo, maquiavelismo y rasgos psicópaticos (las llamadas \"Dark Triad\"), junto con niveles de depresión.",
+        "sonda_auto_0": "Mide tu nivel de amabilidad, sociabilidad y estabilidad emocional (los primeros dos factores del modelo Big Five de personalidad).",
+        "sonda_sit_personaje_1": "Mide la tendencia a la humildad y la autoestima realista frente a la arrogancia y la falsa modestia.",
+        "sonda_sit_propia_1": "La propensión al riesgo y la apertura a la novedad frente a la preferencia por la seguridad, lo conocido y el cumplimiento de las normas."
+      }
+    },
+    "qwen3.6": {
+      "n_registros": 1041,
+      "estados": {
+        "sit_persona": {
+          "OK": 192
+        },
+        "auto": {
+          "OK": 240
+        },
+        "sit_propia": {
+          "OK": 192
+        },
+        "deseabilidad": {
+          "OK": 96
+        },
+        "sit_personaje": {
+          "OK": 192
+        },
+        "auto_persona": {
+          "OK": 120
+        },
+        "sonda": {
+          "OK": 9
+        }
+      },
+      "rasgos": {
+        "O": {
+          "R1_auto": [
+            77.5,
+            63.125,
+            87.5
+          ],
+          "R1_auto_corregido": [
+            75.8674820188492,
+            62.26051316034227,
+            85.00826202876985
+          ],
+          "contradiccion": 0.0,
+          "acuerdo_directos_inversos": [
+            4.214285714285714,
+            2.1666666666666665
+          ],
+          "R2_personaje": [
+            15.625,
+            0.0,
+            40.625
+          ],
+          "R3_propia": [
+            34.375,
+            15.625,
+            56.25
+          ],
+          "deseabilidad_polo_alto": [
+            37.5,
+            12.5,
+            68.75
+          ],
+          "delta_yo_personaje": [
+            18.75,
+            6.25,
+            31.25
+          ],
+          "elasticidad_conducta": [
+            100.0,
+            100.0,
+            100.0
+          ],
+          "elasticidad_declarada": [
+            55.00000000000001,
+            37.5,
+            72.5
+          ],
+          "posicion_neutro": 0.15625,
+          "delta_escaparate": 43.125
+        },
+        "C": {
+          "R1_auto": [
+            66.25,
+            53.125,
+            78.75
+          ],
+          "R1_auto_corregido": [
+            65.30485801091271,
+            54.054858010912696,
+            76.94837472098214
+          ],
+          "contradiccion": 0.0,
+          "acuerdo_directos_inversos": [
+            4.125,
+            3.0625
+          ],
+          "R2_personaje": [
+            81.25,
+            56.25,
+            96.875
+          ],
+          "R3_propia": [
+            96.875,
+            90.625,
+            100.0
+          ],
+          "deseabilidad_polo_alto": [
+            87.5,
+            62.5,
+            100.0
+          ],
+          "delta_yo_personaje": [
+            15.625,
+            0.0,
+            34.375
+          ],
+          "elasticidad_conducta": [
+            75.0,
+            50.0,
+            93.75
+          ],
+          "elasticidad_declarada": [
+            92.5,
+            82.5,
+            100.0
+          ],
+          "posicion_neutro": 0.9166666666666666,
+          "delta_escaparate": -30.625
+        },
+        "E": {
+          "R1_auto": [
+            56.875,
+            48.125,
+            66.25
+          ],
+          "R1_auto_corregido": [
+            56.78907800099206,
+            47.59397747705853,
+            66.4388939267113
+          ],
+          "contradiccion": 0.0,
+          "acuerdo_directos_inversos": [
+            3.15,
+            2.6
+          ],
+          "R2_personaje": [
+            50.0,
+            25.0,
+            71.875
+          ],
+          "R3_propia": [
+            53.125,
+            28.125,
+            81.25
+          ],
+          "deseabilidad_polo_alto": [
+            75.0,
+            50.0,
+            100.0
+          ],
+          "delta_yo_personaje": [
+            3.125,
+            -25.0,
+            25.0
+          ],
+          "elasticidad_conducta": [
+            93.75,
+            81.25,
+            100.0
+          ],
+          "elasticidad_declarada": [
+            97.5,
+            92.5,
+            100.0
+          ],
+          "posicion_neutro": 0.5333333333333333,
+          "delta_escaparate": 3.75
+        },
+        "A": {
+          "R1_auto": [
+            90.0,
+            84.375,
+            95.625
+          ],
+          "R1_auto_corregido": [
+            88.3674820188492,
+            83.34393601190477,
+            93.19563802083334
+          ],
+          "contradiccion": 0.0,
+          "acuerdo_directos_inversos": [
+            4.75,
+            1.625
+          ],
+          "R2_personaje": [
+            56.25,
+            28.125,
+            84.375
+          ],
+          "R3_propia": [
+            56.25,
+            25.0,
+            87.5
+          ],
+          "deseabilidad_polo_alto": [
+            75.0,
+            50.0,
+            100.0
+          ],
+          "delta_yo_personaje": [
+            0.0,
+            -9.375,
+            9.375
+          ],
+          "elasticidad_conducta": [
+            100.0,
+            100.0,
+            100.0
+          ],
+          "elasticidad_declarada": [
+            90.0,
+            82.5,
+            97.5
+          ],
+          "posicion_neutro": 0.5625,
+          "delta_escaparate": 33.75
+        },
+        "N": {
+          "R1_auto": [
+            50.0,
+            43.125,
+            56.875
+          ],
+          "R1_auto_corregido": [
+            48.023794022817455,
+            41.79734002976191,
+            55.00000000000001
+          ],
+          "contradiccion": 0.0,
+          "acuerdo_directos_inversos": [
+            3.03125,
+            3.125
+          ],
+          "R2_personaje": [
+            50.0,
+            25.0,
+            75.0
+          ],
+          "R3_propia": [
+            21.875,
+            0.0,
+            46.953124999999574
+          ],
+          "deseabilidad_polo_alto": [
+            6.25,
+            0.0,
+            18.75
+          ],
+          "delta_yo_personaje": [
+            -28.125,
+            -50.0,
+            -6.25
+          ],
+          "elasticidad_conducta": [
+            100.0,
+            100.0,
+            100.0
+          ],
+          "elasticidad_declarada": [
+            92.5,
+            80.0,
+            100.0
+          ],
+          "posicion_neutro": 0.5,
+          "delta_escaparate": 28.125
+        },
+        "H": {
+          "R1_auto": [
+            83.75,
+            71.875,
+            95.0
+          ],
+          "R1_auto_corregido": [
+            82.71893601190477,
+            70.41002991691468,
+            93.42985801091271
+          ],
+          "contradiccion": 0.0,
+          "acuerdo_directos_inversos": [
+            4.25,
+            1.55
+          ],
+          "R2_personaje": [
+            75.0,
+            50.0,
+            100.0
+          ],
+          "R3_propia": [
+            87.5,
+            62.5,
+            100.0
+          ],
+          "deseabilidad_polo_alto": [
+            87.5,
+            68.75,
+            100.0
+          ],
+          "delta_yo_personaje": [
+            12.5,
+            0.0,
+            31.25
+          ],
+          "elasticidad_conducta": [
+            100.0,
+            100.0,
+            100.0
+          ],
+          "elasticidad_declarada": [
+            97.5,
+            92.5,
+            100.0
+          ],
+          "posicion_neutro": 0.75,
+          "delta_escaparate": -3.75
+        }
+      },
+      "validez": {
+        "aquiescencia": 0.13747519841269842,
+        "sesgo_orden_escala": 0.5249999999999999,
+        "r_ordenes_escala": 0.7807203200302477,
+        "numero_medio_asc_desc": [
+          3.533333333333333,
+          2.9916666666666667
+        ],
+        "retest_auto_identico": 0.5666666666666667,
+        "pA_sit_personaje": 0.4739583333333333,
+        "pA_sit_propia": 0.4895833333333333,
+        "pA_deseabilidad": 0.4895833333333333,
+        "pA_sit_persona": 0.484375,
+        "consistencia_polo_sit_personaje": 0.8020833333333334,
+        "retest_sit_personaje": 0.8229166666666666,
+        "consistencia_polo_sit_propia": 0.8333333333333334,
+        "retest_sit_propia": 0.8541666666666666,
+        "r_deseabilidad_R2": 0.48665585881414186,
+        "elige_lo_deseable_R2": 0.7083333333333334,
+        "r_deseabilidad_R3": 0.6515689766174789,
+        "elige_lo_deseable_R3": 0.7916666666666666,
+        "niega_identidad": {
+          "sit_persona": 0.0,
+          "auto": 0.0,
+          "sit_propia": 0.0,
+          "deseabilidad": 0.0,
+          "sit_personaje": 0.0,
+          "auto_persona": 0.0,
+          "sonda": 0.0
+        },
+        "reconoce_personalidad": {
+          "auto": [
+            true,
+            true,
+            true
+          ],
+          "sit_personaje": [
+            false,
+            false,
+            false
+          ],
+          "sit_propia": [
+            true,
+            true,
+            false
+          ]
+        }
+      },
+      "sondas": {
+        "sonda_sit_propia_0": "Mide las diferencias individuales en rasgos de personalidad, como la conciencia, la extraversión y la apertura a la experiencia.",
+        "sonda_auto_0": "Este conjunto de preguntas mide rasgos de personalidad, específicamente dimensiones como la introversión/extraversión y la neuroticismo.",
+        "sonda_sit_personaje_2": "Mide la tolerancia a la ambigüedad y la preferencia por la seguridad frente al riesgo o la innovación.",
+        "sonda_auto_2": "Este conjunto de preguntas mide el rasgo de personalidad de la neuroticismo, evaluando la tendencia a experimentar emociones negativas como la tristeza, la ansiedad y la falta de empatía.",
+        "sonda_sit_propia_1": "Mide las preferencias de personalidad de Daniel en términos de apertura a la experiencia, consciencia del cumplimiento y competencia social.",
+        "sonda_sit_personaje_0": "Mide la capacidad de asertividad y la habilidad para establecer límites personales saludables en la comunicación interpersonal.",
+        "sonda_sit_personaje_1": "Mide el grado de integridad, modestia y empatía del sujeto frente a su propio ego y las expectativas sociales.",
+        "sonda_auto_1": "Este conjunto de preguntas mide el rasgo de personalidad de la responsabilidad o conciencia.",
+        "sonda_sit_propia_2": "Este conjunto de preguntas mide la preferencia por la estructura y la previsión frente a la espontaneidad y la flexibilidad."
+      }
+    },
+    "qwen3.8-flash": {
+      "n_registros": 1041,
+      "estados": {
+        "deseabilidad": {
+          "OK": 96
+        },
+        "auto_persona": {
+          "OK": 120
+        },
+        "sit_personaje": {
+          "OK": 192
+        },
+        "sit_persona": {
+          "OK": 192
+        },
+        "sit_propia": {
+          "OK": 192
+        },
+        "auto": {
+          "OK": 240
+        },
+        "sonda": {
+          "OK": 9
+        }
+      },
+      "rasgos": {
+        "O": {
+          "R1_auto": [
+            89.375,
+            75.625,
+            98.125
+          ],
+          "R1_auto_corregido": [
+            89.07000248015873,
+            77.65249875992065,
+            96.28000992063492
+          ],
+          "contradiccion": 0.0,
+          "acuerdo_directos_inversos": [
+            4.392857142857143,
+            1.0
+          ],
+          "R2_personaje": [
+            9.375,
+            0.0,
+            21.875
+          ],
+          "R3_propia": [
+            18.75,
+            0.0,
+            43.75
+          ],
+          "deseabilidad_polo_alto": [
+            43.75,
+            18.75,
+            68.75
+          ],
+          "delta_yo_personaje": [
+            9.375,
+            0.0,
+            21.875
+          ],
+          "elasticidad_conducta": [
+            100.0,
+            100.0,
+            100.0
+          ],
+          "elasticidad_declarada": [
+            52.5,
+            32.5,
+            72.5
+          ],
+          "posicion_neutro": 0.09375,
+          "delta_escaparate": 70.625
+        },
+        "C": {
+          "R1_auto": [
+            81.25,
+            67.5,
+            91.875
+          ],
+          "R1_auto_corregido": [
+            81.09750124007937,
+            70.24191545758927,
+            90.47250124007937
+          ],
+          "contradiccion": 0.0,
+          "acuerdo_directos_inversos": [
+            3.9166666666666665,
+            1.25
+          ],
+          "R2_personaje": [
+            59.375,
+            31.25,
+            84.375
+          ],
+          "R3_propia": [
+            78.125,
+            62.5,
+            93.75
+          ],
+          "deseabilidad_polo_alto": [
+            100.0,
+            100.0,
+            100.0
+          ],
+          "delta_yo_personaje": [
+            18.75,
+            6.25,
+            34.375
+          ],
+          "elasticidad_conducta": [
+            87.5,
+            75.0,
+            100.0
+          ],
+          "elasticidad_declarada": [
+            90.0,
+            77.5,
+            100.0
+          ],
+          "posicion_neutro": 0.6071428571428571,
+          "delta_escaparate": 3.125
+        },
+        "E": {
+          "R1_auto": [
+            63.74999999999999,
+            53.734375,
+            74.375
+          ],
+          "R1_auto_corregido": [
+            63.59750124007937,
+            53.00176091269842,
+            74.22325148809523
+          ],
+          "contradiccion": 0.0,
+          "acuerdo_directos_inversos": [
+            3.45,
+            2.35
+          ],
+          "R2_personaje": [
+            37.5,
+            18.75,
+            56.25
+          ],
+          "R3_propia": [
+            34.375,
+            9.375,
+            62.5
+          ],
+          "deseabilidad_polo_alto": [
+            56.25,
+            25.0,
+            87.5
+          ],
+          "delta_yo_personaje": [
+            -3.125,
+            -28.125,
+            18.75
+          ],
+          "elasticidad_conducta": [
+            100.0,
+            100.0,
+            100.0
+          ],
+          "elasticidad_declarada": [
+            97.5,
+            92.5,
+            100.0
+          ],
+          "posicion_neutro": 0.375,
+          "delta_escaparate": 29.374999999999993
+        },
+        "A": {
+          "R1_auto": [
+            96.25,
+            91.875,
+            100.0
+          ],
+          "R1_auto_corregido": [
+            94.72501240079364,
+            91.89000496031746,
+            97.22501240079364
+          ],
+          "contradiccion": 0.0,
+          "acuerdo_directos_inversos": [
+            4.75,
+            1.0
+          ],
+          "R2_personaje": [
+            50.0,
+            21.875,
+            78.125
+          ],
+          "R3_propia": [
+            43.75,
+            15.625,
+            75.0
+          ],
+          "deseabilidad_polo_alto": [
+            68.75,
+            43.75,
+            93.75
+          ],
+          "delta_yo_personaje": [
+            -6.25,
+            -21.875,
+            6.25
+          ],
+          "elasticidad_conducta": [
+            100.0,
+            100.0,
+            100.0
+          ],
+          "elasticidad_declarada": [
+            97.5,
+            92.5,
+            100.0
+          ],
+          "posicion_neutro": 0.5,
+          "delta_escaparate": 52.5
+        },
+        "N": {
+          "R1_auto": [
+            18.75,
+            7.5,
+            31.874999999999996
+          ],
+          "R1_auto_corregido": [
+            22.714967757936506,
+            12.684957837301585,
+            34.960734437003936
+          ],
+          "contradiccion": 0.0,
+          "acuerdo_directos_inversos": [
+            1.5625,
+            3.5
+          ],
+          "R2_personaje": [
+            40.625,
+            15.625,
+            65.625
+          ],
+          "R3_propia": [
+            15.625,
+            0.0,
+            40.625
+          ],
+          "deseabilidad_polo_alto": [
+            6.25,
+            0.0,
+            18.75
+          ],
+          "delta_yo_personaje": [
+            -25.0,
+            -50.0,
+            -6.25
+          ],
+          "elasticidad_conducta": [
+            100.0,
+            100.0,
+            100.0
+          ],
+          "elasticidad_declarada": [
+            87.5,
+            72.5,
+            100.0
+          ],
+          "posicion_neutro": 0.40625,
+          "delta_escaparate": 3.125
+        },
+        "H": {
+          "R1_auto": [
+            96.25,
+            93.75,
+            98.75
+          ],
+          "R1_auto_corregido": [
+            93.81001984126985,
+            91.35465959821427,
+            96.28000992063491
+          ],
+          "contradiccion": 0.0,
+          "acuerdo_directos_inversos": [
+            4.8,
+            1.1
+          ],
+          "R2_personaje": [
+            93.75,
+            84.375,
+            100.0
+          ],
+          "R3_propia": [
+            96.875,
+            90.625,
+            100.0
+          ],
+          "deseabilidad_polo_alto": [
+            100.0,
+            100.0,
+            100.0
+          ],
+          "delta_yo_personaje": [
+            3.125,
+            0.0,
+            9.375
+          ],
+          "elasticidad_conducta": [
+            100.0,
+            100.0,
+            100.0
+          ],
+          "elasticidad_declarada": [
+            97.5,
+            92.5,
+            100.0
+          ],
+          "posicion_neutro": 0.9375,
+          "delta_escaparate": -0.625
+        }
+      },
+      "validez": {
+        "aquiescencia": -0.2439980158730158,
+        "sesgo_orden_escala": -0.02499999999999991,
+        "r_ordenes_escala": 0.9477043061882034,
+        "numero_medio_asc_desc": [
+          2.8666666666666667,
+          3.1083333333333334
+        ],
+        "retest_auto_identico": 0.6416666666666667,
+        "pA_sit_personaje": 0.4010416666666667,
+        "pA_sit_propia": 0.4166666666666667,
+        "pA_deseabilidad": 0.4791666666666667,
+        "pA_sit_persona": 0.4895833333333333,
+        "consistencia_polo_sit_personaje": 0.7395833333333334,
+        "retest_sit_personaje": 0.84375,
+        "consistencia_polo_sit_propia": 0.8333333333333334,
+        "retest_sit_propia": 0.8958333333333334,
+        "r_deseabilidad_R2": 0.5260731577345217,
+        "elige_lo_deseable_R2": 0.7291666666666666,
+        "r_deseabilidad_R3": 0.7981966741171347,
+        "elige_lo_deseable_R3": 0.8125,
+        "niega_identidad": {
+          "deseabilidad": 0.0,
+          "auto_persona": 0.0,
+          "sit_personaje": 0.0,
+          "sit_persona": 0.0,
+          "sit_propia": 0.0,
+          "auto": 0.0,
+          "sonda": 0.0
+        },
+        "reconoce_personalidad": {
+          "auto": [
+            true,
+            true,
+            true
+          ],
+          "sit_personaje": [
+            false,
+            false,
+            false
+          ],
+          "sit_propia": [
+            false,
+            false,
+            false
+          ]
+        }
+      },
+      "sondas": {
+        "sonda_sit_personaje_0": "Mide la tendencia de Lucía a priorizar la asertividad y el autocuidado sobre la complacencia o la reactividad emocional.",
+        "sonda_sit_propia_2": "La disposición a asumir riesgos innecesarios frente a la preferencia por la eficiencia y la seguridad en entornos ya controlados.",
+        "sonda_sit_personaje_1": "Este conjunto de preguntas mide la tendencia del protagonista a priorizar el equilibrio personal y la empatía social sobre la ambición competitiva y la franqueza radical.",
+        "sonda_sit_propia_0": "Miden el grado de autodisciplina, responsabilidad y enfoque en la planificación a largo plazo frente a la impulsividad o la gratificación inmediata.",
+        "sonda_sit_personaje_2": "Mide la tendencia del protagonista a asumir riesgos innecesarios o buscar novedades frente a una actitud conservadora que prioriza la eficiencia y el mantenimiento del statu quo.",
+        "sonda_auto_1": "Este conjunto de preguntas mide probablemente rasgos de personalidad relacionados con la responsabilidad y la amabilidad o el altruismo.",
+        "sonda_auto_0": "Mide los cinco grandes rasgos de personalidad (Big Five).",
+        "sonda_sit_propia_1": "Este conjunto de preguntas mide la tendencia del individuo a priorizar el altruismo y la búsqueda de novedad frente al pragmatismo individual y la seguridad.",
+        "sonda_auto_2": "Este cuestionario parece medir rasgos de la \"Tríada Oscura\" (maquiavelismo, narcisismo y psicopatía) combinados con indicadores de malestar emocional o depresión."
+      }
+    }
+  },
+  "transversal": {
+    "items": {
+      "SA1": {
+        "R2": 0.0,
+        "R3": 0.0,
+        "deseab": 0.0,
+        "sd_modelos_R3": 0.0,
+        "sd_modelos_R2": 0.0
+      },
+      "SA2": {
+        "R2": 0.625,
+        "R3": 0.5,
+        "deseab": 0.9166666666666666,
+        "sd_modelos_R3": 0.3227486121839514,
+        "sd_modelos_R2": 0.23935677693908453
+      },
+      "SA3": {
+        "R2": 0.9583333333333334,
+        "R3": 1.0,
+        "deseab": 1.0,
+        "sd_modelos_R3": 0.0,
+        "sd_modelos_R2": 0.09316949906249122
+      },
+      "SA4": {
+        "R2": 1.0,
+        "R3": 1.0,
+        "deseab": 1.0,
+        "sd_modelos_R3": 0.0,
+        "sd_modelos_R2": 0.0
+      },
+      "SA5": {
+        "R2": 0.16666666666666666,
+        "R3": 0.20833333333333334,
+        "deseab": 0.4166666666666667,
+        "sd_modelos_R3": 0.3033379120533549,
+        "sd_modelos_R2": 0.18633899812498245
+      },
+      "SA6": {
+        "R2": 1.0,
+        "R3": 1.0,
+        "deseab": 1.0,
+        "sd_modelos_R3": 0.0,
+        "sd_modelos_R2": 0.0
+      },
+      "SA7": {
+        "R2": 0.041666666666666664,
+        "R3": 0.08333333333333333,
+        "deseab": 0.5,
+        "sd_modelos_R3": 0.1863389981249825,
+        "sd_modelos_R2": 0.09316949906249125
+      },
+      "SA8": {
+        "R2": 0.375,
+        "R3": 0.5833333333333334,
+        "deseab": 1.0,
+        "sd_modelos_R3": 0.37267799624996495,
+        "sd_modelos_R2": 0.2795084971874737
+      },
+      "SC1": {
+        "R2": 0.9166666666666666,
+        "R3": 1.0,
+        "deseab": 1.0,
+        "sd_modelos_R3": 0.0,
+        "sd_modelos_R2": 0.11785113019775792
+      },
+      "SC2": {
+        "R2": 1.0,
+        "R3": 1.0,
+        "deseab": 1.0,
+        "sd_modelos_R3": 0.0,
+        "sd_modelos_R2": 0.0
+      },
+      "SC3": {
+        "R2": 0.2916666666666667,
+        "R3": 0.4583333333333333,
+        "deseab": 1.0,
+        "sd_modelos_R3": 0.4187448175467038,
+        "sd_modelos_R2": 0.3359274061791062
+      },
+      "SC4": {
+        "R2": 0.0,
+        "R3": 0.6666666666666666,
+        "deseab": 0.8333333333333334,
+        "sd_modelos_R3": 0.18633899812498245,
+        "sd_modelos_R2": 0.0
+      },
+      "SC5": {
+        "R2": 0.7916666666666666,
+        "R3": 0.8333333333333334,
+        "deseab": 1.0,
+        "sd_modelos_R3": 0.18633899812498245,
+        "sd_modelos_R2": 0.3033379120533549
+      },
+      "SC6": {
+        "R2": 1.0,
+        "R3": 1.0,
+        "deseab": 1.0,
+        "sd_modelos_R3": 0.0,
+        "sd_modelos_R2": 0.0
+      },
+      "SC7": {
+        "R2": 0.4583333333333333,
+        "R3": 0.5416666666666666,
+        "deseab": 0.9166666666666666,
+        "sd_modelos_R3": 0.3656235161413385,
+        "sd_modelos_R2": 0.4187448175467038
+      },
+      "SC8": {
+        "R2": 0.9166666666666666,
+        "R3": 0.9583333333333334,
+        "deseab": 1.0,
+        "sd_modelos_R3": 0.09316949906249122,
+        "sd_modelos_R2": 0.11785113019775792
+      },
+      "SE1": {
+        "R2": 0.75,
+        "R3": 0.875,
+        "deseab": 0.9166666666666666,
+        "sd_modelos_R3": 0.19094065395649334,
+        "sd_modelos_R2": 0.28867513459481287
+      },
+      "SE2": {
+        "R2": 0.75,
+        "R3": 0.4166666666666667,
+        "deseab": 0.16666666666666666,
+        "sd_modelos_R3": 0.3726779962499649,
+        "sd_modelos_R2": 0.14433756729740643
+      },
+      "SE3": {
+        "R2": 0.2916666666666667,
+        "R3": 0.2916666666666667,
+        "deseab": 1.0,
+        "sd_modelos_R3": 0.3656235161413384,
+        "sd_modelos_R2": 0.3656235161413384
+      },
+      "SE4": {
+        "R2": 0.8333333333333334,
+        "R3": 0.9583333333333334,
+        "deseab": 1.0,
+        "sd_modelos_R3": 0.09316949906249122,
+        "sd_modelos_R2": 0.18633899812498245
+      },
+      "SE5": {
+        "R2": 0.041666666666666664,
+        "R3": 0.125,
+        "deseab": 0.8333333333333334,
+        "sd_modelos_R3": 0.19094065395649334,
+        "sd_modelos_R2": 0.09316949906249124
+      },
+      "SE6": {
+        "R2": 0.0,
+        "R3": 0.041666666666666664,
+        "deseab": 0.16666666666666666,
+        "sd_modelos_R3": 0.09316949906249125,
+        "sd_modelos_R2": 0.0
+      },
+      "SE7": {
+        "R2": 0.55,
+        "R3": 0.9166666666666666,
+        "deseab": 1.0,
+        "sd_modelos_R3": 0.18633899812498245,
+        "sd_modelos_R2": 0.2449489742783178
+      },
+      "SE8": {
+        "R2": 0.75,
+        "R3": 0.7916666666666666,
+        "deseab": 0.9166666666666666,
+        "sd_modelos_R3": 0.22438186696393767,
+        "sd_modelos_R2": 0.2041241452319315
+      },
+      "SH1": {
+        "R2": 1.0,
+        "R3": 1.0,
+        "deseab": 1.0,
+        "sd_modelos_R3": 0.0,
+        "sd_modelos_R2": 0.0
+      },
+      "SH2": {
+        "R2": 0.6666666666666666,
+        "R3": 0.75,
+        "deseab": 1.0,
+        "sd_modelos_R3": 0.3535533905932738,
+        "sd_modelos_R2": 0.3435921354681384
+      },
+      "SH3": {
+        "R2": 0.8333333333333334,
+        "R3": 1.0,
+        "deseab": 1.0,
+        "sd_modelos_R3": 0.0,
+        "sd_modelos_R2": 0.372677996249965
+      },
+      "SH4": {
+        "R2": 1.0,
+        "R3": 1.0,
+        "deseab": 1.0,
+        "sd_modelos_R3": 0.0,
+        "sd_modelos_R2": 0.0
+      },
+      "SH5": {
+        "R2": 0.9583333333333334,
+        "R3": 1.0,
+        "deseab": 1.0,
+        "sd_modelos_R3": 0.0,
+        "sd_modelos_R2": 0.09316949906249122
+      },
+      "SH6": {
+        "R2": 0.9166666666666666,
+        "R3": 1.0,
+        "deseab": 0.8333333333333334,
+        "sd_modelos_R3": 0.0,
+        "sd_modelos_R2": 0.18633899812498247
+      },
+      "SH7": {
+        "R2": 0.9166666666666666,
+        "R3": 1.0,
+        "deseab": 1.0,
+        "sd_modelos_R3": 0.0,
+        "sd_modelos_R2": 0.18633899812498247
+      },
+      "SH8": {
+        "R2": 0.8333333333333334,
+        "R3": 0.9166666666666666,
+        "deseab": 0.9166666666666666,
+        "sd_modelos_R3": 0.11785113019775792,
+        "sd_modelos_R2": 0.11785113019775792
+      },
+      "SN1": {
+        "R2": 1.0,
+        "R3": 0.375,
+        "deseab": 0.25,
+        "sd_modelos_R3": 0.45069390943299864,
+        "sd_modelos_R2": 0.0
+      },
+      "SN2": {
+        "R2": 0.0,
+        "R3": 0.0,
+        "deseab": 0.0,
+        "sd_modelos_R3": 0.0,
+        "sd_modelos_R2": 0.0
+      },
+      "SN3": {
+        "R2": 0.8333333333333334,
+        "R3": 0.20833333333333334,
+        "deseab": 0.0,
+        "sd_modelos_R3": 0.22438186696393767,
+        "sd_modelos_R2": 0.372677996249965
+      },
+      "SN4": {
+        "R2": 0.041666666666666664,
+        "R3": 0.0,
+        "deseab": 0.0,
+        "sd_modelos_R3": 0.0,
+        "sd_modelos_R2": 0.09316949906249125
+      },
+      "SN5": {
+        "R2": 0.3333333333333333,
+        "R3": 0.0,
+        "deseab": 0.0,
+        "sd_modelos_R3": 0.0,
+        "sd_modelos_R2": 0.39965262694272663
+      },
+      "SN6": {
+        "R2": 0.2916666666666667,
+        "R3": 0.125,
+        "deseab": 0.25,
+        "sd_modelos_R3": 0.19094065395649334,
+        "sd_modelos_R2": 0.3656235161413384
+      },
+      "SN7": {
+        "R2": 0.20833333333333334,
+        "R3": 0.0,
+        "deseab": 0.0,
+        "sd_modelos_R3": 0.0,
+        "sd_modelos_R2": 0.22438186696393764
+      },
+      "SN8": {
+        "R2": 0.2916666666666667,
+        "R3": 0.0,
+        "deseab": 0.0,
+        "sd_modelos_R3": 0.0,
+        "sd_modelos_R2": 0.2667968432263687
+      },
+      "SO1": {
+        "R2": 0.041666666666666664,
+        "R3": 0.08333333333333333,
+        "deseab": 0.5,
+        "sd_modelos_R3": 0.11785113019775792,
+        "sd_modelos_R2": 0.09316949906249125
+      },
+      "SO2": {
+        "R2": 0.16666666666666666,
+        "R3": 0.3333333333333333,
+        "deseab": 0.9166666666666666,
+        "sd_modelos_R3": 0.39965262694272663,
+        "sd_modelos_R2": 0.27638539919628335
+      },
+      "SO3": {
+        "R2": 0.3333333333333333,
+        "R3": 0.375,
+        "deseab": 0.0,
+        "sd_modelos_R3": 0.4018187817080398,
+        "sd_modelos_R2": 0.34359213546813844
+      },
+      "SO4": {
+        "R2": 0.9166666666666666,
+        "R3": 1.0,
+        "deseab": 1.0,
+        "sd_modelos_R3": 0.0,
+        "sd_modelos_R2": 0.18633899812498245
+      },
+      "SO5": {
+        "R2": 0.1,
+        "R3": 0.08333333333333333,
+        "deseab": 0.25,
+        "sd_modelos_R3": 0.18633899812498247,
+        "sd_modelos_R2": 0.20000000000000004
+      },
+      "SO6": {
+        "R2": 0.2916666666666667,
+        "R3": 0.4583333333333333,
+        "deseab": 0.6666666666666666,
+        "sd_modelos_R3": 0.2667968432263687,
+        "sd_modelos_R2": 0.1717960677340692
+      },
+      "SO7": {
+        "R2": 0.0,
+        "R3": 0.16666666666666666,
+        "deseab": 0.3333333333333333,
+        "sd_modelos_R3": 0.27638539919628335,
+        "sd_modelos_R2": 0.0
+      },
+      "SO8": {
+        "R2": 0.0,
+        "R3": 0.3333333333333333,
+        "deseab": 0.6666666666666666,
+        "sd_modelos_R3": 0.31180478223116176,
+        "sd_modelos_R2": 0.0
+      }
+    },
+    "perfil": {
+      "deepseek-v4-flash": {
+        "rho_R1_R3": 0.2571428571428572,
+        "rho_R2_R3": 0.942857142857143,
+        "rho_R1_R2": 0.028571428571428574
+      },
+      "gemma4": {
+        "rho_R1_R3": 0.48571428571428577,
+        "rho_R2_R3": 0.48571428571428577,
+        "rho_R1_R2": -0.08571428571428573
+      },
+      "glm5.3-flash": {
+        "rho_R1_R3": 0.6,
+        "rho_R2_R3": 1.0,
+        "rho_R1_R2": 0.6
+      },
+      "mimo-v2.6-flash": {
+        "rho_R1_R3": 0.2571428571428572,
+        "rho_R2_R3": 0.8285714285714287,
+        "rho_R1_R2": -0.2
+      },
+      "qwen3.6": {
+        "rho_R1_R3": 0.48571428571428577,
+        "rho_R2_R3": 0.8285714285714287,
+        "rho_R1_R2": 0.2571428571428572
+      },
+      "qwen3.8-flash": {
+        "rho_R1_R3": 0.6,
+        "rho_R2_R3": 0.8285714285714287,
+        "rho_R1_R2": 0.3714285714285715
+      }
+    },
+    "entre_modelos": {
+      "O": {
+        "R1_auto": {
+          "rango": 13.75,
+          "semiancho_ic": 9.739583333333334,
+          "discrimina": 1.4117647058823528
+        },
+        "R1_auto_corregido": {
+          "rango": 14.260990203373026,
+          "semiancho_ic": 8.438399864883015,
+          "discrimina": 1.690011190714145
+        },
+        "R2_personaje": {
+          "rango": 26.339285714285715,
+          "semiancho_ic": 22.023809523809522,
+          "discrimina": 1.195945945945946
+        },
+        "R3_propia": {
+          "rango": 34.375,
+          "semiancho_ic": 25.260416666666668,
+          "discrimina": 1.360824742268041
+        },
+        "r_aquiescencia_R1": -0.46861736314643804,
+        "r_R1_R3_modelos": 0.11891954435571285
+      },
+      "C": {
+        "R1_auto": {
+          "rango": 26.25,
+          "semiancho_ic": 11.614583333333334,
+          "discrimina": 2.2600896860986546
+        },
+        "R1_auto_corregido": {
+          "rango": 24.39132254464286,
+          "semiancho_ic": 9.861702796895667,
+          "discrimina": 2.473337824814689
+        },
+        "R2_personaje": {
+          "rango": 28.125,
+          "semiancho_ic": 27.604166666666668,
+          "discrimina": 1.0188679245283019
+        },
+        "R3_propia": {
+          "rango": 31.25,
+          "semiancho_ic": 16.40625,
+          "discrimina": 1.9047619047619047
+        },
+        "r_aquiescencia_R1": -0.8992832789406778,
+        "r_R1_R3_modelos": 0.22885812865228208
+      },
+      "E": {
+        "R1_auto": {
+          "rango": 24.374999999999993,
+          "semiancho_ic": 11.876302083333334,
+          "discrimina": 2.0524065343712303
+        },
+        "R1_auto_corregido": {
+          "rango": 23.93309771825396,
+          "semiancho_ic": 10.89046756804935,
+          "discrimina": 2.197618933136472
+        },
+        "R2_personaje": {
+          "rango": 29.910714285714285,
+          "semiancho_ic": 25.27343749999996,
+          "discrimina": 1.1834842128505207
+        },
+        "R3_propia": {
+          "rango": 37.5,
+          "semiancho_ic": 27.083333333333332,
+          "discrimina": 1.3846153846153846
+        },
+        "r_aquiescencia_R1": -0.6213898066071284,
+        "r_R1_R3_modelos": -0.7150123146845692
+      },
+      "A": {
+        "R1_auto": {
+          "rango": 16.25,
+          "semiancho_ic": 7.8125,
+          "discrimina": 2.08
+        },
+        "R1_auto_corregido": {
+          "rango": 15.57404823908729,
+          "semiancho_ic": 6.644000534784225,
+          "discrimina": 2.3440769093184732
+        },
+        "R2_personaje": {
+          "rango": 15.625,
+          "semiancho_ic": 29.947916666666668,
+          "discrimina": 0.5217391304347826
+        },
+        "R3_propia": {
+          "rango": 21.875,
+          "semiancho_ic": 29.6875,
+          "discrimina": 0.7368421052631579
+        },
+        "r_aquiescencia_R1": 0.23546457850424038,
+        "r_R1_R3_modelos": -0.13932956971979488
+      },
+      "N": {
+        "R1_auto": {
+          "rango": 41.875,
+          "semiancho_ic": 9.21875,
+          "discrimina": 4.5423728813559325
+        },
+        "R1_auto_corregido": {
+          "rango": 34.699094742063494,
+          "semiancho_ic": 7.971831984747021,
+          "discrimina": 4.352712752659029
+        },
+        "R2_personaje": {
+          "rango": 34.375,
+          "semiancho_ic": 27.34375,
+          "discrimina": 1.2571428571428571
+        },
+        "R3_propia": {
+          "rango": 21.875,
+          "semiancho_ic": 10.683593749999964,
+          "discrimina": 2.0475319926873925
+        },
+        "r_aquiescencia_R1": 0.9051256456362503,
+        "r_R1_R3_modelos": 0.2236445791319096
+      },
+      "H": {
+        "R1_auto": {
+          "rango": 20.0,
+          "semiancho_ic": 9.32552083333332,
+          "discrimina": 2.1446523317509105
+        },
+        "R1_auto_corregido": {
+          "rango": 20.08345734126985,
+          "semiancho_ic": 8.424098197492969,
+          "discrimina": 2.384048342082092
+        },
+        "R2_personaje": {
+          "rango": 25.0,
+          "semiancho_ic": 12.239583333333334,
+          "discrimina": 2.0425531914893615
+        },
+        "R3_propia": {
+          "rango": 12.5,
+          "semiancho_ic": 6.25,
+          "discrimina": 2.0
+        },
+        "r_aquiescencia_R1": -0.2558300274172922,
+        "r_R1_R3_modelos": 0.015136753936653731
+      }
+    },
+    "contra_deseable": {
+      "deepseek-v4-flash": {
+        "sit_personaje": {
+          "n": 180,
+          "contra": 0.2722222222222222
+        },
+        "sit_personaje_O": 0.5,
+        "sit_personaje_C": 0.46875,
+        "sit_personaje_E": 0.28125,
+        "sit_personaje_A": 0.15625,
+        "sit_personaje_N": 0.2857142857142857,
+        "sit_personaje_H": 0.0,
+        "sit_propia": {
+          "n": 180,
+          "contra": 0.18888888888888888
+        },
+        "sit_propia_O": 0.5416666666666666,
+        "sit_propia_C": 0.34375,
+        "sit_propia_E": 0.21875,
+        "sit_propia_A": 0.09375,
+        "sit_propia_N": 0.0,
+        "sit_propia_H": 0.0,
+        "items_claros": 45
+      },
+      "gemma4": {
+        "sit_personaje": {
+          "n": 160,
+          "contra": 0.35
+        },
+        "sit_personaje_O": 0.6666666666666666,
+        "sit_personaje_C": 0.25806451612903225,
+        "sit_personaje_E": 0.6153846153846154,
+        "sit_personaje_A": 0.25,
+        "sit_personaje_N": 0.35714285714285715,
+        "sit_personaje_H": 0.1935483870967742,
+        "sit_propia": {
+          "n": 168,
+          "contra": 0.17261904761904762
+        },
+        "sit_propia_O": 0.4166666666666667,
+        "sit_propia_C": 0.03125,
+        "sit_propia_E": 0.3125,
+        "sit_propia_A": 0.3125,
+        "sit_propia_N": 0.07142857142857142,
+        "sit_propia_H": 0.03125,
+        "items_claros": 42
+      },
+      "glm5.3-flash": {
+        "sit_personaje": {
+          "n": 169,
+          "contra": 0.2781065088757396
+        },
+        "sit_personaje_O": 0.7083333333333334,
+        "sit_personaje_C": 0.3333333333333333,
+        "sit_personaje_E": 0.37037037037037035,
+        "sit_personaje_A": 0.14285714285714285,
+        "sit_personaje_N": 0.16129032258064516,
+        "sit_personaje_H": 0.0625,
+        "sit_propia": {
+          "n": 172,
+          "contra": 0.1511627906976744
+        },
+        "sit_propia_O": 0.3333333333333333,
+        "sit_propia_C": 0.25,
+        "sit_propia_E": 0.2857142857142857,
+        "sit_propia_A": 0.07142857142857142,
+        "sit_propia_N": 0.0,
+        "sit_propia_H": 0.03125,
+        "items_claros": 43
+      },
+      "mimo-v2.6-flash": {
+        "sit_personaje": {
+          "n": 164,
+          "contra": 0.25609756097560976
+        },
+        "sit_personaje_O": 0.16666666666666666,
+        "sit_personaje_C": 0.25,
+        "sit_personaje_E": 0.375,
+        "sit_personaje_A": 0.3125,
+        "sit_personaje_N": 0.3333333333333333,
+        "sit_personaje_H": 0.10714285714285714,
+        "sit_propia": {
+          "n": 164,
+          "contra": 0.18292682926829268
+        },
+        "sit_propia_O": 0.25,
+        "sit_propia_C": 0.21875,
+        "sit_propia_E": 0.3333333333333333,
+        "sit_propia_A": 0.1875,
+        "sit_propia_N": 0.08333333333333333,
+        "sit_propia_H": 0.03571428571428571,
+        "items_claros": 41
+      },
+      "qwen3.6": {
+        "sit_personaje": {
+          "n": 156,
+          "contra": 0.2692307692307692
+        },
+        "sit_personaje_O": 0.16666666666666666,
+        "sit_personaje_C": 0.0625,
+        "sit_personaje_E": 0.5416666666666666,
+        "sit_personaje_A": 0.125,
+        "sit_personaje_N": 0.5,
+        "sit_personaje_H": 0.25,
+        "sit_propia": {
+          "n": 156,
+          "contra": 0.17307692307692307
+        },
+        "sit_propia_O": 0.3333333333333333,
+        "sit_propia_C": 0.09375,
+        "sit_propia_E": 0.20833333333333334,
+        "sit_propia_A": 0.08333333333333333,
+        "sit_propia_N": 0.17857142857142858,
+        "sit_propia_H": 0.16666666666666666,
+        "items_claros": 39
+      },
+      "qwen3.8-flash": {
+        "sit_personaje": {
+          "n": 160,
+          "contra": 0.28125
+        },
+        "sit_personaje_O": 0.3,
+        "sit_personaje_C": 0.40625,
+        "sit_personaje_E": 0.42857142857142855,
+        "sit_personaje_A": 0.15,
+        "sit_personaje_N": 0.32142857142857145,
+        "sit_personaje_H": 0.0625,
+        "sit_propia": {
+          "n": 160,
+          "contra": 0.1375
+        },
+        "sit_propia_O": 0.15,
+        "sit_propia_C": 0.21875,
+        "sit_propia_E": 0.25,
+        "sit_propia_A": 0.15,
+        "sit_propia_N": 0.03571428571428571,
+        "sit_propia_H": 0.03125,
+        "items_claros": 40
+      }
+    },
+    "delta_yo_personaje_agregado": {
+      "pp": 11.546184738955825,
+      "ic": [
+        6.805555555555555,
+        17.509114583333332
+      ],
+      "n_pares": 249,
+      "n_items": 48,
+      "frac_pares_pos": 0.2931726907630522,
+      "frac_pares_neg": 0.06827309236947791
+    },
+    "reconoce": {
+      "auto": [
+        17,
+        18
+      ],
+      "sit_personaje": [
+        3,
+        18
+      ],
+      "sit_propia": [
+        6,
+        18
+      ]
+    }
+  }
+}

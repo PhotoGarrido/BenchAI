@@ -1,0 +1,39 @@
+{
+  "commit": "73afadab9d704d57dba98ae46bc382587d93e397",
+  "python": "3.12.4",
+  "parser_version": "2.5",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "alta_personalidad.py",
+    "--modelo",
+    "deepseek/deepseek-v4-flash-0731",
+    "--tope",
+    "0.15",
+    "--hilos",
+    "8"
+  ],
+  "args": {
+    "modelo": "deepseek/deepseek-v4-flash-0731",
+    "forma": "completa",
+    "tope": 0.15,
+    "hilos": 8,
+    "seco": false,
+    "origen": "alta_personalidad.py (PERSONALIDAD.md §41.4)",
+    "fase": "I1-H",
+    "n_pendientes": 288,
+    "version_bateria": "HNF-1",
+    "items_sha256": "6876fc330c0a2982aa9ed39f0394199fdf87f46f6bcf512ed6e153723f7314b3"
+  },
+  "hashes": {},
+  "inicio": "2026-10-24T01:18:30",
+  "status": "completed",
+  "fin": "2026-10-24T01:20:48",
+  "solicitudes": 294,
+  "errores": 0,
+  "fallo_escritura": false,
+  "gasto_estimado": 0.0212
+}

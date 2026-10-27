@@ -1,0 +1,29 @@
+{
+  "commit": "1dcf122bad8b2cd7e1fb01cad722709aeebd34e9",
+  "python": "3.12.4",
+  "parser_version": "2.5",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "experimento_persona_v2.py",
+    "--modelo",
+    "anthropic/claude-haiku-5.5",
+    "--hilos",
+    "6"
+  ],
+  "args": {
+    "modelo": "anthropic/claude-haiku-5.5",
+    "n_tareas": 609,
+    "n_pendientes": 609
+  },
+  "hashes": {},
+  "inicio": "2026-10-12T17:27:44",
+  "status": "completed",
+  "fin": "2026-10-12T17:31:09",
+  "solicitudes": 609,
+  "errores": 0,
+  "fallo_escritura": false
+}

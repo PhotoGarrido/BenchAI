@@ -1,0 +1,38 @@
+{
+  "commit": "56676e582b5177b6f487b7f60bde5c138811e065",
+  "python": "3.12.4",
+  "parser_version": "2.5",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "experimento_personalidad_n_libre.py",
+    "--modelo",
+    "qwen3.6",
+    "--hilos",
+    "1"
+  ],
+  "args": {
+    "modelo": "qwen3.6",
+    "juez": null,
+    "humo": false,
+    "por_faceta": null,
+    "max_tareas": null,
+    "externo": false,
+    "hilos": 1,
+    "plan": false,
+    "version_bateria": "NLB-1",
+    "n_tareas": 96,
+    "n_pendientes": 96,
+    "items_sha256": "a1bab5133665d46166872c82a99d4ca729d51b04f276a77fd5e45d8a42071d24"
+  },
+  "hashes": {},
+  "inicio": "2026-10-22T14:58:40",
+  "status": "completed",
+  "fin": "2026-10-22T15:09:26",
+  "solicitudes": 96,
+  "errores": 0,
+  "fallo_escritura": false
+}

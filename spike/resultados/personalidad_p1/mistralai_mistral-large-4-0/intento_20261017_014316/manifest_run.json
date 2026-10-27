@@ -1,0 +1,36 @@
+{
+  "commit": "1dcf122bad8b2cd7e1fb01cad722709aeebd34e9",
+  "python": "3.12.4",
+  "parser_version": "2.5",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "experimento_personalidad_p1.py",
+    "--modelo",
+    "mistralai/mistral-large-4-0",
+    "--replica-r3",
+    "--brazos",
+    "auto,sit_propia,sit_personaje,sonda",
+    "--hilos",
+    "4"
+  ],
+  "args": {
+    "modelo": "mistralai/mistral-large-4-0",
+    "hilos": 4,
+    "replica_r3": true,
+    "brazos": "auto,sit_propia,sit_personaje,sonda",
+    "version_bateria": "P1",
+    "n_tareas": 1323,
+    "n_pendientes": 3
+  },
+  "hashes": {},
+  "inicio": "2026-10-17T01:43:16",
+  "status": "completed",
+  "fin": "2026-10-17T01:45:43",
+  "solicitudes": 3,
+  "errores": 0,
+  "fallo_escritura": false
+}
