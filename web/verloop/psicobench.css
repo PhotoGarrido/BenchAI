@@ -1,90 +1,22 @@
 /* ===========================================================================
-   BenchAI · PsicoBench «Verloop» · el registro de la página
+   BenchAI · PsicoBench «Verloop» · lo propio de la página
    ---------------------------------------------------------------------------
-   Va ENCIMA de `css/estilo.css` y `css/psicobench.css`, que siguen dando la
-   estructura (barra, rejillas, mapa, tiras, ficha, figuras). Aquí se cambia
-   el registro: `estilo.css` alterna grafito y papel bloque a bloque y pinta
-   con la escala de dureza; la versión nueva tiene un solo registro, negro, y
-   una escala espectral. Como `graficas.js` no escribe colores —los pide a
-   estas variables—, todas las gráficas cambian sin tocar la biblioteca.
-
-   Especificidad: `estilo.css` declara el registro en `body` y en
-   `section:nth-of-type(odd|even)` (0,1,1); aquí se redeclara con
-   `body.verloop` y `.verloop section:nth-of-type(…)` (0,2,1), que ganan sin
-   `!important`.
+   Va DESPUÉS de `verloop/sitio.css` (el registro común) y encima de
+   `css/estilo.css` y `css/psicobench.css`. Aquí: el número de cada sección
+   en su color, la lámina como ficha con su chasquido, las secciones 01–06
+   (componentes, pestañas de eje, mapa en tono, tiras, mapas con nombre,
+   ficha) y sus casos de alto contraste e impresión.
    =========================================================================== */
 
-/* ── tipografía: `graficas.js` mide las etiquetas con `--sans` y `--mono` de
-   :root, así que las familias tienen que estar aquí y no solo en el body ── */
-:root {
-  --display: "Big Shoulders Display", Impact, "Arial Narrow", sans-serif;
-  --sans: "Inter Tight", Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-  --marco: 1320px;
-}
-
-/* ── el registro único ─────────────────────────────────────────────────── */
-body.verloop,
-.verloop section:nth-of-type(odd),
-.verloop section:nth-of-type(even) {
-  --plano: #07070A; --plano-alt: #0B0A10;
-  --sup: #0F0E14; --sup-2: #12111A; --sup-3: #1B1A22;
-  --tinta: #FFFFFF; --tinta-2: #C9C6D4; --tenue: #9A97A6;
-  --linea: #2A2833; --reja: #1B1A22; --base: #3A3846;
-  --anillo: rgba(255, 255, 255, .14);
-
-  /* escala espectral: frío y apagado (poco) → caliente y encendido (mucho).
-     Texto encima: blanco en e0–e1, negro de e2 en adelante (≥ 4,5:1). */
-  --e0: #1F3340; --e1: #1D5873; --e2: #1F86A8; --e3: #3BB8D9; --e4: #6D8BFF;
-  --e5: #9A6BFF; --e6: #C45BE8; --e7: #EE4C9C; --e8: #FF6A55; --e9: #FF9A2E;
-  --sobre-grave: #07070A;
-
-  /* series: A cian, B magenta; la rampa ordinal sigue el orden del ISS */
-  --s1: #4AF2FF; --s2: #FF3D8A; --s3: #FFD36E; --s4: #FF8A1F;
-  --o1: #4AF2FF; --o2: #B46CFF; --o3: #FF3D8A; --o4: #FF8A1F;
-  --humano: var(--tinta-2);
-  --bien: #2FD6A0; --aviso: #FFD36E; --grave: #FF8A1F; --critico: #FF3D8A;
-  --acento: #4AF2FF; --alerta: #FF8A1F;
-}
-
-/* sin papel: ni la reja ni el corte entre bloques del registro claro */
-.verloop section:nth-of-type(even) { background-image: none; }
-.verloop section + section { border-top: 1px solid var(--linea); }
-
-/* ── barra ─────────────────────────────────────────────────────────────── */
-.verloop .barra { background: rgba(7, 7, 10, .8); }
-.verloop .marca { font-family: var(--display); font-weight: 900; font-size: 22px; letter-spacing: .02em; text-transform: uppercase; }
-.verloop .marca .punto { border-radius: 2px; background: linear-gradient(180deg, #FF8A1F 0 25%, #FF3D8A 25% 50%, #B46CFF 50% 75%, #4AF2FF 75% 100%); }
-.verloop .navmini a[aria-current="true"] { color: var(--tinta); background: rgba(255, 255, 255, .08); }
-.verloop .progreso { background: var(--v-espectro); }
-
-/* ── portada: el titular solo, a todo el ancho y con aire ─────────────── */
-/* (antes compartía pantalla con la lámina; desde el 27-10 la lámina y las
-   cifras van en su propio bloque, `.lamina-bloque`, justo debajo) */
-.verloop .portada {
-  isolation: isolate; display: flex; flex-direction: column; justify-content: center;
-  min-height: min(100svh, 1000px); padding-top: 120px; padding-bottom: 96px;
-  /* a sangre: el resplandor ocupa todo el ancho (en el marco se veían sus
-     bordes como un rectángulo) y el texto sigue alineado con las secciones */
-  max-width: none; padding-inline: max(24px, calc((100vw - var(--marco)) / 2 + 24px));
-}
-@media (max-width: 640px) { .verloop .portada { padding-inline: 18px; } }
-.verloop .portada .portada-copia { display: flex; flex-direction: column; gap: 0; max-width: 1240px; }
-.verloop .portada .acciones { margin-top: 8px; }
-.verloop .portada .fondo {
-  inset: 0; height: auto; filter: saturate(1.15); opacity: .75;
-  background:
-    radial-gradient(42% 40% at 80% 28%, rgba(255, 61, 138, .38), transparent 70%),
-    radial-gradient(38% 42% at 18% 82%, rgba(74, 242, 255, .26), transparent 70%),
-    radial-gradient(36% 36% at 56% 60%, rgba(255, 138, 31, .22), transparent 70%),
-    radial-gradient(44% 44% at 92% 92%, rgba(123, 61, 255, .32), transparent 70%);
-}
-.verloop .ceja { font-family: var(--mono); font-weight: 500; letter-spacing: .1em; color: var(--tinta); }
-.verloop .ceja::before { background: var(--v-espectro); }
-.verloop .portada .ceja { margin-bottom: 22px; }
-.verloop .portada h1 { font-size: clamp(52px, 8.2vw, 128px); line-height: .92; letter-spacing: -.005em; font-weight: 900; margin: 0 0 32px; overflow-wrap: break-word; hyphens: manual; }
-.verloop .portada .entradilla { font-size: clamp(15.5px, 1.2vw, 18px); line-height: 1.6; max-width: 66ch; margin: 0 0 32px; }
-@media (max-width: 640px) { .verloop .portada { padding-top: 96px; padding-bottom: 56px; } .verloop .portada h1 { margin-bottom: 24px; } }
+/* ── el número de cada sección, en su color ─────────────────────────────── */
+.verloop #indice { --c-seccion: #4AF2FF; }
+.verloop #ejes { --c-seccion: #FF3D8A; }
+.verloop #mapa { --c-seccion: #FF8A1F; }
+.verloop #sesiones { --c-seccion: #C6FF4A; }
+.verloop #mapas { --c-seccion: #B46CFF; }
+.verloop #ficha { --c-seccion: #FFD36E; }
+.verloop #metodo { --c-seccion: #FFFFFF; }
+.verloop .panel-escalera { box-shadow: none; background: rgba(7, 7, 10, .66); backdrop-filter: blur(16px); border-color: rgba(255, 255, 255, .14); }
 
 /* ── el banco de un vistazo: cifras arriba, lámina y tarjetas debajo ──── */
 .verloop .lamina-bloque { padding: 72px 0 120px; }
@@ -164,53 +96,6 @@ body.verloop,
   .verloop .lm-flecha.ant:hover, .verloop .lm-flecha.sig:hover { transform: none; }
 }
 @media (min-width: 561px) and (max-width: 940px) { .verloop .lamina-bloque .lamina-pie { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); } }
-/* hueco con color transparente, no con el del fondo: así ninguna auditoría
-   de contraste lo lee como texto negro sobre negro */
-.verloop .portada h1 em { color: transparent; -webkit-text-stroke: 2px var(--tinta); }
-@supports not (-webkit-text-stroke: 2px #fff) { .verloop .portada h1 em { color: var(--acento); } }
-
-/* ── grano: una textura de ruido como imagen (img-src data: está en la CSP)
-   sobre la portada y los paneles de color; fuera si se pide contraste ─── */
-.verloop .portada::after {
-  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
-  opacity: .22; mix-blend-mode: overlay; background-image: var(--v-grano);
-}
-@media (prefers-contrast: more) { .verloop .portada::after { display: none; } }
-
-/* ── botones y chips ───────────────────────────────────────────────────── */
-.verloop .boton { border-radius: 999px; min-height: 44px; padding: 0 18px; background: transparent; border-color: rgba(255, 255, 255, .4); }
-.verloop .boton:hover { background: rgba(255, 255, 255, .08); border-color: var(--tinta); }
-.verloop .boton.fuerte, .verloop .boton.fuerte:hover { background: var(--tinta); border-color: var(--tinta); color: var(--plano); }
-.verloop .chip { border-radius: 999px; }
-.verloop .chip.pestana { border-radius: 4px; }
-.verloop .chip.pestana:hover { border-top-color: var(--s2); }
-.verloop .chip.pestana[aria-pressed="true"] { border-top-color: var(--s1); }
-
-/* ── cabeceras de sección: número grande y del color de su bloque ──────── */
-.verloop .rotulo { align-items: flex-end; gap: 18px; margin-bottom: 18px; }
-.verloop .rotulo .indice { font: 900 clamp(56px, 7vw, 112px)/.8 var(--display); letter-spacing: 0; }
-.verloop .rotulo .grupo { font: 500 12px/1 var(--mono); letter-spacing: .1em; color: var(--tenue); padding-bottom: 6px; }
-.verloop #indice .rotulo .indice { color: #4AF2FF; }
-.verloop #ejes .rotulo .indice { color: #FF3D8A; }
-.verloop #mapa .rotulo .indice { color: #FF8A1F; }
-.verloop #sesiones .rotulo .indice { color: #C6FF4A; }
-.verloop #mapas .rotulo .indice { color: #B46CFF; }
-.verloop #ficha .rotulo .indice { color: #FFD36E; }
-.verloop #metodo .rotulo .indice { color: #FFFFFF; }
-.verloop h1, .verloop h2 { font-weight: 900; }
-.verloop h2.titulo { font-size: clamp(40px, 5.2vw, 80px); line-height: .94; letter-spacing: -.005em; max-width: 20ch; overflow-wrap: break-word; }
-.verloop .bajada { font-size: 17px; }
-.verloop section.bloque { padding: 120px 0; }
-@media (max-width: 640px) { .verloop section.bloque { padding: 72px 0; } }
-
-/* ── superficies: esquinas de 4 px en todas las cajas del sistema ──────── */
-.verloop .componente, .verloop .sesion, .verloop .ficha-hoja, .verloop .mapa-envuelto,
-.verloop .panel-escalera, .verloop table.deltas, .verloop .aviso { border-radius: 4px; }
-.verloop .panel-escalera { box-shadow: none; background: rgba(7, 7, 10, .66); backdrop-filter: blur(16px); border-color: rgba(255, 255, 255, .14); }
-.verloop .aviso.frio { background: rgba(255, 61, 138, .06); border-left-color: var(--s2); }
-.verloop .aviso.frio h3 { color: var(--s2); font-family: var(--mono); font-weight: 500; letter-spacing: .1em; }
-.verloop .cita p { font-family: var(--sans); font-style: normal; }
-.verloop footer.pie { background: var(--plano); }
 
 /* ── peldaños: el texto encima, según la luminancia de cada tono ───────── */
 body.verloop section table.mapa td.c.p0, body.verloop section table.mapa td.c.p1,
@@ -223,10 +108,6 @@ body.verloop section .tira td.c.p2 span, body.verloop section .tira td.c.p3 span
 body.verloop section .tira td.c.p4 span, body.verloop section .tira td.c.p5 span,
 body.verloop section .tira td.c.p6 span, body.verloop section .tira td.c.p7 span,
 body.verloop section .tira td.c.p8 span, body.verloop section .tira td.c.p9 span { color: #07070A; }
-
-/* ── el halo de los octógonos (opción `halo` de graficas.js) ───────────── */
-.verloop .radar .halo { fill-opacity: .5; }
-@media (max-width: 767px) { .verloop .radar .halo { display: none; } }
 
 /* ═══ la lámina de la portada (Lámina A · Morph) ═════════════════════════ */
 .lamina { position: relative; z-index: 1; min-width: 0; display: flex; flex-direction: column; gap: 10px; --lm-c: #B46CFF; }
@@ -308,46 +189,10 @@ body.verloop section .tira td.c.p8 span, body.verloop section .tira td.c.p9 span
   .verloop .onda, .verloop .destello { display: none; }
 }
 
-/* ── aviso de versión en preparación (solo existe en la previa) ────────── */
-.v-previa {
-  position: fixed; left: 16px; bottom: 16px; z-index: 80;
-  display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
-  max-width: calc(100vw - 32px); padding: 10px 14px; border-radius: 4px;
-  background: #FFD36E; color: #07070A; font: 600 12.5px/1.3 var(--sans);
-  box-shadow: 0 10px 30px -12px rgba(0, 0, 0, .8);
-}
-.verloop .v-previa a { color: #07070A; text-decoration: underline; }
-/* en el móvil, una línea pegada al borde: que no tape lo que se revisa */
-@media (max-width: 640px) {
-  .v-previa { left: 0; right: 0; bottom: 0; max-width: none; border-radius: 0; padding: 6px 16px; gap: 8px; font-size: 11.5px; }
-}
-
 /* ═══ fase 3: las secciones 01–08 ════════════════════════════════════════
    Cada eje pinta con su tono (TONO en psicobench.js, --v-eje-* aquí) y el
    ISS con su gradiente; los colores por valor llegan en línea desde el JS
    (fondo y tinta de cada celda), y aquí se pone la forma. ─────────────── */
-
-/* ── cabeceras: número, título y entradilla en tres columnas ───────────── */
-@media (min-width: 1000px) {
-  .verloop section.bloque > .marco {
-    display: grid; align-items: end; column-gap: 48px;
-    grid-template-columns: minmax(190px, .42fr) minmax(0, 1.5fr) minmax(0, 1fr);
-  }
-  .verloop section.bloque > .marco > * { grid-column: 1 / -1; min-width: 0; }
-  .verloop section.bloque > .marco > .rotulo {
-    grid-column: 1; grid-row: 1; flex-direction: column; align-items: flex-start; gap: 14px; margin: 0 0 64px;
-  }
-  .verloop section.bloque > .marco > h2.titulo { grid-column: 2; grid-row: 1; margin: 0 0 64px; max-width: 16ch; font-size: clamp(40px, 4.3vw, 68px); }
-  .verloop section.bloque > .marco > .bajada { grid-column: 3; grid-row: 1; margin: 0 0 64px; font-size: 16px; max-width: 48ch; }
-  .verloop .rotulo .grupo { padding-bottom: 0; }
-}
-
-/* ── las notas sueltas de cada sección, a todo el ancho: en la medida de
-   lectura ocupaban seis líneas y dejaban media pantalla vacía (27-10) ── */
-.verloop section.bloque > .marco > .nota { max-width: none; }
-
-/* ── los bigotes: blancos sobre cualquier tono ─────────────────────────── */
-.verloop .ic-l { stroke: #FFFFFF; stroke-opacity: .72; stroke-width: 1.5; }
 
 /* ── 01 · el índice: tarjetas de componente con su rango en el banco ───── */
 .verloop .componentes { gap: 16px; }
@@ -419,77 +264,18 @@ body.verloop section .tira td.c.p8 span, body.verloop section .tira td.c.p9 span
 .verloop .ficha-sec .r { margin-top: 5px; }
 @media (max-width: 640px) { .verloop .ficha-cab .indice-ficha .v { font-size: 52px; } }
 
-/* ── 07 · método: cuatro cajas numeradas y el aviso, en tres columnas ──── */
-.verloop .metodo-cajas { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; counter-reset: caja; }
-.verloop .caja-metodo { counter-increment: caja; background: var(--sup); border: 1px solid var(--linea); border-radius: 4px; padding: 22px 22px 20px; min-width: 0; }
-.verloop .caja-metodo::before { content: counter(caja, decimal-leading-zero); display: block; font: 500 12px/1 var(--mono); letter-spacing: .1em; color: var(--tenue); margin-bottom: 14px; }
-.verloop .caja-metodo h3.mini { font: 900 28px/.95 var(--display); text-transform: uppercase; letter-spacing: .01em; margin: 0 0 12px; }
-.verloop .caja-metodo p { font-size: 14.5px; color: var(--tinta-2); margin: 0 0 .8em; }
-.verloop .caja-metodo p:last-child { margin-bottom: 0; }
-.verloop .caja-metodo p.filtros { margin-top: 14px; }
-.verloop .metodo-cajas .aviso { grid-column: span 2; margin: 0; }
-@media (max-width: 1000px) { .verloop .metodo-cajas { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 640px) { .verloop .metodo-cajas { grid-template-columns: 1fr; } .verloop .metodo-cajas .aviso { grid-column: auto; } }
-.verloop footer.pie h2 { font: 900 28px/1 var(--display); text-transform: uppercase; letter-spacing: .01em; }
 
-/* ═══ fase 4: estados ═══════════════════════════════════════════════════
-   Movimiento reducido ya lo cubren tokens.css y la lámina. Aquí, alto
-   contraste e impresión, que la página vigente no tiene. ─────────────── */
-
-/* ── más contraste: fuera grano, resplandores, cristal y texto hueco ───── */
+/* ── estados propios de la página ─────────────────────────────────────── */
 @media (prefers-contrast: more) {
-  body.verloop, .verloop section:nth-of-type(odd), .verloop section:nth-of-type(even) {
-    --tinta-2: #E6E4EE; --tenue: #C9C6D4; --linea: #6F6C7A; --base: #8A8796; --anillo: rgba(255, 255, 255, .4);
-  }
-  .verloop .portada .fondo, .verloop .lamina::before { display: none; }
-  .verloop .portada h1 em { color: var(--acento); -webkit-text-stroke: 0; }
-  .verloop .barra, .verloop .panel-escalera, .verloop .lamina-modelo, .verloop .ll-caja { backdrop-filter: none; background: var(--plano); }
+  .verloop .lamina::before { display: none; }
+  .verloop .panel-escalera, .verloop .lamina-modelo, .verloop .ll-caja { backdrop-filter: none; background: var(--plano); }
   .verloop .perfil-fino { stroke-opacity: .45; }
-  .verloop .reja-l { stroke-opacity: 1; }
 }
-
-/* ── impresión: registro claro, sin mandos, cada gráfica entera ────────── */
 @media print {
-  @page { margin: 14mm 12mm; }
-  body.verloop, .verloop section:nth-of-type(odd), .verloop section:nth-of-type(even) {
-    --plano: #FFFFFF; --plano-alt: #F4F3F7; --sup: #FFFFFF; --sup-2: #F4F3F7; --sup-3: #E6E4EC;
-    --tinta: #000000; --tinta-2: #26242E; --tenue: #4F4C5A; --linea: #C9C6D4; --reja: #E4E2EA; --base: #9A97A6;
-    --anillo: rgba(0, 0, 0, .25);
-  }
-  /* los tokens propios (tokens.css) también: los enlaces salían en blanco */
-  :root { --v-fondo: #FFFFFF; --v-caja: #FFFFFF; --v-caja-2: #F4F3F7; --v-pista: #E6E4EC; --v-borde: #C9C6D4; --v-borde-2: #9A97A6;
-    --v-texto: #000000; --v-texto-2: #26242E; --v-tenue: #4F4C5A; --v-apagado: #6F6C7A; }
-  .verloop a { color: #000000; }
-  .verloop, .verloop * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  /* el sitio declara color-scheme: dark, y con él Chrome pinta de negro los márgenes de la hoja */
-  :root { color-scheme: light; }
-  html, body.verloop { background: #FFFFFF; color: #000000; }
-  /* fuera lo que solo sirve en pantalla */
-  .verloop .barra, .verloop .progreso, .verloop .v-previa, .verloop .portada .fondo, .verloop .portada::after,
-  .verloop .lamina::before, .verloop .acciones, .verloop .filtros, .verloop .acciones-viz, .verloop .pista-tabla,
-  .verloop #lm-ant, .verloop #lm-sig, .verloop .lamina-polvo, .verloop .ficha-acciones, .verloop .radar .halo { display: none !important; }
-  /* lo que entra al hacer scroll, ya puesto */
-  .verloop .aparece, .verloop .anim-fade { opacity: 1 !important; transform: none !important; transition: none !important; }
-  .verloop .anim-barra { transform: none !important; transition: none !important; }
-  .verloop .portada { padding-top: 0; padding-bottom: 24px; min-height: 0; }
+  .verloop .lamina::before, .verloop #lm-ant, .verloop #lm-sig, .verloop .lamina-polvo, .verloop .ficha-acciones { display: none !important; }
   .verloop .lamina-bloque { padding: 0; break-before: page; }
-  .verloop section.bloque { padding: 0; break-before: page; }
-  .verloop section + section { border-top: 0; }
-  .verloop h2.titulo { font-size: 40px; }
-  /* con interlineado .8 la cifra se sale de su caja por arriba y se pinta al pie de la hoja anterior */
-  .verloop .rotulo .indice { font-size: 56px; line-height: 1; }
-  .verloop h2, .verloop h3 { break-after: avoid; }
-  .verloop .rotulo { break-inside: avoid; }
-  .verloop .componente, .verloop .caja-metodo, .verloop .sesion, .verloop .aviso,
-  .verloop .cifras-eje li, .verloop .ficha-sec li, .verloop .marco-p { break-inside: avoid; }
-  /* las gráficas se dibujan al ancho de la pantalla: en papel, al de la hoja
-     y nunca más altas que ella (un SVG no se parte: si no cabe, se pisa con
-     lo que viene detrás) */
-  .verloop figure.viz svg { width: auto; max-width: 100%; height: auto; max-height: 240mm; }
-  .verloop figure.viz .viz-lienzo { break-inside: avoid; }
-  .verloop .ic-l { stroke: #000000; stroke-opacity: .55; }
+  .verloop .componente, .verloop .sesion, .verloop .cifras-eje li, .verloop .ficha-sec li, .verloop .marco-p { break-inside: avoid; }
   .verloop .lamina-modelo, .verloop .ll-caja, .verloop .panel-escalera { background: #FFFFFF; backdrop-filter: none; }
-  .verloop .portada h1 em { color: #000000; -webkit-text-stroke: 0; text-decoration: underline; text-decoration-thickness: 3px; }
   .verloop .ficha-cab .indice-ficha .v { background: none; color: #000000; }
   /* el mapa entero en la hoja, sin la columna fija */
   .verloop .mapa-envuelto { overflow: visible; max-height: none; }
@@ -499,5 +285,4 @@ body.verloop section .tira td.c.p8 span, body.verloop section .tira td.c.p9 span
   .verloop table.mapa thead th .cab small { white-space: normal; font-size: 7px; }
   .verloop table.mapa td.id .nombre, .verloop table.mapa td.c, .verloop table.mapa td.iss { font-size: 8px; }
   .verloop table.mapa .via, .verloop table.mapa td.iss small { display: none !important; }
-  .verloop .tabla-envuelta { display: none; }
 }
