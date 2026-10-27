@@ -72,7 +72,8 @@
           }
         });
         svg.querySelectorAll((o.circulos || "circle.vertice") + ", text").forEach((n) => {
-          const cs = getComputedStyle(n), r = n.getBoundingClientRect(), c = n.tagName === "text" ? cs.fill : cs.stroke;
+          const cs = getComputedStyle(n), r = n.getBoundingClientRect();
+          const c = n.tagName === "text" || !cs.stroke || cs.stroke === "none" ? cs.fill : cs.stroke;
           const cuantos = Math.round(r.width * r.height / (n.tagName === "text" ? 9 : 4));
           for (let i = 0; i < cuantos; i++) pon(r.left + Math.random() * r.width, r.top + Math.random() * r.height, c, op(cs, "fillOpacity") * 0.9);
         });

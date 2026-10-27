@@ -181,6 +181,40 @@ body.verloop,
 }
 @media (max-width: 640px) { .verloop .vistazo { padding: 40px 0 72px; } .verloop .vistazo .cifras { margin-bottom: 48px; } .verloop .vistazo .cifras li { padding: 16px 14px 18px; } }
 
+/* ── la ficha con flechas (PsicoBench, Personalidad): la escena que se
+   borra, las flechas en los extremos y el lienzo del chasquido encima
+   (verloop/chasquido.js). La caja de la ficha la pone cada página. ───── */
+.verloop .lamina-escena {
+  display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr); gap: 24px 48px; align-items: center;
+  touch-action: pan-y;
+  /* la máscara del chasquido recorta a la caja, y los rótulos del octógono
+     se salen un poco de la suya: holgura por dentro, sin mover nada */
+  padding: 32px 44px; margin: -32px -44px;
+}
+/* las flechas, a caballo del borde de la ficha */
+.verloop .lm-flecha {
+  position: absolute; top: 50%; z-index: 4; width: 52px; height: 52px; padding: 0; border-radius: 50%;
+  display: grid; place-items: center; cursor: pointer;
+  font: 500 22px/1 var(--mono); color: var(--tinta); background: var(--plano);
+  border: 1px solid var(--lm-c); transform: translate(-50%, -50%);
+  transition: background .2s, color .2s, border-color .6s, transform .2s var(--v-facil);
+}
+.verloop .lm-flecha.ant { left: 0; }
+.verloop .lm-flecha.sig { left: 100%; }
+.verloop .lm-flecha:hover { background: var(--lm-c); color: #07070A; }
+.verloop .lm-flecha.ant:hover { transform: translate(calc(-50% - 3px), -50%); }
+.verloop .lm-flecha.sig:hover { transform: translate(calc(-50% + 3px), -50%); }
+.verloop .lm-flecha:focus-visible { outline: 2px solid var(--lm-c); outline-offset: 3px; }
+.verloop .lamina-polvo { position: absolute; top: -60px; left: -180px; width: calc(100% + 360px); height: calc(100% + 120px); pointer-events: none; z-index: 3; }
+@media (max-width: 940px) {
+  .verloop .lamina-escena { grid-template-columns: 1fr; padding: 32px 12px; margin: -32px -12px; }
+  /* en estrecho, arriba en las esquinas: a media altura taparían los rótulos */
+  .verloop .lm-flecha { top: 14px; width: 44px; height: 44px; font-size: 18px; transform: none; }
+  .verloop .lm-flecha.ant { left: 14px; }
+  .verloop .lm-flecha.sig { left: auto; right: 14px; }
+  .verloop .lm-flecha.ant:hover, .verloop .lm-flecha.sig:hover { transform: none; }
+}
+
 /* ═══ secciones ═══════════════════════════════════════════════════════════ */
 
 /* ── cabeceras: número, título y entradilla en tres columnas ───────────── */

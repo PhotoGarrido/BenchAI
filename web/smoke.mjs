@@ -398,6 +398,35 @@ if (PREVIA) RUTAS.push({
   })()`,
 });
 
+// /personalidad-nueva: las MISMAS comprobaciones que /personalidad (el
+// contenido no cambia) y, encima, las de la versión nueva
+if (PREVIA) {
+  const base = RUTAS.find((r) => r.ruta === "/personalidad");
+  const nuevas = `(() => {
+    const f = [];
+    const P = (window.PSICO || {}).personalidad;
+    if (!/noindex/.test(document.querySelector('meta[name="robots"]')?.content || "")) f.push("la previa no lleva noindex");
+    if (document.querySelector(".v-previa a")?.getAttribute("href") !== "/personalidad") f.push("el aviso no lleva a la página vigente");
+    if (!document.body.classList.contains("verloop")) f.push("sin el registro Verloop");
+    if (document.querySelector("#portada #pr-lienzo")) f.push("la ficha sigue dentro de la portada");
+    if (document.querySelectorAll("#perfil.vistazo .cifras li").length !== 4) f.push("las cuatro cifras no están bajo el titular");
+    if (!document.getElementById("lp-ant") || !document.getElementById("lp-sig") || !document.getElementById("lp-polvo")) f.push("faltan las flechas o el lienzo del chasquido");
+    const nombre = document.getElementById("pr-nombre")?.textContent;
+    const m = P && P.modelos.find((x) => x.id.split("/").pop() === nombre);
+    if (!m) f.push("la ficha grande no muestra un modelo del cuadro: " + nombre);
+    else if (document.querySelectorAll("#lp-marcas li:not(.ninguna)").length !== P.rasgos.filter((r) => m.rasgos[r.clave].marca).length) f.push("las marcas de la ficha grande no casan con los datos de " + m.id);
+    const sup = Array.from(document.querySelectorAll(".superficies a")).map((a) => a.getAttribute("href"));
+    if (!sup.includes("/psicobench-nueva") || !sup.includes("/personalidad-nueva")) f.push("el conmutador no lleva a las hermanas nuevas: " + sup.join(" "));
+    if (!document.querySelector('#fichas-host a.iss[href^="/psicobench-nueva#m="]')) f.push("el ISS de las fichas no lleva a /psicobench-nueva");
+    return f;
+  })()`;
+  RUTAS.push({ ...base, ruta: "/personalidad-nueva",
+    aserciones: `(() => [].concat(${base.aserciones}, ${nuevas}))()`,
+    preparar: `(() => { const r = (${base.preparar}); document.getElementById("lp-sig")?.click(); return r; })()`,
+    aserciones2: `(() => [].concat(${base.aserciones2}, document.getElementById("lamina-p").dataset.particulas ? [] : ["la flecha de la ficha no arrancó el chasquido"]))()`,
+  });
+}
+
 /* ── arranque de Chrome con puerto de depuración ─────────────────────────── */
 const perfil = mkdtempSync(join(tmpdir(), "smoke-chrome-"));
 const chrome = spawn(CHROME, [
