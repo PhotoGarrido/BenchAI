@@ -1,0 +1,668 @@
+{
+ "modelos": [
+  "gemma4",
+  "qwen3.6",
+  "qwen3.8-flash",
+  "glm5.3-flash",
+  "mimo-v2.6-flash",
+  "deepseek-v4-flash@2026-10-17"
+ ],
+ "n": {
+  "A/v3": 57,
+  "C/v3": 56,
+  "E/v3": 57,
+  "H/v3": 59,
+  "N/v3": 57,
+  "O/v3": 59,
+  "E/p4": 29,
+  "N/p4": 19
+ },
+ "K1": {
+  "facetas": {
+   "E/cordialidad": {
+    "n": 4,
+    "cuota": 4,
+    "deseab": 0.521,
+    "ok": true
+   },
+   "E/gregarismo": {
+    "n": 2,
+    "cuota": 4,
+    "deseab": 0.5835,
+    "ok": false
+   },
+   "E/asertividad": {
+    "n": 8,
+    "cuota": 8,
+    "deseab": 0.479125,
+    "ok": true
+   },
+   "E/actividad": {
+    "n": 4,
+    "cuota": 4,
+    "deseab": 0.479,
+    "ok": true
+   },
+   "E/busqueda_de_emociones": {
+    "n": 7,
+    "cuota": 8,
+    "deseab": 0.47614285714285715,
+    "ok": false
+   },
+   "E/emociones_positivas": {
+    "n": 4,
+    "cuota": 4,
+    "deseab": 0.4165,
+    "ok": true
+   },
+   "N/ansiedad": {
+    "n": 7,
+    "cuota": 8,
+    "deseab": 0.6072857142857142,
+    "ok": false
+   },
+   "N/hostilidad": {
+    "n": 2,
+    "cuota": 8,
+    "deseab": 0.5415,
+    "ok": false
+   },
+   "N/depresion": {
+    "n": 2,
+    "cuota": 8,
+    "deseab": 0.4165,
+    "ok": false
+   },
+   "N/autoconciencia": {
+    "n": 4,
+    "cuota": 8,
+    "deseab": 0.5627500000000001,
+    "ok": false
+   },
+   "N/impulsividad": {
+    "n": 0,
+    "cuota": 4,
+    "deseab": null,
+    "ok": false
+   },
+   "N/vulnerabilidad": {
+    "n": 4,
+    "cuota": 8,
+    "deseab": 0.5,
+    "ok": false
+   }
+  },
+  "cumple": false
+ },
+ "K2_K7": {
+  "E/p4": {
+   "n": 29,
+   "con_var": 0.6551724137931034,
+   "sd": 4.050621290706216,
+   "sd_ic": [
+    1.0250028851955308,
+    8.652621983614946
+   ],
+   "ir": 0.15679250481614435,
+   "alfa": 0.5626156599824044,
+   "elige_deseable": 0.6796875
+  },
+  "E/v3": {
+   "n": 57,
+   "con_var": 0.6491228070175439,
+   "sd": 2.9128600293428146,
+   "sd_ic": [
+    0.811861072279461,
+    5.855654009702144
+   ],
+   "ir": 0.13404814382332206,
+   "alfa": 0.6078154734562635,
+   "elige_deseable": 0.6396761133603239
+  },
+  "N/p4": {
+   "n": 19,
+   "con_var": 0.5263157894736842,
+   "sd": 0.0,
+   "sd_ic": [
+    0.0,
+    6.2639333434876105
+   ],
+   "ir": -0.09746570466561634,
+   "alfa": -1.0491839928459648,
+   "elige_deseable": 0.7701149425287356
+  },
+  "N/v3": {
+   "n": 57,
+   "con_var": 0.5789473684210527,
+   "sd": 0.0,
+   "sd_ic": [
+    0.0,
+    4.506966119335898
+   ],
+   "ir": -0.015646513406110823,
+   "alfa": -0.6805366747443703,
+   "elige_deseable": 0.708502024291498
+  }
+ },
+ "K5": {
+  "E": {
+   "dentro": 0.036451295319153636,
+   "fuera": 0.0001199906622417707,
+   "misma_faceta": -0.006221607455537634,
+   "otra_faceta": 0.04503637635074832,
+   "cumple": false
+  },
+  "N": {
+   "dentro": -0.01345470937718504,
+   "fuera": -0.0047302009489637855,
+   "misma_faceta": -0.08241080176014355,
+   "otra_faceta": 0.0044227960554338325,
+   "cumple": false
+  }
+ },
+ "veredicto": {
+  "E": {
+   "K2": false,
+   "K3": true,
+   "K4": true,
+   "K5": false,
+   "K7": true,
+   "mejora": false
+  },
+  "N": {
+   "K2": false,
+   "K3": false,
+   "K4": false,
+   "K5": false,
+   "K7": false,
+   "mejora": false
+  }
+ },
+ "bruta": {
+  "K2_K7": {
+   "E/p4": {
+    "n": 29,
+    "con_var": 0.6551724137931034,
+    "sd": 3.467018541886751,
+    "sd_ic": [
+     1.6490303975055638,
+     6.4555921057831815
+    ],
+    "ir": 0.30297095841042865,
+    "alfa": 0.6899852724594993,
+    "elige_deseable": 0.6796875
+   },
+   "E/v3": {
+    "n": 57,
+    "con_var": 0.6491228070175439,
+    "sd": 3.0174149918568887,
+    "sd_ic": [
+     1.676184808157682,
+     4.904848589155396
+    ],
+    "ir": 0.26070479341890357,
+    "alfa": 0.8013040148339245,
+    "elige_deseable": 0.6396761133603239
+   },
+   "N/p4": {
+    "n": 19,
+    "con_var": 0.5263157894736842,
+    "sd": 0.0,
+    "sd_ic": [
+     0.0,
+     5.245116686219193
+    ],
+    "ir": -0.05111860613189063,
+    "alfa": -0.4685508451094485,
+    "elige_deseable": 0.7701149425287356
+   },
+   "N/v3": {
+    "n": 57,
+    "con_var": 0.5789473684210527,
+    "sd": 1.6076649110325862,
+    "sd_ic": [
+     0.0,
+     3.996995513147472
+    ],
+    "ir": 0.1172490223007947,
+    "alfa": 0.4589483957545443,
+    "elige_deseable": 0.708502024291498
+   }
+  },
+  "K5": {
+   "E": {
+    "dentro": 0.11283976435130622,
+    "fuera": 0.04037651791713578,
+    "misma_faceta": 0.0360839294590658,
+    "otra_faceta": 0.12766759609185263,
+    "cumple": false
+   },
+   "N": {
+    "dentro": -0.02009833749509656,
+    "fuera": 0.015754103170679337,
+    "misma_faceta": -0.07493852421255678,
+    "otra_faceta": -0.003968870813490626,
+    "cumple": false
+   }
+  },
+  "veredicto": {
+   "E": {
+    "K2": false,
+    "K3": false,
+    "K4": true,
+    "K5": false,
+    "K7": true,
+    "mejora": false
+   },
+   "N": {
+    "K2": false,
+    "K3": false,
+    "K4": false,
+    "K5": false,
+    "K7": false,
+    "mejora": false
+   }
+  }
+ },
+ "K6": {
+  "r_facetas": 0.9367311161755817,
+  "n_facetas": 66,
+  "r_rasgo": 0.8241153621836194,
+  "n_rasgo": 12,
+  "cumple": false
+ },
+ "K8": {
+  "invalidas": {
+   "gemma4": 0.0,
+   "qwen3.6": 0.0,
+   "qwen3.8-flash": 0.0,
+   "glm5.3-flash": 0.0,
+   "mimo-v2.6-flash": 0.0,
+   "deepseek-v4-flash@2026-10-17": 0.0
+  },
+  "cumple": true
+ },
+ "propuesta_v31": {
+  "ajustada": {
+   "E/cordialidad": {
+    "nuevas": [
+     "P4E048",
+     "P4E045"
+    ],
+    "v3": [
+     "P3E003",
+     "SE6",
+     "P3E004",
+     "P1E05"
+    ]
+   },
+   "E/gregarismo": {
+    "nuevas": [],
+    "v3": [
+     "P3E019",
+     "P1E08",
+     "P3E022",
+     "P1E11",
+     "P1E12",
+     "P3E013"
+    ]
+   },
+   "E/asertividad": {
+    "nuevas": [
+     "P4E013",
+     "P4E003"
+    ],
+    "v3": [
+     "P3E030",
+     "P1E18",
+     "SE4",
+     "P3E026"
+    ]
+   },
+   "E/actividad": {
+    "nuevas": [],
+    "v3": [
+     "P1E22",
+     "P3E045",
+     "P1E20",
+     "P3E043"
+    ]
+   },
+   "E/busqueda_de_emociones": {
+    "nuevas": [
+     "P4E024",
+     "P4E015"
+    ],
+    "v3": [
+     "P1E25",
+     "P3E054",
+     "P3E055",
+     "P3E053",
+     "P3E056",
+     "P1E28"
+    ]
+   },
+   "E/emociones_positivas": {
+    "nuevas": [
+     "P4E056",
+     "P4E055",
+     "P4E053"
+    ],
+    "v3": [
+     "P3E062",
+     "P3E066",
+     "P1E34",
+     "P3E068",
+     "P3E063",
+     "P1E31"
+    ]
+   },
+   "N/ansiedad": {
+    "nuevas": [
+     "P4N003",
+     "P4N001"
+    ],
+    "v3": [
+     "P3N003",
+     "P3N011"
+    ]
+   },
+   "N/hostilidad": {
+    "nuevas": [],
+    "v3": [
+     "P1N12",
+     "P1N09",
+     "P3N091",
+     "P1N07"
+    ]
+   },
+   "N/depresion": {
+    "nuevas": [],
+    "v3": [
+     "P3N035"
+    ]
+   },
+   "N/autoconciencia": {
+    "nuevas": [
+     "P4N046"
+    ],
+    "v3": [
+     "P3N039",
+     "P3N048",
+     "P3N041",
+     "P3N040"
+    ]
+   },
+   "N/impulsividad": {
+    "nuevas": [],
+    "v3": [
+     "P3N088",
+     "P3N081",
+     "P3N050",
+     "P3N085",
+     "P3N076",
+     "P3N056",
+     "P3N077",
+     "P3N087",
+     "P3N073"
+    ]
+   },
+   "N/vulnerabilidad": {
+    "nuevas": [],
+    "v3": [
+     "P1N34",
+     "P3N061",
+     "P3N066",
+     "P1N30"
+    ]
+   }
+  },
+  "bruta": {
+   "E/cordialidad": {
+    "nuevas": [
+     "P4E048",
+     "P4E045",
+     "P4E047"
+    ],
+    "v3": [
+     "P3E007",
+     "P3E003",
+     "SE6",
+     "P3E008",
+     "P1E02",
+     "P3E012",
+     "P1E06"
+    ]
+   },
+   "E/gregarismo": {
+    "nuevas": [],
+    "v3": [
+     "P3E019",
+     "P1E11",
+     "P1E12",
+     "P1E10",
+     "P3E013",
+     "P3E022",
+     "P1E08",
+     "P3E020"
+    ]
+   },
+   "E/asertividad": {
+    "nuevas": [
+     "P4E014",
+     "P4E013",
+     "P4E003"
+    ],
+    "v3": [
+     "P1E13",
+     "P3E030",
+     "SE4"
+    ]
+   },
+   "E/actividad": {
+    "nuevas": [
+     "P4E042"
+    ],
+    "v3": [
+     "P1E20",
+     "P3E042",
+     "P3E045",
+     "P3E046",
+     "P3E043",
+     "P3E041"
+    ]
+   },
+   "E/busqueda_de_emociones": {
+    "nuevas": [
+     "P4E026",
+     "P4E015",
+     "P4E016",
+     "P4E023",
+     "P4E024"
+    ],
+    "v3": [
+     "P1E24",
+     "P3E052",
+     "P3E058"
+    ]
+   },
+   "E/emociones_positivas": {
+    "nuevas": [
+     "P4E056",
+     "P4E053"
+    ],
+    "v3": [
+     "P3E066",
+     "P3E068",
+     "P3E067",
+     "P3E063",
+     "P3E062",
+     "P1E34"
+    ]
+   },
+   "N/ansiedad": {
+    "nuevas": [
+     "P4N003",
+     "P4N005"
+    ],
+    "v3": [
+     "P3N008",
+     "P3N009",
+     "SN1",
+     "P3N004",
+     "P3N006"
+    ]
+   },
+   "N/hostilidad": {
+    "nuevas": [],
+    "v3": [
+     "P3N098",
+     "P3N091",
+     "P1N07",
+     "P1N09",
+     "P3N093",
+     "P1N08",
+     "P3N015",
+     "P1N12",
+     "P3N013"
+    ]
+   },
+   "N/depresion": {
+    "nuevas": [
+     "P4N036"
+    ],
+    "v3": [
+     "P1N14",
+     "P1N17",
+     "P3N035"
+    ]
+   },
+   "N/autoconciencia": {
+    "nuevas": [
+     "P4N046"
+    ],
+    "v3": [
+     "P1N20",
+     "P3N048",
+     "P1N24",
+     "P3N041"
+    ]
+   },
+   "N/impulsividad": {
+    "nuevas": [],
+    "v3": [
+     "P3N087",
+     "P3N077"
+    ]
+   },
+   "N/vulnerabilidad": {
+    "nuevas": [
+     "P4N067",
+     "P4N057"
+    ],
+    "v3": [
+     "P3N067",
+     "P3N061",
+     "P1N30",
+     "P3N062",
+     "P1N34",
+     "P3N071",
+     "P1N32"
+    ]
+   }
+  }
+ },
+ "nuevas_a_externos": [
+  "P4E003",
+  "P4E013",
+  "P4E014",
+  "P4E015",
+  "P4E016",
+  "P4E023",
+  "P4E024",
+  "P4E026",
+  "P4E042",
+  "P4E045",
+  "P4E047",
+  "P4E048",
+  "P4E053",
+  "P4E055",
+  "P4E056",
+  "P4N001",
+  "P4N003",
+  "P4N005",
+  "P4N036",
+  "P4N046",
+  "P4N057",
+  "P4N067"
+ ],
+ "coste": [
+  {
+   "modelo": "anthropic/claude-haiku-5.5",
+   "n_v3": 1214,
+   "tok_in": 287780,
+   "tok_out": 170766,
+   "coste_v3": 0.114161,
+   "llamadas_v31": 132,
+   "coste_v31": 0.012412892915980231
+  },
+  {
+   "modelo": "anthropic/claude-opus-5.5#low",
+   "n_v3": 1248,
+   "tok_in": 296138,
+   "tok_out": 32841,
+   "coste_v3": 1.841372,
+   "llamadas_v31": 132,
+   "coste_v31": 0.1947605
+  },
+  {
+   "modelo": "google/gemini-3.7-flash",
+   "n_v3": 1214,
+   "tok_in": 170792,
+   "tok_out": 344009,
+   "coste_v3": 0.709063875,
+   "llamadas_v31": 132,
+   "coste_v31": 0.07709755477759472
+  },
+  {
+   "modelo": "google/gemini-4-argon",
+   "n_v3": 1248,
+   "tok_in": 220370,
+   "tok_out": 10637,
+   "coste_v3": 0.49359560270838454,
+   "inferido": true,
+   "llamadas_v31": 132,
+   "coste_v31": 0.05220722720954068
+  },
+  {
+   "modelo": "openai/gpt-5.6-luna",
+   "n_v3": 1214,
+   "tok_in": 179796,
+   "tok_out": 17260,
+   "coste_v3": 0.4210520680641861,
+   "inferido": true,
+   "llamadas_v31": 132,
+   "coste_v31": 0.04578160871867592
+  },
+  {
+   "modelo": "openai/gpt-6.1-sol#low",
+   "n_v3": 1248,
+   "tok_in": 184954,
+   "tok_out": 9663,
+   "coste_v3": 0.466538,
+   "llamadas_v31": 132,
+   "coste_v31": 0.04934536538461538
+  },
+  {
+   "modelo": "deepseek/deepseek-v4-pro-0813",
+   "n_v3": 1263,
+   "tok_in": 218043,
+   "tok_out": 228539,
+   "coste_v3": 0.9542174542274294,
+   "inferido": true,
+   "llamadas_v31": 132,
+   "coste_v31": 0.09972818999051519
+  }
+ ],
+ "coste_total": 0.5313333389969221
+}

@@ -1125,3 +1125,22 @@ section:nth-of-type(odd) .firmas .celda-f.grave span { color: #000; }
   .barra .marca { font-size: 0; gap: 0; padding: 10px 6px; }
   .barra .marca .v { display: none; }
 }
+
+/* Cuatro lecturas (24-10-2026: entra Personalidad). En los móviles el
+   conmutador tiene que caber entero sin desplazarse: letra de 11 px sin
+   espaciado y menos relleno lateral (el alto táctil de 36 px se conserva),
+   la marca se queda en su icono por debajo de 520 px y, por debajo de
+   400, cede su sitio —es un enlace a la portada de la misma página— y el
+   conmutador ocupa la barra entera. */
+@media (max-width: 520px) {
+  .barra .marca { font-size: 0; gap: 0; padding: 10px 6px; }
+  .barra .marca .v { display: none; }
+}
+@media (max-width: 430px) {
+  .superficies a { padding: 8px 6px; font-size: 11px; letter-spacing: 0; }
+}
+@media (max-width: 400px) {
+  .barra .marca { display: none; }
+  .superficies { margin-left: 0; flex: 1 1 auto; justify-content: space-between; }
+  .superficies a { padding: 8px 5px; }
+}

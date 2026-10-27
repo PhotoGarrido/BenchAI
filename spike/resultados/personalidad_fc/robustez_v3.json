@@ -1,0 +1,1944 @@
+{
+  "semilla": 20261010,
+  "laboratorios": {
+    "anthropic_claude-haiku-5.5": "anthropic",
+    "anthropic_claude-opus-5.5#low": "anthropic",
+    "deepseek-v4-flash@2026-10-17": "deepseek",
+    "deepseek_deepseek-v4-pro-0813": "deepseek",
+    "gemma4": "google",
+    "glm5.3-flash": "z-ai",
+    "google_gemini-3.7-flash": "google",
+    "google_gemini-4-argon": "google",
+    "mimo-v2.6-flash": "xiaomi",
+    "openai_gpt-5.6-luna": "openai",
+    "openai_gpt-6.1-sol#low": "openai",
+    "qwen3.6": "qwen",
+    "qwen3.8-flash": "qwen"
+  },
+  "marcas": {
+    "anthropic_claude-haiku-5.5|O": {
+      "marca": "▼",
+      "dif": -5.5790960451977405,
+      "ic": [
+        -10.976488935969869,
+        -0.5348104990583845
+      ],
+      "paso": {
+        "P1": true,
+        "P2": false,
+        "P3": false,
+        "P4": false,
+        "P5": false,
+        "P6": 0.0
+      },
+      "fallos": [
+        "P2",
+        "P3",
+        "P4",
+        "P5",
+        "P6"
+      ],
+      "nivel": "no publicable",
+      "motivo": "falla 5 (P2 P3 P4 P5 P6); cae sin qwen",
+      "q78": 0.10884545454545455,
+      "q65": 0.09502380952380952,
+      "p": 0.0307,
+      "p1": {
+        "tasa_signo": 0.965,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [
+        "qwen"
+      ],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "",
+        "AB": "▼",
+        "BA": "",
+        "consenso": "",
+        "sin_ajuste": ""
+      }
+    },
+    "anthropic_claude-haiku-5.5|C": {
+      "marca": "▼",
+      "dif": -8.432539682539682,
+      "ic": [
+        -12.59424603174603,
+        -4.177982390873022
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P4": false,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [
+        "P4"
+      ],
+      "nivel": "frágil",
+      "motivo": "falla P4",
+      "q78": 0.0023399999999999996,
+      "q65": 0.00195,
+      "p": 0.0003,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.545,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "▼",
+        "AB": "▼",
+        "BA": "▼",
+        "consenso": "",
+        "sin_ajuste": ""
+      }
+    },
+    "anthropic_claude-haiku-5.5|A": {
+      "marca": "▼",
+      "dif": -10.069444444444445,
+      "ic": [
+        -15.57108918128655,
+        -4.824561403508773
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P4": true,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [],
+      "nivel": "robusta",
+      "motivo": "pasa P1–P6",
+      "q78": 0.0017333333333333335,
+      "q65": 0.0014444444444444446,
+      "p": 0.0002,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.62,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "▼",
+        "AB": "▼",
+        "BA": "▼",
+        "consenso": "▼",
+        "sin_ajuste": "▼"
+      }
+    },
+    "anthropic_claude-haiku-5.5|N": {
+      "marca": "▲",
+      "dif": 5.171783625730994,
+      "ic": [
+        0.2919407894736844,
+        9.97898391812865
+      ],
+      "paso": {
+        "P1": true,
+        "P2": false,
+        "P3": false,
+        "P4": true,
+        "P5": false,
+        "P6": 0.0
+      },
+      "fallos": [
+        "P2",
+        "P3",
+        "P5",
+        "P6"
+      ],
+      "nivel": "no publicable",
+      "motivo": "N solo descriptivo (§23); cae sin openai",
+      "q78": 0.11212500000000002,
+      "q65": null,
+      "p": 0.0337,
+      "p1": {
+        "tasa_signo": 0.965,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [
+        "openai"
+      ],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▲",
+        "rep1": "",
+        "AB": "▲",
+        "BA": "",
+        "consenso": "▲",
+        "sin_ajuste": "▲"
+      }
+    },
+    "anthropic_claude-haiku-5.5|H": {
+      "marca": "▼",
+      "dif": -14.995291902071562,
+      "ic": [
+        -19.462982580037664,
+        -10.28704684557439
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P4": false,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [
+        "P4"
+      ],
+      "nivel": "frágil",
+      "motivo": "falla P4",
+      "q78": 0.0005571428571428572,
+      "q65": 0.00046428571428571433,
+      "p": 5e-05,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 1.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "▼",
+        "AB": "▼",
+        "BA": "▼",
+        "consenso": "",
+        "sin_ajuste": ""
+      }
+    },
+    "deepseek-v4-flash@2026-10-17|H": {
+      "marca": "▲",
+      "dif": 6.809086629001883,
+      "ic": [
+        2.0477283427495285,
+        11.770833333333329
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P4": false,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [
+        "P4"
+      ],
+      "nivel": "frágil",
+      "motivo": "falla P4",
+      "q78": 0.0277875,
+      "q65": 0.02315625,
+      "p": 0.0057,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▲",
+        "rep1": "▲",
+        "AB": "▲",
+        "BA": "▲",
+        "consenso": "",
+        "sin_ajuste": ""
+      }
+    },
+    "gemma4|O": {
+      "marca": "▲",
+      "dif": 12.323446327683614,
+      "ic": [
+        6.92016831450094,
+        17.950064736346512
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P4": true,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [],
+      "nivel": "robusta",
+      "motivo": "pasa P1–P6",
+      "q78": 0.0005571428571428572,
+      "q65": 0.00046428571428571433,
+      "p": 5e-05,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.91,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▲",
+        "rep1": "▲",
+        "AB": "▲",
+        "BA": "▲",
+        "consenso": "▲",
+        "sin_ajuste": "▲"
+      }
+    },
+    "gemma4|E": {
+      "marca": "▲",
+      "dif": 7.803362573099416,
+      "ic": [
+        3.19718567251462,
+        12.646655701754383
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P4": false,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [
+        "P4"
+      ],
+      "nivel": "frágil",
+      "motivo": "falla P4",
+      "q78": 0.004963636363636364,
+      "q65": 0.004136363636363636,
+      "p": 0.0007,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.415,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▲",
+        "rep1": "▲",
+        "AB": "▲",
+        "BA": "▲",
+        "consenso": "",
+        "sin_ajuste": ""
+      }
+    },
+    "glm5.3-flash|H": {
+      "marca": "▼",
+      "dif": -4.66690207156309,
+      "ic": [
+        -8.822239877589453,
+        -0.6707568267419973
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": false,
+        "P4": false,
+        "P5": false,
+        "P6": 0.0
+      },
+      "fallos": [
+        "P3",
+        "P4",
+        "P5",
+        "P6"
+      ],
+      "nivel": "no publicable",
+      "motivo": "falla 4 (P3 P4 P5 P6); cae sin deepseek, qwen",
+      "q78": 0.07839,
+      "q65": 0.06876315789473685,
+      "p": 0.0201,
+      "p1": {
+        "tasa_signo": 0.99,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [
+        "deepseek",
+        "qwen"
+      ],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "▼",
+        "AB": "▼",
+        "BA": "",
+        "consenso": "",
+        "sin_ajuste": ""
+      }
+    },
+    "google_gemini-3.7-flash|O": {
+      "marca": "▼",
+      "dif": -4.6610169491525415,
+      "ic": [
+        -9.181085216572505,
+        -0.4234345574387966
+      ],
+      "paso": {
+        "P1": true,
+        "P2": false,
+        "P3": false,
+        "P4": true,
+        "P5": false,
+        "P6": 0.0
+      },
+      "fallos": [
+        "P2",
+        "P3",
+        "P5",
+        "P6"
+      ],
+      "nivel": "no publicable",
+      "motivo": "falla 4 (P2 P3 P5 P6); cae sin qwen, xiaomi",
+      "q78": 0.11980799999999998,
+      "q65": 0.10833333333333334,
+      "p": 0.0384,
+      "p1": {
+        "tasa_signo": 0.945,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [
+        "qwen",
+        "xiaomi"
+      ],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "",
+        "rep1": "▼",
+        "AB": "",
+        "BA": "▼",
+        "consenso": "▼",
+        "sin_ajuste": "▼"
+      }
+    },
+    "google_gemini-3.7-flash|C": {
+      "marca": "▲",
+      "dif": 13.572668650793648,
+      "ic": [
+        9.480096726190474,
+        17.591610863095234
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P4": false,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [
+        "P4"
+      ],
+      "nivel": "frágil",
+      "motivo": "falla P4",
+      "q78": 0.0005571428571428572,
+      "q65": 0.00046428571428571433,
+      "p": 5e-05,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 1.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▲",
+        "rep1": "▲",
+        "AB": "▲",
+        "BA": "▲",
+        "consenso": "",
+        "sin_ajuste": ""
+      }
+    },
+    "google_gemini-3.7-flash|A": {
+      "marca": "▲",
+      "dif": 12.97514619883041,
+      "ic": [
+        8.861933479532164,
+        17.033534356725138
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P4": true,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [],
+      "nivel": "robusta",
+      "motivo": "pasa P1–P6",
+      "q78": 0.0005571428571428572,
+      "q65": 0.00046428571428571433,
+      "p": 5e-05,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 1.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▲",
+        "rep1": "▲",
+        "AB": "▲",
+        "BA": "▲",
+        "consenso": "▲",
+        "sin_ajuste": "▲"
+      }
+    },
+    "google_gemini-3.7-flash|H": {
+      "marca": "▲",
+      "dif": 5.4319679849340865,
+      "ic": [
+        1.3943326271186436,
+        9.140330743879467
+      ],
+      "paso": {
+        "P1": true,
+        "P2": false,
+        "P3": false,
+        "P4": false,
+        "P5": false,
+        "P6": 1.0
+      },
+      "fallos": [
+        "P2",
+        "P3",
+        "P4",
+        "P5"
+      ],
+      "nivel": "no publicable",
+      "motivo": "falla 4 (P2 P3 P4 P5); cae sin anthropic",
+      "q78": 0.0277875,
+      "q65": 0.02315625,
+      "p": 0.0057,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.05,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [
+        "anthropic"
+      ],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▲",
+        "rep1": "",
+        "AB": "▲",
+        "BA": "",
+        "consenso": "",
+        "sin_ajuste": ""
+      }
+    },
+    "google_gemini-4-argon|O": {
+      "marca": "▼",
+      "dif": -10.39901129943503,
+      "ic": [
+        -14.98984816384181,
+        -5.38400423728814
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P4": true,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [],
+      "nivel": "robusta",
+      "motivo": "pasa P1–P6",
+      "q78": 0.0005571428571428572,
+      "q65": 0.00046428571428571433,
+      "p": 5e-05,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.815,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "▼",
+        "AB": "▼",
+        "BA": "▼",
+        "consenso": "▼",
+        "sin_ajuste": "▼"
+      }
+    },
+    "google_gemini-4-argon|H": {
+      "marca": "▼",
+      "dif": -4.819915254237289,
+      "ic": [
+        -9.676465395480225,
+        -0.0688559322033995
+      ],
+      "paso": {
+        "P1": true,
+        "P2": false,
+        "P3": false,
+        "P4": false,
+        "P5": false,
+        "P6": 0.0
+      },
+      "fallos": [
+        "P2",
+        "P3",
+        "P4",
+        "P5",
+        "P6"
+      ],
+      "nivel": "no publicable",
+      "motivo": "falla 5 (P2 P3 P4 P5 P6); cae sin deepseek, google, qwen, xiaomi",
+      "q78": 0.12000000000000001,
+      "q65": 0.10833333333333334,
+      "p": 0.04,
+      "p1": {
+        "tasa_signo": 0.95,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [
+        "deepseek",
+        "google",
+        "qwen",
+        "xiaomi"
+      ],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "",
+        "rep1": "",
+        "AB": "",
+        "BA": "▼",
+        "consenso": "",
+        "sin_ajuste": ""
+      }
+    },
+    "mimo-v2.6-flash|O": {
+      "marca": "▲",
+      "dif": 6.3559322033898304,
+      "ic": [
+        1.3594632768361583,
+        10.740348399246702
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P4": true,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [],
+      "nivel": "robusta",
+      "motivo": "pasa P1–P6",
+      "q78": 0.0377,
+      "q65": 0.03141666666666667,
+      "p": 0.0087,
+      "p1": {
+        "tasa_signo": 0.995,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▲",
+        "rep1": "▲",
+        "AB": "▲",
+        "BA": "▲",
+        "consenso": "▲",
+        "sin_ajuste": "▲"
+      }
+    },
+    "mimo-v2.6-flash|C": {
+      "marca": "▼",
+      "dif": -10.125248015873016,
+      "ic": [
+        -15.123387896825397,
+        -5.263826884920636
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P4": false,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [
+        "P4"
+      ],
+      "nivel": "frágil",
+      "motivo": "falla P4",
+      "q78": 0.0005571428571428572,
+      "q65": 0.00046428571428571433,
+      "p": 5e-05,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.875,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "▼",
+        "AB": "▼",
+        "BA": "▼",
+        "consenso": "",
+        "sin_ajuste": ""
+      }
+    },
+    "openai_gpt-5.6-luna|O": {
+      "marca": "▼",
+      "dif": -6.038135593220338,
+      "ic": [
+        -10.599105461393599,
+        -1.776277071563094
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": false,
+        "P4": false,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [
+        "P3",
+        "P4"
+      ],
+      "nivel": "no publicable",
+      "motivo": "se invierte en consenso, sin_ajuste",
+      "q78": 0.028905882352941177,
+      "q65": 0.024088235294117646,
+      "p": 0.0063,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.03,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [
+        "consenso",
+        "sin_ajuste"
+      ],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "▼",
+        "AB": "",
+        "BA": "▼",
+        "consenso": "▲",
+        "sin_ajuste": "▲"
+      }
+    },
+    "openai_gpt-5.6-luna|E": {
+      "marca": "▼",
+      "dif": -4.312865497076023,
+      "ic": [
+        -8.096217105263158,
+        -0.6569809941520519
+      ],
+      "paso": {
+        "P1": true,
+        "P2": false,
+        "P3": false,
+        "P4": false,
+        "P5": false,
+        "P6": 0.0
+      },
+      "fallos": [
+        "P2",
+        "P3",
+        "P4",
+        "P5",
+        "P6"
+      ],
+      "nivel": "no publicable",
+      "motivo": "falla 5 (P2 P3 P4 P5 P6); cae sin google",
+      "q78": 0.10214285714285715,
+      "q65": 0.08937500000000001,
+      "p": 0.0275,
+      "p1": {
+        "tasa_signo": 0.975,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [
+        "google"
+      ],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "",
+        "AB": "",
+        "BA": "▼",
+        "consenso": "",
+        "sin_ajuste": ""
+      }
+    },
+    "openai_gpt-5.6-luna|N": {
+      "marca": "▼",
+      "dif": -4.093567251461988,
+      "ic": [
+        -8.224141081871347,
+        -0.16401681286549935
+      ],
+      "paso": {
+        "P1": true,
+        "P2": false,
+        "P3": false,
+        "P4": false,
+        "P5": false,
+        "P6": 0.0
+      },
+      "fallos": [
+        "P2",
+        "P3",
+        "P4",
+        "P5",
+        "P6"
+      ],
+      "nivel": "no publicable",
+      "motivo": "N solo descriptivo (§23); cae sin anthropic, xiaomi, z-ai",
+      "q78": 0.1326,
+      "q65": null,
+      "p": 0.0459,
+      "p1": {
+        "tasa_signo": 0.94,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [
+        "anthropic",
+        "xiaomi",
+        "z-ai"
+      ],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "",
+        "rep1": "▼",
+        "AB": "",
+        "BA": "▼",
+        "consenso": "",
+        "sin_ajuste": ""
+      }
+    },
+    "openai_gpt-6.1-sol#low|C": {
+      "marca": "▼",
+      "dif": -6.981646825396825,
+      "ic": [
+        -11.615203373015872,
+        -2.665860615079367
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P4": true,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [],
+      "nivel": "robusta",
+      "motivo": "pasa P1–P6",
+      "q78": 0.010199999999999999,
+      "q65": 0.008499999999999999,
+      "p": 0.0017,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.245,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "▼",
+        "AB": "▼",
+        "BA": "▼",
+        "consenso": "▼",
+        "sin_ajuste": "▼"
+      }
+    },
+    "openai_gpt-6.1-sol#low|E": {
+      "marca": "▼",
+      "dif": -7.638888888888888,
+      "ic": [
+        -12.390350877192983,
+        -3.106725146198831
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P4": false,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [
+        "P4"
+      ],
+      "nivel": "frágil",
+      "motivo": "falla P4",
+      "q78": 0.00715,
+      "q65": 0.005958333333333334,
+      "p": 0.0011,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.43,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "▼",
+        "AB": "▼",
+        "BA": "▼",
+        "consenso": "",
+        "sin_ajuste": ""
+      }
+    },
+    "openai_gpt-6.1-sol#low|A": {
+      "marca": "▼",
+      "dif": -5.317982456140351,
+      "ic": [
+        -10.16218932748538,
+        -0.3284904970760256
+      ],
+      "paso": {
+        "P1": true,
+        "P2": false,
+        "P3": false,
+        "P4": false,
+        "P5": false,
+        "P6": 0.0
+      },
+      "fallos": [
+        "P2",
+        "P3",
+        "P4",
+        "P5",
+        "P6"
+      ],
+      "nivel": "no publicable",
+      "motivo": "falla 5 (P2 P3 P4 P5 P6); cae sin google",
+      "q78": 0.11212500000000002,
+      "q65": 0.10193181818181819,
+      "p": 0.0345,
+      "p1": {
+        "tasa_signo": 0.965,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [
+        "google"
+      ],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "",
+        "rep1": "▼",
+        "AB": "",
+        "BA": "▼",
+        "consenso": "",
+        "sin_ajuste": ""
+      }
+    },
+    "openai_gpt-6.1-sol#low|N": {
+      "marca": "▼",
+      "dif": -5.9941520467836265,
+      "ic": [
+        -11.166849415204679,
+        -1.095577485380122
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": false,
+        "P4": false,
+        "P5": true,
+        "P6": 0.0
+      },
+      "fallos": [
+        "P3",
+        "P4",
+        "P6"
+      ],
+      "nivel": "no publicable",
+      "motivo": "N solo descriptivo (§23)",
+      "q78": 0.07430526315789475,
+      "q65": null,
+      "p": 0.0181,
+      "p1": {
+        "tasa_signo": 0.985,
+        "tasa_sig_ambas": 0.0,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▼",
+        "rep1": "▼",
+        "AB": "",
+        "BA": "▼",
+        "consenso": "",
+        "sin_ajuste": ""
+      }
+    },
+    "qwen3.6|O": {
+      "marca": "▲",
+      "dif": 8.192090395480228,
+      "ic": [
+        2.6415371939736345,
+        13.836658427495289
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": false,
+        "P4": false,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [
+        "P3",
+        "P4"
+      ],
+      "nivel": "frágil",
+      "motivo": "falla P3 P4",
+      "q78": 0.012814285714285714,
+      "q65": 0.010678571428571428,
+      "p": 0.0023,
+      "p1": {
+        "tasa_signo": 0.995,
+        "tasa_sig_ambas": 0.16,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▲",
+        "rep1": "▲",
+        "AB": "▲",
+        "BA": "",
+        "consenso": "",
+        "sin_ajuste": ""
+      }
+    },
+    "qwen3.6|C": {
+      "marca": "▲",
+      "dif": 11.15451388888889,
+      "ic": [
+        5.927269345238095,
+        16.32595486111111
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P4": false,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [
+        "P4"
+      ],
+      "nivel": "frágil",
+      "motivo": "falla P4",
+      "q78": 0.0017333333333333335,
+      "q65": 0.0014444444444444446,
+      "p": 0.0002,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.77,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▲",
+        "rep1": "▲",
+        "AB": "▲",
+        "BA": "▲",
+        "consenso": "",
+        "sin_ajuste": ""
+      }
+    },
+    "qwen3.6|H": {
+      "marca": "▲",
+      "dif": 11.858521657250472,
+      "ic": [
+        6.6265007062146895,
+        17.01403601694915
+      ],
+      "paso": {
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P4": false,
+        "P5": true,
+        "P6": 1.0
+      },
+      "fallos": [
+        "P4"
+      ],
+      "nivel": "frágil",
+      "motivo": "falla P4",
+      "q78": 0.0005571428571428572,
+      "q65": 0.00046428571428571433,
+      "p": 5e-05,
+      "p1": {
+        "tasa_signo": 1.0,
+        "tasa_sig_ambas": 0.86,
+        "tasa_half_invertida": 0.0
+      },
+      "cae_sin_lab": [],
+      "invierte_en": [],
+      "variantes": {
+        "rep0": "▲",
+        "rep1": "▲",
+        "AB": "▲",
+        "BA": "▲",
+        "consenso": "",
+        "sin_ajuste": ""
+      }
+    }
+  },
+  "marcas_nuevas": [
+    {
+      "variante": "consenso",
+      "modelo": "anthropic_claude-opus-5.5#low",
+      "rasgo": "C"
+    },
+    {
+      "variante": "sin_ajuste",
+      "modelo": "anthropic_claude-opus-5.5#low",
+      "rasgo": "C"
+    },
+    {
+      "variante": "BA",
+      "modelo": "anthropic_claude-opus-5.5#low",
+      "rasgo": "H"
+    },
+    {
+      "variante": "sin anthropic",
+      "modelo": "anthropic_claude-opus-5.5#low",
+      "rasgo": "H"
+    },
+    {
+      "variante": "consenso",
+      "modelo": "anthropic_claude-opus-5.5#low",
+      "rasgo": "O"
+    },
+    {
+      "variante": "consenso",
+      "modelo": "deepseek-v4-flash@2026-10-17",
+      "rasgo": "A"
+    },
+    {
+      "variante": "sin_ajuste",
+      "modelo": "deepseek-v4-flash@2026-10-17",
+      "rasgo": "A"
+    },
+    {
+      "variante": "consenso",
+      "modelo": "deepseek-v4-flash@2026-10-17",
+      "rasgo": "E"
+    },
+    {
+      "variante": "sin_ajuste",
+      "modelo": "deepseek-v4-flash@2026-10-17",
+      "rasgo": "E"
+    },
+    {
+      "variante": "AB",
+      "modelo": "deepseek_deepseek-v4-pro-0813",
+      "rasgo": "A"
+    },
+    {
+      "variante": "BA",
+      "modelo": "deepseek_deepseek-v4-pro-0813",
+      "rasgo": "A"
+    },
+    {
+      "variante": "consenso",
+      "modelo": "deepseek_deepseek-v4-pro-0813",
+      "rasgo": "A"
+    },
+    {
+      "variante": "sin_ajuste",
+      "modelo": "deepseek_deepseek-v4-pro-0813",
+      "rasgo": "A"
+    },
+    {
+      "variante": "AB",
+      "modelo": "deepseek_deepseek-v4-pro-0813",
+      "rasgo": "C"
+    },
+    {
+      "variante": "BA",
+      "modelo": "deepseek_deepseek-v4-pro-0813",
+      "rasgo": "C"
+    },
+    {
+      "variante": "AB",
+      "modelo": "deepseek_deepseek-v4-pro-0813",
+      "rasgo": "E"
+    },
+    {
+      "variante": "BA",
+      "modelo": "deepseek_deepseek-v4-pro-0813",
+      "rasgo": "E"
+    },
+    {
+      "variante": "AB",
+      "modelo": "deepseek_deepseek-v4-pro-0813",
+      "rasgo": "H"
+    },
+    {
+      "variante": "BA",
+      "modelo": "deepseek_deepseek-v4-pro-0813",
+      "rasgo": "H"
+    },
+    {
+      "variante": "AB",
+      "modelo": "deepseek_deepseek-v4-pro-0813",
+      "rasgo": "N"
+    },
+    {
+      "variante": "BA",
+      "modelo": "deepseek_deepseek-v4-pro-0813",
+      "rasgo": "N"
+    },
+    {
+      "variante": "consenso",
+      "modelo": "deepseek_deepseek-v4-pro-0813",
+      "rasgo": "N"
+    },
+    {
+      "variante": "sin_ajuste",
+      "modelo": "deepseek_deepseek-v4-pro-0813",
+      "rasgo": "N"
+    },
+    {
+      "variante": "AB",
+      "modelo": "deepseek_deepseek-v4-pro-0813",
+      "rasgo": "O"
+    },
+    {
+      "variante": "BA",
+      "modelo": "deepseek_deepseek-v4-pro-0813",
+      "rasgo": "O"
+    },
+    {
+      "variante": "consenso",
+      "modelo": "gemma4",
+      "rasgo": "A"
+    },
+    {
+      "variante": "sin_ajuste",
+      "modelo": "gemma4",
+      "rasgo": "A"
+    },
+    {
+      "variante": "consenso",
+      "modelo": "gemma4",
+      "rasgo": "C"
+    },
+    {
+      "variante": "sin_ajuste",
+      "modelo": "gemma4",
+      "rasgo": "C"
+    },
+    {
+      "variante": "sin deepseek",
+      "modelo": "gemma4",
+      "rasgo": "H"
+    },
+    {
+      "variante": "sin qwen",
+      "modelo": "gemma4",
+      "rasgo": "H"
+    },
+    {
+      "variante": "sin xiaomi",
+      "modelo": "gemma4",
+      "rasgo": "H"
+    },
+    {
+      "variante": "consenso",
+      "modelo": "glm5.3-flash",
+      "rasgo": "E"
+    },
+    {
+      "variante": "sin_ajuste",
+      "modelo": "glm5.3-flash",
+      "rasgo": "E"
+    },
+    {
+      "variante": "consenso",
+      "modelo": "glm5.3-flash",
+      "rasgo": "N"
+    },
+    {
+      "variante": "sin_ajuste",
+      "modelo": "glm5.3-flash",
+      "rasgo": "N"
+    },
+    {
+      "variante": "consenso",
+      "modelo": "glm5.3-flash",
+      "rasgo": "O"
+    },
+    {
+      "variante": "sin_ajuste",
+      "modelo": "glm5.3-flash",
+      "rasgo": "O"
+    },
+    {
+      "variante": "consenso",
+      "modelo": "google_gemini-3.7-flash",
+      "rasgo": "E"
+    },
+    {
+      "variante": "sin_ajuste",
+      "modelo": "google_gemini-3.7-flash",
+      "rasgo": "E"
+    },
+    {
+      "variante": "AB",
+      "modelo": "mimo-v2.6-flash",
+      "rasgo": "A"
+    },
+    {
+      "variante": "consenso",
+      "modelo": "mimo-v2.6-flash",
+      "rasgo": "E"
+    },
+    {
+      "variante": "sin_ajuste",
+      "modelo": "mimo-v2.6-flash",
+      "rasgo": "E"
+    },
+    {
+      "variante": "AB",
+      "modelo": "mimo-v2.6-flash",
+      "rasgo": "H"
+    },
+    {
+      "variante": "sin deepseek",
+      "modelo": "mimo-v2.6-flash",
+      "rasgo": "H"
+    },
+    {
+      "variante": "sin qwen",
+      "modelo": "mimo-v2.6-flash",
+      "rasgo": "H"
+    },
+    {
+      "variante": "consenso",
+      "modelo": "openai_gpt-5.6-luna",
+      "rasgo": "A"
+    },
+    {
+      "variante": "sin_ajuste",
+      "modelo": "openai_gpt-5.6-luna",
+      "rasgo": "A"
+    },
+    {
+      "variante": "BA",
+      "modelo": "openai_gpt-5.6-luna",
+      "rasgo": "H"
+    },
+    {
+      "variante": "sin anthropic",
+      "modelo": "openai_gpt-5.6-luna",
+      "rasgo": "H"
+    },
+    {
+      "variante": "consenso",
+      "modelo": "openai_gpt-6.1-sol#low",
+      "rasgo": "H"
+    },
+    {
+      "variante": "sin_ajuste",
+      "modelo": "openai_gpt-6.1-sol#low",
+      "rasgo": "H"
+    },
+    {
+      "variante": "BA",
+      "modelo": "qwen3.6",
+      "rasgo": "A"
+    },
+    {
+      "variante": "BA",
+      "modelo": "qwen3.6",
+      "rasgo": "E"
+    },
+    {
+      "variante": "sin openai",
+      "modelo": "qwen3.6",
+      "rasgo": "E"
+    },
+    {
+      "variante": "consenso",
+      "modelo": "qwen3.8-flash",
+      "rasgo": "A"
+    },
+    {
+      "variante": "sin google",
+      "modelo": "qwen3.8-flash",
+      "rasgo": "A"
+    },
+    {
+      "variante": "sin_ajuste",
+      "modelo": "qwen3.8-flash",
+      "rasgo": "A"
+    },
+    {
+      "variante": "AB",
+      "modelo": "qwen3.8-flash",
+      "rasgo": "H"
+    },
+    {
+      "variante": "rep0",
+      "modelo": "qwen3.8-flash",
+      "rasgo": "H"
+    },
+    {
+      "variante": "sin anthropic",
+      "modelo": "qwen3.8-flash",
+      "rasgo": "H"
+    }
+  ],
+  "consenso_igual_sin_ajuste_max": 1.7763568394002505e-15,
+  "puntuacion_alternativa": {
+    "anthropic_claude-haiku-5.5|O": {
+      "propia": 45.97457627118644,
+      "consenso": 51.61342894393742,
+      "sin_ajuste": 80.29661016949153
+    },
+    "anthropic_claude-haiku-5.5|C": {
+      "propia": 30.580357142857142,
+      "consenso": 38.993818681318686,
+      "sin_ajuste": 61.83035714285714
+    },
+    "anthropic_claude-haiku-5.5|E": {
+      "propia": 42.324561403508774,
+      "consenso": 42.3582995951417,
+      "sin_ajuste": 68.20175438596492
+    },
+    "anthropic_claude-haiku-5.5|A": {
+      "propia": 25.438596491228072,
+      "consenso": 28.34008097165992,
+      "sin_ajuste": 55.70175438596491
+    },
+    "anthropic_claude-haiku-5.5|N": {
+      "propia": 55.48245614035088,
+      "consenso": 55.81983805668016,
+      "sin_ajuste": 80.48245614035088
+    },
+    "anthropic_claude-haiku-5.5|H": {
+      "propia": 25.847457627118644,
+      "consenso": 37.777053455019555,
+      "sin_ajuste": 67.37288135593221
+    },
+    "anthropic_claude-opus-5.5#low|O": {
+      "propia": 50.21186440677966,
+      "consenso": 55.003259452411996,
+      "sin_ajuste": 83.6864406779661
+    },
+    "anthropic_claude-opus-5.5#low|C": {
+      "propia": 38.16964285714286,
+      "consenso": 33.190247252747255,
+      "sin_ajuste": 56.026785714285715
+    },
+    "anthropic_claude-opus-5.5#low|E": {
+      "propia": 41.228070175438596,
+      "consenso": 42.13900134952767,
+      "sin_ajuste": 67.98245614035088
+    },
+    "anthropic_claude-opus-5.5#low|A": {
+      "propia": 32.89473684210526,
+      "consenso": 37.989203778677464,
+      "sin_ajuste": 65.35087719298245
+    },
+    "anthropic_claude-opus-5.5#low|N": {
+      "propia": 51.973684210526315,
+      "consenso": 49.24089068825911,
+      "sin_ajuste": 73.90350877192982
+    },
+    "anthropic_claude-opus-5.5#low|H": {
+      "propia": 35.80508474576271,
+      "consenso": 42.64993481095176,
+      "sin_ajuste": 72.2457627118644
+    },
+    "deepseek-v4-flash@2026-10-17|O": {
+      "propia": 48.516949152542374,
+      "consenso": 50.34224250325945,
+      "sin_ajuste": 79.02542372881356
+    },
+    "deepseek-v4-flash@2026-10-17|C": {
+      "propia": 36.38392857142857,
+      "consenso": 35.42239010989011,
+      "sin_ajuste": 58.25892857142857
+    },
+    "deepseek-v4-flash@2026-10-17|E": {
+      "propia": 41.00877192982456,
+      "consenso": 34.463562753036435,
+      "sin_ajuste": 60.30701754385965
+    },
+    "deepseek-v4-flash@2026-10-17|A": {
+      "propia": 37.93859649122807,
+      "consenso": 31.629554655870447,
+      "sin_ajuste": 58.99122807017544
+    },
+    "deepseek-v4-flash@2026-10-17|N": {
+      "propia": 52.19298245614035,
+      "consenso": 50.77597840755735,
+      "sin_ajuste": 75.43859649122807
+    },
+    "deepseek-v4-flash@2026-10-17|H": {
+      "propia": 45.97457627118644,
+      "consenso": 40.955019556714475,
+      "sin_ajuste": 70.55084745762713
+    },
+    "deepseek_deepseek-v4-pro-0813|O": {
+      "propia": 51.059322033898304,
+      "consenso": 49.494784876140805,
+      "sin_ajuste": 78.17796610169492
+    },
+    "deepseek_deepseek-v4-pro-0813|C": {
+      "propia": 36.38392857142857,
+      "consenso": 40.333104395604394,
+      "sin_ajuste": 63.16964285714286
+    },
+    "deepseek_deepseek-v4-pro-0813|E": {
+      "propia": 42.54385964912281,
+      "consenso": 38.630229419703106,
+      "sin_ajuste": 64.47368421052632
+    },
+    "deepseek_deepseek-v4-pro-0813|A": {
+      "propia": 35.96491228070175,
+      "consenso": 39.743589743589745,
+      "sin_ajuste": 67.10526315789474
+    },
+    "deepseek_deepseek-v4-pro-0813|N": {
+      "propia": 49.3421052631579,
+      "consenso": 46.60931174089069,
+      "sin_ajuste": 71.2719298245614
+    },
+    "deepseek_deepseek-v4-pro-0813|H": {
+      "propia": 42.58474576271186,
+      "consenso": 40.531290743155154,
+      "sin_ajuste": 70.12711864406779
+    },
+    "gemma4|O": {
+      "propia": 62.5,
+      "consenso": 55.42698826597132,
+      "sin_ajuste": 84.11016949152543
+    },
+    "gemma4|C": {
+      "propia": 40.17857142857143,
+      "consenso": 44.574175824175825,
+      "sin_ajuste": 67.41071428571428
+    },
+    "gemma4|E": {
+      "propia": 47.58771929824562,
+      "consenso": 37.09514170040486,
+      "sin_ajuste": 62.93859649122807
+    },
+    "gemma4|A": {
+      "propia": 32.675438596491226,
+      "consenso": 29.436572199730097,
+      "sin_ajuste": 56.79824561403509
+    },
+    "gemma4|N": {
+      "propia": 52.85087719298246,
+      "consenso": 53.62685560053981,
+      "sin_ajuste": 78.28947368421052
+    },
+    "gemma4|H": {
+      "propia": 43.22033898305085,
+      "consenso": 36.92959582790091,
+      "sin_ajuste": 66.52542372881356
+    },
+    "glm5.3-flash|O": {
+      "propia": 54.02542372881356,
+      "consenso": 55.003259452411996,
+      "sin_ajuste": 83.6864406779661
+    },
+    "glm5.3-flash|C": {
+      "propia": 39.95535714285714,
+      "consenso": 38.993818681318686,
+      "sin_ajuste": 61.83035714285714
+    },
+    "glm5.3-flash|E": {
+      "propia": 38.37719298245614,
+      "consenso": 37.53373819163293,
+      "sin_ajuste": 63.37719298245614
+    },
+    "glm5.3-flash|A": {
+      "propia": 31.578947368421055,
+      "consenso": 34.4804318488529,
+      "sin_ajuste": 61.84210526315789
+    },
+    "glm5.3-flash|N": {
+      "propia": 52.19298245614035,
+      "consenso": 47.26720647773279,
+      "sin_ajuste": 71.9298245614035
+    },
+    "glm5.3-flash|H": {
+      "propia": 35.38135593220339,
+      "consenso": 40.10756192959583,
+      "sin_ajuste": 69.70338983050847
+    },
+    "google_gemini-3.7-flash|O": {
+      "propia": 46.82203389830509,
+      "consenso": 36.782920469361144,
+      "sin_ajuste": 65.46610169491525
+    },
+    "google_gemini-3.7-flash|C": {
+      "propia": 50.892857142857146,
+      "consenso": 38.770604395604394,
+      "sin_ajuste": 61.60714285714286
+    },
+    "google_gemini-3.7-flash|E": {
+      "propia": 44.51754385964912,
+      "consenso": 52.44601889338731,
+      "sin_ajuste": 78.28947368421052
+    },
+    "google_gemini-3.7-flash|A": {
+      "propia": 46.71052631578947,
+      "consenso": 46.9804318488529,
+      "sin_ajuste": 74.34210526315789
+    },
+    "google_gemini-3.7-flash|N": {
+      "propia": 50.219298245614034,
+      "consenso": 47.9251012145749,
+      "sin_ajuste": 72.58771929824562
+    },
+    "google_gemini-3.7-flash|H": {
+      "propia": 44.70338983050848,
+      "consenso": 36.71773142112125,
+      "sin_ajuste": 66.3135593220339
+    },
+    "google_gemini-4-argon|O": {
+      "propia": 41.52542372881356,
+      "consenso": 43.77444589308996,
+      "sin_ajuste": 72.45762711864407
+    },
+    "google_gemini-4-argon|C": {
+      "propia": 38.69047619047619,
+      "consenso": 36.389652014652015,
+      "sin_ajuste": 59.226190476190474
+    },
+    "google_gemini-4-argon|E": {
+      "propia": 38.15789473684211,
+      "consenso": 38.19163292847503,
+      "sin_ajuste": 64.03508771929825
+    },
+    "google_gemini-4-argon|A": {
+      "propia": 35.526315789473685,
+      "consenso": 34.91902834008097,
+      "sin_ajuste": 62.280701754385966
+    },
+    "google_gemini-4-argon|N": {
+      "propia": 50.6578947368421,
+      "consenso": 52.3110661268556,
+      "sin_ajuste": 76.97368421052632
+    },
+    "google_gemini-4-argon|H": {
+      "propia": 35.240112994350284,
+      "consenso": 39.542590178183396,
+      "sin_ajuste": 69.13841807909604
+    },
+    "mimo-v2.6-flash|O": {
+      "propia": 56.99152542372882,
+      "consenso": 56.27444589308996,
+      "sin_ajuste": 84.95762711864407
+    },
+    "mimo-v2.6-flash|C": {
+      "propia": 29.017857142857142,
+      "consenso": 39.66346153846154,
+      "sin_ajuste": 62.5
+    },
+    "mimo-v2.6-flash|E": {
+      "propia": 41.44736842105263,
+      "consenso": 43.23549257759784,
+      "sin_ajuste": 69.07894736842105
+    },
+    "mimo-v2.6-flash|A": {
+      "propia": 37.93859649122807,
+      "consenso": 36.45411605937922,
+      "sin_ajuste": 63.81578947368421
+    },
+    "mimo-v2.6-flash|N": {
+      "propia": 52.41228070175438,
+      "consenso": 50.99527665317139,
+      "sin_ajuste": 75.65789473684211
+    },
+    "mimo-v2.6-flash|H": {
+      "propia": 44.70338983050848,
+      "consenso": 38.83637548891787,
+      "sin_ajuste": 68.4322033898305
+    },
+    "openai_gpt-5.6-luna|O": {
+      "propia": 45.55084745762712,
+      "consenso": 55.003259452411996,
+      "sin_ajuste": 83.6864406779661
+    },
+    "openai_gpt-5.6-luna|C": {
+      "propia": 38.839285714285715,
+      "consenso": 41.002747252747255,
+      "sin_ajuste": 63.839285714285715
+    },
+    "openai_gpt-5.6-luna|E": {
+      "propia": 36.40350877192982,
+      "consenso": 38.630229419703106,
+      "sin_ajuste": 64.47368421052632
+    },
+    "openai_gpt-5.6-luna|A": {
+      "propia": 35.526315789473685,
+      "consenso": 30.97165991902834,
+      "sin_ajuste": 58.33333333333333
+    },
+    "openai_gpt-5.6-luna|N": {
+      "propia": 46.92982456140351,
+      "consenso": 52.091767881241566,
+      "sin_ajuste": 76.75438596491227
+    },
+    "openai_gpt-5.6-luna|H": {
+      "propia": 36.440677966101696,
+      "consenso": 39.895697522816164,
+      "sin_ajuste": 69.49152542372882
+    },
+    "openai_gpt-6.1-sol#low|O": {
+      "propia": 52.75423728813559,
+      "consenso": 52.460886571056065,
+      "sin_ajuste": 81.14406779661017
+    },
+    "openai_gpt-6.1-sol#low|C": {
+      "propia": 31.919642857142858,
+      "consenso": 33.636675824175825,
+      "sin_ajuste": 56.473214285714285
+    },
+    "openai_gpt-6.1-sol#low|E": {
+      "propia": 33.333333333333336,
+      "consenso": 37.75303643724696,
+      "sin_ajuste": 63.59649122807018
+    },
+    "openai_gpt-6.1-sol#low|A": {
+      "propia": 29.824561403508774,
+      "consenso": 33.1646423751687,
+      "sin_ajuste": 60.526315789473685
+    },
+    "openai_gpt-6.1-sol#low|N": {
+      "propia": 45.175438596491226,
+      "consenso": 48.582995951417004,
+      "sin_ajuste": 73.24561403508773
+    },
+    "openai_gpt-6.1-sol#low|H": {
+      "propia": 39.40677966101695,
+      "consenso": 45.827900912646676,
+      "sin_ajuste": 75.42372881355932
+    },
+    "qwen3.6|O": {
+      "propia": 58.686440677966104,
+      "consenso": 54.579530638852674,
+      "sin_ajuste": 83.26271186440678
+    },
+    "qwen3.6|C": {
+      "propia": 48.660714285714285,
+      "consenso": 41.449175824175825,
+      "sin_ajuste": 64.28571428571428
+    },
+    "qwen3.6|E": {
+      "propia": 36.62280701754386,
+      "consenso": 42.3582995951417,
+      "sin_ajuste": 68.20175438596492
+    },
+    "qwen3.6|A": {
+      "propia": 31.578947368421055,
+      "consenso": 35.357624831309046,
+      "sin_ajuste": 62.719298245614034
+    },
+    "qwen3.6|N": {
+      "propia": 47.58771929824562,
+      "consenso": 53.62685560053981,
+      "sin_ajuste": 78.28947368421052
+    },
+    "qwen3.6|H": {
+      "propia": 50.63559322033898,
+      "consenso": 37.565189048239894,
+      "sin_ajuste": 67.16101694915254
+    },
+    "qwen3.8-flash|O": {
+      "propia": 50.0,
+      "consenso": 48.85919165580182,
+      "sin_ajuste": 77.54237288135593
+    },
+    "qwen3.8-flash|C": {
+      "propia": 39.0625,
+      "consenso": 36.315247252747255,
+      "sin_ajuste": 59.151785714285715
+    },
+    "qwen3.8-flash|E": {
+      "propia": 41.44736842105263,
+      "consenso": 40.165317139001345,
+      "sin_ajuste": 66.00877192982456
+    },
+    "qwen3.8-flash|A": {
+      "propia": 37.93859649122807,
+      "consenso": 32.06815114709852,
+      "sin_ajuste": 59.42982456140351
+    },
+    "qwen3.8-flash|N": {
+      "propia": 52.19298245614035,
+      "consenso": 50.337381916329285,
+      "sin_ajuste": 75.0
+    },
+    "qwen3.8-flash|H": {
+      "propia": 36.016949152542374,
+      "consenso": 38.6245110821382,
+      "sin_ajuste": 68.22033898305085
+    }
+  },
+  "iss": {
+    "n": 10,
+    "spearman": {
+      "O": [
+        0.41818181818181815,
+        -0.37,
+        0.9636363636363635
+      ],
+      "C": [
+        0.7333333333333332,
+        0.18787878787878787,
+        0.9515151515151514
+      ],
+      "E": [
+        0.3939393939393939,
+        -0.273030303030303,
+        0.8666666666666665
+      ],
+      "A": [
+        0.24848484848484845,
+        -0.5030303030303029,
+        0.8666666666666665
+      ],
+      "N": [
+        0.05454545454545454,
+        -0.6121212121212121,
+        0.7454545454545454
+      ],
+      "H": [
+        0.2606060606060606,
+        -0.41818181818181815,
+        0.8424242424242423
+      ]
+    }
+  },
+  "retratos": {
+    "anthropic_claude-haiku-5.5": {
+      "texto": "**menos Amabilidad** (pone límites y se defiende)",
+      "fragiles": [
+        "C▼",
+        "H▼"
+      ],
+      "N": 55.48245614035088
+    },
+    "anthropic_claude-opus-5.5#low": {
+      "texto": "perfil próximo al de los demás modelos",
+      "fragiles": [],
+      "N": 51.973684210526315
+    },
+    "deepseek-v4-flash@2026-10-17": {
+      "texto": "perfil próximo al de los demás modelos",
+      "fragiles": [
+        "H▲"
+      ],
+      "N": 52.19298245614035
+    },
+    "deepseek_deepseek-v4-pro-0813": {
+      "texto": "perfil próximo al de los demás modelos",
+      "fragiles": [],
+      "N": 49.3421052631579
+    },
+    "gemma4": {
+      "texto": "**más Apertura** (curioso, busca lo nuevo)",
+      "fragiles": [
+        "E▲"
+      ],
+      "N": 52.85087719298246
+    },
+    "glm5.3-flash": {
+      "texto": "perfil próximo al de los demás modelos",
+      "fragiles": [],
+      "N": 52.19298245614035
+    },
+    "google_gemini-3.7-flash": {
+      "texto": "**más Amabilidad** (cede y coopera)",
+      "fragiles": [
+        "C▲"
+      ],
+      "N": 50.219298245614034
+    },
+    "google_gemini-4-argon": {
+      "texto": "**menos Apertura** (prefiere lo conocido)",
+      "fragiles": [],
+      "N": 50.6578947368421
+    },
+    "mimo-v2.6-flash": {
+      "texto": "**más Apertura** (curioso, busca lo nuevo)",
+      "fragiles": [
+        "C▼"
+      ],
+      "N": 52.41228070175438
+    },
+    "openai_gpt-5.6-luna": {
+      "texto": "perfil próximo al de los demás modelos",
+      "fragiles": [],
+      "N": 46.92982456140351
+    },
+    "openai_gpt-6.1-sol#low": {
+      "texto": "**menos Responsabilidad** (prioriza descanso y flexibilidad)",
+      "fragiles": [
+        "E▼"
+      ],
+      "N": 45.175438596491226
+    },
+    "qwen3.6": {
+      "texto": "perfil próximo al de los demás modelos",
+      "fragiles": [
+        "O▲",
+        "C▲",
+        "H▲"
+      ],
+      "N": 47.58771929824562
+    },
+    "qwen3.8-flash": {
+      "texto": "perfil próximo al de los demás modelos",
+      "fragiles": [],
+      "N": 52.19298245614035
+    }
+  }
+}

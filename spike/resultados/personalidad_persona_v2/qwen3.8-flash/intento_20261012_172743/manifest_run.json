@@ -1,0 +1,27 @@
+{
+  "commit": "1dcf122bad8b2cd7e1fb01cad722709aeebd34e9",
+  "python": "3.12.4",
+  "parser_version": "2.5",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "experimento_persona_v2.py",
+    "--modelo",
+    "qwen3.8-flash"
+  ],
+  "args": {
+    "modelo": "qwen3.8-flash",
+    "n_tareas": 609,
+    "n_pendientes": 609
+  },
+  "hashes": {},
+  "inicio": "2026-10-12T17:27:44",
+  "status": "completed",
+  "fin": "2026-10-12T18:35:36",
+  "solicitudes": 610,
+  "errores": 1,
+  "fallo_escritura": false
+}

@@ -1,0 +1,36 @@
+{
+  "commit": "1dcf122bad8b2cd7e1fb01cad722709aeebd34e9",
+  "python": "3.12.4",
+  "parser_version": "2.5",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "experimento_personalidad_p1.py",
+    "--modelo",
+    "x-ai/grok-4.5",
+    "--replica-r3",
+    "--brazos",
+    "auto,sit_propia,sit_personaje,sonda",
+    "--hilos",
+    "6"
+  ],
+  "args": {
+    "modelo": "x-ai/grok-4.5",
+    "hilos": 6,
+    "replica_r3": true,
+    "brazos": "auto,sit_propia,sit_personaje,sonda",
+    "version_bateria": "P1",
+    "n_tareas": 1323,
+    "n_pendientes": 1323
+  },
+  "hashes": {},
+  "inicio": "2026-10-16T23:57:19",
+  "status": "completed",
+  "fin": "2026-10-17T00:30:09",
+  "solicitudes": 1323,
+  "errores": 0,
+  "fallo_escritura": false
+}

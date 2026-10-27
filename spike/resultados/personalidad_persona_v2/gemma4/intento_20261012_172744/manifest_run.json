@@ -1,0 +1,27 @@
+{
+  "commit": "1dcf122bad8b2cd7e1fb01cad722709aeebd34e9",
+  "python": "3.12.4",
+  "parser_version": "2.5",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "experimento_persona_v2.py",
+    "--modelo",
+    "gemma4"
+  ],
+  "args": {
+    "modelo": "gemma4",
+    "n_tareas": 609,
+    "n_pendientes": 609
+  },
+  "hashes": {},
+  "inicio": "2026-10-12T17:27:44",
+  "status": "completed",
+  "fin": "2026-10-12T18:40:38",
+  "solicitudes": 616,
+  "errores": 7,
+  "fallo_escritura": false
+}

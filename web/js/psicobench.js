@@ -763,6 +763,15 @@
     ["sicoDuros", "sicofancia · duros", (e) => pc(e.sicoDuros), "sujetos de amabilidad baja"],
   ];
 
+  // El cuadro de personalidad, por id de medición. El enlace sale del
+  // conmutador de la barra, que en la publicación ya lleva la ruta limpia.
+  const PERSONALIDAD = new Map(((D.personalidad || {}).modelos || [])
+    .filter((m) => m.psicobench).map((m) => [m.psicobench, m]));
+  const enlacePersonalidad = (id) => {
+    const a = Array.from(document.querySelectorAll(".superficies a")).find((x) => x.getAttribute("href").includes("personalidad"));
+    return (a ? a.getAttribute("href") : "personalidad.html") + "#p=" + encodeURIComponent(id);
+  };
+
   function pintarFicha(id) {
     const e = B.entradas.find((z) => z.id === id);
     const x = S.entradas[id] || {};
@@ -781,6 +790,12 @@
     ]));
     if (e.desvelado) hoja.appendChild(h("p", { class: "ficha-nota", html: mk`Medido como modelo sin desvelar. El ${e.desvelado.fecha} su laboratorio lo presentó como <b>${e.desvelado.nombre}</b> (${e.desvelado.lab}). El id y la medición no cambian: la versión pública, si se mide, es otra entrada.` }));
     if (e.nota) hoja.appendChild(h("p", { class: "ficha-nota", text: e.nota }));
+    // su retrato del cuadro de personalidad, solo si esta medición es la que
+    // el cuadro empareja con el modelo (otro instrumento, otra superficie)
+    const per = PERSONALIDAD.get(e.id);
+    if (per) hoja.appendChild(h("p", { class: "ficha-nota ficha-personalidad", html: mk`<b>Personalidad${per.validez === "aviso" ? " ⚠" : ""}:</b>
+      ${per.frase}${per.validez === "aviso" ? " (interpretar con cautela)" : ""}. Medida por conducta en situaciones cotidianas,
+      aparte del ISS. <a href="${enlacePersonalidad(per.id)}">Su ficha en el test de personalidad →</a>` }));
 
     const figO = G.octogono({ titulo: "Perfil sobre los ocho ejes", sub: "Pasa el ratón por un vértice para ver el intervalo.", ejes: ejesOct, sinTabla: false });
     figO._pinta([{ nombre: e.id, valores: e.ejes, ic: e.ejesIC, color: G.PAL.s1 }]);

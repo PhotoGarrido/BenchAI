@@ -1,0 +1,5 @@
+Datos de deepseek-v4-flash registrados el 17-10-2026. NaN confirmó ese día que el mismo
+endpoint pasó a servir un DeepSeek nuevo, sin fecha exacta del cambio; la huella
+conductual (huella_modelo.py) no discrimina (otros modelos coinciden 31-35/40), así que
+no se puede saber qué parte es del modelo anterior. Se apartan del análisis del modelo
+anterior. Si NaN da la hora del cambio, lo anterior podría reincorporarse.

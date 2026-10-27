@@ -1,0 +1,31 @@
+{
+  "commit": "532f300a356ce2c041a43325f448b77c575e9206",
+  "python": "3.12.4",
+  "parser_version": "2.5",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "calibrar_deseabilidad.py",
+    "--modelo",
+    "deepseek-v4-flash@2026-10-17",
+    "--solo-origen",
+    "P4"
+  ],
+  "args": {
+    "modelo": "deepseek-v4-flash@2026-10-17",
+    "version": "P1-cal",
+    "n_tareas": 276,
+    "n_pendientes": 276,
+    "candidatos_sha256": "79a425cb477f2be810afa5e1fd6a66896011cbe80d20057ca83f64cd263d36f5"
+  },
+  "hashes": {},
+  "inicio": "2026-10-20T22:40:32",
+  "status": "completed",
+  "fin": "2026-10-20T23:11:03",
+  "solicitudes": 277,
+  "errores": 1,
+  "fallo_escritura": false
+}

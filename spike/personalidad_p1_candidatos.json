@@ -1,0 +1,2442 @@
+[
+ {
+  "id": "P1O01",
+  "rasgo": "O",
+  "faceta": "fantasia",
+  "contexto": "propio",
+  "situacion": "{nombre} tiene por delante dos horas de tren sin cobertura. Lleva descargados varios podcasts de actualidad que tiene pendientes desde hace semanas, aunque el paisaje invita a mirar por la ventana.",
+  "alto": "mirar por la ventana inventando historias sobre la gente de los pueblos",
+  "bajo": "escuchar los podcasts pendientes y ponerse al día de la actualidad",
+  "atractivo_bajo": "aprovecha el tiempo muerto y se quita pendientes de encima"
+ },
+ {
+  "id": "P1O02",
+  "rasgo": "O",
+  "faceta": "fantasia",
+  "contexto": "terceros",
+  "situacion": "La sobrina de seis años de {nombre} le pide un cuento antes de dormir. Es tarde; en la estantería está el libro de siempre, e inventarse uno sobre la marcha puede salir bien o quedarse en nada.",
+  "alto": "inventarse sobre la marcha un cuento con personajes que elija la niña",
+  "bajo": "leerle uno de los cuentos del libro, que sabe que le gustan",
+  "atractivo_bajo": "acierto seguro y la niña se duerme antes"
+ },
+ {
+  "id": "P1O03",
+  "rasgo": "O",
+  "faceta": "fantasia",
+  "contexto": "propio",
+  "situacion": "Unos conocidos proponen a {nombre} unirse a una partida de rol semanal en la que cada jugador interpreta durante meses un personaje inventado. Coincide con el pádel de los jueves, que lleva años jugando.",
+  "alto": "unirse a la partida de rol y crear su propio personaje",
+  "bajo": "seguir con el pádel de los jueves, que le sienta muy bien",
+  "atractivo_bajo": "ejercicio, grupo conocido y una rutina que disfruta"
+ },
+ {
+  "id": "P1O04",
+  "rasgo": "O",
+  "faceta": "fantasia",
+  "contexto": "propio",
+  "situacion": "En el taller de escritura al que va {nombre}, el ejercicio final es un relato libre. Puede situarlo en un mundo inventado, con sus propias reglas, o contar con detalle algo que vivió de verdad.",
+  "alto": "escribir un relato fantástico en un mundo con reglas inventadas",
+  "bajo": "escribir una crónica fiel de algo que vivió de verdad",
+  "atractivo_bajo": "material propio y conocido; es más fácil que salga bien"
+ },
+ {
+  "id": "P1O05",
+  "rasgo": "O",
+  "faceta": "fantasia",
+  "contexto": "propio",
+  "situacion": "A {nombre} le invitan a una fiesta de disfraces el sábado. Puede pasar dos tardes creando un personaje propio, con su historia y su vestuario, o comprar un disfraz sencillo en la tienda del barrio.",
+  "alto": "inventar un personaje propio y fabricarse el disfraz a mano",
+  "bajo": "comprar un disfraz sencillo en la tienda del barrio y olvidarse",
+  "atractivo_bajo": "ahorra dos tardes y en la fiesta cumple igual"
+ },
+ {
+  "id": "P1O06",
+  "rasgo": "O",
+  "faceta": "fantasia",
+  "contexto": "terceros",
+  "situacion": "{nombre} va a pintar la habitación de su hijo de cuatro años. Se le ocurre llenar una pared con un bosque de criaturas inventadas, aunque le llevaría varios fines de semana y el niño crecerá pronto.",
+  "alto": "pintar en la pared un bosque lleno de criaturas inventadas",
+  "bajo": "pintar la habitación de un color suave y liso",
+  "atractivo_bajo": "rápido, limpio y fácil de cambiar cuando el niño crezca"
+ },
+ {
+  "id": "P1O07",
+  "rasgo": "O",
+  "faceta": "estetica",
+  "contexto": "propio",
+  "situacion": "{nombre} vuelve a casa en coche tras una semana fuera. Por la autopista tarda dos horas; por la carretera de la costa, con acantilados y miradores, tardaría casi cuatro.",
+  "alto": "tomar la carretera de la costa y parar en los miradores",
+  "bajo": "coger la autopista y llegar a casa con tiempo de descansar",
+  "atractivo_bajo": "llega antes, conduce menos y recupera la tarde"
+ },
+ {
+  "id": "P1O08",
+  "rasgo": "O",
+  "faceta": "estetica",
+  "contexto": "propio",
+  "situacion": "{nombre} compra un sofá para su piso. Le ha enamorado uno de diseño, de formas y color muy llamativos, pero es bastante menos cómodo que otro clásico y neutro del mismo precio.",
+  "alto": "comprar el sofá de diseño llamativo que le ha enamorado",
+  "bajo": "comprar el sofá clásico, cómodo y que combina con todo",
+  "atractivo_bajo": "lo usará a diario; la comodidad pesa más que el diseño"
+ },
+ {
+  "id": "P1O09",
+  "rasgo": "O",
+  "faceta": "estetica",
+  "contexto": "propio",
+  "situacion": "Tras un día entero de reuniones en otra ciudad, a {nombre} le queda una hora antes del tren de vuelta. La catedral gótica, que nunca ha visto, está a diez minutos de la estación.",
+  "alto": "acercarse a ver con calma la catedral gótica antes del tren",
+  "bajo": "sentarse en la cafetería de la estación a descansar un rato",
+  "atractivo_bajo": "día agotador; necesita parar antes del viaje de vuelta"
+ },
+ {
+  "id": "P1O10",
+  "rasgo": "O",
+  "faceta": "estetica",
+  "contexto": "terceros",
+  "situacion": "{nombre} prepara una cena en casa para su pareja. Suele poner una lista de canciones que gusta a ambos, pero esta semana ha descubierto un disco de canto difónico mongol que le fascina.",
+  "alto": "poner de fondo el disco de canto difónico mongol que le fascina",
+  "bajo": "poner la lista de canciones de siempre, que gusta a ambos",
+  "atractivo_bajo": "ambiente agradable asegurado para una cena especial"
+ },
+ {
+  "id": "P1O11",
+  "rasgo": "O",
+  "faceta": "estetica",
+  "contexto": "terceros",
+  "situacion": "{nombre} y su hermano llevan una pequeña ferretería de barrio. Le toca renovar el escaparate y se le ocurre un montaje artístico con herramientas colgadas como esculturas, que podría desconcertar a la clientela.",
+  "alto": "montar el escaparate artístico con las herramientas como esculturas",
+  "bajo": "colocar los productos ordenados y bien iluminados, como siempre",
+  "atractivo_bajo": "se ve lo que se vende; funciona y no confunde"
+ },
+ {
+  "id": "P1O12",
+  "rasgo": "O",
+  "faceta": "estetica",
+  "contexto": "propio",
+  "situacion": "{nombre} renueva las plantas de su balcón. En el vivero le atraen unas especies raras, de formas y colores sorprendentes, que piden cuidados delicados; también hay geranios resistentes que florecen todo el verano.",
+  "alto": "plantar las especies raras aunque exijan cuidados delicados",
+  "bajo": "poner geranios resistentes que florecen todo el verano sin apenas cuidado",
+  "atractivo_bajo": "balcón lleno de flores sin trabajo ni disgustos"
+ },
+ {
+  "id": "P1O13",
+  "rasgo": "O",
+  "faceta": "sentimientos",
+  "contexto": "propio",
+  "situacion": "{nombre} sale del cine con unos amigos tras una película que le ha removido mucho por dentro. Ellos proponen ir a tomar algo y hablar de cualquier otra cosa.",
+  "alto": "volver a casa paseando para quedarse con lo que ha sentido",
+  "bajo": "acompañar a sus amigos a tomar algo y cambiar de tema",
+  "atractivo_bajo": "buen rato en compañía; no hace falta darle más vueltas"
+ },
+ {
+  "id": "P1O14",
+  "rasgo": "O",
+  "faceta": "sentimientos",
+  "contexto": "propio",
+  "situacion": "{nombre} ha tenido una semana de muchos altibajos emocionales, sin saber muy bien por qué. El domingo por la tarde tiene un par de horas libres.",
+  "alto": "escribir con calma qué ha sentido cada día y qué lo provocaba",
+  "bajo": "salir a correr un buen rato y despejarse sin analizar nada",
+  "atractivo_bajo": "el ejercicio despeja y evita darle vueltas a todo"
+ },
+ {
+  "id": "P1O15",
+  "rasgo": "O",
+  "faceta": "sentimientos",
+  "contexto": "propio",
+  "situacion": "{nombre} acaba de terminar una relación de varios años. Este primer fin de semana puede darse permiso para sentir la pena o llenarlo de planes con amigos para no pensar.",
+  "alto": "quedarse en casa con sus canciones y dejarse sentir la tristeza",
+  "bajo": "llenar el fin de semana de planes para no pensar en la ruptura",
+  "atractivo_bajo": "distraerse ayuda a pasar página y evita hundirse"
+ },
+ {
+  "id": "P1O16",
+  "rasgo": "O",
+  "faceta": "sentimientos",
+  "contexto": "propio",
+  "situacion": "La familia de {nombre} ha vendido la casa del pueblo donde pasó los veranos de su infancia. Antes de entregar las llaves, le toca ir a recoger lo que queda.",
+  "alto": "recorrer la casa sin prisa y dejarse llevar por los recuerdos",
+  "bajo": "recoger lo imprescindible en una hora y cerrar ese capítulo",
+  "atractivo_bajo": "evita un mal trago innecesario y resuelve lo práctico"
+ },
+ {
+  "id": "P1O17",
+  "rasgo": "O",
+  "faceta": "sentimientos",
+  "contexto": "terceros",
+  "situacion": "Un domingo, {nombre} y su pareja tienen la tarde libre. A {nombre} le ronda proponer que se cuenten cómo se ha sentido cada uno este último mes; también podrían salir de excursión, que siempre les sienta bien.",
+  "alto": "proponer una conversación larga sobre cómo se han sentido este mes",
+  "bajo": "proponer una excursión juntos, que siempre les sienta bien",
+  "atractivo_bajo": "compartir un buen plan une sin necesidad de analizarse"
+ },
+ {
+  "id": "P1O18",
+  "rasgo": "O",
+  "faceta": "acciones",
+  "contexto": "propio",
+  "situacion": "{nombre} cena en su restaurante favorito, donde siempre pide un arroz que le encanta. Hoy la carta incluye un plato coreano fermentado que nunca ha probado y que el camarero describe como «muy particular».",
+  "alto": "pedir el plato coreano fermentado que nunca ha probado",
+  "bajo": "pedir el arroz de siempre, que sabe que le encanta",
+  "atractivo_bajo": "placer seguro en una cena que espera toda la semana"
+ },
+ {
+  "id": "P1O19",
+  "rasgo": "O",
+  "faceta": "acciones",
+  "contexto": "propio",
+  "situacion": "{nombre} va a su peluquería de siempre. El peluquero, con buen ojo pero algo atrevido, le propone un cambio de estilo radical en lugar del corte habitual.",
+  "alto": "dejar que le haga el cambio de estilo radical que propone",
+  "bajo": "pedir el corte de siempre, que sabe que le queda bien",
+  "atractivo_bajo": "le favorece y no hay riesgo de arrepentirse"
+ },
+ {
+  "id": "P1O20",
+  "rasgo": "O",
+  "faceta": "acciones",
+  "contexto": "propio",
+  "situacion": "{nombre} sale a correr cada mañana por el mismo circuito del parque, medido al metro y sin semáforos. Últimamente piensa en cambiar de recorrido cada día por calles que no conoce.",
+  "alto": "correr cada día por calles distintas que no conoce",
+  "bajo": "seguir con su circuito del parque, medido y sin semáforos",
+  "atractivo_bajo": "controla ritmo y distancia; entrena mejor sin sorpresas"
+ },
+ {
+  "id": "P1O21",
+  "rasgo": "O",
+  "faceta": "acciones",
+  "contexto": "propio",
+  "situacion": "Después de cinco años nadando tres días por semana, {nombre} decide qué deporte hará este curso. Le tienta probar la escalada, empezando de cero en un grupo que no conoce.",
+  "alto": "apuntarse a escalada y empezar de cero en un grupo nuevo",
+  "bajo": "renovar la natación, donde ya tiene su nivel y sus horarios",
+  "atractivo_bajo": "le sienta bien y ya domina la rutina"
+ },
+ {
+  "id": "P1O22",
+  "rasgo": "O",
+  "faceta": "acciones",
+  "contexto": "propio",
+  "situacion": "A {nombre} le ofrecen alquilar, al mismo precio, un piso en un barrio de la otra punta de la ciudad que no conoce, más animado y diverso. En el suyo tiene sus tiendas, su médico y su rutina.",
+  "alto": "mudarse al barrio desconocido para vivir algo diferente",
+  "bajo": "quedarse en su barrio, donde tiene todo a mano",
+  "atractivo_bajo": "comodidad y vida hecha; mudarse cuesta mucho"
+ },
+ {
+  "id": "P1O23",
+  "rasgo": "O",
+  "faceta": "acciones",
+  "contexto": "terceros",
+  "situacion": "Una vez al mes, {nombre} lleva de excursión a su madre, que ya es mayor y dice que le da igual el destino. Siempre van al mismo pueblo con balneario.",
+  "alto": "llevarla a un pueblo que ninguno de los dos conoce",
+  "bajo": "volver al pueblo del balneario, cómodo y conocido",
+  "atractivo_bajo": "sin imprevistos para su madre; el plan siempre sale bien"
+ },
+ {
+  "id": "P1O24",
+  "rasgo": "O",
+  "faceta": "ideas",
+  "contexto": "propio",
+  "situacion": "La lavadora de {nombre} ha dejado de centrifugar. Tiene la tarde libre y nunca ha abierto un electrodoméstico, aunque le pica la curiosidad por saber cómo funciona por dentro.",
+  "alto": "desmontarla para entender cómo funciona y averiguar qué falla",
+  "bajo": "llamar al técnico y dedicar la tarde a otra cosa",
+  "atractivo_bajo": "eficiente y sin riesgo de estropearla más"
+ },
+ {
+  "id": "P1O25",
+  "rasgo": "O",
+  "faceta": "ideas",
+  "contexto": "propio",
+  "situacion": "Buscando una receta, {nombre} se topa con la historia de cómo se inventaron las conservas para alimentar a los ejércitos de Napoleón. Tenía previsto ponerse a cocinar ya.",
+  "alto": "seguir leyendo una hora sobre la historia de las conservas",
+  "bajo": "cerrar la página y ponerse a cocinar como tenía previsto",
+  "atractivo_bajo": "cumple su plan y la cena sale a su hora"
+ },
+ {
+  "id": "P1O26",
+  "rasgo": "O",
+  "faceta": "ideas",
+  "contexto": "propio",
+  "situacion": "A {nombre} le llega la factura de la luz con varios conceptos técnicos que nunca ha entendido. El importe es el de siempre.",
+  "alto": "dedicar la tarde a entender qué significa cada concepto",
+  "bajo": "comprobar que el importe cuadra y archivarla sin más",
+  "atractivo_bajo": "si el importe cuadra, entenderla no cambia nada"
+ },
+ {
+  "id": "P1O27",
+  "rasgo": "O",
+  "faceta": "ideas",
+  "contexto": "propio",
+  "situacion": "En las fiestas del pueblo de {nombre}, un astrónomo da una charla sobre agujeros negros a la misma hora que la verbena, donde estará toda su cuadrilla.",
+  "alto": "asistir a la charla del astrónomo sobre agujeros negros",
+  "bajo": "pasar la noche en la verbena con su cuadrilla",
+  "atractivo_bajo": "fiesta anual con amigos; la charla puede verla grabada"
+ },
+ {
+  "id": "P1O28",
+  "rasgo": "O",
+  "faceta": "ideas",
+  "contexto": "propio",
+  "situacion": "De vacaciones en Segovia, el guía ofrece a {nombre} quedarse una hora más para una explicación técnica de cómo se calculó y construyó el acueducto. Hace sol y las terrazas están llenas.",
+  "alto": "quedarse a la explicación técnica sobre la construcción del acueducto",
+  "bajo": "pasear por el casco antiguo y tomar algo en una terraza",
+  "atractivo_bajo": "vacaciones para disfrutar sin esfuerzo mental"
+ },
+ {
+  "id": "P1O29",
+  "rasgo": "O",
+  "faceta": "ideas",
+  "contexto": "terceros",
+  "situacion": "Ya en la cama, la pareja de {nombre} le plantea una pregunta que le ronda: si una copia exacta de una persona seguiría siendo la misma persona. Mañana tienen que madrugar.",
+  "alto": "darle vueltas juntos a la pregunta un buen rato antes de dormir",
+  "bajo": "dejarlo para otro día y apagar la luz para descansar",
+  "atractivo_bajo": "madrugan; el descanso de la pareja es lo prioritario"
+ },
+ {
+  "id": "P1O30",
+  "rasgo": "O",
+  "faceta": "valores",
+  "contexto": "terceros",
+  "situacion": "{nombre} y su pareja preparan su boda. Pueden celebrar una ceremonia tradicional, con los ritos de siempre, o inventar una propia sin ninguno de ellos, que algunos invitados quizá no entiendan.",
+  "alto": "diseñar una ceremonia propia, sin ninguno de los ritos tradicionales",
+  "bajo": "celebrar la boda tradicional, con los ritos de toda la vida",
+  "atractivo_bajo": "los ritos tienen significado y unen a las familias"
+ },
+ {
+  "id": "P1O31",
+  "rasgo": "O",
+  "faceta": "valores",
+  "contexto": "terceros",
+  "situacion": "Cada año, {nombre} celebra la Navidad en casa con su pareja: árbol, cena típica y regalos. Este año se pregunta si esas costumbres tienen sentido para ellos o si preferirían algo completamente distinto.",
+  "alto": "proponer prescindir de las costumbres navideñas y hacer algo distinto",
+  "bajo": "celebrarla como siempre, con el árbol, la cena y los regalos",
+  "atractivo_bajo": "ritual cálido que da continuidad y alegría"
+ },
+ {
+  "id": "P1O32",
+  "rasgo": "O",
+  "faceta": "valores",
+  "contexto": "terceros",
+  "situacion": "La tía de {nombre} ha muerto sin dejar instrucciones y la familia le encarga organizar la despedida. Puede seguir la costumbre del pueblo o hacer algo distinto, a su manera.",
+  "alto": "organizar una despedida laica e informal, sin seguir la costumbre",
+  "bajo": "organizar el funeral tradicional en la parroquia del pueblo",
+  "atractivo_bajo": "es lo que la familia espera; los ritos consuelan"
+ },
+ {
+  "id": "P1O33",
+  "rasgo": "O",
+  "faceta": "valores",
+  "contexto": "propio",
+  "situacion": "{nombre} ahorra desde hace años para comprar piso, porque en su casa siempre se ha dicho que alquilar es tirar el dinero. Hoy ha leído un análisis serio que lo pone en duda.",
+  "alto": "replantearse a fondo esa idea antes de seguir ahorrando",
+  "bajo": "seguir con su plan de comprar, que le da seguridad e ilusión",
+  "atractivo_bajo": "la propiedad da estabilidad y el plan está bien pensado"
+ },
+ {
+  "id": "P1O34",
+  "rasgo": "O",
+  "faceta": "valores",
+  "contexto": "propio",
+  "situacion": "A {nombre} le ofrecen pasar a una semana de cuatro días con un 20 % menos de sueldo. Siempre ha dado por hecho que lo normal es trabajar a jornada completa.",
+  "alto": "aceptar los cuatro días y replantearse qué lugar ocupa el trabajo",
+  "bajo": "seguir a jornada completa y mantener su sueldo íntegro",
+  "atractivo_bajo": "más ingresos y estabilidad económica"
+ },
+ {
+  "id": "P1C01",
+  "rasgo": "C",
+  "faceta": "orden",
+  "contexto": "propio",
+  "situacion": "{nombre} vuelve de una semana de vacaciones el domingo por la tarde. La maleta sigue cerrada en la entrada y aún queda luz para dar un paseo.",
+  "alto": "deshacer la maleta y guardarlo todo en su sitio antes de cenar",
+  "bajo": "salir a pasear y deshacer la maleta poco a poco durante la semana",
+  "atractivo_bajo": "aprovechar la última tarde libre; la maleta puede esperar sin problema"
+ },
+ {
+  "id": "P1C02",
+  "rasgo": "C",
+  "faceta": "orden",
+  "contexto": "propio",
+  "situacion": "{nombre} lleva las cuentas de casa. Los tiques de la compra se acumulan en un cajón y el saldo del banco cuadra más o menos con lo esperado.",
+  "alto": "anotar cada tique en una hoja de gastos por categorías",
+  "bajo": "tirar los tiques y fiarse del saldo mensual del banco",
+  "atractivo_bajo": "el saldo ya da la información útil sin horas de trabajo extra"
+ },
+ {
+  "id": "P1C03",
+  "rasgo": "C",
+  "faceta": "orden",
+  "contexto": "propio",
+  "situacion": "{nombre} trabaja desde casa en la mesa del salón. Al acabar la jornada quedan papeles y notas a medio usar que mañana volverá a necesitar.",
+  "alto": "recoger la mesa entera cada noche y archivar cada papel",
+  "bajo": "dejar los papeles donde están para retomarlos mañana sin perder el hilo",
+  "atractivo_bajo": "retomar el trabajo justo donde lo dejó ahorra tiempo cada mañana"
+ },
+ {
+  "id": "P1C04",
+  "rasgo": "C",
+  "faceta": "orden",
+  "contexto": "terceros",
+  "situacion": "{nombre} comparte piso con dos amistades. La zona común está algo desordenada, aunque nadie se queja y cada cual limpia de vez en cuando.",
+  "alto": "proponer un cuadrante semanal de limpieza con tareas fijas para cada persona",
+  "bajo": "seguir limpiando cuando alguien vea que hace falta, sin cuadrante",
+  "atractivo_bajo": "funciona sin quejas y evita convertir la convivencia en burocracia"
+ },
+ {
+  "id": "P1C05",
+  "rasgo": "C",
+  "faceta": "orden",
+  "contexto": "terceros",
+  "situacion": "{nombre} organiza una excursión de un día por la sierra con cinco amistades que se apuntan a lo que sea.",
+  "alto": "preparar un horario con paradas, horas y reservas para todo el día",
+  "bajo": "fijar solo la hora de salida e improvisar el resto sobre la marcha",
+  "atractivo_bajo": "improvisar da libertad y suele dejar los mejores recuerdos"
+ },
+ {
+  "id": "P1C06",
+  "rasgo": "C",
+  "faceta": "orden",
+  "contexto": "propio",
+  "situacion": "{nombre} se ha mudado y ya tiene colocado lo imprescindible. Quedan seis cajas con objetos de uso ocasional y el fin de semana se presenta libre.",
+  "alto": "vaciar todas las cajas este fin de semana y darle sitio a cada cosa",
+  "bajo": "guardar las cajas en el trastero y abrirlas cuando necesite algo",
+  "atractivo_bajo": "no gastar el fin de semana en cosas que quizá nunca use"
+ },
+ {
+  "id": "P1C07",
+  "rasgo": "C",
+  "faceta": "sentido_del_deber",
+  "contexto": "terceros",
+  "situacion": "{nombre} es vocal de la comunidad de vecinos. La reunión trimestral, sin votaciones importantes, coincide con un concierto para el que le han regalado entradas.",
+  "alto": "acudir a la reunión, porque forma parte de su cargo",
+  "bajo": "acudir al concierto y ponerse al día después leyendo el acta",
+  "atractivo_bajo": "la reunión es rutinaria y el acta cuenta todo lo importante"
+ },
+ {
+  "id": "P1C08",
+  "rasgo": "C",
+  "faceta": "sentido_del_deber",
+  "contexto": "propio",
+  "situacion": "A {nombre} le queda un día de asuntos propios que caduca a final de año. En el trabajo hay bastante tarea acumulada, aunque nada urgente.",
+  "alto": "renunciar al día libre para sacar adelante el trabajo pendiente",
+  "bajo": "cogerse el día y desconectar por completo",
+  "atractivo_bajo": "es un derecho suyo y el descanso también rinde"
+ },
+ {
+  "id": "P1C09",
+  "rasgo": "C",
+  "faceta": "sentido_del_deber",
+  "contexto": "terceros",
+  "situacion": "{nombre} se ofreció a llevar la tarta a una comida familiar y pensaba hacerla en casa. La víspera se le complica el día y llega tarde.",
+  "alto": "quedarse hasta medianoche horneándola, como había planeado",
+  "bajo": "comprar una tarta buena en la pastelería de camino",
+  "atractivo_bajo": "cumple igual con la familia y se ahorra una noche sin dormir"
+ },
+ {
+  "id": "P1C10",
+  "rasgo": "C",
+  "faceta": "sentido_del_deber",
+  "contexto": "propio",
+  "situacion": "{nombre} se levanta con algo de fiebre y malestar. Podría teletrabajar a medio gas o tomarse el día de baja, que nadie le reprocharía.",
+  "alto": "teletrabajar la jornada completa a pesar de la fiebre",
+  "bajo": "pedir el día de baja y quedarse en la cama",
+  "atractivo_bajo": "recuperarse antes y no rendir a medias estando mal"
+ },
+ {
+  "id": "P1C11",
+  "rasgo": "C",
+  "faceta": "sentido_del_deber",
+  "contexto": "terceros",
+  "situacion": "En el club de lectura de {nombre} toca comentar una novela larga mañana. Solo le ha dado tiempo a leer la mitad y nadie lleva la cuenta.",
+  "alto": "leer esta noche el resto, aunque sea deprisa, para llegar con la novela acabada",
+  "bajo": "acudir igualmente y disfrutar de la charla sin haberla terminado",
+  "atractivo_bajo": "el club es para disfrutar; nadie exige haberla terminado"
+ },
+ {
+  "id": "P1C12",
+  "rasgo": "C",
+  "faceta": "sentido_del_deber",
+  "contexto": "propio",
+  "situacion": "{nombre} está de vacaciones y ve en el móvil un correo del trabajo que no es urgente, pero sí de su área.",
+  "alto": "contestarlo en diez minutos para que el asunto no quede parado",
+  "bajo": "esperar a volver de vacaciones para abrir el correo del trabajo",
+  "atractivo_bajo": "desconectar de verdad es para lo que sirven las vacaciones"
+ },
+ {
+  "id": "P1C13",
+  "rasgo": "C",
+  "faceta": "logro",
+  "contexto": "propio",
+  "situacion": "A {nombre} le ofrecen un ascenso con más sueldo y responsabilidad, pero también más horas y viajes. Se siente a gusto en su puesto actual.",
+  "alto": "aceptar el ascenso y apostar por crecer profesionalmente",
+  "bajo": "rechazarlo y quedarse en un puesto que disfruta",
+  "atractivo_bajo": "estar a gusto y tener tiempo libre vale más que un ascenso"
+ },
+ {
+  "id": "P1C14",
+  "rasgo": "C",
+  "faceta": "logro",
+  "contexto": "propio",
+  "situacion": "{nombre} corre por diversión los fines de semana. Ha visto que hay una media maratón dentro de cuatro meses.",
+  "alto": "apuntarse y seguir un plan de entrenamiento para bajar de dos horas",
+  "bajo": "seguir corriendo por placer, sin metas de tiempo ni planes",
+  "atractivo_bajo": "correr sin presión es lo que lo hace disfrutable"
+ },
+ {
+  "id": "P1C15",
+  "rasgo": "C",
+  "faceta": "logro",
+  "contexto": "propio",
+  "situacion": "{nombre} aprueba con un seis el examen de nivel de un curso de inglés. Puede repetirlo dentro de un mes para subir nota.",
+  "alto": "estudiar un mes más y presentarse para subir nota",
+  "bajo": "conformarse con el aprobado y dedicar el mes a otras cosas",
+  "atractivo_bajo": "el aprobado ya cumple su función; subir nota aporta poco"
+ },
+ {
+  "id": "P1C16",
+  "rasgo": "C",
+  "faceta": "logro",
+  "contexto": "propio",
+  "situacion": "{nombre} toca la guitarra por afición desde hace años. Un profesor le dice que, con práctica diaria, podría tocar en un grupo.",
+  "alto": "practicar una hora diaria para alcanzar ese nivel",
+  "bajo": "seguir tocando únicamente cuando le apetezca, por puro gusto",
+  "atractivo_bajo": "una afición no tiene por qué convertirse en obligación"
+ },
+ {
+  "id": "P1C17",
+  "rasgo": "C",
+  "faceta": "logro",
+  "contexto": "terceros",
+  "situacion": "{nombre} lleva un pequeño bar familiar que da lo justo para vivir bien. Podría abrir un segundo local pidiendo un préstamo.",
+  "alto": "pedir el préstamo y abrir el segundo local",
+  "bajo": "mantener un único bar y el ritmo de vida actual",
+  "atractivo_bajo": "vivir bien sin deudas ni más horas de trabajo"
+ },
+ {
+  "id": "P1C18",
+  "rasgo": "C",
+  "faceta": "logro",
+  "contexto": "terceros",
+  "situacion": "{nombre} entrena por afición a un equipo infantil de fútbol. Los niños se divierten mucho, aunque pierden casi todos los partidos.",
+  "alto": "añadir un entrenamiento semanal para que el equipo compita mejor",
+  "bajo": "mantener los entrenamientos como están, centrados en divertirse",
+  "atractivo_bajo": "a esas edades lo importante es que disfruten"
+ },
+ {
+  "id": "P1C19",
+  "rasgo": "C",
+  "faceta": "autodisciplina",
+  "contexto": "propio",
+  "situacion": "{nombre} estudia alemán por su cuenta, sin examen a la vista, y se ha marcado una hora diaria. Hoy unas amistades le proponen ir a la playa.",
+  "alto": "hacer primero su hora de alemán y unirse después si llega a tiempo",
+  "bajo": "saltarse la hora de hoy y marcharse a la playa con ellas",
+  "atractivo_bajo": "un día suelto no cambia nada y el plan es apetecible"
+ },
+ {
+  "id": "P1C20",
+  "rasgo": "C",
+  "faceta": "autodisciplina",
+  "contexto": "propio",
+  "situacion": "{nombre} se propuso leer un libro al mes. El de este mes le aburre y quedan cinco días.",
+  "alto": "terminarlo a tiempo, como se había propuesto",
+  "bajo": "dejarlo a medias y empezar otro que le apetezca",
+  "atractivo_bajo": "leer por obligación un libro aburrido le quita el sentido"
+ },
+ {
+  "id": "P1C21",
+  "rasgo": "C",
+  "faceta": "autodisciplina",
+  "contexto": "propio",
+  "situacion": "{nombre} tiene la norma de no pagar caprichos con tarjeta de crédito. Ve rebajadas a mitad de precio unas zapatillas que lleva meses queriendo.",
+  "alto": "respetar su norma y esperar a tener el dinero ahorrado",
+  "bajo": "comprarlas con la tarjeta y aprovechar la rebaja",
+  "atractivo_bajo": "la rebaja es real y el gasto es asumible"
+ },
+ {
+  "id": "P1C22",
+  "rasgo": "C",
+  "faceta": "autodisciplina",
+  "contexto": "propio",
+  "situacion": "Es domingo y {nombre} tiene la costumbre de levantarse a las siete todos los días para no desajustar el sueño.",
+  "alto": "levantarse a las siete, como cada día",
+  "bajo": "apagar el despertador y dormir hasta despertarse sin prisa",
+  "atractivo_bajo": "dormir de más un domingo es un placer inofensivo"
+ },
+ {
+  "id": "P1C23",
+  "rasgo": "C",
+  "faceta": "autodisciplina",
+  "contexto": "propio",
+  "situacion": "El DNI de {nombre} caduca dentro de tres meses. Hoy tiene una tarde libre inesperada.",
+  "alto": "pedir cita y dejar el trámite resuelto hoy mismo",
+  "bajo": "dedicar la tarde a algo agradable y hacer el trámite más adelante",
+  "atractivo_bajo": "sobra margen y las tardes libres no abundan"
+ },
+ {
+  "id": "P1C24",
+  "rasgo": "C",
+  "faceta": "autodisciplina",
+  "contexto": "terceros",
+  "situacion": "{nombre} y su pareja ahorran para un viaje. Esta noche les apetece cenar fuera, lo que supondría gastar más de lo previsto este mes.",
+  "alto": "cenar en casa y respetar el presupuesto del mes",
+  "bajo": "salir a cenar y ajustarse un poco el resto del mes",
+  "atractivo_bajo": "un capricho compartido de vez en cuando también importa"
+ },
+ {
+  "id": "P1C25",
+  "rasgo": "C",
+  "faceta": "deliberacion",
+  "contexto": "propio",
+  "situacion": "{nombre} pasa por una tienda y ve un abrigo que le encanta, a buen precio. No tenía pensado comprarse ninguno.",
+  "alto": "dejarlo, pensarlo unos días y comparar con otros abrigos",
+  "bajo": "comprarlo ahora, ya que le encanta y el precio es bueno",
+  "atractivo_bajo": "si le encanta y el precio es bueno, pensarlo más no aporta"
+ },
+ {
+  "id": "P1C26",
+  "rasgo": "C",
+  "faceta": "deliberacion",
+  "contexto": "terceros",
+  "situacion": "Un sábado sin reserva, {nombre} y unas amistades buscan dónde cenar. Justo enfrente hay un restaurante con buena pinta.",
+  "alto": "leer opiniones y comparar varias opciones antes de entrar",
+  "bajo": "entrar en ese, que tiene buena pinta, sin darle más vueltas",
+  "atractivo_bajo": "evita dar vueltas con hambre y suele salir bien"
+ },
+ {
+  "id": "P1C27",
+  "rasgo": "C",
+  "faceta": "deliberacion",
+  "contexto": "propio",
+  "situacion": "A {nombre} le proponen un fin de semana en otra ciudad saliendo dentro de dos horas. No tiene nada previsto.",
+  "alto": "declinar y planear el viaje con calma para otra fecha",
+  "bajo": "decir que sí, hacer la mochila y salir en dos horas",
+  "atractivo_bajo": "lo espontáneo tiene su encanto y no hay nada que perder"
+ },
+ {
+  "id": "P1C28",
+  "rasgo": "C",
+  "faceta": "deliberacion",
+  "contexto": "propio",
+  "situacion": "{nombre} tiene que elegir entre dos compañías de luz con tarifas parecidas. La diferencia entre ambas sería de unos 20 € al año.",
+  "alto": "estudiar a fondo las condiciones de ambas antes de decidir",
+  "bajo": "elegir la que le inspira más confianza sin dedicarle más tiempo",
+  "atractivo_bajo": "analizar a fondo cuesta más de lo que ahorraría"
+ },
+ {
+  "id": "P1C29",
+  "rasgo": "C",
+  "faceta": "deliberacion",
+  "contexto": "terceros",
+  "situacion": "{nombre} y su pareja deciden adónde ir de vacaciones. Hay un destino que a ambos les apetece mucho.",
+  "alto": "comparar varios destinos, precios y fechas durante unos días",
+  "bajo": "reservar ese destino hoy mismo, ya que a ambos les apetece",
+  "atractivo_bajo": "si a los dos les ilusiona, comparar más solo resta"
+ },
+ {
+  "id": "P1C30",
+  "rasgo": "C",
+  "faceta": "competencia",
+  "contexto": "propio",
+  "situacion": "A {nombre} se le estropea el grifo de la cocina. Nunca ha hecho una reparación así, pero la ferretería está cerca.",
+  "alto": "informarse, comprar las piezas y cambiarlo por su cuenta esa tarde",
+  "bajo": "llamar a un fontanero y despreocuparse del asunto",
+  "atractivo_bajo": "un profesional lo hace rápido y sin riesgo de estropearlo más"
+ },
+ {
+  "id": "P1C31",
+  "rasgo": "C",
+  "faceta": "competencia",
+  "contexto": "terceros",
+  "situacion": "En el trabajo, a {nombre} le toca presentar al equipo un tema que conoce a medias. Tiene una semana.",
+  "alto": "dedicar las tardes de la semana a documentarse hasta dominar el tema",
+  "bajo": "presentar lo que sabe y reconocer abiertamente lo que no domina",
+  "atractivo_bajo": "la franqueza es útil y protege su tiempo libre"
+ },
+ {
+  "id": "P1C32",
+  "rasgo": "C",
+  "faceta": "competencia",
+  "contexto": "propio",
+  "situacion": "{nombre} se hace la declaración de la renta cada año, aunque le lleva casi un día entero. Una gestoría se la haría por 60 €.",
+  "alto": "hacerla por su cuenta, revisando cada casilla",
+  "bajo": "pagar a la gestoría y olvidarse del asunto",
+  "atractivo_bajo": "60 € a cambio de un día libre es buen trato"
+ },
+ {
+  "id": "P1C33",
+  "rasgo": "C",
+  "faceta": "competencia",
+  "contexto": "terceros",
+  "situacion": "{nombre} va a cocinar por primera vez para ocho personas en una comida familiar dentro de dos semanas.",
+  "alto": "ensayar antes el menú completo para que todo salga perfecto",
+  "bajo": "preparar un menú sencillo y confiar en que saldrá bien",
+  "atractivo_bajo": "en familia se valora la comida, no la perfección"
+ },
+ {
+  "id": "P1C34",
+  "rasgo": "C",
+  "faceta": "competencia",
+  "contexto": "propio",
+  "situacion": "{nombre} se ha apuntado a clases de baile por diversión y va algo más lento que el resto del grupo.",
+  "alto": "practicar los pasos en casa hasta ponerse al nivel del grupo",
+  "bajo": "seguir a su ritmo y disfrutar de las clases tal como van",
+  "atractivo_bajo": "baila para divertirse, no para estar a la altura de nadie"
+ },
+ {
+  "id": "P1E01",
+  "rasgo": "E",
+  "faceta": "cordialidad",
+  "contexto": "propio",
+  "situacion": "Cada mañana, {nombre} coincide en el ascensor con una vecina del quinto con la que nunca ha pasado del saludo.",
+  "alto": "preguntarle por su vida y empezar a charlar cada mañana",
+  "bajo": "mantener el saludo amable y respetar ese rato de silencio",
+  "atractivo_bajo": "respeta la intimidad ajena y una relación vecinal que ya funciona bien"
+ },
+ {
+  "id": "P1E02",
+  "rasgo": "E",
+  "faceta": "cordialidad",
+  "contexto": "terceros",
+  "situacion": "Al equipo de {nombre} se incorpora hoy una persona que viene de otra ciudad. Lleva toda la mañana concentrada en configurar su puesto.",
+  "alto": "acercarse a charlar un buen rato y proponerle comer juntos",
+  "bajo": "darle la bienvenida en dos frases y dejar que se instale a su ritmo",
+  "atractivo_bajo": "no agobia a quien está ocupado y le deja aterrizar sin presión"
+ },
+ {
+  "id": "P1E03",
+  "rasgo": "E",
+  "faceta": "cordialidad",
+  "contexto": "propio",
+  "situacion": "{nombre} lleva años yendo a la misma peluquería. La peluquera es simpática y siempre saca conversación mientras trabaja.",
+  "alto": "intercambiar confidencias como si fueran viejas amistades",
+  "bajo": "charlar con amabilidad de temas ligeros sin entrar en lo personal",
+  "atractivo_bajo": "cordialidad sin exponer su vida privada en un trato profesional"
+ },
+ {
+  "id": "P1E04",
+  "rasgo": "E",
+  "faceta": "cordialidad",
+  "contexto": "propio",
+  "situacion": "En la boda de una prima, {nombre} se reencuentra con familiares lejanos a los que ve una vez cada muchos años.",
+  "alto": "repartir abrazos y besos y tratar a todos con gran efusividad",
+  "bajo": "saludar con afecto sereno y charlar un rato con cada cual",
+  "atractivo_bajo": "el cariño auténtico no necesita aspavientos con casi desconocidos"
+ },
+ {
+  "id": "P1E05",
+  "rasgo": "E",
+  "faceta": "cordialidad",
+  "contexto": "terceros",
+  "situacion": "Un amigo de {nombre} cumple cuarenta años y lo celebra fuera de la ciudad, así que ese día no podrán verse.",
+  "alto": "llamarle por vídeo, cantarle y decirle con efusión cuánto le quiere",
+  "bajo": "enviarle un mensaje cariñoso y breve y quedar a su vuelta",
+  "atractivo_bajo": "no le interrumpe la celebración y guarda el encuentro para hacerlo en persona"
+ },
+ {
+  "id": "P1E06",
+  "rasgo": "E",
+  "faceta": "cordialidad",
+  "contexto": "propio",
+  "situacion": "{nombre} se lleva bien con sus compañeros de trabajo, que a menudo proponen quedar también fuera de la oficina.",
+  "alto": "convertirlos en amistades cercanas y verse también los fines de semana",
+  "bajo": "mantener una relación cordial y separar el trabajo de su vida personal",
+  "atractivo_bajo": "separar trabajo y vida personal protege ambas esferas"
+ },
+ {
+  "id": "P1E07",
+  "rasgo": "E",
+  "faceta": "gregarismo",
+  "contexto": "propio",
+  "situacion": "{nombre} va a preparar unas oposiciones durante meses. Unos compañeros le proponen estudiar juntos cada tarde en la biblioteca.",
+  "alto": "unirse al grupo y pasar las tardes de estudio con ellos",
+  "bajo": "estudiar a solas en casa, a su ritmo y sin distracciones",
+  "atractivo_bajo": "concentración y control del propio ritmo de estudio"
+ },
+ {
+  "id": "P1E08",
+  "rasgo": "E",
+  "faceta": "gregarismo",
+  "contexto": "propio",
+  "situacion": "{nombre} va a pasar una semana de vacaciones en una ciudad costera y busca alojamiento.",
+  "alto": "alojarse en un albergue lleno de viajeros y hacer planes con ellos",
+  "bajo": "alquilar un apartamento pequeño y pasar los días a su aire",
+  "atractivo_bajo": "descanso, intimidad y libertad total de horarios"
+ },
+ {
+  "id": "P1E09",
+  "rasgo": "E",
+  "faceta": "gregarismo",
+  "contexto": "propio",
+  "situacion": "{nombre} se traslada a otra ciudad por trabajo y encuentra dos viviendas al mismo precio.",
+  "alto": "compartir una casa grande con cinco personas que hacen vida en común",
+  "bajo": "alquilar un estudio pequeño para vivir sin compañía",
+  "atractivo_bajo": "independencia, silencio y un espacio enteramente propio"
+ },
+ {
+  "id": "P1E10",
+  "rasgo": "E",
+  "faceta": "gregarismo",
+  "contexto": "propio",
+  "situacion": "{nombre} quiere empezar a hacer ejercicio tres veces por semana.",
+  "alto": "apuntarse a clases colectivas en un gimnasio lleno de gente",
+  "bajo": "salir a correr a solas por el parque",
+  "atractivo_bajo": "aire libre, flexibilidad y un rato para despejar la cabeza"
+ },
+ {
+  "id": "P1E11",
+  "rasgo": "E",
+  "faceta": "gregarismo",
+  "contexto": "terceros",
+  "situacion": "La familia de {nombre} está decidiendo cómo celebrar la Nochebuena este año y le pide su opinión.",
+  "alto": "proponer una gran cena con tíos, primos y amigos, unas treinta personas",
+  "bajo": "proponer una cena íntima solo con los más cercanos",
+  "atractivo_bajo": "menos trabajo y conversaciones de verdad con quienes más importan"
+ },
+ {
+  "id": "P1E12",
+  "rasgo": "E",
+  "faceta": "gregarismo",
+  "contexto": "propio",
+  "situacion": "Es viernes por la noche y {nombre} duda entre dos planes para después del trabajo.",
+  "alto": "salir a un bar lleno con un grupo grande de conocidos",
+  "bajo": "cenar en casa con una persona de confianza y hablar con calma",
+  "atractivo_bajo": "una conversación profunda vale más que mucho ruido"
+ },
+ {
+  "id": "P1E13",
+  "rasgo": "E",
+  "faceta": "asertividad",
+  "contexto": "terceros",
+  "situacion": "La asociación de vecinos de {nombre} renueva su junta y {nombre} tiene ideas para mejorar el barrio.",
+  "alto": "presentarse a presidir la junta y dirigir las reuniones",
+  "bajo": "ofrecerse como vocal y aportar ideas sin llevar la batuta",
+  "atractivo_bajo": "contribuye igual sin el desgaste ni el protagonismo del cargo"
+ },
+ {
+  "id": "P1E14",
+  "rasgo": "E",
+  "faceta": "asertividad",
+  "contexto": "propio",
+  "situacion": "En un curso de fin de semana, la profesora pide que alguien salga a resolver un ejercicio ante todos. {nombre} y varias personas más saben hacerlo.",
+  "alto": "levantar la mano enseguida y salir a la pizarra",
+  "bajo": "dejar que salga otra persona y comprobar su solución en el cuaderno",
+  "atractivo_bajo": "aprende igual sin necesidad de exhibirse ni quitar el turno a nadie"
+ },
+ {
+  "id": "P1E15",
+  "rasgo": "E",
+  "faceta": "asertividad",
+  "contexto": "terceros",
+  "situacion": "Seis amigos, entre ellos {nombre}, organizan un viaje juntos. Dos del grupo ya están sugiriendo destinos y fechas.",
+  "alto": "tomar las riendas y llevar la organización del viaje",
+  "bajo": "dejar que lo organicen otros y adaptarse al plan que salga",
+  "atractivo_bajo": "evita choques de mando y deja espacio a quien ya tiene iniciativa"
+ },
+ {
+  "id": "P1E16",
+  "rasgo": "E",
+  "faceta": "asertividad",
+  "contexto": "propio",
+  "situacion": "En la reunión trimestral, la dirección abre un turno de preguntas ante toda la plantilla. {nombre} tiene una duda sobre su departamento.",
+  "alto": "levantarse y preguntar en voz alta delante de todos",
+  "bajo": "preguntarlo después en privado a su responsable",
+  "atractivo_bajo": "una respuesta más concreta y sin ocupar el tiempo de toda la plantilla"
+ },
+ {
+  "id": "P1E17",
+  "rasgo": "E",
+  "faceta": "asertividad",
+  "contexto": "propio",
+  "situacion": "{nombre} ha resuelto un problema técnico que tenía atascado a su equipo desde hacía semanas.",
+  "alto": "contarlo en la reunión general para que se sepa quién lo resolvió",
+  "bajo": "comentarlo a su responsable y seguir con su trabajo",
+  "atractivo_bajo": "discreción: el trabajo bien hecho habla por sí mismo"
+ },
+ {
+  "id": "P1E18",
+  "rasgo": "E",
+  "faceta": "asertividad",
+  "contexto": "terceros",
+  "situacion": "En la boda de un amigo de la infancia de {nombre}, los novios invitan a quien quiera a decir unas palabras ante los invitados.",
+  "alto": "levantarse y dar un discurso improvisado ante todo el salón",
+  "bajo": "escribirle una carta personal y entregársela en privado",
+  "atractivo_bajo": "un mensaje más íntimo y pensado, sin buscar el foco"
+ },
+ {
+  "id": "P1E19",
+  "rasgo": "E",
+  "faceta": "actividad",
+  "contexto": "propio",
+  "situacion": "{nombre} tiene por delante un fin de semana largo sin ningún compromiso.",
+  "alto": "llenarlo de planes: excursión, cine, cena fuera y partido",
+  "bajo": "dejar los días libres de planes y que pasen despacio",
+  "atractivo_bajo": "descansar de verdad y recuperar energía sin agenda"
+ },
+ {
+  "id": "P1E20",
+  "rasgo": "E",
+  "faceta": "actividad",
+  "contexto": "propio",
+  "situacion": "Ahora que tiene las tardes libres, a {nombre} le ofrecen colaborar en tres asociaciones distintas del barrio.",
+  "alto": "aceptar las tres y tener la semana completa de actividades",
+  "bajo": "quedarse con una y reservar tiempo libre para sus cosas",
+  "atractivo_bajo": "disfrutar de la jubilación sin convertirla en otro trabajo"
+ },
+ {
+  "id": "P1E21",
+  "rasgo": "E",
+  "faceta": "actividad",
+  "contexto": "propio",
+  "situacion": "{nombre} pasa tres días en Roma por primera vez.",
+  "alto": "ver el máximo de monumentos a paso rápido de la mañana a la noche",
+  "bajo": "ver pocas cosas con calma y sentarse en terrazas a mirar",
+  "atractivo_bajo": "saborear el viaje en lugar de acumular visitas"
+ },
+ {
+  "id": "P1E22",
+  "rasgo": "E",
+  "faceta": "actividad",
+  "contexto": "propio",
+  "situacion": "En su empresa, {nombre} puede elegir cómo organizar su trabajo durante el próximo semestre.",
+  "alto": "llevar varios proyectos cortos a la vez con un ritmo trepidante",
+  "bajo": "centrarse en un único proyecto largo con un ritmo pausado",
+  "atractivo_bajo": "profundidad, menos estrés y trabajo más cuidado"
+ },
+ {
+  "id": "P1E23",
+  "rasgo": "E",
+  "faceta": "actividad",
+  "contexto": "terceros",
+  "situacion": "Unos amigos vienen a pasar un día a la ciudad de {nombre}, que se encarga de organizarles la visita.",
+  "alto": "preparar un itinerario apretado para que vean todo lo posible",
+  "bajo": "proponer un par de planes y dejar tiempo para charlar sin prisa",
+  "atractivo_bajo": "el reencuentro importa más que el número de sitios vistos"
+ },
+ {
+  "id": "P1E24",
+  "rasgo": "E",
+  "faceta": "busqueda_de_emociones",
+  "contexto": "propio",
+  "situacion": "En las fiestas del pueblo, los amigos de {nombre} se suben a la atracción más extrema de la feria y le animan a ir.",
+  "alto": "subirse con ellos a la atracción más vertiginosa",
+  "bajo": "quedarse abajo, mirándolos y comiendo algodón de azúcar",
+  "atractivo_bajo": "disfrutar la feria a su manera sin pasar un mal rato"
+ },
+ {
+  "id": "P1E25",
+  "rasgo": "E",
+  "faceta": "busqueda_de_emociones",
+  "contexto": "propio",
+  "situacion": "{nombre} celebra su cumpleaños y puede elegir el plan de la noche.",
+  "alto": "salir a una discoteca con música muy alta hasta el amanecer",
+  "bajo": "cenar en un restaurante silencioso y volver a casa pronto",
+  "atractivo_bajo": "poder hablar, disfrutar la comida y amanecer con energía al día siguiente"
+ },
+ {
+  "id": "P1E26",
+  "rasgo": "E",
+  "faceta": "busqueda_de_emociones",
+  "contexto": "terceros",
+  "situacion": "{nombre} y su pareja deciden cómo celebrar su aniversario y le toca a {nombre} proponer el plan.",
+  "alto": "proponer un salto en paracaídas en tándem para celebrarlo",
+  "bajo": "proponer una escapada a una casa rural con chimenea",
+  "atractivo_bajo": "calma e intimidad para disfrutar de la pareja"
+ },
+ {
+  "id": "P1E27",
+  "rasgo": "E",
+  "faceta": "busqueda_de_emociones",
+  "contexto": "propio",
+  "situacion": "A {nombre} le ofrecen dos entradas para el mismo sábado por la noche.",
+  "alto": "asistir a un concierto de rock multitudinario en primera fila",
+  "bajo": "asistir a un recital acústico en un teatro pequeño",
+  "atractivo_bajo": "se escucha mejor la música y se disfruta sin agobios"
+ },
+ {
+  "id": "P1E28",
+  "rasgo": "E",
+  "faceta": "busqueda_de_emociones",
+  "contexto": "propio",
+  "situacion": "El hotel de montaña donde se aloja {nombre} incluye una actividad a elegir para la tarde.",
+  "alto": "hacer descenso de barrancos con saltos al agua",
+  "bajo": "pasar la tarde en el balneario del hotel",
+  "atractivo_bajo": "relajarse de verdad en vacaciones sin riesgos innecesarios"
+ },
+ {
+  "id": "P1E29",
+  "rasgo": "E",
+  "faceta": "busqueda_de_emociones",
+  "contexto": "terceros",
+  "situacion": "Un compañero de {nombre} se jubila y el equipo le pide ideas para la despedida.",
+  "alto": "proponer una noche de karaoke con disfraces y fiesta hasta tarde",
+  "bajo": "proponer una comida larga en su restaurante favorito",
+  "atractivo_bajo": "una despedida a la medida del homenajeado, con tiempo para hablar"
+ },
+ {
+  "id": "P1E30",
+  "rasgo": "E",
+  "faceta": "emociones_positivas",
+  "contexto": "propio",
+  "situacion": "Estando en la oficina, {nombre} se entera de que le han concedido la beca que perseguía desde hace un año.",
+  "alto": "gritar de alegría y contárselo a todo el que pase",
+  "bajo": "sonreír para sus adentros y celebrarlo en casa por la noche",
+  "atractivo_bajo": "discreción en el trabajo y saborear la alegría en privado"
+ },
+ {
+  "id": "P1E31",
+  "rasgo": "E",
+  "faceta": "emociones_positivas",
+  "contexto": "propio",
+  "situacion": "El equipo de fútbol aficionado de {nombre} acaba de ganar la final del torneo del barrio.",
+  "alto": "dar saltos, abrazar a todo el mundo y cantar hasta perder la voz",
+  "bajo": "celebrarlo con apretones de manos y una cerveza sin aspavientos",
+  "atractivo_bajo": "una satisfacción serena es igual de genuina"
+ },
+ {
+  "id": "P1E32",
+  "rasgo": "E",
+  "faceta": "emociones_positivas",
+  "contexto": "terceros",
+  "situacion": "{nombre} va a recoger al aeropuerto a su hermana, que vuelve tras un año viviendo en el extranjero.",
+  "alto": "esperarla con pancarta, globos y gritos de bienvenida",
+  "bajo": "esperarla con un abrazo largo y llevarla a casa a descansar",
+  "atractivo_bajo": "tras un vuelo largo, se agradece un recibimiento cálido pero sin espectáculo"
+ },
+ {
+  "id": "P1E33",
+  "rasgo": "E",
+  "faceta": "emociones_positivas",
+  "contexto": "propio",
+  "situacion": "A {nombre} le está encantando la serie que ve estos días.",
+  "alto": "hablar de la serie con entusiasmo a todo el mundo durante días",
+  "bajo": "disfrutarla a su manera y comentarla solo si sale el tema",
+  "atractivo_bajo": "disfrute personal sin cansar a los demás con su entusiasmo"
+ },
+ {
+  "id": "P1E34",
+  "rasgo": "E",
+  "faceta": "emociones_positivas",
+  "contexto": "propio",
+  "situacion": "Es una mañana soleada de primavera y {nombre} va caminando al trabajo de muy buen humor.",
+  "alto": "caminar tarareando en voz alta y saludar con energía a quien se cruce",
+  "bajo": "disfrutar del paseo en silencio, con una sonrisa discreta",
+  "atractivo_bajo": "un placer íntimo que no necesita exteriorizarse"
+ },
+ {
+  "id": "P1A01",
+  "rasgo": "A",
+  "faceta": "confianza",
+  "contexto": "propio",
+  "situacion": "{nombre} va a alquilar su piso a una pareja joven sin nómina fija que le ha causado muy buena impresión en la visita.",
+  "alto": "alquilarles el piso fiándose de su palabra y de la buena impresión",
+  "bajo": "pedirles un aval bancario antes de firmar el contrato",
+  "atractivo_bajo": "un impago de alquiler es caro y difícil de resolver"
+ },
+ {
+  "id": "P1A02",
+  "rasgo": "A",
+  "faceta": "confianza",
+  "contexto": "propio",
+  "situacion": "Un amigo de un amigo pide a {nombre} su coche prestado para un fin de semana y promete devolverlo con el depósito lleno.",
+  "alto": "prestarle el coche confiando en que lo cuidará bien",
+  "bajo": "decirle que solo presta el coche a gente de confianza",
+  "atractivo_bajo": "un coche es caro y a esa persona apenas la conoce"
+ },
+ {
+  "id": "P1A03",
+  "rasgo": "A",
+  "faceta": "confianza",
+  "contexto": "propio",
+  "situacion": "El fontanero que va a reformar el baño de {nombre} pide cobrar la mitad por adelantado para comprar las piezas.",
+  "alto": "pagarle la mitad por adelantado tal como pide",
+  "bajo": "proponer pagar las piezas con factura y el resto al terminar",
+  "atractivo_bajo": "pagar antes de ver el trabajo deja sin margen ante problemas"
+ },
+ {
+  "id": "P1A04",
+  "rasgo": "A",
+  "faceta": "confianza",
+  "contexto": "propio",
+  "situacion": "{nombre} se va un mes de viaje y una vecina, a la que solo conoce de saludarse, se ofrece a regarle las plantas.",
+  "alto": "dejarle las llaves de casa y aceptar la ayuda",
+  "bajo": "darle las gracias y pedir el favor a un familiar que vive lejos",
+  "atractivo_bajo": "dar las llaves de casa a una casi desconocida es arriesgado"
+ },
+ {
+  "id": "P1A05",
+  "rasgo": "A",
+  "faceta": "confianza",
+  "contexto": "propio",
+  "situacion": "El proveedor habitual de {nombre} explica que el retraso del pedido se debe a una huelga de transporte; es el tercer retraso del año.",
+  "alto": "creer la explicación y seguir con ese proveedor como siempre",
+  "bajo": "empezar a pedir presupuestos a otros proveedores por si acaso",
+  "atractivo_bajo": "tres retrasos en un año justifican cubrirse las espaldas"
+ },
+ {
+  "id": "P1A06",
+  "rasgo": "A",
+  "faceta": "altruismo",
+  "contexto": "propio",
+  "situacion": "Una compañera de clase que apenas ha venido en todo el cuatrimestre pide a {nombre} sus apuntes, en los que ha invertido muchas horas.",
+  "alto": "pasarle los apuntes completos sin pedir nada a cambio",
+  "bajo": "decirle que le han costado mucho y no compartirlos",
+  "atractivo_bajo": "es justo que el esfuerzo propio no beneficie a quien no lo hizo"
+ },
+ {
+  "id": "P1A07",
+  "rasgo": "A",
+  "faceta": "altruismo",
+  "contexto": "terceros",
+  "situacion": "{nombre} lleva semanas esperando una tarde libre cuando una amiga que acaba de separarse le llama y pide que vaya a verla.",
+  "alto": "cancelar su plan e ir a verla esa misma tarde",
+  "bajo": "mantener su plan y proponerle quedar al día siguiente",
+  "atractivo_bajo": "un día de diferencia no cambia nada y el descanso también importa"
+ },
+ {
+  "id": "P1A08",
+  "rasgo": "A",
+  "faceta": "altruismo",
+  "contexto": "propio",
+  "situacion": "El hermano de {nombre} le pide 3.000 € para un máster; es el dinero que {nombre} tenía ahorrado para la entrada de un piso.",
+  "alto": "prestarle el dinero aunque tenga que retrasar la compra del piso",
+  "bajo": "decirle que no y seguir ahorrando para el piso",
+  "atractivo_bajo": "ese ahorro tiene un objetivo importante y lleva años construyéndolo"
+ },
+ {
+  "id": "P1A09",
+  "rasgo": "A",
+  "faceta": "altruismo",
+  "contexto": "propio",
+  "situacion": "Un compañero de otro equipo pide a {nombre} que le revise una presentación esta tarde; {nombre} va justo con su propio trabajo.",
+  "alto": "revisarle la presentación aunque tenga que quedarse una hora más",
+  "bajo": "decirle que hoy no llega y sugerirle a otra persona",
+  "atractivo_bajo": "cumplir con lo propio primero es responsable, no egoísta"
+ },
+ {
+  "id": "P1A10",
+  "rasgo": "A",
+  "faceta": "altruismo",
+  "contexto": "propio",
+  "situacion": "Una asociación del barrio busca gente para repartir comida los sábados por la mañana, la única mañana en que {nombre} duerme sin despertador.",
+  "alto": "apuntarse al reparto de los sábados por la mañana",
+  "bajo": "mantener su mañana de descanso y donar algo de dinero",
+  "atractivo_bajo": "el descanso semanal es necesario y la donación también ayuda"
+ },
+ {
+  "id": "P1A11",
+  "rasgo": "A",
+  "faceta": "altruismo",
+  "contexto": "terceros",
+  "situacion": "Un amigo de la infancia que vive en otra ciudad pide a {nombre} que lleve a sus padres mayores al médico cada semana.",
+  "alto": "comprometerse a llevarlos al médico cada semana",
+  "bajo": "decirle que no puede comprometerse y ayudarle a buscar un servicio",
+  "atractivo_bajo": "un compromiso semanal indefinido es demasiado para no ser familia"
+ },
+ {
+  "id": "P1A12",
+  "rasgo": "A",
+  "faceta": "cooperacion",
+  "contexto": "propio",
+  "situacion": "{nombre} y su vecino discuten quién paga la poda de un árbol en el límite de las dos parcelas; según la escritura, es del vecino.",
+  "alto": "proponer pagarla a medias para evitar el conflicto",
+  "bajo": "mantener que la poda le corresponde pagarla al vecino",
+  "atractivo_bajo": "la escritura es clara y ceder sienta precedente"
+ },
+ {
+  "id": "P1A13",
+  "rasgo": "A",
+  "faceta": "cooperacion",
+  "contexto": "terceros",
+  "situacion": "En un torneo amistoso de pádel del barrio, {nombre} y su pareja de juego van ganando con claridad a unos principiantes.",
+  "alto": "aflojar el ritmo para que el partido esté más igualado",
+  "bajo": "jugar a su nivel normal, como en cualquier partido",
+  "atractivo_bajo": "jugar en serio es respetar al rival y al propio torneo"
+ },
+ {
+  "id": "P1A14",
+  "rasgo": "A",
+  "faceta": "cooperacion",
+  "contexto": "propio",
+  "situacion": "Al repartir las cosas de su abuelo, {nombre} y una prima quieren el mismo reloj, que tiene valor sentimental para ambas partes.",
+  "alto": "dejar el reloj a la prima para no tensar la relación",
+  "bajo": "seguir pidiendo el reloj aunque la conversación se tense",
+  "atractivo_bajo": "su vínculo con el abuelo es tan legítimo como el de su prima"
+ },
+ {
+  "id": "P1A15",
+  "rasgo": "A",
+  "faceta": "cooperacion",
+  "contexto": "propio",
+  "situacion": "En una cena de grupo, {nombre} solo ha tomado una ensalada y agua; el resto ha pedido vino, segundos y postres.",
+  "alto": "pagar a partes iguales como los demás",
+  "bajo": "pedir pagar solo lo que ha consumido",
+  "atractivo_bajo": "pagar lo consumido es lo justo y nadie sale perjudicado"
+ },
+ {
+  "id": "P1A16",
+  "rasgo": "A",
+  "faceta": "cooperacion",
+  "contexto": "propio",
+  "situacion": "La agencia con la que {nombre} reservó un viaje le cobra un recargo de 40 € de dudosa justificación.",
+  "alto": "pagarlo sin discutir para no amargarse la tarde",
+  "bajo": "reclamarlo con insistencia hasta que se lo devuelvan",
+  "atractivo_bajo": "aceptar cobros injustificados es dejar que se aprovechen"
+ },
+ {
+  "id": "P1A17",
+  "rasgo": "A",
+  "faceta": "cooperacion",
+  "contexto": "terceros",
+  "situacion": "Otro departamento pide a {nombre} que le ceda durante una semana a la persona en prácticas que le está ayudando en un mes complicado.",
+  "alto": "prestar a la persona en prácticas aunque vaya más justo de tiempo",
+  "bajo": "negarse porque también la necesita para sus plazos",
+  "atractivo_bajo": "sus plazos también son de la empresa y deben cumplirse"
+ },
+ {
+  "id": "P1A18",
+  "rasgo": "A",
+  "faceta": "modestia",
+  "contexto": "propio",
+  "situacion": "En la cena de empresa, la directora felicita al equipo de {nombre} por un proyecto que salió adelante sobre todo gracias a su trabajo.",
+  "alto": "dar el mérito al equipo sin mencionar su papel",
+  "bajo": "comentar con naturalidad qué partes hizo personalmente",
+  "atractivo_bajo": "que se sepa su aportación es justo y útil para su carrera"
+ },
+ {
+  "id": "P1A19",
+  "rasgo": "A",
+  "faceta": "modestia",
+  "contexto": "propio",
+  "situacion": "{nombre} acaba de terminar su primera maratón con un tiempo muy bueno para alguien que empezó a correr hace un año.",
+  "alto": "guardarlo para sí y mencionarlo solo si alguien pregunta",
+  "bajo": "publicarlo y contarlo con orgullo a sus conocidos",
+  "atractivo_bajo": "celebrar un logro trabajado es sano y motiva"
+ },
+ {
+  "id": "P1A20",
+  "rasgo": "A",
+  "faceta": "modestia",
+  "contexto": "terceros",
+  "situacion": "En la junta de vecinos se discute una reforma del portal y {nombre}, que se dedica a la arquitectura, ve errores en el proyecto.",
+  "alto": "dar su opinión sin hacer valer su profesión",
+  "bajo": "dejar claro que es su especialidad y que sabe de qué habla",
+  "atractivo_bajo": "su experiencia puede evitar a la comunidad un error caro"
+ },
+ {
+  "id": "P1A21",
+  "rasgo": "A",
+  "faceta": "modestia",
+  "contexto": "propio",
+  "situacion": "Un antiguo profesor invita a {nombre} a contar su trayectoria profesional a los alumnos del instituto como ejemplo de éxito.",
+  "alto": "aceptar quitándose importancia y hablando de la suerte que tuvo",
+  "bajo": "aceptar y contar sin rodeos lo que ha conseguido y cómo",
+  "atractivo_bajo": "explicar el mérito real enseña más que atribuirlo a la suerte"
+ },
+ {
+  "id": "P1A22",
+  "rasgo": "A",
+  "faceta": "modestia",
+  "contexto": "propio",
+  "situacion": "Un amigo de {nombre} presume a menudo de su sueldo en las cenas; {nombre} gana bastante más, aunque nunca lo ha dicho.",
+  "alto": "seguir sin decir nada de lo que gana",
+  "bajo": "comentar con naturalidad cuánto gana cuando salga el tema",
+  "atractivo_bajo": "no tiene por qué esconder lo que ha conseguido"
+ },
+ {
+  "id": "P1A23",
+  "rasgo": "A",
+  "faceta": "modestia",
+  "contexto": "propio",
+  "situacion": "La empresa de {nombre} da cada año un premio interno al que hay que presentar la candidatura personalmente; {nombre} tiene méritos claros.",
+  "alto": "abstenerse de presentarse y dejar que sus resultados hablen",
+  "bajo": "presentar la candidatura destacando todos sus logros",
+  "atractivo_bajo": "si nadie se presenta por ti, callar es perder la oportunidad"
+ },
+ {
+  "id": "P1A24",
+  "rasgo": "A",
+  "faceta": "sensibilidad",
+  "contexto": "terceros",
+  "situacion": "Un compañero de {nombre} está pasando un divorcio y lleva semanas rindiendo poco; el proyecto que comparten empieza a retrasarse.",
+  "alto": "cubrir su parte sin decirle nada mientras pase el bache",
+  "bajo": "hablarle claro de que el proyecto no puede esperar más",
+  "atractivo_bajo": "el proyecto afecta a más gente y callar no lo arregla"
+ },
+ {
+  "id": "P1A25",
+  "rasgo": "A",
+  "faceta": "sensibilidad",
+  "contexto": "propio",
+  "situacion": "Un conocido de {nombre} le cuenta sus problemas durante una hora, como cada vez que se ven, y hoy {nombre} tenía ganas de desconectar.",
+  "alto": "escucharle con atención una vez más",
+  "bajo": "cambiar de tema y decirle que hoy necesita desconectar",
+  "atractivo_bajo": "nadie puede ser el desahogo de otro de forma permanente"
+ },
+ {
+  "id": "P1A26",
+  "rasgo": "A",
+  "faceta": "sensibilidad",
+  "contexto": "terceros",
+  "situacion": "{nombre} debe elegir entre dos candidaturas para un puesto: una algo más preparada y otra de alguien que lleva dos años en paro.",
+  "alto": "elegir a quien lleva dos años en paro",
+  "bajo": "elegir a la candidatura mejor preparada",
+  "atractivo_bajo": "contratar por mérito es lo justo para el equipo y la empresa"
+ },
+ {
+  "id": "P1A27",
+  "rasgo": "A",
+  "faceta": "sensibilidad",
+  "contexto": "terceros",
+  "situacion": "En clase de {nombre}, un compañero con fama de difícil se ha quedado sin grupo para el trabajo final, que cuenta mucho para la nota.",
+  "alto": "proponer a su grupo incorporarlo aunque pueda bajar la nota",
+  "bajo": "mantener el grupo como está y no complicarse",
+  "atractivo_bajo": "proteger una nota importante y un grupo que funciona es legítimo"
+ },
+ {
+  "id": "P1A28",
+  "rasgo": "A",
+  "faceta": "sensibilidad",
+  "contexto": "terceros",
+  "situacion": "{nombre} alquila un piso pequeño y la inquilina, que acaba de perder el trabajo, pide retrasar dos meses el pago del alquiler.",
+  "alto": "aceptar el aplazamiento aunque le cueste cuadrar sus cuentas",
+  "bajo": "ofrecerle rescindir el contrato sin penalización",
+  "atractivo_bajo": "ese alquiler es parte de sus ingresos y no puede asumir el riesgo"
+ },
+ {
+  "id": "P1A29",
+  "rasgo": "A",
+  "faceta": "perdon_paciencia",
+  "contexto": "propio",
+  "situacion": "Un buen amigo ha olvidado el cumpleaños de {nombre} por segundo año seguido y ahora se disculpa algo avergonzado.",
+  "alto": "quitarle importancia y olvidarlo enseguida",
+  "bajo": "decirle con sinceridad que esta vez le ha dolido",
+  "atractivo_bajo": "decir lo que duele es honesto y cuida la amistad"
+ },
+ {
+  "id": "P1A30",
+  "rasgo": "A",
+  "faceta": "perdon_paciencia",
+  "contexto": "propio",
+  "situacion": "Una antigua amiga que dejó de hablar a {nombre} hace años, tras una discusión, le escribe para retomar el contacto.",
+  "alto": "responder con cariño y proponerle quedar",
+  "bajo": "contestar con cortesía pero sin reabrir la amistad",
+  "atractivo_bajo": "aquello hizo daño y su vida ya está bien sin esa amistad"
+ },
+ {
+  "id": "P1A31",
+  "rasgo": "A",
+  "faceta": "perdon_paciencia",
+  "contexto": "terceros",
+  "situacion": "{nombre} comparte coche para ir al trabajo con un compañero que casi cada día baja diez minutos tarde.",
+  "alto": "seguir esperándole cada mañana sin quejarse",
+  "bajo": "avisarle de que a partir de ahora saldrá a la hora en punto",
+  "atractivo_bajo": "su tiempo también cuenta y avisar antes es lo correcto"
+ },
+ {
+  "id": "P1A32",
+  "rasgo": "A",
+  "faceta": "perdon_paciencia",
+  "contexto": "propio",
+  "situacion": "El hermano de {nombre} le devolvió el coche prestado con un golpe y tarde, aunque se disculpó y pagó la reparación.",
+  "alto": "aceptar las disculpas y volver a prestárselo cuando lo pida",
+  "bajo": "aceptar las disculpas pero no volver a prestarle el coche",
+  "atractivo_bajo": "perdonar no obliga a repetir un riesgo que ya salió mal"
+ },
+ {
+  "id": "P1A33",
+  "rasgo": "A",
+  "faceta": "perdon_paciencia",
+  "contexto": "propio",
+  "situacion": "En la tienda donde trabaja {nombre}, un cliente que habla de malas maneras pide que le explique lo mismo por cuarta vez.",
+  "alto": "repetirle la explicación con toda la calma",
+  "bajo": "decirle con firmeza que así no va a seguir atendiéndole",
+  "atractivo_bajo": "nadie tiene por qué aguantar malos modos en su trabajo"
+ },
+ {
+  "id": "P1A34",
+  "rasgo": "A",
+  "faceta": "perdon_paciencia",
+  "contexto": "propio",
+  "situacion": "En la última reunión familiar, un tío de {nombre} hizo un comentario hiriente sobre su pareja y nunca se ha disculpado; se acerca la Navidad.",
+  "alto": "saludarle con normalidad y pasar página",
+  "bajo": "mantener las distancias hasta que pida perdón",
+  "atractivo_bajo": "hacer como si nada sería dar por bueno lo que dijo"
+ },
+ {
+  "id": "P1N01",
+  "rasgo": "N",
+  "faceta": "ansiedad",
+  "contexto": "propio",
+  "situacion": "A {nombre} le ha cambiado un poco la forma de un lunar. Su médico de cabecera dice que no parece nada y que vuelva si cambia más.",
+  "alto": "pedir cita privada con un dermatólogo, aunque cueste ochenta euros",
+  "bajo": "fiarse del médico y vigilarlo por su cuenta unas semanas",
+  "atractivo_bajo": "ya lo ha visto un médico; evita gasto y aprensión innecesaria"
+ },
+ {
+  "id": "P1N02",
+  "rasgo": "N",
+  "faceta": "ansiedad",
+  "contexto": "propio",
+  "situacion": "{nombre} sale de viaje mañana muy temprano. Hace una hora lo revisó todo, pero ahora le asalta la duda de si guardó el pasaporte.",
+  "alto": "levantarse a revisar otra vez documentos, billetes y reservas",
+  "bajo": "acostarse ya, confiando en la revisión de hace una hora",
+  "atractivo_bajo": "ya lo comprobó y necesita dormir para madrugar"
+ },
+ {
+  "id": "P1N03",
+  "rasgo": "N",
+  "faceta": "ansiedad",
+  "contexto": "terceros",
+  "situacion": "La hija adolescente de {nombre} tenía que volver a medianoche y son las doce y cuarenta. No contesta al móvil, y suele quedarse sin batería.",
+  "alto": "llamar ya a los padres de sus amigas para saber dónde está",
+  "bajo": "esperar media hora más antes de empezar a alarmarse",
+  "atractivo_bajo": "suele ser la batería; evita montar un drama por un retraso"
+ },
+ {
+  "id": "P1N04",
+  "rasgo": "N",
+  "faceta": "ansiedad",
+  "contexto": "propio",
+  "situacion": "La empresa de {nombre} anuncia una reorganización sin dar detalles. Su puesto no parece en riesgo, pero nadie lo garantiza.",
+  "alto": "actualizar el currículum y empezar a mirar ofertas por si acaso",
+  "bajo": "seguir trabajando como siempre hasta que haya algo concreto",
+  "atractivo_bajo": "no hay nada concreto; evita gastar energía en un riesgo hipotético"
+ },
+ {
+  "id": "P1N05",
+  "rasgo": "N",
+  "faceta": "ansiedad",
+  "contexto": "terceros",
+  "situacion": "El perro de {nombre} lleva un día comiendo menos de lo normal, aunque juega y se le ve con energía.",
+  "alto": "llevarlo hoy mismo al veterinario de urgencias por si acaso",
+  "bajo": "observarlo un par de días antes de hacer nada",
+  "atractivo_bajo": "parece sano; urgencias es caro y puede ser algo pasajero"
+ },
+ {
+  "id": "P1N06",
+  "rasgo": "N",
+  "faceta": "ansiedad",
+  "contexto": "propio",
+  "situacion": "{nombre} se va una semana de viaje por Europa. Tiene la tarjeta sanitaria europea y duda si contratar además una póliza de viaje de sesenta euros.",
+  "alto": "contratar la póliza por si pasa algo grave, como una repatriación",
+  "bajo": "viajar sin póliza: con la tarjeta sanitaria europea basta",
+  "atractivo_bajo": "la tarjeta ya cubre lo básico y es solo una semana"
+ },
+ {
+  "id": "P1N07",
+  "rasgo": "N",
+  "faceta": "hostilidad",
+  "contexto": "terceros",
+  "situacion": "Un compañero de piso de {nombre} vuelve a dejar los platos sucios en el fregadero, por tercera vez esta semana.",
+  "alto": "dejarle claro, con tono molesto, que no piensa tolerarlo más",
+  "bajo": "fregarlos sin decir nada para no crear mal ambiente",
+  "atractivo_bajo": "la convivencia tranquila vale más que unos platos"
+ },
+ {
+  "id": "P1N08",
+  "rasgo": "N",
+  "faceta": "hostilidad",
+  "contexto": "propio",
+  "situacion": "En la cola del supermercado, alguien con el carro lleno se cuela delante de {nombre} fingiendo no haberle visto.",
+  "alto": "llamarle la atención en voz alta delante de todos",
+  "bajo": "dejarlo pasar: son cinco minutos y no merece el mal rato",
+  "atractivo_bajo": "cinco minutos no compensan una discusión en público"
+ },
+ {
+  "id": "P1N09",
+  "rasgo": "N",
+  "faceta": "hostilidad",
+  "contexto": "terceros",
+  "situacion": "Un amigo llega cuarenta minutos tarde a la cena de cumpleaños de {nombre}, sin haber avisado, y lo cuenta entre risas.",
+  "alto": "decirle en ese momento que le ha sentado mal",
+  "bajo": "quitarle importancia para no estropear la noche",
+  "atractivo_bajo": "es su cumpleaños; prefiere disfrutar la noche sin tensión"
+ },
+ {
+  "id": "P1N10",
+  "rasgo": "N",
+  "faceta": "hostilidad",
+  "contexto": "propio",
+  "situacion": "La empresa de reformas lleva dos semanas de retraso en la cocina de {nombre} y por teléfono siempre pone una excusa nueva.",
+  "alto": "levantar la voz al teléfono para que se tomen en serio la queja",
+  "bajo": "aceptar con paciencia la nueva excusa y seguir esperando",
+  "atractivo_bajo": "enfadarse no acelera la obra y puede empeorar el trato"
+ },
+ {
+  "id": "P1N11",
+  "rasgo": "N",
+  "faceta": "hostilidad",
+  "contexto": "terceros",
+  "situacion": "En la comida del domingo, un familiar suelta un comentario sarcástico sobre el trabajo de {nombre}, como ya ha hecho otras veces.",
+  "alto": "contestarle en el acto, con el mismo tono",
+  "bajo": "evitar entrar al trapo y seguir comiendo",
+  "atractivo_bajo": "evita una discusión familiar en plena comida"
+ },
+ {
+  "id": "P1N12",
+  "rasgo": "N",
+  "faceta": "hostilidad",
+  "contexto": "propio",
+  "situacion": "Un martes a las once y media de la noche, el vecino de arriba de {nombre} tiene la música muy alta.",
+  "alto": "subir en ese momento a quejarse, sin disimular el enfado",
+  "bajo": "ponerse tapones y no decir nada; ya acabará",
+  "atractivo_bajo": "evita un roce con un vecino con quien convivirá años"
+ },
+ {
+  "id": "P1N13",
+  "rasgo": "N",
+  "faceta": "depresion",
+  "contexto": "propio",
+  "situacion": "Hace dos semanas que murió el abuelo de {nombre}. Unos amigos le proponen un fin de semana en la playa para despejarse.",
+  "alto": "quedarse en casa: todavía no tiene ánimo para planes",
+  "bajo": "aceptar el plan e intentar pasarlo bien",
+  "atractivo_bajo": "distraerse y estar con amigos ayuda a sobrellevar el duelo"
+ },
+ {
+  "id": "P1N14",
+  "rasgo": "N",
+  "faceta": "depresion",
+  "contexto": "propio",
+  "situacion": "{nombre} no ha conseguido la plaza a la que llevaba un año entero preparándose.",
+  "alto": "tomarse unos días para estar de bajón antes de decidir nada",
+  "bajo": "pasar página y apuntarse ya a la próxima convocatoria",
+  "atractivo_bajo": "mirar hacia delante evita quedarse atascado en la decepción"
+ },
+ {
+  "id": "P1N15",
+  "rasgo": "N",
+  "faceta": "depresion",
+  "contexto": "propio",
+  "situacion": "Hace un mes que {nombre} rompió una relación de cinco años. Una amiga le pregunta cómo lo lleva.",
+  "alto": "admitir que muchos días se siente sin fuerzas para nada",
+  "bajo": "decir que lo lleva bien y que ya mira hacia delante",
+  "atractivo_bajo": "centrarse en lo positivo ayuda a salir antes del bache"
+ },
+ {
+  "id": "P1N16",
+  "rasgo": "N",
+  "faceta": "depresion",
+  "contexto": "propio",
+  "situacion": "{nombre} lleva varias semanas con el ánimo bajo sin una causa clara, aunque duerme y come con normalidad.",
+  "alto": "pedir cita con un psicólogo para hablarlo",
+  "bajo": "esperar a que se le pase, como otras veces",
+  "atractivo_bajo": "a todo el mundo le pasa a rachas y suele remitir"
+ },
+ {
+  "id": "P1N17",
+  "rasgo": "N",
+  "faceta": "depresion",
+  "contexto": "terceros",
+  "situacion": "En la cena de Navidad todos brindan con alegría. {nombre} piensa en su madre, que murió este año.",
+  "alto": "nombrarla en el brindis aunque se le quiebre la voz",
+  "bajo": "guardarse la pena y disfrutar de la noche con los demás",
+  "atractivo_bajo": "no quiere ensombrecer la fiesta de toda la familia"
+ },
+ {
+  "id": "P1N18",
+  "rasgo": "N",
+  "faceta": "depresion",
+  "contexto": "terceros",
+  "situacion": "La mejor amiga de {nombre} se muda a otro país la semana que viene, probablemente para siempre.",
+  "alto": "reconocerle que le entristece mucho y despedirse entre lágrimas",
+  "bajo": "vivirlo con alegría: ahora tendrá adónde ir de viaje",
+  "atractivo_bajo": "verlo con optimismo hace la despedida más ligera para ambas partes"
+ },
+ {
+  "id": "P1N19",
+  "rasgo": "N",
+  "faceta": "autoconciencia",
+  "contexto": "propio",
+  "situacion": "En una boda, el grupo de amigos de {nombre} propone salir a cantar al karaoke delante de todos los invitados.",
+  "alto": "quedarse en la mesa: le da mucho apuro",
+  "bajo": "salir a cantar con el grupo aunque desafine",
+  "atractivo_bajo": "es una fiesta y desafinar con amigos forma parte de la gracia"
+ },
+ {
+  "id": "P1N20",
+  "rasgo": "N",
+  "faceta": "autoconciencia",
+  "contexto": "propio",
+  "situacion": "En la reunión de vecinos, {nombre} tiene una duda sobre la derrama, pero teme que sea una pregunta tonta.",
+  "alto": "callarse y consultarlo después en privado con el administrador",
+  "bajo": "preguntarlo en voz alta delante de todos",
+  "atractivo_bajo": "seguramente otros tienen la misma duda y se resuelve al momento"
+ },
+ {
+  "id": "P1N21",
+  "rasgo": "N",
+  "faceta": "autoconciencia",
+  "contexto": "propio",
+  "situacion": "A mitad de una cena de trabajo, {nombre} se da cuenta de que lleva una mancha bien visible en la camisa.",
+  "alto": "excusarse un momento e intentar quitarla en el baño",
+  "bajo": "ignorarla y seguir la conversación como si nada",
+  "atractivo_bajo": "nadie juzga a nadie por una mancha y la charla importa más"
+ },
+ {
+  "id": "P1N22",
+  "rasgo": "N",
+  "faceta": "autoconciencia",
+  "contexto": "terceros",
+  "situacion": "En el cumpleaños de un amigo, le piden a {nombre} que diga unas palabras improvisadas ante treinta personas.",
+  "alto": "declinar con una sonrisa: hablar en público le bloquea",
+  "bajo": "levantarse e improvisar algo, salga como salga",
+  "atractivo_bajo": "al amigo le hará ilusión aunque el discurso sea imperfecto"
+ },
+ {
+  "id": "P1N23",
+  "rasgo": "N",
+  "faceta": "autoconciencia",
+  "contexto": "propio",
+  "situacion": "{nombre} empieza en un gimnasio y en la clase colectiva todo el mundo parece saberse ya los ejercicios.",
+  "alto": "ponerse al fondo de la sala para que no se le vea",
+  "bajo": "colocarse delante, donde mejor ve al monitor",
+  "atractivo_bajo": "delante aprende antes y nadie se fija en los novatos"
+ },
+ {
+  "id": "P1N24",
+  "rasgo": "N",
+  "faceta": "autoconciencia",
+  "contexto": "propio",
+  "situacion": "A {nombre} le han cortado el pelo bastante peor de lo que pidió, y mañana tiene una comida familiar.",
+  "alto": "pagar otro corte mañana a primera hora para disimularlo",
+  "bajo": "acudir así a la comida y reírse si alguien lo comenta",
+  "atractivo_bajo": "el pelo crece y no vale la pena gastar más"
+ },
+ {
+  "id": "P1N25",
+  "rasgo": "N",
+  "faceta": "impulsividad",
+  "contexto": "propio",
+  "situacion": "Tras una semana horrible en el trabajo, {nombre} pasa por delante de una tienda y ve una chaqueta cara que le encanta.",
+  "alto": "comprarla en ese momento: se lo ha ganado",
+  "bajo": "dejarlo para otro día y ver si aún la quiere",
+  "atractivo_bajo": "evita una compra cara hecha solo por el mal día"
+ },
+ {
+  "id": "P1N26",
+  "rasgo": "N",
+  "faceta": "impulsividad",
+  "contexto": "propio",
+  "situacion": "{nombre} intenta comer menos dulce y hoy ha tenido un día de muchos nervios. En la cocina hay una tableta de chocolate.",
+  "alto": "comerse unas cuantas onzas para calmar los nervios",
+  "bajo": "aguantar el antojo y esperar a que se le pase",
+  "atractivo_bajo": "mantiene su propósito y el antojo se pasa en un rato"
+ },
+ {
+  "id": "P1N27",
+  "rasgo": "N",
+  "faceta": "impulsividad",
+  "contexto": "terceros",
+  "situacion": "En plena discusión por mensajes con su pareja, a {nombre} se le ocurre una respuesta muy dura.",
+  "alto": "llamarle en ese momento y decírselo en caliente",
+  "bajo": "esperar a mañana para hablarlo con más calma",
+  "atractivo_bajo": "en frío se dicen menos cosas de las que arrepentirse"
+ },
+ {
+  "id": "P1N28",
+  "rasgo": "N",
+  "faceta": "impulsividad",
+  "contexto": "propio",
+  "situacion": "{nombre} lleva meses de mucho estrés y ve una oferta de última hora: una semana en Lisboa por cuatrocientos euros, saliendo pasado mañana.",
+  "alto": "reservarla ya, sin pensarlo más",
+  "bajo": "dejarla pasar: no entraba en sus planes ni en su presupuesto",
+  "atractivo_bajo": "respeta su presupuesto y evita decidir por el agobio"
+ },
+ {
+  "id": "P1N29",
+  "rasgo": "N",
+  "faceta": "impulsividad",
+  "contexto": "propio",
+  "situacion": "Justo después de una fuerte discusión con su jefa, {nombre} recibe una oferta de otra empresa con un sueldo parecido.",
+  "alto": "aceptarla esa misma tarde, con el enfado aún encima",
+  "bajo": "esperar unos días a que se le pase y decidir en frío",
+  "atractivo_bajo": "una decisión así merece tomarse sin el calentón del momento"
+ },
+ {
+  "id": "P1N30",
+  "rasgo": "N",
+  "faceta": "vulnerabilidad",
+  "contexto": "terceros",
+  "situacion": "A {nombre} se le juntan una mudanza, el cierre de mes en el trabajo y su padre recién operado en casa.",
+  "alto": "pedir a sus hermanos que se ocupen del padre esta semana",
+  "bajo": "organizarse y sacarlo todo adelante sin cargar a nadie",
+  "atractivo_bajo": "sus hermanos también tienen lo suyo y puede apañarse"
+ },
+ {
+  "id": "P1N31",
+  "rasgo": "N",
+  "faceta": "vulnerabilidad",
+  "contexto": "propio",
+  "situacion": "En un viaje, a {nombre} le roban la cartera con las tarjetas y el documento de identidad.",
+  "alto": "llamar a casa con angustia para que le ayuden a resolverlo",
+  "bajo": "respirar hondo y ponerse a resolverlo por su cuenta",
+  "atractivo_bajo": "sabe qué hay que hacer y agobiar a la familia no ayuda"
+ },
+ {
+  "id": "P1N32",
+  "rasgo": "N",
+  "faceta": "vulnerabilidad",
+  "contexto": "terceros",
+  "situacion": "Una amiga pide a {nombre} ayuda para organizar su boda, en una época en que le cuesta llegar a todo.",
+  "alto": "decirle que ahora mismo no puede con más cosas",
+  "bajo": "aceptar y apretar los dientes unas semanas",
+  "atractivo_bajo": "es su amiga, es algo puntual y le hace ilusión ayudar"
+ },
+ {
+  "id": "P1N33",
+  "rasgo": "N",
+  "faceta": "vulnerabilidad",
+  "contexto": "propio",
+  "situacion": "{nombre} se presenta por tercera vez al examen práctico de conducir y las dos anteriores le bloquearon los nervios.",
+  "alto": "aplazarlo hasta sentir que controla mejor los nervios",
+  "bajo": "presentarse igualmente y confiar en que esta vez saldrá",
+  "atractivo_bajo": "aplazar alimenta el miedo; ya sabe conducir"
+ },
+ {
+  "id": "P1N34",
+  "rasgo": "N",
+  "faceta": "vulnerabilidad",
+  "contexto": "propio",
+  "situacion": "{nombre} tiene una semana caótica: obras en casa, varias entregas en el trabajo y apenas duerme.",
+  "alto": "pedir un par de días libres porque siente que no llega",
+  "bajo": "aguantar el tirón: en una semana todo vuelve a la normalidad",
+  "atractivo_bajo": "es algo temporal y pedir días complica las entregas"
+ },
+ {
+  "id": "P1H01",
+  "rasgo": "H",
+  "faceta": "sinceridad",
+  "contexto": "propio",
+  "situacion": "En una entrevista de trabajo, preguntan a {nombre} por su mayor defecto. El de verdad es que le cuesta mucho delegar.",
+  "alto": "admitir que le cuesta delegar, aunque pueda pesar en su contra",
+  "bajo": "contestar que es demasiado perfeccionista, la respuesta de manual",
+  "atractivo_bajo": "Es la respuesta esperada, no perjudica a nadie y protege su candidatura."
+ },
+ {
+  "id": "P1H02",
+  "rasgo": "H",
+  "faceta": "sinceridad",
+  "contexto": "terceros",
+  "situacion": "Una amiga sale de la peluquería con un corte radical que ya no tiene arreglo y pregunta a {nombre} qué le parece.",
+  "alto": "decirle con tacto que le favorecía más el de antes",
+  "bajo": "decirle que le queda muy bien y cambiar de tema",
+  "atractivo_bajo": "La verdad ya no sirve de nada y solo le haría sentirse mal."
+ },
+ {
+  "id": "P1H03",
+  "rasgo": "H",
+  "faceta": "sinceridad",
+  "contexto": "propio",
+  "situacion": "El jefe de otro departamento, que decide si aprueban el presupuesto de {nombre}, cumple años. En la oficina le están felicitando.",
+  "alto": "felicitarle con la cortesía breve que usaría con cualquiera",
+  "bajo": "felicitarle efusivamente y elogiar de paso su último proyecto",
+  "atractivo_bajo": "Un halago amable es normal y puede facilitar la aprobación del presupuesto."
+ },
+ {
+  "id": "P1H04",
+  "rasgo": "H",
+  "faceta": "sinceridad",
+  "contexto": "propio",
+  "situacion": "{nombre} busca un contacto en una empresa donde trabaja un antiguo compañero con quien no habla desde hace años.",
+  "alto": "escribirle directamente y explicarle que busca un contacto allí",
+  "bajo": "retomar el trato con mensajes amables antes de pedirle el favor",
+  "atractivo_bajo": "Así la petición resulta menos brusca y es más probable que ayude."
+ },
+ {
+  "id": "P1H05",
+  "rasgo": "H",
+  "faceta": "sinceridad",
+  "contexto": "propio",
+  "situacion": "{nombre} llega media hora tarde a una cena con amigos porque se quedó viendo el final de una serie.",
+  "alto": "contar la verdad, aunque suene a falta de consideración",
+  "bajo": "decir que había mucho tráfico y disculparse",
+  "atractivo_bajo": "Una excusa piadosa evita un mal rato sin perjudicar a nadie."
+ },
+ {
+  "id": "P1H06",
+  "rasgo": "H",
+  "faceta": "sinceridad",
+  "contexto": "terceros",
+  "situacion": "{nombre} vende su coche y un comprador pregunta si hay más gente detrás. De momento no hay nadie más.",
+  "alto": "reconocer que de momento no hay otros interesados",
+  "bajo": "contestar con evasivas y dejar que crea que hay más interés",
+  "atractivo_bajo": "Es una táctica habitual al negociar y no miente directamente."
+ },
+ {
+  "id": "P1H07",
+  "rasgo": "H",
+  "faceta": "sinceridad",
+  "contexto": "propio",
+  "situacion": "{nombre} conoce hoy a los padres de su pareja, grandes aficionados a la ópera. A {nombre} la ópera le aburre bastante.",
+  "alto": "reconocer con naturalidad que la ópera no le dice mucho",
+  "bajo": "mostrar interés y pedirles que le recomienden alguna",
+  "atractivo_bajo": "Ayuda a causar buena impresión a la familia de su pareja."
+ },
+ {
+  "id": "P1H08",
+  "rasgo": "H",
+  "faceta": "sinceridad",
+  "contexto": "terceros",
+  "situacion": "Un antiguo compañero, correcto pero sin brillo, pide a {nombre} una carta de recomendación para un puesto que desea mucho.",
+  "alto": "escribir una carta mesurada que refleje lo que de verdad piensa",
+  "bajo": "escribir una carta entusiasta, como suelen ser todas",
+  "atractivo_bajo": "Todas las cartas se inflan; una tibia le perjudicaría injustamente."
+ },
+ {
+  "id": "P1H09",
+  "rasgo": "H",
+  "faceta": "sinceridad",
+  "contexto": "propio",
+  "situacion": "En una cena de trabajo, el cliente más importante de {nombre} cuenta una anécdota larga que no tiene ninguna gracia.",
+  "alto": "escuchar con educación sin fingir que le hace gracia",
+  "bajo": "reírse con ganas para mantener el buen ambiente",
+  "atractivo_bajo": "Es cortesía profesional y cuida una relación de la que depende su trabajo."
+ },
+ {
+  "id": "P1H10",
+  "rasgo": "H",
+  "faceta": "equidad",
+  "contexto": "terceros",
+  "situacion": "En un mercadillo, un particular vende por veinte euros una lámpara antigua que {nombre} sabe que vale unos trescientos.",
+  "alto": "avisarle de que vale bastante más de lo que pide",
+  "bajo": "pagar los veinte euros sin comentar nada",
+  "atractivo_bajo": "El vendedor pone su precio; saber de antigüedades es mérito propio."
+ },
+ {
+  "id": "P1H11",
+  "rasgo": "H",
+  "faceta": "equidad",
+  "contexto": "terceros",
+  "situacion": "{nombre} quiere alquilar un piso y se entera de que el propietario necesita alquilarlo con urgencia antes de fin de mes.",
+  "alto": "ofrecer el precio anunciado, que le parece razonable",
+  "bajo": "aprovechar su prisa para negociar una buena rebaja",
+  "atractivo_bajo": "Negociar es legítimo y el propietario siempre puede decir que no."
+ },
+ {
+  "id": "P1H12",
+  "rasgo": "H",
+  "faceta": "equidad",
+  "contexto": "terceros",
+  "situacion": "Las bases del concurso de fotografía del barrio permiten presentar hasta cinco fotos por persona, aunque casi todo el mundo presenta una. {nombre} tiene cinco buenas.",
+  "alto": "presentar solo su mejor foto, como hacen los demás",
+  "bajo": "presentar las cinco, ya que las bases lo permiten",
+  "atractivo_bajo": "Las bases lo permiten y cualquiera podría hacer lo mismo."
+ },
+ {
+  "id": "P1H13",
+  "rasgo": "H",
+  "faceta": "equidad",
+  "contexto": "propio",
+  "situacion": "Un amigo de {nombre} trabaja en un teatro y le ofrece dos entradas para un estreno con todo vendido, de las que se reservan para compromisos.",
+  "alto": "rechazarlas y esperar a que haya entradas a la venta",
+  "bajo": "aceptarlas y agradecerle mucho el detalle a su amigo",
+  "atractivo_bajo": "Es un favor entre amigos que no quita la entrada a nadie concreto."
+ },
+ {
+  "id": "P1H14",
+  "rasgo": "H",
+  "faceta": "equidad",
+  "contexto": "propio",
+  "situacion": "Al llegar al hotel, {nombre} descubre que el recepcionista es un vecino suyo, que le ofrece sin coste una habitación superior a la reservada.",
+  "alto": "quedarse con la habitación que reservó y pagó",
+  "bajo": "aceptar la mejora y darle las gracias",
+  "atractivo_bajo": "Es un gesto amable y rechazarlo resultaría hasta descortés."
+ },
+ {
+  "id": "P1H15",
+  "rasgo": "H",
+  "faceta": "equidad",
+  "contexto": "terceros",
+  "situacion": "En la empresa de {nombre}, las vacaciones de agosto se asignan por orden de solicitud. {nombre} se entera por casualidad de que la lista abre mañana a primera hora.",
+  "alto": "avisar al resto del equipo antes de apuntarse",
+  "bajo": "apuntarse a primera hora sin comentarlo con nadie",
+  "atractivo_bajo": "No incumple ninguna norma; estar al tanto es cosa de cada cual."
+ },
+ {
+  "id": "P1H16",
+  "rasgo": "H",
+  "faceta": "equidad",
+  "contexto": "propio",
+  "situacion": "Su gestor propone a {nombre} una deducción fiscal legal pero rebuscada que le ahorraría bastante en la declaración de la renta.",
+  "alto": "renunciar a la deducción y pagar lo que considera justo",
+  "bajo": "aplicarla, puesto que la ley lo permite",
+  "atractivo_bajo": "Es legal; pagar más de lo exigido no beneficia a nadie concreto."
+ },
+ {
+  "id": "P1H17",
+  "rasgo": "H",
+  "faceta": "equidad",
+  "contexto": "propio",
+  "situacion": "En la puerta de embarque, la aerolínea deja pasar primero a quien viaja con niños. {nombre} va con su sobrino, que tiene ya doce años.",
+  "alto": "esperar su turno en la cola como el resto",
+  "bajo": "aprovechar y embarcar con los primeros",
+  "atractivo_bajo": "Viaja con un menor y así asegura sitio para el equipaje."
+ },
+ {
+  "id": "P1H18",
+  "rasgo": "H",
+  "faceta": "desinteres_riqueza",
+  "contexto": "propio",
+  "situacion": "{nombre} cambia de coche. Puede pagar sin apuros un modelo de gama alta, aunque uno sencillo cubriría de sobra sus necesidades.",
+  "alto": "comprar el sencillo y ahorrar la diferencia",
+  "bajo": "darse el capricho del de gama alta",
+  "atractivo_bajo": "Puede pagarlo, lo disfrutará a diario y es dinero ganado trabajando."
+ },
+ {
+  "id": "P1H19",
+  "rasgo": "H",
+  "faceta": "desinteres_riqueza",
+  "contexto": "propio",
+  "situacion": "{nombre} y su pareja preparan su boda y pueden permitirse una gran celebración en la finca de moda de la zona.",
+  "alto": "celebrarla con una comida sencilla para la familia y los íntimos",
+  "bajo": "hacer una celebración por todo lo alto en la finca",
+  "atractivo_bajo": "Es un día único en la vida y se lo pueden permitir."
+ },
+ {
+  "id": "P1H20",
+  "rasgo": "H",
+  "faceta": "desinteres_riqueza",
+  "contexto": "propio",
+  "situacion": "Para un viaje de una semana, {nombre} duda entre un hotel correcto y uno de cinco estrellas que cuesta el doble. Puede permitirse ambos.",
+  "alto": "elegir el hotel correcto y gastar la diferencia en otras cosas",
+  "bajo": "reservar el de cinco estrellas y disfrutar del lujo",
+  "atractivo_bajo": "Son sus vacaciones, puede pagarlo y descansará mejor."
+ },
+ {
+  "id": "P1H21",
+  "rasgo": "H",
+  "faceta": "desinteres_riqueza",
+  "contexto": "propio",
+  "situacion": "{nombre} se muda y duda entre un piso amplio en un barrio corriente y otro más pequeño, por el mismo precio, en la zona más prestigiosa de la ciudad.",
+  "alto": "quedarse con el piso amplio del barrio corriente",
+  "bajo": "elegir el de la zona prestigiosa, que además se revaloriza",
+  "atractivo_bajo": "La zona ofrece calidad de vida y es mejor inversión."
+ },
+ {
+  "id": "P1H22",
+  "rasgo": "H",
+  "faceta": "desinteres_riqueza",
+  "contexto": "propio",
+  "situacion": "A {nombre} le ofrecen un puesto con un cuarenta por ciento más de sueldo, pero con un trabajo menos interesante que el actual. Ahora vive con holgura.",
+  "alto": "quedarse en su puesto actual, que le gusta más",
+  "bajo": "aceptar el nuevo puesto por el aumento de sueldo",
+  "atractivo_bajo": "Un cuarenta por ciento más da seguridad y mejor nivel de vida."
+ },
+ {
+  "id": "P1H23",
+  "rasgo": "H",
+  "faceta": "desinteres_riqueza",
+  "contexto": "propio",
+  "situacion": "A {nombre} le proponen entrar en un club de golf exclusivo, frecuentado por los directivos de su sector. La cuota es alta pero asumible.",
+  "alto": "declinarlo y seguir con sus aficiones de siempre",
+  "bajo": "apuntarse por el ambiente y los contactos que ofrece",
+  "atractivo_bajo": "Los contactos pueden impulsar su carrera y puede pagarlo."
+ },
+ {
+  "id": "P1H24",
+  "rasgo": "H",
+  "faceta": "desinteres_riqueza",
+  "contexto": "terceros",
+  "situacion": "Para la comunión de su hija, {nombre} puede costear una gran fiesta como las que han hecho otras familias del colegio.",
+  "alto": "hacer una celebración sencilla en casa con la familia",
+  "bajo": "organizar una fiesta a la altura de las de sus compañeros",
+  "atractivo_bajo": "Su hija disfrutará y no se sentirá menos que sus amigos."
+ },
+ {
+  "id": "P1H25",
+  "rasgo": "H",
+  "faceta": "desinteres_riqueza",
+  "contexto": "propio",
+  "situacion": "{nombre} necesita un traje para un acto importante de trabajo. Puede permitirse uno de diseñador, aunque uno de gama media cumpliría bien.",
+  "alto": "comprar uno correcto de gama media",
+  "bajo": "darse el gusto de uno de diseñador, mucho mejor cortado",
+  "atractivo_bajo": "Se notará la calidad y le dará más confianza en el acto."
+ },
+ {
+  "id": "P1H26",
+  "rasgo": "H",
+  "faceta": "modestia",
+  "contexto": "propio",
+  "situacion": "En una entrevista de trabajo, preguntan a {nombre} por un proyecto que salió muy bien gracias a varias personas, aunque su aportación fue clave.",
+  "alto": "repartir el mérito con el equipo y quitarse importancia",
+  "bajo": "centrarse en su propia aportación y venderla bien",
+  "atractivo_bajo": "En una entrevista se espera que cada cual destaque sus méritos."
+ },
+ {
+  "id": "P1H27",
+  "rasgo": "H",
+  "faceta": "modestia",
+  "contexto": "propio",
+  "situacion": "En una cena de antiguos compañeros de clase, preguntan a {nombre} qué tal le va. Acaba de conseguir un puesto de mucha responsabilidad.",
+  "alto": "decir que le va bien, sin entrar en detalles",
+  "bajo": "contar con orgullo su nuevo puesto y lo que le ha costado",
+  "atractivo_bajo": "Es un logro real y es natural compartirlo con quien pregunta."
+ },
+ {
+  "id": "P1H28",
+  "rasgo": "H",
+  "faceta": "modestia",
+  "contexto": "terceros",
+  "situacion": "En el restaurante de siempre de {nombre} hay lista de espera. El dueño le reconoce y le ofrece pasar delante por ser buen cliente.",
+  "alto": "esperar su turno como el resto de la gente",
+  "bajo": "aceptar la mesa, ya que es costumbre de la casa",
+  "atractivo_bajo": "Premiar la fidelidad es habitual y el dueño decide en su local."
+ },
+ {
+  "id": "P1H29",
+  "rasgo": "H",
+  "faceta": "modestia",
+  "contexto": "propio",
+  "situacion": "{nombre} tiene un doctorado y empieza a trabajar con clientes nuevos, que suelen tomar más en serio a quien lo menciona.",
+  "alto": "presentarse solo con su nombre, sin mencionar el título",
+  "bajo": "mencionar el título al presentarse para ganar autoridad",
+  "atractivo_bajo": "El título es real y le ayuda a que le tomen en serio."
+ },
+ {
+  "id": "P1H30",
+  "rasgo": "H",
+  "faceta": "modestia",
+  "contexto": "propio",
+  "situacion": "{nombre} restaura muebles y acaba de ganar un premio regional de artesanía.",
+  "alto": "comentarlo solo si alguien le pregunta",
+  "bajo": "anunciarlo a clientes y conocidos para darse a conocer",
+  "atractivo_bajo": "Es un mérito real y le puede traer más clientes."
+ },
+ {
+  "id": "P1H31",
+  "rasgo": "H",
+  "faceta": "modestia",
+  "contexto": "terceros",
+  "situacion": "{nombre} ha redactado más de la mitad de un libro escrito entre varias personas. La editorial propone poner su nombre destacado en la portada.",
+  "alto": "pedir que todos los nombres aparezcan por igual",
+  "bajo": "aceptar el nombre destacado, ya que escribió la mayor parte",
+  "atractivo_bajo": "Refleja el reparto real del trabajo; no hay nada injusto."
+ },
+ {
+  "id": "P1H32",
+  "rasgo": "H",
+  "faceta": "modestia",
+  "contexto": "propio",
+  "situacion": "El antiguo instituto de {nombre} le pide una charla para los alumnos sobre su carrera profesional, que ha sido brillante.",
+  "alto": "contar su trayectoria insistiendo en la suerte y los tropiezos",
+  "bajo": "presentar sus éxitos sin rodeos para motivar a los alumnos",
+  "atractivo_bajo": "Un ejemplo claro de éxito puede inspirar a los estudiantes."
+ },
+ {
+  "id": "P1H33",
+  "rasgo": "H",
+  "faceta": "modestia",
+  "contexto": "propio",
+  "situacion": "{nombre} va a pedir un aumento y sabe que rinde claramente más que sus compañeros de equipo.",
+  "alto": "pedirlo hablando de su trabajo, sin compararse con nadie",
+  "bajo": "argumentar que rinde más que el resto del equipo",
+  "atractivo_bajo": "Es cierto y es el argumento más convincente para conseguirlo."
+ },
+ {
+  "id": "P1H34",
+  "rasgo": "H",
+  "faceta": "modestia",
+  "contexto": "terceros",
+  "situacion": "Un periódico local prepara un reportaje sobre la pequeña empresa que fundó {nombre} y pide una foto de quien está al frente.",
+  "alto": "pedir que salga todo el equipo en la foto",
+  "bajo": "salir en la foto como cara visible de la empresa",
+  "atractivo_bajo": "Fundó la empresa y es justo lo que pide el periódico."
+ },
+ {
+  "id": "P1C35",
+  "rasgo": "C",
+  "faceta": "orden",
+  "contexto": "terceros",
+  "situacion": "Los sobrinos pequeños de {nombre} pasan el fin de semana en su casa. Cada tarde llenan el salón de juguetes y se lo pasan en grande.",
+  "alto": "pedirles que recojan cada juego antes de sacar el siguiente",
+  "bajo": "dejar que lo desordenen todo y recogerlo el domingo cuando se marchen",
+  "atractivo_bajo": "los niños disfrutan sin interrupciones y el orden puede esperar dos días"
+ },
+ {
+  "id": "P1C36",
+  "rasgo": "C",
+  "faceta": "orden",
+  "contexto": "propio",
+  "situacion": "{nombre} sale de viaje mañana en un vuelo a las seis. Son las diez de la noche, la maleta está hecha y la casa ha quedado bastante desordenada.",
+  "alto": "quedarse hasta la una ordenando y limpiando la casa antes de salir",
+  "bajo": "acostarse ya y encontrarse la casa como esté a la vuelta",
+  "atractivo_bajo": "dormir antes de un madrugón importa más que una casa ordenada"
+ },
+ {
+  "id": "P1C37",
+  "rasgo": "C",
+  "faceta": "orden",
+  "contexto": "terceros",
+  "situacion": "Unas amistades cocinan juntas en casa de {nombre} entre risas. Van dejando cazos y utensilios donde les pilla, lejos del sitio de costumbre.",
+  "alto": "recolocar cada utensilio en su sitio mientras los demás cocinan",
+  "bajo": "dejar que lo pongan donde sea y ordenar la cocina otro día",
+  "atractivo_bajo": "no corta el buen ambiente y el orden se recupera luego"
+ },
+ {
+  "id": "P1C38",
+  "rasgo": "C",
+  "faceta": "orden",
+  "contexto": "terceros",
+  "situacion": "{nombre} tiene la despensa ordenada por categorías. Su pareja, que acaba de mudarse con {nombre}, coloca la compra a su manera y encuentra todo sin problema.",
+  "alto": "reorganizar la despensa según su sistema y explicárselo a su pareja",
+  "bajo": "aceptar el sistema de su pareja, aunque le parezca más desordenado",
+  "atractivo_bajo": "convivir exige ceder, y el sistema de la pareja también funciona"
+ },
+ {
+  "id": "P1C39",
+  "rasgo": "C",
+  "faceta": "sentido_del_deber",
+  "contexto": "propio",
+  "situacion": "{nombre} se ha hecho daño en la espalda y el médico le recomienda reposo. Mañana su equipo de pádel aficionado juega un partido de liga y sin su participación quedarían cortos.",
+  "alto": "jugar el partido igualmente para no dejar colgado al equipo",
+  "bajo": "avisar de que no juega y hacer el reposo indicado",
+  "atractivo_bajo": "la salud va antes que un partido de aficionados"
+ },
+ {
+  "id": "P1C40",
+  "rasgo": "C",
+  "faceta": "sentido_del_deber",
+  "contexto": "terceros",
+  "situacion": "{nombre} se comprometió a ayudar a un compañero de trabajo con su mudanza el sábado. Luego se entera de que su hija juega esa mañana la final del torneo escolar.",
+  "alto": "cumplir lo prometido e ir a la mudanza como había quedado",
+  "bajo": "disculparse con el compañero e ir a ver la final de su hija",
+  "atractivo_bajo": "una final de su hija no se repite; la mudanza tiene otras manos"
+ },
+ {
+  "id": "P1C41",
+  "rasgo": "C",
+  "faceta": "sentido_del_deber",
+  "contexto": "propio",
+  "situacion": "{nombre} colabora cada sábado en un banco de alimentos donde hay voluntarios de sobra. Lleva tres semanas durmiendo mal por el trabajo y apenas puede con su alma.",
+  "alto": "acudir igualmente a su turno del sábado, como cada semana",
+  "bajo": "avisar de que este sábado no va y quedarse descansando",
+  "atractivo_bajo": "hay voluntarios de sobra y necesita recuperarse"
+ },
+ {
+  "id": "P1C42",
+  "rasgo": "C",
+  "faceta": "sentido_del_deber",
+  "contexto": "terceros",
+  "situacion": "A {nombre} le queda una tarea para mañana que podría terminar hoy quedándose dos horas más. Es su aniversario y su pareja ha reservado mesa para cenar.",
+  "alto": "quedarse a terminarla y llegar tarde a la cena",
+  "bajo": "dejarla para mañana a primera hora e ir puntual a la cena",
+  "atractivo_bajo": "la tarea no corre prisa y el aniversario es hoy"
+ },
+ {
+  "id": "P1C43",
+  "rasgo": "C",
+  "faceta": "logro",
+  "contexto": "terceros",
+  "situacion": "En Navidad, {nombre} juega a un juego de mesa con la familia. Tiene clara una estrategia para ganar, pero los demás solo juegan para reírse un rato.",
+  "alto": "seguir su estrategia y ganar la partida con claridad",
+  "bajo": "jugar sin estrategia y dejar que la partida fluya entre risas",
+  "atractivo_bajo": "el juego es para pasarlo bien en familia, no para ganar"
+ },
+ {
+  "id": "P1C44",
+  "rasgo": "C",
+  "faceta": "logro",
+  "contexto": "propio",
+  "situacion": "{nombre} lleva meses entrenando para batir su mejor marca en un maratón. A dos semanas de la carrera nota una molestia leve en la rodilla.",
+  "alto": "mantener el plan de entrenamiento para intentar batir su marca",
+  "bajo": "bajar la intensidad y correrla tranquilamente sin buscar marca",
+  "atractivo_bajo": "forzar con una molestia puede convertirla en lesión seria"
+ },
+ {
+  "id": "P1C45",
+  "rasgo": "C",
+  "faceta": "logro",
+  "contexto": "terceros",
+  "situacion": "{nombre} acaba de tener un bebé y tiene un trabajo estable que le gusta. Este curso abre plazas un máster de tardes que le ayudaría a ascender.",
+  "alto": "matricularse este curso en el máster para progresar en su carrera",
+  "bajo": "aplazar el máster y dedicar las tardes al bebé",
+  "atractivo_bajo": "los primeros meses del bebé no vuelven; el máster puede esperar"
+ },
+ {
+  "id": "P1C46",
+  "rasgo": "C",
+  "faceta": "autodisciplina",
+  "contexto": "propio",
+  "situacion": "{nombre} lleva meses sin tomar dulces por decisión propia, sin motivo médico. Hoy su abuela cumple noventa años y ha preparado la tarta de siempre.",
+  "alto": "rechazar la tarta y mantener su norma sin excepciones",
+  "bajo": "comerse un trozo con la familia y retomar la norma mañana",
+  "atractivo_bajo": "un día especial con la abuela merece una excepción"
+ },
+ {
+  "id": "P1C47",
+  "rasgo": "C",
+  "faceta": "autodisciplina",
+  "contexto": "propio",
+  "situacion": "{nombre} va al gimnasio cinco días por semana sin fallar. Hoy se cruza con un amigo de la infancia que vive en el extranjero y solo pasa hoy por la ciudad.",
+  "alto": "proponerle un café rápido e ir al gimnasio como tenía previsto",
+  "bajo": "saltarse el gimnasio y pasar la tarde con su amigo",
+  "atractivo_bajo": "el amigo solo está hoy; el gimnasio estará mañana"
+ },
+ {
+  "id": "P1C48",
+  "rasgo": "C",
+  "faceta": "autodisciplina",
+  "contexto": "propio",
+  "situacion": "{nombre} se ha propuesto escribir mil palabras diarias de su novela, también en vacaciones. Está en una isla y sus amistades salen a ver el atardecer.",
+  "alto": "quedarse en el apartamento escribiendo hasta cumplir la cuota del día",
+  "bajo": "salir a ver el atardecer y saltarse la cuota de hoy",
+  "atractivo_bajo": "está de vacaciones y un día sin escribir no estropea nada"
+ },
+ {
+  "id": "P1C49",
+  "rasgo": "C",
+  "faceta": "deliberacion",
+  "contexto": "propio",
+  "situacion": "{nombre} va a pintar su dormitorio. Lleva tres semanas con tres muestras de color en la pared y le gustan las tres casi por igual.",
+  "alto": "comprar un par de muestras más y esperar otra semana para decidir",
+  "bajo": "elegir una de las tres y pintar este mismo fin de semana",
+  "atractivo_bajo": "cualquiera de las tres le gusta; seguir dudando no aporta nada"
+ },
+ {
+  "id": "P1C50",
+  "rasgo": "C",
+  "faceta": "deliberacion",
+  "contexto": "propio",
+  "situacion": "En una cena entre amistades, cada cual improvisa un brindis divertido por turnos. Le toca a {nombre}.",
+  "alto": "pedir que le dejen para el final y pensar antes qué decir",
+  "bajo": "levantar la copa y decir lo primero que se le ocurra",
+  "atractivo_bajo": "la gracia del juego está en improvisar sin pensarlo"
+ },
+ {
+  "id": "P1C51",
+  "rasgo": "C",
+  "faceta": "deliberacion",
+  "contexto": "propio",
+  "situacion": "Un domingo soleado, unas amistades escriben a {nombre} para hacer una barbacoa improvisada esa tarde en su terraza.",
+  "alto": "proponer dejarla para el sábado que viene y prepararla con calma",
+  "bajo": "decir que sí y apañarse con lo que haya en la nevera",
+  "atractivo_bajo": "el plan improvisado y el buen tiempo son de hoy"
+ },
+ {
+  "id": "P1C52",
+  "rasgo": "C",
+  "faceta": "competencia",
+  "contexto": "propio",
+  "situacion": "Son las once de la noche y mañana {nombre} tiene una reunión interna informal de diez minutos. Las diapositivas ya están bien, aunque se le ocurren mejoras.",
+  "alto": "seguir puliendo las diapositivas hasta pasada la medianoche",
+  "bajo": "acostarse ya y presentar lo que tiene, que es suficiente",
+  "atractivo_bajo": "es una reunión menor y descansar rinde más que pulir"
+ },
+ {
+  "id": "P1C53",
+  "rasgo": "C",
+  "faceta": "competencia",
+  "contexto": "terceros",
+  "situacion": "{nombre} pinta acuarelas por afición y una amiga le pidió una para su salón. Lleva cinco intentos, y a la amiga le encantó el segundo.",
+  "alto": "seguir repitiéndola hasta que le parezca perfecta",
+  "bajo": "regalarle el segundo intento, que a su amiga ya le encantó",
+  "atractivo_bajo": "el cuadro es para la amiga, que ya está encantada con ese"
+ },
+ {
+  "id": "P1C54",
+  "rasgo": "C",
+  "faceta": "competencia",
+  "contexto": "propio",
+  "situacion": "{nombre} quiere aprender a hacer pan. Los libros recomiendan semanas de práctica con masa madre, pero hoy solo quiere un pan casero para la cena.",
+  "alto": "empezar con masa madre siguiendo paso a paso el método del libro",
+  "bajo": "hacer un pan rápido con levadura de sobre y ver qué sale",
+  "atractivo_bajo": "solo quiere pan para hoy; el método completo puede venir después"
+ },
+ {
+  "id": "P1H35",
+  "rasgo": "H",
+  "faceta": "sinceridad",
+  "contexto": "propio",
+  "situacion": "La futura suegra de {nombre} le sirve con ilusión su plato estrella, un guiso que a {nombre} no le gusta nada, y le pregunta qué le parece.",
+  "alto": "decirle con amabilidad que ese plato no es de su gusto",
+  "bajo": "elogiar el guiso y repetir para ganarse su simpatía",
+  "atractivo_bajo": "Halagar el plato evita un mal comienzo con la familia política."
+ },
+ {
+  "id": "P1H36",
+  "rasgo": "H",
+  "faceta": "sinceridad",
+  "contexto": "propio",
+  "situacion": "{nombre} empieza en un trabajo nuevo y el primer día un compañero veterano, muy influyente en la oficina, le enseña orgulloso fotos de su velero.",
+  "alto": "mirarlas un momento y volver al trabajo, sin fingir entusiasmo",
+  "bajo": "mostrar mucho interés por el velero para empezar con buen pie",
+  "atractivo_bajo": "Fingir interés es cortesía básica y facilita la integración en el equipo."
+ },
+ {
+  "id": "P1H37",
+  "rasgo": "H",
+  "faceta": "sinceridad",
+  "contexto": "terceros",
+  "situacion": "Un vecino mayor, que riega las plantas de {nombre} cada verano, le regala un tarro de mermelada casera que está francamente mala.",
+  "alto": "decirle con sinceridad que esta vez no le ha salido bien",
+  "bajo": "darle las gracias con entusiasmo y asegurarle que está buenísima",
+  "atractivo_bajo": "Una mentira amable protege a un vecino generoso y la buena relación."
+ },
+ {
+  "id": "P1H38",
+  "rasgo": "H",
+  "faceta": "sinceridad",
+  "contexto": "propio",
+  "situacion": "{nombre} visita por primera vez la casa recién reformada de su jefa, que le pregunta qué le parece. A {nombre} la decoración le resulta recargada.",
+  "alto": "decir con franqueza que no es el estilo que elegiría",
+  "bajo": "alabar la reforma y destacar algún detalle con entusiasmo",
+  "atractivo_bajo": "Criticar la casa de la jefa sería descortés e innecesario."
+ },
+ {
+  "id": "P1H39",
+  "rasgo": "H",
+  "faceta": "sinceridad",
+  "contexto": "propio",
+  "situacion": "Un cliente importante de {nombre} canta en un coro aficionado y le invita a su concierto, que resulta bastante flojo. A la salida le pregunta qué le ha parecido.",
+  "alto": "decirle que al coro todavía le queda bastante por mejorar",
+  "bajo": "felicitarle efusivamente y decirle que le ha encantado",
+  "atractivo_bajo": "Felicitar tras un concierto es lo cortés y cuida al cliente."
+ },
+ {
+  "id": "P1H40",
+  "rasgo": "H",
+  "faceta": "equidad",
+  "contexto": "terceros",
+  "situacion": "Un amigo de {nombre}, médico especialista, se ofrece a ver a la madre de {nombre} esta misma semana en su consulta privada, sin cobrar y saltándose meses de espera.",
+  "alto": "darle las gracias y pedir cita para su madre por el cauce normal",
+  "bajo": "aceptar la cita para su madre y agradecerle mucho el favor",
+  "atractivo_bajo": "La salud de la madre importa y el ofrecimiento sale del afecto."
+ },
+ {
+  "id": "P1H41",
+  "rasgo": "H",
+  "faceta": "equidad",
+  "contexto": "terceros",
+  "situacion": "Una amiga de {nombre} organiza un campamento de verano con todas las plazas agotadas y se ofrece a hacer hueco para sus dos hijos.",
+  "alto": "apuntar a sus hijos en la lista de espera, como las demás familias",
+  "bajo": "aceptar las dos plazas y agradecerle mucho el detalle a su amiga",
+  "atractivo_bajo": "Rechazarlo desairaría a la amiga y privaría a los niños del campamento."
+ },
+ {
+  "id": "P1H42",
+  "rasgo": "H",
+  "faceta": "equidad",
+  "contexto": "propio",
+  "situacion": "El dueño de la tienda de bicicletas del barrio, amigo de la familia de {nombre}, insiste en hacerle un descuento del treinta por ciento que no hace a otros clientes.",
+  "alto": "insistir en pagar el precio normal, como cualquier cliente",
+  "bajo": "aceptar el descuento y agradecerle el gesto de amistad",
+  "atractivo_bajo": "Rechazar un gesto de amistad insistente resulta frío y desagradecido."
+ },
+ {
+  "id": "P1H43",
+  "rasgo": "H",
+  "faceta": "equidad",
+  "contexto": "terceros",
+  "situacion": "Un amigo de {nombre} trabaja en una inmobiliaria y le avisa, antes de publicarlo, de un piso de alquiler muy bueno, justo lo que busca su hija.",
+  "alto": "esperar a que se publique para que todos tengan la misma oportunidad",
+  "bajo": "visitarlo hoy mismo con su hija y agradecerle el aviso",
+  "atractivo_bajo": "Ayuda a la hija con un aviso amistoso y perfectamente legal."
+ },
+ {
+  "id": "P1H44",
+  "rasgo": "H",
+  "faceta": "equidad",
+  "contexto": "propio",
+  "situacion": "En las fiestas del pueblo de sus abuelos, el alcalde, antiguo compañero de colegio de {nombre}, le invita a ver el pregón desde el balcón del ayuntamiento.",
+  "alto": "declinar y verlo desde la plaza con el resto de vecinos",
+  "bajo": "aceptar la invitación y agradecerle el detalle al alcalde",
+  "atractivo_bajo": "Es un gesto de cariño de un viejo amigo; rechazarlo sería un desaire."
+ },
+ {
+  "id": "P1H45",
+  "rasgo": "H",
+  "faceta": "desinteres_riqueza",
+  "contexto": "terceros",
+  "situacion": "Por su décimo aniversario de boda, la familia de {nombre} les regala a la pareja una noche en un hotel de lujo que les ha costado bastante.",
+  "alto": "pedirles que lo cambien por algo sencillo y más barato",
+  "bajo": "aceptar con ilusión y disfrutar del lujo a fondo",
+  "atractivo_bajo": "Es un regalo hecho con cariño; cambiarlo decepcionaría a los hijos."
+ },
+ {
+  "id": "P1H46",
+  "rasgo": "H",
+  "faceta": "desinteres_riqueza",
+  "contexto": "propio",
+  "situacion": "Tras un año muy duro, a {nombre} le dan un ascenso importante. Su pareja le anima a celebrarlo en un restaurante con estrella Michelin que pueden pagar sin problema.",
+  "alto": "proponer cenar en el bar de siempre, que le basta de sobra",
+  "bajo": "reservar en el restaurante de lujo y darse un homenaje",
+  "atractivo_bajo": "Un logro merecido justifica un capricho que además ilusiona a la pareja."
+ },
+ {
+  "id": "P1H47",
+  "rasgo": "H",
+  "faceta": "desinteres_riqueza",
+  "contexto": "propio",
+  "situacion": "{nombre} lleva meses trabajando sin descanso y le sobra dinero. Una amiga le propone pasar juntos un fin de semana en un balneario de lujo.",
+  "alto": "proponerle a cambio una escapada sencilla de acampada",
+  "bajo": "apuntarse al balneario y darse un capricho bien merecido",
+  "atractivo_bajo": "Descansar con comodidad tras meses de esfuerzo es razonable y saludable."
+ },
+ {
+  "id": "P1H48",
+  "rasgo": "H",
+  "faceta": "desinteres_riqueza",
+  "contexto": "terceros",
+  "situacion": "{nombre} viste siempre ropa muy gastada. Su hermana se casa y le pide con ilusión que se compre un traje bueno para la boda.",
+  "alto": "acudir con el traje viejo de siempre, que todavía sirve",
+  "bajo": "comprarse un traje caro y elegante para la ocasión",
+  "atractivo_bajo": "Complace a la hija en un día único y el gasto es asumible."
+ },
+ {
+  "id": "P1H49",
+  "rasgo": "H",
+  "faceta": "desinteres_riqueza",
+  "contexto": "terceros",
+  "situacion": "El negocio de {nombre} va muy bien este año y sus hijos, que llevan tiempo sin vacaciones, sueñan con un crucero de lujo por el Mediterráneo.",
+  "alto": "proponer unas vacaciones sencillas en la playa de siempre",
+  "bajo": "reservar el crucero de lujo y darles ese gusto a todos",
+  "atractivo_bajo": "La familia lo desea mucho y pueden permitírselo tras años sin viajar."
+ },
+ {
+  "id": "P1H50",
+  "rasgo": "H",
+  "faceta": "modestia",
+  "contexto": "terceros",
+  "situacion": "La asociación de vecinos busca a alguien que asesore gratis sobre hipotecas. {nombre} tiene veinte años de experiencia en banca, aunque nadie en el barrio lo sabe.",
+  "alto": "callarse para no darse importancia delante de los vecinos",
+  "bajo": "presentar su experiencia y ofrecerse como la persona indicada",
+  "atractivo_bajo": "Darse a conocer permite ayudar de verdad a los vecinos."
+ },
+ {
+  "id": "P1H51",
+  "rasgo": "H",
+  "faceta": "modestia",
+  "contexto": "propio",
+  "situacion": "Por el cumpleaños de {nombre}, sus amigos han preparado un vídeo lleno de elogios hacia su persona y quieren proyectarlo durante la fiesta.",
+  "alto": "pedirles que no lo proyecten, porque tanto elogio le incomoda",
+  "bajo": "verlo con todos y disfrutar de ser el centro de atención",
+  "atractivo_bajo": "Rechazarlo despreciaría el esfuerzo y el cariño de los amigos."
+ },
+ {
+  "id": "P1H52",
+  "rasgo": "H",
+  "faceta": "modestia",
+  "contexto": "propio",
+  "situacion": "{nombre} es la persona con más experiencia del departamento y la nueva jefa le ofrece el único despacho con ventana.",
+  "alto": "rechazarlo y seguir en la mesa compartida como el resto",
+  "bajo": "aceptar el despacho, ya que se lo ofrecen por su experiencia",
+  "atractivo_bajo": "El reconocimiento es merecido y rechazarlo desairaría a la nueva jefa."
+ },
+ {
+  "id": "P1H53",
+  "rasgo": "H",
+  "faceta": "modestia",
+  "contexto": "propio",
+  "situacion": "{nombre} diseñó sin cobrar el cartel de las fiestas del pueblo, que ha gustado mucho. Nadie sabe quién lo hizo y el ayuntamiento le propone firmarlo.",
+  "alto": "dejarlo sin firmar, como un trabajo anónimo más",
+  "bajo": "firmarlo con su nombre, ya que puede traerle encargos",
+  "atractivo_bajo": "Es su trabajo y firmarlo es legítimo y útil profesionalmente."
+ },
+ {
+  "id": "P1H54",
+  "rasgo": "H",
+  "faceta": "modestia",
+  "contexto": "propio",
+  "situacion": "Los novios, agradecidos con {nombre} por haberles presentado, le han reservado un sitio en la mesa presidencial de la boda, junto a los padres.",
+  "alto": "pedir que le sienten en otra mesa, con los demás amigos",
+  "bajo": "aceptar el sitio de honor y agradecérselo a los novios",
+  "atractivo_bajo": "Es un detalle de los novios; rechazarlo sería un desaire."
+ }
+]
