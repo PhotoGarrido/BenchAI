@@ -48,7 +48,10 @@ const fallos = []; const ok = (c, m) => { console.log((c ? "  ok  " : " FAIL ") 
 await cdp("Page.enable"); await cdp("Runtime.enable"); await cdp("Log.enable");
 await cdp("Emulation.setDeviceMetricsOverride", { width: 1440, height: 900, deviceScaleFactor: 1, mobile: false });
 
-async function cargar() { await cdp("Page.navigate", { url: URL_ }); await dormir(2600); }
+// la lámina va en su propio bloque, bajo el titular: se trae a la vista
+// (sin desplazamiento suave) para que el ratón simulado la alcance
+const aLaVista = () => ev(`document.documentElement.style.scrollBehavior = 'auto'; document.getElementById('lamina').scrollIntoView({ block: 'center' }); true`);
+async function cargar() { await cdp("Page.navigate", { url: URL_ }); await dormir(2600); await aLaVista(); await dormir(200); }
 
 // 1 · carga y entrada animada
 await cargar();

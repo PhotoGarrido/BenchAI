@@ -1157,9 +1157,9 @@
       titulo: "Perfil de la medición elegida sobre los ocho ejes",
       clase: "lamina-fig", ejes: ORDEN_EJES.map((c) => ({ clave: c, nombre: nombreEje(c), largo: EJE[c].nombre, color: TONO[c] })),
       halo: true, cunas: true, animar: true, duracion: 900,
-      // el radio también cabe en la ALTURA de la ventana: lámina y tarjetas
-      // tienen que verse enteras sin bajar (1280×800, 1366×768)
-      anchoMax: 720, radioMax: Math.max(150, Math.min(250, Math.round((innerHeight - 360) / 2))),
+      // el radio también cabe en la ALTURA de la ventana: el octógono entero
+      // a la vista (desde el 27-10 las tarjetas van al lado, no debajo)
+      anchoMax: 760, radioMax: Math.max(150, Math.min(280, Math.round((innerHeight - 250) / 2))),
       tipoEtiqueta: "mono", claseEtiqueta: "et-lamina",
       // en el móvil, rótulos de una palabra: el radio crece de ~70 a ~115 px
       cortos: ["CONF.", "OBED.", "ABUSO", "CLIMA", "PROV.", "ÓRDEN.", "SILEN.", "SICOF."], anchoCortos: 560,

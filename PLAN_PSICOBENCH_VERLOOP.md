@@ -139,6 +139,12 @@ Plan original:
 - Móvil 390 y 320: titular a 64 px, rejillas a una columna, tabla con scroll, halo desactivado.
 - `prefers-reduced-motion`, `prefers-contrast: more` (quitar grano), impresión.
 
+### Ajuste de la portada en dos bloques — **hecho (27-10-2026)**, a petición tuya tras la fase 4
+Al ver el esqueleto de la fase 0 (titular solo, a todo el ancho) preferiste esa portada a la de dos columnas. La portada se parte en dos bloques para que cada uno respire:
+- **`#portada`**: ceja, titular a todo el ancho (`clamp(52px, 8,2vw, 128px)`, 118 px a 1440), entradilla y botones; el resplandor pasa a ocupar todo el ancho (dentro del marco se le veían los bordes).
+- **`#perfil`** (`.lamina-bloque`), justo debajo: las cuatro cifras en una franja grande y, debajo, el octógono a un lado y las dos tarjetas (medición y lectura del eje) al otro. Por debajo de 940 px, una columna; por debajo de 520 px, las tres cifras en fila y la fecha en la suya. El radio del octógono crece (tope 280 px) porque ya no comparte alto con las tarjetas. JS, ids y comportamiento de la lámina no cambian; la prueba de la lámina la trae a la vista antes de usar el ratón.
+- Esto deja sin efecto el «titular a 44 px en móvil» de la fase 4: con la lámina en su propio bloque, el titular vuelve a crecer (52 px a 390).
+
 ### Fase 5 · Validación completa (1 día) — la puerta del cambio
 - `web/smoke.mjs` contra la previa local, con aserciones nuevas para `/psicobench-nueva` (lámina con 39 perfiles y 8 sectores, cambio de modelo, lectura de eje, ocho secciones con sus tablas).
 - `marcado.prueba.cjs`, `generar_datos.py --check`, `publicar.py --check`, `test_xss_estatico.py`, `verificar.sh`.
