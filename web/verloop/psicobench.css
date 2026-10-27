@@ -226,6 +226,7 @@ body.verloop section .tira td.c.p8 span, body.verloop section .tira td.c.p9 span
 @media print {
   .verloop .lamina::before, .verloop #lm-ant, .verloop #lm-sig, .verloop .lamina-polvo, .verloop .ficha-acciones { display: none !important; }
   .verloop .lamina-bloque { padding: 0; break-before: page; }
+  .verloop .lamina-bloque .lamina { background: #FFFFFF; border-color: #C9C6D4; }
   .verloop .componente, .verloop .sesion, .verloop .cifras-eje li, .verloop .ficha-sec li, .verloop .marco-p { break-inside: avoid; }
   .verloop .lamina-modelo, .verloop .ll-caja, .verloop .panel-escalera { background: #FFFFFF; backdrop-filter: none; }
   .verloop .ficha-cab .indice-ficha .v { background: none; color: #000000; }

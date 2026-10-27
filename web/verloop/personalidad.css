@@ -105,6 +105,7 @@
   .verloop #lp-ant, .verloop #lp-sig, .verloop .lamina-polvo, .verloop .lamina-p::before { display: none !important; }
   .verloop .ficha-p-bloque { padding: 0; break-before: page; }
   .verloop .ficha-m, .verloop .curio { break-inside: avoid; }
+  .verloop .lamina-p { background: #FFFFFF; border-color: #C9C6D4; }
   .verloop .poligono-m { fill: rgba(0, 0, 0, .06); stroke: #000000; }
   .verloop .vertice { fill: #000000; }
 }
