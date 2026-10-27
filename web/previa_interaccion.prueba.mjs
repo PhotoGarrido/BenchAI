@@ -170,6 +170,16 @@ ok(r.t === "Obediencia", `390 px táctil: un toque en el eje lo lee y la lectura
 ok(r.n === n0, `390 px táctil: el toque no cambia de medición aunque caiga en un perfil fino (${r.n})`);
 await pulsar(`document.getElementById('lm-sig')`); await dormir(1100);
 ok((await ev(`document.getElementById('lm-nombre').textContent`)) !== n0, "390 px táctil: ▶ sí cambia de medición");
+// deslizar la ficha con el dedo hacia la izquierda es «siguiente»
+await dormir(1800);
+const antesDesliz = await ev(`document.getElementById('lm-nombre').textContent`);
+const pie = await ev(`(() => { const r = document.querySelector('.lamina-pie').getBoundingClientRect(); return { x: r.left + r.width * 0.8, y: r.top + 20 }; })()`);
+await cdp("Input.dispatchTouchEvent", { type: "touchStart", touchPoints: [{ x: pie.x, y: pie.y }] });
+for (let i = 1; i <= 6; i++) await cdp("Input.dispatchTouchEvent", { type: "touchMove", touchPoints: [{ x: pie.x - i * 30, y: pie.y + i }] });
+await cdp("Input.dispatchTouchEvent", { type: "touchEnd", touchPoints: [] });
+await dormir(2600);
+const trasDesliz = await ev(`document.getElementById('lm-nombre').textContent`);
+ok(trasDesliz !== antesDesliz, `390 px táctil: deslizar la ficha a la izquierda pasa a la siguiente (${antesDesliz} → ${trasDesliz})`);
 await cdp("Emulation.setTouchEmulationEnabled", { enabled: false });
 
 // 9 · estados: movimiento reducido, más contraste e impresión

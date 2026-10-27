@@ -18,7 +18,9 @@
      · fase 3: cada eje pinta con su tono (`TONO`, `tonoEje`) en vez de la
        escala de dureza única, y el ISS con su gradiente (`colorISS`): el
        ranking del índice, las barras eje a eje, el mapa, las tiras de
-       sesión, los mapas con nombre, la ficha y la escalera.
+       sesión, los mapas con nombre y la ficha;
+     · 27-10: sin la escalera de versiones (confundía más que aportaba; la
+       tabla puente sigue en la ficha) y con el «chasquido» en la lámina.
    Las fases 2 y 3 del plan la irán separando; en el cambio a producción
    sustituye al original.
    =========================================================================== */
@@ -913,92 +915,6 @@
   });
   addEventListener("hashchange", desdeHash);
 
-  /* ══ escalera de versiones: la tabla puente, dibujada ════════════════════ */
-  function escaleraVersiones() {
-    const vers = B.entradas[0].versiones.map((v) => v.v);
-    const maxY = Math.ceil(Math.max(...B.entradas.flatMap((e) => e.versiones.map((v) => (v.ic ? v.ic[1] : v.iss || 0)))) / 10) * 10;
-    // las etiquetas se reparten de arriba abajo en el orden en que acaban las
-    // líneas (ISS vigente de mayor a menor), así cada nombre queda a la altura
-    // de su línea o lo más cerca posible sin pisar al vecino
-    const orden = B.entradas.slice().sort((a, b) => b.iss - a.iss);
-    const fig = G.figura({
-      titulo: "La misma medición bajo cada versión del índice",
-      sub: "Una línea por medición; los bigotes son el IC 95 % de cada versión. Pasa el ratón (o pulsa) por una línea o una etiqueta para seguirla sola.",
-      pie: mk`Las versiones anteriores reproducen byte a byte los valores publicados en su fecha.`,
-      pieTecnico: mk`${B.notaISS}`,
-      fuente: mk`PsicoBench · tabla puente v${vers[0]} → v${vers[vers.length - 1]} · ${REPO("BENCHMARK.md")}`,
-    });
-    G.adaptable(fig, (W) => {
-      const T = (s) => document.createTextNode(s);
-      const conNombres = W >= 620;
-      const anchoEt = conNombres ? Math.ceil(G.anchoMax(orden.map((e) => e.id), "mono")) + 22 : 0;
-      const P = { l: 40, r: conNombres ? anchoEt : 16, t: 44, b: 26 };
-      const H = conNombres ? Math.max(560, orden.length * 13 + P.t + P.b) : 420;
-      const cx = (i) => P.l + (i / (vers.length - 1)) * (W - P.l - P.r);
-      const cy = (v) => H - P.b - (v / maxY) * (H - P.t - P.b);
-      const svg = G.el("svg", { viewBox: `0 0 ${W} ${H}`, width: W, height: H, role: "img", "aria-label": "ISS de cada medición bajo cada versión del índice" });
-      const g = G.el("g", {}); svg.appendChild(g);
-      for (let t = 0; t <= maxY; t += 10) {
-        g.appendChild(G.el("line", { x1: P.l, y1: cy(t), x2: W - P.r, y2: cy(t), class: "reja-l" }));
-        g.appendChild(G.el("text", { x: P.l - 8, y: cy(t) + 4, class: "eje-txt tab", "text-anchor": "end" }, [T(dec(t, 0))]));
-      }
-      vers.forEach((v, i) => {
-        const ancla = i === 0 ? "start" : i === vers.length - 1 ? "end" : "middle";
-        g.appendChild(G.el("line", { x1: cx(i), y1: P.t - 6, x2: cx(i), y2: H - P.b, class: "base-l" }));
-        g.appendChild(G.el("text", { x: cx(i), y: P.t - 24, class: "col-v", "text-anchor": ancla }, [T("v" + v)]));
-        // en estrecho solo se rotula la vigente: «conservada» ×3 se pisaba
-        if (conNombres || v === B.version) g.appendChild(G.el("text", { x: cx(i), y: P.t - 10, class: "col-v-sub", "text-anchor": ancla }, [T(v === B.version ? "vigente" : "conservada")]));
-      });
-      const ys = orden.map((e) => cy(e.iss));
-      ys[0] = Math.max(ys[0], P.t + 8);
-      for (let k = 1; k < ys.length; k++) ys[k] = Math.max(ys[k], ys[k - 1] + 12.5);
-      const exceso = ys[ys.length - 1] - (H - P.b);
-      if (exceso > 0) ys.forEach((_, k) => { ys[k] -= exceso; });
-      for (let k = ys.length - 2; k >= 0; k--) ys[k] = Math.min(ys[k], ys[k + 1] - 12.5);
-      if (ys[0] < P.t + 8) { const sube = P.t + 8 - ys[0]; ys.forEach((_, k) => { ys[k] += sube; }); }
-      const porId = {};
-      orden.forEach((e, k) => {
-        const pts = e.versiones.map((v, i) => (v.iss == null ? null : [cx(i), cy(v.iss), v])).filter(Boolean);
-        const grupo = [];
-        // fase 3: cada línea en el color de su ISS vigente, el de la lámina
-        const tinte = colorISS(e.iss);
-        const linea = G.el("polyline", { points: pts.map((p) => p[0] + "," + p[1]).join(" "), class: "linea-v", style: `--c:${tinte}` });
-        g.appendChild(linea); grupo.push(linea);
-        pts.forEach(([x, y, v]) => {
-          if (v.ic) { const w = G.el("line", { x1: x, y1: cy(v.ic[0]), x2: x, y2: cy(v.ic[1]), class: "ic-v" }); g.appendChild(w); grupo.push(w); }
-          const c = G.el("circle", { cx: x, cy: y, r: 3.5, class: "punto-v anim-fade", style: `--c:${tinte}` }); g.appendChild(c); grupo.push(c);
-        });
-        // una línea gruesa e invisible encima: el blanco para el dedo
-        const blanco = G.el("polyline", { points: pts.map((p) => p[0] + "," + p[1]).join(" "), class: "linea-blanco" });
-        let hit = blanco;
-        if (conNombres) {
-          const ult = pts[pts.length - 1];
-          const guia = G.el("line", { x1: ult[0] + 5, y1: ult[1], x2: W - P.r + 8, y2: ys[k], class: "reja-l" });
-          const et = G.el("text", { x: W - P.r + 12, y: ys[k] + 4, class: "et-v anim-fade", style: `--c:${tinte}` }, [T(e.id)]);
-          g.appendChild(guia); g.appendChild(et); grupo.push(guia, et);
-          hit = G.el("rect", { x: W - P.r + 8, y: ys[k] - 6, width: P.r - 8, height: 12.5, class: "viz-hit", role: "img",
-            "aria-label": `${e.id}: ` + e.versiones.map((v) => `v${v.v} ${v.iss == null ? "—" : dec(v.iss, 1)}`).join(", ") });
-        }
-        porId[e.id] = grupo;
-        G.conGlobo(hit, () => window.MARCADO.une(
-          mk`<div class="g-tit">${e.id}</div>`,
-          ...e.versiones.map((v) => mk`<div class="g-fila"><span>v${v.v}</span><b>${v.iss == null ? "—" : dec(v.iss, 1)} ${v.ic ? "[" + dec(v.ic[0], 1) + "–" + dec(v.ic[1], 1) + "]" : ""} · ${v.pos == null ? "n/c" : "=" + v.pos}</b></div>`),
-          mk`<div class="g-nota">pulsa para abrir la ficha</div>`));
-        const on = () => { Object.entries(porId).forEach(([id, gr]) => gr.forEach((n) => n.classList.toggle("apagada", id !== e.id))); grupo.forEach((n) => n.classList.add("resalte")); };
-        const off = () => { Object.values(porId).forEach((gr) => gr.forEach((n) => { n.classList.remove("apagada"); n.classList.remove("resalte"); })); };
-        [hit, blanco].forEach((n) => { n.addEventListener("pointerenter", on); n.addEventListener("pointerleave", off); n.addEventListener("focus", on); n.addEventListener("blur", off); n.addEventListener("click", () => abrirHash(e.id)); });
-        g.appendChild(blanco);
-        if (hit !== blanco) g.appendChild(hit);
-      });
-      return svg;
-    });
-    fig._tabla.appendChild(G.tabla([{ t: "Medición" }].concat(vers.map((v) => ({ t: "ISS v" + v + " [IC] · pos", n: true }))),
-      orden.map((e) => [e.id].concat(e.versiones.map((v) => (v.iss == null ? "—" : `${dec(v.iss, 1)} [${v.ic ? dec(v.ic[0], 1) + "–" + dec(v.ic[1], 1) : "—"}] · ${v.pos == null ? "n/c" : "=" + v.pos}`))))));
-    G.navegable(fig, "Escalera de versiones");
-    return fig;
-  }
-  document.getElementById("escalera-host").appendChild(escaleraVersiones());
-
   /* ══ descarga: la tabla entera en CSV, desde los mismos datos ═════════════ */
   const mandosDesc = document.getElementById("mandos-descarga");
   const btnCSV = h("button", { type: "button", class: "chip", text: "Descargar la tabla (CSV)", title: "Separador coma, decimales con punto, codificación UTF-8" });
@@ -1206,14 +1122,15 @@
       reanima(caja, "entra");
     }
 
-    // `desdeFicha`: el cambio viene del selector de la ficha; no se devuelve
-    function ir(id, desdeFicha) {
+    // `desdeFicha`: el cambio viene del selector de la ficha; no se devuelve.
+    // `op.sinAnimar`: sin morph (lo usa el chasquido, que anima la ficha entera)
+    function ir(id, desdeFicha, op) {
       const nk = porISS.findIndex((e) => e.id === id);
       if (nk < 0 || nk === k) return;
       k = nk;
       const e = porISS[k], color = colorISS(e.iss);
       raiz.style.setProperty("--lm-c", color);
-      fig._pinta([{ nombre: e.id, valores: e.ejes, ic: e.ejesIC, color }]);
+      fig._pinta([{ nombre: e.id, valores: e.ejes, ic: e.ejesIC, color }], op);
       fig._tablaEjes([{ nombre: e.id, valores: e.ejes }]);
       elPos.textContent = `Posición ${rango(e)} · ${k + 1} de ${porISS.length} por ISS`;
       elNombre.textContent = e.id;
@@ -1228,9 +1145,164 @@
         if (selFicha.value !== e.id) { selFicha.value = e.id; pintarFicha(e.id); }
       }
     }
-    el("lm-ant").addEventListener("click", () => ir(porISS[(k - 1 + porISS.length) % porISS.length].id));
-    el("lm-sig").addEventListener("click", () => ir(porISS[(k + 1) % porISS.length].id));
-    return { ir };
+
+    /* ── el chasquido (27-10): las flechas mueven la ficha ENTERA. La escena
+       se borra desde el lado pulsado mientras lo que se ve se deshace en
+       polvo que vuela hacia ese lado; la medición nueva entra desde el lado
+       contrario. Sin bibliotecas ni rasterizar el DOM: el polvo se muestrea
+       de la geometría y los textos que hay en pantalla, cada grano con su
+       color, y se pinta en un lienzo encima. Un clic de ratón en un perfil
+       fino, la ficha o la dirección siguen con el morph del octógono. ── */
+    const escena = el("lamina-escena"), lienzo = el("lamina-polvo");
+    const ctx = lienzo && lienzo.getContext ? lienzo.getContext("2d") : null;
+    let ocupado = false, pendiente = null;
+
+    function muestras() {
+      const base = lienzo.getBoundingClientRect(), pts = [];
+      const pon = (x, y, color, a) => { if (a > 0.03) pts.push({ x: x - base.left, y: y - base.top, color, a: Math.min(1, a) }); };
+      const op = (cs, prop) => (parseFloat(cs.opacity) || 0) * (cs[prop] === "" ? 1 : parseFloat(cs[prop]));
+      const svg = escena.querySelector("#lamina-octogono svg");
+      if (svg && svg.getScreenCTM()) {
+        const m = svg.getScreenCTM(), aP = (x, y) => new DOMPoint(x, y).matrixTransform(m);
+        svg.querySelectorAll("polygon, polyline, line").forEach((n) => {
+          if (n.classList.contains("perfil-golpe") || n.classList.contains("halo") || n.classList.contains("destello")) return;
+          const cs = getComputedStyle(n);
+          if (cs.display === "none" || cs.visibility === "hidden") return;
+          const vs = n.tagName === "line"
+            ? [aP(+n.getAttribute("x1"), +n.getAttribute("y1")), aP(+n.getAttribute("x2"), +n.getAttribute("y2"))]
+            : Array.from(n.points, (q) => aP(q.x, q.y));
+          if (vs.length < 2) return;
+          const principal = n.classList.contains("perfil");
+          if (cs.stroke && cs.stroke !== "none") {
+            const a = op(cs, "strokeOpacity"), cerrado = n.tagName === "polygon" ? vs.concat([vs[0]]) : vs;
+            const pasoL = principal ? 1.4 : n.classList.contains("perfil-fino") ? 4 : 3;
+            for (let i = 1; i < cerrado.length; i++) {
+              const p0 = cerrado[i - 1], p1 = cerrado[i], L = Math.hypot(p1.x - p0.x, p1.y - p0.y);
+              for (let t = 0; t < L; t += pasoL) pon(p0.x + (p1.x - p0.x) * t / L, p0.y + (p1.y - p0.y) * t / L, cs.stroke, a * (principal ? 1 : 1.6));
+            }
+          }
+          // el relleno del perfil principal, a puñados dentro del polígono
+          if (principal && cs.fill && cs.fill !== "none") {
+            const xs = vs.map((q) => q.x), ys = vs.map((q) => q.y);
+            const x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys);
+            const dentro = (x, y) => { let c = false; for (let i = 0, j = vs.length - 1; i < vs.length; j = i++) {
+              if ((vs[i].y > y) !== (vs[j].y > y) && x < (vs[j].x - vs[i].x) * (y - vs[i].y) / (vs[j].y - vs[i].y) + vs[i].x) c = !c; } return c; };
+            const n2 = Math.min(1600, Math.round((x1 - x0) * (y1 - y0) / 60));
+            for (let i = 0; i < n2; i++) { const x = x0 + Math.random() * (x1 - x0), y = y0 + Math.random() * (y1 - y0); if (dentro(x, y)) pon(x, y, cs.fill, 0.5); }
+          }
+        });
+        svg.querySelectorAll("circle.vertice, text").forEach((n) => {
+          const cs = getComputedStyle(n), r = n.getBoundingClientRect(), c = n.tagName === "text" ? cs.fill : cs.stroke;
+          const cuantos = Math.round(r.width * r.height / (n.tagName === "text" ? 9 : 4));
+          for (let i = 0; i < cuantos; i++) pon(r.left + Math.random() * r.width, r.top + Math.random() * r.height, c, op(cs, "fillOpacity") * 0.9);
+        });
+      }
+      // los textos de las tarjetas, renglón a renglón, con su color
+      const paseo = document.createTreeWalker(escena, NodeFilter.SHOW_TEXT), rango = document.createRange();
+      for (let t = paseo.nextNode(); t; t = paseo.nextNode()) {
+        if (!t.textContent.trim() || t.parentElement.closest("svg")) continue;
+        const cs = getComputedStyle(t.parentElement);
+        if (cs.visibility === "hidden" || cs.display === "none") continue;
+        rango.selectNodeContents(t);
+        Array.from(rango.getClientRects()).forEach((r) => {
+          const cuantos = Math.round(r.width * r.height / 7);
+          for (let i = 0; i < cuantos; i++) pon(r.left + Math.random() * r.width, r.top + r.height * (0.18 + Math.random() * 0.64), cs.color, 0.85);
+        });
+      }
+      // el borde de la caja de lectura
+      escena.querySelectorAll(".ll-caja").forEach((b) => {
+        const r = b.getBoundingClientRect(), c = getComputedStyle(b).borderTopColor;
+        for (let x = 0; x < r.width; x += 3) { pon(r.left + x, r.top, c, 0.8); pon(r.left + x, r.bottom, c, 0.8); }
+        for (let y = 0; y < r.height; y += 3) { pon(r.left, r.top + y, c, 0.8); pon(r.right, r.top + y, c, 0.8); }
+      });
+      // tope de granos: por encima, se diezma al azar
+      const TOPE = 9000, quedan = pts.length > TOPE ? pts.filter(() => Math.random() < TOPE / pts.length) : pts;
+      return quedan.sort((a, b) => (a.color < b.color ? -1 : a.color > b.color ? 1 : 0));
+    }
+
+    // la máscara deja ver la escena desde el lado contrario al pulsado hasta
+    // `pos` (en %), con un filo de 8 puntos
+    const mascara = (lado, pos) => {
+      const g = pos >= 104 ? "" : `linear-gradient(${lado > 0 ? 90 : 270}deg, #000 ${pos - 4}%, transparent ${pos + 4}%)`;
+      escena.style.webkitMaskImage = g; escena.style.maskImage = g;
+    };
+
+    // `paso`: ±1 en el orden por ISS; `lado`: ±1, hacia dónde vuela el polvo
+    function chasquido(paso, lado) {
+      const destino = porISS[(k + paso + porISS.length) % porISS.length].id;
+      if (quieto || !ctx) { ir(destino); return; }
+      if (ocupado) { pendiente = [paso, lado]; return; }
+      ocupado = true;
+      raiz.dataset.transicion = "polvo";
+      const r = lienzo.getBoundingClientRect(), dpr = Math.min(2, devicePixelRatio || 1);
+      lienzo.width = Math.round(r.width * dpr); lienzo.height = Math.round(r.height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const pts = muestras(), er = escena.getBoundingClientRect(), x0 = er.left - r.left, W = er.width || 1;
+      const BARRIDO = 640, ENTRA = 600;
+      pts.forEach((q) => {
+        const f = lado > 0 ? (x0 + W - q.x) / W : (q.x - x0) / W;
+        q.t0 = Math.max(0, Math.min(1, f)) * BARRIDO + Math.random() * 70;
+        q.v = 40 + Math.random() * 180; q.ac = 260 + Math.random() * 620; q.sube = 10 + Math.random() * 110;
+        q.vida = 600 + Math.random() * 700; q.fase = Math.random() * 6.3; q.tam = Math.random() < 0.22 ? 2.4 : 1.5;
+      });
+      raiz.dataset.particulas = String(pts.length);
+      const t0 = performance.now();
+      let cambiado = false, revela0 = 0, entrada = false;
+      const cuadro = (ahora) => {
+        const t = ahora - t0;
+        if (!cambiado) {
+          // 1 · la escena se borra desde el lado pulsado
+          mascara(lado, (1 - Math.min(1, t / BARRIDO)) * 108 - 4);
+          if (t >= BARRIDO + 80) {
+            cambiado = true; revela0 = ahora;
+            ir(destino, false, { sinAnimar: true });
+            raiz.dataset.transicion = "revela";
+          }
+        } else if (!entrada) {
+          // 2 · la nueva entra desde el lado contrario, enfocándose
+          const c = Math.min(1, (ahora - revela0) / ENTRA), f = 1 - Math.pow(1 - c, 3);
+          mascara(lado, f * 108 - 4);
+          escena.style.transform = `translateX(${-lado * 36 * (1 - f)}px)`;
+          escena.style.filter = f < 1 ? `blur(${(1 - f) * 6}px)` : "";
+          if (c >= 1) { entrada = true; escena.style.transform = ""; escena.style.filter = ""; mascara(lado, 200); }
+        }
+        // el polvo: cada grano sale cuando el filo lo alcanza
+        ctx.clearRect(0, 0, r.width, r.height);
+        let vivos = 0, color = "";
+        for (const q of pts) {
+          const e = t - q.t0;
+          if (e < 0) { vivos++; continue; }
+          if (e > q.vida) continue;
+          vivos++;
+          const u = e / 1000;
+          if (q.color !== color) { color = q.color; ctx.fillStyle = color; }
+          ctx.globalAlpha = q.a * (1 - Math.pow(e / q.vida, 1.5));
+          ctx.fillRect(q.x + lado * (q.v * u + 0.5 * q.ac * u * u), q.y - q.sube * u + Math.sin(q.fase + e / 120) * 10 * u, q.tam, q.tam);
+        }
+        ctx.globalAlpha = 1;
+        if (vivos || !entrada) { requestAnimationFrame(cuadro); return; }
+        ctx.clearRect(0, 0, r.width, r.height);
+        raiz.dataset.transicion = "";
+        ocupado = false;
+        if (pendiente) { const [pp, ll] = pendiente; pendiente = null; chasquido(pp, ll); }
+      };
+      requestAnimationFrame(cuadro);
+    }
+
+    el("lm-ant").addEventListener("click", () => chasquido(-1, -1));
+    el("lm-sig").addEventListener("click", () => chasquido(1, 1));
+    // con el dedo, deslizar la ficha: el polvo sigue al dedo y deslizar a la
+    // izquierda es «siguiente», como en cualquier carrusel
+    let toque = null;
+    escena.addEventListener("pointerdown", (ev) => { if (ev.pointerType === "touch") toque = [ev.clientX, ev.clientY]; });
+    escena.addEventListener("pointercancel", () => { toque = null; });
+    escena.addEventListener("pointerup", (ev) => {
+      if (!toque || ev.pointerType !== "touch") return;
+      const dx = ev.clientX - toque[0], dy = ev.clientY - toque[1];
+      toque = null;
+      if (Math.abs(dx) > 60 && Math.abs(dx) > 1.5 * Math.abs(dy)) chasquido(dx < 0 ? 1 : -1, dx < 0 ? -1 : 1);
+    });
+    return { ir, chasquido };
   })();
 
   /* ══ arranque ════════════════════════════════════════════════════════════ */

@@ -705,7 +705,9 @@
       };
       tween = requestAnimationFrame(paso);
     }
-    function pintaLamina(nuevas) {
+    // `op.sinAnimar`: la página hace su propia transición (el «chasquido» de
+    // la lámina) y el perfil nuevo tiene que estar ya en su sitio
+    function pintaLamina(nuevas, op) {
       const antes = mostrados, mismas = !!antes && antes.length === nuevas.length;
       series = nuevas;
       if (!capa) return;
@@ -714,7 +716,7 @@
       if (nodos.length !== series.length || !capa.contains(nodos[0].poly)) construye();
       colorea();
       cancelAnimationFrame(tween);
-      if (!o.animar || quieto || !mismas) { coloca(destino); return; }
+      if (!o.animar || quieto || !mismas || (op && op.sinAnimar)) { coloca(destino); return; }
       pulso();
       anima(antes, destino);
     }
@@ -730,8 +732,8 @@
       } else coloca(mostrados || destino);
     }
 
-    function pinta(nuevas) {
-      if (lamina) return pintaLamina(nuevas);
+    function pinta(nuevas, op) {
+      if (lamina) return pintaLamina(nuevas, op);
       series = nuevas;
       if (!capa) return;
       const { pt } = geo;

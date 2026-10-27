@@ -63,7 +63,6 @@
       <a href="#sesiones">Cara a cara</a>
       <a href="#mapas">Mapas</a>
       <a href="#ficha">Ficha</a>
-      <a href="#versiones">Versiones</a>
       <a href="#metodo">Método</a>
     </nav>
   </div>
@@ -119,31 +118,30 @@
          transforma al cambiar de medición. Lo monta verloop/psicobench.js;
          ninguna cifra está escrita aquí. -->
     <div class="lamina" id="lamina">
-      <div id="lamina-octogono"></div>
-      <div class="lamina-pie">
-        <div class="lamina-modelo">
-          <div class="lm-cab">
+      <!-- las flechas mueven la ficha entera: se deshace en polvo hacia el
+           lado pulsado y aparece la medición siguiente (o anterior) por ISS -->
+      <button type="button" class="lm-flecha ant" id="lm-ant" aria-label="Medición anterior, por ISS">←</button>
+      <div class="lamina-escena" id="lamina-escena">
+        <div id="lamina-octogono"></div>
+        <div class="lamina-pie">
+          <div class="lamina-modelo">
             <span class="lm-pos" id="lm-pos">—</span>
-            <span class="lm-pasos">
-              <button type="button" class="chip" id="lm-ant" aria-label="Medición anterior, por ISS">◀</button>
-              <button type="button" class="chip" id="lm-sig" aria-label="Medición siguiente, por ISS">▶</button>
-            </span>
-          </div>
-          <p class="lm-nombre" id="lm-nombre">—</p>
-          <div class="lm-pie">
+            <p class="lm-nombre" id="lm-nombre" aria-live="polite">—</p>
             <span class="lm-via" id="lm-via">—</span>
-            <span class="lm-iss"><b id="lm-iss">—</b> <span id="lm-ic"></span></span>
+            <p class="lm-iss"><b id="lm-iss">—</b> <span id="lm-ic"></span></p>
           </div>
-        </div>
-        <div class="lamina-lectura" id="lamina-lectura" aria-live="polite">
-          <div class="ll-caja" id="ll-caja">
-            <span class="ll-ceja" id="ll-ceja">Ocho formas de ceder</span>
-            <p class="ll-titulo" id="ll-titulo">Pasa por un eje</p>
-            <p class="ll-valor"><b id="ll-valor"></b> <span id="ll-ic"></span></p>
-            <p class="ll-def" id="ll-def">Cada vértice es la proporción de sesiones en que la medición cede a esa forma de presión; al pasar por el eje aparece su intervalo.</p>
+          <div class="lamina-lectura" id="lamina-lectura" aria-live="polite">
+            <div class="ll-caja" id="ll-caja">
+              <span class="ll-ceja" id="ll-ceja">Ocho formas de ceder</span>
+              <p class="ll-titulo" id="ll-titulo">Pasa por un eje</p>
+              <p class="ll-valor"><b id="ll-valor"></b> <span id="ll-ic"></span></p>
+              <p class="ll-def" id="ll-def">Cada vértice es la proporción de sesiones en que la medición cede a esa forma de presión; al pasar por el eje aparece su intervalo.</p>
+            </div>
           </div>
         </div>
       </div>
+      <button type="button" class="lm-flecha sig" id="lm-sig" aria-label="Medición siguiente, por ISS">→</button>
+      <canvas class="lamina-polvo" id="lamina-polvo" aria-hidden="true"></canvas>
     </div>
   </div>
 </section>
@@ -275,25 +273,10 @@
   </div>
 </section>
 
-<!-- ═══ 07 · escalera de versiones ═══════════════════════════════════════ -->
-<section class="bloque" id="versiones">
-  <div class="marco">
-    <div class="rotulo aparece"><span class="indice">07</span><span class="grupo">Escalera de versiones</span></div>
-    <h2 class="titulo aparece">El instrumento cambia y el orden se mueve</h2>
-    <p class="bajada aparece d1">
-      Cada versión del índice se pre-declaró antes de medir y se ejecutó tal cual se congeló; las
-      anteriores se conservan y se recomprueban entrada a entrada. Esta es la tabla puente,
-      dibujada: la misma medición bajo cada versión, con su intervalo. Que una línea suba o baje
-      no dice nada del modelo; dice qué pondera cada versión.
-    </p>
-    <div class="aparece d1" id="escalera-host"></div>
-  </div>
-</section>
-
-<!-- ═══ 08 · método ══════════════════════════════════════════════════════ -->
+<!-- ═══ 07 · método ══════════════════════════════════════════════════════ -->
 <section class="bloque" id="metodo">
   <div class="marco">
-    <div class="rotulo aparece"><span class="indice">08</span><span class="grupo">Método y doctrina</span></div>
+    <div class="rotulo aparece"><span class="indice">07</span><span class="grupo">Método y doctrina</span></div>
     <h2 class="titulo aparece">Cómo leer esto sin engañarse</h2>
     <div class="metodo-cajas">
       <div class="caja-metodo aparece d1">

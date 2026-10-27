@@ -145,6 +145,12 @@ Al ver el esqueleto de la fase 0 (titular solo, a todo el ancho) preferiste esa 
 - **`#perfil`** (`.lamina-bloque`), justo debajo: las cuatro cifras en una franja grande y, debajo, el octógono a un lado y las dos tarjetas (medición y lectura del eje) al otro. Por debajo de 940 px, una columna; por debajo de 520 px, las tres cifras en fila y la fecha en la suya. El radio del octógono crece (tope 280 px) porque ya no comparte alto con las tarjetas. JS, ids y comportamiento de la lámina no cambian; la prueba de la lámina la trae a la vista antes de usar el ratón.
 - Esto deja sin efecto el «titular a 44 px en móvil» de la fase 4: con la lámina en su propio bloque, el titular vuelve a crecer (52 px a 390).
 
+### Ajustes del 27-10 (tras ver la portada en dos bloques)
+- **La lámina es la ficha entera**, con una flecha en cada extremo (en estrecho, arriba en las esquinas). Al pulsarla, **el «chasquido»**: la escena se borra con una máscara desde el lado pulsado mientras lo que se ve se deshace en polvo que vuela hacia ese lado; a mitad cambia la medición (sin morph) y entra desde el lado contrario, enfocándose. El polvo no rasteriza el DOM: se muestrea de la geometría y los textos en pantalla (trazos y relleno del perfil, los 39 finos, la rejilla, los rótulos, los textos y el borde de la caja, cada grano con su color; tope de 9000) y se pinta en un lienzo encima. Un segundo clic espera su turno. Con el dedo, deslizar la ficha hace lo mismo (a la izquierda, la siguiente). Con movimiento reducido, cambio instantáneo. El clic en un perfil fino, la ficha y la dirección siguen con el morph. `graficas.js` gana `op.sinAnimar` en el modo lámina.
+- **Fuera la sección 07, «Escalera de versiones»** (confundía más que aportaba); el método pasa a ser la 07 y el menú pierde «Versiones». La tabla puente sigue en la ficha de cada medición.
+- **Las notas sueltas de cada sección van a todo el ancho** (la de «Posición.» bajo la clasificación ocupaba seis líneas en la medida de lectura).
+- Pruebas: la de la lámina comprueba el chasquido (máscara, polvo pintado, cambio a mitad, limpieza y cola de dos clics con vuelta al final); la de interacción, el deslizamiento táctil.
+
 ### Fase 5 · Validación completa (1 día) — la puerta del cambio
 - `web/smoke.mjs` contra la previa local, con aserciones nuevas para `/psicobench-nueva` (lámina con 39 perfiles y 8 sectores, cambio de modelo, lectura de eje, ocho secciones con sus tablas).
 - `marcado.prueba.cjs`, `generar_datos.py --check`, `publicar.py --check`, `test_xss_estatico.py`, `verificar.sh`.

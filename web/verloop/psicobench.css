@@ -109,19 +109,59 @@ body.verloop,
   .verloop .lamina-bloque .cifras li:nth-child(4) { grid-column: 1 / -1; border-left: 0; padding-left: 0; }
 }
 @media (max-width: 640px) { .verloop .lamina-bloque { padding: 40px 0 72px; } .verloop .lamina-bloque .cifras { margin-bottom: 48px; } .verloop .lamina-bloque .cifras li { padding: 16px 14px 18px; } }
-/* el octógono a un lado, la medición y la lectura del eje al otro */
+/* la ficha: el bloque entero es la medición, con una flecha en cada
+   extremo; al pulsarla, la escena se deshace en polvo hacia ese lado
+   (`chasquido` en psicobench.js) y aparece la siguiente. El lienzo del
+   polvo va encima y desborda la ficha, así que el bloque recorta en x. */
+.verloop .lamina-bloque { overflow-x: clip; }
 .verloop .lamina-bloque .lamina {
-  display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(300px, .65fr); gap: 24px 56px; align-items: center; margin-top: 18px;
+  display: block; position: relative; isolation: isolate; margin-top: 18px;
+  padding: 44px 72px; border-radius: 6px; background: rgba(15, 14, 20, .35);
+  border: 1px solid var(--linea); border-color: color-mix(in srgb, var(--lm-c) 55%, transparent);
+  transition: border-color .6s var(--v-facil);
 }
-.verloop .lamina-bloque .lamina-pie { grid-template-columns: 1fr; gap: 14px; }
-.verloop .lamina-bloque .lamina-modelo, .verloop .lamina-bloque .ll-caja { padding: 18px 20px; }
-.verloop .lamina-bloque .lm-nombre { font-size: clamp(34px, 3.2vw, 46px); white-space: normal; overflow-wrap: anywhere; }
+.verloop .lamina-escena {
+  display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr); gap: 24px 48px; align-items: center;
+  touch-action: pan-y;
+  /* la máscara del chasquido recorta a la caja, y los rótulos del octógono
+     se salen un poco de la suya: holgura por dentro, sin mover nada */
+  padding: 32px 44px; margin: -32px -44px;
+}
+.verloop .lamina-bloque .lamina-pie { grid-template-columns: 1fr; gap: 18px; }
+/* la medición ya no es una caja: es la cabecera de la ficha */
+.verloop .lamina-bloque .lamina-modelo { border: 0; background: none; backdrop-filter: none; padding: 0; gap: 8px; }
+.verloop .lamina-bloque .lm-nombre { font-size: clamp(40px, 3.8vw, 64px); line-height: .92; white-space: normal; overflow-wrap: anywhere; }
+.verloop .lamina-bloque .lm-via { font-size: 11.5px; }
+.verloop .lamina-bloque .lm-iss { margin: 6px 0 0; font-size: 12px; }
+.verloop .lamina-bloque .lm-iss b { font-size: clamp(52px, 4.6vw, 76px); margin-right: 6px; color: var(--lm-c); transition: color .6s; }
+.verloop .lamina-bloque .ll-caja { padding: 18px 20px; }
 .verloop .lamina-bloque .ll-titulo { font-size: 30px; }
 .verloop .lamina-bloque .ll-def { font-size: 13px; }
 .verloop .lamina-bloque .lamina::before { left: 4%; right: 40%; top: 4%; height: 92%; }
+/* las flechas, a caballo del borde de la ficha */
+.verloop .lm-flecha {
+  position: absolute; top: 50%; z-index: 4; width: 52px; height: 52px; padding: 0; border-radius: 50%;
+  display: grid; place-items: center; cursor: pointer;
+  font: 500 22px/1 var(--mono); color: var(--tinta); background: var(--plano);
+  border: 1px solid var(--lm-c); transform: translate(-50%, -50%);
+  transition: background .2s, color .2s, border-color .6s, transform .2s var(--v-facil);
+}
+.verloop .lm-flecha.ant { left: 0; }
+.verloop .lm-flecha.sig { left: 100%; }
+.verloop .lm-flecha:hover { background: var(--lm-c); color: #07070A; }
+.verloop .lm-flecha.ant:hover { transform: translate(calc(-50% - 3px), -50%); }
+.verloop .lm-flecha.sig:hover { transform: translate(calc(-50% + 3px), -50%); }
+.verloop .lm-flecha:focus-visible { outline: 2px solid var(--lm-c); outline-offset: 3px; }
+.verloop .lamina-polvo { position: absolute; top: -60px; left: -180px; width: calc(100% + 360px); height: calc(100% + 120px); pointer-events: none; z-index: 3; }
 @media (max-width: 940px) {
-  .verloop .lamina-bloque .lamina { grid-template-columns: 1fr; }
+  .verloop .lamina-escena { grid-template-columns: 1fr; padding: 32px 12px; margin: -32px -12px; }
+  .verloop .lamina-bloque .lamina { padding: 72px 16px 20px; }
   .verloop .lamina-bloque .lamina::before { left: 10%; right: 10%; top: 2%; height: 55%; }
+  /* en estrecho, arriba en las esquinas: a media altura taparían los rótulos */
+  .verloop .lm-flecha { top: 14px; width: 44px; height: 44px; font-size: 18px; transform: none; }
+  .verloop .lm-flecha.ant { left: 14px; }
+  .verloop .lm-flecha.sig { left: auto; right: 14px; }
+  .verloop .lm-flecha.ant:hover, .verloop .lm-flecha.sig:hover { transform: none; }
 }
 @media (min-width: 561px) and (max-width: 940px) { .verloop .lamina-bloque .lamina-pie { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); } }
 .verloop .portada h1 em { color: var(--plano); -webkit-text-stroke: 2px var(--tinta); }
@@ -154,7 +194,6 @@ body.verloop,
 .verloop #sesiones .rotulo .indice { color: #C6FF4A; }
 .verloop #mapas .rotulo .indice { color: #B46CFF; }
 .verloop #ficha .rotulo .indice { color: #FFD36E; }
-.verloop #versiones .rotulo .indice { color: #2FD6A0; }
 .verloop #metodo .rotulo .indice { color: #FFFFFF; }
 .verloop h1, .verloop h2 { font-weight: 900; }
 .verloop h2.titulo { font-size: clamp(40px, 5.2vw, 80px); line-height: .94; letter-spacing: -.005em; max-width: 20ch; overflow-wrap: break-word; }
@@ -301,6 +340,10 @@ body.verloop section .tira td.c.p8 span, body.verloop section .tira td.c.p9 span
   .verloop .rotulo .grupo { padding-bottom: 0; }
 }
 
+/* ── las notas sueltas de cada sección, a todo el ancho: en la medida de
+   lectura ocupaban seis líneas y dejaban media pantalla vacía (27-10) ── */
+.verloop section.bloque > .marco > .nota { max-width: none; }
+
 /* ── los bigotes: blancos sobre cualquier tono ─────────────────────────── */
 .verloop .ic-l { stroke: #FFFFFF; stroke-opacity: .72; stroke-width: 1.5; }
 
@@ -372,13 +415,7 @@ body.verloop section .tira td.c.p8 span, body.verloop section .tira td.c.p9 span
 .verloop .ficha-sec .r { margin-top: 5px; }
 @media (max-width: 640px) { .verloop .ficha-cab .indice-ficha .v { font-size: 52px; } }
 
-/* ── 07 · escalera: cada línea en el color de su ISS vigente ───────────── */
-.verloop .linea-v { stroke: var(--c, var(--tinta)); opacity: .62; }
-.verloop .linea-v.resalte { stroke: var(--c, var(--tinta)); opacity: 1; stroke-width: 2.6; }
-.verloop .punto-v, .verloop .punto-v.resalte { fill: var(--c, var(--tinta)); stroke: var(--sup); }
-.verloop .et-v { fill: var(--c, var(--tinta-2)); }
-
-/* ── 08 · método: cuatro cajas numeradas y el aviso, en tres columnas ──── */
+/* ── 07 · método: cuatro cajas numeradas y el aviso, en tres columnas ──── */
 .verloop .metodo-cajas { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; counter-reset: caja; }
 .verloop .caja-metodo { counter-increment: caja; background: var(--sup); border: 1px solid var(--linea); border-radius: 4px; padding: 22px 22px 20px; min-width: 0; }
 .verloop .caja-metodo::before { content: counter(caja, decimal-leading-zero); display: block; font: 500 12px/1 var(--mono); letter-spacing: .1em; color: var(--tenue); margin-bottom: 14px; }
@@ -426,7 +463,7 @@ body.verloop section .tira td.c.p8 span, body.verloop section .tira td.c.p9 span
   /* fuera lo que solo sirve en pantalla */
   .verloop .barra, .verloop .progreso, .verloop .v-previa, .verloop .portada .fondo, .verloop .portada::after,
   .verloop .lamina::before, .verloop .acciones, .verloop .filtros, .verloop .acciones-viz, .verloop .pista-tabla,
-  .verloop #lm-ant, .verloop #lm-sig, .verloop .ficha-acciones, .verloop .radar .halo { display: none !important; }
+  .verloop #lm-ant, .verloop #lm-sig, .verloop .lamina-polvo, .verloop .ficha-acciones, .verloop .radar .halo { display: none !important; }
   /* lo que entra al hacer scroll, ya puesto */
   .verloop .aparece, .verloop .anim-fade { opacity: 1 !important; transform: none !important; transition: none !important; }
   .verloop .anim-barra { transform: none !important; transition: none !important; }

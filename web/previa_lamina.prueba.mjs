@@ -5,7 +5,9 @@
    real, que un panel oculto no da) y comprueba la portada «Lámina A · Morph»
    (PLAN_PSICOBENCH_VERLOOP.md, fase 2): perfiles finos, sectores, halo,
    interpolación entre mediciones, contador del ISS, onda, hover, teclado,
-   clic en un perfil, arranque desde #m= y movimiento reducido. Sin
+   clic en un perfil, el «chasquido» de las flechas (máscara, polvo, cambio
+   a mitad, limpieza y cola de clics), arranque desde #m= y movimiento
+   reducido. Sin
    dependencias, como web/smoke.mjs. No se publica: es de la previa.
 
      python3 web/publicar.py --previa && python3 web/servir_previa.py &
@@ -63,10 +65,10 @@ ok(ini.nombre !== "—" && ini.iss !== "—", `arranca en ${ini.nombre}, ISS ${i
 const fps = await ev(`new Promise(r => { let c = 0; const t0 = performance.now(); const f = () => { c++; performance.now() - t0 < 500 ? requestAnimationFrame(f) : r(c * 2); }; requestAnimationFrame(f); })`);
 console.log(`       (${fps} fotogramas/s en este Chrome)`);
 
-// 2 · cambio de medición: la interpolación pasa por valores intermedios
+// 2 · cambio de medición por un perfil fino: el morph pasa por formas intermedias
 const pt = `document.querySelector('#lamina-octogono polygon.perfil').getAttribute('points')`;
 const antes = await ev(pt);
-await ev(`document.getElementById('lm-sig').click()`);
+await ev(`document.querySelectorAll('#lamina-octogono .perfil-fondo')[3].dispatchEvent(new MouseEvent('click', { bubbles: true }))`);
 const muestras = [];
 for (let t = 0; t < 1100; t += 110) { muestras.push({ pts: await ev(pt), iss: await ev(`document.getElementById('lm-iss').textContent`), onda: await ev(`document.querySelectorAll('#lamina-octogono .onda').length`) }); await dormir(110); }
 const final = await ev(pt);
@@ -110,6 +112,34 @@ const objetivo = await ev(`(() => { const g = document.querySelectorAll('#lamina
 await dormir(1100);
 ok((await ev(`document.getElementById('lm-nombre').textContent`)) === objetivo, `pulsar un perfil fino lleva a ${objetivo}`);
 
+// 5b · las flechas: el chasquido. La escena se borra con máscara desde el
+// lado pulsado, el polvo sale en un lienzo, la medición cambia a mitad y al
+// final no queda máscara, ni transformación, ni polvo
+await aLaVista(); await dormir(300);
+const ch0 = await ev(`({ n: document.getElementById('lm-nombre').textContent, k: document.getElementById('lm-pos').textContent })`);
+await ev(`document.getElementById('lm-sig').click()`);
+const fases = [];
+for (let t = 0; t < 2600; t += 100) {
+  fases.push(await ev(`(() => { const r = document.getElementById('lamina'), e = document.getElementById('lamina-escena'), c = document.getElementById('lamina-polvo');
+    let tinta = 0; try { const d = c.getContext('2d').getImageData(0, 0, c.width, c.height).data; for (let i = 3; i < d.length; i += 4 * 97) if (d[i]) tinta++; } catch (_) { tinta = -1; }
+    return { st: r.dataset.transicion || '', n: +(r.dataset.particulas || 0), masc: e.style.maskImage || e.style.webkitMaskImage || '', nombre: document.getElementById('lm-nombre').textContent, tinta }; })()`));
+  await dormir(100);
+}
+const fin = fases[fases.length - 1];
+ok(fases.some((f) => f.st === "polvo" && f.masc), `al pulsar →, la escena se borra con máscara (${fases.filter((f) => f.st === "polvo").length} muestras en «polvo»)`);
+ok(Math.max(...fases.map((f) => f.n)) > 1500 && fases.some((f) => f.tinta > 20), `el polvo se pinta en el lienzo (${Math.max(...fases.map((f) => f.n))} granos)`);
+ok(fases.some((f) => f.st === "revela") && fin.nombre !== ch0.n, `la medición cambia a mitad (${ch0.n} → ${fin.nombre})`);
+ok(fin.st === "" && !fin.masc && fin.tinta === 0, "al terminar no queda máscara ni polvo");
+const ch1 = await ev(`(() => { const e = document.getElementById('lamina-escena'); return { tr: e.style.transform, fi: e.style.filter }; })()`);
+ok(!ch1.tr && !ch1.fi, "ni transformación ni desenfoque en la escena");
+// dos clics seguidos: el segundo espera su turno y no se pierde
+const n1 = await ev(`document.getElementById('lm-nombre').textContent`);
+await ev(`document.getElementById('lm-ant').click(); document.getElementById('lm-ant').click()`);
+await dormir(4600);
+const n2 = await ev(`({ n: document.getElementById('lm-nombre').textContent, st: document.getElementById('lamina').dataset.transicion })`);
+const idx = (id) => ev(`[...document.querySelectorAll('#lamina-octogono .perfil-fondo')].findIndex((g) => g.querySelector('title').textContent.startsWith(${JSON.stringify(id + " · ")}))`);
+ok(((await idx(n1)) - (await idx(n2.n)) + 39) % 39 === 2 && n2.st === "", `dos ← seguidos retroceden dos mediciones, con vuelta al final (${n1} → ${n2.n})`);
+
 // 6 · con #m= en la dirección, arranca en esa medición
 await cdp("Page.navigate", { url: URL_ + "#m=gemini-3.7-flash" }); await dormir(2600);
 ok((await ev(`document.getElementById('lm-nombre').textContent`)) === "gemini-3.7-flash", "#m=gemini-3.7-flash arranca en esa medición");
@@ -123,6 +153,7 @@ await dormir(40);
 const r2 = await ev(`({ pts: ${pt}, onda: document.querySelectorAll('#lamina-octogono .onda').length })`);
 await dormir(400);
 ok(r2.pts !== a2 && r2.pts === (await ev(pt)) && r2.onda === 0, "con movimiento reducido el cambio es instantáneo y sin onda");
+ok(!(await ev(`document.getElementById('lamina').dataset.transicion`)), "con movimiento reducido las flechas no hacen chasquido");
 
 ok(errores.length === 0, `sin errores de consola${errores.length ? ": " + errores.join(" | ") : ""}`);
 console.log(fallos.length ? `\nLÁMINA: ${fallos.length} fallo(s)` : "\nLÁMINA: todo OK");
