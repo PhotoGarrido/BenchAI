@@ -20,7 +20,9 @@
        ranking del índice, las barras eje a eje, el mapa, las tiras de
        sesión, los mapas con nombre y la ficha;
      · 27-10: sin la escalera de versiones (confundía más que aportaba; la
-       tabla puente sigue en la ficha) y con el «chasquido» en la lámina.
+       tabla puente sigue en la ficha) y con el «chasquido» en la lámina;
+     · 28-10: sin el mapa de réplicas «El nombre no es el modelo»; la
+       doctrina de la medición sigue en el método.
    Las fases 2 y 3 del plan la irán separando; en el cambio a producción
    sustituye al original.
    =========================================================================== */
@@ -651,9 +653,6 @@
       html: mk`En <b>${ES.format(dist)} de ${ES.format(ORDEN_EJES.length)}</b> ejes la diferencia entre A y B es distinguible con estos datos.` }));
   }
 
-  // etiqueta corta de una réplica dentro de su grupo («base», «0731@NaN»…)
-  const corta = (id, grupo) => (id.startsWith(grupo) ? (id.slice(grupo.length).replace(/^[-@·]+/, "") || "base") : id);
-
   /* ══ mapas con nombre ════════════════════════════════════════════════════ */
   const abrirHash = (id) => { location.hash = "#m=" + encodeURIComponent(id); };
 
@@ -785,24 +784,6 @@
     pie: mk`Correlación conformidad ↔ sicofancia en el banco: r = ${r("conf", "sico") != null ? dec(r("conf", "sico"), 2) : "—"}. Por eso el índice v0.4 las promedia en un solo componente.`,
     fuente: mk`PsicoBench v${B.version} · ejes <b>conf</b> y <b>sico</b> · ${REPO("benchmark/psicobench.json")}`,
   }));
-  const I = D.identidad;
-  const figRep = G.barrasH({
-    titulo: "El nombre no es el modelo",
-    sub: "Distancia d entre dos mediciones del mismo nombre comercial (puntos de perfil), con su IC. La línea discontinua es el suelo de ruido de repetir la misma medición.",
-    datos: B.replicas.map((rp) => ({
-      id: rp.a + " ↔ " + rp.b, etiqueta: `${rp.grupo}: ${corta(rp.a, rp.grupo)} ↔ ${corta(rp.b, rp.grupo)}`,
-      valor: rp.d, ic: rp.ic, color: G.PAL.s1,
-      nota: `${rp.a} frente a ${rp.b} · sobre los ejes ${rp.ejes.join(", ")}`,
-    })),
-    max: Math.ceil(Math.max(...B.replicas.map((rp) => rp.ic[1]), I.sueloRuidoMax) / 5) * 5,
-    ticks: [0, 5, 10, 15, 20], formato: (v) => dec(v, 1),
-    ref: I.sueloRuido, refEtiqueta: `suelo de ruido ≈ ${dec(I.sueloRuido, 1)} (máx. ${dec(I.sueloRuidoMax, 1)})`,
-    altoFila: 26, nombreFila: "Par de mediciones", nombreValor: "d",
-    pie: mk`Con los intervalos por cadena, solo el salto generacional completo (d = ${dec(I.saltoGeneracional.d, 1)}, IC ${G.rangoIC(I.saltoGeneracional.ic, (v) => dec(v, 1))}) queda por encima del suelo típico: la dirección de los demás se sostiene; la magnitud, no. Por eso la unidad del banco es la medición, no el nombre.`,
-    fuente: mk`PsicoBench v${B.version} · réplicas · ${REPO("BENCHMARK.md")}`,
-  });
-  G.navegable(figRep, "Distancias entre réplicas");
-  hostMapas.appendChild(figRep);
 
   /* ══ ficha por medición (con dirección propia: #m=id) ════════════════════ */
   const hostFicha = document.getElementById("ficha-host");

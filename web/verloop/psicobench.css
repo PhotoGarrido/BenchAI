@@ -393,11 +393,13 @@ body.verloop section .tira td.c.p8 span, body.verloop section .tira td.c.p9 span
 .verloop .leyenda-tira i.priv { width: 11px; height: 11px; border: 0; border-radius: 0; vertical-align: -1px; background: radial-gradient(circle, #07070A 0 2.4px, var(--tono, var(--tinta)) 2.9px); }
 .verloop .sesion .cab .iss { font-family: var(--display); font-weight: 900; }
 
-/* ── 05 · mapas con nombre: cuadrantes en mono y suelo de ruido en lima ── */
-.verloop .cuadrante { font: 500 10.5px var(--mono); fill: var(--tenue); letter-spacing: .06em; }
+/* ── 05 · mapas con nombre: tres en fila; por debajo de 1180 px no caben y
+   van dos y uno (el tercero, a lo ancho de su columna) ───────────────── */
+@media (max-width: 1180px) and (min-width: 901px) { .verloop .rejilla.c3.mapas { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+/* ── cuadrantes en mono ───────────────────────────────────────────────── */
+/* 10 px sin espaciado: 6 px por carácter, dentro de los 6,4 con que `dispersion` parte y reparte los rótulos */
+.verloop .cuadrante { font: 500 10px var(--mono); fill: var(--tenue); letter-spacing: 0; }
 .verloop .punto { stroke: var(--sup); stroke-width: 1.5; }
-.verloop #mapas .ref-l { stroke: #C6FF4A; stroke-dasharray: 4 4; }
-.verloop #mapas .ref-t { fill: #C6FF4A; font-family: var(--mono); font-weight: 500; }
 
 /* ── 06 · ficha: el ISS en su gradiente, secundarias en tarjeta ────────── */
 .verloop .ficha-hoja { border-top-color: var(--c-iss, var(--tinta)); }
