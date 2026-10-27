@@ -76,6 +76,7 @@ PIEZAS_PREVIA: list[tuple[str, str]] = [
     ("web/psicobench-verloop.html", "psicobench-nueva.html"),
     ("web/completo-verloop.html", "completo-nueva.html"),
     ("web/personalidad-verloop.html", "personalidad-nueva.html"),
+    ("web/inicio-verloop.html", "inicio-nuevo.html"),
     ("web/verloop/", "verloop/"),
     ("web/fonts/", "fonts/"),
 ]

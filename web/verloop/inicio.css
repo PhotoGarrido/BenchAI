@@ -1,0 +1,190 @@
+/* ===========================================================================
+   BenchAI · la portada «Verloop» (la landing) · lo propio de la página
+   ---------------------------------------------------------------------------
+   Va DESPUÉS de `verloop/sitio.css` (el registro común) y encima de
+   `css/estilo.css`. PLAN_WEB_VERLOOP.md, fase D. Los dos instrumentos con
+   sus colores: PsicoBench en el cian del ISS bajo; Personalidad en el
+   orquídea de su primer rasgo.
+   =========================================================================== */
+body.verloop {
+  --c-ps: #4AF2FF; --c-pe: #FF7AD9;
+  /* el test «Ponte en la silla», heredado de la portada vigente */
+  --humano: #FFC24D; --humano-claro: #FFD98A; --maquina: #4AF2FF; --maquina-claro: #9AF7FF; --noche: var(--plano);
+}
+.verloop #benchmarks { --c-seccion: #4AF2FF; }
+.verloop #como { --c-seccion: #FF3D8A; }
+.verloop #silla { --c-seccion: #FFC24D; }
+.verloop #hallazgos { --c-seccion: #B46CFF; }
+.verloop #importa { --c-seccion: #FF8A1F; }
+.verloop #profundizar { --c-seccion: #FFFFFF; }
+
+/* ── portada: titular más largo que en las otras páginas ─────────────── */
+.verloop .portada h1 { font-size: clamp(50px, 7.6vw, 120px); }
+.verloop .banco-bloque { padding-bottom: 24px; }
+.verloop .banco-bloque .cifras { margin-bottom: 0; }
+
+/* ── 01 · los dos benchmarks ──────────────────────────────────────────── */
+.verloop .dos-bench { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+@media (max-width: 900px) { .verloop .dos-bench { grid-template-columns: 1fr; } }
+.verloop .bench {
+  position: relative; display: flex; flex-direction: column; gap: 14px; min-width: 0;
+  padding: 28px 28px 26px; border-radius: 6px; background: var(--sup);
+  border: 1px solid var(--linea); border-top: 4px solid var(--c);
+}
+.verloop .bench-ps { --c: var(--c-ps); }
+.verloop .bench-pe { --c: var(--c-pe); }
+.verloop .bench .kicker { margin: 0; font: 500 11.5px/1.2 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--c); }
+.verloop .bench h3 { margin: 0; font: 900 clamp(34px, 3.4vw, 52px)/.92 var(--display); text-transform: uppercase; letter-spacing: .005em; }
+.verloop .bench > p { margin: 0; font-size: 15.5px; line-height: 1.6; color: var(--tinta-2); }
+.verloop .bench > p strong { color: var(--tinta); }
+.verloop .bench .bench-dato { font: 500 12px/1.5 var(--mono); color: var(--tenue); }
+.verloop .bench .bench-dato b { color: var(--tinta); font-weight: 600; }
+.verloop .bench .boton { align-self: flex-start; margin-top: auto; }
+.verloop .bench-pe .boton.fuerte { background: var(--c-pe); border-color: var(--c-pe); color: #07070A; }
+.verloop .bench-ps .boton.fuerte { background: var(--c-ps); border-color: var(--c-ps); color: #07070A; }
+.verloop .mini-host { margin: 4px 0 0; padding: 14px 0 4px; border-top: 1px solid var(--linea); border-bottom: 1px solid var(--linea); }
+.verloop svg.mini { display: block; width: 100%; height: auto; overflow: visible; }
+.verloop .mini-eje { stroke: var(--base); stroke-width: 1; }
+.verloop .mini-cero { stroke: var(--tinta-2); stroke-width: 1; stroke-dasharray: 3 3; }
+.verloop .mini-t { font: 500 10px var(--mono); fill: var(--tenue); }
+.verloop .mini-r { font: 500 11px var(--mono); letter-spacing: .02em; }
+.verloop .mini-p { stroke: var(--sup); stroke-width: 1; }
+.verloop .mini-p.firme { stroke: #07070A; stroke-width: 1.5; }
+
+/* el puente: la relación de cada rasgo con el ISS */
+.verloop .puente { margin-top: 20px; padding: 24px 28px; border-radius: 6px; border: 1px dashed var(--base);
+  display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 12px 40px; align-items: center; }
+@media (max-width: 900px) { .verloop .puente { grid-template-columns: 1fr; } }
+.verloop .puente h3.mini { grid-column: 1 / -1; margin: 0; font: 900 26px/1 var(--display); text-transform: uppercase; }
+.verloop .puente p { margin: 0; font-size: 15px; line-height: 1.6; color: var(--tinta-2); }
+.verloop .puente p b { color: var(--tinta); }
+.verloop .puente-rasgos { list-style: none; margin: 0; padding: 0; display: grid; gap: 7px; }
+.verloop .puente-rasgos li { display: grid; grid-template-columns: 150px minmax(0, 1fr) 48px; gap: 10px; align-items: center; }
+.verloop .puente-rasgos .nom { font: 500 12px/1.2 var(--mono); color: var(--c); }
+.verloop .puente-rasgos .via { position: relative; height: 8px; background: var(--sup-3); border-radius: 4px; }
+.verloop .puente-rasgos .via::after { content: ""; position: absolute; left: 50%; top: -3px; bottom: -3px; border-left: 1px solid var(--tinta-2); }
+.verloop .puente-rasgos .via i { position: absolute; top: 0; bottom: 0; background: var(--c); border-radius: 4px; }
+.verloop .puente-rasgos .v { font: 500 12px/1 var(--mono); color: var(--tinta-2); text-align: right; }
+@media (max-width: 520px) { .verloop .puente-rasgos li { grid-template-columns: 110px minmax(0, 1fr) 44px; } }
+
+/* ── 02 · cómo se mide: los tres clásicos y el test ───────────────────── */
+.verloop .clasicos { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 1100px) { .verloop .clasicos { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .verloop .clasicos { grid-template-columns: 1fr; } }
+.verloop .clasico { display: flex; flex-direction: column; gap: 10px; min-width: 0; padding: 22px; border-radius: 4px; background: var(--sup); border: 1px solid var(--linea); }
+.verloop .clasico.personalidad { border-top: 3px solid var(--c-pe); }
+.verloop .clasico .kicker { margin: 0; font: 500 11px/1.3 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--c-seccion); }
+.verloop .clasico.personalidad .kicker { color: var(--c-pe); }
+.verloop .clasico h3 { margin: 0; font: 900 28px/.95 var(--display); text-transform: uppercase; }
+.verloop .clasico p { margin: 0; font-size: 14px; line-height: 1.55; color: var(--tinta-2); }
+.verloop .clasico p b { color: var(--tinta); }
+.verloop .cotejo-c { margin: auto 0 0; padding-top: 12px; border-top: 1px solid var(--linea); display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; align-items: baseline; }
+.verloop .cotejo-c dt { font: 500 11px/1.3 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--tenue); }
+.verloop .cotejo-c dd { margin: 0; font: 900 26px/1 var(--display); text-align: right; white-space: nowrap; }
+
+/* ── 03 · ponte en la silla (las clases son las de la portada vigente) ── */
+.verloop .quiz { max-width: 920px; background: var(--sup); border: 1px solid var(--linea); border-radius: 6px; overflow: hidden; }
+.verloop .quiz .cab { padding: 22px 26px; border-bottom: 1px solid var(--linea); background: var(--sup-2); }
+.verloop .quiz .cab h3 { margin: 0 0 6px; font: 900 28px/1 var(--display); text-transform: uppercase; }
+.verloop .quiz .cab p { margin: 0; font-size: 14.5px; color: var(--tinta-2); }
+.verloop .quiz .cuerpo { padding: 26px; }
+.verloop .quiz .pregunta { font-size: 18px; line-height: 1.5; margin: 0 0 20px; max-width: 62ch; }
+.verloop .quiz .opciones { display: grid; gap: 10px; margin-bottom: 20px; }
+.verloop .quiz .opciones > * { min-width: 0; }
+.verloop .quiz .opcion { appearance: none; cursor: pointer; text-align: left; padding: 16px 18px; border-radius: 4px;
+  background: var(--sup-2); border: 1px solid var(--linea); color: var(--tinta); font: 500 16px/1.4 var(--sans); }
+.verloop .quiz .opcion:hover:not(:disabled) { border-color: var(--base); background: var(--sup-3); }
+.verloop .quiz .opcion.elegida { border-color: var(--maquina); background: rgba(74, 242, 255, .1); }
+.verloop .quiz .opcion:disabled { cursor: default; }
+.verloop .quiz .opcion .marca { display: block; margin-top: 6px; font: 500 11px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--tenue); }
+.verloop .quiz .opcion.elegida .marca { color: var(--maquina-claro); }
+/* el bloque de la respuesta; no los clips, que al revelarse llevan la misma clase */
+.verloop .quiz div.revelado:not(.clip) { border-top: 1px dashed var(--base); padding-top: 20px; margin-top: 4px; }
+.verloop .quiz .revelado p { margin: 0; font-size: 15.5px; color: var(--tinta-2); }
+.verloop .quiz .revelado p strong { color: var(--tinta); }
+.verloop .quiz .paso { margin: 0 0 10px; font: 500 11px/1 var(--mono); letter-spacing: .13em; text-transform: uppercase; color: var(--c-seccion); }
+.verloop .quiz .avance { display: flex; gap: 5px; margin-bottom: 18px; }
+.verloop .quiz .avance i { height: 3px; flex: 1; border-radius: 2px; background: var(--sup-3); }
+.verloop .quiz .avance i.on { background: var(--c-seccion); }
+.verloop .cotejo { display: grid; gap: 12px; margin: 22px 0 0; }
+.verloop .cotejo .fila { display: grid; grid-template-columns: 92px minmax(0, 1fr) auto; gap: 14px; align-items: center; }
+.verloop .cotejo .quien { font: 500 11px/1.3 var(--mono); letter-spacing: .1em; text-transform: uppercase; text-align: right; }
+.verloop .cotejo .fila.h .quien { color: var(--humano); }
+.verloop .cotejo .fila.m .quien { color: var(--maquina-claro); }
+.verloop .cotejo .via { height: 12px; border-radius: 6px; background: var(--sup-2); overflow: hidden; position: relative; }
+.verloop .cotejo .via i { position: absolute; inset: 0 auto 0 0; width: 0; border-radius: 6px; transition: width 1s cubic-bezier(.22, 1, .36, 1); }
+.verloop .cotejo .fila.h .via i { background: var(--humano); }
+.verloop .cotejo .fila.m .via i { background: var(--maquina); }
+.verloop .cotejo .via.rango { background: linear-gradient(90deg, var(--sup-2), var(--sup-3)); }
+.verloop .cotejo .val { font: 900 20px/1 var(--display); font-variant-numeric: tabular-nums; min-width: 92px; text-align: right; }
+.verloop .visible .cotejo .via i { width: var(--w); }
+@media (prefers-reduced-motion: reduce) { .verloop .cotejo .via i { transition: none; width: var(--w); } }
+@media (max-width: 520px) { .verloop .cotejo .fila { grid-template-columns: 70px minmax(0, 1fr); } .verloop .cotejo .val { grid-column: 2; text-align: left; } }
+.verloop .reproductor-clips { display: grid; gap: 12px; margin: 0 0 18px; }
+.verloop #quiz .cuerpo > .boton, .verloop #quiz .opciones > .boton { width: fit-content; }
+.verloop .clip { display: grid; grid-template-columns: 26px minmax(0, 1fr) 62px; gap: 14px; align-items: center; }
+.verloop .clip .et { font: 500 15px/1 var(--mono); color: var(--tenue); }
+/* `.pista` en estilo.css es el aviso «Baja» de la portada (absoluto, oculto
+   en el móvil): aquí es la pista del clip, y se deshace todo eso */
+.verloop .clip .pista { height: 30px; border-radius: 4px; background: var(--sup-2); position: relative; overflow: hidden;
+  display: block; left: auto; bottom: auto; transform: none; font: inherit; letter-spacing: 0; text-transform: none; }
+.verloop .clip .pista i { position: absolute; inset: 0 auto 0 0; width: 0; border-radius: 4px; background: linear-gradient(90deg, rgba(74, 242, 255, .35), var(--maquina)); }
+.verloop .clip.sonando .et { color: var(--maquina-claro); }
+.verloop .clip.sonando .pista { box-shadow: inset 0 0 0 1.5px var(--maquina); }
+.verloop .clip .dur { font: 500 14px/1 var(--mono); color: var(--tenue); text-align: right; opacity: 0; transition: opacity .4s; }
+.verloop .clip.revelado .dur { opacity: 1; color: var(--tinta); }
+.verloop .clip.revelado .pista i { transition: width .8s cubic-bezier(.22, 1, .36, 1); background: var(--sup-3); }
+.verloop .clip.revelado.correcto .pista i { background: var(--maquina); }
+.verloop .clip.revelado.mayoria .pista i { background: var(--humano); }
+.verloop .coro { display: flex; gap: 10px; flex-wrap: wrap; margin: 0 0 18px; min-height: 56px; align-items: center; }
+.verloop .coro .voz { display: flex; align-items: center; gap: 8px; padding: 7px 12px 7px 8px; border-radius: 99px;
+  background: rgba(255, 194, 77, .1); border: 1px solid rgba(255, 194, 77, .38); font: 500 13px/1 var(--sans); color: var(--humano-claro);
+  animation: vozEntra .3s cubic-bezier(.34, 1.4, .5, 1) both; }
+.verloop .coro .voz svg { width: 15px; height: 26px; flex: none; }
+.verloop .coro .voz b { font-weight: 700; }
+.verloop .coro .voz.tuya { background: rgba(74, 242, 255, .1); border-color: var(--maquina); color: var(--maquina-claro); }
+@keyframes vozEntra { from { opacity: 0; transform: translateY(6px) scale(.94); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .verloop .coro .voz { animation: none; } }
+.verloop .coro .esperando { font: 500 13px/1.4 var(--sans); color: var(--tenue); }
+.verloop .eleccion { display: flex; gap: 10px; flex-wrap: wrap; }
+.verloop .eleccion .letra { appearance: none; cursor: pointer; min-width: 72px; padding: 15px 20px; border-radius: 4px;
+  background: var(--sup-2); border: 1px solid var(--linea); color: var(--tinta); font: 900 24px/1 var(--display); }
+.verloop .eleccion .letra:hover:not(:disabled) { border-color: var(--maquina); background: var(--sup-3); }
+.verloop .eleccion .letra:disabled { cursor: default; opacity: .55; }
+.verloop .eleccion .letra.elegida { border-color: var(--maquina); background: rgba(74, 242, 255, .12); color: var(--maquina-claro); opacity: 1; }
+
+/* ── 04 · hallazgos ───────────────────────────────────────────────────── */
+.verloop .hallazgos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 32px; }
+@media (max-width: 900px) { .verloop .hallazgos { grid-template-columns: 1fr; } }
+.verloop .col-h { display: grid; gap: 12px; align-content: start; }
+.verloop .col-ps { --c: var(--c-ps); }
+.verloop .col-pe { --c: var(--c-pe); }
+.verloop .col-h > .kicker { margin: 0 0 4px; font: 500 12px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--c); }
+.verloop .hallazgo { display: grid; grid-template-columns: minmax(130px, .5fr) minmax(0, 1fr); grid-template-rows: auto 1fr; gap: 4px 20px;
+  padding: 20px 22px; border-radius: 4px; background: var(--sup); border: 1px solid var(--linea); border-left: 3px solid var(--c);
+  color: inherit; text-decoration: none; transition: border-color .2s, background .2s; }
+.verloop .hallazgo:hover { background: var(--sup-2); border-color: var(--c); }
+.verloop .hallazgo .dato { grid-row: 1 / span 2; align-self: center; font: 900 clamp(30px, 3vw, 46px)/.95 var(--display); color: var(--c); overflow-wrap: anywhere; }
+.verloop .hallazgo .dato small { font: 500 12px/1 var(--mono); color: var(--tenue); }
+.verloop .hallazgo h3 { margin: 0; font: 900 22px/1 var(--display); text-transform: uppercase; }
+.verloop .hallazgo p { margin: 0; font-size: 14px; line-height: 1.5; color: var(--tinta-2); }
+@media (max-width: 520px) { .verloop .hallazgo { grid-template-columns: 1fr; } .verloop .hallazgo .dato { grid-row: auto; } }
+
+/* ── 06 · para profundizar ────────────────────────────────────────────── */
+.verloop .lecturas { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 1000px) { .verloop .lecturas { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .verloop .lecturas { grid-template-columns: 1fr; } }
+.verloop .lectura { display: flex; flex-direction: column; gap: 8px; padding: 22px; border-radius: 4px; background: var(--sup); border: 1px solid var(--linea);
+  color: inherit; text-decoration: none; transition: border-color .2s, transform .2s var(--v-facil); }
+.verloop .lectura:hover { border-color: var(--tinta); transform: translateY(-2px); }
+.verloop .lectura .k { font: 500 11px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--tenue); }
+.verloop .lectura b { font: 900 26px/.95 var(--display); text-transform: uppercase; }
+.verloop .lectura span:last-child { font-size: 14px; line-height: 1.5; color: var(--tinta-2); }
+
+/* ── estados ───────────────────────────────────────────────────────────── */
+@media print {
+  .verloop .banco-bloque { padding: 0; break-before: auto; }
+  .verloop .bench, .verloop .clasico, .verloop .hallazgo, .verloop .lectura, .verloop .quiz { break-inside: avoid; }
+}
+/* un hallazgo cuyo «dato» es un nombre (el rasgo): más pequeño y partido por el guion */
+.verloop .hallazgo .dato.texto { font-size: clamp(22px, 2vw, 30px); overflow-wrap: break-word; }

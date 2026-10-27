@@ -427,6 +427,35 @@ if (PREVIA) {
   });
 }
 
+if (PREVIA) RUTAS.push({
+  ruta: "/inicio-nuevo",
+  aserciones: `(() => {
+    const f = [];
+    const D = window.PSICO;
+    if (!D || !D.personalidad) return ["window.PSICO (con personalidad) no cargó"];
+    const B = D.benchmark, P = D.personalidad;
+    if (!/noindex/.test(document.querySelector('meta[name="robots"]')?.content || "")) f.push("la previa no lleva noindex");
+    if (document.querySelector(".v-previa a")?.getAttribute("href") !== "/") f.push("el aviso no lleva a la portada vigente");
+    if (!document.body.classList.contains("verloop")) f.push("sin el registro Verloop");
+    const sup = Array.from(document.querySelectorAll(".superficies a")).map((a) => a.getAttribute("href"));
+    ["/inicio-nuevo", "/completo-nueva", "/psicobench-nueva", "/personalidad-nueva"].forEach((r) => { if (!sup.includes(r)) f.push("el conmutador no lleva a " + r); });
+    if (!document.querySelector('.superficies a[aria-current="page"]')?.textContent.includes("Resumen")) f.push("el conmutador no marca Resumen");
+    // cifras y los dos benchmarks, con sus gráficas vivas
+    const vacias = Array.from(document.querySelectorAll("#banco .cifras .n")).filter((n) => !n.textContent.trim() || n.textContent === "—");
+    if (vacias.length) f.push("cifras del banco vacías: " + vacias.length);
+    if (document.querySelectorAll("#mini-iss circle").length !== B.entradas.length) f.push("la tira del ISS no tiene un punto por medición");
+    if (document.querySelectorAll("#mini-rasgos circle").length !== P.nModelos * P.rasgos.length) f.push("las tiras de rasgos no tienen un punto por modelo y rasgo");
+    if (document.querySelectorAll("#mini-rasgos circle.firme").length !== P.robustas) f.push("los puntos firmes no son las " + P.robustas + " marcas robustas");
+    if (!document.getElementById("puente").hidden && document.querySelectorAll("#puente-rasgos li").length !== P.rasgos.length) f.push("el puente no lleva un rasgo por fila");
+    // los clásicos, el test y los hallazgos, todos con su cifra
+    const sinCifra = Array.from(document.querySelectorAll("#como dd, #hallazgos .dato")).filter((n) => !n.textContent.trim());
+    if (sinCifra.length) f.push("cifras sin rellenar en cómo se mide u hallazgos: " + sinCifra.length);
+    if (!document.querySelector("#quiz .cab") || !document.querySelectorAll("#quiz .reproductor-clips .clip").length) f.push("el test «Ponte en la silla» no montó");
+    if (document.querySelectorAll(".lecturas a.lectura").length !== 4) f.push("faltan las cuatro lecturas");
+    return f;
+  })()`,
+});
+
 /* ── arranque de Chrome con puerto de depuración ─────────────────────────── */
 const perfil = mkdtempSync(join(tmpdir(), "smoke-chrome-"));
 const chrome = spawn(CHROME, [
