@@ -27,6 +27,11 @@
 <meta name="twitter:image" content="https://benchai.tech/og.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23222623'/%3E%3Crect x='5' y='21' width='4.2' height='6' rx='1' fill='%238E9A70'/%3E%3Crect x='11' y='16' width='4.2' height='11' rx='1' fill='%23DDA950'/%3E%3Crect x='17' y='11' width='4.2' height='16' rx='1' fill='%23EE7633'/%3E%3Crect x='23' y='5' width='4.2' height='22' rx='1' fill='%23D42F2A'/%3E%3C/svg%3E">
 <!-- El sistema visual del sitio largo, y encima solo lo propio de esta página -->
+<!-- las fuentes, pedidas ya: sin esto llegaban después de pintar y el
+     cambio de fuente del titular movía la portada (CLS, fase 5) -->
+<link rel="preload" href="fonts/big-shoulders-display.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/inter-tight.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/jetbrains-mono.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/estilo.css">
 <link rel="stylesheet" href="css/psicobench.css">
 <!-- y encima, el registro Verloop: fuentes, tokens y el registro único -->

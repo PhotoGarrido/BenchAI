@@ -102,7 +102,9 @@
     const f = v > 0 ? 0.3 + 0.7 * Math.sqrt(Math.min(1, v)) : 0;
     const m = FONDO_CELDA.map((b, j) => Math.round(b + (t[j] - b) * f));
     const L = lum(m);
-    return { fondo: `rgb(${m.join(",")})`, tinta: (L + 0.05) / 0.05 > 1.05 / (L + 0.05) ? "#07070A" : "#FFFFFF" };
+    // negro puro, no el #07070A del fondo: en el cruce de luminancias el
+    // casi negro se quedaba en 4,42:1 (medido en la fase 5)
+    return { fondo: `rgb(${m.join(",")})`, tinta: (L + 0.05) / 0.05 > 1.05 / (L + 0.05) ? "#000000" : "#FFFFFF" };
   }
 
   /* ── columnas del mapa ─────────────────────────────────────────────────── */
@@ -1306,13 +1308,12 @@
      `--sans` / `--mono`. Las fuentes autoalojadas llegan después del primer
      dibujo y el canvas no las pide por sí mismo: se cargan aquí y, cuando
      están, se redibuja todo con las medidas buenas. ═════════════════════ */
-  if (document.fonts && document.fonts.load) {
-    Promise.all([
-      document.fonts.load('500 12px "Inter Tight"'),
-      document.fonts.load('600 13px "Inter Tight"'),
-      document.fonts.load('500 11px "JetBrains Mono"'),
-      document.fonts.load('900 24px "Big Shoulders Display"'),
-    ]).then(() => {
+  // con las fuentes precargadas suelen estar ya: entonces el primer dibujo
+  // midió bien y redibujar sería repetir todo el trabajo (TBT, fase 5)
+  const FUENTES = ['500 12px "Inter Tight"', '600 13px "Inter Tight"', '500 11px "JetBrains Mono"', '900 24px "Big Shoulders Display"'];
+  const yaEstan = document.fonts && document.fonts.check && FUENTES.every((f) => document.fonts.check(f));
+  if (!yaEstan && document.fonts && document.fonts.load) {
+    Promise.all(FUENTES.map((f) => document.fonts.load(f))).then(() => {
       document.querySelectorAll("figure.viz").forEach((f) => { if (f._redibujar) f._redibujar(); });
     }, () => {});
   }

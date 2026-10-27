@@ -164,7 +164,9 @@ body.verloop,
   .verloop .lm-flecha.ant:hover, .verloop .lm-flecha.sig:hover { transform: none; }
 }
 @media (min-width: 561px) and (max-width: 940px) { .verloop .lamina-bloque .lamina-pie { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); } }
-.verloop .portada h1 em { color: var(--plano); -webkit-text-stroke: 2px var(--tinta); }
+/* hueco con color transparente, no con el del fondo: así ninguna auditoría
+   de contraste lo lee como texto negro sobre negro */
+.verloop .portada h1 em { color: transparent; -webkit-text-stroke: 2px var(--tinta); }
 @supports not (-webkit-text-stroke: 2px #fff) { .verloop .portada h1 em { color: var(--acento); } }
 
 /* ── grano: una textura de ruido como imagen (img-src data: está en la CSP)
