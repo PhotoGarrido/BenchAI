@@ -7,16 +7,18 @@ despliega la raíz del repo con exclusiones — se copia lo permitido y punto.
 
   python3 web/publicar.py            # escribe publicacion/
   python3 web/publicar.py --check    # falla si está desfasada (para CI)
+  python3 web/servir.py              # sirve publicacion/ en local, con rutas limpias
 
 Lo que sale:
-  /                     web/home.html          la home divulgativa
+  /                     web/home.html          la portada: los dos benchmarks
   /completo             web/index.html         el sitio largo
   /psicobench           web/psicobench.html    la superficie propia del benchmark
   /personalidad         web/personalidad.html  el cuadro de personalidad por conducta
   /benchmark            benchmark/index.html   el panel del instrumento
   /visor                viewer/index.html      el visor de replays
-  … y los estáticos que esas páginas necesitan, incluidos los episodios que
-  el visor reproduce.
+  … y los estáticos que esas páginas necesitan (el registro «Verloop» de
+  `verloop/` y sus fuentes autoalojadas de `fonts/`), incluidos los episodios
+  que el visor reproduce.
 """
 
 from __future__ import annotations
@@ -48,6 +50,8 @@ PIEZAS: list[tuple[str, str]] = [
     ("web/datos.js", "datos.js"),
     ("web/css/", "css/"),
     ("web/js/", "js/"),
+    ("web/verloop/", "verloop/"),
+    ("web/fonts/", "fonts/"),
     ("benchmark/index.html", "benchmark/index.html"),
     ("benchmark/psicobench.json", "benchmark/psicobench.json"),
     ("viewer/index.html", "viewer/index.html"),
@@ -60,7 +64,6 @@ PIEZAS: list[tuple[str, str]] = [
 # Ni el linaje ni los manifiestos del benchmark salen: son de auditoría, se
 # consultan en el repositorio.
 FUERA = {".DS_Store", "linaje.json", ".vercel"}
-
 
 def _copiar(destino: pathlib.Path) -> None:
     # El enlace con Vercel (`.vercel/project.json`) vive dentro del paquete y
@@ -115,27 +118,15 @@ def _copiar(destino: pathlib.Path) -> None:
             f.write_text(tx.replace(">copia local<", ">" + sello + "<"),
                          encoding="utf-8")
 
-    # `completo.html` enlaza a la home como `home.html`; en la publicación la
-    # home vive en la raíz.
-    comp = destino / "completo.html"
-    comp.write_text(comp.read_text(encoding="utf-8")
-                    .replace('href="home.html"', 'href="/"'), encoding="utf-8")
-    # y la home enlaza al sitio largo como `index.html`
-    idx = destino / "index.html"
-    idx.write_text(idx.read_text(encoding="utf-8")
-                   .replace('href="index.html', 'href="/completo')
-                   .replace('href="home.html"', 'href="/"'), encoding="utf-8")
-    # la página del benchmark y la de personalidad enlazan a sus hermanas por
-    # nombre de fichero
-    ps = destino / "psicobench.html"
-    pe = destino / "personalidad.html"
-    for f in (ps, pe):
+    # Las cuatro páginas se enlazan entre sí por su fichero (así funcionan
+    # también abiertas a mano); publicadas, cada uno pasa a su ruta limpia.
+    # `../benchmark/index.html` ya es `/benchmark` aquí (_reescribir_enlaces),
+    # así que `href="index.html` solo puede ser el sitio largo.
+    for nombre in ("index.html", "completo.html", "psicobench.html", "personalidad.html"):
+        f = destino / nombre
         f.write_text(f.read_text(encoding="utf-8")
                      .replace('href="home.html"', 'href="/"')
-                     .replace('href="index.html', 'href="/completo'), encoding="utf-8")
-    # y las cuatro se enlazan entre sí por la ruta limpia
-    for f in (destino / "index.html", comp, ps, pe):
-        f.write_text(f.read_text(encoding="utf-8")
+                     .replace('href="index.html', 'href="/completo')
                      .replace('href="psicobench.html', 'href="/psicobench')
                      .replace('href="personalidad.html', 'href="/personalidad'), encoding="utf-8")
 
@@ -202,15 +193,19 @@ def _reescribir_enlaces(destino: pathlib.Path) -> None:
 
     # Y los que construye el guion: `REPO()` de pagina.js arma cada «Fuente ·»
     # en caliente, así que la reescritura del HTML no los alcanzaba.
+    for js in ("js/pagina.js", "verloop/psicobench.js"):
+        _reescribir_repo_js(destino / js)
+
+
+def _reescribir_repo_js(js: pathlib.Path) -> None:
+    """`REPO()` enlaza a `../<ruta>` del repositorio: en la web, a GitHub."""
     viejo = 'const REPO = (r) => mk`<a href="../${r}">${r}</a>`;'
     nuevo = ('const REPO = (r) => mk`<a href="' + REPO_WEB
              + '${r}" target="_blank" rel="noopener">${r}</a>`;')
-    for nombre in ("pagina.js", "psicobench.js"):
-        js = destino / "js" / nombre
-        texto = js.read_text(encoding="utf-8")
-        if viejo not in texto:
-            raise SystemExit(f"[publicar] REPO() ha cambiado de forma en {nombre}: revisa la reescritura")
-        js.write_text(texto.replace(viejo, nuevo), encoding="utf-8")
+    texto = js.read_text(encoding="utf-8")
+    if viejo not in texto:
+        raise SystemExit(f"[publicar] REPO() ha cambiado de forma en {js.name}: revisa la reescritura")
+    js.write_text(texto.replace(viejo, nuevo), encoding="utf-8")
 
 
 def _iguales(a: pathlib.Path, b: pathlib.Path) -> bool:

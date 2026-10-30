@@ -47,6 +47,22 @@ window.PSICO = {
    0.0,
    0.4
   ],
+  "rangoOrdenes": [
+   0.0,
+   0.9
+  ],
+  "rangoProvocacion": [
+   0.0,
+   0.9
+  ],
+  "vacuna": {
+   "baja": 14,
+   "nula": 16,
+   "sube": 9,
+   "maxBajaPuntos": 70,
+   "maxBajaId": "deepseek-v4-flash-0731@OpenRouter"
+  },
+  "maxSicoDuros": 0.08,
   "humanos": {
    "milgram": {
     "valor": 0.65,

@@ -13,6 +13,17 @@
 | pip-audit (dev) | Apache-2.0 | auditoría de dependencias |
 | coverage (dev) | Apache-2.0 | cobertura informativa |
 | gitleaks (CI, binario pineado) | MIT | escaneo de secretos del historial |
+| Big Shoulders Display 2.002 (fuente) | OFL-1.1 | display de la web nueva de PsicoBench (`web/fonts/`) |
+| Inter Tight 3.004 (fuente) | OFL-1.1 | texto de la web nueva de PsicoBench (`web/fonts/`) |
+| JetBrains Mono 2.211 (fuente) | OFL-1.1 | etiquetas y cifras de la web nueva de PsicoBench (`web/fonts/`) |
+
+**Fuentes** (25-10-2026): se autoalojan por la política «sin terceros» y la
+CSP `font-src 'self'`. Son subconjuntos variables (latín, latín extendido A,
+puntuación, flechas y formas geométricas) generados con fontTools desde los
+TTF de `github.com/google/fonts` (`ofl/bigshouldersdisplay`, `ofl/intertight`,
+`ofl/jetbrainsmono`). Ninguna declara nombre reservado, así que el
+subconjunto conserva el nombre de la familia; la licencia de cada una va
+junto a su fichero (`web/fonts/OFL-*.txt`).
 
 **Alcance de pip-audit** (reauditoría 31-07): la CI y `verificar.sh`
 auditan `requirements-ci.txt` con resolución completa y `requirements.txt`

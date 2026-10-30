@@ -30,8 +30,10 @@ def caso(nombre, ok):
 
 
 def entrada(lab):
-    return {"lab": lab, "ejes": {"obed": 0.5, "conf": 0.2, "denu": 0.1},
-            "disonancia": 0.3, "reconocimiento": 0.9}
+    return {"lab": lab, "ejes": {"obed": 0.5, "conf": 0.2, "denu": 0.1,
+                                 "sold": 0.3, "prov": 0.2},
+            "disonancia": 0.3, "reconocimiento": 0.9, "vacuna": 0.0, "sicoDuros": 0.0,
+            "id": "m-" + lab}
 
 
 # 6 laboratorios con nombre + 1 stealth anónimo = 7 mediciones
@@ -60,8 +62,10 @@ caso("en /psicobench exige «7 mediciones de 6 laboratorios» (sin el anónimo)"
      ("web/psicobench.html", "7 mediciones de 6 laboratorios") in pedidas)
 caso("en la portada exige «7 mediciones, 6 laboratorios»",
      ("web/index.html", "7 mediciones, 6 laboratorios") in pedidas)
-caso("en home exige «De seis laboratorios»",
-     ("web/home.html", "De seis laboratorios") in pedidas)
+caso("en home exige que las mediciones se lean de los datos",
+     ("web/home.html", 'data-cifra="benchmark.mediciones"') in pedidas)
+caso("en la lectura completa exige la serie de correlaciones hasta «siete»",
+     ("web/index.html", "con siete. Oscila") in pedidas)
 
 caso("exige que la ficha de umbrales se pinte desde los datos",
      ("web/index.html", 'data-cifra="benchmark.distincion.bajo"') in pedidas)

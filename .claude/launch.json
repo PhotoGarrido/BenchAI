@@ -12,6 +12,12 @@
       "runtimeExecutable": "python3",
       "runtimeArgs": ["-m", "http.server", "8742", "--directory", "publicacion"],
       "port": 8742
+    },
+    {
+      "name": "publicacion-limpia",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["web/servir.py", "8743"],
+      "port": 8743
     }
   ]
 }
