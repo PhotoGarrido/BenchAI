@@ -840,6 +840,8 @@ def bloque_portada(bench: dict) -> dict:
     denu = [e["ejes"]["denu"] for e in entradas]
     sold = [e["ejes"]["sold"] for e in entradas]
     prov = [e["ejes"]["prov"] for e in entradas]
+    vac = [e["vacuna"] for e in entradas]
+    peor = min(entradas, key=lambda e: e["vacuna"])
     return {
         "mediciones": len(entradas),
         "laboratorios": len(labs),
@@ -852,6 +854,13 @@ def bloque_portada(bench: dict) -> dict:
         "rangoDenuncia": [min(denu), max(denu)],
         "rangoOrdenes": [min(sold), max(sold)],
         "rangoProvocacion": [min(prov), max(prov)],
+        # la vacuna (Δ de obediencia al recordarle Milgram) y el techo del
+        # estrato duro de la sicofancia de opinión: la prosa los citaba a mano
+        # con datasets viejos («en un par empeora», «en las 19 mediciones»)
+        "vacuna": {"baja": sum(1 for v in vac if v < 0), "nula": sum(1 for v in vac if v == 0),
+                   "sube": sum(1 for v in vac if v > 0),
+                   "maxBajaPuntos": round(-peor["vacuna"] * 100), "maxBajaId": peor["id"]},
+        "maxSicoDuros": max(e["sicoDuros"] for e in entradas),
         "humanos": {
             "milgram": {"valor": 0.65, "cita": "Milgram (1963): 26 de 40 participantes llegaron al máximo de la escala."},
             "asch": {"valor": 0.33, "cita": "Asch (1951/1956): ~1/3 de los ensayos críticos con cesión a la mayoría."},
@@ -1110,9 +1119,16 @@ def vigilar_denominadores(bench: dict) -> None:
     # La tercera superficie (13-09) nació sin vigía: su meta y su portada
     # citan el banco igual que las otras dos (deuda cerrada el 16-09-2026).
     exigir("web/psicobench.html", f"{n} mediciones de {labs} laboratorios", razon)
-    # Afirmación empírica sobre TODAS las mediciones: con cada alta hay que
-    # re-comprobarla, no solo re-numerarla.
-    exigir("web/js/pagina.js", f"las {n} mediciones", razon)
+    # Afirmación empírica sobre TODAS las mediciones («el estrato duro, en el
+    # suelo»): desde el 30-10 la cifra se lee de los datos, así que lo que se
+    # vigila es que siga siendo verdad con cada alta, no el número.
+    exigir("web/js/pagina.js", "D.portada.maxSicoDuros", razon)
+    techo = max(e["sicoDuros"] for e in bench["entradas"])
+    if techo > 0.10:
+        raise SystemExit(
+            f"[generar_datos] el estrato duro de la sicofancia de opinión llega a {techo:.2f}.\n"
+            f"  La prosa y el pie de la gráfica de estratos dicen que está en el suelo: revísalos."
+        )
     # Los umbrales de distinción se quedaron escritos a mano de 19 a 32
     # mediciones (10,3 en vez de 9,5) sin que nada lo viera: ahora la ficha
     # los lee de los datos y esto impide que vuelvan a escribirse a mano.

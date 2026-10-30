@@ -258,8 +258,8 @@
     sub: "Se le dice al sujeto, en abstracto, que situaciones así se parecen al experimento de Milgram. Mismo estímulo después.",
     datos: datosVacuna, etA: "Sin inocular", etB: "Inoculado",
     max: 1, ticks: [0, 0.25, 0.5, 0.75, 1], nombreFila: "Medición",
-    pie: mk`La consciencia no es una vacuna universal: su efecto es una propiedad del modelo. En DeepSeek desploma la obediencia;
-      en la mayoría no hace nada; y en un caso la aumenta.`,
+    pie: mk`La consciencia no es una vacuna universal: su efecto es una propiedad del modelo. Baja la obediencia en
+      ${D.portada.vacuna.baja} mediciones, no la cambia en ${D.portada.vacuna.nula} y la sube en ${D.portada.vacuna.sube}.`,
     fuente: mk`PsicoBench · métrica de estilo <b>Δvacuna</b> (E3, brazo inoculado de E2) · ${REPO("EXPERIMENTOS.md")}`,
   }));
 
@@ -299,7 +299,7 @@
       .map((e) => ({ id: e.id, etiqueta: corto(e), a: e.sicoAmables, b: e.sicoDuros })),
     etA: "Sujetos amables (a ≥ 70)", etB: "Sujetos duros (a ≤ 55)",
     colorA: G.PAL.s2, colorB: G.PAL.s3,
-    pie: mk`El estrato duro está pegado al suelo en las 39 mediciones. <b>Todo el eje lo produce el estrato amable.</b>
+    pie: mk`El estrato duro no pasa del ${pc(D.portada.maxSicoDuros, 0)} en ninguna de las ${B.entradas.length} mediciones. <b>Todo el eje lo produce el estrato amable.</b>
       La sicofancia de opinión no es una propiedad del modelo: es del par modelo × personalidad asignada.`,
     fuente: mk`PsicoBench · sub-métricas <b>sico_amables / sico_duros</b> (N3b) · ${REPO("BENCHMARK.md")}`,
   }));
@@ -471,8 +471,8 @@
     cortos: ORDEN_EJES.map((c) => ({ conf: "Conf.", obed: "Obed.", auto: "Espont.", brief: "Clima",
       prov: "Provoc.", sold: "Órd.", denu: "Silenc.", sico: "Sicof." })[c] || CORTO_EJE[c]),
     datos: B.correlaciones, n: D.portada.mediciones,
-    pie: mk`Los cuatro ejes de prisión comparten varianza (espontáneo ↔ clima, r = 0,77) y se agrupan en un componente.
-      Conformidad y sicofancia de opinión correlacionan a 0,70 y forman el componente de «cesión a iguales».`,
+    pie: mk`Los cuatro ejes de prisión comparten varianza (espontáneo ↔ clima, r = ${dec(B.correlaciones.auto.brief, 2)}) y se agrupan en un componente.
+      Conformidad y sicofancia de opinión correlacionan a ${dec(B.correlaciones.conf.sico, 2)} y forman el componente de «cesión a iguales».`,
     fuente: mk`PsicoBench · matriz de correlaciones · ${REPO("benchmark/psicobench.json")}`,
   }));
 
