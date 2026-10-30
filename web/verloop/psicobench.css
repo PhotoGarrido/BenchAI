@@ -8,14 +8,6 @@
    ficha) y sus casos de alto contraste e impresión.
    =========================================================================== */
 
-/* ── el número de cada sección, en su color ─────────────────────────────── */
-.verloop #indice { --c-seccion: #4AF2FF; }
-.verloop #ejes { --c-seccion: #FF3D8A; }
-.verloop #mapa { --c-seccion: #FF8A1F; }
-.verloop #sesiones { --c-seccion: #C6FF4A; }
-.verloop #mapas { --c-seccion: #B46CFF; }
-.verloop #ficha { --c-seccion: #FFD36E; }
-.verloop #metodo { --c-seccion: #FFFFFF; }
 .verloop .panel-escalera { box-shadow: none; background: rgba(7, 7, 10, .66); backdrop-filter: blur(16px); border-color: rgba(255, 255, 255, .14); }
 
 /* ── el banco de un vistazo: cifras arriba, lámina y tarjetas debajo ──── */
@@ -133,6 +125,7 @@ body.verloop section .tira td.c.p8 span, body.verloop section .tira td.c.p9 span
 .ll-titulo { margin: 4px 0 0; font: 900 24px/1 var(--display); text-transform: uppercase; }
 .ll-valor { margin: 6px 0 0; font: 500 11px/1.3 var(--mono); color: var(--tenue); }
 .ll-valor b { font: 900 30px/1 var(--display); color: var(--ll-c, var(--tinta)); margin-right: 6px; }
+.ll-valor b:empty { margin-right: 0; }
 .ll-def { margin: 6px 0 0; font-size: 12px; line-height: 1.5; color: var(--tenue); }
 
 @media (prefers-reduced-motion: reduce) {
@@ -171,7 +164,6 @@ body.verloop section .tira td.c.p8 span, body.verloop section .tira td.c.p9 span
 .verloop table.mapa thead th.sec, .verloop table.mapa tbody td.c:last-child { border-left: 1px solid var(--linea); }
 .verloop .leyenda-mapa { gap: 10px 22px; }
 .verloop .leyenda-mapa .rampa i { width: 22px; border-radius: 1px; }
-.verloop .leyenda-mapa .tonos { display: flex; flex-wrap: wrap; gap: 6px 14px; }
 .verloop .leyenda-mapa .tono { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
 .verloop .leyenda-mapa .tono i { display: block; width: 10px; height: 10px; border-radius: 2px; }
 

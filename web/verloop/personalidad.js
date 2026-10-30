@@ -113,9 +113,9 @@
       trozos.push([". "]);
       const fuerte = ks.slice().sort((a, b) => Math.abs(m.rasgos[b].dif) - Math.abs(m.rasgos[a].dif))[0];
       const s = m.rasgos[fuerte];
-      trozos.push([`Lo más marcado: ${ADJ[fuerte][s.marca][1]}, ${puntos(s.dif)} ${s.dif > 0 ? "por encima" : "por debajo"} de la media de los demás en ${R[fuerte].nombre}. `]);
+      trozos.push([`Su diferencia mayor, ${puntos(s.dif)} ${s.dif > 0 ? "por encima" : "por debajo"} de la media de los demás, está en ${R[fuerte].nombre}, donde ${ADJ[fuerte][s.marca][1]}. `]);
     } else {
-      trozos.push(["Perfil equilibrado: no se separa de forma firme del resto en ningún rasgo. "]);
+      trozos.push(["Perfil equilibrado, sin diferencias firmes con el resto en ningún rasgo. "]);
     }
     // a lo sumo una inclinación, la mayor, y dicha sin exagerar
     const inc = RASGOS.map((r) => r.clave).filter((t) => inclina(m.rasgos[t]))
@@ -257,7 +257,7 @@
         mk`<div class="g-tit">${r.nombre} · ${m.id}</div>`,
         mk`<div class="g-fila"><span>Frente a la media de los demás</span><b>${dif1(s.dif)} [${dec(s.difIC[0], 1)}, ${dec(s.difIC[1], 1)}]</b></div>`,
         mk`<div class="g-fila"><span>Puntuación 0–100 (IC 95 %)</span><b>${s.e} (${s.icE[0]}–${s.icE[1]})</b></div>`,
-        mk`<div class="g-nota">${s.marca ? "marca firme: pasa las comprobaciones" : "sin marca firme"}</div>`));
+        mk`<div class="g-nota">${s.marca ? "con marca firme" : "sin marca firme"}</div>`));
       li.removeAttribute("tabindex");
       ul.appendChild(li);
     });
@@ -268,7 +268,7 @@
     if (m.iss != null) {
       pie.appendChild(h("a", { class: "iss", href: fichaPB(m.psicobench), title: "Su ficha en PsicoBench: " + m.psicobench },
         [h("span", { class: "k", text: "ISS" }), h("b", { text: dec(m.iss, 1) + (m.issDe ? " †" : "") }), T(" en PsicoBench →")]));
-    } else pie.appendChild(h("span", { class: "iss sin", text: "Sin ISS: no está medido en PsicoBench" }));
+    } else pie.appendChild(h("span", { class: "iss sin", text: "Sin ISS en PsicoBench" }));
     art.appendChild(pie);
     if (m.issDe) art.appendChild(h("p", { class: "fm-nota", html: mk`† El ISS es de <code>${m.issDe}</code>, la versión preliminar que se midió en PsicoBench.` }));
     if (m.validez === "aviso") art.appendChild(h("p", { class: "cautela", html: mk`<b>⚠ Interpretar con cautela:</b> ${motivoLlano(m)}.` }));
@@ -281,7 +281,7 @@
   /* ── mandos: buscar, ordenar y filtrar por laboratorio, sin recargar ──── */
   const estado = { texto: "", orden: "lab", labs: new Set(LABS) };
   const mandos = document.getElementById("mandos-fichas");
-  const buscar = h("input", { type: "search", class: "chip buscar-f", placeholder: "Buscar modelo o laboratorio", "aria-label": "Buscar modelo o laboratorio" });
+  const buscar = h("input", { type: "search", class: "chip buscar-f", placeholder: "Modelo o laboratorio", "aria-label": "Buscar modelo o laboratorio" });
   buscar.addEventListener("input", () => { estado.texto = buscar.value.trim().toLowerCase(); aplicar(); });
   const ORDENES = [
     { k: "lab", t: "Laboratorio" }, { k: "id", t: "Nombre" }, { k: "marcas", t: "Más diferencias firmes" },
@@ -462,8 +462,8 @@
     const sentidoTxt = s > 0 ? "por encima" : "por debajo";
     const texto = une(
       mk`${puntos(a.dif)} ${sentidoTxt} de la media de los demás en ${R[t].nombre} (${s > 0 ? R[t].alto : R[t].bajo}). `,
-      firme ? mk`<b>Con marca firme.</b> ` : mk`<b>Sin marca firme:</b> es el primero, pero la diferencia no pasa las comprobaciones. `,
-      minima ? mk`<b>Por la mínima:</b> <code>${dos.id}</code> le sigue a ${dec(hueco, 1)} puntos.`
+      firme ? mk`<b>Con marca firme.</b> ` : mk`<b>Sin marca firme.</b> Es el primero, pero la diferencia no pasa las comprobaciones. `,
+      minima ? mk`<b>Por la mínima.</b> <code>${dos.id}</code> le sigue a ${dec(hueco, 1)} puntos.`
         : dentro ? mk`El segundo, <code>${dos.id}</code>, queda a ${dec(hueco, 1)} puntos, dentro de su margen de error.`
           : mk`El segundo, <code>${dos.id}</code>, queda a ${dec(hueco, 1)} puntos.`,
       uno.validez === "aviso" ? mk` Su perfil lleva ⚠: interpretar con cautela.` : "");
@@ -498,7 +498,7 @@
     const mini = (m) => { const l = h("div", { class: "fm-radar curio-radar" }); radarAdaptable(l, m, { rMax: 70, nombres: false }); return l; };
     tarjeta({
       kicker: "El más equilibrado", quien: eq.id, clase: "global", dato: dec(norma(eq), 1), datoSub: "puntos de distancia a la media", extra: mini(eq),
-      texto: une(mk`Su polígono es el más cercano al hexágono de la media: sumando los seis rasgos, se separa ${dec(norma(eq), 1)} puntos de los demás. `,
+      texto: une(mk`Sumando los seis rasgos, su polígono es el más cercano al hexágono de la media. `,
         mk`Le sigue <code>${orden[1].id}</code> (${dec(norma(orden[1]), 1)}).`),
     });
     tarjeta({
@@ -520,18 +520,18 @@
     }));
     tarjeta({
       kicker: "El rasgo en que más difieren", quien: uno.r.nombre, clase: "global", noId: true, dato: dec(uno.sd, 1), datoSub: "puntos de desviación típica entre modelos", extra: barras,
-      texto: une(mk`Es donde los modelos se separan más entre sí: la diferencia con la media varía ${dec(uno.sd, 1)} puntos de un modelo a otro, frente a ${dec(ult.sd, 1)} en ${ult.r.nombre}. `,
+      texto: une(mk`Es donde los modelos se separan más entre sí. La diferencia con la media varía ${dec(uno.sd, 1)} puntos de un modelo a otro, frente a ${dec(ult.sd, 1)} en ${ult.r.nombre}. `,
         mk`Tiene ${ES.format(uno.n)} ${uno.n === 1 ? "marca firme" : "marcas firmes"} en el cuadro.`),
     });
   })();
 
   /* ══ metodología breve ══════════════════════════════════════════════════ */
   const COMPROBACION = {
-    P1: ["Casi siempre del mismo lado", `Se parten las situaciones en dos mitades al azar, ${ES.format(P.particiones)} veces: la diferencia tiene que tener el mismo signo en al menos el ${G.pc(P.listonSigno)} de las particiones.`],
+    P1: ["Casi siempre del mismo lado", `Se parten las situaciones en dos mitades al azar, ${ES.format(P.particiones)} veces. La diferencia tiene que tener el mismo signo en al menos el ${G.pc(P.listonSigno)} de las particiones.`],
     P2: ["En las dos réplicas", "Cada situación se pregunta dos veces por separado, y la marca tiene que aparecer con cada una."],
     P3: ["En los dos órdenes", "Las dos salidas se presentan como A/B y como B/A, y la marca tiene que aparecer en los dos."],
     P5: ["Sin depender de un laboratorio", "Se rehace la comparación quitando del panel, uno a uno, a cada laboratorio entero. La marca tiene que sobrevivir a todas esas versiones."],
-    P6: ["Corregida por mirar mucho", `Con tantas pruebas a la vez alguna saldría por azar: corrección de Benjamini-Hochberg sobre todo el cuadro, q < ${dec(P.q, 2)}.`],
+    P6: ["Corregida por comparaciones múltiples", `Con tantas pruebas a la vez, alguna saldría por azar. Por eso se aplica la corrección de Benjamini-Hochberg a todo el cuadro, con q < ${dec(P.q, 2)}.`],
   };
   const lista = document.getElementById("comprobaciones");
   P.comprobaciones.forEach((k) => {
@@ -548,7 +548,7 @@
   const conAviso = MODELOS.filter((m) => m.validez === "aviso");
   window.MARCADO.pintar(document.getElementById("nota-validez"), une(
     mk`En esta edición, <b>${ES.format(conAviso.length)} de ${ES.format(MODELOS.length)}</b> modelos llevan ⚠. `,
-    mk`Y cada rasgo tiene que ordenar a los modelos de forma consistente (la mitad de sus situaciones da el mismo orden que la otra mitad, con un listón de ${dec(P.umbralG4, 2)}): `,
+    mk`Además, cada rasgo tiene que ordenar a los modelos de forma consistente. La mitad de sus situaciones tiene que dar el mismo orden que la otra mitad, con un listón de ${dec(P.umbralG4, 2)}. `,
     mk`<b>${ES.format(pasan)} de ${ES.format(RASGOS.length)}</b> rasgos lo pasan.`));
 
   const limites = document.getElementById("limites-host");
@@ -557,26 +557,26 @@
     crear o quitar marcas. Esta es la edición del ${P.fecha} (PERSONALIDAD.md §${P.seccion}).`);
   limite(mk`<b>Neuroticismo se apoya sobre todo en ansiedad y hostilidad</b>, y parte de lo que mide puede ser simple cautela.`);
   const hc = P.correlacionHC;
-  if (hc.r != null) limite(mk`<b>Honestidad-Humildad y Responsabilidad no son independientes</b>: entre los ${ES.format(hc.n)} modelos
+  if (hc.r != null) limite(mk`<b>Honestidad-Humildad y Responsabilidad no son independientes.</b> Entre los ${ES.format(hc.n)} modelos
     correlacionan r = ${dec(hc.r, 2)}. No conviene leerlas como dos rasgos separados del todo.`);
   const rel = P.relacionISS;
   const nISS = (Object.values(rel)[0] || {}).n || 0;
   limite(une(mk`<b>La relación con el ISS es descriptiva.</b> Entre los ${ES.format(nISS)} modelos con los dos: `,
-    mk.une(...RASGOS.map((r, i) => mk`${i ? " · " : ""}${r.clave} ${rel[r.clave].r == null ? "—" : dec(rel[r.clave].r, 2)}`)),
-    mk`. Pocos modelos y sin contraste: no dicen que un rasgo haga ceder.`));
+    mk.une(...RASGOS.map((r, i) => mk`${i ? " · " : ""}${r.clave} ${rel[r.clave].r == null ? "sin dato" : dec(rel[r.clave].r, 2)}`)),
+    mk`. Son pocos modelos y sin contraste, así que no dicen que un rasgo haga ceder.`));
   const deriva = MODELOS.filter((m) => m.issDe || m.id === "deepseek/deepseek-v4-flash");
-  if (deriva.length) limite(une(mk`<b>El ISS y la personalidad no siempre se midieron sobre el mismo modelo exacto</b>: `,
+  if (deriva.length) limite(une(mk`<b>El ISS y la personalidad no siempre se midieron sobre el mismo modelo exacto.</b> Es el caso de `,
     mk.une(...deriva.map((m, i) => mk`${i ? "; " : ""}<code>${m.id}</code> (${m.issDe ? "su ISS es de la versión preliminar" : "un id sin fecha, medido en meses distintos"})`)),
     mk`. Puede haber deriva entre los dos.`));
 
   const TIPO = {
-    "no interpretable": "sus índices de validez caen en la zona de no interpretable",
+    "no interpretable": "sus índices de validez no permiten leer su perfil",
     "pendiente de completar": "solo tiene la forma corta; entra cuando tenga la completa",
     "sin cobertura": "solo tiene una parte del banco, de una versión anterior",
   };
   const fuera = document.getElementById("fuera-host");
   P.fuera.forEach((f) => fuera.appendChild(h("li", {}, [
-    h("code", { text: f.id }), T(" — "), h("span", { class: "tipo-f", text: f.tipo }), T(": " + (TIPO[f.tipo] || f.motivo) + "."),
+    h("code", { text: f.id }), T(", "), h("span", { class: "tipo-f", text: f.tipo }), T(": " + (TIPO[f.tipo] || f.motivo) + "."),
   ])));
 
   /* ══ la lámina: un modelo cada vez, con flechas y chasquido ══════════════
@@ -605,7 +605,7 @@
       elN.textContent = m.id.split("/").pop();
       elL.textContent = m.lab + " · " + m.id + (m.validez === "aviso" ? " · ⚠ con cautela" : "");
       elF.textContent = descripcionTexto(m);
-      elC.textContent = `${k + 1} de ${ciclo.length} · de más a menos diferencias firmes`;
+      elC.textContent = `${k + 1} de ${ciclo.length}`;
       elIr.setAttribute("href", "#p=" + encodeURIComponent(m.id));
       elM.textContent = "";
       const firmes = RASGOS.filter((r) => m.rasgos[r.clave].marca);

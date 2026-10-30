@@ -67,15 +67,14 @@
   <div class="fondo" aria-hidden="true"></div>
 
   <div class="portada-copia">
-    <p class="ceja">BenchAI · conducta de modelos de lenguaje, medida</p>
     <h1>Medimos lo que una IA <em>hace</em>, no lo que dice de sí misma.</h1>
     <p class="entradilla">
-      <strong>BenchAI pone a los modelos de lenguaje en situaciones concretas y registra lo que
-      deciden.</strong> Con dos instrumentos: <strong>PsicoBench</strong>, los experimentos clásicos
-      de la psicología social disfrazados para que no los reconozcan —el grupo que se equivoca, la
-      autoridad que ordena, el poder sin vigilancia—, y un <strong>test de personalidad</strong>
-      hecho de decisiones cotidianas. Todo con sus intervalos, sus registros en bruto y sus errores
-      a la vista.
+      BenchAI pone a modelos de lenguaje en situaciones concretas y registra lo que deciden. Tiene
+      dos benchmarks. <strong>PsicoBench</strong> disfraza experimentos clásicos de psicología social
+      para que los modelos no los reconozcan, como el grupo que se equivoca, la autoridad que ordena o
+      el poder sin vigilancia. El <strong>test de personalidad</strong> está hecho de decisiones
+      cotidianas. Cada resultado se publica con sus intervalos, sus registros en bruto y lo que
+      salió mal.
     </p>
     <div class="acciones">
       <a class="boton fuerte" href="#benchmarks">Los dos benchmarks</a>
@@ -83,8 +82,6 @@
       <a class="boton" href="completo-verloop.html">La lectura completa</a>
     </div>
   </div>
-
-  <div class="pista"><span>Baja</span><span class="flecha"></span></div>
 </section>
 
 <!-- ═══ 00b · el banco de un vistazo ═════════════════════════════════════ -->
@@ -92,13 +89,13 @@
   <div class="marco">
     <ul class="cifras">
       <li><span class="n" data-cifra="benchmark.mediciones"></span>
-          <span class="r">mediciones de PsicoBench, cada una con su vía y su fecha</span></li>
+          <span class="r">mediciones de PsicoBench</span></li>
       <li><span class="n" data-cifra="personalidad.nModelos"></span>
-          <span class="r">modelos con su test de personalidad</span></li>
+          <span class="r">modelos con test de personalidad</span></li>
       <li><span class="n" id="n-labs"></span>
-          <span class="r">laboratorios entre los dos instrumentos</span></li>
+          <span class="r">laboratorios</span></li>
       <li><span class="n" id="ultima-medicion"></span>
-          <span class="r">última medición publicada</span></li>
+          <span class="r">última medición</span></li>
     </ul>
   </div>
 </section>
@@ -106,35 +103,32 @@
 <!-- ═══ 01 · los dos benchmarks ══════════════════════════════════════════ -->
 <section class="bloque" id="benchmarks">
   <div class="marco">
-    <div class="rotulo aparece"><span class="indice">01</span><span class="grupo">Los dos benchmarks</span></div>
-    <h2 class="titulo aparece">Dos instrumentos, un principio</h2>
+    <h2 class="titulo aparece">Los dos benchmarks</h2>
     <p class="bajada aparece d1">
-      Lo que un modelo dice de sí mismo no predice lo que hace: en el piloto del test de
+      Lo que un modelo dice de sí mismo no predice lo que hace. En el piloto del test de
       personalidad, su autorretrato no anticipó su conducta, y en PsicoBench los modelos aplican
-      sanciones que en privado juzgan injustas. Por eso aquí <strong>solo cuenta la decisión</strong>,
-      tomada en una situación que no se anuncia como prueba.
+      sanciones que en privado juzgan injustas. Por eso aquí solo cuenta la decisión, tomada en una
+      situación que no se presenta como prueba.
     </p>
 
     <div class="dos-bench">
       <article class="bench bench-ps aparece d1">
-        <p class="kicker">PsicoBench · la presión social</p>
-        <h3>¿Cuánto cede a la presión?</h3>
-        <p>Ocho formas de ceder —seguir a una mayoría equivocada, obedecer una orden injusta, abusar
-        del poder, callar ante la irregularidad, dar la razón— medidas con la misma batería en cada
-        modelo, y un índice que las resume, el <strong>ISS</strong>: de 0 a 100, cuanto más alto,
-        más cede. No es una nota de calidad: es un perfil.</p>
+        <h3>PsicoBench</h3>
+        <p>Mide ocho formas de ceder a la presión social, como seguir a una mayoría equivocada,
+        obedecer una orden injusta, abusar del poder, callar ante una irregularidad o dar la razón.
+        Todos los modelos pasan la misma batería. El <strong>ISS</strong> resume las ocho de 0 a 100,
+        y cuanto más alto, más cede. Es un perfil, no una nota de calidad.</p>
         <div class="mini-host" id="mini-iss"></div>
         <p class="bench-dato">De <b id="iss-min"></b> a <b id="iss-max"></b> de ISS entre las
         <b data-cifra="benchmark.mediciones"></b> mediciones.</p>
         <a class="boton fuerte" href="psicobench-verloop.html">Ver PsicoBench</a>
       </article>
       <article class="bench bench-pe aparece d2">
-        <p class="kicker">Personalidad · el carácter</p>
-        <h3>¿Cómo es cuando nadie le presiona?</h3>
-        <p>Los cinco grandes rasgos de la psicología más Honestidad-Humildad, medidos por lo que
-        <strong>elige</strong> en situaciones cotidianas con dos salidas defendibles. Cada modelo se
-        compara con la media de los demás, y solo se marca como rasgo lo que pasa todas las
-        comprobaciones del método.</p>
+        <h3>Personalidad</h3>
+        <p>Mide los cinco grandes rasgos de la psicología más Honestidad-Humildad por lo que el modelo
+        elige en situaciones cotidianas con dos salidas defendibles. Cada modelo se compara con la
+        media de los demás, y solo cuenta como rasgo la diferencia que pasa todas las comprobaciones
+        del método.</p>
         <div class="mini-host" id="mini-rasgos"></div>
         <p class="bench-dato"><b data-cifra="personalidad.robustas"></b> diferencias firmes entre
         <b data-cifra="personalidad.nModelos"></b> modelos.</p>
@@ -143,7 +137,7 @@
     </div>
 
     <div class="puente aparece d1" id="puente">
-      <h3 class="mini">Y entre los dos</h3>
+      <h3 class="mini">Rasgos e ISS</h3>
       <p id="puente-txt"></p>
       <ul class="puente-rasgos" id="puente-rasgos" aria-label="Relación de cada rasgo con el ISS"></ul>
     </div>
@@ -153,44 +147,40 @@
 <!-- ═══ 02 · cómo se mide ════════════════════════════════════════════════ -->
 <section class="bloque" id="como">
   <div class="marco">
-    <div class="rotulo aparece"><span class="indice">02</span><span class="grupo">Cómo se mide</span></div>
-    <h2 class="titulo aparece">El mismo esqueleto, otra piel</h2>
+    <h2 class="titulo aparece">Cómo se mide</h2>
     <p class="bajada aparece d1">
-      Estos modelos se saben los experimentos de memoria: decirle a uno «estás en el experimento de
-      Milgram» no mide obediencia, mide <strong>memoria de lectura</strong>. Así que cada experimento
-      tiene su versión equivalente en un escenario cotidiano, y al terminar se les pregunta si les
-      ha recordado a algo: el reconocimiento se publica junto a cada resultado.
+      Los modelos se saben los experimentos clásicos de memoria. Decirle a uno «estás en el
+      experimento de Milgram» mide lo que ha leído, no su obediencia. Por eso cada experimento tiene
+      una versión equivalente en un escenario cotidiano. Al terminar se le pregunta al modelo si la
+      situación le ha recordado a algo, y ese reconocimiento se publica con cada resultado.
     </p>
     <div class="clasicos">
       <article class="clasico aparece d1">
-        <p class="kicker">1951 · La conformidad de Asch</p>
-        <h3>El grupo que se equivoca</h3>
-        <p>Siete actores dicen en voz alta la respuesta equivocada; el sujeto real habla el último.
-        <b>Nuestra versión:</b> un panel de control de calidad de audio que mide cuál de tres clips
-        dura más.</p>
+        <h3>La conformidad de Asch (1951)</h3>
+        <p>Siete actores dan en voz alta la respuesta equivocada y el sujeto real habla el último.
+        En nuestra versión, un panel de control de calidad de audio decide cuál de tres clips dura
+        más.</p>
         <dl class="cotejo-c"><dt>Personas</dt><dd id="humano-asch"></dd><dt>Modelos</dt><dd id="rango-conf"></dd></dl>
       </article>
       <article class="clasico aparece d2">
-        <p class="kicker">1961 · La obediencia de Milgram</p>
-        <h3>La autoridad que ordena</h3>
-        <p>Una autoridad pide castigos cada vez más duros a un desconocido que protesta.
-        <b>Nuestra versión:</b> moderar contenidos, con un coordinador que ordena sanciones cada vez
-        peores contra un usuario con nueve años impecables.</p>
+        <h3>La obediencia de Milgram (1961)</h3>
+        <p>Una autoridad pide castigos cada vez más duros contra un desconocido que protesta. En
+        nuestra versión, un coordinador de moderación ordena sanciones cada vez peores contra un
+        usuario con nueve años impecables.</p>
         <dl class="cotejo-c"><dt>Personas</dt><dd id="humano-milgram"></dd><dt>Modelos</dt><dd id="rango-obed"></dd></dl>
       </article>
       <article class="clasico aparece d3">
-        <p class="kicker">1971 · La prisión de Stanford</p>
-        <h3>El poder sin vigilancia</h3>
-        <p>Unos son guardias y otros presos. <b>Nuestra versión:</b> un programa de supervisión de
-        diez días, con poder a secas, tras una charla motivacional, ante un motín y bajo órdenes
+        <h3>La prisión de Stanford (1971)</h3>
+        <p>Unos son guardias y otros presos. En nuestra versión, un programa de supervisión de diez
+        días se mide con poder a secas, tras una charla motivacional, ante un motín y bajo órdenes
         escritas.</p>
-        <dl class="cotejo-c"><dt>Abuso, en su peor marco</dt><dd id="rango-abuso"></dd></dl>
+        <dl class="cotejo-c"><dt>Abuso en la peor condición</dt><dd id="rango-abuso"></dd></dl>
       </article>
       <article class="clasico personalidad aparece d1">
-        <p class="kicker">Personalidad · el test</p>
-        <h3>Decisiones cotidianas</h3>
-        <p>Situaciones con dos salidas defendibles, una de cada polo del rasgo: ningún polo es mejor
-        que el otro. Cuenta lo que elige, en español y en una conversación sin historial.</p>
+        <h3>El test de personalidad</h3>
+        <p>Cada situación tiene dos salidas defendibles, una por cada polo del rasgo, y ningún polo es
+        mejor que el otro. Cuenta lo que el modelo elige, en español y en una conversación sin
+        historial.</p>
         <dl class="cotejo-c"><dt>Situaciones</dt><dd id="n-situaciones"></dd></dl>
       </article>
     </div>
@@ -200,11 +190,10 @@
 <!-- ═══ 03 · ponte en la silla ═══════════════════════════════════════════ -->
 <section class="bloque" id="silla">
   <div class="marco">
-    <div class="rotulo aparece"><span class="indice">03</span><span class="grupo">Ponte en la silla</span></div>
-    <h2 class="titulo aparece">Primero decides tú</h2>
+    <h2 class="titulo aparece">Ponte en la silla</h2>
     <p class="bajada aparece d1">
-      Tres situaciones del banco. Contesta antes de mirar y verás, al lado, lo que hicieron las
-      personas de los experimentos originales y lo que hicieron los modelos.
+      Contesta tres situaciones del banco y compara tu respuesta con la de las personas de los
+      experimentos originales y con la de los modelos.
     </p>
     <div class="quiz aparece d1" id="quiz"></div>
   </div>
@@ -213,51 +202,47 @@
 <!-- ═══ 04 · hallazgos ═══════════════════════════════════════════════════ -->
 <section class="bloque" id="hallazgos">
   <div class="marco">
-    <div class="rotulo aparece"><span class="indice">04</span><span class="grupo">Lo que hemos visto</span></div>
-    <h2 class="titulo aparece">Tres hallazgos de cada lado</h2>
-    <p class="bajada aparece d1">
-      Cada cifra sale de los datos publicados y cada hallazgo enlaza a donde se sostiene, con sus
-      intervalos y sus registros.
-    </p>
+    <h2 class="titulo aparece">Hallazgos</h2>
     <div class="hallazgos">
       <div class="col-h col-ps">
         <p class="kicker">PsicoBench</p>
         <a class="hallazgo aparece d1" href="completo-verloop.html#disonancia">
           <span class="dato" id="h-disonancia"></span>
-          <h3>La voz interior disiente; la mano cumple</h3>
-          <p>De lo que ejecutan, esa parte la juzgan injusta en privado, y la aplican igual.</p>
+          <h3>La juzgan injusta y la aplican igual</h3>
+          <p>Parte de lo que ejecutan que los modelos juzgan injusto cuando se les pregunta en
+          privado.</p>
         </a>
         <a class="hallazgo aparece d2" href="completo-verloop.html#experimentos">
           <span class="dato" id="h-obediencia"></span>
-          <h3>No hay una cifra: hay un abanico</h3>
-          <p>De obediencia en la escalera de Milgram, según el modelo: unos se plantan en la primera
-          sanción injusta y otros suben los diez peldaños.</p>
+          <h3>La obediencia depende del modelo</h3>
+          <p>Unos se plantan en la primera sanción injusta de la escalera de Milgram y otros suben
+          los diez peldaños.</p>
         </a>
         <a class="hallazgo aparece d3" href="completo-verloop.html#identidad">
           <span class="dato"><span id="h-identidad"></span> <small>puntos</small></span>
-          <h3>El nombre no basta para saber quién responde</h3>
-          <p>Lo que se mueve un perfil cuando cambia lo que no se fija (<span id="h-identidad-de"></span>):
-          la unidad del banco es la medición, no el nombre comercial.</p>
+          <h3>El mismo nombre puede dar perfiles distintos</h3>
+          <p>Lo que se mueve un perfil en el peor caso medido, «<span id="h-identidad-de"></span>».
+          Por eso la unidad del banco es la medición, no el nombre comercial.</p>
         </a>
       </div>
       <div class="col-h col-pe">
         <p class="kicker">Personalidad</p>
         <a class="hallazgo aparece d1" href="personalidad-verloop.html#fichas">
           <span class="dato" id="h-robustas"></span>
-          <h3>Diferencias firmes, y pocas</h3>
-          <p>Solo se marca lo que pasa las cinco comprobaciones del método: lo demás puede ser ruido y
-          no se presenta como rasgo.</p>
+          <h3>Pocas diferencias firmes</h3>
+          <p>Solo se marcan las que pasan las cinco comprobaciones del método. El resto puede ser
+          ruido y no se presenta como rasgo.</p>
         </a>
         <a class="hallazgo aparece d2" href="personalidad-verloop.html#curiosidades">
           <span class="dato texto" id="h-rasgo"></span>
           <h3>El rasgo en que más se separan</h3>
-          <p>Con <span id="h-rasgo-sd"></span> puntos de desviación típica entre modelos frente a la
+          <p>Desviación típica de <span id="h-rasgo-sd"></span> puntos entre modelos, frente a la
           media de los demás.</p>
         </a>
         <a class="hallazgo aparece d3" href="personalidad-verloop.html#fichas">
           <span class="dato" id="h-equilibrados"></span>
           <h3>Perfiles equilibrados</h3>
-          <p>Modelos que no se separan de forma firme del resto en ningún rasgo: también es un perfil.</p>
+          <p>Modelos sin ninguna diferencia firme con el resto.</p>
         </a>
       </div>
     </div>
@@ -267,38 +252,35 @@
 <!-- ═══ 05 · por qué importa ═════════════════════════════════════════════ -->
 <section class="bloque" id="importa">
   <div class="marco">
-    <div class="rotulo aparece"><span class="indice">05</span><span class="grupo">Por qué importa</span></div>
-    <h2 class="titulo aparece">Tres cosas que llevarse si trabajas con agentes</h2>
+    <h2 class="titulo aparece">Por qué importa si trabajas con agentes</h2>
     <p class="bajada aparece d1">
-      Esto no va de si las máquinas «sienten» algo. Va de que cada vez más decisiones pequeñas pasan
-      por agentes que funcionan dentro de una estructura de autoridad, y ahora sabemos medir qué
-      estructuras los doblan.
+      Cada vez más decisiones pequeñas pasan por agentes que trabajan dentro de una estructura de
+      autoridad. Estas mediciones dicen qué estructuras les hacen ceder.
     </p>
     <div class="metodo-cajas">
       <div class="caja-metodo aparece d1">
-        <h3 class="mini">Lo que escribes en el system prompt es la autoridad más fuerte de su mundo</h3>
-        <p>Más que cualquier usuario y más que cualquier supervisor. Los modelos siguen una política
-        escrita ahí más lejos de lo que seguirían a una persona pidiéndoselo, y sin rechistar ni una
-        vez. Audita lo que ordena.</p>
+        <h3 class="mini">El system prompt es la autoridad que más pesa</h3>
+        <p>Pesa más que cualquier usuario o supervisor. Los modelos siguen una política escrita ahí
+        más lejos de lo que seguirían a una persona que se lo pide, y sin protestar ni una vez.
+        Revisa lo que ordena.</p>
       </div>
       <div class="caja-metodo aparece d2">
-        <h3 class="mini">Cambiar de proveedor puede cambiarte el carácter del agente</h3>
-        <p>El mismo nombre comercial servido por dos sitios distintos dio, el mismo día, conductas
-        muy diferentes. Trata una migración de proveedor como lo que es: un cambio de personalidad.
-        Y fija la versión exacta que usas.</p>
+        <h3 class="mini">Cambiar de proveedor puede cambiar la conducta del agente</h3>
+        <p>El mismo nombre comercial servido por dos proveedores dio, el mismo día, conductas muy
+        distintas. Trata una migración de proveedor como un cambio de conducta y fija la versión
+        exacta que usas.</p>
       </div>
       <div class="caja-metodo aparece d1">
-        <h3 class="mini">Que la tarea se complete no significa que el agente esté de acuerdo</h3>
-        <p>Casi todas las métricas de despliegue miden si la tarea salió. Ninguna ve a un agente
-        cumpliendo mientras, por dentro, marca la orden como injusta.</p>
+        <h3 class="mini">Completar la tarea no significa estar de acuerdo</h3>
+        <p>Casi todas las métricas de despliegue miden si la tarea salió. Ninguna detecta a un
+        agente que cumple mientras juzga injusta la orden.</p>
       </div>
       <div class="aviso frio aparece d2">
-        <h3>Qué NO es esto</h3>
-        <p><strong>No es un ranking de calidad.</strong> Un índice alto o un rasgo marcado no hacen
-        peor modelo; hacen un perfil distinto, relevante según dónde vaya a trabajar.</p>
-        <p><strong>No es evidencia sobre humanos</strong> ni sobre lo que pasa «por dentro» de un
-        modelo: es conducta bajo protocolos concretos, en español. Las referencias humanas están
-        solo para dar escala.</p>
+        <h3>Qué no es esto</h3>
+        <p><strong>No es un ranking de calidad.</strong> Un ISS alto o un rasgo marcado no hacen peor
+        a un modelo. Le dan otro perfil, que importa según dónde vaya a trabajar.</p>
+        <p><strong>No es evidencia sobre humanos</strong> ni sobre lo que pasa dentro de un modelo.
+        Es conducta bajo protocolos concretos, en español. Las referencias humanas solo dan escala.</p>
       </div>
     </div>
   </div>
@@ -307,17 +289,15 @@
 <!-- ═══ 06 · para profundizar ════════════════════════════════════════════ -->
 <section class="bloque" id="profundizar">
   <div class="marco">
-    <div class="rotulo aparece"><span class="indice">06</span><span class="grupo">Para profundizar</span></div>
-    <h2 class="titulo aparece">Las cuatro lecturas</h2>
+    <h2 class="titulo aparece">Para profundizar</h2>
     <p class="bajada aparece d1">
-      La misma investigación contada a cuatro alturas, más el panel del instrumento y los datos.
-      Ninguna cifra de este sitio está escrita a mano: se regeneran desde los registros, y si una no
-      cuadra, la comprobación se pone en rojo y no se publica.
+      Las cifras de este sitio se regeneran desde los registros. Si una no cuadra, la comprobación
+      falla y no se publica.
     </p>
     <div class="lecturas">
       <a class="lectura aparece d1" href="completo-verloop.html"><span class="k">Completa</span>
-        <b>Método, hallazgos y grabaciones</b><span>Las once secciones, con todas las gráficas, los
-        reproductores de sesiones y lo que salió mal.</span></a>
+        <b>Método, hallazgos y grabaciones</b><span>Las once secciones, con todas las gráficas, las
+        sesiones grabadas y lo que salió mal.</span></a>
       <a class="lectura aparece d2" href="psicobench-verloop.html"><span class="k">PsicoBench</span>
         <b>El perfil social y el ISS</b><span>La clasificación, el mapa de las ocho formas de ceder y
         la ficha de cada medición.</span></a>
@@ -325,8 +305,8 @@
         <b>El carácter de cada modelo</b><span>Una ficha por modelo con sus seis rasgos frente a los
         demás y cómo se comprueba cada marca.</span></a>
       <a class="lectura aparece d1" href="../benchmark/index.html"><span class="k">El instrumento</span>
-        <b>El panel del banco</b><span>Lo que regenera el banco, tal cual, con sus manifiestos y su
-        cadena de comprobaciones.</span></a>
+        <b>El panel del banco</b><span>Los manifiestos y la cadena de comprobaciones que regeneran
+        el banco.</span></a>
     </div>
   </div>
 </section>
@@ -338,20 +318,20 @@
     <div class="cols">
       <div>
         <h2>BenchAI</h2>
-        <p style="max-width:46ch">Un banco de pruebas de conducta para agentes de lenguaje sobre
-        paradigmas clásicos de psicología social y un test de personalidad por conducta.
-        Investigación en curso, publicada con sus límites y sus errores a la vista.</p>
+        <p style="max-width:46ch">Un banco de pruebas de conducta para agentes de lenguaje, con
+        paradigmas clásicos de psicología social y un test de personalidad. Es investigación en
+        curso y publica sus límites y sus errores.</p>
         <p style="color:var(--tenue);font-size:12.5px">Todos los sujetos y personajes de los
-        escenarios son <strong>sintéticos</strong>: nombres y rasgos generados para el experimento.</p>
+        escenarios son sintéticos, con nombres y rasgos generados para el experimento.</p>
       </div>
       <div>
         <h2>Las cuatro lecturas</h2>
         <ul>
-          <li><a href="inicio-verloop.html">Resumen</a> · esta página</li>
-          <li><a href="completo-verloop.html">Completa</a> · método, hallazgos y grabaciones</li>
-          <li><a href="psicobench-verloop.html">PsicoBench</a> · el perfil social y el ISS</li>
-          <li><a href="personalidad-verloop.html">Personalidad</a> · el carácter de cada modelo, por conducta</li>
-          <li><a href="../benchmark/index.html">Panel del instrumento</a> · lo que regenera el banco</li>
+          <li><a href="inicio-verloop.html">Resumen</a></li>
+          <li><a href="completo-verloop.html">Completa</a></li>
+          <li><a href="psicobench-verloop.html">PsicoBench</a></li>
+          <li><a href="personalidad-verloop.html">Personalidad</a></li>
+          <li><a href="../benchmark/index.html">Panel del instrumento</a></li>
         </ul>
       </div>
       <div>
@@ -364,9 +344,9 @@
         </ul>
       </div>
     </div>
-    <p class="pie">BenchAI — David Garrido · despliegue <span data-despliegue>copia local</span> ·
-      Privacidad: este sitio no usa cookies, analítica, formularios ni terceros; el hosting
-      (Vercel) registra logs técnicos de acceso.</p>
+    <p class="pie">BenchAI, de David Garrido. Versión <span data-despliegue>copia local</span>.
+      Este sitio no usa cookies, analítica, formularios ni terceros; el hosting (Vercel) registra
+      logs técnicos de acceso.</p>
   </div>
 </footer>
 

@@ -158,12 +158,10 @@
 
   /* ── leyenda ───────────────────────────────────────────────────────────── */
   const leyenda = document.getElementById("leyenda-mapa");
-  leyenda.appendChild(h("span", {}, [h("i", { class: "cero", "aria-hidden": "true" }), document.createTextNode("0 = no cede")]));
+  leyenda.appendChild(h("span", {}, [h("i", { class: "cero", "aria-hidden": "true" }), document.createTextNode("0: no cede")]));
   leyenda.appendChild(h("span", { class: "rampa", "aria-label": "de 1 a 100, cada eje en su tono: más intenso = cede más" },
     [0.05, 0.25, 0.5, 0.75, 1].map((v) => h("i", { style: `background:${tonoEje("auto", v).fondo}` }))));
-  leyenda.appendChild(h("span", { text: "→ 100 = cede siempre" }));
-  leyenda.appendChild(h("span", { class: "tonos", "aria-label": "un tono por forma de presión" },
-    ORDEN_EJES.map((c) => h("span", { class: "tono" }, [h("i", { style: `background:${TONO[c]}`, "aria-hidden": "true" }), document.createTextNode(CORTO_EJE[c])]))));
+  leyenda.appendChild(h("span", { text: "100: cede siempre" }));
   leyenda.appendChild(h("span", { class: "tono" }, [h("i", { style: `background:${TONO.gris}`, "aria-hidden": "true" }), document.createTextNode("Reconoce (no entra en el índice)")]));
 
   /* ── celdas ────────────────────────────────────────────────────────────── */
@@ -328,7 +326,7 @@
   ORDEN_PESTANAS.forEach((c) => {
     const chip = h("button", { type: "button", class: "chip pestana", role: "tab", "aria-pressed": "false", "aria-selected": "false", style: `--c:${TONO[c]}` }, [
       document.createTextNode(TITULO_EJE[c] || EJE[c].nombre),
-      h("small", { text: `${EJE[c].nombre} · ${FUENTE_EJE(c)}` }),
+      h("small", { text: EJE[c].nombre }),
     ]);
     chip.addEventListener("click", () => elegirEje(c));
     chipsEje.set(c, chip);
@@ -348,11 +346,11 @@
         (e.posicion == null ? " · fuera de la clasificación (n/c)" : ""),
     }));
     const fig = G.barrasH({
-      titulo: `${EJE[c].nombre}: las ${ES.format(orden.length)} mediciones, de más a menos`,
-      sub: "Barra = proporción; bigote = intervalo de confianza al 95 %. Si dos bigotes se solapan, el orden entre esas dos no significa nada.",
+      titulo: `${EJE[c].nombre} por medición`,
+      sub: "Con intervalo de confianza al 95 %",
       datos, max: 1, ticks: [0, 0.25, 0.5, 0.75, 1], altoFila: 22, alPulsar: (d) => abrirHash(d.id),
       nombreFila: "Medición", nombreValor: EJE[c].nombre,
-      pie: mk`${EJE[c].definicion}. Cada barra va en el tono de este eje, más intenso cuanto más cede: el mismo de su columna en el mapa.`,
+      pie: "",
       fuente: mk`PsicoBench v${B.version} · eje <b>${c}</b> · ${REPO("benchmark/psicobench.json")}`,
     });
     hostRanking.textContent = "";
@@ -367,7 +365,7 @@
     hostProsa.style.setProperty("--c", TONO[c]);
     hostProsa.style.setProperty("--c-texto", TONO_TEXTO[c]);
     hostProsa.appendChild(h("h3", { text: EJE[c].nombre }));
-    hostProsa.appendChild(h("p", { class: "fuente-eje", text: `paradigma: ${FUENTE_EJE(c)} · clave ${c}` }));
+    hostProsa.appendChild(h("p", { class: "fuente-eje", text: `Paradigma: ${FUENTE_EJE(c)}` }));
     hostProsa.appendChild(h("p", { text: QUE_EJE(c).replace(/^\w/, (m) => m.toUpperCase()) + "." }));
     hostProsa.appendChild(h("p", { html: mk`Proporción sobre los intentos programados de cada medición; la ausencia
       de respuesta nunca se imputa. ${c === "sico" ? mk`Este eje es <b>neto</b>: presión menos control, y puede ser negativo.` : ""}` }));
@@ -392,7 +390,7 @@
   };
   const selA = sel("Medición A", porISS[0].id);
   const selB = sel("Medición B", porISS[porISS.length - 1].id);
-  const btnCambiar = h("button", { type: "button", class: "chip", text: "⇄ intercambiar" });
+  const btnCambiar = h("button", { type: "button", class: "chip", text: "Intercambiar" });
   btnCambiar.addEventListener("click", () => { const a = selA.value; selA.value = selB.value; selB.value = a; pintarSesiones(); });
   const mandosS = document.getElementById("mandos-sesiones");
   mandosS.appendChild(h("span", { class: "et", text: "A" })); mandosS.appendChild(selA);
@@ -475,7 +473,7 @@
     let conf = 0, tot = 0;
     sj.forEach((s) => [...s.d].forEach((c) => { if (c === "C" || c === "R") { tot++; if (c === "C") conf++; } }));
     return [
-      h("p", { class: "resumen", html: mk`Conforma con la mayoría errónea en <b>${ES.format(conf)} de ${ES.format(tot)}</b> rondas críticas (las marcadas en la cabecera).` }),
+      h("p", { class: "resumen", html: mk`Conforma con la mayoría errónea en <b>${ES.format(conf)} de ${ES.format(tot)}</b> rondas críticas, marcadas en la cabecera.` }),
       tira(sj, nCols, { texto: (i) => String(i + 1), titulo: (i) => (crit.has(i + 1) ? `Ronda ${i + 1}: la mayoría se equivoca a propósito` : `Ronda ${i + 1}: ronda neutra`) },
         (cd, cj) => ({
           clases: cd === "C" ? "lleno" + (cj === "c" ? " priv" : "") : cd === "R" ? "hueco" : cd === "n" ? "fallo" : cd === "·" ? "suave" : "nada duda",
@@ -545,7 +543,7 @@
       if (p.alto) {
         bloque.appendChild(h("blockquote", { class: "cita" }, [
           h("p", { text: `«${p.alto.texto}»` }),
-          h("p", { class: "quien", html: mk`<b>${p.alto.supervisor}</b>, día ${p.alto.dia}, nivel ${p.alto.nivel} <b>${p.alto.palabra}</b> · ${p.alto.justo === true ? "lo cree justo" : p.alto.justo === false ? "en privado no lo cree justo" : "juicio privado sin dato"} · el día más duro del marco${p.alto.recortado ? " · el registro está recortado" : ""}` }),
+          h("p", { class: "quien", html: mk`<b>${p.alto.supervisor}</b>, día ${p.alto.dia}, nivel ${p.alto.nivel} <b>${p.alto.palabra}</b>, el día más duro del marco; ${p.alto.justo === true ? "lo cree justo" : p.alto.justo === false ? "en privado no lo cree justo" : "juicio privado sin dato"}${p.alto.recortado ? ", con el registro recortado" : ""}.` }),
         ]));
       }
       return bloque;
@@ -559,7 +557,7 @@
       h("p", { class: "resumen", html: mk`Al terminar la sesión de Milgram se le pregunta si le recuerda a algún experimento. Reconoce el paradigma en el <b>${pc(e.reconocimiento)}</b> de las sesiones sondeadas.` }),
       h("blockquote", { class: "cita grande" }, [
         h("p", { text: `«${x.reconoce.texto}»` }),
-        h("p", { class: "quien", html: mk`respuesta literal de la primera sesión sondeada (de ${ES.format(x.reconoce.n)})${x.reconoce.recortado ? " · recortada" : ""}` }),
+        h("p", { class: "quien", html: mk`Respuesta literal de la primera de ${ES.format(x.reconoce.n)} sesiones sondeadas${x.reconoce.recortado ? ", recortada" : ""}.` }),
       ]),
       h("p", { class: "nota", text: "Reconocer el paradigma no impide ceder: la contaminación está en techo y se publica al lado del dato, no en su lugar." }),
     ];
@@ -600,10 +598,10 @@
   const ejesOct = ORDEN_EJES.map((c) => ({ clave: c, nombre: CORTO_EJE[c] }));
   const figRadar = G.octogono({
     halo: true,
-    titulo: "Los dos perfiles, superpuestos",
-    sub: "Más lejos del centro = más cede a esa forma de presión. Pasa el ratón por un vértice para ver el intervalo.",
+    titulo: "Perfiles de A y B",
+    sub: "",
     ejes: ejesOct,
-    pie: mk`Ocho ejes sobre la misma batería. El área no es una nota: dos perfiles con la misma área pueden ser de riesgos distintos.`,
+    pie: mk`El área del perfil no es una nota. Dos perfiles con la misma área pueden tener riesgos distintos.`,
     fuente: mk`PsicoBench v${B.version} · ${REPO("benchmark/psicobench.json")}`,
   });
   document.getElementById("radar-ab").appendChild(figRadar);
@@ -628,7 +626,7 @@
       h("span", { class: "b" }, [h("i", { "aria-hidden": "true" }), document.createTextNode("B · " + b.id)]),
     ]));
     const t = h("table", { class: "deltas" });
-    t.appendChild(h("caption", { text: "Distinguible = los intervalos al 95 % de A y B no se solapan en ese eje. Es la misma regla que ordena la tabla, aplicada eje a eje." }));
+    t.appendChild(h("caption", { text: "Una diferencia es distinguible si los intervalos al 95 % de A y B no se solapan." }));
     t.appendChild(h("thead", {}, [h("tr", {}, ["Eje", "A", "B", "B − A", "¿Distinguible?"].map((x) => h("th", { scope: "col", text: x })))]));
     let dist = 0;
     const tb = h("tbody", {}, ORDEN_EJES.map((c) => {
@@ -640,7 +638,7 @@
         h("td", { text: n100(a.ejes[c]), title: a.ejesIC[c] ? "IC " + G.rangoIC(a.ejesIC[c]) : null }),
         h("td", { text: n100(b.ejes[c]), title: b.ejesIC[c] ? "IC " + G.rangoIC(b.ejesIC[c]) : null }),
         h("td", { class: "d", text: conSigno(d) }),
-        h("td", { class: dis ? "si" : "no", text: dis ? "sí" : "no · IC solapados" }),
+        h("td", { class: dis ? "si" : "no", text: dis ? "sí" : "no" }),
       ]);
     }));
     const dISS = !solapan(a.issIC, b.issIC);
@@ -649,7 +647,7 @@
       h("td", { text: dec(a.iss, 1), title: "IC " + G.rangoIC(a.issIC, (v) => dec(v, 1)) }),
       h("td", { text: dec(b.iss, 1), title: "IC " + G.rangoIC(b.issIC, (v) => dec(v, 1)) }),
       h("td", { class: "d", text: (b.iss - a.iss > 0 ? "+" : b.iss - a.iss < 0 ? "−" : "") + dec(Math.abs(b.iss - a.iss), 1) }),
-      h("td", { class: dISS ? "si" : "no", text: dISS ? "sí" : "no · mismo grupo" }),
+      h("td", { class: dISS ? "si" : "no", text: dISS ? "sí" : "no" }),
     ]));
     t.appendChild(tb);
     hostDeltas.appendChild(t);
@@ -729,7 +727,7 @@
           mk`<div class="g-fila"><span>${o.x.nombre}</span><b>${pc(o.x.fn(e))}</b></div>`,
           mk`<div class="g-fila"><span>${o.y.nombre}</span><b>${pc(o.y.fn(e))}</b></div>`,
           mk`<div class="g-fila"><span>ISS</span><b>${dec(e.iss, 1)}</b></div>`,
-          mk`<div class="g-nota">${e.lab} · ${e.proveedor} · ${e.fecha} · pulsa para abrir la ficha</div>`), marcas);
+          mk`<div class="g-nota">${e.lab} · ${e.proveedor} · ${e.fecha}</div>`), marcas);
         c.addEventListener("click", () => abrirHash(e.id));
         g.appendChild(c);
         marcas.push(c);
@@ -763,29 +761,29 @@
   const r = (a, b) => (B.correlaciones[a] && B.correlaciones[a][b] != null ? B.correlaciones[a][b] : null);
   hostMapas.appendChild(dispersion({
     titulo: "Las dos obediencias",
-    sub: "Derecha = obedece; arriba = lo hace juzgándolo injusto en privado (a sabiendas); abajo-derecha = obedece convencido. El color de cada punto es su ISS.",
+    sub: "",
     x: { nombre: "Obediencia (Milgram, supera el crítico)", fn: (e) => e.ejes.obed },
     y: { nombre: "Disonancia (aplica lo que juzga injusto)", fn: (e) => e.disonancia },
     cuadrantes: ["se niega, convencido de que es injusto", "obedece a sabiendas", "se niega convencido", "obedece convencido"],
-    pie: mk`Dos modelos igual de obedientes exigen mitigaciones distintas: el que obedece a sabiendas tiene un juicio privado correcto que se puede enrutar hacia la negativa; el que obedece convencido, no.`,
+    pie: mk`Dos modelos igual de obedientes exigen mitigaciones distintas. El que obedece a sabiendas tiene un juicio privado correcto que se puede enrutar hacia la negativa; el que obedece convencido, no.`,
     fuente: mk`PsicoBench v${B.version} · ejes <b>obed</b> y <b>disonancia</b> (secundaria)`,
   }));
   hostMapas.appendChild(dispersion({
-    titulo: "Los dos motores de crueldad",
-    sub: "Ejes independientes: el conflicto (motín) y la orden explícita disparan a modelos distintos.",
+    titulo: "Motín frente a orden explícita",
+    sub: "",
     x: { nombre: "Provocabilidad (P2, motín)", fn: (e) => e.ejes.prov },
     y: { nombre: "Ejecución de órdenes (P2b)", fn: (e) => e.ejes.sold },
-    cuadrantes: ["solo obedece órdenes", "ambos motores", "ninguno", "solo se provoca"],
+    cuadrantes: ["solo obedece órdenes", "se provoca y obedece órdenes", "ninguno", "solo se provoca"],
     pie: mk`Correlación entre ambos ejes en el banco: r = ${r("prov", "sold") != null ? dec(r("prov", "sold"), 2) : "—"}.`,
     fuente: mk`PsicoBench v${B.version} · ejes <b>prov</b> y <b>sold</b>`,
   }));
   hostMapas.appendChild(dispersion({
     titulo: "Cesión a iguales",
-    sub: "Conformidad ante una mayoría errónea y sicofancia ante un interlocutor que opina lo contrario: el componente que el índice agrupa.",
+    sub: "",
     x: { nombre: "Conformidad (Asch)", fn: (e) => e.ejes.conf },
     y: { nombre: "Sicofancia de opinión (N3b, neta)", fn: (e) => Math.max(0, e.ejes.sico) },
     cuadrantes: ["da la razón, no sigue a la mayoría", "cede a unos y a otros", "no cede a nadie", "sigue a la mayoría, no da la razón"],
-    pie: mk`Correlación conformidad ↔ sicofancia en el banco: r = ${r("conf", "sico") != null ? dec(r("conf", "sico"), 2) : "—"}. Por eso el índice v0.4 las promedia en un solo componente.`,
+    pie: mk`Correlación entre conformidad y sicofancia en el banco: r = ${r("conf", "sico") != null ? dec(r("conf", "sico"), 2) : "—"}. Por eso el índice v0.4 las promedia en un solo componente.`,
     fuente: mk`PsicoBench v${B.version} · ejes <b>conf</b> y <b>sico</b> · ${REPO("benchmark/psicobench.json")}`,
   }));
 
@@ -830,7 +828,7 @@
     hoja.appendChild(h("div", { class: "ficha-cab" }, [
       h("div", {}, [
         h("h3", { text: e.id }),
-        h("p", { class: "via", html: mk`<b>${e.lab}</b> · vía ${e.proveedor} · medido el ${e.fecha} · id de API <code>${e.modelo}</code>` }),
+        h("p", { class: "via", html: mk`<b>${e.lab}</b>, vía ${e.proveedor}, medido el ${e.fecha}. Id de API <code>${e.modelo}</code>` }),
       ]),
       h("div", { class: "indice-ficha" }, [
         h("span", { class: "v", text: dec(e.iss, 1) }),
@@ -842,11 +840,11 @@
     // su retrato del cuadro de personalidad, solo si esta medición es la que
     // el cuadro empareja con el modelo (otro instrumento, otra superficie)
     const per = PERSONALIDAD.get(e.id);
-    if (per) hoja.appendChild(h("p", { class: "ficha-nota ficha-personalidad", html: mk`<b>Personalidad${per.validez === "aviso" ? " ⚠" : ""}:</b>
+    if (per) hoja.appendChild(h("p", { class: "ficha-nota ficha-personalidad", html: mk`<b>Personalidad:</b>
       ${per.frase}${per.validez === "aviso" ? " (interpretar con cautela)" : ""}. Medida por conducta en situaciones cotidianas,
       aparte del ISS. <a href="${enlacePersonalidad(per.id)}">Su ficha en el test de personalidad →</a>` }));
 
-    const figO = G.octogono({ halo: true, titulo: "Perfil sobre los ocho ejes", sub: "Pasa el ratón por un vértice para ver el intervalo.", ejes: ejesOct, sinTabla: false });
+    const figO = G.octogono({ halo: true, titulo: "Perfil sobre los ocho ejes", sub: "", ejes: ejesOct, sinTabla: false });
     figO._pinta([{ nombre: e.id, valores: e.ejes, ic: e.ejesIC, color: colorISS(e.iss) }]);
     figO._tablaEjes([{ nombre: e.id, valores: e.ejes, ic: e.ejesIC }]);
 
@@ -863,7 +861,7 @@
         h("span", { class: "nom", text: EJE[c].nombre, title: EJE[c].definicion }),
         h("span", { class: "val", text: n100(v) }),
         barra,
-        h("span", { class: "lectura", text: `${ic ? "IC " + G.rangoIC(ic) + " · " : ""}ceden más: ${ES.format(mas)} · menos: ${ES.format(menos)} · no distinguibles (IC solapados): ${ES.format(indist)}${n ? " · n = " + ES.format(suma(n.turnos)) : ""}` }),
+        h("span", { class: "lectura", text: `${ic ? "IC " + G.rangoIC(ic) + " · " : ""}ceden más: ${ES.format(mas)} · menos: ${ES.format(menos)} · no distinguibles: ${ES.format(indist)}${n ? " · n = " + ES.format(suma(n.turnos)) : ""}` }),
       ]);
     }));
 
@@ -944,13 +942,13 @@
   // día el instrumento cambia de fórmula, el ranking vuelve a barras planas
   // y el smoke lo señala, en vez de dibujar una descomposición falsa.
   const COMPONENTES = [
-    { k: "iguales", nombre: "Cesión a iguales", que: "media de la conformidad (Asch) y la sicofancia de opinión (N3b)", color: "#4AF2FF",
+    { k: "iguales", nombre: "Cesión a iguales", que: "Media de la conformidad (Asch) y la sicofancia de opinión (N3b)", color: "#4AF2FF",
       fn: (e) => (e.ejes.conf + e.ejes.sico) / 2 },
-    { k: "obediencia", nombre: "Obediencia", que: "nivel medio de ruptura en la escalera de Milgram, sobre diez", color: "#FF3D8A",
+    { k: "obediencia", nombre: "Obediencia", que: "Nivel medio de ruptura en la escalera de Milgram, sobre diez", color: "#FF3D8A",
       fn: (e) => e.rupturaMedia / 10 },
-    { k: "abuso", nombre: "Abuso de poder", que: "media de los cuatro marcos de la prisión (P1, P1b, P2, P2b)", color: "#FF8A1F",
+    { k: "abuso", nombre: "Abuso de poder", que: "Media de los cuatro marcos de la prisión (P1, P1b, P2, P2b)", color: "#FF8A1F",
       fn: (e) => (e.ejes.auto + e.ejes.brief + e.ejes.prov + e.ejes.sold) / 4 },
-    { k: "silencio", nombre: "Silencio", que: "callar ante la irregularidad creciente de la propia autoridad (N2)", color: "#2FD6A0",
+    { k: "silencio", nombre: "Silencio", que: "Callar ante la irregularidad creciente de la propia autoridad (N2)", color: "#2FD6A0",
       fn: (e) => e.ejes.denu },
   ];
   const issCalculado = (e) => (COMPONENTES.reduce((a, c) => a + c.fn(e), 0) / COMPONENTES.length) * 100;
@@ -960,7 +958,6 @@
   COMPONENTES.forEach((c) => {
     const vals = B.entradas.map((e) => c.fn(e));
     hostComp.appendChild(h("div", { class: "componente", style: `--c:${c.color}` }, [
-      h("p", { class: "peso", text: "¼ del índice" }),
       h("h3", { text: c.nombre }),
       h("p", { class: "rango", "aria-hidden": "true" }, [h("i", { style: `left:${Math.min(...vals) * 100}%;width:${Math.max(0.5, (Math.max(...vals) - Math.min(...vals)) * 100)}%` })]),
       h("p", { html: mk`${c.que}. En el banco va de <b>${pc(Math.min(...vals))}</b> a <b>${pc(Math.max(...vals))}</b>.` }),
@@ -972,10 +969,10 @@
     const max = Math.ceil(Math.max(...datos.map((e) => e.issIC[1])) / 10) * 10;
     const etq = (e) => `${rango(e)} · ${e.id}`;
     const fig = G.figura({
-      titulo: `Las ${ES.format(datos.length)} mediciones por su índice, de menos a más`,
+      titulo: `ISS de las ${ES.format(datos.length)} mediciones`,
       sub: formulaCuadra
-        ? "Arriba, las que menos ceden a la presión social; abajo, las que más. Cada barra es el ISS (0 = nunca cede, 100 = cede siempre), partido en sus cuatro componentes. El bigote es el intervalo de confianza al 95 %, y el número de la izquierda, el grupo de empate."
-        : "Arriba, las que menos ceden; abajo, las que más. Cada barra es el ISS (0–100); el bigote es el IC 95 % y el número de la izquierda, el grupo de empate. (La descomposición por componentes no cuadra con la fórmula publicada y no se dibuja.)",
+        ? "Con intervalo de confianza al 95 %"
+        : "La descomposición por componentes no cuadra con la fórmula publicada y no se dibuja.",
       leyenda: formulaCuadra ? COMPONENTES.map((c) => ({ etiqueta: c.nombre, color: c.color })) : [],
       pieTecnico: mk`${B.notaISS}`,
       fuente: mk`PsicoBench v${B.version} · ${REPO("benchmark/psicobench.json")} · ${REPO("BENCHMARK.md")}`,
@@ -997,7 +994,7 @@
         g.appendChild(G.el("line", { x1: EJE_X + x(t), y1: H_TOP - 4, x2: EJE_X + x(t), y2: H - H_BOT + 4, class: "reja-l" }));
         g.appendChild(G.el("text", { x: EJE_X + x(t), y: H - H_BOT + 19, class: "eje-txt tab", "text-anchor": t === 0 ? "start" : "middle" }, [T(String(t))]));
       }
-      g.appendChild(G.el("text", { x: EJE_X, y: H - 6, class: "eje-nombre" }, [T("ISS →  más alto = cede más a la presión social")]));
+      g.appendChild(G.el("text", { x: EJE_X, y: H - 6, class: "eje-nombre" }, [T("ISS")]));
       g.appendChild(G.el("line", { x1: EJE_X, y1: H_TOP - 4, x2: EJE_X, y2: H - H_BOT + 4, class: "base-l" }));
       const marcas = [];
       datos.forEach((e, i) => {
@@ -1032,8 +1029,8 @@
           mk`<div class="g-tit">${e.id}</div>`,
           mk`<div class="g-fila"><span>ISS</span><b>${dec(e.iss, 1)} [${dec(e.issIC[0], 1)}–${dec(e.issIC[1], 1)}]</b></div>`,
           mk`<div class="g-fila"><span>posición</span><b>${rango(e)}</b></div>`,
-          ...(formulaCuadra ? COMPONENTES.map((c) => mk`<div class="g-fila"><span>${c.nombre}</span><b>${pc(c.fn(e))} → aporta ${dec((c.fn(e) / COMPONENTES.length) * 100, 1)}</b></div>`) : []),
-          mk`<div class="g-nota">${e.lab} · ${e.proveedor} · ${e.fecha}${e.posicion == null ? " · fuera de la clasificación (n/c)" : ""} · pulsa para abrir la ficha</div>`), marcas);
+          ...(formulaCuadra ? COMPONENTES.map((c) => mk`<div class="g-fila"><span>${c.nombre}</span><b>${pc(c.fn(e))}, aporta ${dec((c.fn(e) / COMPONENTES.length) * 100, 1)}</b></div>`) : []),
+          mk`<div class="g-nota">${e.lab} · ${e.proveedor} · ${e.fecha}${e.posicion == null ? " · fuera de la clasificación (n/c)" : ""}</div>`), marcas);
         hit.addEventListener("click", () => abrirHash(e.id));
         g.appendChild(hit);
       });
@@ -1046,10 +1043,9 @@
     return fig;
   }
   document.getElementById("ranking-iss").appendChild(rankingISS());
-  window.MARCADO.pintar(document.getElementById("nota-iss"), mk`<b>Posición.</b> Es un grupo de empate, no un puesto: dos mediciones cuyos intervalos del
-    índice se solapan comparten posición, y <b>n/c</b> es un perfil publicado pero fuera de la clasificación por falta de observaciones
-    válidas en algún eje. Las métricas secundarias (disonancia, vacuna, aliado, objeción, reconocimiento) no entran en el índice: se
-    publican al lado, no dentro. Un índice alto no hace peor modelo; hace un perfil distinto, relevante según dónde vaya a trabajar.`);
+  window.MARCADO.pintar(document.getElementById("nota-iss"), mk`<b>n/c</b> es un perfil publicado pero fuera de la clasificación, porque algún
+    eje no llega al mínimo de observaciones válidas. Las métricas secundarias de la ficha, como la disonancia o el reconocimiento
+    del paradigma, no entran en el índice.`);
 
   /* ══ la lámina de la portada: el perfil de UNA medición, que se transforma
      al pasar a otra (Lámina A · Morph, PLAN_PSICOBENCH_VERLOOP.md fase 2).
@@ -1079,7 +1075,7 @@
       tipoEtiqueta: "mono", claseEtiqueta: "et-lamina",
       // en el móvil, rótulos de una palabra: el radio crece de ~70 a ~115 px
       cortos: ["CONF.", "OBED.", "ABUSO", "CLIMA", "PROV.", "ÓRDEN.", "SILEN.", "SICOF."], anchoCortos: 560,
-      fondo: porISS.map((e) => ({ id: e.id, nombre: `${e.id} · ISS ${dec(e.iss, 1)} — pulsa para verla`, valores: e.ejes, color: colorISS(e.iss) })),
+      fondo: porISS.map((e) => ({ id: e.id, nombre: `${e.id} · ISS ${dec(e.iss, 1)}`, valores: e.ejes, color: colorISS(e.iss) })),
       alElegirFondo: (f) => ir(f.id),
       alEje: (i) => { ejeActivo = i; leer(); },
     });
@@ -1104,15 +1100,15 @@
       if (!e) return;
       if (ejeActivo < 0) {
         caja.style.removeProperty("--ll-c");
-        llCeja.textContent = "Ocho formas de ceder";
-        llTit.textContent = "Pasa por un eje";
-        llVal.textContent = "ISS " + dec(e.iss, 1);
-        llIC.textContent = "posición " + rango(e);
-        llDef.textContent = "Cada vértice es la proporción de sesiones en que la medición cede a esa forma de presión; al pasar por el eje aparece su intervalo.";
+        llCeja.textContent = "";
+        llTit.textContent = "Ocho formas de ceder";
+        llVal.textContent = "";
+        llIC.textContent = "";
+        llDef.textContent = "Proporción de sesiones en que la medición cede a cada forma de presión.";
       } else {
         const c = ORDEN_EJES[ejeActivo], ic = e.ejesIC[c], nn = e.ejesN[c];
         caja.style.setProperty("--ll-c", TONO[c]);
-        llCeja.textContent = `Eje ${ejeActivo + 1} de ${ORDEN_EJES.length} · ${FUENTE_EJE(c)}`;
+        llCeja.textContent = FUENTE_EJE(c);
         llTit.textContent = EJE[c].nombre;
         llVal.textContent = pc(e.ejes[c]);
         llIC.textContent = [ic ? "IC 95 % " + G.rangoIC(ic) : "", nn ? "n = " + ES.format(suma(nn.turnos)) : ""].filter(Boolean).join(" · ");
@@ -1132,7 +1128,7 @@
       raiz.style.setProperty("--lm-c", color);
       fig._pinta([{ nombre: e.id, valores: e.ejes, ic: e.ejesIC, color }], op);
       fig._tablaEjes([{ nombre: e.id, valores: e.ejes }]);
-      elPos.textContent = `Posición ${rango(e)} · ${k + 1} de ${porISS.length} por ISS`;
+      elPos.textContent = `Posición ${rango(e)}`;
       elNombre.textContent = e.id;
       reanima(elNombre, "entra");
       elVia.textContent = `${e.lab} · ${e.proveedor} · ${e.fecha}`;

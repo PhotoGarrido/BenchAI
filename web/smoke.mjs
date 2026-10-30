@@ -450,7 +450,7 @@ if (PREVIA) RUTAS.push({
     // los clásicos, el test y los hallazgos, todos con su cifra
     const sinCifra = Array.from(document.querySelectorAll("#como dd, #hallazgos .dato")).filter((n) => !n.textContent.trim());
     if (sinCifra.length) f.push("cifras sin rellenar en cómo se mide u hallazgos: " + sinCifra.length);
-    if (!document.querySelector("#quiz .cab") || !document.querySelectorAll("#quiz .reproductor-clips .clip").length) f.push("el test «Ponte en la silla» no montó");
+    if (!document.querySelector("#quiz .cuerpo .pregunta") || !document.querySelectorAll("#quiz .reproductor-clips .clip").length) f.push("el test «Ponte en la silla» no montó");
     if (document.querySelectorAll(".lecturas a.lectura").length !== 4) f.push("faltan las cuatro lecturas");
     return f;
   })()`,

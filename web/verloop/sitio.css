@@ -88,9 +88,6 @@ body.verloop,
     radial-gradient(36% 36% at 56% 60%, rgba(255, 138, 31, .22), transparent 70%),
     radial-gradient(44% 44% at 92% 92%, rgba(123, 61, 255, .32), transparent 70%);
 }
-.verloop .ceja { font-family: var(--mono); font-weight: 500; letter-spacing: .1em; color: var(--tinta); }
-.verloop .ceja::before { background: var(--v-espectro); }
-.verloop .portada .ceja { margin-bottom: 22px; }
 .verloop .portada h1 { font-size: clamp(52px, 8.2vw, 128px); line-height: .92; letter-spacing: -.005em; font-weight: 900; margin: 0 0 32px; overflow-wrap: break-word; hyphens: manual; }
 .verloop .portada .entradilla { font-size: clamp(15.5px, 1.2vw, 18px); line-height: 1.6; max-width: 66ch; margin: 0 0 32px; }
 @media (max-width: 640px) { .verloop .portada { padding-top: 96px; padding-bottom: 56px; } .verloop .portada h1 { margin-bottom: 24px; } }
@@ -117,12 +114,6 @@ body.verloop,
 .verloop .chip.pestana:hover { border-top-color: var(--s2); }
 .verloop .chip.pestana[aria-pressed="true"] { border-top-color: var(--s1); }
 
-/* ── cabeceras de sección: número grande y del color de su bloque ──────── */
-.verloop .rotulo { align-items: flex-end; gap: 18px; margin-bottom: 18px; }
-.verloop .rotulo .indice { font: 900 clamp(56px, 7vw, 112px)/.8 var(--display); letter-spacing: 0; }
-.verloop .rotulo .grupo { font: 500 12px/1 var(--mono); letter-spacing: .1em; color: var(--tenue); padding-bottom: 6px; }
-/* el color del número lo pone cada página por sección (`--c-seccion`) */
-.verloop .rotulo .indice { color: var(--c-seccion, var(--tinta)); }
 .verloop h1, .verloop h2 { font-weight: 900; }
 .verloop h2.titulo { font-size: clamp(40px, 5.2vw, 80px); line-height: .94; letter-spacing: -.005em; max-width: 20ch; overflow-wrap: break-word; }
 .verloop .bajada { font-size: 17px; }
@@ -217,19 +208,16 @@ body.verloop,
 
 /* ═══ secciones ═══════════════════════════════════════════════════════════ */
 
-/* ── cabeceras: número, título y entradilla en tres columnas ───────────── */
+/* ── cabeceras: título y entradilla en dos columnas (sin el rótulo
+   numerado desde el repaso de texto del 30-10) ───────────────────────── */
 @media (min-width: 1000px) {
   .verloop section.bloque > .marco {
     display: grid; align-items: end; column-gap: 48px;
-    grid-template-columns: minmax(190px, .42fr) minmax(0, 1.5fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
   }
   .verloop section.bloque > .marco > * { grid-column: 1 / -1; min-width: 0; }
-  .verloop section.bloque > .marco > .rotulo {
-    grid-column: 1; grid-row: 1; flex-direction: column; align-items: flex-start; gap: 14px; margin: 0 0 64px;
-  }
-  .verloop section.bloque > .marco > h2.titulo { grid-column: 2; grid-row: 1; margin: 0 0 64px; max-width: 16ch; font-size: clamp(40px, 4.3vw, 68px); }
-  .verloop section.bloque > .marco > .bajada { grid-column: 3; grid-row: 1; margin: 0 0 64px; font-size: 16px; max-width: 48ch; }
-  .verloop .rotulo .grupo { padding-bottom: 0; }
+  .verloop section.bloque > .marco > h2.titulo { grid-column: 1; grid-row: 1; margin: 0 0 64px; max-width: 16ch; font-size: clamp(40px, 4.3vw, 68px); }
+  .verloop section.bloque > .marco > h2.titulo + .bajada { grid-column: 2; grid-row: 1; margin: 0 0 64px; font-size: 16px; max-width: 48ch; }
 }
 
 /* ── las notas sueltas de cada sección, a todo el ancho: en la medida de
@@ -310,10 +298,7 @@ body.verloop,
   .verloop .vistazo { padding: 0; break-before: page; }
   .verloop section + section { border-top: 0; }
   .verloop h2.titulo { font-size: 40px; }
-  /* con interlineado .8 la cifra se sale de su caja por arriba y se pinta al pie de la hoja anterior */
-  .verloop .rotulo .indice { font-size: 56px; line-height: 1; }
   .verloop h2, .verloop h3 { break-after: avoid; }
-  .verloop .rotulo { break-inside: avoid; }
   .verloop .caja-metodo, .verloop .aviso { break-inside: avoid; }
   /* las gráficas se dibujan al ancho de la pantalla: en papel, al de la hoja
      y nunca más altas que ella (un SVG no se parte: si no cabe, se pisa con

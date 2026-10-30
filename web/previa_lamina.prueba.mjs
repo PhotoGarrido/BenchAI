@@ -94,7 +94,7 @@ const hov = await ev(`({ t: document.getElementById('ll-titulo').textContent, v:
 ok(hov.t === "Obediencia" && hov.act === 4, `hover enciende Obediencia (${hov.t}, ${hov.v}, ${hov.act} piezas)`);
 await cdp("Input.dispatchMouseEvent", { type: "mouseMoved", x: 5, y: 5 });
 await dormir(300);
-ok((await ev(`document.getElementById('ll-titulo').textContent`)) === "Pasa por un eje", "al salir, vuelve la lectura general");
+ok((await ev(`document.getElementById('ll-titulo').textContent`)) === "Ocho formas de ceder", "al salir, vuelve la lectura general");
 
 // 4 · teclado: foco en el svg y flechas por los ejes
 await ev(`document.querySelector('#lamina-octogono svg').focus()`);

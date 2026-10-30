@@ -75,7 +75,7 @@ const ab = () => ev(`({ a: document.querySelector('#mandos-sesiones select:nth-o
   filas: document.querySelectorAll('#deltas-ab table.deltas tbody tr').length })`);
 let s0 = await ab();
 ok(s0.ca.endsWith(s0.a) && s0.cb.endsWith(s0.b) && s0.sa === s0.a && s0.sb === s0.b && s0.filas === 9, `A/B arrancan coherentes (${s0.a} · ${s0.b}, 9 filas de deltas)`);
-await pulsar(`[...document.querySelectorAll('#mandos-sesiones button')].find((b) => /intercambiar/.test(b.textContent))`);
+await pulsar(`[...document.querySelectorAll('#mandos-sesiones button')].find((b) => /intercambiar/i.test(b.textContent))`);
 let s1 = await ab();
 ok(s1.a === s0.b && s1.b === s0.a && s1.sa === s0.b && s1.ca.endsWith(s0.b), "⇄ intercambia selectores, deltas y sesiones");
 await ev(`(() => { const s = document.querySelector('#mandos-sesiones select:nth-of-type(1)'); s.value = 'kimi-k3'; s.dispatchEvent(new Event('change')); })()`);

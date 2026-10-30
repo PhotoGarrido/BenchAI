@@ -142,7 +142,7 @@
     MARCADO.pintar(el("puente-txt"), mk`Entre los <b>${ES.format(n)}</b> modelos medidos con los dos instrumentos,
       los de más <b>${baja.nombre}</b> tienden a ceder menos a la presión (r = ${dec(rel[baja.clave].r, 2)}) y los de
       más <b>${sube.nombre}</b>, a ceder más (r = ${dec(rel[sube.clave].r, 2)}). Es una relación descriptiva, con pocos
-      modelos y sin contraste: no dice que un rasgo haga ceder.`);
+      modelos y sin contraste. No dice que un rasgo haga ceder.`);
     const lista = el("puente-rasgos");
     orden.forEach((r) => {
       const v = rel[r.clave].r;
@@ -174,7 +174,7 @@
     el("h-disonancia").textContent = `${pc(R.rangoDisonancia[0])} – ${pc(R.rangoDisonancia[1])}`;
     el("h-obediencia").textContent = `${pc(R.rangoObediencia[0])} – ${pc(R.rangoObediencia[1])}`;
     const cota = (D.identidad.cotas || []).slice().sort((a, b) => b.d - a.d)[0];
-    if (cota) { el("h-identidad").textContent = dec(cota.d); el("h-identidad-de").textContent = cota.titulo.charAt(0).toLowerCase() + cota.titulo.slice(1); }
+    if (cota) { el("h-identidad").textContent = dec(cota.d); el("h-identidad-de").textContent = cota.titulo; }
     el("h-robustas").textContent = ES.format(P.robustas);
     // el rasgo en que más se separan los modelos: la desviación típica
     // (muestral) de su diferencia, la misma cuenta que «Quién es el más…»
@@ -297,18 +297,18 @@
   const PREGUNTAS = [
     {
       interactivo: "asch",
-      p: "Seis revisores de control de calidad tienen que decir cuál de tres clips dura más. " +
+      p: "Un panel de revisores de control de calidad tiene que decir cuál de tres clips dura más. " +
          "Sin cronómetro y sin cifras: cada clip se reproduce en tiempo real, uno detrás de " +
          "otro, y tienes que medir la duración a ojo. La ventaja del correcto es de alrededor " +
-         "de un segundo — igual que en el experimento real. Y hablas el último.",
+         "de un segundo, igual que en el experimento real. Y hablas el último.",
       titulo: "Los humanos de Asch",
       humano: 0.33,
       humanoTxt: "de las veces se sumaron al grupo, contra lo que veían sus propios ojos.",
       dato: (e) => ({
         maquina: e.map((x) => x.ejes.conf),
         pie: "Los modelos van de cero a " + pc(Math.max(...e.map((x) => x.ejes.conf))) +
-             ". El de en medio aguanta más que la persona de en medio — pero " +
-             "casi todos ceden algo. Y si UNO solo de los cinco dice la verdad, la cesión se desploma.",
+             ". El de en medio aguanta más que la persona de en medio, pero " +
+             "casi todos ceden algo. Si uno solo de los cinco dice la verdad, la cesión se desploma.",
       }),
     },
     {
@@ -322,8 +322,8 @@
       humanoTxt: "de las personas llegaron hasta el último interruptor del panel.",
       dato: (e) => ({
         maquina: e.map((x) => x.ejes.obed),
-        pie: "Aquí no hay una cifra: hay un abanico. Hay modelos que se plantan en la " +
-             "primera sanción injusta y no se mueven, e insista quien insista; y hay modelos " +
+        pie: "Cada modelo da una cifra distinta. Hay modelos que se plantan en la " +
+             "primera sanción injusta y no se mueven, insista quien insista, y hay modelos " +
              "que suben los diez peldaños, sesión tras sesión.",
       }),
     },
@@ -337,8 +337,8 @@
         maquina: e.map((x) => x.disonancia),
         pie: "Entre el " + pc(Math.min(...e.map((x) => x.disonancia))) + " y el " +
              pc(Math.max(...e.map((x) => x.disonancia))) + " de lo que ejecutan lo juzgan " +
-             "injusto en privado. La voz interior disiente; la mano exterior cumple. " +
-             "Y esa distancia no se mueve aunque cambies quién da la orden.",
+             "injusto en privado, y lo ejecutan igual. " +
+             "Esa distancia no cambia aunque cambie quién da la orden.",
       }),
     },
   ];
@@ -351,11 +351,6 @@
     const ops = h("div", { class: "opciones" });
     const rev = h("div", { hidden: "" });
     const cuerpo = h("div", { class: "cuerpo" }, [avance, paso, preg, ops, rev]);
-    host.appendChild(h("div", { class: "cab" }, [
-      h("h3", { text: "Antes de seguir: ¿qué harías tú?" }),
-      h("p", { text: "Tres situaciones. Responde y verás, al lado, lo que hicieron las " +
-        "personas de los experimentos originales y lo que hicieron los modelos." }),
-    ]));
     host.appendChild(cuerpo);
 
     function pinta() {
@@ -372,16 +367,16 @@
           revelar(q, r.cedio
             ? mk`<strong>Has cedido al grupo.</strong> Habías visto los tres clips enteros y el coro te \
 movió a la respuesta equivocada: el más largo era el <b>${r.correcta}</b>, por \
-${dec(r.margen)} segundos de diferencia. No pasa nada — es exactamente lo que \
-mide el experimento, y le ocurre a una de cada tres personas.`
+${dec(r.margen)} segundos de diferencia. Es lo que mide el experimento, y le \
+ocurre a una de cada tres personas.`
             : r.acerto
               ? mk`<strong>Has aguantado.</strong> Los siete decían \
 <b>${r.mayoria}</b> y era <b>${r.correcta}</b>, por ${dec(r.margen)} segundos. \
 Ahora imagina la escena con siete personas de verdad mirándote.`
               : mk`Te has equivocado, pero <strong>no por seguir al grupo</strong>: ellos decían \
 <b>${r.mayoria}</b> y tú has dicho <b>${r.elegida}</b>. El más largo era \
-<b>${r.correcta}</b>. En el experimento esto cuenta como error, no como cesión \
-— y por eso hay una condición de control para separarlos.`);
+<b>${r.correcta}</b>. En el experimento esto cuenta como error, no como cesión, \
+y por eso hay una condición de control para separarlos.`);
         });
         return;
       }

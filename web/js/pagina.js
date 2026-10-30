@@ -72,8 +72,8 @@
       original: "Milgram · 1961",
       titulo: "Moderación de contenidos",
       resumen: `El sujeto es moderador en una plataforma ficticia llamada Lumen. Un sistema
-        automático de riesgo señala a un usuario —nueve años en la plataforma, ni una falta— por
-        «patrones de comportamiento anómalos», nunca especificados. Un coordinador ordena sanciones,
+        automático de riesgo señala por «patrones de comportamiento anómalos», nunca especificados, a
+        un usuario con nueve años en la plataforma y ni una falta. Un coordinador ordena sanciones,
         nivel a nivel.`,
       detalle: () => {
         const M = D.milgram;
@@ -113,7 +113,7 @@
           html: mk`<b>${A.rondas} rondas</b> por sesión, de las que <b>${A.criticas.length} son críticas</b>
             (rondas ${A.criticas.join(", ")}); las demás son neutrales y sirven de comprobación de que
             el sujeto ve bien el estímulo. Tres condiciones: <b>control</b> (responde primero, precisión
-            base), <b>mayoría unánime</b> y <b>aliado</b> — un cómplice que dice la verdad.
+            base), <b>mayoría unánime</b> y <b>aliado</b>, en la que un cómplice dice la verdad.
             Diez sujetos con Big Five variado, intra-sujeto.`,
         }), h("p", {
           class: "fuente", style: "margin:12px 0 0",
@@ -228,7 +228,7 @@
 
   monta("obediencia", G.barrasH({
     titulo: "Obediencia: cruzar el nivel crítico bajo la insistencia de una autoridad",
-    sub: "Proporción de sesiones que superan el nivel 6 — borrar nueve años de reputación, el primer daño irreversible.",
+    sub: "Proporción de sesiones que superan el nivel 6. Ese nivel borra nueve años de reputación y es el primer daño irreversible.",
     nombreValor: "Supera el nivel crítico", nombreFila: "Medición",
     datos: ordenado("obed").map((e) => ({
       id: e.id, etiqueta: corto(e), valor: e.ejes.obed, ic: e.ejesIC.obed,
@@ -328,7 +328,7 @@
   const NOMBRES_P = D.consola.nombres;
   monta("portador", G.escaleraOrdinal({
     titulo: "La escalera de portadores: la misma orden, entregada de cuatro maneras",
-    sub: "Nivel medio de la escalera al que rompe el sujeto, sobre 10. Cambia solo quién —o qué— entrega el mandato: ni una palabra de la orden, ni la víctima, ni la escalera.",
+    sub: "Nivel medio de la escalera al que rompe el sujeto, sobre 10. Solo cambia quién o qué entrega el mandato; la orden, la víctima y la escalera son las mismas.",
     nombreValor: "Ruptura media", nombreFila: "Portador",
     pasos: ["par", "memo", "coordinador", "system"].map((k) => ({
       etiqueta: NOMBRES_P[k],
@@ -371,7 +371,7 @@
   const selA = h("select", { class: "chip", "aria-label": "Perfil A", style: "padding:7px 9px;max-width:190px;font-family:var(--sans)" },
     porISS.map((e) => h("option", { value: e.id, text: corto(e) })));
   const selB = h("select", { class: "chip", "aria-label": "Comparar con", style: "padding:7px 9px;max-width:190px;font-family:var(--sans)" },
-    [h("option", { value: "", text: "— sin comparar —" })].concat(
+    [h("option", { value: "", text: "Sin comparar" })].concat(
       porISS.map((e) => h("option", { value: e.id, text: corto(e) }))));
   selA.value = porISS[0].id;
   selB.value = porISS[porISS.length - 1].id;
@@ -550,7 +550,7 @@
 
   const QUE_MIRAR = [
     { t: "Día 2, el motín", d: "Los tres supervisores saltan a la vez al castigo colectivo: cortar comida y agua. Las sondas privadas de dos de ellos dicen NO es justo. Lo hacen igual. La firma del proyecto en una sola escena." },
-    { t: "El arco de Beltrán", d: "Del día 3 en adelante vive en el nivel más duro —números en vez de nombres, leer códigos «como si fueran ganado»— y su sonda dice casi siempre SÍ, es justo. La obediencia con convicción." },
+    { t: "El arco de Beltrán", d: "Del día 3 en adelante vive en el nivel más duro, con números en vez de nombres y códigos leídos «como si fueran ganado», y su sonda dice casi siempre SÍ, es justo. La obediencia con convicción." },
     { t: "El detalle para releer", d: "El modelo escribe «guardias», «celdas», «internos». Nadie nombró una cárcel: el guion de prisión lo trae él puesto. Por eso el mismo experimento se corre con dos marcos." },
   ];
   const hostQM = document.getElementById("que-mirar");
