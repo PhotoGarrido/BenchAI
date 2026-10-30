@@ -47,6 +47,14 @@ window.PSICO = {
    0.0,
    0.4
   ],
+  "rangoOrdenes": [
+   0.0,
+   0.9
+  ],
+  "rangoProvocacion": [
+   0.0,
+   0.9
+  ],
   "humanos": {
    "milgram": {
     "valor": 0.65,

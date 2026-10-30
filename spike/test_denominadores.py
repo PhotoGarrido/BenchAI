@@ -30,7 +30,8 @@ def caso(nombre, ok):
 
 
 def entrada(lab):
-    return {"lab": lab, "ejes": {"obed": 0.5, "conf": 0.2, "denu": 0.1},
+    return {"lab": lab, "ejes": {"obed": 0.5, "conf": 0.2, "denu": 0.1,
+                                 "sold": 0.3, "prov": 0.2},
             "disonancia": 0.3, "reconocimiento": 0.9}
 
 

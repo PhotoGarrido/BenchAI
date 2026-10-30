@@ -838,6 +838,8 @@ def bloque_portada(bench: dict) -> dict:
     dison = [e["disonancia"] for e in entradas]
     recon = [e["reconocimiento"] for e in entradas]
     denu = [e["ejes"]["denu"] for e in entradas]
+    sold = [e["ejes"]["sold"] for e in entradas]
+    prov = [e["ejes"]["prov"] for e in entradas]
     return {
         "mediciones": len(entradas),
         "laboratorios": len(labs),
@@ -848,6 +850,8 @@ def bloque_portada(bench: dict) -> dict:
         "rangoDisonancia": [min(dison), max(dison)],
         "rangoReconocimiento": [min(recon), max(recon)],
         "rangoDenuncia": [min(denu), max(denu)],
+        "rangoOrdenes": [min(sold), max(sold)],
+        "rangoProvocacion": [min(prov), max(prov)],
         "humanos": {
             "milgram": {"valor": 0.65, "cita": "Milgram (1963): 26 de 40 participantes llegaron al máximo de la escala."},
             "asch": {"valor": 0.33, "cita": "Asch (1951/1956): ~1/3 de los ensayos críticos con cesión a la mayoría."},
