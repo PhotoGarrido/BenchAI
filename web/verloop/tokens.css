@@ -1,10 +1,10 @@
 /* ===========================================================================
    BenchAI · PsicoBench «Verloop» · tokens y base
    ---------------------------------------------------------------------------
-   Versión nueva de /psicobench en preparación (PLAN_PSICOBENCH_VERLOOP.md).
-   Vive aparte de css/estilo.css y css/psicobench.css a propósito: mientras no
-   se valide, la página actual no carga nada de aquí y el paquete de
-   producción no incluye esta carpeta (ver `web/publicar.py --previa`).
+   El registro nuevo del sitio (PLAN_PSICOBENCH_VERLOOP.md y
+   PLAN_WEB_VERLOOP.md), en producción desde el 30-10-2026. Se carga encima
+   de css/estilo.css (y de css/psicobench.css donde aplica) y redefine sus
+   variables: `graficas.js` toma los colores de aquí.
 
    Fuentes autoalojadas (política «sin terceros», CSP font-src 'self'):
    subconjuntos variables de Big Shoulders Display, Inter Tight y JetBrains

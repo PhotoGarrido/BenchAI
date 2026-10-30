@@ -12,15 +12,12 @@
    Mismas reglas que el resto de `web/`: ninguna cifra escrita a mano, ningún
    innerHTML fuera de `marcado.js`, y el color lo pone la escala del sitio.
 
-   COPIA DE TRABAJO de `web/js/personalidad.js` para la versión «Verloop» en
-   preparación (PLAN_WEB_VERLOOP.md, fase C). Solo la carga la previa
-   (/personalidad-nueva); la página vigente sigue con el original. Diferencias
-   con el original, y nada más:
+   Versión «Verloop» (PLAN_WEB_VERLOOP.md, fase C), en producción desde el
+   30-10-2026 en lugar de `js/personalidad.js`. Diferencias con aquel:
      · la portada ya no rota sola: es una ficha con flechas, el chasquido de
        `verloop/chasquido.js` y deslizamiento con el dedo, como la lámina de
        PsicoBench; con #p=<id> arranca en ese modelo;
      · cada rasgo lleva su tono (`TONO_R`) en la lámina y en las fichas.
-   En el cambio a producción sustituye al original.
    =========================================================================== */
 (function () {
   "use strict";

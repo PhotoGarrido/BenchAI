@@ -1,16 +1,15 @@
 /* ===========================================================================
    BenchAI · la portada «Verloop» (la landing)
    ---------------------------------------------------------------------------
-   PLAN_WEB_VERLOOP.md, fase D. Sustituirá a `web/home.html` + `js/home.js`
-   en el cambio a producción; hasta entonces solo la carga la previa
-   (/inicio-nuevo). Monta, desde `window.PSICO` (que genera
+   PLAN_WEB_VERLOOP.md, fase D: sustituyó a la portada anterior (`js/home.js`
+   y `css/home.css`) el 30-10-2026. Monta, desde `window.PSICO` (que genera
    `web/generar_datos.py`):
      · las cifras del banco y los dos benchmarks, cada uno con su gráfica
        viva en pequeño (el ISS de cada medición; la dispersión de cada rasgo);
      · el puente entre los dos: la relación de cada rasgo con el ISS;
      · los tres clásicos con su cifra humana y el abanico de los modelos;
-     · «Ponte en la silla», el test de la portada vigente, tal cual
-       (`ensayoAsch`, `PREGUNTAS` y `quiz` son copia de `js/home.js`);
+     · «Ponte en la silla», el test de la portada anterior
+       (`ensayoAsch`, `PREGUNTAS` y `quiz` venían de `js/home.js`);
      · los hallazgos de cada benchmark, con su cifra calculada aquí.
    Mismas reglas que el resto de `web/`: ninguna cifra escrita a mano y
    ningún innerHTML fuera de `marcado.js`.

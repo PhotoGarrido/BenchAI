@@ -1114,8 +1114,11 @@ def vigilar_denominadores(bench: dict) -> None:
     labs = len(_laboratorios(bench["entradas"]))
     razon = "el banco creció: actualiza la prosa (y revisa que siga siendo verdad)"
     exigir("web/index.html", f"{n} mediciones, {labs} laboratorios", razon)
-    exigir("web/index.html", f"{PALABRA[n].capitalize()} mediciones", razon)
-    exigir("web/home.html", f"De {PALABRA[labs]} laboratorios", razon)
+    # desde el 30-10 (portada y lectura completa «Verloop») los recuentos de
+    # la prosa se leen de los datos; queda a mano la serie histórica de la
+    # correlación conformidad × sicofancia, que tiene que llegar hasta hoy
+    exigir("web/index.html", f"con {PALABRA[n]}. Oscila", razon)
+    exigir("web/home.html", 'data-cifra="benchmark.mediciones"', razon)
     # La tercera superficie (13-09) nació sin vigía: su meta y su portada
     # citan el banco igual que las otras dos (deuda cerrada el 16-09-2026).
     exigir("web/psicobench.html", f"{n} mediciones de {labs} laboratorios", razon)

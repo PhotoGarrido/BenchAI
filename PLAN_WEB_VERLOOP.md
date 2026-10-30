@@ -1,6 +1,6 @@
 # Plan · el registro «Verloop» en todo el sitio
 
-**Fecha**: 28-10-2026 · **Estado**: aprobado el 28-10 (las cuatro decisiones como se recomendaban), **fases A–E hechas en la previa; falta tu evaluación y el cambio a producción** · **Rama**: `feature/psicobench-verloop` (la misma de PsicoBench: comparten registro, fuentes y previa) · **Antecede**: `PLAN_PSICOBENCH_VERLOOP.md`, fases 0–5.
+**Fecha**: 28-10-2026 · **Estado**: aprobado el 28-10 (las cuatro decisiones como se recomendaban), **fases A–E hechas; en producción desde el 31-10-2026** · **Rama**: `feature/psicobench-verloop` (la misma de PsicoBench: comparten registro, fuentes y previa) · **Antecede**: `PLAN_PSICOBENCH_VERLOOP.md`, fases 0–5.
 
 Lo pedido, en este orden: (1) adaptar la versión larga (`/completo`), (2) el benchmark de personalidad recién publicado (`/personalidad`, PR #32), (3) un lavado de cara total de la portada (`/`), que pasa a ser la *landing*: más explicativa, con los dos benchmarks y el estilo nuevo.
 
@@ -65,7 +65,7 @@ Plan original: diseño nuevo, en dos pasos: **primero una maqueta en el lienzo p
 5. **Por qué importa** si trabajas con agentes, y **qué NO es** (no es un ranking de calidad, no es evidencia sobre humanos).
 6. **Para profundizar**: las cuatro lecturas, el método, los datos y el repositorio.
 
-### Fase E · Validación conjunta — **hecha (28-10); el cambio espera tu evaluación**
+### Fase E · Validación conjunta y cambio — **hecha; en producción desde el 31-10-2026**
 - `main` traído a la rama (sin cambios nuevos el 28-10).
 - **`verificar.sh`: PUERTA COMPLETA OK.** Smoke `--previa`: **10/10 rutas OK** (las seis vigentes y las cuatro nuevas). Prueba de la lámina y de interacción en verde; XSS (con las cuatro páginas nuevas en la lista) y marcado en verde; `publicar.py --check` en verde y el paquete de producción sin piezas de la previa (31 ficheros).
 - Auditoría de las cuatro páginas nuevas (perfil móvil de Lighthouse, aproximada): PsicoBench 95, Completa 98, Personalidad 97, Portada 99; CLS 0 en las cuatro; 0 textos bajo el mínimo de contraste; 0 fallos de estructura ni interactivos sin nombre.
@@ -73,7 +73,16 @@ Plan original: diseño nuevo, en dos pasos: **primero una maqueta en el lienzo p
 - Capturas «después» de las cuatro en `docs/verloop/despues/` a 1440, 390 y 320.
 - **Pendiente tuyo**: la evaluación de las cuatro páginas y Safari/Firefox a mano (este equipo no deja automatizarlos).
 
-**El cambio a producción (cuando des el visto bueno)**, un PR de esta rama a `main`, en un commit propio y reversible:
+**Repaso de texto (30-10)**: fuera rótulos numerados, cejas, rayas y títulos-eslogan en las cuatro (cabeceras a dos columnas), y cinco afirmaciones de la lectura completa que venían de datasets viejos pasan a leerse de los datos (vacuna, estrato duro, dos correlaciones).
+
+**El cambio a producción — hecho el 31-10-2026**, un PR de esta rama a `main`, en un commit propio y reversible. Lo hecho:
+- Las cuatro páginas nuevas ocupan `home.html`, `index.html`, `psicobench.html` y `personalidad.html`, sin `noindex` ni aviso, con su canónico y metadatos (la portada estrena `og:`).
+- Los JS se quedan en `verloop/` (no vuelven a `js/`); se retiran `js/home.js`, `css/home.css`, `js/psicobench.js` y `js/personalidad.js`. `verloop/` y `fonts/` entran en la lista blanca de `publicar.py`, que pierde el modo `--previa` y su guarda; los enlaces entre las cuatro se reescriben igual en todas.
+- `servir_previa.py` pasa a `servir.py` (sirve `publicacion/`); las pruebas de navegador pasan a `lamina.prueba.mjs` e `interaccion.prueba.mjs` contra `/psicobench`; el smoke prueba en `/`, `/completo`, `/psicobench` y `/personalidad` lo que probaba en las rutas de la previa; `empaquetar.py` empaqueta las cuatro nuevas.
+- Vigías de `generar_datos`: la portada exige leer las mediciones de los datos y la lectura completa, que la serie de correlaciones llegue hasta hoy (ya no hay recuentos escritos en su prosa).
+- Validado contra `publicacion/` servida en local: puerta completa, smoke de las seis rutas, lámina, interacción y marcado en verde. Volver atrás: revertir el commit del cambio.
+
+Plan del cambio, tal como se escribió el 28-10:
 1. `inicio-verloop.html` → `home.html`, `completo-verloop.html` → `index.html`, `psicobench-verloop.html` → `psicobench.html`, `personalidad-verloop.html` → `personalidad.html`: sin `noindex` ni aviso, con su canónico y metadatos, y los enlaces entre hermanas por sus ficheros de siempre.
 2. Las copias de trabajo pasan a ser las de verdad (`verloop/psicobench.js` y `verloop/personalidad.js` sustituyen a los de `js/`; `inicio.js` sustituye a `home.js`); `verloop/` y `fonts/` entran en la lista blanca; la guarda `_sin_previa` se retira o se adapta; `home.css` y lo que quede sin uso se retira.
 3. `smoke.mjs`: las aserciones de las rutas nuevas pasan a las de siempre; CI en verde; merge → `desplegar.yml` publica y corre el smoke contra producción. Volver atrás: revertir ese commit.

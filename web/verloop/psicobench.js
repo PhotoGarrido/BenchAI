@@ -6,10 +6,8 @@
    mano, ningún innerHTML fuera de `marcado.js`, y el color lo pone la escala
    de dureza del sitio, nunca la posición en el ranking.
 
-   COPIA DE TRABAJO de `web/js/psicobench.js` para la versión «Verloop» en
-   preparación (PLAN_PSICOBENCH_VERLOOP.md). Solo la carga la previa
-   (/psicobench-nueva); la página vigente sigue con el original. Diferencias
-   con el original, y nada más:
+   Versión «Verloop» (PLAN_PSICOBENCH_VERLOOP.md), en producción desde el
+   30-10-2026 en lugar de `js/psicobench.js`. Diferencias con aquel:
      · los dos octógonos piden `halo: true` (cara a cara y ficha);
      · al cargar las fuentes autoalojadas se redibujan las gráficas, porque
        `graficas.js` mide las etiquetas con ellas;

@@ -1,24 +1,23 @@
 /* ===========================================================================
-   BenchAI · prueba de la lámina de la versión en preparación de PsicoBench
+   BenchAI · prueba de la lámina de PsicoBench
    ---------------------------------------------------------------------------
-   Abre /psicobench-nueva en Chrome headless (requestAnimationFrame a ritmo
+   Abre /psicobench en Chrome headless (requestAnimationFrame a ritmo
    real, que un panel oculto no da) y comprueba la portada «Lámina A · Morph»
    (PLAN_PSICOBENCH_VERLOOP.md, fase 2): perfiles finos, sectores, halo,
    interpolación entre mediciones, contador del ISS, onda, hover, teclado,
    clic en un perfil, el «chasquido» de las flechas (máscara, polvo, cambio
    a mitad, limpieza y cola de clics), arranque desde #m= y movimiento
-   reducido. Sin
-   dependencias, como web/smoke.mjs. No se publica: es de la previa.
+   reducido. Sin dependencias, como web/smoke.mjs. No se publica.
 
-     python3 web/publicar.py --previa && python3 web/servir_previa.py &
-     node web/previa_lamina.prueba.mjs http://127.0.0.1:8743/psicobench-nueva
+     python3 web/publicar.py && python3 web/servir.py &
+     node web/lamina.prueba.mjs http://127.0.0.1:8743/psicobench
    =========================================================================== */
 import { spawn } from "node:child_process";
 import { existsSync, mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
-const URL_ = process.argv[2] || "http://127.0.0.1:8743/psicobench-nueva";
+const URL_ = process.argv[2] || "http://127.0.0.1:8743/psicobench";
 const CHROME = process.env.CHROME || [
   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
   "/usr/bin/google-chrome", "/usr/bin/chromium-browser", "/usr/bin/chromium",

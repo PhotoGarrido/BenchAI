@@ -14,9 +14,9 @@
       "port": 8742
     },
     {
-      "name": "previa",
+      "name": "publicacion-limpia",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["web/servir_previa.py", "8743"],
+      "runtimeArgs": ["web/servir.py", "8743"],
       "port": 8743
     }
   ]

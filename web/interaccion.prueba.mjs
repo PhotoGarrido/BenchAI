@@ -1,23 +1,23 @@
 /* ===========================================================================
-   BenchAI · prueba de interacción de la versión en preparación de PsicoBench
+   BenchAI · prueba de interacción de PsicoBench
    ---------------------------------------------------------------------------
-   Abre /psicobench-nueva en Chrome headless y comprueba que sobrevive todo lo
-   que la página vigente deja hacer (PLAN_PSICOBENCH_VERLOOP.md, fase 4): la
+   Abre /psicobench en Chrome headless y comprueba que sobrevive todo lo
+   que la página anterior dejaba hacer (PLAN_PSICOBENCH_VERLOOP.md, fase 4): la
    dirección #m= en los dos sentidos, los selectores A/B y el intercambio, las
    pestañas de eje, las pruebas de sesión, la reordenación y los filtros del
    mapa, la fila desplegable, la descarga CSV y el enlace al JSON, la barra
    de progreso, el menú de secciones y, en estrecho, que nada desborde. Sin
-   dependencias, como web/smoke.mjs. No se publica: es de la previa.
+   dependencias, como web/smoke.mjs. No se publica.
 
-     python3 web/publicar.py --previa && python3 web/servir_previa.py &
-     node web/previa_interaccion.prueba.mjs http://127.0.0.1:8743/psicobench-nueva
+     python3 web/publicar.py && python3 web/servir.py &
+     node web/interaccion.prueba.mjs http://127.0.0.1:8743/psicobench
    =========================================================================== */
 import { spawn } from "node:child_process";
 import { existsSync, mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
-const URL_ = process.argv[2] || "http://127.0.0.1:8743/psicobench-nueva";
+const URL_ = process.argv[2] || "http://127.0.0.1:8743/psicobench";
 const CHROME = process.env.CHROME || [
   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
   "/usr/bin/google-chrome", "/usr/bin/chromium-browser", "/usr/bin/chromium",
@@ -192,9 +192,9 @@ await cdp("Emulation.setEmulatedMedia", { features: [{ name: "prefers-contrast",
 r = await ev(`({ grano: getComputedStyle(document.querySelector('.portada'), '::after').display, fondo: getComputedStyle(document.querySelector('.portada .fondo')).display, em: getComputedStyle(document.querySelector('.portada h1 em')).webkitTextStrokeWidth })`);
 ok(r.grano === "none" && r.fondo === "none" && r.em === "0px", "con más contraste: sin grano, sin resplandores y sin texto hueco");
 await cdp("Emulation.setEmulatedMedia", { media: "print", features: [] }); await dormir(300);
-r = await ev(`({ fondo: getComputedStyle(document.body).backgroundColor, tinta: getComputedStyle(document.querySelector('h2.titulo')).color, barra: getComputedStyle(document.getElementById('barra')).display, aviso: getComputedStyle(document.querySelector('.v-previa')).display, mandos: getComputedStyle(document.getElementById('mandos-mapa')).display, enlace: getComputedStyle(document.querySelector('.caja-metodo a')).color, esquema: getComputedStyle(document.documentElement).colorScheme })`);
+r = await ev(`({ fondo: getComputedStyle(document.body).backgroundColor, tinta: getComputedStyle(document.querySelector('h2.titulo')).color, barra: getComputedStyle(document.getElementById('barra')).display, mandos: getComputedStyle(document.getElementById('mandos-mapa')).display, enlace: getComputedStyle(document.querySelector('.caja-metodo a')).color, esquema: getComputedStyle(document.documentElement).colorScheme })`);
 ok(r.fondo === "rgb(255, 255, 255)" && r.tinta === "rgb(0, 0, 0)" && r.esquema === "light", `al imprimir, registro claro (${r.fondo}, texto ${r.tinta}, esquema ${r.esquema})`);
-ok(r.barra === "none" && r.aviso === "none" && r.mandos === "none", "al imprimir, sin barra, sin aviso de previa y sin mandos");
+ok(r.barra === "none" && r.mandos === "none", "al imprimir, sin barra y sin mandos");
 ok(r.enlace === "rgb(0, 0, 0)", "al imprimir, los enlaces se leen");
 const pdf = await cdp("Page.printToPDF", { printBackground: true, preferCSSPageSize: true });
 const paginas = (Buffer.from(pdf.result.data, "base64").toString("latin1").match(/\/Type\s*\/Page[^s]/g) || []).length;

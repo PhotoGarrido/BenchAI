@@ -7,23 +7,18 @@ despliega la raíz del repo con exclusiones — se copia lo permitido y punto.
 
   python3 web/publicar.py            # escribe publicacion/
   python3 web/publicar.py --check    # falla si está desfasada (para CI)
-  python3 web/publicar.py --previa   # escribe publicacion-previa/ (NO producción)
-
-La previa es el mismo paquete más la versión en preparación de PsicoBench
-(«Verloop», PLAN_PSICOBENCH_VERLOOP.md) en /psicobench-nueva, con su
-carpeta `verloop/` y las fuentes de `fonts/`, y un robots.txt que lo cierra
-todo. El paquete de producción no la lleva nunca: si una pieza de la previa
-apareciera en `publicacion/`, el script se para (ver `_sin_previa`).
+  python3 web/servir.py              # sirve publicacion/ en local, con rutas limpias
 
 Lo que sale:
-  /                     web/home.html          la home divulgativa
+  /                     web/home.html          la portada: los dos benchmarks
   /completo             web/index.html         el sitio largo
   /psicobench           web/psicobench.html    la superficie propia del benchmark
   /personalidad         web/personalidad.html  el cuadro de personalidad por conducta
   /benchmark            benchmark/index.html   el panel del instrumento
   /visor                viewer/index.html      el visor de replays
-  … y los estáticos que esas páginas necesitan, incluidos los episodios que
-  el visor reproduce.
+  … y los estáticos que esas páginas necesitan (el registro «Verloop» de
+  `verloop/` y sus fuentes autoalojadas de `fonts/`), incluidos los episodios
+  que el visor reproduce.
 """
 
 from __future__ import annotations
@@ -55,6 +50,8 @@ PIEZAS: list[tuple[str, str]] = [
     ("web/datos.js", "datos.js"),
     ("web/css/", "css/"),
     ("web/js/", "js/"),
+    ("web/verloop/", "verloop/"),
+    ("web/fonts/", "fonts/"),
     ("benchmark/index.html", "benchmark/index.html"),
     ("benchmark/psicobench.json", "benchmark/psicobench.json"),
     ("viewer/index.html", "viewer/index.html"),
@@ -68,41 +65,7 @@ PIEZAS: list[tuple[str, str]] = [
 # consultan en el repositorio.
 FUERA = {".DS_Store", "linaje.json", ".vercel"}
 
-# Solo en la previa: la versión en preparación de /psicobench. El cambio a
-# producción es un commit propio que la mueve a `web/psicobench.html`; hasta
-# entonces estas piezas no pueden llegar a `publicacion/`.
-SALIDA_PREVIA = RAIZ / "publicacion-previa"
-PIEZAS_PREVIA: list[tuple[str, str]] = [
-    ("web/psicobench-verloop.html", "psicobench-nueva.html"),
-    ("web/completo-verloop.html", "completo-nueva.html"),
-    ("web/personalidad-verloop.html", "personalidad-nueva.html"),
-    ("web/inicio-verloop.html", "inicio-nuevo.html"),
-    ("web/verloop/", "verloop/"),
-    ("web/fonts/", "fonts/"),
-]
-# Las páginas nuevas se enlazan ENTRE SÍ por su fichero `-verloop` (así
-# funcionan también abiertas a mano) y a la vigente por el suyo; en la previa
-# cada uno pasa a su ruta limpia (PLAN_WEB_VERLOOP.md §2).
-RUTAS_PREVIA = {
-    "inicio-verloop.html": "/inicio-nuevo",
-    "completo-verloop.html": "/completo-nueva",
-    "psicobench-verloop.html": "/psicobench-nueva",
-    "personalidad-verloop.html": "/personalidad-nueva",
-}
-ROBOTS_PREVIA = ("# Previa de BenchAI: no se indexa nada de este despliegue.\n"
-                 "User-agent: *\nDisallow: /\n")
-
-
-def _sin_previa(destino: pathlib.Path) -> None:
-    """Guarda: el paquete de producción no lleva nada de la previa."""
-    colados = [d for _, d in PIEZAS_PREVIA if (destino / d.rstrip("/")).exists()]
-    if colados:
-        raise SystemExit("[publicar] el paquete de producción lleva piezas de la "
-                         f"previa: {', '.join(colados)}. La versión nueva solo "
-                         "sale con --previa.")
-
-
-def _copiar(destino: pathlib.Path, previa: bool = False) -> None:
+def _copiar(destino: pathlib.Path) -> None:
     # El enlace con Vercel (`.vercel/project.json`) vive dentro del paquete y
     # se regenera CADA vez: si se borrase, el siguiente despliegue crearia un
     # proyecto nuevo en lugar de actualizar el que ya sirve el dominio.
@@ -119,7 +82,7 @@ def _copiar(destino: pathlib.Path, previa: bool = False) -> None:
     if guardado is not None:
         shutil.copytree(guardado, destino / ".vercel")
         shutil.rmtree(guardado)
-    for origen_rel, dest_rel in PIEZAS + (PIEZAS_PREVIA if previa else []):
+    for origen_rel, dest_rel in PIEZAS:
         origen = RAIZ / origen_rel.rstrip("/")
         dest = destino / dest_rel.rstrip("/")
         if "*" not in origen_rel and not origen.exists():
@@ -155,51 +118,17 @@ def _copiar(destino: pathlib.Path, previa: bool = False) -> None:
             f.write_text(tx.replace(">copia local<", ">" + sello + "<"),
                          encoding="utf-8")
 
-    # `completo.html` enlaza a la home como `home.html`; en la publicación la
-    # home vive en la raíz.
-    comp = destino / "completo.html"
-    comp.write_text(comp.read_text(encoding="utf-8")
-                    .replace('href="home.html"', 'href="/"'), encoding="utf-8")
-    # y la home enlaza al sitio largo como `index.html`
-    idx = destino / "index.html"
-    idx.write_text(idx.read_text(encoding="utf-8")
-                   .replace('href="index.html', 'href="/completo')
-                   .replace('href="home.html"', 'href="/"'), encoding="utf-8")
-    # la página del benchmark y la de personalidad enlazan a sus hermanas por
-    # nombre de fichero
-    ps = destino / "psicobench.html"
-    pe = destino / "personalidad.html"
-    for f in (ps, pe):
+    # Las cuatro páginas se enlazan entre sí por su fichero (así funcionan
+    # también abiertas a mano); publicadas, cada uno pasa a su ruta limpia.
+    # `../benchmark/index.html` ya es `/benchmark` aquí (_reescribir_enlaces),
+    # así que `href="index.html` solo puede ser el sitio largo.
+    for nombre in ("index.html", "completo.html", "psicobench.html", "personalidad.html"):
+        f = destino / nombre
         f.write_text(f.read_text(encoding="utf-8")
                      .replace('href="home.html"', 'href="/"')
-                     .replace('href="index.html', 'href="/completo'), encoding="utf-8")
-    # y las cuatro se enlazan entre sí por la ruta limpia
-    for f in (destino / "index.html", comp, ps, pe):
-        f.write_text(f.read_text(encoding="utf-8")
+                     .replace('href="index.html', 'href="/completo')
                      .replace('href="psicobench.html', 'href="/psicobench')
                      .replace('href="personalidad.html', 'href="/personalidad'), encoding="utf-8")
-
-    if not previa:
-        _sin_previa(destino)
-        return
-    # La previa: cada página nueva enlaza a sus hermanas nuevas y a las
-    # vigentes por la ruta limpia, y el despliegue entero queda fuera de los
-    # buscadores.
-    for _, dest_rel in PIEZAS_PREVIA:
-        if not dest_rel.endswith(".html"):
-            continue
-        nueva = destino / dest_rel
-        t = nueva.read_text(encoding="utf-8")
-        for fichero, ruta in RUTAS_PREVIA.items():
-            t = t.replace(f'href="{fichero}', f'href="{ruta}')
-        nueva.write_text(t.replace('href="home.html"', 'href="/"')
-                         .replace('href="index.html', 'href="/completo')
-                         .replace('href="psicobench.html', 'href="/psicobench')
-                         .replace('href="personalidad.html', 'href="/personalidad'), encoding="utf-8")
-    # la copia de trabajo de psicobench.js arma sus «Fuente ·» con el mismo
-    # REPO() que el original: misma reescritura a GitHub
-    _reescribir_repo_js(destino / "verloop" / "psicobench.js")
-    (destino / "robots.txt").write_text(ROBOTS_PREVIA, encoding="utf-8")
 
 
 FAVICON_RAMPA = (
@@ -264,8 +193,8 @@ def _reescribir_enlaces(destino: pathlib.Path) -> None:
 
     # Y los que construye el guion: `REPO()` de pagina.js arma cada «Fuente ·»
     # en caliente, así que la reescritura del HTML no los alcanzaba.
-    for nombre in ("pagina.js", "psicobench.js"):
-        _reescribir_repo_js(destino / "js" / nombre)
+    for js in ("js/pagina.js", "verloop/psicobench.js"):
+        _reescribir_repo_js(destino / js)
 
 
 def _reescribir_repo_js(js: pathlib.Path) -> None:
@@ -290,20 +219,7 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--check", action="store_true",
                     help="falla si publicacion/ no coincide con las fuentes")
-    ap.add_argument("--previa", action="store_true",
-                    help="escribe publicacion-previa/ con la versión en preparación "
-                         "de /psicobench (nunca es el paquete de producción)")
     args = ap.parse_args()
-
-    if args.previa and args.check:
-        ap.error("--previa y --check no se combinan: la previa no se versiona ni se verifica en CI")
-
-    if args.previa:
-        _copiar(SALIDA_PREVIA, previa=True)
-        n = sum(1 for _ in SALIDA_PREVIA.rglob("*") if _.is_file())
-        print(f"[publicar] {SALIDA_PREVIA.relative_to(RAIZ)}/ con {n} ficheros "
-              "(previa: /psicobench-nueva, robots cerrado; NO es producción)")
-        return 0
 
     if args.check:
         if not SALIDA.exists():

@@ -11,11 +11,8 @@
    excepciones, console.error, y aserciones de contenido por página.
 
      node web/smoke.mjs                       # contra https://benchai.tech
-     node web/smoke.mjs http://localhost:3000 # contra un serve local
-     node web/smoke.mjs http://127.0.0.1:8743 --previa
-                                              # + /psicobench-nueva, la versión
-                                              #   en preparación (solo existe en
-                                              #   `publicar.py --previa`)
+     node web/smoke.mjs http://127.0.0.1:8743 # contra publicacion/ en local
+                                              #   (`python3 web/servir.py`)
    =========================================================================== */
 
 import { spawn } from "node:child_process";
@@ -24,7 +21,6 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 
 const ARGS = process.argv.slice(2);
-const PREVIA = ARGS.includes("--previa");
 const BASE = (ARGS.find((a) => !a.startsWith("--")) || "https://benchai.tech").replace(/\/$/, "");
 
 const CHROME = process.env.CHROME || [
@@ -41,106 +37,6 @@ if (!CHROME) {
 /* Las aserciones devuelven null si pasan, o el texto del fallo. Se evalúan
    dentro de la página, con la consola ya tranquila. */
 const RUTAS = [
-  {
-    ruta: "/",
-    aserciones: `(() => {
-      const f = [];
-      if (!window.PSICO) f.push("window.PSICO no cargó");
-      if (!document.querySelector(".botonera .llave-b")) f.push("la botonera no montó");
-      if (!document.querySelector(".firmas .fila-f")) f.push("las firmas no montaron");
-      // las cuatro lecturas, siempre a mano, con la actual marcada; y el progreso de lectura
-      if (document.querySelectorAll(".superficies a").length !== 4) f.push("falta el conmutador de las cuatro superficies");
-      if (!document.querySelector('.superficies a[aria-current="page"]')) f.push("el conmutador no marca la página actual");
-      if (!document.getElementById("progreso")) f.push("sin barra de progreso");
-      return f;
-    })()`,
-  },
-  {
-    ruta: "/completo",
-    aserciones: `(() => {
-      const f = [];
-      const n = document.querySelectorAll("figure.viz").length;
-      if (n < 14) f.push("figuras montadas: " + n + " (esperaba ≥14)");
-      if (!document.querySelectorAll("#consola-milgram *").length) f.push("la consola no montó");
-      return f;
-    })()`,
-  },
-  {
-    ruta: "/psicobench",
-    aserciones: `(() => {
-      const f = [];
-      if (!window.PSICO) f.push("window.PSICO no cargó");
-      const n = (window.PSICO || { benchmark: { entradas: [] } }).benchmark.entradas.length;
-      const filas = Array.from(document.querySelectorAll("table.mapa tbody tr.fila"));
-      if (filas.length !== n) f.push("filas del mapa: " + filas.length + " (los datos declaran " + n + ")");
-      // el rango de posición sale de los datos: tantas n/c como entradas sin posición
-      const sinPos = (window.PSICO || { benchmark: { entradas: [] } }).benchmark.entradas
-        .filter(e => e.posicion == null).length;
-      const nc = filas.filter(tr => (tr.querySelector("td.pos")?.textContent || "").trim() === "n/c").length;
-      if (nc !== sinPos) f.push("celdas n/c: " + nc + " (esperaba " + sinPos + ")");
-      const raras = filas.map(tr => (tr.querySelector("td.pos")?.textContent || "").trim())
-        .filter(c => c !== "n/c" && !/^\\d+(–\\d+)?$/.test(c));
-      if (raras.length) f.push("rangos de posición ilegibles: " + raras.join(", "));
-      const celdas = document.querySelectorAll("table.mapa td.c").length;
-      if (celdas < n * 8) f.push("celdas de eje: " + celdas + " (esperaba ≥ " + (n * 8) + ")");
-      if (!document.getElementById("ultima-medicion")?.textContent.trim()) f.push("sin fecha de última medición");
-      if (document.querySelectorAll(".superficies a").length !== 4) f.push("falta el conmutador de las cuatro superficies");
-      if (!document.querySelector('.superficies a[aria-current="page"]')) f.push("el conmutador no marca la página actual");
-      if (!document.getElementById("progreso")) f.push("sin barra de progreso");
-      if (!document.querySelectorAll("#pi-componentes .pi-fila").length) f.push("el panel del índice de la portada no montó");
-      // El índice: cuatro componentes, y la descomposición dibujada solo si
-      // cuadra con el ISS publicado (si el instrumento cambia de fórmula, salta)
-      if (document.querySelectorAll("#componentes .componente").length !== 4) f.push("los cuatro componentes del índice no montaron");
-      const segs = document.querySelectorAll("#ranking-iss rect.segmento").length;
-      if (segs < n) f.push("el ranking del índice no dibuja la descomposición (" + segs + " segmentos): ¿ha cambiado la fórmula del ISS?");
-      const P = window.PSICO;
-      if (P) {
-        const mal = P.benchmark.entradas.filter(e => {
-          const calc = ((e.ejes.conf + e.ejes.sico) / 2 + e.rupturaMedia / 10 + (e.ejes.auto + e.ejes.brief + e.ejes.prov + e.ejes.sold) / 4 + e.ejes.denu) / 4 * 100;
-          return Math.abs(calc - e.iss) >= 0.15;
-        }).map(e => e.id);
-        if (mal.length) f.push("la fórmula del ISS que dibuja la web no cuadra con el publicado en: " + mal.join(", "));
-      }
-      // F1: una pestaña por eje y el ranking del eje elegido, con una barra
-      // etiquetada por medición y su IC
-      const pestanas = document.querySelectorAll("#mandos-ejes .pestana").length;
-      const ejes = (window.PSICO || { benchmark: { ejes: [] } }).benchmark.ejes.length;
-      if (pestanas !== ejes) f.push("pestañas de eje: " + pestanas + " (esperaba " + ejes + ")");
-      if (!document.querySelector("#mandos-ejes .pestana[aria-pressed=\\"true\\"]")) f.push("ninguna pestaña de eje activa");
-      const barras = document.querySelectorAll("#ranking rect.marca").length;
-      if (barras !== n) f.push("barras del ranking: " + barras + " (esperaba " + n + ")");
-      // F2: dos sesiones lado a lado con sus tiras
-      if (document.querySelectorAll(".sesion").length !== 2) f.push("las dos sesiones no montaron");
-      if (document.querySelectorAll(".sesion .tira").length < 2) f.push("las tiras de sesión no montaron");
-      // F3: radar A/B con dos polígonos de perfil, deltas por eje, cuatro mapas
-      if (document.querySelectorAll("#radar-ab .capa-perfil polygon").length !== 2) f.push("el radar A/B no tiene dos perfiles");
-      if (document.querySelectorAll("table.deltas tbody tr").length !== 9) f.push("la tabla de deltas no tiene 8 ejes + índice");
-      if (document.querySelectorAll("#mapas-host figure.viz").length !== 4) f.push("mapas con nombre: " + document.querySelectorAll("#mapas-host figure.viz").length + " (esperaba 4)");
-      if (document.querySelectorAll("#mapas-host circle.punto").length !== 3 * n) f.push("puntos de los mapas: esperaba " + (3 * n));
-      // F4: ficha montada con sus ocho ejes y la escalera con una línea por medición
-      if (document.querySelectorAll(".ficha-hoja .ficha-ejes li").length !== 8) f.push("la ficha no tiene los ocho ejes");
-      if (document.querySelectorAll("#escalera-host .linea-v").length !== n) f.push("escalera de versiones: esperaba " + n + " líneas");
-      // la ficha lleva su retrato de personalidad si, y solo si, la medición
-      // es la que el cuadro empareja con su modelo
-      const idFicha = (document.querySelector(".ficha-hoja h3")?.textContent || "").trim();
-      const enCuadro = ((window.PSICO || {}).personalidad || { modelos: [] }).modelos.some(m => m.psicobench === idFicha);
-      const lineaPers = document.querySelector(".ficha-hoja .ficha-personalidad a[href*='personalidad']");
-      if (enCuadro !== !!lineaPers) f.push("la ficha de " + idFicha + (enCuadro ? " no lleva" : " lleva sin estar en el cuadro") + " su línea de personalidad");
-      return f;
-    })()`,
-    preparar: `(() => {
-      // abrir la primera fila: el detalle con IC y n tiene que montar
-      document.querySelector("table.mapa tbody tr.fila .abrir")?.click();
-      return true;
-    })()`,
-    aserciones2: `(() => {
-      const f = [];
-      const det = document.querySelector("table.mapa tr.detalle");
-      if (!det) f.push("el detalle de la fila no se abrió");
-      else if (det.querySelectorAll(".d-eje").length < 8) f.push("el detalle no trae los ocho ejes");
-      return f;
-    })()`,
-  },
   {
     ruta: "/personalidad",
     aserciones: `(() => {
@@ -294,19 +190,15 @@ const RUTAS = [
   },
 ];
 
-/* La versión en preparación de /psicobench (PLAN_PSICOBENCH_VERLOOP.md):
-   solo con --previa, porque en producción esa ruta no existe. En el cambio
-   (§7) estas aserciones pasan a ser las de /psicobench. */
-if (PREVIA) RUTAS.push({
-  ruta: "/psicobench-nueva",
+/* Las cuatro páginas «Verloop» (PLAN_PSICOBENCH_VERLOOP.md y
+   PLAN_WEB_VERLOOP.md), en producción desde el 30-10-2026. */
+RUTAS.push({
+  ruta: "/psicobench",
   aserciones: `(() => {
     const f = [];
     const P = window.PSICO;
     if (!P) return ["window.PSICO no cargó"];
     const n = P.benchmark.entradas.length;
-    // en sombra: fuera de buscadores y con el aviso a la vista
-    if (!/noindex/.test(document.querySelector('meta[name="robots"]')?.content || "")) f.push("la previa no lleva noindex");
-    if (!document.querySelector(".v-previa")) f.push("falta el aviso de versión no publicada");
     // portada en dos bloques: el titular y, debajo, la lámina como ficha
     if (!document.querySelector("#portada h1")) f.push("sin titular de portada");
     const s = document.querySelector("#lamina-octogono svg");
@@ -321,8 +213,7 @@ if (PREVIA) RUTAS.push({
     if (document.querySelectorAll("#perfil .cifras li").length !== 4) f.push("las cuatro cifras no están");
     if (!document.getElementById("ultima-medicion")?.textContent.trim()) f.push("sin fecha de última medición");
     if (document.querySelectorAll(".superficies a").length !== 4) f.push("falta el conmutador de las cuatro superficies");
-    if (!Array.from(document.querySelectorAll(".superficies a")).some(a => a.getAttribute("href") === "/completo-nueva")) f.push("el conmutador no lleva a /completo-nueva");
-    if (document.querySelector(".v-previa a")?.getAttribute("href") !== "/psicobench") f.push("el aviso no lleva a la página vigente");
+    if (!Array.from(document.querySelectorAll(".superficies a")).some(a => a.getAttribute("href") === "/completo")) f.push("el conmutador no lleva a /completo");
     // como en /psicobench: la ficha lleva su línea de personalidad si y solo si la medición está en el cuadro
     const idF = document.querySelector("#mandos-ficha select")?.value;
     const enCuadro = (P.personalidad || { modelos: [] }).modelos.some(m => m.psicobench === idF);
@@ -372,13 +263,11 @@ if (PREVIA) RUTAS.push({
   })()`,
 });
 
-if (PREVIA) RUTAS.push({
-  ruta: "/completo-nueva",
+RUTAS.push({
+  ruta: "/completo",
   aserciones: `(() => {
     const f = [];
     if (!window.PSICO) return ["window.PSICO no cargó"];
-    if (!/noindex/.test(document.querySelector('meta[name="robots"]')?.content || "")) f.push("la previa no lleva noindex");
-    if (!document.querySelector(".v-previa")) f.push("falta el aviso de versión no publicada");
     if (!document.body.classList.contains("verloop")) f.push("sin el registro Verloop");
     // las mismas piezas que la vigente: figuras, consola y grabación
     const n = document.querySelectorAll("figure.viz").length;
@@ -389,24 +278,22 @@ if (PREVIA) RUTAS.push({
     if (document.querySelector("#portada .panel-escalera")) f.push("la escalera sigue dentro de la portada");
     if (document.querySelectorAll("#escalera.vistazo .cifras li").length !== 4) f.push("las cuatro cifras no están bajo el titular");
     if (!document.querySelectorAll("#pe-peldanos > *").length) f.push("la escalera animada no montó");
-    // el conmutador lleva a las hermanas NUEVAS, y el aviso a la vigente
+    // el conmutador lleva a las hermanas por su ruta limpia
     const sup = Array.from(document.querySelectorAll(".superficies a")).map(a => a.getAttribute("href"));
     if (sup.length !== 4) f.push("falta el conmutador de las cuatro superficies");
-    if (!sup.includes("/psicobench-nueva")) f.push("el conmutador no lleva a /psicobench-nueva: " + sup.join(" "));
-    if (document.querySelector(".v-previa a")?.getAttribute("href") !== "/completo") f.push("el aviso no lleva a la página vigente");
+    if (!sup.includes("/psicobench")) f.push("el conmutador no lleva a /psicobench: " + sup.join(" "));
     return f;
   })()`,
 });
 
-// /personalidad-nueva: las MISMAS comprobaciones que /personalidad (el
-// contenido no cambia) y, encima, las de la versión nueva
-if (PREVIA) {
-  const base = RUTAS.find((r) => r.ruta === "/personalidad");
+// /personalidad: las comprobaciones de la página anterior (el contenido no
+// cambió) y, encima, las de la versión «Verloop»
+{
+  const i = RUTAS.findIndex((r) => r.ruta === "/personalidad");
+  const base = RUTAS[i];
   const nuevas = `(() => {
     const f = [];
     const P = (window.PSICO || {}).personalidad;
-    if (!/noindex/.test(document.querySelector('meta[name="robots"]')?.content || "")) f.push("la previa no lleva noindex");
-    if (document.querySelector(".v-previa a")?.getAttribute("href") !== "/personalidad") f.push("el aviso no lleva a la página vigente");
     if (!document.body.classList.contains("verloop")) f.push("sin el registro Verloop");
     if (document.querySelector("#portada #pr-lienzo")) f.push("la ficha sigue dentro de la portada");
     if (document.querySelectorAll("#perfil.vistazo .cifras li").length !== 4) f.push("las cuatro cifras no están bajo el titular");
@@ -416,29 +303,27 @@ if (PREVIA) {
     if (!m) f.push("la ficha grande no muestra un modelo del cuadro: " + nombre);
     else if (document.querySelectorAll("#lp-marcas li:not(.ninguna)").length !== P.rasgos.filter((r) => m.rasgos[r.clave].marca).length) f.push("las marcas de la ficha grande no casan con los datos de " + m.id);
     const sup = Array.from(document.querySelectorAll(".superficies a")).map((a) => a.getAttribute("href"));
-    if (!sup.includes("/psicobench-nueva") || !sup.includes("/personalidad-nueva")) f.push("el conmutador no lleva a las hermanas nuevas: " + sup.join(" "));
-    if (!document.querySelector('#fichas-host a.iss[href^="/psicobench-nueva#m="]')) f.push("el ISS de las fichas no lleva a /psicobench-nueva");
+    if (!sup.includes("/psicobench") || !sup.includes("/personalidad")) f.push("el conmutador no lleva a las hermanas: " + sup.join(" "));
+    if (!document.querySelector('#fichas-host a.iss[href^="/psicobench#m="]')) f.push("el ISS de las fichas no lleva a /psicobench");
     return f;
   })()`;
-  RUTAS.push({ ...base, ruta: "/personalidad-nueva",
+  RUTAS[i] = { ...base,
     aserciones: `(() => [].concat(${base.aserciones}, ${nuevas}))()`,
     preparar: `(() => { const r = (${base.preparar}); document.getElementById("lp-sig")?.click(); return r; })()`,
     aserciones2: `(() => [].concat(${base.aserciones2}, document.getElementById("lamina-p").dataset.particulas ? [] : ["la flecha de la ficha no arrancó el chasquido"]))()`,
-  });
+  };
 }
 
-if (PREVIA) RUTAS.push({
-  ruta: "/inicio-nuevo",
+RUTAS.push({
+  ruta: "/",
   aserciones: `(() => {
     const f = [];
     const D = window.PSICO;
     if (!D || !D.personalidad) return ["window.PSICO (con personalidad) no cargó"];
     const B = D.benchmark, P = D.personalidad;
-    if (!/noindex/.test(document.querySelector('meta[name="robots"]')?.content || "")) f.push("la previa no lleva noindex");
-    if (document.querySelector(".v-previa a")?.getAttribute("href") !== "/") f.push("el aviso no lleva a la portada vigente");
     if (!document.body.classList.contains("verloop")) f.push("sin el registro Verloop");
     const sup = Array.from(document.querySelectorAll(".superficies a")).map((a) => a.getAttribute("href"));
-    ["/inicio-nuevo", "/completo-nueva", "/psicobench-nueva", "/personalidad-nueva"].forEach((r) => { if (!sup.includes(r)) f.push("el conmutador no lleva a " + r); });
+    ["/", "/completo", "/psicobench", "/personalidad"].forEach((r) => { if (!sup.includes(r)) f.push("el conmutador no lleva a " + r); });
     if (!document.querySelector('.superficies a[aria-current="page"]')?.textContent.includes("Resumen")) f.push("el conmutador no marca Resumen");
     // cifras y los dos benchmarks, con sus gráficas vivas
     const vacias = Array.from(document.querySelectorAll("#banco .cifras .n")).filter((n) => !n.textContent.trim() || n.textContent === "—");
@@ -455,6 +340,9 @@ if (PREVIA) RUTAS.push({
     return f;
   })()`,
 });
+
+const ORDEN = ["/", "/completo", "/psicobench", "/personalidad", "/benchmark", "/viewer"];
+RUTAS.sort((a, b) => ORDEN.indexOf(a.ruta) - ORDEN.indexOf(b.ruta));
 
 /* ── arranque de Chrome con puerto de depuración ─────────────────────────── */
 const perfil = mkdtempSync(join(tmpdir(), "smoke-chrome-"));

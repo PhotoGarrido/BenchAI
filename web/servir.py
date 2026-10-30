@@ -1,13 +1,14 @@
-"""Sirve `publicacion-previa/` en local con rutas limpias, como Vercel.
+"""Sirve `publicacion/` en local con rutas limpias, como Vercel.
 
-La previa (`python3 web/publicar.py --previa`) lleva la versión en
-preparación de PsicoBench en /psicobench-nueva. `python3 -m http.server` no
-entiende las rutas limpias del sitio (`/completo`, `/psicobench`), así que
-este servidor prueba `<ruta>.html` cuando `<ruta>` no existe — lo mismo que
-`cleanUrls` en `web/vercel.json`. Solo para validar en local; no se publica.
+`python3 -m http.server` no entiende las rutas limpias del sitio
+(`/completo`, `/psicobench`): este servidor prueba `<ruta>.html` cuando
+`<ruta>` no existe, lo mismo que `cleanUrls` en `web/vercel.json`. Sirve
+para pasar el smoke y las pruebas de la lámina contra el paquete exacto que
+se despliega, antes de desplegarlo. Solo en local; no se publica.
 
-    python3 web/publicar.py --previa
-    python3 web/servir_previa.py            # http://127.0.0.1:8743/psicobench-nueva
+    python3 web/publicar.py
+    python3 web/servir.py                   # http://127.0.0.1:8743/
+    node web/smoke.mjs http://127.0.0.1:8743
 """
 
 from __future__ import annotations
@@ -16,7 +17,7 @@ import http.server
 import pathlib
 import sys
 
-RAIZ = pathlib.Path(__file__).resolve().parent.parent / "publicacion-previa"
+RAIZ = pathlib.Path(__file__).resolve().parent.parent / "publicacion"
 PUERTO = int(sys.argv[1]) if len(sys.argv) > 1 else 8743
 
 
@@ -25,7 +26,7 @@ class _Manejador(http.server.SimpleHTTPRequestHandler):
         super().__init__(*args, directory=str(RAIZ), **kwargs)
 
     def end_headers(self) -> None:
-        # Validar es recargar tras cada `--previa`: sin esto Chrome reutiliza
+        # Validar es recargar tras cada `publicar.py`: sin esto Chrome reutiliza
         # la hoja vieja por caché heurística (la página no deja hacer fetch).
         self.send_header("Cache-Control", "no-store")
         super().end_headers()
@@ -39,10 +40,10 @@ class _Manejador(http.server.SimpleHTTPRequestHandler):
 
 def main() -> int:
     if not RAIZ.exists():
-        print("[servir_previa] no hay publicacion-previa/: corre "
-              "`python3 web/publicar.py --previa`")
+        print("[servir] no hay publicacion/: corre "
+              "`python3 web/publicar.py`")
         return 1
-    print(f"[servir_previa] http://127.0.0.1:{PUERTO}/psicobench-nueva")
+    print(f"[servir] http://127.0.0.1:{PUERTO}/")
     http.server.ThreadingHTTPServer(("127.0.0.1", PUERTO), _Manejador).serve_forever()
     return 0
 
