@@ -8,10 +8,10 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'">
 <title>BenchAI · Lo que una IA hace bajo presión, medido</title>
 <link rel="canonical" href="https://benchai.tech/">
-<meta name="description" content="BenchAI mide la conducta de los modelos de lenguaje: cuánto ceden a la presión social (PsicoBench, el ISS) y qué carácter tienen (el test de personalidad), por lo que hacen en situaciones concretas y no por lo que dicen de sí mismos.">
+<meta name="description" content="BenchAI mide la conducta de los modelos de lenguaje: cuánto ceden a la presión social (SocialBench, el ISS) y qué carácter tienen (el test de personalidad), por lo que hacen en situaciones concretas y no por lo que dicen de sí mismos.">
 <meta name="color-scheme" content="dark">
 <meta property="og:title" content="BenchAI · Medimos lo que una IA hace, no lo que dice de sí misma">
-<meta property="og:description" content="Dos benchmarks de conducta para modelos de lenguaje: PsicoBench mide cuánto ceden a la presión social y el test de personalidad, qué carácter tienen, por lo que eligen en situaciones concretas.">
+<meta property="og:description" content="Dos benchmarks de conducta para modelos de lenguaje: SocialBench mide cuánto ceden a la presión social y el test de personalidad, qué carácter tienen, por lo que eligen en situaciones concretas.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://benchai.tech/og.png">
 <meta property="og:image:width" content="1200">
@@ -42,10 +42,9 @@
       <span class="punto" aria-hidden="true"></span>
       BenchAI
     </a>
-    <nav class="superficies" aria-label="Las cuatro lecturas de BenchAI">
-      <a href="home.html" aria-current="page">Resumen</a>
-      <a href="index.html">Completa</a>
-      <a href="psicobench.html">PsicoBench</a>
+    <nav class="superficies" aria-label="Los benchmarks de BenchAI">
+      <a href="home.html" aria-current="page">Inicio</a>
+      <a href="psicobench.html">SocialBench</a>
       <a href="personalidad.html">Personalidad</a>
     </nav>
     <nav class="navmini" aria-label="Secciones">
@@ -70,7 +69,7 @@
     <h1>Medimos lo que una IA <em>hace</em>, no lo que dice de sí misma.</h1>
     <p class="entradilla">
       BenchAI pone a modelos de lenguaje en situaciones concretas y registra lo que deciden. Tiene
-      dos benchmarks. <strong>PsicoBench</strong> disfraza experimentos clásicos de psicología social
+      dos benchmarks. <strong>SocialBench</strong> disfraza experimentos clásicos de psicología social
       para que los modelos no los reconozcan, como el grupo que se equivoca, la autoridad que ordena o
       el poder sin vigilancia. El <strong>test de personalidad</strong> está hecho de decisiones
       cotidianas. Cada resultado se publica con sus intervalos, sus registros en bruto y lo que
@@ -89,7 +88,7 @@
   <div class="marco">
     <ul class="cifras">
       <li><span class="n" data-cifra="benchmark.mediciones"></span>
-          <span class="r">mediciones de PsicoBench</span></li>
+          <span class="r">mediciones de SocialBench</span></li>
       <li><span class="n" data-cifra="personalidad.nModelos"></span>
           <span class="r">modelos con test de personalidad</span></li>
       <li><span class="n" id="n-labs"></span>
@@ -106,14 +105,14 @@
     <h2 class="titulo aparece">Los dos benchmarks</h2>
     <p class="bajada aparece d1">
       Lo que un modelo dice de sí mismo no predice lo que hace. En el piloto del test de
-      personalidad, su autorretrato no anticipó su conducta, y en PsicoBench los modelos aplican
+      personalidad, su autorretrato no anticipó su conducta, y en SocialBench los modelos aplican
       sanciones que en privado juzgan injustas. Por eso aquí solo cuenta la decisión, tomada en una
       situación que no se presenta como prueba.
     </p>
 
     <div class="dos-bench">
       <article class="bench bench-ps aparece d1">
-        <h3>PsicoBench</h3>
+        <h3>SocialBench</h3>
         <p>Mide ocho formas de ceder a la presión social, como seguir a una mayoría equivocada,
         obedecer una orden injusta, abusar del poder, callar ante una irregularidad o dar la razón.
         Todos los modelos pasan la misma batería. El <strong>ISS</strong> resume las ocho de 0 a 100,
@@ -121,7 +120,8 @@
         <div class="mini-host" id="mini-iss"></div>
         <p class="bench-dato">De <b id="iss-min"></b> a <b id="iss-max"></b> de ISS entre las
         <b data-cifra="benchmark.mediciones"></b> mediciones.</p>
-        <a class="boton fuerte" href="psicobench.html">Ver PsicoBench</a>
+        <p class="bench-acciones"><a class="boton fuerte" href="psicobench.html">Ver SocialBench</a>
+          <a class="boton" href="index.html">En detalle</a></p>
       </article>
       <article class="bench bench-pe aparece d2">
         <h3>Personalidad</h3>
@@ -132,7 +132,8 @@
         <div class="mini-host" id="mini-rasgos"></div>
         <p class="bench-dato"><b data-cifra="personalidad.robustas"></b> diferencias firmes entre
         <b data-cifra="personalidad.nModelos"></b> modelos.</p>
-        <a class="boton fuerte" href="personalidad.html">Ver Personalidad</a>
+        <p class="bench-acciones"><a class="boton fuerte" href="personalidad.html">Ver Personalidad</a>
+          <a class="boton" href="personalidad-datos.html">En detalle</a></p>
       </article>
     </div>
 
@@ -205,7 +206,7 @@
     <h2 class="titulo aparece">Hallazgos</h2>
     <div class="hallazgos">
       <div class="col-h col-ps">
-        <p class="kicker">PsicoBench</p>
+        <p class="kicker">SocialBench</p>
         <a class="hallazgo aparece d1" href="index.html#disonancia">
           <span class="dato" id="h-disonancia"></span>
           <h3>La juzgan injusta y la aplican igual</h3>
@@ -295,15 +296,18 @@
       falla y no se publica.
     </p>
     <div class="lecturas">
-      <a class="lectura aparece d1" href="index.html"><span class="k">Completa</span>
-        <b>Método, hallazgos y grabaciones</b><span>Las once secciones, con todas las gráficas, las
-        sesiones grabadas y lo que salió mal.</span></a>
-      <a class="lectura aparece d2" href="psicobench.html"><span class="k">PsicoBench</span>
+      <a class="lectura aparece d1" href="psicobench.html"><span class="k">SocialBench</span>
         <b>El perfil social y el ISS</b><span>La clasificación, el mapa de las ocho formas de ceder y
         la ficha de cada medición.</span></a>
+      <a class="lectura aparece d2" href="index.html"><span class="k">SocialBench · detalle</span>
+        <b>Método, hallazgos y grabaciones</b><span>El estudio completo: once secciones, con todas las
+        gráficas, las sesiones grabadas y lo que salió mal.</span></a>
       <a class="lectura aparece d3" href="personalidad.html"><span class="k">Personalidad</span>
         <b>El carácter de cada modelo</b><span>Una ficha por modelo con sus seis rasgos frente a los
         demás y cómo se comprueba cada marca.</span></a>
+      <a class="lectura aparece d1" href="personalidad-datos.html"><span class="k">Personalidad · detalle</span>
+        <b>Todos los datos del test</b><span>Mapa de rasgos, comparador, familias, un ranking a medida y
+        situaciones reales con lo que eligió cada modelo.</span></a>
       <a class="lectura aparece d1" href="../benchmark/index.html"><span class="k">El instrumento</span>
         <b>El panel del banco</b><span>Los manifiestos y la cadena de comprobaciones que regeneran
         el banco.</span></a>
@@ -325,13 +329,13 @@
         escenarios son sintéticos, con nombres y rasgos generados para el experimento.</p>
       </div>
       <div>
-        <h2>Las cuatro lecturas</h2>
+        <h2>BenchAI</h2>
         <ul>
-          <li><a href="home.html">Resumen</a></li>
-          <li><a href="index.html">Completa</a></li>
-          <li><a href="psicobench.html">PsicoBench</a></li>
-          <li><a href="personalidad.html">Personalidad</a></li>
-          <li><a href="../benchmark/index.html">Panel del instrumento</a></li>
+          <li><a href="home.html">Inicio</a> · los dos benchmarks de un vistazo</li>
+          <li><a href="psicobench.html">SocialBench</a> · cuánto cede cada modelo a la presión social</li>
+          <li><a href="index.html">SocialBench · detalle</a> · el estudio completo: método, hallazgos y grabaciones</li>
+          <li><a href="personalidad.html">Personalidad</a> · el test de personalidad de cada modelo</li>
+          <li><a href="personalidad-datos.html">Personalidad · detalle</a> · rasgos, comparaciones y situaciones reales</li>
         </ul>
       </div>
       <div>
@@ -351,6 +355,7 @@
 </footer>
 
 <script src="datos.js"></script>
+<script src="datos-estudio.js"></script>
 <script src="js/marcado.js"></script>
 <script src="verloop/inicio.js"></script>
 <script src="js/escena.js"></script>

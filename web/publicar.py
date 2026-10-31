@@ -9,11 +9,12 @@ despliega la raíz del repo con exclusiones — se copia lo permitido y punto.
   python3 web/publicar.py --check    # falla si está desfasada (para CI)
   python3 web/servir.py              # sirve publicacion/ en local, con rutas limpias
 
-Lo que sale:
-  /                     web/home.html          la portada: los dos benchmarks
-  /completo             web/index.html         el sitio largo
-  /psicobench           web/psicobench.html    la superficie propia del benchmark
-  /personalidad         web/personalidad.html  el cuadro de personalidad por conducta
+Lo que sale (01-11-2026: cada benchmark con su resumen y su detalle):
+  /                     web/home.html               la portada: los dos benchmarks
+  /social               web/psicobench.html         SocialBench (antes /psicobench)
+  /completo             web/index.html              SocialBench en detalle: el estudio largo
+  /personalidad         web/personalidad.html       el test de personalidad
+  /personalidad/datos   web/personalidad-datos.html Personalidad en detalle: los datos
   /benchmark            benchmark/index.html   el panel del instrumento
   /visor                viewer/index.html      el visor de replays
   … y los estáticos que esas páginas necesitan (el registro «Verloop» de
@@ -26,6 +27,7 @@ from __future__ import annotations
 import argparse
 import filecmp
 import pathlib
+import re
 import shutil
 import subprocess
 import sys
@@ -39,15 +41,24 @@ PIEZAS: list[tuple[str, str]] = [
     ("web/robots.txt", "robots.txt"),
     ("web/sitemap.xml", "sitemap.xml"),
     ("web/og.png", "og.png"),
+    ("web/og-social.png", "og-social.png"),
+    ("web/og-personalidad.png", "og-personalidad.png"),
     ("web/favicon.svg", "favicon.svg"),
     ("web/favicon.ico", "favicon.ico"),
     ("web/home.html", "index.html"),
     ("web/index.html", "completo.html"),
-    ("web/psicobench.html", "psicobench.html"),
-    ("web/personalidad.html", "personalidad.html"),
+    ("web/psicobench.html", "social.html"),
+    # el resumen y su detalle en la misma carpeta: `personalidad.html` junto a
+    # una carpeta `personalidad/` dejaba `/personalidad` a merced de quién
+    # resuelve antes, el fichero o la carpeta
+    ("web/personalidad.html", "personalidad/index.html"),
+    ("web/personalidad-datos.html", "personalidad/datos.html"),
     ("web/visor-embebido.html", "visor-embebido.html"),
     ("web/visor-arranque.js", "visor-arranque.js"),
     ("web/datos.js", "datos.js"),
+    ("web/datos-estudio.js", "datos-estudio.js"),
+    ("web/datos-sesiones.js", "datos-sesiones.js"),
+    ("web/datos-episodios.js", "datos-episodios.js"),
     ("web/css/", "css/"),
     ("web/js/", "js/"),
     ("web/verloop/", "verloop/"),
@@ -118,17 +129,43 @@ def _copiar(destino: pathlib.Path) -> None:
             f.write_text(tx.replace(">copia local<", ">" + sello + "<"),
                          encoding="utf-8")
 
-    # Las cuatro páginas se enlazan entre sí por su fichero (así funcionan
-    # también abiertas a mano); publicadas, cada uno pasa a su ruta limpia.
-    # `../benchmark/index.html` ya es `/benchmark` aquí (_reescribir_enlaces),
-    # así que `href="index.html` solo puede ser el sitio largo.
-    for nombre in ("index.html", "completo.html", "psicobench.html", "personalidad.html"):
-        f = destino / nombre
-        f.write_text(f.read_text(encoding="utf-8")
-                     .replace('href="home.html"', 'href="/"')
-                     .replace('href="index.html', 'href="/completo')
-                     .replace('href="psicobench.html', 'href="/psicobench')
-                     .replace('href="personalidad.html', 'href="/personalidad'), encoding="utf-8")
+    _rutas_limpias(destino)
+
+
+# Las páginas se enlazan entre sí por su fichero (así funcionan también
+# abiertas a mano); publicadas, cada una pasa a su ruta limpia. El nombre
+# más largo primero (`personalidad-datos.html` antes que `personalidad.html`).
+# `../benchmark/index.html` ya es `/benchmark` aquí (_reescribir_enlaces), así
+# que `href="index.html` solo puede ser el sitio largo.
+RUTAS = [
+    ("personalidad-datos.html", "/personalidad/datos"),
+    ("personalidad.html", "/personalidad"),
+    ("psicobench.html", "/social"),
+    ("home.html", "/"),
+    ("index.html", "/completo"),
+]
+# y sus estáticos, por ruta absoluta: /personalidad/datos vive un nivel más
+# abajo y el relativo `css/…` resolvería a /personalidad/css/…
+ESTATICOS = [('href="css/', 'href="/css/'), ('href="verloop/', 'href="/verloop/'), ('href="fonts/', 'href="/fonts/'),
+             ('src="js/', 'src="/js/'), ('src="verloop/', 'src="/verloop/'), ('src="datos', 'src="/datos'),
+             ('src="visor-embebido.html', 'src="/visor-embebido.html'),
+             ('href="visor-embebido.html', 'href="/visor-embebido.html')]
+PAGINAS = ("index.html", "completo.html", "social.html", "personalidad/index.html", "personalidad/datos.html")
+
+
+def _rutas_limpias(destino: pathlib.Path) -> None:
+    for rel in PAGINAS:
+        f = destino / rel
+        t = f.read_text(encoding="utf-8")
+        for fichero, ruta in RUTAS:
+            t = t.replace(f'href="{fichero}#', f'href="{ruta}#').replace(f'href="{fichero}"', f'href="{ruta}"')
+        for a, b in ESTATICOS:
+            t = t.replace(a, b)
+        sueltos = [h for h in re.findall(r'href="([^"#]+\.html)', t)
+                   if not h.startswith(("http", "/viewer/", "/visor-embebido"))]
+        if sueltos:
+            raise SystemExit(f"[publicar] {rel} enlaza a {sueltos[0]}, que no tiene ruta limpia")
+        f.write_text(t, encoding="utf-8")
 
 
 FAVICON_RAMPA = (
@@ -164,7 +201,7 @@ def _reescribir_enlaces(destino: pathlib.Path) -> None:
         antes = t
         t = t.replace('href="../benchmark/index.html"', 'href="/benchmark"')
         t = t.replace('href="../benchmark/', 'href="/benchmark/')
-        t = t.replace('href="../web/psicobench.html"', 'href="/psicobench"')
+        t = t.replace('href="../web/psicobench.html"', 'href="/social"')
         t = t.replace('href="../viewer/index.html"', 'href="/viewer/index.html"')
         t = t.replace('href="../', f'href="{REPO_WEB}')
         if t != antes:
