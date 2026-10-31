@@ -86,17 +86,22 @@ prosa no puede desincronizarse de la tabla.
 
 ```
 web/
-├── home.html           la home divulgativa
-├── index.html          el sitio largo
+├── home.html           la portada: los dos benchmarks (/)
+├── index.html          el sitio largo (/completo)
 ├── psicobench.html     la superficie propia del benchmark (/psicobench)
 ├── personalidad.html   el cuadro de personalidad por conducta (/personalidad)
-├── css/home.css        sistema visual de la home: cálido/frío, pergamino
-├── css/estilo.css      sistema visual del sitio largo
-├── css/psicobench.css  solo los componentes de PsicoBench; va ENCIMA de estilo.css
+├── css/estilo.css      la base de las cuatro páginas
+├── css/psicobench.css  componentes de PsicoBench; va ENCIMA de estilo.css
 ├── css/personalidad.css el radar, las fichas y las curiosidades; va encima de estilo.css y psicobench.css
-├── js/home.js          pictogramas, dosieres, chat ligero, infografía y test
-├── js/psicobench.js    el mapa mediciones × ejes y las cifras de la página del benchmark
-├── js/personalidad.js  el radar animado, las fichas por modelo, las curiosidades y el método breve
+├── verloop/            el registro del sitio desde el 30-10-2026, encima de css/:
+│   ├── tokens.css      fuentes autoalojadas y variables (graficas.js toma de aquí los colores)
+│   ├── sitio.css       lo común: barra, portada, cabeceras, cajas, impresión, más contraste
+│   ├── inicio.css …    lo propio de cada página (inicio, completo, psicobench, personalidad)
+│   ├── inicio.js       la portada: cifras, los dos benchmarks, el test «Ponte en la silla»
+│   ├── psicobench.js   la lámina, el mapa mediciones × ejes y las cifras del benchmark
+│   ├── personalidad.js la ficha con flechas, las fichas por modelo, curiosidades y método
+│   └── chasquido.js    la transición entre fichas de las dos láminas
+├── fonts/              Big Shoulders Display, Inter Tight y JetBrains Mono (OFL 1.1)
 ├── visor-embebido.html GENERADO desde viewer/index.html — no editar
 ├── visor-arranque.js   le pide al visor el episodio real en vez de su demo
 ├── js/graficas.js      biblioteca de gráficas SVG a mano, sin dependencias
@@ -107,7 +112,11 @@ web/
 ├── marcado.prueba.cjs  su contrato, ejecutado en node desde verificar.sh y CI
 ├── datos.js            GENERADO — no editar a mano
 ├── generar_datos.py    el generador y su puerta --check
-└── empaquetar.py       compila una página a un solo fichero
+├── empaquetar.py       compila una página a un solo fichero
+├── publicar.py         arma publicacion/ (lista blanca) y su puerta --check
+├── servir.py           sirve publicacion/ en local con rutas limpias
+├── smoke.mjs           abre cada ruta en Chrome headless y comprueba lo que monta
+└── lamina.prueba.mjs, interaccion.prueba.mjs   pruebas de navegador de /psicobench
 ```
 
 ## La otra regla: ningún dato escribe HTML
@@ -201,6 +210,10 @@ la puerta salta y obliga a decidirlo a mano en vez de renderizarlo a ciegas.
 ## Decisiones de diseño
 
 ### En la home
+
+> Histórico: describe la portada anterior (`css/home.css`, `js/home.js`),
+> sustituida el 30-10-2026 por la del registro «Verloop». Las decisiones
+> de la actual están en `PLAN_WEB_VERLOOP.md` y `PLAN_PSICOBENCH_VERLOOP.md`.
 
 - **Dos registros del mismo sistema**, alternando bloque a bloque: grafito
   verdoso `#222623` y papel de registro `#E4E7DE`. Comparten familia de tono y

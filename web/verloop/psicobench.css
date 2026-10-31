@@ -1,0 +1,233 @@
+/* ===========================================================================
+   BenchAI · PsicoBench «Verloop» · lo propio de la página
+   ---------------------------------------------------------------------------
+   Va DESPUÉS de `verloop/sitio.css` (el registro común) y encima de
+   `css/estilo.css` y `css/psicobench.css`. Aquí: el número de cada sección
+   en su color, la lámina como ficha con su chasquido, las secciones 01–06
+   (componentes, pestañas de eje, mapa en tono, tiras, mapas con nombre,
+   ficha) y sus casos de alto contraste e impresión.
+   =========================================================================== */
+
+.verloop .panel-escalera { box-shadow: none; background: rgba(7, 7, 10, .66); backdrop-filter: blur(16px); border-color: rgba(255, 255, 255, .14); }
+
+/* ── el banco de un vistazo: cifras arriba, lámina y tarjetas debajo ──── */
+/* (la franja de cifras y el relleno del bloque son de `.vistazo`, en sitio.css) */
+/* (la escena, las flechas y el lienzo del polvo son de la ficha con
+   flechas, común: sitio.css) */
+/* la ficha: el bloque entero es la medición, con una flecha en cada
+   extremo; al pulsarla, la escena se deshace en polvo hacia ese lado
+   (`chasquido` en psicobench.js) y aparece la siguiente. El lienzo del
+   polvo va encima y desborda la ficha, así que el bloque recorta en x. */
+.verloop .lamina-bloque .lamina {
+  display: block; position: relative; isolation: isolate; margin-top: 18px;
+  padding: 44px 72px; border-radius: 6px; background: rgba(15, 14, 20, .35);
+  border: 1px solid var(--linea); border-color: color-mix(in srgb, var(--lm-c) 55%, transparent);
+  transition: border-color .6s var(--v-facil);
+}
+.verloop .lamina-bloque .lamina-pie { grid-template-columns: 1fr; gap: 18px; }
+/* la medición ya no es una caja: es la cabecera de la ficha */
+.verloop .lamina-bloque .lamina-modelo { border: 0; background: none; backdrop-filter: none; padding: 0; gap: 8px; }
+.verloop .lamina-bloque .lm-nombre { font-size: clamp(40px, 3.8vw, 64px); line-height: .92; white-space: normal; overflow-wrap: anywhere; }
+.verloop .lamina-bloque .lm-via { font-size: 11.5px; }
+.verloop .lamina-bloque .lm-iss { margin: 6px 0 0; font-size: 12px; }
+.verloop .lamina-bloque .lm-iss b { font-size: clamp(52px, 4.6vw, 76px); margin-right: 6px; color: var(--lm-c); transition: color .6s; }
+.verloop .lamina-bloque .ll-caja { padding: 18px 20px; }
+.verloop .lamina-bloque .ll-titulo { font-size: 30px; }
+.verloop .lamina-bloque .ll-def { font-size: 13px; }
+.verloop .lamina-bloque .lamina::before { left: 4%; right: 40%; top: 4%; height: 92%; }
+@media (max-width: 940px) {
+  .verloop .lamina-bloque .lamina { padding: 72px 16px 20px; }
+  .verloop .lamina-bloque .lamina::before { left: 10%; right: 10%; top: 2%; height: 55%; }
+}
+@media (min-width: 561px) and (max-width: 940px) { .verloop .lamina-bloque .lamina-pie { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); } }
+
+/* ── peldaños: el texto encima, según la luminancia de cada tono ───────── */
+body.verloop section table.mapa td.c.p0, body.verloop section table.mapa td.c.p1,
+body.verloop section .tira td.c.p0 span, body.verloop section .tira td.c.p1 span { color: #FFFFFF; }
+body.verloop section table.mapa td.c.p2, body.verloop section table.mapa td.c.p3,
+body.verloop section table.mapa td.c.p4, body.verloop section table.mapa td.c.p5,
+body.verloop section table.mapa td.c.p6, body.verloop section table.mapa td.c.p7,
+body.verloop section table.mapa td.c.p8, body.verloop section table.mapa td.c.p9,
+body.verloop section .tira td.c.p2 span, body.verloop section .tira td.c.p3 span,
+body.verloop section .tira td.c.p4 span, body.verloop section .tira td.c.p5 span,
+body.verloop section .tira td.c.p6 span, body.verloop section .tira td.c.p7 span,
+body.verloop section .tira td.c.p8 span, body.verloop section .tira td.c.p9 span { color: #07070A; }
+
+/* ═══ la lámina de la portada (Lámina A · Morph) ═════════════════════════ */
+.lamina { position: relative; z-index: 1; min-width: 0; display: flex; flex-direction: column; gap: 10px; --lm-c: #B46CFF; }
+/* el resplandor detrás del octógono sigue al color del ISS de la medición */
+.lamina::before {
+  content: ""; position: absolute; left: 12%; right: 12%; top: 6%; height: 62%; z-index: -1;
+  border-radius: 50%; background-color: var(--lm-c); opacity: .22; filter: blur(70px);
+  transition: background-color .8s var(--v-facil);
+}
+/* la figura va sin caja; su título queda para los lectores de pantalla y
+   el botón «Tabla» (la alternativa en texto) se queda, discreto, arriba */
+.verloop figure.lamina-fig { background: transparent; border: 0; padding: 0; }
+.verloop figure.lamina-fig .viz-cabecera { position: absolute; top: 0; right: 0; z-index: 2; }
+.verloop figure.lamina-fig .viz-cabecera > div:first-child {
+  position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+}
+.verloop figure.lamina-fig .tabla-envuelta { max-height: 520px; overflow: auto; padding-top: 52px; }
+
+/* ejes: etiqueta, radio y sector se encienden juntos */
+.verloop .et-lamina {
+  font: 500 11px var(--mono); letter-spacing: .06em; fill: var(--tenue);
+  transform-box: fill-box; transform-origin: center;
+  transition: transform .35s var(--v-facil), fill .25s;
+}
+.verloop .et-lamina.activo { fill: #FFFFFF; transform: translate(var(--dx), var(--dy)) scale(1.25); }
+.verloop .lamina-fig .radar-radio { transition: stroke .25s, stroke-width .25s, stroke-opacity .25s; }
+.verloop .lamina-fig .radar-radio.activo { stroke: var(--c); stroke-width: 2.5; stroke-opacity: 1; }
+.verloop .cuna-luz { fill-opacity: 0; transition: fill-opacity .3s; }
+.verloop .cuna-luz.activo { fill-opacity: .14; }
+.verloop .lamina-fig .viz-hit.cuna { fill: transparent; outline: none; }
+.verloop .lamina-fig .vertice { transition: r .3s var(--v-facil); }
+.verloop .lamina-fig .vertice.activo { r: 9px; }
+.verloop .lamina-fig .perfil, .verloop .lamina-fig .halo { transition: fill .8s, stroke .8s; }
+.verloop .lamina-fig svg:focus-visible { outline: 2px solid var(--lm-c); outline-offset: 6px; border-radius: 4px; }
+
+/* los 39 perfiles finos: se pulsan para ir a esa medición */
+.verloop .perfil-fino { stroke-width: 1; stroke-opacity: .2; transition: stroke-opacity .2s, stroke-width .2s; }
+.verloop .perfil-fondo { cursor: pointer; }
+.verloop .perfil-fondo:hover .perfil-fino { stroke-opacity: 1; stroke-width: 2; }
+
+/* cambio de medición: una onda sale del centro y el perfil destella */
+.verloop .onda { transform-box: fill-box; transform-origin: center; animation: v-onda 1.1s cubic-bezier(.1, .7, .2, 1) forwards; }
+@keyframes v-onda { from { transform: scale(.05); opacity: .9; } to { transform: scale(1); opacity: 0; } }
+.verloop .destello { animation: v-destello .6s ease-out forwards; }
+@keyframes v-destello { from { opacity: .55; } to { opacity: 0; } }
+
+/* tarjeta de la medición y lectura del eje */
+.lamina-pie { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 10px; }
+@media (max-width: 560px) { .lamina-pie { grid-template-columns: 1fr; } }
+.lamina-modelo, .ll-caja {
+  min-width: 0; padding: 12px 16px; border-radius: 4px; box-sizing: border-box;
+  background: rgba(7, 7, 10, .62); backdrop-filter: blur(10px);
+}
+.lamina-modelo { border: 1px solid var(--lm-c); transition: border-color .6s; display: flex; flex-direction: column; gap: 6px; }
+.lm-cab { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.lm-pos { font: 500 10.5px/1.3 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--lm-c); transition: color .6s; }
+.lm-pasos { display: flex; gap: 4px; }
+.verloop .lm-pasos .chip { min-width: 44px; min-height: 44px; padding: 0; justify-content: center; font-size: 12px; }
+.lm-nombre { margin: 0; font: 900 34px/.95 var(--display); text-transform: uppercase; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.lm-nombre.entra { animation: v-nombre .55s var(--v-facil) both; }
+@keyframes v-nombre { from { opacity: 0; transform: translateX(-18px) skewX(-6deg); letter-spacing: .08em; } to { opacity: 1; transform: none; letter-spacing: 0; } }
+.lm-pie { display: flex; justify-content: space-between; align-items: flex-end; gap: 10px; flex-wrap: wrap; }
+.lm-via { font: 500 10.5px/1.4 var(--mono); color: var(--tenue); }
+.lm-iss { font: 500 11px var(--mono); color: var(--tenue); white-space: nowrap; }
+.lm-iss b { font: 900 40px/1 var(--display); color: var(--tinta); font-variant-numeric: tabular-nums; }
+.lamina-lectura { min-width: 0; display: flex; }
+.ll-caja { flex: 1; border: 1px solid var(--ll-c, rgba(255, 255, 255, .14)); transition: border-color .3s; }
+.ll-caja.entra { animation: v-sube .4s var(--v-facil) both; }
+@keyframes v-sube { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.ll-ceja { display: block; font: 500 10.5px/1.3 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--tinta); }
+.ll-titulo { margin: 4px 0 0; font: 900 24px/1 var(--display); text-transform: uppercase; }
+.ll-valor { margin: 6px 0 0; font: 500 11px/1.3 var(--mono); color: var(--tenue); }
+.ll-valor b { font: 900 30px/1 var(--display); color: var(--ll-c, var(--tinta)); margin-right: 6px; }
+.ll-valor b:empty { margin-right: 0; }
+.ll-def { margin: 6px 0 0; font-size: 12px; line-height: 1.5; color: var(--tenue); }
+
+@media (prefers-reduced-motion: reduce) {
+  .lamina::before, .lamina-modelo, .lm-pos, .ll-caja { transition: none; }
+  .lm-nombre.entra, .ll-caja.entra, .verloop .onda, .verloop .destello { animation: none; }
+  .verloop .onda, .verloop .destello { display: none; }
+}
+
+/* ═══ fase 3: las secciones 01–08 ════════════════════════════════════════
+   Cada eje pinta con su tono (TONO en psicobench.js, --v-eje-* aquí) y el
+   ISS con su gradiente; los colores por valor llegan en línea desde el JS
+   (fondo y tinta de cada celda), y aquí se pone la forma. ─────────────── */
+
+/* ── 01 · el índice: tarjetas de componente con su rango en el banco ───── */
+.verloop .componentes { gap: 16px; }
+.verloop .componente { padding: 18px 18px 16px; background: var(--sup); }
+.verloop .componente h3 { font: 900 30px/.95 var(--display); text-transform: uppercase; letter-spacing: .01em; color: var(--c); margin: 4px 0 12px; }
+.verloop .componente .rango { position: relative; height: 6px; margin: 0 0 12px; background: var(--sup-3); border-radius: 3px; }
+.verloop .componente .rango i { position: absolute; top: 0; bottom: 0; background: var(--c); border-radius: 3px; }
+.verloop .componente p { font-size: 13px; line-height: 1.5; }
+.verloop .claves-lectura b { font-family: var(--display); font-weight: 900; font-size: 22px; text-transform: uppercase; letter-spacing: .01em; }
+
+/* ── 02 · quién cede a qué: la pestaña y la prosa toman el tono del eje ── */
+.verloop .chip.pestana { border-top: 3px solid var(--linea); }
+.verloop .chip.pestana:hover { border-top-color: var(--c); }
+.verloop .chip.pestana[aria-pressed="true"] { border-top-color: var(--c); }
+.verloop #prosa-eje h3 { font: 900 clamp(40px, 4vw, 60px)/.9 var(--display); text-transform: uppercase; color: var(--c); margin: 0 0 10px; overflow-wrap: break-word; }
+.verloop #prosa-eje .fuente-eje { color: var(--c-texto); }
+.verloop #prosa-eje .cifras-eje { gap: 10px; }
+.verloop #prosa-eje .cifras-eje li { border: 1px solid var(--linea); border-top: 2px solid var(--c); border-radius: 4px; background: var(--sup); padding: 12px 14px 12px; }
+.verloop #prosa-eje .cifras-eje .n { font: 900 40px/.9 var(--display); letter-spacing: 0; }
+
+/* ── 03 · el mapa: cada columna en el tono de su eje ───────────────────── */
+.verloop table.mapa thead th.eje, .verloop table.mapa thead th.sec { box-shadow: inset 0 3px 0 var(--c); }
+.verloop table.mapa td.c.tono { font-weight: 600; }
+.verloop table.mapa thead th.sec, .verloop table.mapa tbody td.c:last-child { border-left: 1px solid var(--linea); }
+.verloop .leyenda-mapa { gap: 10px 22px; }
+.verloop .leyenda-mapa .rampa i { width: 22px; border-radius: 1px; }
+.verloop .leyenda-mapa .tono { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+.verloop .leyenda-mapa .tono i { display: block; width: 10px; height: 10px; border-radius: 2px; }
+
+/* ── 04 · cara a cara: «sí» en lima y tiras en el tono de la prueba ───── */
+.verloop table.deltas td.si { color: #C6FF4A; font-weight: 600; }
+.verloop .tira td.c.lleno i { background: var(--tono, var(--tinta)); border-color: var(--tono, var(--tinta)); }
+.verloop .tira td.c.medio i { background: linear-gradient(90deg, var(--tono, var(--tinta)) 50%, var(--sup) 50%); border-color: var(--tono, var(--tinta)); }
+.verloop .tira td.c.destaca i { border-color: var(--tono); box-shadow: inset 0 0 0 3px var(--sup), inset 0 0 0 18px var(--tono); }
+/* injusta en privado: un punto negro en el centro de la casilla */
+.verloop .tira td.c.priv::after { top: 50%; bottom: auto; width: 6px; height: 6px; margin: -3px 0 0 -3px; background: #07070A; }
+/* en la prisión la casilla lleva su número: el punto va a la esquina */
+.verloop .tira td.c.nivel.priv::after { top: 2px; left: auto; right: 2px; width: 5px; height: 5px; margin: 0; background: var(--tinta-celda, var(--tinta)); }
+.verloop .tira td.c.nivel.tono span { color: var(--tinta-celda); }
+.verloop .tira td.c.nivel { border-radius: 2px; }
+.verloop .leyenda-tira i.lleno { background: var(--tono, var(--tinta)); border-color: var(--tono, var(--tinta)); }
+.verloop .leyenda-tira i.medio { background: linear-gradient(90deg, var(--tono, var(--tinta)) 50%, var(--sup) 50%); border-color: var(--tono, var(--tinta)); }
+.verloop .leyenda-tira i.destaca { border-color: var(--tono); box-shadow: inset 0 0 0 2px var(--sup), inset 0 0 0 11px var(--tono); }
+.verloop .leyenda-tira i.priv { width: 11px; height: 11px; border: 0; border-radius: 0; vertical-align: -1px; background: radial-gradient(circle, #07070A 0 2.4px, var(--tono, var(--tinta)) 2.9px); }
+.verloop .sesion .cab .iss { font-family: var(--display); font-weight: 900; }
+
+/* ── 05 · mapas con nombre: tres en fila; por debajo de 1180 px no caben y
+   van dos y uno (el tercero, a lo ancho de su columna) ───────────────── */
+@media (max-width: 1180px) and (min-width: 901px) { .verloop .rejilla.c3.mapas { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+/* ── cuadrantes en mono ───────────────────────────────────────────────── */
+/* 10 px sin espaciado: 6 px por carácter, dentro de los 6,4 con que `dispersion` parte y reparte los rótulos */
+.verloop .cuadrante { font: 500 10px var(--mono); fill: var(--tenue); letter-spacing: 0; }
+.verloop .punto { stroke: var(--sup); stroke-width: 1.5; }
+
+/* ── 06 · ficha: el ISS en su gradiente, secundarias en tarjeta ────────── */
+.verloop .ficha-hoja { border-top-color: var(--c-iss, var(--tinta)); }
+.verloop .ficha-cab .indice-ficha .v { font: 900 76px/.88 var(--display); letter-spacing: 0; }
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .verloop .ficha-cab .indice-ficha .v {
+    background: linear-gradient(90deg, #4AF2FF, var(--c-iss, #4AF2FF)); -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+}
+.verloop .ficha-ejes .val { color: var(--c-texto, var(--tinta)); font-family: var(--display); font-weight: 900; font-size: 22px; }
+.verloop .ficha-ejes .nom::before { content: ""; display: inline-block; width: 8px; height: 8px; margin-right: 7px; border-radius: 2px; background: var(--c); }
+.verloop .ficha-sec { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; }
+.verloop .ficha-sec li { border: 1px solid var(--linea); border-radius: 4px; background: var(--sup-2); padding: 10px 12px 11px; }
+.verloop .ficha-sec .n { font: 900 28px/.95 var(--display); letter-spacing: 0; }
+.verloop .ficha-sec .r { margin-top: 5px; }
+@media (max-width: 640px) { .verloop .ficha-cab .indice-ficha .v { font-size: 52px; } }
+
+
+/* ── estados propios de la página ─────────────────────────────────────── */
+@media (prefers-contrast: more) {
+  .verloop .lamina::before { display: none; }
+  .verloop .panel-escalera, .verloop .lamina-modelo, .verloop .ll-caja { backdrop-filter: none; background: var(--plano); }
+  .verloop .perfil-fino { stroke-opacity: .45; }
+}
+@media print {
+  .verloop .lamina::before, .verloop #lm-ant, .verloop #lm-sig, .verloop .lamina-polvo, .verloop .ficha-acciones { display: none !important; }
+  .verloop .lamina-bloque { padding: 0; break-before: page; }
+  .verloop .lamina-bloque .lamina { background: #FFFFFF; border-color: #C9C6D4; }
+  .verloop .componente, .verloop .sesion, .verloop .cifras-eje li, .verloop .ficha-sec li, .verloop .marco-p { break-inside: avoid; }
+  .verloop .lamina-modelo, .verloop .ll-caja, .verloop .panel-escalera { background: #FFFFFF; backdrop-filter: none; }
+  .verloop .ficha-cab .indice-ficha .v { background: none; color: #000000; }
+  /* el mapa entero en la hoja, sin la columna fija */
+  .verloop .mapa-envuelto { overflow: visible; max-height: none; }
+  .verloop table.mapa { width: 100%; min-width: 0; font-size: 8px; }
+  .verloop table.mapa th, .verloop table.mapa td { padding: 2px 3px; position: static; min-width: 0; width: auto; }
+  .verloop table.mapa thead th .cab { min-width: 0 !important; padding: 2px 0; font-size: 8px; white-space: normal; }
+  .verloop table.mapa thead th .cab small { white-space: normal; font-size: 7px; }
+  .verloop table.mapa td.id .nombre, .verloop table.mapa td.c, .verloop table.mapa td.iss { font-size: 8px; }
+  .verloop table.mapa .via, .verloop table.mapa td.iss small { display: none !important; }
+}

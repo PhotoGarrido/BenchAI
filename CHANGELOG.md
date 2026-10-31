@@ -1,5 +1,21 @@
 # Changelog
 
+## Web · las cuatro páginas en el registro «Verloop» · 31-10-2026
+
+- **`/`, `/completo`, `/psicobench` y `/personalidad` pasan a la versión
+  nueva** validada en la previa (`PLAN_PSICOBENCH_VERLOOP.md`,
+  `PLAN_WEB_VERLOOP.md`): un solo registro negro con tipografía propia
+  autoalojada (`web/fonts/`, OFL 1.1), la lámina de PsicoBench y la ficha de
+  Personalidad con flechas, y una portada nueva que presenta los dos
+  benchmarks. Mismo contenido y mismas cifras; ninguna escrita a mano.
+- Cinco afirmaciones de la lectura completa escritas con datasets viejos se
+  leen ahora de los datos: la vacuna (sube la obediencia en 9 mediciones, la
+  baja en 14), el estrato duro de la sicofancia (máx. 8 % en las 39) y las
+  correlaciones conformidad × sicofancia (0,59) y espontáneo × clima (0,74).
+- Fuera `js/home.js`, `css/home.css`, `js/psicobench.js` y
+  `js/personalidad.js`; `verloop/` y `fonts/` entran en la publicación.
+  `web/servir.py` sirve `publicacion/` en local para probar antes de desplegar.
+
 ## Sin versión (mediciones, no instrumento) · DeepSeek V4 Flash 1017 en NaN: 38 → 39 · 17/20-10-2026
 
 - **NaN cambió el modelo detrás de `deepseek-v4-flash`** el 17-10-2026 sin

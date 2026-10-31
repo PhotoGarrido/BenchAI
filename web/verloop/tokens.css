@@ -1,0 +1,178 @@
+/* ===========================================================================
+   BenchAI · PsicoBench «Verloop» · tokens y base
+   ---------------------------------------------------------------------------
+   El registro nuevo del sitio (PLAN_PSICOBENCH_VERLOOP.md y
+   PLAN_WEB_VERLOOP.md), en producción desde el 30-10-2026. Se carga encima
+   de css/estilo.css (y de css/psicobench.css donde aplica) y redefine sus
+   variables: `graficas.js` toma los colores de aquí.
+
+   Fuentes autoalojadas (política «sin terceros», CSP font-src 'self'):
+   subconjuntos variables de Big Shoulders Display, Inter Tight y JetBrains
+   Mono, OFL 1.1 (licencias junto a cada fichero en web/fonts/).
+   =========================================================================== */
+
+@font-face {
+  font-family: "Big Shoulders Display";
+  src: url("../fonts/big-shoulders-display.woff2") format("woff2-variations"),
+       url("../fonts/big-shoulders-display.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter Tight";
+  src: url("../fonts/inter-tight.woff2") format("woff2-variations"),
+       url("../fonts/inter-tight.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("../fonts/jetbrains-mono.woff2") format("woff2-variations"),
+       url("../fonts/jetbrains-mono.woff2") format("woff2");
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* superficies */
+  --v-fondo: #07070A;
+  --v-caja: #0F0E14;
+  --v-caja-2: #12111A;
+  --v-pista: #1B1A22;
+  --v-borde: #2A2833;
+  --v-borde-2: #3A3846;
+
+  /* texto (WCAG sobre --v-fondo: 20,1 · 12,0 · 7,0 · 3,9) */
+  --v-texto: #FFFFFF;
+  --v-texto-2: #C9C6D4;
+  --v-tenue: #9A97A6;
+  --v-apagado: #6F6C7A; /* 3,9:1: solo decorativo o texto ≥ 24 px */
+
+  /* un tono por eje, en el orden de B.ejes. Sobre negro todos pasan 4,5:1
+     salvo --v-eje-obed (3,8:1): vale para barras, rellenos y texto ≥ 24 px,
+     nunca para texto pequeño. */
+  --v-eje-conf: #4AF2FF;
+  --v-eje-obed: #7B3DFF;
+  --v-eje-auto: #FF3D8A;
+  --v-eje-brief: #FF8A1F;
+  --v-eje-prov: #FFD36E;
+  --v-eje-sold: #C6FF4A;
+  --v-eje-denu: #2FD6A0;
+  --v-eje-sico: #B46CFF;
+
+  /* los cuatro componentes del ISS */
+  --v-comp-iguales: #4AF2FF;
+  --v-comp-obediencia: #FF3D8A;
+  --v-comp-abuso: #FF8A1F;
+  --v-comp-silencio: #2FD6A0;
+
+  /* el ISS como gradiente (0 → 60 y más) */
+  --v-iss: linear-gradient(90deg, #4AF2FF 0%, #B46CFF 33%, #FF3D8A 66%, #FF8A1F 100%);
+  --v-espectro: linear-gradient(90deg, #4AF2FF 0%, #7B3DFF 30%, #FF3D8A 55%, #FF8A1F 80%, #FFD36E 100%);
+  /* grano: ruido fractal en gris como imagen (la CSP admite img-src data:) */
+  --v-grano: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+
+  /* tipografía */
+  --v-display: "Big Shoulders Display", Impact, "Arial Narrow", sans-serif;
+  --v-cuerpo: "Inter Tight", Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --v-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* ritmo */
+  --v-gutter: 40px;
+  --v-seccion: 120px;
+  --v-radio: 4px;
+  --v-facil: cubic-bezier(.2, .8, .2, 1);
+}
+
+@media (max-width: 760px) {
+  :root { --v-gutter: 16px; --v-seccion: 72px; }
+}
+
+/* ── base ─────────────────────────────────────────────────────────────── */
+.verloop {
+  margin: 0;
+  background: var(--v-fondo);
+  color: var(--v-texto);
+  font-family: var(--v-cuerpo);
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+/* solo los enlaces de texto (sin clase): chips, botones y pestañas llevan su
+   propio color, y una regla general sobre `a` se lo pisaba */
+.verloop a:where(:not([class])) { color: var(--v-texto); text-decoration-color: rgba(255, 255, 255, .35); text-underline-offset: 3px; }
+.verloop a:where(:not([class])):hover { color: #FFB3D1; text-decoration-color: currentColor; }
+.verloop :focus-visible { outline: 2px solid var(--v-eje-conf); outline-offset: 3px; }
+
+/* ── utilidades del sistema ───────────────────────────────────────────── */
+.v-big {
+  font-family: var(--v-display);
+  font-weight: 900;
+  text-transform: uppercase;
+  /* 0,86 en el lienzo de diseño; en el navegador las tildes de las
+     mayúsculas («PRESIÓN», «ESTÁ») tocan la línea de arriba. 0,94 las deja
+     respirar sin perder la compacidad. */
+  line-height: .94;
+  letter-spacing: -.005em;
+  margin: 0;
+  /* sin guiones automáticos: en un titular cortan palabras que caben en la
+     línea siguiente («PRE-SIÓN»); solo se parte una palabra que no cabe
+     entera en el ancho (320 px). */
+  hyphens: manual;
+  overflow-wrap: break-word;
+}
+.v-mono {
+  font-family: var(--v-mono);
+  font-size: 12px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--v-tenue);
+}
+.v-num { font-family: var(--v-mono); font-variant-numeric: tabular-nums; }
+.v-cuerpo { margin: 0; font-size: 14px; line-height: 1.55; color: var(--v-texto-2); }
+.v-pie { margin: 0; font-size: 12px; line-height: 1.5; color: var(--v-tenue); }
+.v-caja {
+  border: 1px solid var(--v-borde);
+  background: var(--v-caja);
+  padding: 24px;
+  box-sizing: border-box;
+}
+.v-chip {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 44px; padding: 0 14px;
+  border: 1px solid var(--v-borde-2); border-radius: 999px;
+  background: transparent; color: var(--v-texto-2);
+  font: 500 13px var(--v-cuerpo);
+  cursor: pointer;
+  transition: background .2s, color .2s;
+}
+.v-chip:hover, .v-chip[aria-pressed="true"] { background: var(--v-texto); color: var(--v-fondo); border-color: var(--v-texto); }
+.v-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 44px; padding: 0 18px; border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.4); background: transparent;
+  color: var(--v-texto); text-decoration: none;
+  font: 600 14px var(--v-cuerpo);
+}
+/* `.verloop a` fija el color de todos los enlaces: el botón relleno lo
+   reescribe con la misma especificidad, o su texto queda blanco sobre blanco. */
+.verloop .v-btn--lleno, .verloop .v-btn--lleno:hover { background: var(--v-texto); color: var(--v-fondo); border-color: var(--v-texto); }
+.v-trazo { color: var(--v-fondo); -webkit-text-stroke: 2px var(--v-texto); }
+@supports not (-webkit-text-stroke: 2px #fff) { .v-trazo { color: var(--v-texto); } }
+.v-grad-texto {
+  background: var(--v-iss);
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .verloop *, .verloop *::before, .verloop *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+}

@@ -36,13 +36,21 @@ REPO = "https://github.com/PhotoGarrido/BenchAI/blob/main/"
 SCRIPTS = {
     "index.html": ["datos.js", "js/marcado.js", "js/graficas.js",
                    "js/reproductor.js", "js/pagina.js", "js/escena.js"],
-    "home.html": ["datos.js", "js/marcado.js", "js/home.js"],
-    "psicobench.html": ["datos.js", "js/marcado.js", "js/graficas.js", "js/psicobench.js", "js/escena.js"],
-    "personalidad.html": ["datos.js", "js/marcado.js", "js/graficas.js", "js/personalidad.js", "js/escena.js"],
+    "home.html": ["datos.js", "js/marcado.js", "verloop/inicio.js", "js/escena.js"],
+    "psicobench.html": ["datos.js", "js/marcado.js", "js/graficas.js", "verloop/chasquido.js",
+                        "verloop/psicobench.js", "js/escena.js"],
+    "personalidad.html": ["datos.js", "js/marcado.js", "js/graficas.js", "verloop/chasquido.js",
+                          "verloop/personalidad.js", "js/escena.js"],
 }
-HOJAS = {"index.html": ["css/estilo.css"], "home.html": ["css/home.css"],
-         "psicobench.html": ["css/estilo.css", "css/psicobench.css"],
-         "personalidad.html": ["css/estilo.css", "css/psicobench.css", "css/personalidad.css"]}
+# El registro «Verloop» va encima de la base: tokens, lo común y lo de cada
+# página. Sus fuentes (`url(../fonts/…)`) no viajan en un fichero suelto: ahí
+# se cae a las de sistema.
+_VERLOOP = ["verloop/tokens.css", "verloop/sitio.css"]
+HOJAS = {"index.html": ["css/estilo.css"] + _VERLOOP + ["verloop/completo.css"],
+         "home.html": ["css/estilo.css"] + _VERLOOP + ["verloop/inicio.css"],
+         "psicobench.html": ["css/estilo.css", "css/psicobench.css"] + _VERLOOP + ["verloop/psicobench.css"],
+         "personalidad.html": ["css/estilo.css", "css/psicobench.css", "css/personalidad.css"]
+                              + _VERLOOP + ["verloop/personalidad.css"]}
 
 
 def blindar(js: str) -> str:
@@ -57,7 +65,9 @@ def construir(pagina: str, sin_envoltorio: bool = False,
     m = re.search(r"<title>(.*?)</title>", html, re.S)
     titulo = m.group(1).strip() if m else "PsicoAI"
 
-    m = re.search(r"<body>(.*)</body>", html, re.S)
+    # la clase del <body> (`verloop`) es de la que cuelga todo el registro
+    atributos = re.search(r"<body([^>]*)>", html).group(1)
+    m = re.search(r"<body[^>]*>(.*)</body>", html, re.S)
     if not m:
         raise SystemExit(f"[empaquetar] no encuentro el <body> de {pagina}")
     cuerpo = m.group(1)
@@ -125,7 +135,7 @@ def construir(pagina: str, sin_envoltorio: bool = False,
             '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
             '<meta name="color-scheme" content="dark">\n'
             + aviso + f"<title>{titulo}</title>\n"
-            f"<style>\n{css}\n</style>\n</head>\n<body>\n"
+            f"<style>\n{css}\n</style>\n</head>\n<body{atributos}>\n"
             + cuerpo + f"\n<script>\n{js}\n</script>\n</body>\n</html>\n")
 
 
