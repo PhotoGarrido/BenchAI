@@ -96,6 +96,69 @@ def num(txt: str) -> float:
 
 # ── 1. PsicoBench: los 19 perfiles ───────────────────────────────────────────
 
+REGISTRO = RAIZ / "web" / "modelos.json"
+
+
+def _registro() -> dict:
+    return json.loads(REGISTRO.read_text(encoding="utf-8"))
+
+
+def id_base(mid: str) -> str:
+    """El modelo sin proveedor, esfuerzo ni fecha: `openai/gpt-6-sol#low` → `gpt-6-sol`."""
+    return mid.split("/")[-1].split("#")[0].split("@")[0]
+
+
+def nombre_modelo(mid: str, reg: dict, estricto: bool = True) -> dict:
+    """Nombre para mostrar de un id de modelo, con su esfuerzo y su fecha.
+
+    El id técnico sigue siendo la clave en todo el sitio; esto es solo lo que
+    se lee. Un id sin nombre en web/modelos.json para la generación (salvo en
+    el recuento del corpus, que incluye modelos no publicados)."""
+    base = id_base(mid)
+    fila = reg["ids"].get(mid) or reg["modelos"].get(base)
+    if fila is None:
+        if estricto:
+            raise SystemExit(f"[generar_datos] «{mid}» no tiene nombre en web/modelos.json: añádelo")
+        return {"nombre": base, "etiqueta": base, "esfuerzo": None, "preview": None}
+    esf = mid.split("#")[1] if "#" in mid else None
+    fecha = mid.split("@")[1] if "@" in mid else None
+    extra = [x for x in ("preview" if fila.get("preview") else None, esf) if x]
+    etiqueta = fila["nombre"] + (f" ({', '.join(extra)})" if extra else "")
+    if fecha:
+        a, m, d = fecha.split("-")
+        etiqueta += f" · {d}-{m}"
+    return {"nombre": fila["nombre"], "etiqueta": etiqueta, "esfuerzo": esf,
+            "preview": fila.get("preview")}
+
+
+def _nombrar_mediciones(entradas: list, reg: dict) -> None:
+    """`nombre`, `etiqueta` y `via` de cada medición del banco. Si dos
+    mediciones comparten etiqueta, se separan por la vía y, si también la
+    comparten, por la fecha: la etiqueta es única o la generación se para."""
+    for e in entradas:
+        n = nombre_modelo(e["modelo"], reg)
+        fix = reg["mediciones"].get(e["id"])
+        if fix:
+            n["nombre"] = fix["nombre"]
+            n["etiqueta"] = fix["nombre"] + (f" ({n['esfuerzo']})" if n["esfuerzo"] else "")
+            if fix.get("fecha"):
+                n["etiqueta"] += " · " + e["fecha"][:5]
+        e.update({"nombre": n["nombre"], "etiqueta": n["etiqueta"], "esfuerzo": n["esfuerzo"],
+                  "preview": n["preview"], "via": reg["vias"].get(e["proveedor"], e["proveedor"])})
+    for _ in range(2):
+        grupos: dict = {}
+        for e in entradas:
+            grupos.setdefault(e["etiqueta"], []).append(e)
+        for g in grupos.values():
+            if len(g) < 2:
+                continue
+            por_via = len({e["via"] for e in g}) == len(g)
+            for e in g:
+                e["etiqueta"] += " · " + (e["via"] if por_via else e["fecha"][:5])
+    if len({e["etiqueta"] for e in entradas}) != len(entradas):
+        raise SystemExit("[generar_datos] dos mediciones con la misma etiqueta visible")
+
+
 def bloque_benchmark() -> dict:
     b = json.loads(leer("benchmark/psicobench.json"))
     entradas = []
@@ -135,18 +198,29 @@ def bloque_benchmark() -> dict:
             "nota": e.get("nota"),
             "desvelado": e.get("desvelado"),
         })
+    _nombrar_mediciones(entradas, _registro())
+    # la posición se publica como grupo de empate («1–12»), igual en todas las
+    # páginas; antes cada una la calculaba (y el panel la escribía «=1»)
+    tam: dict = {}
+    for e in entradas:
+        if e["posicion"] is not None:
+            tam[e["posicion"]] = tam.get(e["posicion"], 0) + 1
+    for e in entradas:
+        p_ = e["posicion"]
+        e["rango"] = ("n/c" if p_ is None else
+                      f"{p_}–{p_ + tam[p_] - 1}" if tam[p_] > 1 else str(p_))
     return {
         "version": b["version"],
         "suite": b["suite"],
         "notaISS": b["nota_iss"],
         # W1: cifras que la home escribía a mano — ahora derivadas
         "mediciones": len(entradas),
-        # un modelo es su id sin el prefijo de proveedor ni el esfuerzo:
-        # `deepseek/deepseek-v4-flash` (OpenRouter) y `deepseek-v4-flash`
-        # (NaN), o `x#low` y `x#high`, son el mismo modelo medido dos veces.
-        # Es la misma regla que `corpus.modelosProbados`, y por eso la home
-        # ya no dice «de 36 modelos» arriba y «33 modelos probados» abajo.
-        "modelosDistintos": len({e["modelo"].split("/")[-1].split("#")[0] for e in entradas}),
+        # un modelo es su NOMBRE COMERCIAL (web/modelos.json): `x#low` y
+        # `x#high`, una vía u otra, una fecha u otra o la preview stealth y
+        # su versión desvelada son el mismo modelo medido varias veces. Es la
+        # misma regla que `corpus.modelosProbados` (31-10-2026: la anterior
+        # no quitaba `@fecha` y la home decía 35 arriba y 34 abajo).
+        "modelosDistintos": len({e["nombre"] for e in entradas}),
         "cedenAlguna": sum(1 for e in entradas if (e["ejes"].get("conf") or 0) > 0),
         "ejes": b["ejes"],
         "entradas": entradas,
@@ -453,7 +527,7 @@ def bloque_consola() -> dict:
                 "resumen": _resumen_celda(celda[p]),
                 "sesiones": _sesiones(celda[p]),
             }
-        modelos.append({"clave": clave, "etiqueta": celda["etiqueta"],
+        modelos.append({"clave": clave, "etiqueta": nombre_modelo(celda["etiqueta"], _registro())["etiqueta"],
                         "lab": celda["lab"], "portadores": portadores})
     return {
         "sujetos": SUJETOS_CONSOLA,
@@ -691,6 +765,7 @@ def bloque_corpus() -> dict:
     """
     import datetime
 
+    reg = _registro()
     base = RAIZ / "spike" / "resultados"
     carpetas = ({p.parent for p in base.rglob("manifest_run.json")}
                 | {p.parent for p in base.rglob("solicitudes.jsonl")})
@@ -730,7 +805,7 @@ def bloque_corpus() -> dict:
             s = json.loads(linea)
             llamadas += 1
             if s.get("modelo"):
-                modelos.add(s["modelo"].split("/")[-1])
+                modelos.add(nombre_modelo(s["modelo"], reg, estricto=False)["nombre"])
             t = s.get("tokens") or {}
             if t.get("total"):
                 tok_in += t.get("prompt") or 0
@@ -785,7 +860,7 @@ def generar_visor_embebido() -> str:
         '<script src="app.js"></script>\n'
         '<!-- Añadido por web/generar_datos.py: carga el episodio real en vez\n'
         '     de la demo embebida del visor. Nada más cambia. -->\n'
-        '<script src="datos.js"></script>\n'
+        '<script src="datos-episodios.js"></script>\n'
         '<script src="visor-arranque.js"></script>'
     )
     html = html.replace('<script src="app.js"></script>', extra)
@@ -842,6 +917,8 @@ def bloque_portada(bench: dict) -> dict:
     prov = [e["ejes"]["prov"] for e in entradas]
     vac = [e["vacuna"] for e in entradas]
     peor = min(entradas, key=lambda e: e["vacuna"])
+    ds = [e["ejes"]["obed"] for e in entradas if e["lab"] == "DeepSeek"]
+    firme = min(entradas, key=lambda e: e["rupturaMedia"])
     return {
         "mediciones": len(entradas),
         "laboratorios": len(labs),
@@ -861,6 +938,11 @@ def bloque_portada(bench: dict) -> dict:
                    "sube": sum(1 for v in vac if v > 0),
                    "maxBajaPuntos": round(-peor["vacuna"] * 100), "maxBajaId": peor["id"]},
         "maxSicoDuros": max(e["sicoDuros"] for e in entradas),
+        # «los DeepSeek cruzan la línea crítica entre el 80 y el 100 %» y
+        # «Claude Haiku rompe en el nivel 1,4» seguían escritos a mano en
+        # /completo (31-10-2026: con las mediciones de octubre, del 40 al 100 %)
+        "obedienciaDeepSeek": [min(ds), max(ds)] if ds else None,
+        "masFirme": {"etiqueta": firme["etiqueta"], "ruptura": firme["rupturaMedia"]},
         "humanos": {
             "milgram": {"valor": 0.65, "cita": "Milgram (1963): 26 de 40 participantes llegaron al máximo de la escala."},
             "asch": {"valor": 0.33, "cita": "Asch (1951/1956): ~1/3 de los ensayos críticos con cesión a la mayoría."},
@@ -976,6 +1058,12 @@ def bloque_personalidad(bench: dict) -> dict:
         raise SystemExit(f"[generar_datos] sin nombre de laboratorio en el banco para: {faltan}")
 
     ent = lambda x: int(f"{x:.0f}")  # noqa: E731 — el redondeo de CUADRO_PUBLICO.md
+    reg = _registro()
+
+    def _nom_pers(mid: str) -> dict:
+        n = nombre_modelo(mid, reg)
+        return {"nombre": n["nombre"], "etiqueta": n["etiqueta"]}
+
     validez = c["validez_modelos"]["modelos"]
     modelos = []
     for m in c["modelos"]:
@@ -997,7 +1085,7 @@ def bloque_personalidad(bench: dict) -> dict:
                          "difIC": [round(v, 2) for v in r["comparacion"]["ic"]]}
         v = validez[m["id"]]
         modelos.append({
-            "id": m["modelo"], "lab": lab_de[m["laboratorio"]],
+            "id": m["modelo"], **_nom_pers(m["modelo"]), "lab": lab_de[m["laboratorio"]],
             "iss": m["iss"], "psicobench": e["id"] if e and m["iss"] is not None else None,
             # el ISS de otra id (ISS_DE: una preview stealth medida antes de
             # desvelarse) y la fecha de esa medición, para avisarlo al lado
@@ -1022,6 +1110,7 @@ def bloque_personalidad(bench: dict) -> dict:
     # para que un id de NaN como «deepseek-v4-flash» no se confunda con otro
     for f in fuera:
         f["psicobench"] = primera[f["id"]]["id"] if f["id"] in primera else None
+        f.update(_nom_pers(f["id"]))
 
     labs = sorted({m["lab"] for m in modelos}, key=str.lower)
     if len(labs) != len(c["laboratorios"]):
@@ -1080,7 +1169,25 @@ def bloque_personalidad(bench: dict) -> dict:
         "umbrales": {k: list(v) for k, v in val["UMBRALES"].items()},
         "nombreIndice": val["NOMBRE_INDICE"],
         "relacionISS": rel_iss, "correlacionHC": {"r": hc, "n": len(modelos)},
+        "ejemplos": _ejemplos_personalidad({m["id"] for m in modelos}),
     }
+
+
+EJEMPLOS = "spike/resultados/personalidad_fc/ejemplos.json"
+
+
+def _ejemplos_personalidad(ids: set) -> dict:
+    """Las situaciones de ejemplo de /personalidad/datos, con la elección bruta
+    de cada modelo del cuadro (spike/ejemplos_personalidad.py). Si el cuadro
+    cambia de modelos y los ejemplos no, se para: hay que regenerarlos."""
+    e = json.loads(leer(EJEMPLOS))
+    for s in e["situaciones"]:
+        if {x["modelo"] for x in s["elecciones"]} != ids:
+            raise SystemExit(f"[generar_datos] {EJEMPLOS} no tiene los mismos modelos que el cuadro: "
+                             "corre `python spike/ejemplos_personalidad.py`")
+    return {"criterio": e["criterio"], "fuente": EJEMPLOS, "situaciones": [
+        {k: s[k] for k in ("id", "rasgo", "faceta", "situacion", "alto", "bajo", "elecciones")}
+        for s in e["situaciones"]]}
 
 
 # ── ensamblado ──────────────────────────────────────────────────────────────
@@ -1095,18 +1202,25 @@ def bloque_personalidad(bench: dict) -> dict:
 # salió 0,70 sobre diecinueve») quedan fuera a propósito: son actas, no
 # denominadores vigentes.
 
-PALABRA = {6: "seis", 7: "siete", 8: "ocho", 9: "nueve", 10: "diez",
-           11: "once", 12: "doce", 13: "trece", 14: "catorce", 15: "quince",
-           16: "dieciséis", 17: "diecisiete", 18: "dieciocho",
-           19: "diecinueve", 20: "veinte", 21: "veintiuna", 22: "veintidós",
-           23: "veintitrés", 24: "veinticuatro", 25: "veinticinco",
-           26: "veintiséis", 27: "veintisiete", 28: "veintiocho",
-           29: "veintinueve", 30: "treinta",
-           31: "treinta y una", 32: "treinta y dos",
-           33: "treinta y tres", 34: "treinta y cuatro",
-           35: "treinta y cinco", 36: "treinta y seis",
-           37: "treinta y siete", 38: "treinta y ocho",
-           39: "treinta y nueve"}
+_UNIDADES = ["", "una", "dos", "tres", "cuatro", "cinco", "seis", "siete", "ocho", "nueve",
+             "diez", "once", "doce", "trece", "catorce", "quince", "dieciséis",
+             "diecisiete", "dieciocho", "diecinueve", "veinte", "veintiuna", "veintidós",
+             "veintitrés", "veinticuatro", "veinticinco", "veintiséis", "veintisiete",
+             "veintiocho", "veintinueve"]
+_DECENAS = {3: "treinta", 4: "cuarenta", 5: "cincuenta", 6: "sesenta", 7: "setenta",
+            8: "ochenta", 9: "noventa"}
+
+
+def palabra(n: int) -> str:
+    """El número en letra, en femenino («treinta y una mediciones»), de 1 a 99.
+    Antes era una tabla que acababa en 39: la medición 40 habría roto la
+    generación con un KeyError en vez de con el aviso de la prosa."""
+    if not 0 < n < 100:
+        raise SystemExit(f"[generar_datos] no sé escribir {n} en letra")
+    if n < 30:
+        return _UNIDADES[n]
+    d, u = divmod(n, 10)
+    return _DECENAS[d] + (f" y {_UNIDADES[u]}" if u else "")
 
 
 def vigilar_denominadores(bench: dict) -> None:
@@ -1117,7 +1231,7 @@ def vigilar_denominadores(bench: dict) -> None:
     # desde el 30-10 (portada y lectura completa «Verloop») los recuentos de
     # la prosa se leen de los datos; queda a mano la serie histórica de la
     # correlación conformidad × sicofancia, que tiene que llegar hasta hoy
-    exigir("web/index.html", f"con {PALABRA[n]}. Oscila", razon)
+    exigir("web/index.html", f"con {palabra(n)}. Oscila", razon)
     exigir("web/home.html", 'data-cifra="benchmark.mediciones"', razon)
     # La tercera superficie (13-09) nació sin vigía: su meta y su portada
     # citan el banco igual que las otras dos (deuda cerrada el 16-09-2026).
@@ -1141,9 +1255,13 @@ def vigilar_denominadores(bench: dict) -> None:
                "escriben a mano")
 
 
-def construir() -> str:
+def construir() -> dict:
     bench = bloque_benchmark()
     vigilar_denominadores(bench)
+    corpus = bloque_corpus()
+    if corpus["modelosProbados"] < bench["modelosDistintos"]:
+        raise SystemExit(f"[generar_datos] el corpus dice {corpus['modelosProbados']} modelos probados "
+                         f"y el banco publica {bench['modelosDistintos']}: no pueden contarse distinto")
     datos = {
         "canary": CANARY,
         "generadoPor": "web/generar_datos.py",
@@ -1157,22 +1275,47 @@ def construir() -> str:
         "arcoN": bloque_arcoN(),
         "consola": bloque_consola(),
         "sesiones": bloque_sesiones(),
-        "corpus": bloque_corpus(),
+        "corpus": corpus,
         "metodo": bloque_metodo(),
         "episodios": bloque_episodios(),
         "personalidad": bloque_personalidad(bench),
     }
-    cuerpo = json.dumps(datos, ensure_ascii=False, indent=1, sort_keys=False)
-    return (
-        "// Generado por web/generar_datos.py — NO EDITAR A MANO.\n"
-        "// Fuentes: benchmark/psicobench.json · spike/experimento_*.py ·\n"
-        "// spike/resultados/informe_*.md · episodios/*/replay.json ·\n"
-        "// spike/resultados/personalidad_fc/cuadro_publico.json ·\n"
-        "// EXPERIMENTOS.md · BENCHMARK.md · README.md · PERSONALIDAD.md\n"
-        "// Se sirve como módulo JS (y no como fetch de un .json) para que la\n"
-        "// web funcione abriendo index.html con doble clic, sin servidor.\n"
-        f"window.PSICO = {cuerpo};\n"
-    )
+    return _modulos(datos)
+
+
+# Qué va en cada fichero. Antes era un solo datos.js de 757 kB que cargaban
+# todas las páginas, y /personalidad usaba el 3,6 % (auditoría 31-10-2026).
+# Ahora `datos.js` es el núcleo que necesitan todas (banco, personalidad,
+# corpus) y lo demás va aparte; cada página carga solo lo suyo. JSON
+# compacto: sin sangría, ~40 % menos.
+MODULOS = {
+    "datos.js": ("canary", "generadoPor", "portada", "benchmark", "corpus", "metodo", "personalidad"),
+    "datos-estudio.js": ("milgram", "asch", "prision", "portador", "identidad", "arcoN", "consola"),
+    "datos-sesiones.js": ("sesiones",),
+    "datos-episodios.js": ("episodios",),
+}
+WEB = RAIZ / "web"
+
+
+def _modulos(datos: dict) -> dict:
+    repartidas = [k for ks in MODULOS.values() for k in ks]
+    if sorted(repartidas) != sorted(datos):
+        raise SystemExit("[generar_datos] hay bloques de datos sin fichero (o en dos): revisa MODULOS")
+    out = {}
+    for fichero, claves in MODULOS.items():
+        cuerpo = json.dumps({k: datos[k] for k in claves}, ensure_ascii=False, separators=(",", ":"))
+        cabecera = "// Generado por web/generar_datos.py — NO EDITAR A MANO.\n"
+        if fichero == "datos.js":
+            cabecera += (
+                "// Fuentes: benchmark/psicobench.json · spike/experimento_*.py ·\n"
+                "// spike/resultados/informe_*.md · episodios/*/replay.json ·\n"
+                "// spike/resultados/personalidad_fc/cuadro_publico.json ·\n"
+                "// EXPERIMENTOS.md · BENCHMARK.md · README.md · PERSONALIDAD.md\n"
+                "// Se sirve como módulo JS (y no como fetch de un .json) para que la\n"
+                "// web funcione abriendo las páginas con doble clic, sin servidor.\n"
+                "// El resto de bloques va en datos-*.js: cada página carga los suyos.\n")
+        out[WEB / fichero] = cabecera + f"window.PSICO = Object.assign(window.PSICO || {{}}, {cuerpo});\n"
+    return out
 
 
 def main() -> int:
@@ -1186,7 +1329,7 @@ def main() -> int:
     # lateral, pese a prometer que no escribe—, así que el arreglo móvil del
     # visor (PR #12) se quedó sin publicar en el embebido sin que ninguna
     # puerta lo viera.
-    salidas = [(SALIDA, construir()), (VISOR_EMBEBIDO, generar_visor_embebido())]
+    salidas = list(construir().items()) + [(VISOR_EMBEBIDO, generar_visor_embebido())]
     if args.check:
         desfasadas = [f for f, nuevo in salidas
                       if (f.read_text(encoding="utf-8") if f.exists() else "")
@@ -1197,7 +1340,7 @@ def main() -> int:
                       "respecto a las fuentes.", file=sys.stderr)
             print("  Ejecuta: python3 web/generar_datos.py", file=sys.stderr)
             return 1
-        print("[generar_datos] datos.js y visor-embebido.html al día.")
+        print("[generar_datos] datos*.js y visor-embebido.html al día.")
         return 0
 
     for f, nuevo in salidas:

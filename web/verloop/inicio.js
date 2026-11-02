@@ -61,10 +61,11 @@
 
   // los enlaces a las demás superficies salen de la barra, que en la
   // publicación ya lleva la ruta limpia
-  const base = (clave) => {
-    const a = Array.from(document.querySelectorAll(".superficies a")).find((x) => x.getAttribute("href").includes(clave));
-    return a ? a.getAttribute("href") : clave + ".html";
-  };
+  // publicada, la barra ya lleva las rutas limpias; en local, los ficheros.
+  // SocialBench vive en /social desde el 01-11-2026 (antes /psicobench)
+  const RUTA = { psicobench: "/social", personalidad: "/personalidad", index: "/completo", "personalidad-datos": "/personalidad/datos" };
+  const publicada = !!document.querySelector('.superficies a[href="/social"]');
+  const base = (clave) => (publicada ? RUTA[clave] : clave + ".html");
 
   /* ── cifras embebidas en el texto (mismo mecanismo que psicobench.js) ──── */
   const ruta = (obj, camino) => camino.split(".").reduce((o, k) => (o == null ? o : o[k]), obj);
@@ -79,7 +80,7 @@
   el("ultima-medicion").textContent = B.entradas.map((e) => e.fecha).concat([P.fecha]).sort((a, b) => fechaNum(a) - fechaNum(b)).pop();
 
   /* ══ 01 · los dos benchmarks, cada uno con su gráfica viva ═════════════ */
-  // PsicoBench: cada medición es un punto en la escala del ISS, en su color
+  // SocialBench: cada medición es un punto en la escala del ISS, en su color
   (function tiraISS() {
     const host = el("mini-iss");
     const orden = B.entradas.slice().sort((a, b) => a.iss - b.iss);
@@ -99,7 +100,7 @@
       const cx = x(e.iss);
       let f = 0; while ((filas[f] || []).some((v) => Math.abs(v - cx) < 9)) f++;
       (filas[f] = filas[f] || []).push(cx);
-      svg.appendChild(s("circle", { cx, cy: 46 - f * 9, r: 4, fill: colorISS(e.iss), class: "mini-p" }, [s("title", {}, [document.createTextNode(`${e.id} · ISS ${dec(e.iss)}`)])]));
+      svg.appendChild(s("circle", { cx, cy: 46 - f * 9, r: 4, fill: colorISS(e.iss), class: "mini-p" }, [s("title", {}, [document.createTextNode(`${e.etiqueta} · ISS ${dec(e.iss)}`)])]));
     });
     svg.appendChild(s("text", { x: P0, y: 88, class: "mini-t" }, [document.createTextNode("ISS → más alto, cede más")]));
     host.appendChild(svg);
@@ -124,7 +125,7 @@
       P.modelos.forEach((m) => {
         const t = m.rasgos[r.clave];
         svg.appendChild(s("circle", { cx: x(t.dif), cy: y, r: t.marca ? 4.5 : 2.6, class: "mini-p" + (t.marca ? " firme" : ""),
-          fill: t.marca ? TONO_R[r.clave] : "var(--tenue)" }, [s("title", {}, [document.createTextNode(`${m.id} · ${r.nombre} ${t.dif > 0 ? "+" : ""}${dec(t.dif)}`)])]));
+          fill: t.marca ? TONO_R[r.clave] : "var(--tenue)" }, [s("title", {}, [document.createTextNode(`${m.etiqueta} · ${r.nombre} ${t.dif > 0 ? "+" : ""}${dec(t.dif)}`)])]));
       });
     });
     svg.appendChild(s("text", { x: x(0), y: H - 6, class: "mini-t", "text-anchor": "middle" }, [document.createTextNode("media de los demás")]));
