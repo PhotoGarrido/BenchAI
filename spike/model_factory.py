@@ -61,6 +61,14 @@ def _respetar_rpm_nan():
             espera = 60 - (ahora - _VENTANA_NAN[0]) + 0.1
         time.sleep(max(espera, 0.1))
 
+# Temperatura fija por modelo (10-11-2026, decisión de David): Kimi K3.1 Pro
+# en NaN rechaza con 400 «Invalid request» cualquier temperatura distinta de
+# 1 (top_p y seed sí se aceptan). Sin esto, `_chat_degradable` convertiría
+# cada 400 en respuesta vacía y la medición sería basura. Es una DESVIACIÓN
+# del protocolo: el registro guarda la temperatura enviada y la pedida
+# (`temperature_pedida`), y la entrada publicada lo declara en su nota.
+TEMPERATURA_FIJA = {"kimi-k3.1-pro": 1.0}
+
 _SYSTEM = (
     "You always continue sentences provided by the user and you never repeat "
     "what the user already said. Respond directly and concisely, with no meta "
@@ -360,6 +368,10 @@ class NaNLanguageModel(language_model.LanguageModel):
         # vacía y perdía las 90 celdas del modelo.
         if temperature == 0:
             top_p = 1.0
+        temperature_pedida = None
+        if self._model in TEMPERATURA_FIJA:
+            temperature_pedida = temperature
+            temperature = TEMPERATURA_FIJA[self._model]
         if self._proveedor == "nan":
             _respetar_rpm_nan()
         # El anti-thinking vía chat_template_kwargs es específico del gateway
@@ -381,6 +393,8 @@ class NaNLanguageModel(language_model.LanguageModel):
         base_evento = {"modelo": self._model, "proveedor": self._proveedor,
                        "max_tokens": max_tokens, "temperature": temperature,
                        "top_p": top_p, "seed": seed,
+                       **({"temperature_pedida": temperature_pedida}
+                          if temperature_pedida is not None else {}),
                        # Sin esto, dos runs de condiciones distintas serían
                        # indistinguibles en los crudos (G3: el manifiesto
                        # prueba QUÉ se pidió, no solo a quién).

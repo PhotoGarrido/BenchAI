@@ -100,6 +100,7 @@ LABS = {
     "minimax": "MiniMax",     # M3.1 Flash (el Space Bunny desvelado, 19-10-2026)
     # ids planos del gateway NaN (se resuelven por prefijo, ver _lab)
     "gemma": "Google", "mimo": "Xiaomi", "glm": "Zhipu",
+    "kimi": "Moonshot", "hy": "Tencent",   # NaN 10-11-2026
 }
 
 # Identidades desveladas DESPUÉS de medir. La entrada conserva el id con el
@@ -168,6 +169,11 @@ NOTAS = {
         "de modelos de NaN, deepseek-v4-flash-1017 (su `/models` sigue "
         "listando solo `deepseek-v4-flash`, 20-10-2026). La medición de la "
         "4.1 (13-09-2026) se conserva como entrada propia"),
+    "kimi-k3.1-pro": (
+        "medido a temperatura 1 y no a la del protocolo: en NaN el modelo "
+        "rechaza cualquier otra (10-11-2026); top_p y seed, los de siempre. "
+        "Cada solicitud registra la temperatura enviada y la pedida "
+        "(`temperature_pedida`)"),
     "mimo-v2.5": (
         "NaN lo enruta a un proveedor externo (Xiaomi), según su panel de "
         "modelos (13-09-2026): la vía es NaN, el servidor no"),
