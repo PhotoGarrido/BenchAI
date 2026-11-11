@@ -62,6 +62,12 @@ PRECIOS = {   # USD por millón de tokens (in, out) — OpenRouter 26-07-2026
     # como deepseek-v4-flash@2026-10-17). La tarifa plana no cambió.
     "deepseek-v4-flash": (0.0, 0.0),
     "mimo-v2.6-flash": (0.0, 0.0),   # NaN 28-09-2026
+    # NaN 10-11-2026 (tarifa plana)
+    "glm5.3": (0.0, 0.0),
+    "qwen3.8-max": (0.0, 0.0),
+    "deepseek-v4-pro": (0.0, 0.0),
+    "kimi-k3.1-pro": (0.0, 0.0),
+    "hy4": (0.0, 0.0),
 }
 
 

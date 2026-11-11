@@ -138,6 +138,10 @@ EQUIPARACION = "lineal"
 #: rasgo NO entra en el cuadro público; figura como «pendiente de completar» hasta
 #: que tenga la forma completa. --con-forma-corta lo admite, solo para comparar.
 PUBLICAR_FORMA_CORTA = False
+#: Mediciones repetidas de un modelo del panel por otro proveedor (decisión de David,
+#: 10-11-2026): no son una fila más del cuadro; se listan aparte y se analizan en
+#: comparar_proveedores_personalidad.py. {id de la réplica: id de la medición de referencia}
+REPLICAS_PROVEEDOR = {"deepseek-v4-pro": "deepseek_deepseek-v4-pro-0813"}  # NaN = 0813 (docs de NaN)
 
 
 def selecciones_por_defecto():
@@ -164,7 +168,8 @@ def panel_publico(rutas, h_modo="i1", n_modo="i1", corta=None, validar=True,
     el panel y queda en «pendientes» (con sus índices de validez, informativos).
 
     Devuelve {"rasgos_v3", "panel", "formas", "fuera_cobertura", "validez",
-    "no_interpretables", "pendientes"}."""
+    "no_interpretables", "pendientes", "replicas"}. Las réplicas de proveedor
+    (REPLICAS_PROVEEDOR) no se evalúan: quedan fuera antes de todo filtro."""
     import analizar_h_confirmacion as ahc
     import analizar_n_confirmacion as anc
     import validez_personalidad as vp
@@ -177,7 +182,10 @@ def panel_publico(rutas, h_modo="i1", n_modo="i1", corta=None, validar=True,
     if n_modo == "i1":
         i1["N"] = (anc.ITEMS_A, anc.cargar_a)
     formas, fuera = {}, {}
+    replicas = {m: ref for m, ref in REPLICAS_PROVEEDOR.items() if m in v["elecciones"]}
     for m in sorted(v["elecciones"]):
+        if m in replicas:
+            continue
         f, motivo = {}, []
         cubre = lambda its, el: sum(i in el for i in its) / len(its) if its else 0.0  # noqa: E731
         if m not in v["ms"]:
@@ -210,7 +218,7 @@ def panel_publico(rutas, h_modo="i1", n_modo="i1", corta=None, validar=True,
     panel = [m for m in formas if m not in no_interp and m not in pendientes]
     return {"rasgos_v3": rasgos_v3, "panel": panel, "formas": {m: formas[m] for m in panel if formas[m]},
             "fuera_cobertura": fuera, "validez": validez, "no_interpretables": no_interp,
-            "pendientes": pendientes}
+            "pendientes": pendientes, "replicas": replicas}
 
 
 def sustituir_rasgo(v, t, h):
@@ -568,6 +576,10 @@ def escribir(r, rutas_sel):
             fuera_txt += (" **Pendientes de completar (§45.2, solo forma corta; no se publican):** "
                           + ", ".join(f"{_id(m)} (forma corta en {', '.join(x['rasgos_corta'])})"
                                       for m, x in pend.items()) + ".")
+        if pp.get("replicas"):
+            fuera_txt += (" **Réplicas entre proveedores (mismo modelo que otra medición ya hecha; no son"
+                          " una fila más, ver PROVEEDORES_DEEPSEEK_V4_PRO.md):** "
+                          + ", ".join(f"{_id(m)} (= {_id(ref)})" for m, ref in pp["replicas"].items()) + ".")
     else:
         fuera_txt = (f"Fuera por banco incompleto (< 95 %): "
                      f"{', '.join(f'{_id(m)} ({100 * c:.0f} %)' for m, c in v['excluidos'].items()) or 'ninguno'}.")
@@ -763,6 +775,8 @@ def escribir(r, rutas_sel):
                                         "motivo": x["motivo"], "valores": x["valores"]}
                                        for m, x in no_int.items()],
                  "fuera_por_cobertura_41": pp["fuera_cobertura"],
+                 "replicas_de_proveedor": [{"id": m, "modelo": _id(m), "referencia": _id(ref)}
+                                           for m, ref in pp.get("replicas", {}).items()],
                  "pendientes_de_completar": [{"id": m, "modelo": _id(m), "criterio": "PERSONALIDAD.md §45.2",
                                               "rasgos_forma_corta": x["rasgos_corta"],
                                               "validez": x["validez"]["nivel"],

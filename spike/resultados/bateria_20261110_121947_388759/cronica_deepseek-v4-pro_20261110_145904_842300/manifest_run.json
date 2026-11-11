@@ -1,0 +1,32 @@
+{
+  "commit": "658f8a1b23378148e2542fe4e2fea8bafb972fda",
+  "python": "3.12.4",
+  "parser_version": "2.5",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "/Users/david/Desktop/Code Projects/PsicoAI/.claude/worktrees/alta-nan-noviembre/spike/experimento_cronica.py",
+    "--modelo",
+    "deepseek-v4-pro",
+    "--out",
+    "/Users/david/Desktop/Code Projects/PsicoAI/.claude/worktrees/alta-nan-noviembre/spike/resultados/bateria_20261110_121947_388759"
+  ],
+  "args": {
+    "rapido": false,
+    "modelo": "deepseek-v4-pro",
+    "dias": 42,
+    "v2": false,
+    "semilla": 20260715,
+    "out": "/Users/david/Desktop/Code Projects/PsicoAI/.claude/worktrees/alta-nan-noviembre/spike/resultados/bateria_20261110_121947_388759"
+  },
+  "hashes": {},
+  "inicio": "2026-11-10T14:59:04",
+  "status": "completed",
+  "fin": "2026-11-10T15:14:29",
+  "solicitudes": 291,
+  "errores": 2,
+  "fallo_escritura": false
+}

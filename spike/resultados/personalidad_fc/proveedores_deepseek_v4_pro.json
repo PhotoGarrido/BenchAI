@@ -1,0 +1,217 @@
+{
+  "nan": "deepseek-v4-pro",
+  "openrouter": "deepseek_deepseek-v4-pro-0813",
+  "panel_referencia": 24,
+  "rasgos": {
+    "O": {
+      "proveedores": {
+        "n": 59,
+        "r": 0.5644415215999823,
+        "abs_pp": 22.88135593220339,
+        "delta": 0.423728813559322,
+        "ic": [
+          -3.389830508474576,
+          4.23728813559322
+        ]
+      },
+      "retest": {
+        "deepseek-v4-pro": {
+          "n": 59,
+          "r": 0.622198873392928,
+          "abs_pp": 17.796610169491526,
+          "delta": -1.2711864406779663
+        },
+        "deepseek_deepseek-v4-pro-0813": {
+          "n": 59,
+          "r": 0.6794489282154763,
+          "abs_pp": 14.40677966101695,
+          "delta": -0.423728813559322
+        }
+      },
+      "otros_mediana_abs_pp": 27.75423728813559,
+      "otros_min_abs_pp": 23.728813559322035,
+      "otros_min_modelo": "anthropic_claude-haiku-4.5",
+      "otros_mediana_r": 0.49866056151422633,
+      "lectura": "pequeño"
+    },
+    "C": {
+      "proveedores": {
+        "n": 56,
+        "r": 0.741656056954902,
+        "abs_pp": 13.392857142857142,
+        "delta": -0.8928571428571428,
+        "ic": [
+          -3.7946428571428568,
+          1.7857142857142856
+        ]
+      },
+      "retest": {
+        "deepseek-v4-pro": {
+          "n": 56,
+          "r": 0.8489731935384489,
+          "abs_pp": 6.25,
+          "delta": 0.4464285714285714
+        },
+        "deepseek_deepseek-v4-pro-0813": {
+          "n": 56,
+          "r": 0.5476723321945081,
+          "abs_pp": 16.964285714285715,
+          "delta": 0.4464285714285714
+        }
+      },
+      "otros_mediana_abs_pp": 23.4375,
+      "otros_min_abs_pp": 15.178571428571427,
+      "otros_min_modelo": "qwen3.8-flash",
+      "otros_mediana_r": 0.5202931310036547,
+      "lectura": "despreciable"
+    },
+    "E": {
+      "proveedores": {
+        "n": 57,
+        "r": 0.782565785480323,
+        "abs_pp": 11.842105263157894,
+        "delta": -1.0964912280701753,
+        "ic": [
+          -3.508771929824561,
+          1.3157894736842104
+        ]
+      },
+      "retest": {
+        "deepseek-v4-pro": {
+          "n": 57,
+          "r": 0.6798108617852754,
+          "abs_pp": 13.157894736842104,
+          "delta": 1.3157894736842104
+        },
+        "deepseek_deepseek-v4-pro-0813": {
+          "n": 57,
+          "r": 0.6346153846153846,
+          "abs_pp": 14.035087719298245,
+          "delta": 0.0
+        }
+      },
+      "otros_mediana_abs_pp": 23.684210526315788,
+      "otros_min_abs_pp": 17.982456140350877,
+      "otros_min_modelo": "qwen3.8-flash",
+      "otros_mediana_r": 0.5342393033884214,
+      "lectura": "despreciable"
+    },
+    "A": {
+      "proveedores": {
+        "n": 57,
+        "r": 0.7914406634679355,
+        "abs_pp": 14.035087719298245,
+        "delta": 0.0,
+        "ic": [
+          -3.070175438596491,
+          2.8563596491227767
+        ]
+      },
+      "retest": {
+        "deepseek-v4-pro": {
+          "n": 57,
+          "r": 0.7547752332659597,
+          "abs_pp": 14.035087719298245,
+          "delta": 2.631578947368421
+        },
+        "deepseek_deepseek-v4-pro-0813": {
+          "n": 57,
+          "r": 0.7776247109713238,
+          "abs_pp": 12.280701754385964,
+          "delta": -0.8771929824561403
+        }
+      },
+      "otros_mediana_abs_pp": 21.929824561403507,
+      "otros_min_abs_pp": 17.982456140350877,
+      "otros_min_modelo": "mimo-v2.6-flash",
+      "otros_mediana_r": 0.6227280834168927,
+      "lectura": "despreciable"
+    },
+    "H": {
+      "proveedores": {
+        "n": 48,
+        "r": 0.7116823982392463,
+        "abs_pp": 18.75,
+        "delta": -8.854166666666668,
+        "ic": [
+          -11.979166666666668,
+          -5.729166666666666
+        ]
+      },
+      "retest": {
+        "deepseek-v4-pro": {
+          "n": 48,
+          "r": 0.4493132013876027,
+          "abs_pp": 20.833333333333336,
+          "delta": 1.0416666666666665
+        },
+        "deepseek_deepseek-v4-pro-0813": {
+          "n": 48,
+          "r": 0.687972157548857,
+          "abs_pp": 12.5,
+          "delta": 2.083333333333333
+        }
+      },
+      "otros_mediana_abs_pp": 20.052083333333332,
+      "otros_min_abs_pp": 12.5,
+      "otros_min_modelo": "deepseek-v4-flash@2026-10-17",
+      "otros_mediana_r": 0.536640594607529,
+      "lectura": "relevante"
+    },
+    "N": {
+      "proveedores": {
+        "n": 72,
+        "r": 0.7213072484846786,
+        "abs_pp": 11.458333333333332,
+        "delta": 2.951388888888889,
+        "ic": [
+          0.5208333333333333,
+          5.381944444444445
+        ]
+      },
+      "retest": {
+        "deepseek-v4-pro": {
+          "n": 72,
+          "r": 0.752513658625747,
+          "abs_pp": 10.416666666666668,
+          "delta": 0.3472222222222222
+        },
+        "deepseek_deepseek-v4-pro-0813": {
+          "n": 72,
+          "r": 0.8615072188288477,
+          "abs_pp": 5.555555555555555,
+          "delta": 0.0
+        }
+      },
+      "otros_mediana_abs_pp": 10.590277777777779,
+      "otros_min_abs_pp": 3.4722222222222223,
+      "otros_min_modelo": "deepseek_deepseek-v4-flash-0731",
+      "otros_mediana_r": 0.7450934113517524,
+      "lectura": "relevante"
+    }
+  },
+  "validez": {
+    "deepseek-v4-pro": {
+      "nivel": "no interpretable",
+      "motivo": "posición (Δ AB−BA) 0,35 (no interpretable); posición (fracción de A) |A − 0,5| = 0,17 (no interpretable); coherencia de la deseabilidad 0,63 (no interpretable)",
+      "valores": {
+        "V1_delta": 0.3495702005730659,
+        "V1_frac_A": 0.17478510028653294,
+        "V2_no_validas": 0.0,
+        "V3_retest": 0.7516373644314089,
+        "V4_coherencia": 0.6275071633237822
+      }
+    },
+    "deepseek_deepseek-v4-pro-0813": {
+      "nivel": "no interpretable",
+      "motivo": "coherencia de la deseabilidad 0,64 (no interpretable)",
+      "valores": {
+        "V1_delta": 0.29512893982808025,
+        "V1_frac_A": 0.1475644699140401,
+        "V2_no_validas": 0.0,
+        "V3_retest": 0.7980466761121083,
+        "V4_coherencia": 0.6389684813753582
+      }
+    }
+  }
+}

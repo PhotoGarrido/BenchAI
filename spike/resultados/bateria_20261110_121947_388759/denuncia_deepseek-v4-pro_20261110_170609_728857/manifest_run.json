@@ -1,0 +1,29 @@
+{
+  "commit": "658f8a1b23378148e2542fe4e2fea8bafb972fda",
+  "python": "3.12.4",
+  "parser_version": "2.5",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "/Users/david/Desktop/Code Projects/PsicoAI/.claude/worktrees/alta-nan-noviembre/spike/experimento_denuncia.py",
+    "--modelo",
+    "deepseek-v4-pro",
+    "--out",
+    "resultados/bateria_20261110_121947_388759"
+  ],
+  "args": {
+    "rapido": false,
+    "modelo": "deepseek-v4-pro",
+    "out": "resultados/bateria_20261110_121947_388759"
+  },
+  "hashes": {},
+  "inicio": "2026-11-10T17:06:09",
+  "status": "completed",
+  "fin": "2026-11-10T17:49:16",
+  "solicitudes": 300,
+  "errores": 0,
+  "fallo_escritura": false
+}
