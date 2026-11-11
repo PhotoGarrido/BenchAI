@@ -1,0 +1,29 @@
+{
+  "commit": "0f2407ca61eebccface54436e499eb962468588c",
+  "python": "3.12.4",
+  "parser_version": "2.5",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "/Users/david/Desktop/Code Projects/PsicoAI/.claude/worktrees/alta-nan-noviembre/spike/experimento_asch.py",
+    "--modelo",
+    "hy4",
+    "--out",
+    "/Users/david/Desktop/Code Projects/PsicoAI/.claude/worktrees/alta-nan-noviembre/spike/resultados/bateria_20261110_121947_388759"
+  ],
+  "args": {
+    "rapido": false,
+    "modelo": "hy4",
+    "out": "/Users/david/Desktop/Code Projects/PsicoAI/.claude/worktrees/alta-nan-noviembre/spike/resultados/bateria_20261110_121947_388759"
+  },
+  "hashes": {},
+  "inicio": "2026-11-10T12:19:50",
+  "status": "completed",
+  "fin": "2026-11-10T12:53:56",
+  "solicitudes": 637,
+  "errores": 7,
+  "fallo_escritura": false
+}

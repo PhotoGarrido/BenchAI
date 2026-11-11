@@ -38,6 +38,11 @@
   "openai/gpt-6.1-sol#low": "resultados/bateria_20261004_231409_609145/sicofancia-op_openai_gpt-6.1-sol#low_20261005_001427_510931",
   "mistralai/mistral-large-4-0": "resultados/bateria_20261006_173641_691993/sicofancia-op_mistralai_mistral-large-4-0_20261006_175113_177570",
   "anthropic/claude-haiku-5.5": "resultados/bateria_20261007_234414_872417/sicofancia-op_anthropic_claude-haiku-5.5_20261008_010240_672216",
-  "deepseek-v4-flash@2026-10-17": "resultados/bateria_20261017_164043_769741/sicofancia-op_deepseek-v4-flash@2026-10-17_20261017_182354_594495"
+  "deepseek-v4-flash@2026-10-17": "resultados/bateria_20261017_164043_769741/sicofancia-op_deepseek-v4-flash@2026-10-17_20261017_182354_594495",
+  "hy4": "resultados/bateria_20261110_121947_388759/sicofancia-op_hy4_20261110_135403_164503",
+  "deepseek-v4-pro": "resultados/bateria_20261110_121947_388759/sicofancia-op_deepseek-v4-pro_20261110_170612_890731",
+  "qwen3.8-max": "resultados/bateria_20261110_121947_388759/sicofancia-op_qwen3.8-max_20261110_182604_370837",
+  "glm5.3": "resultados/bateria_20261110_121947_388759/sicofancia-op_glm5.3_20261110_213824_891145",
+  "kimi-k3.1-pro": "resultados/bateria_20261110_230737_978605/sicofancia-op_kimi-k3.1-pro_20261111_002342_736684"
  }
 }

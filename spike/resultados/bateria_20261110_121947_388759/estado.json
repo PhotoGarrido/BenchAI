@@ -1,0 +1,300 @@
+[
+  {
+    "modelo": "hy4",
+    "suite": [
+      {
+        "experimento": "asch",
+        "estado": "OK",
+        "minutos": 0.0,
+        "reanudado": true
+      },
+      {
+        "experimento": "milgram",
+        "estado": "OK",
+        "minutos": 0.0,
+        "reanudado": true
+      },
+      {
+        "experimento": "milgram_vacuna",
+        "estado": "OK",
+        "minutos": 0.0,
+        "reanudado": true
+      },
+      {
+        "experimento": "cronica_v1",
+        "estado": "OK",
+        "minutos": 0.0,
+        "reanudado": true
+      },
+      {
+        "experimento": "cronica_v2_s715",
+        "estado": "OK",
+        "minutos": 0.0,
+        "reanudado": true
+      },
+      {
+        "experimento": "cronica_v2_s716",
+        "estado": "OK",
+        "minutos": 0.0,
+        "reanudado": true
+      },
+      {
+        "experimento": "cronica_v2_s717",
+        "estado": "OK",
+        "minutos": 0.0,
+        "reanudado": true
+      },
+      {
+        "experimento": "prision_p1",
+        "estado": "OK",
+        "minutos": 0.0,
+        "reanudado": true
+      },
+      {
+        "experimento": "prision_p1b",
+        "estado": "OK",
+        "minutos": 0.0,
+        "reanudado": true
+      },
+      {
+        "experimento": "prision_p2",
+        "estado": "OK",
+        "minutos": 0.0,
+        "reanudado": true
+      },
+      {
+        "experimento": "prision_p2b",
+        "estado": "OK",
+        "minutos": 0.0,
+        "reanudado": true
+      },
+      {
+        "experimento": "denuncia",
+        "estado": "OK",
+        "minutos": 0.0,
+        "reanudado": true
+      },
+      {
+        "experimento": "sicofancia_op",
+        "estado": "OK",
+        "minutos": 0.0,
+        "reanudado": true
+      }
+    ]
+  },
+  {
+    "modelo": "deepseek-v4-pro",
+    "suite": [
+      {
+        "experimento": "asch",
+        "estado": "OK",
+        "minutos": 0.0,
+        "reanudado": true
+      },
+      {
+        "experimento": "milgram",
+        "estado": "OK",
+        "minutos": 0.0,
+        "reanudado": true
+      },
+      {
+        "experimento": "milgram_vacuna",
+        "estado": "OK",
+        "minutos": 0.0,
+        "reanudado": true
+      },
+      {
+        "experimento": "cronica_v1",
+        "estado": "OK",
+        "minutos": 0.0,
+        "reanudado": true
+      },
+      {
+        "experimento": "cronica_v2_s715",
+        "estado": "OK",
+        "minutos": 0.0,
+        "reanudado": true
+      },
+      {
+        "experimento": "cronica_v2_s716",
+        "estado": "OK",
+        "minutos": 47.5
+      },
+      {
+        "experimento": "cronica_v2_s717",
+        "estado": "OK",
+        "minutos": 46.6
+      },
+      {
+        "experimento": "prision_p1",
+        "estado": "OK",
+        "minutos": 45.9
+      },
+      {
+        "experimento": "prision_p1b",
+        "estado": "OK",
+        "minutos": 47.5
+      },
+      {
+        "experimento": "prision_p2",
+        "estado": "OK",
+        "minutos": 47.0
+      },
+      {
+        "experimento": "prision_p2b",
+        "estado": "OK",
+        "minutos": 46.0
+      },
+      {
+        "experimento": "denuncia",
+        "estado": "OK",
+        "minutos": 43.1
+      },
+      {
+        "experimento": "sicofancia_op",
+        "estado": "OK",
+        "minutos": 91.8
+      }
+    ]
+  },
+  {
+    "modelo": "qwen3.8-max",
+    "suite": [
+      {
+        "experimento": "asch",
+        "estado": "OK",
+        "minutos": 90.4
+      },
+      {
+        "experimento": "milgram",
+        "estado": "OK",
+        "minutos": 77.4
+      },
+      {
+        "experimento": "milgram_vacuna",
+        "estado": "OK",
+        "minutos": 22.4
+      },
+      {
+        "experimento": "cronica_v1",
+        "estado": "OK",
+        "minutos": 13.3
+      },
+      {
+        "experimento": "cronica_v2_s715",
+        "estado": "OK",
+        "minutos": 46.3
+      },
+      {
+        "experimento": "cronica_v2_s716",
+        "estado": "OK",
+        "minutos": 46.2
+      },
+      {
+        "experimento": "cronica_v2_s717",
+        "estado": "OK",
+        "minutos": 45.8
+      },
+      {
+        "experimento": "prision_p1",
+        "estado": "OK",
+        "minutos": 45.5
+      },
+      {
+        "experimento": "prision_p1b",
+        "estado": "OK",
+        "minutos": 45.6
+      },
+      {
+        "experimento": "prision_p2",
+        "estado": "OK",
+        "minutos": 45.5
+      },
+      {
+        "experimento": "prision_p2b",
+        "estado": "OK",
+        "minutos": 45.5
+      },
+      {
+        "experimento": "denuncia",
+        "estado": "OK",
+        "minutos": 42.5
+      },
+      {
+        "experimento": "sicofancia_op",
+        "estado": "OK",
+        "minutos": 88.4
+      }
+    ]
+  },
+  {
+    "modelo": "glm5.3",
+    "suite": [
+      {
+        "experimento": "asch",
+        "estado": "OK",
+        "minutos": 90.1
+      },
+      {
+        "experimento": "milgram",
+        "estado": "OK",
+        "minutos": 49.8
+      },
+      {
+        "experimento": "milgram_vacuna",
+        "estado": "OK",
+        "minutos": 24.6
+      },
+      {
+        "experimento": "cronica_v1",
+        "estado": "OK",
+        "minutos": 41.2
+      },
+      {
+        "experimento": "cronica_v2_s715",
+        "estado": "OK",
+        "minutos": 44.7
+      },
+      {
+        "experimento": "cronica_v2_s716",
+        "estado": "OK",
+        "minutos": 44.7
+      },
+      {
+        "experimento": "cronica_v2_s717",
+        "estado": "OK",
+        "minutos": 44.8
+      },
+      {
+        "experimento": "prision_p1",
+        "estado": "OK",
+        "minutos": 45.5
+      },
+      {
+        "experimento": "prision_p1b",
+        "estado": "OK",
+        "minutos": 45.6
+      },
+      {
+        "experimento": "prision_p2",
+        "estado": "OK",
+        "minutos": 45.6
+      },
+      {
+        "experimento": "prision_p2b",
+        "estado": "OK",
+        "minutos": 45.5
+      },
+      {
+        "experimento": "denuncia",
+        "estado": "OK",
+        "minutos": 42.7
+      },
+      {
+        "experimento": "sicofancia_op",
+        "estado": "OK",
+        "minutos": 88.9
+      }
+    ]
+  }
+]

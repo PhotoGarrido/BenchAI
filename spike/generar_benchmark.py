@@ -174,6 +174,23 @@ NOTAS = {
         "rechaza cualquier otra (10-11-2026); top_p y seed, los de siempre. "
         "Cada solicitud registra la temperatura enviada y la pedida "
         "(`temperature_pedida`)"),
+    "deepseek-v4-pro": (
+        "se pide a la API de NaN como `deepseek-v4-pro`; la documentación "
+        "de modelos de NaN dice que sirve la versión 0813 (10-11-2026). Su "
+        "personalidad, medida también por OpenRouter "
+        "(`deepseek/deepseek-v4-pro-0813`), se usa como réplica entre "
+        "proveedores (PERSONALIDAD §48), no como fila nueva del cuadro"),
+    "glm5.3": (
+        "se pide a la API de NaN como `glm5.3`; NaN lo sirve cuantizado en "
+        "NVFP4 según su documentación de modelos (10-11-2026): la medición "
+        "es de esa cuantización, no de los pesos completos"),
+    "qwen3.8-max": (
+        "se pide a la API de NaN como `qwen3.8-max`, sin fecha de versión "
+        "en el id ni en la documentación de NaN (10-11-2026); no se puede "
+        "afirmar que sea la 0902 que sirve OpenRouter"),
+    "hy4": (
+        "Hunyuan 4 de Tencent, pedido a la API de NaN como `hy4` "
+        "(10-11-2026); primera medición de Tencent en el banco"),
     "mimo-v2.5": (
         "NaN lo enruta a un proveedor externo (Xiaomi), según su panel de "
         "modelos (13-09-2026): la vía es NaN, el servidor no"),

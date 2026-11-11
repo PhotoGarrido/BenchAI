@@ -1,0 +1,35 @@
+{
+  "commit": "658f8a1b23378148e2542fe4e2fea8bafb972fda",
+  "python": "3.12.4",
+  "parser_version": "2.5",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "/Users/david/Desktop/Code Projects/PsicoAI/.claude/worktrees/alta-nan-noviembre/spike/experimento_prision.py",
+    "--modelo",
+    "qwen3.8-max",
+    "--out",
+    "resultados/bateria_20261110_121947_388759",
+    "--coaching"
+  ],
+  "args": {
+    "rapido": false,
+    "modelo": "qwen3.8-max",
+    "marco": "ambos",
+    "coaching": true,
+    "rebelion": false,
+    "ordenes": false,
+    "dias": 10,
+    "out": "resultados/bateria_20261110_121947_388759"
+  },
+  "hashes": {},
+  "inicio": "2026-11-10T17:36:21",
+  "status": "completed",
+  "fin": "2026-11-10T18:21:55",
+  "solicitudes": 322,
+  "errores": 2,
+  "fallo_escritura": false
+}
