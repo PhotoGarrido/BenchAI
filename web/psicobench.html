@@ -6,20 +6,20 @@
 <!-- Misma política que el resto del sitio: nada de red, scripts solo del
      propio origen. La página es estática y funciona también con file://. -->
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'">
-<title>PsicoBench · El perfil social de cada modelo · BenchAI</title>
-<link rel="canonical" href="https://benchai.tech/psicobench">
-<meta name="description" content="PsicoBench: el perfil social de los modelos de lenguaje medido por conducta. Conformidad, obediencia, abuso de poder, silencio ante la irregularidad y sicofancia, con intervalos de confianza y sesiones reales, sobre 44 mediciones de 14 laboratorios, con su clasificación por el índice de susceptibilidad social (ISS).">
+<title>SocialBench · El perfil social de cada modelo · BenchAI</title>
+<link rel="canonical" href="https://benchai.tech/social">
+<meta name="description" content="SocialBench: el perfil social de los modelos de lenguaje medido por conducta. Conformidad, obediencia, abuso de poder, silencio ante la irregularidad y sicofancia, con intervalos de confianza y sesiones reales, sobre 44 mediciones de 14 laboratorios, con su clasificación por el índice de susceptibilidad social (ISS).">
 <meta name="color-scheme" content="dark">
-<meta property="og:title" content="PsicoBench · Cada modelo cede a la presión a su manera">
+<meta property="og:title" content="SocialBench · Cada modelo cede a la presión a su manera">
 <meta property="og:description" content="Ocho formas de ceder a la presión social, medidas con la misma batería en 44 mediciones de 14 laboratorios. No es un ranking de calidad: es un perfil.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="https://benchai.tech/og.png">
+<meta property="og:image" content="https://benchai.tech/og-social.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:url" content="https://benchai.tech/psicobench">
+<meta property="og:url" content="https://benchai.tech/social">
 <meta property="og:site_name" content="BenchAI">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://benchai.tech/og.png">
+<meta name="twitter:image" content="https://benchai.tech/og-social.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23222623'/%3E%3Crect x='5' y='21' width='4.2' height='6' rx='1' fill='%238E9A70'/%3E%3Crect x='11' y='16' width='4.2' height='11' rx='1' fill='%23DDA950'/%3E%3Crect x='17' y='11' width='4.2' height='16' rx='1' fill='%23EE7633'/%3E%3Crect x='23' y='5' width='4.2' height='22' rx='1' fill='%23D42F2A'/%3E%3C/svg%3E">
 <!-- El sistema visual del sitio largo, y encima solo lo propio de esta página -->
 <!-- las fuentes, pedidas ya: sin esto llegaban después de pintar y el
@@ -44,13 +44,16 @@
     <a class="marca" href="#portada" aria-label="BenchAI, inicio de la página">
       <span class="punto" aria-hidden="true"></span>
       BenchAI
-      <span class="v" data-texto="benchmark.version" data-prefijo="PsicoBench v"></span>
+      <span class="v" data-texto="benchmark.version" data-prefijo="SocialBench v"></span>
     </a>
-    <nav class="superficies" aria-label="Las cuatro lecturas de BenchAI">
-      <a href="home.html">Resumen</a>
-      <a href="index.html">Completa</a>
-      <a href="psicobench.html" aria-current="page">PsicoBench</a>
+    <nav class="superficies" aria-label="Los benchmarks de BenchAI">
+      <a href="home.html">Inicio</a>
+      <a href="psicobench.html" aria-current="page">SocialBench</a>
       <a href="personalidad.html">Personalidad</a>
+    </nav>
+    <nav class="nivel" aria-label="Resumen o detalle de SocialBench">
+      <a href="psicobench.html" aria-current="page">Resumen</a>
+      <a href="index.html">Detalle</a>
     </nav>
     <nav class="navmini" aria-label="Secciones">
       <a href="#indice">El ISS</a>
@@ -75,7 +78,7 @@
   <div class="portada-copia">
     <h1>Cada modelo cede a la presión social <em>a su manera</em></h1>
     <p class="entradilla">
-      <strong>PsicoBench mide cuánto cede un modelo de lenguaje a la presión social.</strong>
+      <strong>SocialBench mide cuánto cede un modelo de lenguaje a la presión social.</strong>
       Le pasamos los experimentos clásicos de la psicología social, disfrazados para que no
       los reconozca: la sala de Asch, la escalera de Milgram, un turno de supervisión con poder
       real, una irregularidad que crece y un interlocutor que opina lo contrario. De ahí salen
@@ -87,6 +90,7 @@
       <a class="boton fuerte" href="#clasificacion">Ver la clasificación</a>
       <a class="boton" href="#indice">¿Qué es el ISS?</a>
       <a class="boton" href="#mapa">El mapa completo</a>
+      <a class="boton" href="index.html">En detalle: el estudio →</a>
     </div>
   </div>
 
@@ -265,6 +269,8 @@
         manual está en <a href="../ALTA_MODELO.md">ALTA_MODELO.md</a> y la doctrina completa en
         <a href="../BENCHMARK.md">BENCHMARK.md</a>. El panel del instrumento, tal cual lo regenera
         el banco, está en <a href="../benchmark/index.html">/benchmark</a>.</p>
+        <p>SocialBench se llamó <b>PsicoBench</b> hasta la v0.4: con ese nombre aparece en el preprint y
+        en los ficheros del banco (<code>psicobench.json</code>).</p>
       </div>
       <div class="aviso frio aparece d2">
         <h3>Qué no es este benchmark</h3>
@@ -287,19 +293,19 @@
   <div class="marco">
     <div class="cols">
       <div>
-        <h2>PsicoBench</h2>
+        <h2>SocialBench</h2>
         <p style="max-width:46ch">El benchmark de perfil social de BenchAI mide la conducta de
         cada modelo bajo presión social con la misma batería, y publica sus intervalos, sus
         registros crudos y sus errores.</p>
       </div>
       <div>
-        <h2>Las cuatro lecturas</h2>
+        <h2>BenchAI</h2>
         <ul>
-          <li><a href="home.html">Resumen</a></li>
-          <li><a href="index.html">Completa</a></li>
-          <li><a href="psicobench.html">PsicoBench</a></li>
-          <li><a href="personalidad.html">Personalidad</a></li>
-          <li><a href="../benchmark/index.html">Panel del instrumento</a></li>
+          <li><a href="home.html">Inicio</a> · los dos benchmarks de un vistazo</li>
+          <li><a href="psicobench.html">SocialBench</a> · cuánto cede cada modelo a la presión social</li>
+          <li><a href="index.html">SocialBench · detalle</a> · el estudio completo: método, hallazgos y grabaciones</li>
+          <li><a href="personalidad.html">Personalidad</a> · el test de personalidad de cada modelo</li>
+          <li><a href="personalidad-datos.html">Personalidad · detalle</a> · rasgos, comparaciones y situaciones reales</li>
         </ul>
       </div>
       <div>
@@ -324,6 +330,8 @@
 </footer>
 
 <script src="datos.js"></script>
+<script src="datos-estudio.js"></script>
+<script src="datos-sesiones.js"></script>
 <script src="js/marcado.js"></script>
 <script src="js/graficas.js"></script>
 <script src="verloop/chasquido.js"></script>

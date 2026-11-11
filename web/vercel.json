@@ -6,21 +6,67 @@
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "Referrer-Policy", "value": "no-referrer" },
-        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
-        { "key": "Permissions-Policy", "value": "geolocation=(), microphone=(), camera=(), interest-cohort=()" }
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "no-referrer"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "geolocation=(), microphone=(), camera=(), interest-cohort=()"
+        }
       ]
     }
   ],
   "redirects": [
-    { "source": "/",
-      "has": [{ "type": "host", "value": "www.benchai.tech" }],
-      "destination": "https://benchai.tech/", "permanent": true },
-    { "source": "/:path*",
-      "has": [{ "type": "host", "value": "www.benchai.tech" }],
-      "destination": "https://benchai.tech/:path*", "permanent": true },
-    { "source": "/home", "destination": "/", "permanent": true },
-    { "source": "/benchmark/index.html", "destination": "/benchmark", "permanent": true }
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.benchai.tech"
+        }
+      ],
+      "destination": "https://benchai.tech/",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.benchai.tech"
+        }
+      ],
+      "destination": "https://benchai.tech/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/home",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/benchmark/index.html",
+      "destination": "/benchmark",
+      "permanent": true
+    },
+    {
+      "source": "/psicobench",
+      "destination": "/social",
+      "permanent": true
+    },
+    {
+      "source": "/visor",
+      "destination": "/viewer",
+      "permanent": true
+    }
   ]
 }

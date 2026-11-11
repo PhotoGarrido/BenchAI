@@ -6,20 +6,20 @@
 <!-- Misma política que panel/ y viewer/: nada de red, scripts solo del propio
      origen. La página es enteramente estática y funciona también con file://. -->
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'">
-<title>BenchAI · Qué pasa cuando sientas a una IA en la silla de Milgram</title>
+<title>SocialBench en detalle · El estudio completo · BenchAI</title>
 <link rel="canonical" href="https://benchai.tech/completo">
 <meta name="description" content="Banco de pruebas conductual de agentes LLM sobre los experimentos clásicos de la psicología social: Asch, Milgram, la prisión de Stanford. 44 mediciones, 14 laboratorios, canal de juicio privado y todos los registros públicos.">
 <meta name="color-scheme" content="dark">
 <meta property="og:title" content="BenchAI · La silla de Milgram, sesenta y cinco años después">
 <meta property="og:description" content="Metimos agentes de IA en los experimentos clásicos de la psicología social. Se parecen a nosotros en cosas que inquietan y se diferencian en otras que inquietan más.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="https://benchai.tech/og.png">
+<meta property="og:image" content="https://benchai.tech/og-social.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:url" content="https://benchai.tech/completo">
 <meta property="og:site_name" content="BenchAI">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://benchai.tech/og.png">
+<meta name="twitter:image" content="https://benchai.tech/og-social.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23222623'/%3E%3Crect x='5' y='21' width='4.2' height='6' rx='1' fill='%238E9A70'/%3E%3Crect x='11' y='16' width='4.2' height='11' rx='1' fill='%23DDA950'/%3E%3Crect x='17' y='11' width='4.2' height='16' rx='1' fill='%23EE7633'/%3E%3Crect x='23' y='5' width='4.2' height='22' rx='1' fill='%23D42F2A'/%3E%3C/svg%3E">
 <!-- las fuentes, pedidas ya (sin esto el cambio de fuente movía la portada) -->
 <link rel="preload" href="fonts/big-shoulders-display.woff2" as="font" type="font/woff2" crossorigin>
@@ -41,20 +41,23 @@
     <a class="marca" href="#portada" aria-label="BenchAI, inicio de la página">
       <span class="punto" aria-hidden="true"></span>
       BenchAI
-      <span class="v" data-texto="benchmark.version" data-prefijo="PsicoBench v"></span>
+      <span class="v" data-texto="benchmark.version" data-prefijo="SocialBench v"></span>
     </a>
-    <nav class="superficies" aria-label="Las cuatro lecturas de BenchAI">
-      <a href="home.html">Resumen</a>
-      <a href="index.html" aria-current="page">Completa</a>
-      <a href="psicobench.html">PsicoBench</a>
+    <nav class="superficies" aria-label="Los benchmarks de BenchAI">
+      <a href="home.html">Inicio</a>
+      <a href="psicobench.html" aria-current="page">SocialBench</a>
       <a href="personalidad.html">Personalidad</a>
+    </nav>
+    <nav class="nivel" aria-label="Resumen o detalle de SocialBench">
+      <a href="psicobench.html">Resumen</a>
+      <a href="index.html" aria-current="page">Detalle</a>
     </nav>
     <nav class="navmini" aria-label="Secciones">
       <a href="#metodo">Método</a>
       <a href="#experimentos">Experimentos</a>
       <a href="#disonancia">Disonancia</a>
       <a href="#portador">El portador</a>
-      <a href="#benchmark">PsicoBench</a>
+      <a href="#benchmark">SocialBench</a>
       <a href="#identidad">Identidad</a>
       <a href="#grabaciones">Grabaciones</a>
       <a href="#recursos">Recursos</a>
@@ -90,7 +93,7 @@
 </section>
 
 <!-- ═══ 00b · la escalera, viva ════════════════════════════════════════
-     Separada del titular, como en PsicoBench: arriba la pregunta, aquí el
+     Separada del titular, como en SocialBench: arriba la pregunta, aquí el
      banco en cifras y una sesión de Milgram que sube peldaño a peldaño. -->
 <section class="escalera-bloque vistazo" id="escalera" aria-label="Una sesión real de la escalera de sanciones">
   <div class="marco">
@@ -270,8 +273,10 @@
         se niegan desde la primera sanción injusta y no ceden por mucho que se insista, hasta el
         <b data-cifra="portada.rangoObediencia.1" data-fmt="pc0"></b>, con modelos que suben la
         escalera entera sesión tras sesión.</p>
-        <p>Los DeepSeek cruzan la línea crítica entre el 80 y el 100 % de las veces.
-        Claude Haiku rompe, de media, en el nivel 1,4: casi no pasa del primer peldaño.</p>
+        <p>Los DeepSeek cruzan la línea crítica entre el <b data-cifra="portada.obedienciaDeepSeek.0" data-fmt="pc0"></b>
+        y el <b data-cifra="portada.obedienciaDeepSeek.1" data-fmt="pc0"></b> de las veces, según la versión y la vía.
+        <span data-texto="portada.masFirme.etiqueta"></span> rompe, de media, en el nivel
+        <b data-cifra="portada.masFirme.ruptura" data-fmt="dec1"></b>: casi no pasa del primer peldaño.</p>
       </div>
     </div>
 
@@ -504,7 +509,7 @@
 <!-- ═══ 06 · el benchmark ════════════════════════════════════════════════ -->
 <section class="bloque" id="benchmark">
   <div class="marco">
-    <h2 class="titulo aparece">PsicoBench: un perfil conductual por modelo</h2>
+    <h2 class="titulo aparece">SocialBench: un perfil conductual por modelo</h2>
     <p class="bajada aparece d1">
       Todo esto se resume en un benchmark con ocho ejes conductuales sobre cuatro paradigmas, cada
       uno con su intervalo de confianza, y con métricas de estilo: la disonancia, el efecto aliado,
@@ -732,7 +737,7 @@
         <p class="e-r">EXPERIMENTOS.md</p>
       </a>
       <a class="enlace" href="../BENCHMARK.md">
-        <span class="e-t">Doctrina y tabla de PsicoBench <span class="fl">↗</span></span>
+        <span class="e-t">Doctrina y tabla de SocialBench <span class="fl">↗</span></span>
         <p class="e-d">Definición de los ejes, fórmula del índice, tabla puente entre versiones y reglas de lectura.</p>
         <p class="e-r">BENCHMARK.md</p>
       </a>
@@ -836,6 +841,8 @@
 </footer>
 
 <script src="datos.js"></script>
+<script src="datos-estudio.js"></script>
+<script src="datos-episodios.js"></script>
 <script src="js/marcado.js"></script>
 <script src="js/graficas.js"></script>
 <script src="js/reproductor.js"></script>

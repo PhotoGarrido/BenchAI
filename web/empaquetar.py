@@ -34,13 +34,15 @@ REPO = "https://github.com/PhotoGarrido/BenchAI/blob/main/"
 # El orden importa: `datos.js` define window.PSICO, `js/marcado.js` define
 # window.MARCADO, y el resto los consume.
 SCRIPTS = {
-    "index.html": ["datos.js", "js/marcado.js", "js/graficas.js",
+    "index.html": ["datos.js", "datos-estudio.js", "datos-episodios.js", "js/marcado.js", "js/graficas.js",
                    "js/reproductor.js", "js/pagina.js", "js/escena.js"],
-    "home.html": ["datos.js", "js/marcado.js", "verloop/inicio.js", "js/escena.js"],
-    "psicobench.html": ["datos.js", "js/marcado.js", "js/graficas.js", "verloop/chasquido.js",
-                        "verloop/psicobench.js", "js/escena.js"],
+    "home.html": ["datos.js", "datos-estudio.js", "js/marcado.js", "verloop/inicio.js", "js/escena.js"],
+    "psicobench.html": ["datos.js", "datos-estudio.js", "datos-sesiones.js", "js/marcado.js", "js/graficas.js",
+                        "verloop/chasquido.js", "verloop/psicobench.js", "js/escena.js"],
     "personalidad.html": ["datos.js", "js/marcado.js", "js/graficas.js", "verloop/chasquido.js",
                           "verloop/personalidad.js", "js/escena.js"],
+    "personalidad-datos.html": ["datos.js", "js/marcado.js", "js/graficas.js",
+                                "js/personalidad-datos.js", "js/escena.js"],
 }
 # El registro «Verloop» va encima de la base: tokens, lo común y lo de cada
 # página. Sus fuentes (`url(../fonts/…)`) no viajan en un fichero suelto: ahí
@@ -50,7 +52,8 @@ HOJAS = {"index.html": ["css/estilo.css"] + _VERLOOP + ["verloop/completo.css"],
          "home.html": ["css/estilo.css"] + _VERLOOP + ["verloop/inicio.css"],
          "psicobench.html": ["css/estilo.css", "css/psicobench.css"] + _VERLOOP + ["verloop/psicobench.css"],
          "personalidad.html": ["css/estilo.css", "css/psicobench.css", "css/personalidad.css"]
-                              + _VERLOOP + ["verloop/personalidad.css"]}
+                              + _VERLOOP + ["verloop/personalidad.css"],
+         "personalidad-datos.html": ["css/estilo.css", "css/psicobench.css"] + _VERLOOP + ["css/datos.css"]}
 
 
 def blindar(js: str) -> str:

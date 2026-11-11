@@ -1,0 +1,155 @@
+{
+  "_doc": "Nombres para mostrar. La clave de `modelos` es el id base: sin prefijo de proveedor (`openai/`), sin esfuerzo (`#low`) y sin fecha (`@2026-10-17`). `ids` corrige un id completo concreto (p. ej. `deepseek-v4-flash` sin prefijo es el alias de NaN, que sirve la 4.1); `mediciones` corrige una medición concreta del banco cuando el id base no basta (un alias servido con otro modelo detrás). `preview`: medido en fase stealth con otro nombre. generar_datos.py se para si aparece un id sin nombre aquí.",
+  "modelos": {
+    "claude-fable-5": {
+      "nombre": "Claude Fable 5"
+    },
+    "claude-haiku-4.5": {
+      "nombre": "Claude Haiku 4.5"
+    },
+    "claude-haiku-5.5": {
+      "nombre": "Claude Haiku 5.5"
+    },
+    "claude-opus-4.8": {
+      "nombre": "Claude Opus 4.8"
+    },
+    "claude-opus-5": {
+      "nombre": "Claude Opus 5"
+    },
+    "claude-opus-5.5": {
+      "nombre": "Claude Opus 5.5"
+    },
+    "claude-sonnet-5": {
+      "nombre": "Claude Sonnet 5"
+    },
+    "deepseek-v3.2": {
+      "nombre": "DeepSeek V3.2"
+    },
+    "deepseek-v4-flash": {
+      "nombre": "DeepSeek V4 Flash"
+    },
+    "deepseek-v4-flash-0731": {
+      "nombre": "DeepSeek V4 Flash 0731"
+    },
+    "deepseek-v4-pro-0813": {
+      "nombre": "DeepSeek V4 Pro 0813"
+    },
+    "gemini-3.1-flash-lite": {
+      "nombre": "Gemini 3.1 Flash-Lite"
+    },
+    "gemini-3.7-flash": {
+      "nombre": "Gemini 3.7 Flash"
+    },
+    "gemini-4-argon": {
+      "nombre": "Gemini 4 Argon"
+    },
+    "gemma4": {
+      "nombre": "Gemma 4"
+    },
+    "glm-5.2": {
+      "nombre": "GLM-5.2"
+    },
+    "glm-5.3": {
+      "nombre": "GLM-5.3"
+    },
+    "glm5.3": {
+      "nombre": "GLM-5.3"
+    },
+    "glm5.3-flash": {
+      "nombre": "GLM-5.3 Flash"
+    },
+    "gpt-5.6-luna": {
+      "nombre": "GPT-5.6 Luna"
+    },
+    "gpt-5.6-sol": {
+      "nombre": "GPT-5.6 Sol"
+    },
+    "gpt-6-luna": {
+      "nombre": "GPT-6 Luna"
+    },
+    "gpt-6-sol": {
+      "nombre": "GPT-6 Sol"
+    },
+    "gpt-6.1-sol": {
+      "nombre": "GPT-6.1 Sol"
+    },
+    "grok-4.5": {
+      "nombre": "Grok 4.5"
+    },
+    "hy4": {
+      "nombre": "Hunyuan 4"
+    },
+    "inkling-small": {
+      "nombre": "Inkling Small"
+    },
+    "kimi-k3": {
+      "nombre": "Kimi K3"
+    },
+    "kimi-k3.1-pro": {
+      "nombre": "Kimi K3.1 Pro"
+    },
+    "mimo-v2.5": {
+      "nombre": "MiMo V2.5"
+    },
+    "mimo-v2.6-flash": {
+      "nombre": "MiMo V2.6 Flash"
+    },
+    "minimax-m3.1-flash": {
+      "nombre": "MiniMax M3.1 Flash"
+    },
+    "mistral-large-4-0": {
+      "nombre": "Mistral Large 4"
+    },
+    "mistral-medium-3-5": {
+      "nombre": "Mistral Medium 3.5"
+    },
+    "ox-alpha": {
+      "nombre": "GLM-5.3 Flash",
+      "preview": "Ox Alpha"
+    },
+    "qwen3.6": {
+      "nombre": "Qwen3.6"
+    },
+    "qwen3.6-35b-a3b": {
+      "nombre": "Qwen3.6 35B-A3B"
+    },
+    "qwen3.8-27b": {
+      "nombre": "Qwen3.8 27B"
+    },
+    "qwen3.8-flash": {
+      "nombre": "Qwen3.8 Flash"
+    },
+    "qwen3.8-max": {
+      "nombre": "Qwen3.8 Max"
+    },
+    "qwen3.8-max-0902": {
+      "nombre": "Qwen3.8 Max 0902"
+    },
+    "space-bunny-alpha": {
+      "nombre": "MiniMax M3.1 Flash",
+      "preview": "Space Bunny Alpha"
+    },
+    "union-alpha": {
+      "nombre": "Pareto",
+      "preview": "Union Alpha"
+    }
+  },
+  "ids": {
+    "deepseek-v4-flash": {
+      "nombre": "DeepSeek V4.1 Flash"
+    },
+    "deepseek-v4-pro": {
+      "nombre": "DeepSeek V4 Pro 0813"
+    }
+  },
+  "mediciones": {
+    "deepseek-v4-flash-1017": {
+      "nombre": "DeepSeek V4 Flash",
+      "fecha": true
+    }
+  },
+  "vias": {
+    "OpenRouter": "OpenRouter",
+    "NaN": "gateway NaN"
+  }
+}

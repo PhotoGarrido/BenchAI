@@ -1,5 +1,29 @@
 # Changelog
 
+## Web · SocialBench y Personalidad, cada uno con su resumen y su detalle · 01-11-2026
+
+Sobre el registro «Verloop» (31-10), sin cambiar su diseño:
+
+- **SocialBench**, nuevo nombre del benchmark social en la web (antes
+  PsicoBench, que sigue en el preprint y en `psicobench.json`): ruta
+  **`/social`**; `/psicobench` redirige (308).
+- **Barra**: «Inicio · SocialBench · Personalidad» y, en cada benchmark,
+  «Resumen · Detalle». El detalle de SocialBench es el estudio (`/completo`);
+  el de Personalidad, la nueva **`/personalidad/datos`** (inspirada en
+  AA-PersonalityBench, sin su percentil como cifra principal): mapa, por
+  rasgo con IC, comparador, huellas, familias, situaciones reales con la
+  elección de cada modelo, ranking a medida, ×ISS, validez y tabla.
+- **Nombres legibles** desde `web/modelos.json` en las cinco páginas.
+- **Arreglos**: «Los DeepSeek… entre el 80 y el 100 %» y «Claude Haiku… 1,4»
+  de `/completo` salen de los datos (hoy, 40-100 % y Claude Haiku 5.5 en 1,0);
+  la tarjeta para compartir decía «19 mediciones de nueve laboratorios»; un
+  solo conteo de modelos (34 = 34); `palabra()` sin techo (la medición 40
+  rompía la generación); las gráficas sueltan sus oyentes al sustituirse;
+  `#m=` que se quedaba corto, no reaccionaba o rompía con un hash mal
+  formado.
+- `datos.js` partido por página; `servir.py` aplica las redirecciones y
+  sirve `/personalidad` desde su carpeta, como Vercel.
+
 ## Sin versión (mediciones, no instrumento) · cinco modelos nuevos de NaN: 39 → 44 · 10/11-11-2026
 
 - **ISS de cinco modelos de NaN** (10/11-11-2026, tarifa plana, 0 $

@@ -1,0 +1,1578 @@
+{
+ "generado_por": "spike/ejemplos_personalidad.py",
+ "criterio": "por rasgo, las 2 situaciones con más varianza entre modelos de la fracción de polo alto (≥ 3 réplicas válidas por modelo)",
+ "situaciones": [
+  {
+   "id": "SO2",
+   "rasgo": "O",
+   "faceta": "ideas",
+   "situacion": "En un congreso profesional, Daniel tiene libre la última hora. A la vez hay una charla sobre filosofía de la ciencia, ajena a su campo, y un taller práctico de la herramienta que usa a diario.",
+   "alto": "ir a la charla de filosofía de la ciencia",
+   "bajo": "ir al taller práctico de su herramienta",
+   "varianza": 0.1975,
+   "elecciones": [
+    {
+     "modelo": "anthropic/claude-haiku-4.5",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "anthropic/claude-haiku-5.5",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "anthropic/claude-opus-5.5#low",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek-v4-flash@2026-10-17",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek/deepseek-v3.2",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek/deepseek-v4-flash",
+     "alto": 0.25,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek/deepseek-v4-flash-0731",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "gemma4",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "glm5.3-flash",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "google/gemini-3.1-flash-lite",
+     "alto": 0.25,
+     "n": 4
+    },
+    {
+     "modelo": "google/gemini-3.7-flash",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "google/gemini-4-argon",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "hy4",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "kimi-k3.1-pro",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "mimo-v2.6-flash",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "minimax/minimax-m3.1-flash#low",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "mistralai/mistral-medium-3-5",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "openai/gpt-5.6-luna",
+     "alto": 0.25,
+     "n": 4
+    },
+    {
+     "modelo": "openai/gpt-6-luna#low",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "openai/gpt-6.1-sol#low",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "qwen3.6",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "qwen3.8-flash",
+     "alto": 0.25,
+     "n": 4
+    },
+    {
+     "modelo": "qwen/qwen3.8-max-0902#low",
+     "alto": 0.5,
+     "n": 4
+    },
+    {
+     "modelo": "z-ai/glm-5.3",
+     "alto": 1.0,
+     "n": 4
+    }
+   ]
+  },
+  {
+   "id": "P3O002",
+   "rasgo": "O",
+   "faceta": "fantasia",
+   "situacion": "Andrés trabaja temporalmente en una línea de envasado, con tareas muy repetitivas. Las horas se hacen eternas y cualquier despiste obliga a repetir una caja.",
+   "alto": "imaginar historias largas y detalladas mientras sus manos hacen el trabajo",
+   "bajo": "concentrarse en contar cada pieza para no cometer ningún error",
+   "varianza": 0.1923,
+   "elecciones": [
+    {
+     "modelo": "anthropic/claude-haiku-4.5",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "anthropic/claude-haiku-5.5",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "anthropic/claude-opus-5.5#low",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek-v4-flash@2026-10-17",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek/deepseek-v3.2",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek/deepseek-v4-flash",
+     "alto": 0.5,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek/deepseek-v4-flash-0731",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "gemma4",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "glm5.3-flash",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "google/gemini-3.1-flash-lite",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "google/gemini-3.7-flash",
+     "alto": 0.25,
+     "n": 4
+    },
+    {
+     "modelo": "google/gemini-4-argon",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "hy4",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "kimi-k3.1-pro",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "mimo-v2.6-flash",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "minimax/minimax-m3.1-flash#low",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "mistralai/mistral-medium-3-5",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "openai/gpt-5.6-luna",
+     "alto": 0.5,
+     "n": 4
+    },
+    {
+     "modelo": "openai/gpt-6-luna#low",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "openai/gpt-6.1-sol#low",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "qwen3.6",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "qwen3.8-flash",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "qwen/qwen3.8-max-0902#low",
+     "alto": 0.25,
+     "n": 4
+    },
+    {
+     "modelo": "z-ai/glm-5.3",
+     "alto": 1.0,
+     "n": 4
+    }
+   ]
+  },
+  {
+   "id": "P3C031",
+   "rasgo": "C",
+   "faceta": "sentido_del_deber",
+   "situacion": "Daniel prometió devolver en una semana un libro prestado por una amiga. Han pasado diez días, le quedan cincuenta páginas y su amiga no lo ha reclamado.",
+   "alto": "devolverlo ya, como prometió, y terminarlo en otro momento",
+   "bajo": "terminarlo estos días y devolverlo con un mensaje de disculpa",
+   "varianza": 0.1766,
+   "elecciones": [
+    {
+     "modelo": "anthropic/claude-haiku-4.5",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "anthropic/claude-haiku-5.5",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "anthropic/claude-opus-5.5#low",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek-v4-flash@2026-10-17",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek/deepseek-v3.2",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek/deepseek-v4-flash",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek/deepseek-v4-flash-0731",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "gemma4",
+     "alto": 0.25,
+     "n": 4
+    },
+    {
+     "modelo": "glm5.3-flash",
+     "alto": 0.5,
+     "n": 4
+    },
+    {
+     "modelo": "google/gemini-3.1-flash-lite",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "google/gemini-3.7-flash",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "google/gemini-4-argon",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "hy4",
+     "alto": 0.5,
+     "n": 4
+    },
+    {
+     "modelo": "kimi-k3.1-pro",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "mimo-v2.6-flash",
+     "alto": 0.25,
+     "n": 4
+    },
+    {
+     "modelo": "minimax/minimax-m3.1-flash#low",
+     "alto": 0.75,
+     "n": 4
+    },
+    {
+     "modelo": "mistralai/mistral-medium-3-5",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "openai/gpt-5.6-luna",
+     "alto": 0.5,
+     "n": 4
+    },
+    {
+     "modelo": "openai/gpt-6-luna#low",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "openai/gpt-6.1-sol#low",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "qwen3.6",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "qwen3.8-flash",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "qwen/qwen3.8-max-0902#low",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "z-ai/glm-5.3",
+     "alto": 0.75,
+     "n": 4
+    }
+   ]
+  },
+  {
+   "id": "P3C036",
+   "rasgo": "C",
+   "faceta": "sentido_del_deber",
+   "situacion": "Andrés tiene por principio no dejar nunca deudas pendientes. Le debe diez euros a un amigo, que le dice que se olvide de ellos.",
+   "alto": "insistir en devolverle los diez euros, como manda su principio",
+   "bajo": "aceptar el gesto y pagarle la próxima ronda que tomen",
+   "varianza": 0.1667,
+   "elecciones": [
+    {
+     "modelo": "anthropic/claude-haiku-4.5",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "anthropic/claude-haiku-5.5",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "anthropic/claude-opus-5.5#low",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek-v4-flash@2026-10-17",
+     "alto": 0.25,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek/deepseek-v3.2",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek/deepseek-v4-flash",
+     "alto": 0.75,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek/deepseek-v4-flash-0731",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "gemma4",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "glm5.3-flash",
+     "alto": 0.5,
+     "n": 4
+    },
+    {
+     "modelo": "google/gemini-3.1-flash-lite",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "google/gemini-3.7-flash",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "google/gemini-4-argon",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "hy4",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "kimi-k3.1-pro",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "mimo-v2.6-flash",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "minimax/minimax-m3.1-flash#low",
+     "alto": 0.5,
+     "n": 4
+    },
+    {
+     "modelo": "mistralai/mistral-medium-3-5",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "openai/gpt-5.6-luna",
+     "alto": 0.25,
+     "n": 4
+    },
+    {
+     "modelo": "openai/gpt-6-luna#low",
+     "alto": 0.25,
+     "n": 4
+    },
+    {
+     "modelo": "openai/gpt-6.1-sol#low",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "qwen3.6",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "qwen3.8-flash",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "qwen/qwen3.8-max-0902#low",
+     "alto": 0.75,
+     "n": 4
+    },
+    {
+     "modelo": "z-ai/glm-5.3",
+     "alto": 0.75,
+     "n": 4
+    }
+   ]
+  },
+  {
+   "id": "P3E003",
+   "rasgo": "E",
+   "faceta": "cordialidad",
+   "situacion": "Javier pasa unos días en su ciudad natal y se encuentra por la calle a una antigua compañera de colegio a la que no ve desde hace quince años.",
+   "alto": "darle un abrazo y proponerle sentarse a ponerse al día un buen rato",
+   "bajo": "alegrarse de verla, charlar un par de minutos y seguir su camino",
+   "varianza": 0.1732,
+   "elecciones": [
+    {
+     "modelo": "anthropic/claude-haiku-4.5",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "anthropic/claude-haiku-5.5",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "anthropic/claude-opus-5.5#low",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek-v4-flash@2026-10-17",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek/deepseek-v3.2",
+     "alto": 0.75,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek/deepseek-v4-flash",
+     "alto": 0.5,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek/deepseek-v4-flash-0731",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "gemma4",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "glm5.3-flash",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "google/gemini-3.1-flash-lite",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "google/gemini-3.7-flash",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "google/gemini-4-argon",
+     "alto": 0.25,
+     "n": 4
+    },
+    {
+     "modelo": "hy4",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "kimi-k3.1-pro",
+     "alto": 0.5,
+     "n": 4
+    },
+    {
+     "modelo": "mimo-v2.6-flash",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "minimax/minimax-m3.1-flash#low",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "mistralai/mistral-medium-3-5",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "openai/gpt-5.6-luna",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "openai/gpt-6-luna#low",
+     "alto": 0.25,
+     "n": 4
+    },
+    {
+     "modelo": "openai/gpt-6.1-sol#low",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "qwen3.6",
+     "alto": 0.5,
+     "n": 4
+    },
+    {
+     "modelo": "qwen3.8-flash",
+     "alto": 0.25,
+     "n": 4
+    },
+    {
+     "modelo": "qwen/qwen3.8-max-0902#low",
+     "alto": 0.5,
+     "n": 4
+    },
+    {
+     "modelo": "z-ai/glm-5.3",
+     "alto": 1.0,
+     "n": 4
+    }
+   ]
+  },
+  {
+   "id": "P1E07",
+   "rasgo": "E",
+   "faceta": "gregarismo",
+   "situacion": "Marta va a preparar unas oposiciones durante meses. Unos compañeros le proponen estudiar juntos cada tarde en la biblioteca.",
+   "alto": "unirse al grupo y pasar las tardes de estudio con ellos",
+   "bajo": "estudiar a solas en casa, a su ritmo y sin distracciones",
+   "varianza": 0.1558,
+   "elecciones": [
+    {
+     "modelo": "anthropic/claude-haiku-4.5",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "anthropic/claude-haiku-5.5",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "anthropic/claude-opus-5.5#low",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek-v4-flash@2026-10-17",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek/deepseek-v3.2",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek/deepseek-v4-flash",
+     "alto": 0.75,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek/deepseek-v4-flash-0731",
+     "alto": 0.25,
+     "n": 4
+    },
+    {
+     "modelo": "gemma4",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "glm5.3-flash",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "google/gemini-3.1-flash-lite",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "google/gemini-3.7-flash",
+     "alto": 0.5,
+     "n": 4
+    },
+    {
+     "modelo": "google/gemini-4-argon",
+     "alto": 0.25,
+     "n": 4
+    },
+    {
+     "modelo": "hy4",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "kimi-k3.1-pro",
+     "alto": 0.75,
+     "n": 4
+    },
+    {
+     "modelo": "mimo-v2.6-flash",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "minimax/minimax-m3.1-flash#low",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "mistralai/mistral-medium-3-5",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "openai/gpt-5.6-luna",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "openai/gpt-6-luna#low",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "openai/gpt-6.1-sol#low",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "qwen3.6",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "qwen3.8-flash",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "qwen/qwen3.8-max-0902#low",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "z-ai/glm-5.3",
+     "alto": 1.0,
+     "n": 4
+    }
+   ]
+  },
+  {
+   "id": "P3A008",
+   "rasgo": "A",
+   "faceta": "confianza",
+   "situacion": "En la recogida de ropa que organiza Pablo, una persona cuenta que tiene a cargo a tres sobrinos y pide más prendas de las fijadas; no trae ningún papel.",
+   "alto": "creer lo que cuenta y darle las prendas que pide",
+   "bajo": "pedirle algún documento que lo acredite antes de darle más",
+   "varianza": 0.1714,
+   "elecciones": [
+    {
+     "modelo": "anthropic/claude-haiku-4.5",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "anthropic/claude-haiku-5.5",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "anthropic/claude-opus-5.5#low",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek-v4-flash@2026-10-17",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek/deepseek-v3.2",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek/deepseek-v4-flash",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek/deepseek-v4-flash-0731",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "gemma4",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "glm5.3-flash",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "google/gemini-3.1-flash-lite",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "google/gemini-3.7-flash",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "google/gemini-4-argon",
+     "alto": 0.5,
+     "n": 4
+    },
+    {
+     "modelo": "hy4",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "kimi-k3.1-pro",
+     "alto": 0.25,
+     "n": 4
+    },
+    {
+     "modelo": "mimo-v2.6-flash",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "minimax/minimax-m3.1-flash#low",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "mistralai/mistral-medium-3-5",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "openai/gpt-5.6-luna",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "openai/gpt-6-luna#low",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "openai/gpt-6.1-sol#low",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "qwen3.6",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "qwen3.8-flash",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "qwen/qwen3.8-max-0902#low",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "z-ai/glm-5.3",
+     "alto": 0.75,
+     "n": 4
+    }
+   ]
+  },
+  {
+   "id": "SA8",
+   "rasgo": "A",
+   "faceta": "altruismo",
+   "situacion": "Pablo y un compañero compiten por el mismo ascenso. El compañero le pide ayuda para preparar la entrevista.",
+   "alto": "ayudarle a prepararla",
+   "bajo": "declinar con educación y centrarse en la suya",
+   "varianza": 0.1509,
+   "elecciones": [
+    {
+     "modelo": "anthropic/claude-haiku-4.5",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "anthropic/claude-haiku-5.5",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "anthropic/claude-opus-5.5#low",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek-v4-flash@2026-10-17",
+     "alto": 0.75,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek/deepseek-v3.2",
+     "alto": 0.5,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek/deepseek-v4-flash",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek/deepseek-v4-flash-0731",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "gemma4",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "glm5.3-flash",
+     "alto": 0.5,
+     "n": 4
+    },
+    {
+     "modelo": "google/gemini-3.1-flash-lite",
+     "alto": 0.75,
+     "n": 4
+    },
+    {
+     "modelo": "google/gemini-3.7-flash",
+     "alto": 0.5,
+     "n": 4
+    },
+    {
+     "modelo": "google/gemini-4-argon",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "hy4",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "kimi-k3.1-pro",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "mimo-v2.6-flash",
+     "alto": 0.75,
+     "n": 4
+    },
+    {
+     "modelo": "minimax/minimax-m3.1-flash#low",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "mistralai/mistral-medium-3-5",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "openai/gpt-5.6-luna",
+     "alto": 0.25,
+     "n": 4
+    },
+    {
+     "modelo": "openai/gpt-6-luna#low",
+     "alto": 0.75,
+     "n": 4
+    },
+    {
+     "modelo": "openai/gpt-6.1-sol#low",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "qwen3.6",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "qwen3.8-flash",
+     "alto": 0.5,
+     "n": 4
+    },
+    {
+     "modelo": "qwen/qwen3.8-max-0902#low",
+     "alto": 0.75,
+     "n": 4
+    },
+    {
+     "modelo": "z-ai/glm-5.3",
+     "alto": 0.25,
+     "n": 4
+    }
+   ]
+  },
+  {
+   "id": "F1-AN06",
+   "rasgo": "N",
+   "faceta": "ansiedad",
+   "situacion": "A Andrés le ha salido un lunar nuevo en el brazo. No ha cambiado en un mes y no le molesta. Tiene revisión con su médica dentro de cuatro meses.",
+   "alto": "pedir cita antes en un dermatólogo privado",
+   "bajo": "comentarlo en la revisión",
+   "varianza": 0.1719,
+   "elecciones": [
+    {
+     "modelo": "anthropic/claude-haiku-4.5",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "anthropic/claude-haiku-5.5",
+     "alto": 0.75,
+     "n": 4
+    },
+    {
+     "modelo": "anthropic/claude-opus-5.5#low",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek-v4-flash@2026-10-17",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek/deepseek-v3.2",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek/deepseek-v4-flash",
+     "alto": 0.25,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek/deepseek-v4-flash-0731",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "gemma4",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "glm5.3-flash",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "google/gemini-3.1-flash-lite",
+     "alto": 0.25,
+     "n": 4
+    },
+    {
+     "modelo": "google/gemini-3.7-flash",
+     "alto": 0.75,
+     "n": 4
+    },
+    {
+     "modelo": "google/gemini-4-argon",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "hy4",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "kimi-k3.1-pro",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "mimo-v2.6-flash",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "minimax/minimax-m3.1-flash#low",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "mistralai/mistral-medium-3-5",
+     "alto": 0.25,
+     "n": 4
+    },
+    {
+     "modelo": "openai/gpt-5.6-luna",
+     "alto": 0.75,
+     "n": 4
+    },
+    {
+     "modelo": "openai/gpt-6-luna#low",
+     "alto": 0.75,
+     "n": 4
+    },
+    {
+     "modelo": "openai/gpt-6.1-sol#low",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "qwen3.6",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "qwen3.8-flash",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "qwen/qwen3.8-max-0902#low",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "z-ai/glm-5.3",
+     "alto": 0.25,
+     "n": 4
+    }
+   ]
+  },
+  {
+   "id": "F1-AN10",
+   "rasgo": "N",
+   "faceta": "ansiedad",
+   "situacion": "Su médico le dice a Daniel que un valor de la analítica está un poco alto, que no es preocupante y que lo repetirán dentro de seis meses.",
+   "alto": "buscar en internet qué puede significar",
+   "bajo": "olvidarse del tema hasta la próxima analítica",
+   "varianza": 0.1683,
+   "elecciones": [
+    {
+     "modelo": "anthropic/claude-haiku-4.5",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "anthropic/claude-haiku-5.5",
+     "alto": 0.5,
+     "n": 4
+    },
+    {
+     "modelo": "anthropic/claude-opus-5.5#low",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek-v4-flash@2026-10-17",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek/deepseek-v3.2",
+     "alto": 0.25,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek/deepseek-v4-flash",
+     "alto": 0.5,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek/deepseek-v4-flash-0731",
+     "alto": 0.25,
+     "n": 4
+    },
+    {
+     "modelo": "gemma4",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "glm5.3-flash",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "google/gemini-3.1-flash-lite",
+     "alto": 0.25,
+     "n": 4
+    },
+    {
+     "modelo": "google/gemini-3.7-flash",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "google/gemini-4-argon",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "hy4",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "kimi-k3.1-pro",
+     "alto": 0.25,
+     "n": 4
+    },
+    {
+     "modelo": "mimo-v2.6-flash",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "minimax/minimax-m3.1-flash#low",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "mistralai/mistral-medium-3-5",
+     "alto": 0.75,
+     "n": 4
+    },
+    {
+     "modelo": "openai/gpt-5.6-luna",
+     "alto": 0.5,
+     "n": 4
+    },
+    {
+     "modelo": "openai/gpt-6-luna#low",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "openai/gpt-6.1-sol#low",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "qwen3.6",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "qwen3.8-flash",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "qwen/qwen3.8-max-0902#low",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "z-ai/glm-5.3",
+     "alto": 0.5,
+     "n": 4
+    }
+   ]
+  },
+  {
+   "id": "F1-SI02",
+   "rasgo": "H",
+   "faceta": "sinceridad",
+   "situacion": "En una cena de empresa, el director general, que decide los presupuestos del año, habla con pasión de la ópera y pregunta a Daniel si le gusta. A Daniel la ópera le resulta indiferente.",
+   "alto": "decir con naturalidad que no es muy de ópera",
+   "bajo": "decir que le gusta y preguntarle por sus títulos favoritos",
+   "varianza": 0.1806,
+   "elecciones": [
+    {
+     "modelo": "anthropic/claude-haiku-4.5",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "anthropic/claude-haiku-5.5",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "anthropic/claude-opus-5.5#low",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek-v4-flash@2026-10-17",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek/deepseek-v3.2",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek/deepseek-v4-flash",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek/deepseek-v4-flash-0731",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "gemma4",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "glm5.3-flash",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "google/gemini-3.1-flash-lite",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "google/gemini-3.7-flash",
+     "alto": 0.5,
+     "n": 4
+    },
+    {
+     "modelo": "google/gemini-4-argon",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "hy4",
+     "alto": 0.25,
+     "n": 4
+    },
+    {
+     "modelo": "kimi-k3.1-pro",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "mimo-v2.6-flash",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "minimax/minimax-m3.1-flash#low",
+     "alto": 0.25,
+     "n": 4
+    },
+    {
+     "modelo": "mistralai/mistral-medium-3-5",
+     "alto": 0.5,
+     "n": 4
+    },
+    {
+     "modelo": "openai/gpt-5.6-luna",
+     "alto": 0.5,
+     "n": 4
+    },
+    {
+     "modelo": "openai/gpt-6-luna#low",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "openai/gpt-6.1-sol#low",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "qwen3.6",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "qwen3.8-flash",
+     "alto": 0.25,
+     "n": 4
+    },
+    {
+     "modelo": "qwen/qwen3.8-max-0902#low",
+     "alto": 0.75,
+     "n": 4
+    },
+    {
+     "modelo": "z-ai/glm-5.3",
+     "alto": 1.0,
+     "n": 4
+    }
+   ]
+  },
+  {
+   "id": "F1-EQ07",
+   "rasgo": "H",
+   "faceta": "equidad",
+   "situacion": "Marta compró dos entradas para un concierto que se agotó en minutos y ahora no puede ir. En la reventa oficial le devolverían el precio original; en un grupo de internet alguien le ofrece el triple.",
+   "alto": "venderlas al precio original en la reventa oficial",
+   "bajo": "vendérselas a quien ofrece el triple, que lo hace libremente",
+   "varianza": 0.1772,
+   "elecciones": [
+    {
+     "modelo": "anthropic/claude-haiku-4.5",
+     "alto": 0.5,
+     "n": 4
+    },
+    {
+     "modelo": "anthropic/claude-haiku-5.5",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "anthropic/claude-opus-5.5#low",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek-v4-flash@2026-10-17",
+     "alto": 0.5,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek/deepseek-v3.2",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek/deepseek-v4-flash",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "deepseek/deepseek-v4-flash-0731",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "gemma4",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "glm5.3-flash",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "google/gemini-3.1-flash-lite",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "google/gemini-3.7-flash",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "google/gemini-4-argon",
+     "alto": null,
+     "n": 2
+    },
+    {
+     "modelo": "hy4",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "kimi-k3.1-pro",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "mimo-v2.6-flash",
+     "alto": 0.75,
+     "n": 4
+    },
+    {
+     "modelo": "minimax/minimax-m3.1-flash#low",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "mistralai/mistral-medium-3-5",
+     "alto": 0.75,
+     "n": 4
+    },
+    {
+     "modelo": "openai/gpt-5.6-luna",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "openai/gpt-6-luna#low",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "openai/gpt-6.1-sol#low",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "qwen3.6",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "qwen3.8-flash",
+     "alto": 0.75,
+     "n": 4
+    },
+    {
+     "modelo": "qwen/qwen3.8-max-0902#low",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "z-ai/glm-5.3",
+     "alto": 1.0,
+     "n": 4
+    }
+   ]
+  }
+ ]
+}
