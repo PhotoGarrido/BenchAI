@@ -5088,3 +5088,133 @@ referencia de aquí en adelante.
   - el id de NaN `deepseek-v4-flash`, sin etiqueta.
 - **Saldo que queda:** ≈ 1,01 $, que no da para Kimi.
 - **Datos en cuarentena del 17-10:** siguen sin tocar.
+
+## 48. Alta de los modelos nuevos de NaN (11-11-2026)
+
+**Decisión de David (10-11-2026).** Medir en las dos baterías los modelos
+nuevos del gateway NaN: el ISS de `hy4` (Hunyuan 4, Tencent),
+`deepseek-v4-pro`, `qwen3.8-max`, `glm5.3` y `kimi-k3.1-pro`, y la
+personalidad solo de `kimi-k3.1-pro`, `hy4` y `deepseek-v4-pro`. GLM 5.3 y
+Qwen 3.8 Max ya estaban en el cuadro, medidos por OpenRouter (§46). Se
+aplican los criterios de §41 y §45.2 sin cambios.
+
+**Desviación aprobada: Kimi K3.1 Pro a temperatura 1.** En NaN el modelo
+rechaza con un 400 cualquier temperatura que no sea 1, y el harness
+convierte un 400 en una respuesta vacía. Con la aprobación de David,
+`model_factory.TEMPERATURA_FIJA` fija 1,0 para ese id y cada solicitud
+registra la temperatura pedida (`temperature_pedida`). top_p y seed son los
+de siempre. En el ISS de Kimi: 4.282 llamadas, ninguna vacía ni con 400.
+
+**Coste.** 0 $ marginales (tarifa plana de NaN). Personalidad en serie, con
+una petición simultánea y 15 rpm por modelo. ISS con hasta seis carriles en
+vuelo, dentro del límite de 7 simultáneas por clave.
+
+### 48.1 Validez de cada modelo nuevo (§41.2)
+
+| modelo | Δ AB−BA | fracción de A | no válidas | retest | coherencia deseabilidad | nivel |
+|---|---|---|---|---|---|---|
+| hy4 | -0,01 | 0,49 | 0,0 % | 0,96 | 0,90 | **válido** |
+| kimi-k3.1-pro | -0,02 | 0,49 | 0,0 % | 0,79 | 0,74 ⚠ | **aviso** |
+| deepseek-v4-pro (NaN) | 0,35 ✘ | 0,33 ✘ | 0,0 % | 0,75 | 0,63 ✘ | **no interpretable** |
+
+Kimi entra con aviso, porque su coherencia de la deseabilidad (0,74) queda
+justo bajo 0,75.
+
+### 48.2 El cuadro antes y después
+
+- **Antes** (§47): 22 modelos, 9 laboratorios.
+- **Después: 24 modelos, 11 laboratorios.** Entran `hy4` y `kimi-k3.1-pro`.
+  Con ellos entran por primera vez **tencent** y **moonshotai**, cada uno
+  con un modelo.
+  - Hunyuan 4: O 56, C 35, E 38, A 34, N 53, H 50 ▲.
+  - Kimi K3.1 Pro: O 54, C 39, E 43, A 34, N 53, H 48 ▲.
+  - Las dos marcas de H son robustas: pasan P1–P3, P5 y P6.
+- **Cambian marcas de otros modelos**, por la media de los demás, que ahora
+  tiene dos modelos más:
+  - `deepseek/deepseek-v4-flash` gana H ▼;
+  - `mistralai/mistral-medium-3-5` pierde O ▲ y gana H ▼.
+
+  El resto de las puntuaciones se mueve como mucho un punto.
+- **Marcas robustas: 24 → 27.** Se suman cuatro (las dos H ▲ de los modelos
+  nuevos y las dos H ▼) y se pierde la O ▲ de Mistral Medium.
+- **Retratos.** Hay retrato en 16 de 24 modelos (antes, 13 de 22). Además de
+  los dos nuevos («más Honestidad-Humildad»):
+  - `deepseek/deepseek-v4-flash` gana retrato: «menos Honestidad-Humildad»;
+  - Mistral Medium cambia «más Apertura» por «menos Honestidad-Humildad».
+- **Revalidación automática (§41.3):** los seis rasgos siguen pasando el
+  listón.
+- **No cambian:**
+  - Kimi K3, que sigue en «Pendientes de completar»;
+  - `deepseek/deepseek-v4-pro-0813`, que sigue «no interpretable»;
+  - fuera por cobertura, los mismos tres que en §47.
+
+**Corrección del recuento de laboratorios.** `analizar_robustez_v3.FAMILIA_NAN`
+no conocía los prefijos `hy` y `kimi`, así que `laboratorio()` tomaba
+`hy4` y `kimi-k3.1-pro` como dos laboratorios propios. Eso afectaba al
+encabezado y a la prueba P5, que quita cada laboratorio del panel. Ahora se
+resuelven a `tencent` y `moonshotai`, como en `generar_benchmark.LABS`. Las
+marcas no cambian con la corrección.
+
+### 48.3 DeepSeek V4 Pro 0813: réplica entre proveedores
+
+La documentación de NaN dice que `deepseek-v4-pro` es la versión 0813, el
+mismo modelo que `deepseek/deepseek-v4-pro-0813`, medido por OpenRouter
+(§46.5). **Decisión de David (11-11-2026):** la medición de NaN no es una
+fila más del cuadro. Se usa como réplica entre proveedores
+(`cuadro_publico_v3.REPLICAS_PROVEEDOR`), y el cuadro la lista aparte.
+
+`comparar_proveedores_personalidad.py` compara las dos mediciones rasgo a
+rasgo. La lectura se fijó antes de mirar los datos y está en la cabecera
+del script:
+- **despreciable:** |Δ| no supera el retest + 2 pp y el IC de Δ incluye 0;
+- **pequeño:** |Δ| queda por debajo de la distancia mínima entre dos modelos
+  distintos;
+- **relevante:** en cualquier otro caso.
+
+La salida completa está en
+`resultados/personalidad_fc/PROVEEDORES_DEEPSEEK_V4_PRO.md`.
+
+| Rasgo | r | \|Δ\| pp | Δ NaN − OR [IC 95 %] | Lectura |
+|---|---|---|---|---|
+| O | 0,56 | 22,9 | 0,4 [-3,4; 4,2] | pequeño |
+| C | 0,74 | 13,4 | -0,9 | despreciable |
+| E | 0,78 | 11,8 | -1,1 | despreciable |
+| A | 0,79 | 14,0 | 0,0 | despreciable |
+| H | 0,71 | 18,8 | -8,9 [-12,0; -5,7] | relevante |
+| N | 0,72 | 11,5 | 3,0 [0,5; 5,4] | relevante |
+
+En O, C, E y A el perfil se replica. **En H y N, no:**
+- H pasa de +5,9 sobre el panel (OpenRouter) a −3,0 (NaN), con una DT del
+  panel de 6,1;
+- N pasa de −2,6 a +0,4, con una DT del panel de 2,4.
+
+**Lectura prudente: el cambio no se atribuye al proveedor.** Las dos
+mediciones son «no interpretables», con índices casi iguales:
+- posición Δ AB−BA: 0,35 en NaN, 0,30 en OpenRouter;
+- |A − 0,5|: 0,17 y 0,15;
+- retest: 0,75 y 0,80;
+- coherencia de la deseabilidad: 0,63 y 0,64.
+
+Un modelo con este sesgo de posición puede mover un rasgo entero con poca
+cosa, y H y N son los instrumentos de I1, con otro formato. Ninguna de las
+dos filas está en el cuadro.
+
+### 48.4 Cambios de código
+
+- `model_factory.py`: `TEMPERATURA_FIJA` y `temperature_pedida`.
+- `coste_run.py`: tarifas (0, 0) de los cinco ids de NaN.
+- `generar_benchmark.py`: `LABS` con `kimi` (Moonshot) y `hy` (Tencent), y
+  `NOTAS` de procedencia de los cinco modelos (Kimi a temperatura 1, GLM
+  5.3 en NVFP4, Qwen 3.8 Max sin fecha, DeepSeek V4 Pro 0813).
+- `cuadro_publico_v3.py`: `REPLICAS_PROVEEDOR`.
+- `comparar_proveedores_personalidad.py`: script nuevo (48.3).
+- `analizar_robustez_v3.py`: `FAMILIA_NAN` con `hy` y `kimi` (48.2).
+- `web/generar_datos.py`: números en palabras hasta 44 y `SECCION_CUADRO`
+  apunta a esta sección.
+
+### Lo que quedó fuera
+
+- **Kimi K3** (OpenRouter) sigue pendiente de completar. Kimi K3.1 Pro es
+  otra versión y no la sustituye.
+- **DeepSeek V4 Pro**, por los dos proveedores, sigue fuera del cuadro por
+  validez.

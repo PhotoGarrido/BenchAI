@@ -993,7 +993,7 @@ FUENTE_CUADRO = "spike/resultados/personalidad_fc/cuadro_publico.json"
 # sección, y su cuerpo tiene que decir los mismos recuentos que el json. Si el
 # cuadro se rehace con otro alta, esto se para hasta que se apunte la sección
 # nueva.
-SECCION_CUADRO = 47
+SECCION_CUADRO = 48
 RASGOS_CUADRO = ["O", "C", "E", "A", "N", "H"]
 
 

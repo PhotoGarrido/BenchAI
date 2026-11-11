@@ -52,6 +52,9 @@
     "glm-5.3": {
       "nombre": "GLM-5.3"
     },
+    "glm5.3": {
+      "nombre": "GLM-5.3"
+    },
     "glm5.3-flash": {
       "nombre": "GLM-5.3 Flash"
     },
@@ -73,11 +76,17 @@
     "grok-4.5": {
       "nombre": "Grok 4.5"
     },
+    "hy4": {
+      "nombre": "Hunyuan 4"
+    },
     "inkling-small": {
       "nombre": "Inkling Small"
     },
     "kimi-k3": {
       "nombre": "Kimi K3"
+    },
+    "kimi-k3.1-pro": {
+      "nombre": "Kimi K3.1 Pro"
     },
     "mimo-v2.5": {
       "nombre": "MiMo V2.5"
@@ -110,6 +119,9 @@
     "qwen3.8-flash": {
       "nombre": "Qwen3.8 Flash"
     },
+    "qwen3.8-max": {
+      "nombre": "Qwen3.8 Max"
+    },
     "qwen3.8-max-0902": {
       "nombre": "Qwen3.8 Max 0902"
     },
@@ -125,6 +137,9 @@
   "ids": {
     "deepseek-v4-flash": {
       "nombre": "DeepSeek V4.1 Flash"
+    },
+    "deepseek-v4-pro": {
+      "nombre": "DeepSeek V4 Pro 0813"
     }
   },
   "mediciones": {

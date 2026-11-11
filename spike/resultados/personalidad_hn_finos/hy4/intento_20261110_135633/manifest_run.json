@@ -1,0 +1,35 @@
+{
+  "commit": "658f8a1b23378148e2542fe4e2fea8bafb972fda",
+  "python": "3.12.4",
+  "parser_version": "2.5",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "alta_personalidad.py",
+    "--modelo",
+    "hy4"
+  ],
+  "args": {
+    "modelo": "hy4",
+    "forma": "completa",
+    "tope": null,
+    "hilos": 1,
+    "seco": false,
+    "origen": "alta_personalidad.py (PERSONALIDAD.md §41.4)",
+    "fase": "I1-H",
+    "n_pendientes": 288,
+    "version_bateria": "HNF-1",
+    "items_sha256": "6876fc330c0a2982aa9ed39f0394199fdf87f46f6bcf512ed6e153723f7314b3"
+  },
+  "hashes": {},
+  "inicio": "2026-11-10T13:56:33",
+  "status": "completed",
+  "fin": "2026-11-10T14:15:43",
+  "solicitudes": 288,
+  "errores": 0,
+  "fallo_escritura": false,
+  "gasto_estimado": 0.0
+}

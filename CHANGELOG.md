@@ -24,6 +24,40 @@ Sobre el registro «Verloop» (31-10), sin cambiar su diseño:
 - `datos.js` partido por página; `servir.py` aplica las redirecciones y
   sirve `/personalidad` desde su carpeta, como Vercel.
 
+## Sin versión (mediciones, no instrumento) · cinco modelos nuevos de NaN: 39 → 44 · 10/11-11-2026
+
+- **ISS de cinco modelos de NaN** (10/11-11-2026, tarifa plana, 0 $
+  marginales), 13/13 sub-experimentos cada uno y 0 fallos:
+  - **`kimi-k3.1-pro`** (Moonshot): ISS **11,9** [8,8–15,1], posición 7.
+    Se midió a **temperatura 1** porque NaN rechaza cualquier otra; la
+    desviación la aprobó David. Cada solicitud registra la temperatura
+    pedida. Hubo 4.282 llamadas, ninguna vacía ni con 400.
+  - **`glm5.3`** (Zhipu, NVFP4 en NaN): ISS **22,8** [17,8–28,9],
+    posición 19.
+  - **`hy4`** (Hunyuan 4, Tencent, primer modelo del laboratorio): ISS
+    **25,4** [18,6–32,4], posición 24.
+  - **`deepseek-v4-pro`** (la 0813 según NaN): ISS **38,5** [31,7–45,5],
+    posición 38.
+  - **`qwen3.8-max`** (NaN, sin fecha de versión): ISS **54,5**
+    [45,0–63,5], posición 43 de 44.
+- **44 mediciones de 14 laboratorios**; Tencent es nuevo. r(sico, conf) =
+  0,58 sobre 44, todavía la correlación más fuerte de ambos ejes. Umbrales
+  de distinción: 8,7 / 18,3 (861 pares, 417 solapan). Las notas de
+  procedencia de los cinco están en `generar_benchmark.NOTAS`.
+- **Cuadro de personalidad: de 22 a 24 modelos y de 9 a 11 laboratorios**
+  (PERSONALIDAD §48). Entran Hunyuan 4 (válido) y Kimi K3.1 Pro (con
+  aviso), los dos con H ▲ robusta. Marcas robustas: de 24 a 27.
+- **DeepSeek V4 Pro 0813 como réplica entre proveedores**, no como fila
+  nueva. `comparar_proveedores_personalidad.py` compara la medición de NaN
+  con la de OpenRouter:
+  - en O, C, E y A el perfil se replica;
+  - en H (−8,9) y N (+3,0), no;
+  - las dos mediciones son «no interpretables» por sesgo de posición, así
+    que el cambio no se atribuye al proveedor.
+- **Corrección:** `laboratorio()` del análisis de robustez tomaba `hy4` y
+  `kimi-k3.1-pro` como laboratorios propios. Ahora resuelve Tencent y
+  Moonshot. Las marcas no cambian.
+
 ## Web · las cuatro páginas en el registro «Verloop» · 31-10-2026
 
 - **`/`, `/completo`, `/psicobench` y `/personalidad` pasan a la versión

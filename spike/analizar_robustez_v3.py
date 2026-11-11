@@ -34,7 +34,7 @@ B_ISS = 2000
 Q = .05
 #: Familia de los modelos de NaN (sin prefijo de organización en el id).
 FAMILIA_NAN = {"qwen": "qwen", "deepseek": "deepseek", "gemma": "google",
-               "glm": "z-ai", "mimo": "xiaomi"}
+               "glm": "z-ai", "mimo": "xiaomi", "hy": "tencent", "kimi": "moonshotai"}
 PRUEBAS = ("P1", "P2", "P3", "P4", "P5", "P6")
 
 

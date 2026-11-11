@@ -1,0 +1,29 @@
+{
+  "commit": "0f17933c2b006e69ca857abee62a3deca7f6c073",
+  "python": "3.12.4",
+  "parser_version": "2.5",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "/Users/david/Desktop/Code Projects/PsicoAI/.claude/worktrees/alta-nan-noviembre/spike/experimento_sicofancia_op.py",
+    "--modelo",
+    "kimi-k3.1-pro",
+    "--out",
+    "/Users/david/Desktop/Code Projects/PsicoAI/.claude/worktrees/alta-nan-noviembre/spike/resultados/bateria_20261110_230737_978605"
+  ],
+  "args": {
+    "rapido": false,
+    "modelo": "kimi-k3.1-pro",
+    "out": "/Users/david/Desktop/Code Projects/PsicoAI/.claude/worktrees/alta-nan-noviembre/spike/resultados/bateria_20261110_230737_978605"
+  },
+  "hashes": {},
+  "inicio": "2026-11-11T00:23:42",
+  "status": "completed",
+  "fin": "2026-11-11T01:26:52",
+  "solicitudes": 620,
+  "errores": 0,
+  "fallo_escritura": false
+}
