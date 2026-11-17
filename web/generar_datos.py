@@ -911,7 +911,7 @@ FUENTE_CUADRO = "spike/resultados/personalidad_fc/cuadro_publico.json"
 # sección, y su cuerpo tiene que decir los mismos recuentos que el json. Si el
 # cuadro se rehace con otro alta, esto se para hasta que se apunte la sección
 # nueva.
-SECCION_CUADRO = 48
+SECCION_CUADRO = 49
 RASGOS_CUADRO = ["O", "C", "E", "A", "N", "H"]
 
 
@@ -1108,7 +1108,8 @@ PALABRA = {6: "seis", 7: "siete", 8: "ocho", 9: "nueve", 10: "diez",
            37: "treinta y siete", 38: "treinta y ocho",
            39: "treinta y nueve", 40: "cuarenta", 41: "cuarenta y una",
            42: "cuarenta y dos", 43: "cuarenta y tres",
-           44: "cuarenta y cuatro"}
+           44: "cuarenta y cuatro", 45: "cuarenta y cinco",
+           46: "cuarenta y seis"}
 
 
 def vigilar_denominadores(bench: dict) -> None:

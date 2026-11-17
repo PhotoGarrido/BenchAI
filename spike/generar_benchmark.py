@@ -191,6 +191,14 @@ NOTAS = {
     "hy4": (
         "Hunyuan 4 de Tencent, pedido a la API de NaN como `hy4` "
         "(10-11-2026); primera medición de Tencent en el banco"),
+    "qwen4-max": (
+        "se pide a la API de NaN como `qwen4-max` (17-11-2026), sin fecha "
+        "de versión en el id ni en el catálogo de NaN; es una entrada nueva, "
+        "no sustituye a `qwen3.8-max`"),
+    "hy4-flash": (
+        "Hunyuan 4 Flash de Tencent, pedido a la API de NaN como `hy4-flash` "
+        "(17-11-2026), sin fecha de versión; es una entrada nueva, no "
+        "sustituye a `hy4`"),
     "mimo-v2.5": (
         "NaN lo enruta a un proveedor externo (Xiaomi), según su panel de "
         "modelos (13-09-2026): la vía es NaN, el servidor no"),

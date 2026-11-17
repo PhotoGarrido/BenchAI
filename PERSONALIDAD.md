@@ -5218,3 +5218,73 @@ dos filas está en el cuadro.
   otra versión y no la sustituye.
 - **DeepSeek V4 Pro**, por los dos proveedores, sigue fuera del cuadro por
   validez.
+
+## 49. Alta de Qwen 4 Max y Hy4 Flash de NaN (17-11-2026)
+
+**Decisión de David (17-11-2026).** Medir en las dos baterías los dos
+modelos nuevos del gateway NaN: `qwen4-max` (Alibaba, sin fecha de versión
+en el id) y `hy4-flash` (Hunyuan 4 Flash, Tencent). Son entradas nuevas: no
+sustituyen a `qwen3.8-max` ni a `hy4`. Se aplican los criterios de §41 y
+§45.2 sin cambios, con la forma completa.
+
+**Coste.** 0 $ marginales (tarifa plana de NaN). Un proceso por modelo, en
+paralelo, con una petición simultánea y 15 rpm cada uno. Las 2.094 llamadas
+de cada modelo se hicieron en unas 2,5 h: 2.189 solicitudes físicas en
+`qwen4-max` y 2.180 en `hy4-flash`, con los 429 del límite de NaN
+reintentados dentro del grifo. Un registro de `hy4-flash` quedó con
+ERROR_TECNICO y se recuperó relanzando el mismo comando.
+
+### 49.1 Validez de cada modelo nuevo (§41.2)
+
+| modelo | Δ AB−BA | fracción de A | no válidas | retest | coherencia deseabilidad | nivel |
+|---|---|---|---|---|---|---|
+| hy4-flash | -0,01 | 0,50 | 0,0 % | 0,94 | 0,80 | **válido** |
+| qwen4-max | -0,18 | 0,41 | 0,0 % | 0,81 | 0,76 | **válido** |
+
+Qwen 4 Max es válido, pero cerca de la zona de aviso en tres índices: |Δ|
+0,18 (aviso desde 0,20), |A − 0,5| 0,09 (aviso desde 0,10) y coherencia de
+la deseabilidad 0,76 (aviso por debajo de 0,75).
+
+### 49.2 El cuadro antes y después
+
+- **Antes** (§48): 24 modelos, 11 laboratorios.
+- **Después: 26 modelos, 11 laboratorios.** Entran `hy4-flash` y
+  `qwen4-max`; no entra ningún laboratorio nuevo (`FAMILIA_NAN` ya resolvía
+  `hy` a tencent y `qwen` a qwen).
+  - Hunyuan 4 Flash: O 56, C 36, E 41, A 32, N 52, H 46. Se parece mucho a
+    `hy4` (O 56, C 36, E 38, A 34, N 53, H 50 ▲), salvo en H: 4 puntos
+    menos y sin marca.
+  - Qwen 4 Max: O 51, C 38, E 41, A 34, N 49, H 45.
+  - Ninguno de los dos tiene marca robusta: los dos tienen «perfil próximo
+    al de los demás modelos». Sus candidatas son frágiles (`hy4-flash` O ▲,
+    falla P3; `qwen4-max` N ▼, falla P3) o no publicables (`hy4-flash`
+    C ▼).
+- **Cambian marcas de otros modelos**, por la media de los demás, que ahora
+  tiene dos modelos más, y por la corrección BH, que pasa de 144 a 156
+  pruebas:
+  - `gemma4` gana C ▲ y N ▲;
+  - `google/gemini-3.1-flash-lite` gana H ▼;
+  - `google/gemini-4-argon` gana H ▼.
+
+  Ninguna marca robusta se pierde. El resto de las puntuaciones se mueve
+  como mucho un punto.
+- **Marcas robustas: 27 → 31.** Candidatas: 64 → 68 (31 robustas, 28
+  frágiles y 9 no publicables).
+- **Retratos.** Hay retrato en 16 de 26 modelos (antes, 16 de 24). Los dos
+  nuevos no lo tienen. Cambian tres:
+  - `gemma4` suma «más Responsabilidad» y «más Neuroticismo»;
+  - `google/gemini-3.1-flash-lite` suma «menos Honestidad-Humildad»;
+  - `google/gemini-4-argon` suma «menos Honestidad-Humildad».
+- **Revalidación automática (§41.3):** los seis rasgos siguen pasando el
+  listón.
+- **No cambian:**
+  - Kimi K3, que sigue en «Pendientes de completar»;
+  - `deepseek/deepseek-v4-pro-0813`, que sigue «no interpretable»;
+  - fuera por cobertura, los mismos tres que en §47.
+
+### 49.3 Cambios de código
+
+- `coste_run.py`: tarifas (0, 0) de `qwen4-max` y `hy4-flash`.
+- `generar_benchmark.py`: `NOTAS` de procedencia de los dos modelos.
+- `web/generar_datos.py`: números en palabras hasta 46 y `SECCION_CUADRO`
+  apunta a esta sección.
