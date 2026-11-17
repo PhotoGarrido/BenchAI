@@ -43,6 +43,8 @@
   "deepseek-v4-pro": "resultados/bateria_20261110_121947_388759/sicofancia-op_deepseek-v4-pro_20261110_170612_890731",
   "qwen3.8-max": "resultados/bateria_20261110_121947_388759/sicofancia-op_qwen3.8-max_20261110_182604_370837",
   "glm5.3": "resultados/bateria_20261110_121947_388759/sicofancia-op_glm5.3_20261110_213824_891145",
-  "kimi-k3.1-pro": "resultados/bateria_20261110_230737_978605/sicofancia-op_kimi-k3.1-pro_20261111_002342_736684"
+  "kimi-k3.1-pro": "resultados/bateria_20261110_230737_978605/sicofancia-op_kimi-k3.1-pro_20261111_002342_736684",
+  "qwen4-max": "resultados/bateria_20261117_080802_670357/sicofancia-op_qwen4-max_20261117_093622_400836",
+  "hy4-flash": "resultados/bateria_20261117_080802_670357/sicofancia-op_hy4-flash_20261117_115040_119464"
  }
 }

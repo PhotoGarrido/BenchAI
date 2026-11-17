@@ -68,6 +68,9 @@ PRECIOS = {   # USD por millón de tokens (in, out) — OpenRouter 26-07-2026
     "deepseek-v4-pro": (0.0, 0.0),
     "kimi-k3.1-pro": (0.0, 0.0),
     "hy4": (0.0, 0.0),
+    # NaN 17-11-2026 (tarifa plana)
+    "qwen4-max": (0.0, 0.0),
+    "hy4-flash": (0.0, 0.0),
 }
 
 
