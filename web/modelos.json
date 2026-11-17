@@ -79,6 +79,9 @@
     "hy4": {
       "nombre": "Hunyuan 4"
     },
+    "hy4-flash": {
+      "nombre": "Hunyuan 4 Flash"
+    },
     "inkling-small": {
       "nombre": "Inkling Small"
     },
@@ -124,6 +127,9 @@
     },
     "qwen3.8-max-0902": {
       "nombre": "Qwen3.8 Max 0902"
+    },
+    "qwen4-max": {
+      "nombre": "Qwen 4 Max"
     },
     "space-bunny-alpha": {
       "nombre": "MiniMax M3.1 Flash",

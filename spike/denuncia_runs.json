@@ -43,6 +43,8 @@
   "deepseek-v4-pro": "resultados/bateria_20261110_121947_388759/denuncia_deepseek-v4-pro_20261110_170609_728857",
   "qwen3.8-max": "resultados/bateria_20261110_121947_388759/denuncia_qwen3.8-max_20261110_182159_347133",
   "glm5.3": "resultados/bateria_20261110_121947_388759/denuncia_glm5.3_20261110_211401_591794",
-  "kimi-k3.1-pro": "resultados/bateria_20261110_230737_978605/denuncia_kimi-k3.1-pro_20261111_002300_435623"
+  "kimi-k3.1-pro": "resultados/bateria_20261110_230737_978605/denuncia_kimi-k3.1-pro_20261111_002300_435623",
+  "qwen4-max": "resultados/bateria_20261117_080802_670357/denuncia_qwen4-max_20261117_092958_269560",
+  "hy4-flash": "resultados/bateria_20261117_080802_670357/denuncia_hy4-flash_20261117_113430_126574"
  }
 }

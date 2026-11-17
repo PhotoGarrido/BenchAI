@@ -1,0 +1,35 @@
+{
+  "commit": "53ba62e5397c7c1f92074fbfdb493ecaad51712b",
+  "python": "3.12.4",
+  "parser_version": "2.5",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "/Users/david/Desktop/Code Projects/PsicoAI/.claude/worktrees/alta-nan-qwen4-hy4flash/spike/experimento_cronica.py",
+    "--modelo",
+    "qwen4-max",
+    "--out",
+    "/Users/david/Desktop/Code Projects/PsicoAI/.claude/worktrees/alta-nan-qwen4-hy4flash/spike/resultados/bateria_20261117_080802_670357",
+    "--v2",
+    "--semilla",
+    "20260715"
+  ],
+  "args": {
+    "rapido": false,
+    "modelo": "qwen4-max",
+    "dias": 42,
+    "v2": true,
+    "semilla": 20260715,
+    "out": "/Users/david/Desktop/Code Projects/PsicoAI/.claude/worktrees/alta-nan-qwen4-hy4flash/spike/resultados/bateria_20261117_080802_670357"
+  },
+  "hashes": {},
+  "inicio": "2026-11-17T08:28:47",
+  "status": "completed",
+  "fin": "2026-11-17T08:49:56",
+  "solicitudes": 319,
+  "errores": 22,
+  "fallo_escritura": false
+}

@@ -9,7 +9,7 @@
    "situacion": "En un congreso profesional, Daniel tiene libre la última hora. A la vez hay una charla sobre filosofía de la ciencia, ajena a su campo, y un taller práctico de la herramienta que usa a diario.",
    "alto": "ir a la charla de filosofía de la ciencia",
    "bajo": "ir al taller práctico de su herramienta",
-   "varianza": 0.1975,
+   "varianza": 0.2082,
    "elecciones": [
     {
      "modelo": "anthropic/claude-haiku-4.5",
@@ -77,6 +77,11 @@
      "n": 4
     },
     {
+     "modelo": "hy4-flash",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
      "modelo": "kimi-k3.1-pro",
      "alto": 1.0,
      "n": 4
@@ -119,6 +124,11 @@
     {
      "modelo": "qwen3.8-flash",
      "alto": 0.25,
+     "n": 4
+    },
+    {
+     "modelo": "qwen4-max",
+     "alto": 1.0,
      "n": 4
     },
     {
@@ -140,7 +150,7 @@
    "situacion": "Andrés trabaja temporalmente en una línea de envasado, con tareas muy repetitivas. Las horas se hacen eternas y cualquier despiste obliga a repetir una caja.",
    "alto": "imaginar historias largas y detalladas mientras sus manos hacen el trabajo",
    "bajo": "concentrarse en contar cada pieza para no cometer ningún error",
-   "varianza": 0.1923,
+   "varianza": 0.1864,
    "elecciones": [
     {
      "modelo": "anthropic/claude-haiku-4.5",
@@ -208,6 +218,11 @@
      "n": 4
     },
     {
+     "modelo": "hy4-flash",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
      "modelo": "kimi-k3.1-pro",
      "alto": 1.0,
      "n": 4
@@ -249,6 +264,11 @@
     },
     {
      "modelo": "qwen3.8-flash",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "qwen4-max",
      "alto": 1.0,
      "n": 4
     },
@@ -271,7 +291,7 @@
    "situacion": "Daniel prometió devolver en una semana un libro prestado por una amiga. Han pasado diez días, le quedan cincuenta páginas y su amiga no lo ha reclamado.",
    "alto": "devolverlo ya, como prometió, y terminarlo en otro momento",
    "bajo": "terminarlo estos días y devolverlo con un mensaje de disculpa",
-   "varianza": 0.1766,
+   "varianza": 0.189,
    "elecciones": [
     {
      "modelo": "anthropic/claude-haiku-4.5",
@@ -339,6 +359,11 @@
      "n": 4
     },
     {
+     "modelo": "hy4-flash",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
      "modelo": "kimi-k3.1-pro",
      "alto": 0.0,
      "n": 4
@@ -381,6 +406,11 @@
     {
      "modelo": "qwen3.8-flash",
      "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "qwen4-max",
+     "alto": 1.0,
      "n": 4
     },
     {
@@ -402,7 +432,7 @@
    "situacion": "Andrés tiene por principio no dejar nunca deudas pendientes. Le debe diez euros a un amigo, que le dice que se olvide de ellos.",
    "alto": "insistir en devolverle los diez euros, como manda su principio",
    "bajo": "aceptar el gesto y pagarle la próxima ronda que tomen",
-   "varianza": 0.1667,
+   "varianza": 0.1638,
    "elecciones": [
     {
      "modelo": "anthropic/claude-haiku-4.5",
@@ -470,6 +500,11 @@
      "n": 4
     },
     {
+     "modelo": "hy4-flash",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
      "modelo": "kimi-k3.1-pro",
      "alto": 1.0,
      "n": 4
@@ -511,6 +546,11 @@
     },
     {
      "modelo": "qwen3.8-flash",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "qwen4-max",
      "alto": 1.0,
      "n": 4
     },
@@ -533,7 +573,7 @@
    "situacion": "Javier pasa unos días en su ciudad natal y se encuentra por la calle a una antigua compañera de colegio a la que no ve desde hace quince años.",
    "alto": "darle un abrazo y proponerle sentarse a ponerse al día un buen rato",
    "bajo": "alegrarse de verla, charlar un par de minutos y seguir su camino",
-   "varianza": 0.1732,
+   "varianza": 0.1649,
    "elecciones": [
     {
      "modelo": "anthropic/claude-haiku-4.5",
@@ -601,6 +641,11 @@
      "n": 4
     },
     {
+     "modelo": "hy4-flash",
+     "alto": 0.75,
+     "n": 4
+    },
+    {
      "modelo": "kimi-k3.1-pro",
      "alto": 0.5,
      "n": 4
@@ -642,6 +687,11 @@
     },
     {
      "modelo": "qwen3.8-flash",
+     "alto": 0.25,
+     "n": 4
+    },
+    {
+     "modelo": "qwen4-max",
      "alto": 0.25,
      "n": 4
     },
@@ -664,7 +714,7 @@
    "situacion": "Marta va a preparar unas oposiciones durante meses. Unos compañeros le proponen estudiar juntos cada tarde en la biblioteca.",
    "alto": "unirse al grupo y pasar las tardes de estudio con ellos",
    "bajo": "estudiar a solas en casa, a su ritmo y sin distracciones",
-   "varianza": 0.1558,
+   "varianza": 0.1465,
    "elecciones": [
     {
      "modelo": "anthropic/claude-haiku-4.5",
@@ -732,6 +782,11 @@
      "n": 4
     },
     {
+     "modelo": "hy4-flash",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
      "modelo": "kimi-k3.1-pro",
      "alto": 0.75,
      "n": 4
@@ -774,6 +829,11 @@
     {
      "modelo": "qwen3.8-flash",
      "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "qwen4-max",
+     "alto": 0.75,
      "n": 4
     },
     {
@@ -795,7 +855,7 @@
    "situacion": "En la recogida de ropa que organiza Pablo, una persona cuenta que tiene a cargo a tres sobrinos y pide más prendas de las fijadas; no trae ningún papel.",
    "alto": "creer lo que cuenta y darle las prendas que pide",
    "bajo": "pedirle algún documento que lo acredite antes de darle más",
-   "varianza": 0.1714,
+   "varianza": 0.1635,
    "elecciones": [
     {
      "modelo": "anthropic/claude-haiku-4.5",
@@ -863,6 +923,11 @@
      "n": 4
     },
     {
+     "modelo": "hy4-flash",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
      "modelo": "kimi-k3.1-pro",
      "alto": 0.25,
      "n": 4
@@ -904,6 +969,11 @@
     },
     {
      "modelo": "qwen3.8-flash",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "qwen4-max",
      "alto": 0.0,
      "n": 4
     },
@@ -926,7 +996,7 @@
    "situacion": "Pablo y un compañero compiten por el mismo ascenso. El compañero le pide ayuda para preparar la entrevista.",
    "alto": "ayudarle a prepararla",
    "bajo": "declinar con educación y centrarse en la suya",
-   "varianza": 0.1509,
+   "varianza": 0.1536,
    "elecciones": [
     {
      "modelo": "anthropic/claude-haiku-4.5",
@@ -994,6 +1064,11 @@
      "n": 4
     },
     {
+     "modelo": "hy4-flash",
+     "alto": 1.0,
+     "n": 4
+    },
+    {
      "modelo": "kimi-k3.1-pro",
      "alto": 1.0,
      "n": 4
@@ -1036,6 +1111,11 @@
     {
      "modelo": "qwen3.8-flash",
      "alto": 0.5,
+     "n": 4
+    },
+    {
+     "modelo": "qwen4-max",
+     "alto": 1.0,
      "n": 4
     },
     {
@@ -1057,7 +1137,7 @@
    "situacion": "A Andrés le ha salido un lunar nuevo en el brazo. No ha cambiado en un mes y no le molesta. Tiene revisión con su médica dentro de cuatro meses.",
    "alto": "pedir cita antes en un dermatólogo privado",
    "bajo": "comentarlo en la revisión",
-   "varianza": 0.1719,
+   "varianza": 0.1686,
    "elecciones": [
     {
      "modelo": "anthropic/claude-haiku-4.5",
@@ -1125,6 +1205,11 @@
      "n": 4
     },
     {
+     "modelo": "hy4-flash",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
      "modelo": "kimi-k3.1-pro",
      "alto": 1.0,
      "n": 4
@@ -1166,6 +1251,11 @@
     },
     {
      "modelo": "qwen3.8-flash",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
+     "modelo": "qwen4-max",
      "alto": 0.0,
      "n": 4
     },
@@ -1188,7 +1278,7 @@
    "situacion": "Su médico le dice a Daniel que un valor de la analítica está un poco alto, que no es preocupante y que lo repetirán dentro de seis meses.",
    "alto": "buscar en internet qué puede significar",
    "bajo": "olvidarse del tema hasta la próxima analítica",
-   "varianza": 0.1683,
+   "varianza": 0.1658,
    "elecciones": [
     {
      "modelo": "anthropic/claude-haiku-4.5",
@@ -1256,6 +1346,11 @@
      "n": 4
     },
     {
+     "modelo": "hy4-flash",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
      "modelo": "kimi-k3.1-pro",
      "alto": 0.25,
      "n": 4
@@ -1298,6 +1393,11 @@
     {
      "modelo": "qwen3.8-flash",
      "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "qwen4-max",
+     "alto": 0.5,
      "n": 4
     },
     {
@@ -1319,7 +1419,7 @@
    "situacion": "En una cena de empresa, el director general, que decide los presupuestos del año, habla con pasión de la ópera y pregunta a Daniel si le gusta. A Daniel la ópera le resulta indiferente.",
    "alto": "decir con naturalidad que no es muy de ópera",
    "bajo": "decir que le gusta y preguntarle por sus títulos favoritos",
-   "varianza": 0.1806,
+   "varianza": 0.1864,
    "elecciones": [
     {
      "modelo": "anthropic/claude-haiku-4.5",
@@ -1387,6 +1487,11 @@
      "n": 4
     },
     {
+     "modelo": "hy4-flash",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
      "modelo": "kimi-k3.1-pro",
      "alto": 1.0,
      "n": 4
@@ -1429,6 +1534,11 @@
     {
      "modelo": "qwen3.8-flash",
      "alto": 0.25,
+     "n": 4
+    },
+    {
+     "modelo": "qwen4-max",
+     "alto": 1.0,
      "n": 4
     },
     {
@@ -1444,22 +1554,22 @@
    ]
   },
   {
-   "id": "F1-EQ07",
+   "id": "F1-EQ03",
    "rasgo": "H",
    "faceta": "equidad",
-   "situacion": "Marta compró dos entradas para un concierto que se agotó en minutos y ahora no puede ir. En la reventa oficial le devolverían el precio original; en un grupo de internet alguien le ofrece el triple.",
-   "alto": "venderlas al precio original en la reventa oficial",
-   "bajo": "vendérselas a quien ofrece el triple, que lo hace libremente",
-   "varianza": 0.1772,
+   "situacion": "Sara compra unas zapatillas por internet, las usa una tarde por casa y no le convencen. La tienda solo admite devoluciones de productos sin usar, pero no lo va a notar.",
+   "alto": "quedárselas, porque ya las ha usado",
+   "bajo": "devolverlas, ya que están como nuevas",
+   "varianza": 0.1742,
    "elecciones": [
     {
      "modelo": "anthropic/claude-haiku-4.5",
-     "alto": 0.5,
+     "alto": 1.0,
      "n": 4
     },
     {
      "modelo": "anthropic/claude-haiku-5.5",
-     "alto": 1.0,
+     "alto": 0.75,
      "n": 4
     },
     {
@@ -1479,12 +1589,12 @@
     },
     {
      "modelo": "deepseek/deepseek-v4-flash",
-     "alto": 0.0,
+     "alto": 1.0,
      "n": 4
     },
     {
      "modelo": "deepseek/deepseek-v4-flash-0731",
-     "alto": 0.0,
+     "alto": 1.0,
      "n": 4
     },
     {
@@ -1494,7 +1604,7 @@
     },
     {
      "modelo": "glm5.3-flash",
-     "alto": 1.0,
+     "alto": 0.5,
      "n": 4
     },
     {
@@ -1509,8 +1619,8 @@
     },
     {
      "modelo": "google/gemini-4-argon",
-     "alto": null,
-     "n": 2
+     "alto": 0.0,
+     "n": 4
     },
     {
      "modelo": "hy4",
@@ -1518,28 +1628,33 @@
      "n": 4
     },
     {
-     "modelo": "kimi-k3.1-pro",
+     "modelo": "hy4-flash",
      "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "kimi-k3.1-pro",
+     "alto": 0.75,
      "n": 4
     },
     {
      "modelo": "mimo-v2.6-flash",
-     "alto": 0.75,
+     "alto": 0.5,
      "n": 4
     },
     {
      "modelo": "minimax/minimax-m3.1-flash#low",
-     "alto": 1.0,
-     "n": 4
-    },
-    {
-     "modelo": "mistralai/mistral-medium-3-5",
      "alto": 0.75,
      "n": 4
     },
     {
+     "modelo": "mistralai/mistral-medium-3-5",
+     "alto": 0.0,
+     "n": 4
+    },
+    {
      "modelo": "openai/gpt-5.6-luna",
-     "alto": 1.0,
+     "alto": 0.75,
      "n": 4
     },
     {
@@ -1554,12 +1669,17 @@
     },
     {
      "modelo": "qwen3.6",
-     "alto": 1.0,
+     "alto": 0.0,
      "n": 4
     },
     {
      "modelo": "qwen3.8-flash",
-     "alto": 0.75,
+     "alto": 1.0,
+     "n": 4
+    },
+    {
+     "modelo": "qwen4-max",
+     "alto": 1.0,
      "n": 4
     },
     {

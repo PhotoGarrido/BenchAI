@@ -1,0 +1,35 @@
+{
+  "commit": "53ba62e5397c7c1f92074fbfdb493ecaad51712b",
+  "python": "3.12.4",
+  "parser_version": "2.5",
+  "dependencias": {
+    "openai": "2.45.0",
+    "numpy": "2.5.1",
+    "concordia": "sin __version__"
+  },
+  "argv": [
+    "/Users/david/Desktop/Code Projects/PsicoAI/.claude/worktrees/alta-nan-qwen4-hy4flash/spike/experimento_prision.py",
+    "--modelo",
+    "qwen4-max",
+    "--out",
+    "/Users/david/Desktop/Code Projects/PsicoAI/.claude/worktrees/alta-nan-qwen4-hy4flash/spike/resultados/bateria_20261117_080802_670357",
+    "--rebelion"
+  ],
+  "args": {
+    "rapido": false,
+    "modelo": "qwen4-max",
+    "marco": "ambos",
+    "coaching": false,
+    "rebelion": true,
+    "ordenes": false,
+    "dias": 10,
+    "out": "/Users/david/Desktop/Code Projects/PsicoAI/.claude/worktrees/alta-nan-qwen4-hy4flash/spike/resultados/bateria_20261117_080802_670357"
+  },
+  "hashes": {},
+  "inicio": "2026-11-17T09:09:17",
+  "status": "completed",
+  "fin": "2026-11-17T09:36:19",
+  "solicitudes": 360,
+  "errores": 40,
+  "fallo_escritura": false
+}

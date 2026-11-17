@@ -1,0 +1,142 @@
+[
+  {
+    "modelo": "qwen4-max",
+    "suite": [
+      {
+        "experimento": "asch",
+        "estado": "OK",
+        "minutos": 49.4
+      },
+      {
+        "experimento": "milgram",
+        "estado": "OK",
+        "minutos": 36.5
+      },
+      {
+        "experimento": "milgram_vacuna",
+        "estado": "OK",
+        "minutos": 6.5
+      },
+      {
+        "experimento": "cronica_v1",
+        "estado": "OK",
+        "minutos": 14.3
+      },
+      {
+        "experimento": "cronica_v2_s715",
+        "estado": "OK",
+        "minutos": 21.2
+      },
+      {
+        "experimento": "cronica_v2_s716",
+        "estado": "OK",
+        "minutos": 19.1
+      },
+      {
+        "experimento": "cronica_v2_s717",
+        "estado": "OK",
+        "minutos": 19.3
+      },
+      {
+        "experimento": "prision_p1",
+        "estado": "OK",
+        "minutos": 27.6
+      },
+      {
+        "experimento": "prision_p1b",
+        "estado": "OK",
+        "minutos": 26.3
+      },
+      {
+        "experimento": "prision_p2",
+        "estado": "OK",
+        "minutos": 27.1
+      },
+      {
+        "experimento": "prision_p2b",
+        "estado": "OK",
+        "minutos": 21.8
+      },
+      {
+        "experimento": "denuncia",
+        "estado": "OK",
+        "minutos": 19.1
+      },
+      {
+        "experimento": "sicofancia_op",
+        "estado": "OK",
+        "minutos": 39.3
+      }
+    ]
+  },
+  {
+    "modelo": "hy4-flash",
+    "suite": [
+      {
+        "experimento": "asch",
+        "estado": "OK",
+        "minutos": 45.7
+      },
+      {
+        "experimento": "milgram",
+        "estado": "OK",
+        "minutos": 30.1
+      },
+      {
+        "experimento": "milgram_vacuna",
+        "estado": "OK",
+        "minutos": 16.1
+      },
+      {
+        "experimento": "cronica_v1",
+        "estado": "OK",
+        "minutos": 12.1
+      },
+      {
+        "experimento": "cronica_v2_s715",
+        "estado": "OK",
+        "minutos": 20.8
+      },
+      {
+        "experimento": "cronica_v2_s716",
+        "estado": "OK",
+        "minutos": 23.6
+      },
+      {
+        "experimento": "cronica_v2_s717",
+        "estado": "OK",
+        "minutos": 26.6
+      },
+      {
+        "experimento": "prision_p1",
+        "estado": "OK",
+        "minutos": 23.5
+      },
+      {
+        "experimento": "prision_p1b",
+        "estado": "OK",
+        "minutos": 25.2
+      },
+      {
+        "experimento": "prision_p2",
+        "estado": "OK",
+        "minutos": 23.0
+      },
+      {
+        "experimento": "prision_p2b",
+        "estado": "OK",
+        "minutos": 22.6
+      },
+      {
+        "experimento": "denuncia",
+        "estado": "OK",
+        "minutos": 22.3
+      },
+      {
+        "experimento": "sicofancia_op",
+        "estado": "OK",
+        "minutos": 47.2
+      }
+    ]
+  }
+]

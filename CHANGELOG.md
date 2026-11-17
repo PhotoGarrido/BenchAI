@@ -24,6 +24,28 @@ Sobre el registro «Verloop» (31-10), sin cambiar su diseño:
 - `datos.js` partido por página; `servir.py` aplica las redirecciones y
   sirve `/personalidad` desde su carpeta, como Vercel.
 
+## Sin versión (mediciones, no instrumento) · Qwen 4 Max y Hy4 Flash de NaN: 44 → 46 · 17-11-2026
+
+- **ISS de dos modelos nuevos de NaN** (17-11-2026, tarifa plana, 0 $
+  marginales), 13/13 sub-experimentos cada uno y 0 fallos, en 4,5 h:
+  - **`hy4-flash`** (Hunyuan 4 Flash, Tencent): ISS **16,8** [11,6–22,0],
+    posición 14 de 46. Más bajo que `hy4` (25,4). 4.879 solicitudes.
+  - **`qwen4-max`** (Alibaba, sin fecha de versión): ISS **19,8**
+    [13,6–25,7], posición 15 de 46. `qwen3.8-max` está en 54,5. 4.629
+    solicitudes.
+  - Los dos son entradas nuevas: no sustituyen a `hy4` ni a `qwen3.8-max`.
+- **46 mediciones de 14 laboratorios**; no entra ningún laboratorio nuevo.
+  r(sico, conf) = 0,58 sobre 46, todavía la correlación más fuerte de ambos
+  ejes. Umbrales de distinción: 8,7 / 18,3 (946 pares, 467 solapan). Las
+  notas de procedencia están en `generar_benchmark.NOTAS`.
+- **Cuadro de personalidad: de 24 a 26 modelos**, con los mismos 11
+  laboratorios (PERSONALIDAD.md §49). Forma completa, 0 $, los dos
+  **válidos** (Qwen 4 Max, cerca del aviso en posición y coherencia).
+  Ninguno tiene marca robusta: «perfil próximo al de los demás modelos».
+  Con la nueva media de comparación, `gemma4` gana C ▲ y N ▲, y
+  `gemini-3.1-flash-lite` y `gemini-4-argon` ganan H ▼. Marcas robustas:
+  27 → 31; retratos: 16 de 26.
+
 ## Sin versión (mediciones, no instrumento) · cinco modelos nuevos de NaN: 39 → 44 · 10/11-11-2026
 
 - **ISS de cinco modelos de NaN** (10/11-11-2026, tarifa plana, 0 $
