@@ -1,7 +1,7 @@
 /* ===========================================================================
    BenchAI · prueba de interacción de PsicoBench
    ---------------------------------------------------------------------------
-   Abre /psicobench en Chrome headless y comprueba que sobrevive todo lo
+   Abre /social (SocialBench) en Chrome headless y comprueba que sobrevive todo lo
    que la página anterior dejaba hacer (PLAN_PSICOBENCH_VERLOOP.md, fase 4): la
    dirección #m= en los dos sentidos, los selectores A/B y el intercambio, las
    pestañas de eje, las pruebas de sesión, la reordenación y los filtros del
@@ -10,14 +10,14 @@
    dependencias, como web/smoke.mjs. No se publica.
 
      python3 web/publicar.py && python3 web/servir.py &
-     node web/interaccion.prueba.mjs http://127.0.0.1:8743/psicobench
+     node web/interaccion.prueba.mjs http://127.0.0.1:8743/social
    =========================================================================== */
 import { spawn } from "node:child_process";
 import { existsSync, mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
-const URL_ = process.argv[2] || "http://127.0.0.1:8743/psicobench";
+const URL_ = process.argv[2] || "http://127.0.0.1:8743/social";
 const CHROME = process.env.CHROME || [
   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
   "/usr/bin/google-chrome", "/usr/bin/chromium-browser", "/usr/bin/chromium",
@@ -55,14 +55,14 @@ await vista(1440, 900);
 
 // 1 · #m= en los dos sentidos: dirección → ficha y lámina; ficha → dirección
 await cargar("#m=claude-opus-5");
-let r = await ev(`({ f: document.querySelector('#mandos-ficha select').value, l: document.getElementById('lm-nombre').textContent, h: document.querySelector('.ficha-hoja h3').textContent })`);
+let r = await ev(`({ f: document.querySelector('#mandos-ficha select').value, l: document.getElementById('lm-nombre').dataset.id, h: document.querySelector('.ficha-hoja h3').dataset.id })`);
 ok(r.f === "claude-opus-5" && r.l === "claude-opus-5" && r.h === "claude-opus-5", `#m=claude-opus-5 abre ficha y lámina (${r.f} / ${r.l})`);
 await ev(`(() => { const s = document.querySelector('#mandos-ficha select'); s.value = 'grok-4.5'; s.dispatchEvent(new Event('change')); })()`);
 await dormir(1100);
-r = await ev(`({ h: location.hash, l: document.getElementById('lm-nombre').textContent, f: document.querySelector('.ficha-hoja h3').textContent })`);
+r = await ev(`({ h: location.hash, l: document.getElementById('lm-nombre').dataset.id, f: document.querySelector('.ficha-hoja h3').dataset.id })`);
 ok(r.h === "#m=grok-4.5" && r.l === "grok-4.5" && r.f === "grok-4.5", `el selector de la ficha mueve la dirección y la lámina (${r.h}, ${r.l})`);
 await ev(`location.hash = '#m=' + encodeURIComponent('gemini-3.7-flash')`); await dormir(1100);
-r = await ev(`({ f: document.querySelector('.ficha-hoja h3').textContent, l: document.getElementById('lm-nombre').textContent })`);
+r = await ev(`({ f: document.querySelector('.ficha-hoja h3').dataset.id, l: document.getElementById('lm-nombre').dataset.id })`);
 ok(r.f === "gemini-3.7-flash" && r.l === "gemini-3.7-flash", "un cambio de dirección mueve ficha y lámina");
 await cargar("#m=no-existe");
 ok((await ev(`document.getElementById('lm-nombre').textContent`)) !== "no-existe" && !/no-existe/.test(await texto(`document.querySelector('.ficha-hoja h3')`)), "un #m= desconocido no rompe la página");
@@ -72,15 +72,18 @@ await cargar();
 const ab = () => ev(`({ a: document.querySelector('#mandos-sesiones select:nth-of-type(1)').value, b: document.querySelector('#mandos-sesiones select:nth-of-type(2)').value,
   ca: document.querySelector('#deltas-ab .cab-ab .a').textContent, cb: document.querySelector('#deltas-ab .cab-ab .b').textContent,
   sa: document.querySelectorAll('#sesiones-host .sesion .quien')[0].firstChild.textContent, sb: document.querySelectorAll('#sesiones-host .sesion .quien')[1].firstChild.textContent,
-  filas: document.querySelectorAll('#deltas-ab table.deltas tbody tr').length })`);
+  filas: document.querySelectorAll('#deltas-ab table.deltas tbody tr').length,
+  // lo visible es el nombre legible (web/modelos.json); los selectores llevan el id
+  ea: PSICO.benchmark.entradas.find((e) => e.id === document.querySelector('#mandos-sesiones select:nth-of-type(1)').value).etiqueta,
+  eb: PSICO.benchmark.entradas.find((e) => e.id === document.querySelector('#mandos-sesiones select:nth-of-type(2)').value).etiqueta })`);
 let s0 = await ab();
-ok(s0.ca.endsWith(s0.a) && s0.cb.endsWith(s0.b) && s0.sa === s0.a && s0.sb === s0.b && s0.filas === 9, `A/B arrancan coherentes (${s0.a} · ${s0.b}, 9 filas de deltas)`);
+ok(s0.ca.endsWith(s0.ea) && s0.cb.endsWith(s0.eb) && s0.sa === s0.ea && s0.sb === s0.eb && s0.filas === 9, `A/B arrancan coherentes (${s0.a} · ${s0.b}, 9 filas de deltas)`);
 await pulsar(`[...document.querySelectorAll('#mandos-sesiones button')].find((b) => /intercambiar/i.test(b.textContent))`);
 let s1 = await ab();
-ok(s1.a === s0.b && s1.b === s0.a && s1.sa === s0.b && s1.ca.endsWith(s0.b), "⇄ intercambia selectores, deltas y sesiones");
+ok(s1.a === s0.b && s1.b === s0.a && s1.sa === s0.eb && s1.ca.endsWith(s0.eb), "⇄ intercambia selectores, deltas y sesiones");
 await ev(`(() => { const s = document.querySelector('#mandos-sesiones select:nth-of-type(1)'); s.value = 'kimi-k3'; s.dispatchEvent(new Event('change')); })()`);
 s1 = await ab();
-ok(s1.a === "kimi-k3" && s1.sa === "kimi-k3" && s1.ca.endsWith("kimi-k3"), "cambiar A repinta deltas y sesiones");
+ok(s1.a === "kimi-k3" && s1.sa === s1.ea && s1.ca.endsWith(s1.ea), "cambiar A repinta deltas y sesiones");
 await pulsar(`[...document.querySelectorAll('.ficha-acciones button')].find((b) => /como B/.test(b.textContent))`);
 ok((await ab()).b === (await ev(`document.querySelector('#mandos-ficha select').value`)), "«…como B» de la ficha lleva la medición al selector B");
 
@@ -101,7 +104,9 @@ ok(r.sel === 1 && /^Obediencia/.test(r.tit) && r.h3 === "Obediencia" && r.c.toUp
 
 // 5 · el mapa: reordenar, filtrar, agrupar y desplegar
 const filas = () => ev(`document.querySelectorAll('#heat table.mapa tbody tr.fila').length`);
-ok((await filas()) === 39, "el mapa arranca con las 39 mediciones");
+// el banco crece con cada alta: el recuento se lee de los datos
+const N = await ev(`PSICO.benchmark.entradas.length`);
+ok((await filas()) === N, `el mapa arranca con las ${N} mediciones`);
 await pulsar(`[...document.querySelectorAll('#heat thead th')].find((t) => /Conformidad/.test(t.textContent)).querySelector('button')`);
 r = await ev(`(() => { const th = [...document.querySelectorAll('#heat thead th')].find((t) => /Conformidad/.test(t.textContent)); const i = [...th.parentElement.children].indexOf(th); const v = [...document.querySelectorAll('#heat tbody tr.fila')].map((f) => +f.children[i].textContent); return { sort: th.getAttribute('aria-sort'), v }; })()`);
 ok(r.sort === "descending" && r.v.every((x, k) => k === 0 || r.v[k - 1] >= x), `una cabecera de eje ordena de más a menos (${r.v.slice(0, 3).join(", ")}…)`);
@@ -110,7 +115,7 @@ ok((await ev(`[...document.querySelectorAll('#heat thead th')].find((t) => /Conf
 const lab = await ev(`(() => { const c = [...document.querySelectorAll('#mandos-mapa .grupo-m button')][1]; c.click(); return { n: +c.querySelector('.n').textContent, lab: c.firstChild.textContent }; })()`);
 ok((await filas()) === lab.n, `filtrar por ${lab.lab} deja ${lab.n} filas`);
 await pulsar(`[...document.querySelectorAll('#mandos-mapa button')].find((b) => b.textContent === 'Todos')`);
-ok((await filas()) === 39, "«Todos» devuelve las 39");
+ok((await filas()) === N, `«Todos» devuelve las ${N}`);
 await pulsar(`[...document.querySelectorAll('#mandos-mapa button')].find((b) => /Agrupar/.test(b.textContent))`);
 const nLabs = await ev(`document.querySelectorAll('#mandos-mapa .grupo-m button').length - 1`);
 ok((await filas()) === nLabs, `agrupar deja una fila por laboratorio (${nLabs})`);
@@ -121,7 +126,7 @@ ok(r.det === 1 && r.exp === "true" && r.ejes === 8, "una fila se despliega con s
 r = await ev(`(() => { const td = document.querySelector('#heat tbody td.c.tono'); const cs = getComputedStyle(td); return { bg: cs.backgroundColor, c: cs.color }; })()`);
 ok(/rgb/.test(r.bg) && r.bg !== "rgba(0, 0, 0, 0)", `las celdas llevan su tono (${r.bg} con texto ${r.c})`);
 
-// 6 · descarga: el CSV sale de los datos, con cabecera y 39 filas
+// 6 · descarga: el CSV sale de los datos, con cabecera y una fila por medición
 r = await ev(`new Promise((res) => {
   const orig = URL.createObjectURL; const clic = HTMLAnchorElement.prototype.click;
   HTMLAnchorElement.prototype.click = function () { if (!this.download) clic.call(this); };
@@ -129,7 +134,7 @@ r = await ev(`new Promise((res) => {
   [...document.querySelectorAll('#mandos-descarga button')].find((b) => /CSV/.test(b.textContent)).click();
 })`);
 const lineas = r.t.split("\n");
-ok(/^text\/csv/.test(r.tipo) && /^id,modelo,lab,proveedor,fecha,iss/.test(lineas[0]) && lineas.length === 40, `el CSV tiene cabecera y 39 filas (${lineas.length - 1})`);
+ok(/^text\/csv/.test(r.tipo) && /^id,nombre,modelo,lab,proveedor,fecha,iss/.test(lineas[0]) && lineas.length === N + 1, `el CSV tiene cabecera y ${N} filas (${lineas.length - 1})`);
 const hrefJSON = await ev(`[...document.querySelectorAll('#mandos-descarga a')].find((a) => /JSON/.test(a.textContent)).href`);
 const resp = await fetch(hrefJSON);
 ok(resp.ok && Array.isArray((await resp.json()).entradas ?? [1]), `el enlace al JSON responde (${new URL(hrefJSON).pathname}, ${resp.status})`);

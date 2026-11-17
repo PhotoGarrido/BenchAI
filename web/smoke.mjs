@@ -43,7 +43,7 @@ const RUTAS = [
       const f = [];
       const P = (window.PSICO || {}).personalidad;
       if (!P) return ["window.PSICO.personalidad no cargó"];
-      if (document.querySelectorAll(".superficies a").length !== 4) f.push("falta el conmutador de las cuatro superficies");
+      if (document.querySelectorAll(".superficies a").length !== 3) f.push("falta el conmutador de los tres benchmarks");
       if (!document.querySelector('.superficies a[aria-current="page"]')?.textContent.includes("Personalidad")) f.push("el conmutador no marca Personalidad");
       if (!document.getElementById("progreso")) f.push("sin barra de progreso");
       if (!(document.getElementById("v-edicion")?.textContent || "").includes(P.fecha)) f.push("la barra no lleva la fecha de la edición");
@@ -76,7 +76,7 @@ const RUTAS = [
       if (document.querySelectorAll("#fichas-host .cautela").length !== avisos) f.push("avisos ⚠ explicados: esperaba " + avisos);
       // el ISS enlaza a la ficha de /psicobench de cada modelo que lo tiene
       const conISS = P.modelos.filter(m => m.psicobench).length;
-      if (document.querySelectorAll('#fichas-host a.iss[href*="#m="]').length !== conISS) f.push("enlaces a la ficha de PsicoBench: esperaba " + conISS);
+      if (document.querySelectorAll('#fichas-host a.iss[href*="#m="]').length !== conISS) f.push("enlaces a la ficha de SocialBench: esperaba " + conISS);
       if (document.querySelectorAll("#tabla-comparar tbody tr").length !== P.nModelos) f.push("la tabla de comparación no tiene un modelo por fila");
       // curiosidades: las de rasgo con su tira y las del panel
       const curio = document.querySelectorAll("#curiosidades-host .curio");
@@ -113,7 +113,7 @@ const RUTAS = [
       if (v.some((x, i) => i && x > v[i - 1])) f.push("el orden por " + t + " no es de más a menos");
       const buscar = document.querySelector("#mandos-fichas input.buscar-f"), q = P.modelos[0].id;
       buscar.value = q; buscar.dispatchEvent(new Event("input"));
-      n = visibles().length; esperado = P.modelos.filter(m => (m.id + " " + m.lab).toLowerCase().includes(q.toLowerCase())).length;
+      n = visibles().length; esperado = P.modelos.filter(m => (m.id + " " + m.etiqueta + " " + m.lab).toLowerCase().includes(q.toLowerCase())).length;
       if (n !== esperado) f.push("búsqueda «" + q + "»: " + n + " fichas (esperaba " + esperado + ")");
       return f;
     })()`,
@@ -193,7 +193,7 @@ const RUTAS = [
 /* Las cuatro páginas «Verloop» (PLAN_PSICOBENCH_VERLOOP.md y
    PLAN_WEB_VERLOOP.md), en producción desde el 30-10-2026. */
 RUTAS.push({
-  ruta: "/psicobench",
+  ruta: "/social",
   aserciones: `(() => {
     const f = [];
     const P = window.PSICO;
@@ -212,8 +212,8 @@ RUTAS.push({
     if (!document.getElementById("lm-ant") || !document.getElementById("lm-sig") || !document.getElementById("lamina-polvo")) f.push("faltan las flechas o el lienzo del chasquido");
     if (document.querySelectorAll("#perfil .cifras li").length !== 4) f.push("las cuatro cifras no están");
     if (!document.getElementById("ultima-medicion")?.textContent.trim()) f.push("sin fecha de última medición");
-    if (document.querySelectorAll(".superficies a").length !== 4) f.push("falta el conmutador de las cuatro superficies");
-    if (!Array.from(document.querySelectorAll(".superficies a")).some(a => a.getAttribute("href") === "/completo")) f.push("el conmutador no lleva a /completo");
+    if (document.querySelectorAll(".superficies a").length !== 3) f.push("falta el conmutador de los tres benchmarks");
+    if (!Array.from(document.querySelectorAll(".nivel a")).some(a => a.getAttribute("href") === "/completo")) f.push("el nivel no lleva al detalle (/completo)");
     // como en /psicobench: la ficha lleva su línea de personalidad si y solo si la medición está en el cuadro
     const idF = document.querySelector("#mandos-ficha select")?.value;
     const enCuadro = (P.personalidad || { modelos: [] }).modelos.some(m => m.psicobench === idF);
@@ -280,8 +280,9 @@ RUTAS.push({
     if (!document.querySelectorAll("#pe-peldanos > *").length) f.push("la escalera animada no montó");
     // el conmutador lleva a las hermanas por su ruta limpia
     const sup = Array.from(document.querySelectorAll(".superficies a")).map(a => a.getAttribute("href"));
-    if (sup.length !== 4) f.push("falta el conmutador de las cuatro superficies");
-    if (!sup.includes("/psicobench")) f.push("el conmutador no lleva a /psicobench: " + sup.join(" "));
+    if (sup.length !== 3) f.push("falta el conmutador de los tres benchmarks");
+    if (!sup.includes("/social")) f.push("el conmutador no lleva a /social: " + sup.join(" "));
+    if (!document.querySelector('.nivel a[aria-current="page"]')?.textContent.includes("Detalle")) f.push("el nivel no marca Detalle");
     return f;
   })()`,
 });
@@ -299,12 +300,13 @@ RUTAS.push({
     if (document.querySelectorAll("#perfil.vistazo .cifras li").length !== 4) f.push("las cuatro cifras no están bajo el titular");
     if (!document.getElementById("lp-ant") || !document.getElementById("lp-sig") || !document.getElementById("lp-polvo")) f.push("faltan las flechas o el lienzo del chasquido");
     const nombre = document.getElementById("pr-nombre")?.textContent;
-    const m = P && P.modelos.find((x) => x.id.split("/").pop() === nombre);
+    const m = P && P.modelos.find((x) => x.etiqueta === nombre);
     if (!m) f.push("la ficha grande no muestra un modelo del cuadro: " + nombre);
     else if (document.querySelectorAll("#lp-marcas li:not(.ninguna)").length !== P.rasgos.filter((r) => m.rasgos[r.clave].marca).length) f.push("las marcas de la ficha grande no casan con los datos de " + m.id);
     const sup = Array.from(document.querySelectorAll(".superficies a")).map((a) => a.getAttribute("href"));
-    if (!sup.includes("/psicobench") || !sup.includes("/personalidad")) f.push("el conmutador no lleva a las hermanas: " + sup.join(" "));
-    if (!document.querySelector('#fichas-host a.iss[href^="/psicobench#m="]')) f.push("el ISS de las fichas no lleva a /psicobench");
+    if (!sup.includes("/social") || !sup.includes("/personalidad")) f.push("el conmutador no lleva a las hermanas: " + sup.join(" "));
+    if (!document.querySelector('#fichas-host a.iss[href^="/social#m="]')) f.push("el ISS de las fichas no lleva a /social");
+    if (!Array.from(document.querySelectorAll(".nivel a")).some(a => a.getAttribute("href") === "/personalidad/datos")) f.push("el nivel no lleva al detalle (/personalidad/datos)");
     return f;
   })()`;
   RUTAS[i] = { ...base,
@@ -323,8 +325,8 @@ RUTAS.push({
     const B = D.benchmark, P = D.personalidad;
     if (!document.body.classList.contains("verloop")) f.push("sin el registro Verloop");
     const sup = Array.from(document.querySelectorAll(".superficies a")).map((a) => a.getAttribute("href"));
-    ["/", "/completo", "/psicobench", "/personalidad"].forEach((r) => { if (!sup.includes(r)) f.push("el conmutador no lleva a " + r); });
-    if (!document.querySelector('.superficies a[aria-current="page"]')?.textContent.includes("Resumen")) f.push("el conmutador no marca Resumen");
+    ["/", "/social", "/personalidad"].forEach((r) => { if (!sup.includes(r)) f.push("el conmutador no lleva a " + r); });
+    if (!document.querySelector('.superficies a[aria-current="page"]')?.textContent.includes("Inicio")) f.push("el conmutador no marca Inicio");
     // cifras y los dos benchmarks, con sus gráficas vivas
     const vacias = Array.from(document.querySelectorAll("#banco .cifras .n")).filter((n) => !n.textContent.trim() || n.textContent === "—");
     if (vacias.length) f.push("cifras del banco vacías: " + vacias.length);
@@ -336,12 +338,56 @@ RUTAS.push({
     const sinCifra = Array.from(document.querySelectorAll("#como dd, #hallazgos .dato")).filter((n) => !n.textContent.trim());
     if (sinCifra.length) f.push("cifras sin rellenar en cómo se mide u hallazgos: " + sinCifra.length);
     if (!document.querySelector("#quiz .cuerpo .pregunta") || !document.querySelectorAll("#quiz .reproductor-clips .clip").length) f.push("el test «Ponte en la silla» no montó");
-    if (document.querySelectorAll(".lecturas a.lectura").length !== 4) f.push("faltan las cuatro lecturas");
+    const lect = Array.from(document.querySelectorAll(".lecturas a.lectura")).map((a) => a.getAttribute("href"));
+    ["/social", "/completo", "/personalidad", "/personalidad/datos"].forEach((r) => { if (!lect.includes(r)) f.push("las lecturas no llevan a " + r); });
     return f;
   })()`,
 });
 
-const ORDEN = ["/", "/completo", "/psicobench", "/personalidad", "/benchmark", "/viewer"];
+/* Personalidad en detalle (01-11-2026): el explorador del test */
+RUTAS.push({
+  ruta: "/personalidad/datos",
+  aserciones: `(() => {
+    const f = [];
+    const P = (window.PSICO || {}).personalidad;
+    if (!P) return ["window.PSICO.personalidad no cargó"];
+    if (!document.body.classList.contains("verloop")) f.push("sin el registro Verloop");
+    if (!document.querySelector('.nivel a[aria-current="page"]')?.textContent.includes("Detalle")) f.push("el nivel no marca Detalle");
+    const n = P.modelos.length;
+    if (document.querySelectorAll("table.mapa-p tbody tr").length !== n) f.push("el mapa no tiene un modelo por fila");
+    if (document.querySelectorAll("table.mapa-p td.celda.firme").length !== P.robustas) f.push("celdas firmes del mapa: esperaba " + P.robustas);
+    if (document.querySelectorAll("#rasgo-host circle.punto-r").length !== n) f.push("la clasificación por rasgo no tiene un punto por modelo");
+    if (document.querySelectorAll("#comparar-host .cmp-fila").length !== P.rasgos.length) f.push("el comparador no tiene una fila por rasgo");
+    if (document.querySelectorAll("#huellas-host .huella-m").length !== n) f.push("huellas: esperaba " + n);
+    if (document.querySelectorAll("#familias-host path.rama").length !== n - 1) f.push("el árbol de familias no tiene n−1 uniones");
+    const ej = (P.ejemplos || { situaciones: [] }).situaciones.length;
+    if (!ej || document.querySelectorAll("#ejemplos-host .ejemplo").length !== ej) f.push("situaciones de ejemplo: esperaba " + ej);
+    const conISS = P.modelos.filter(m => m.iss != null).length;
+    if (document.querySelectorAll("#iss-host .punto-iss").length !== conISS) f.push("dispersión con el ISS: esperaba " + conISS + " puntos");
+    if (document.querySelectorAll("#validez-host tbody tr").length !== n) f.push("la tabla de validez no tiene un modelo por fila");
+    if (document.querySelectorAll("#metodo-host .metodo-c").length < 4) f.push("el método no montó");
+    return f;
+  })()`,
+  preparar: `(() => {
+    document.querySelector(".sg-boton").click();
+    document.querySelector(".sg-acciones .chip:nth-child(2)").click();   // Ninguno
+    const lab = window.PSICO.personalidad.labs[0];
+    [...document.querySelectorAll(".sg-acciones .chip")].find(b => b.textContent.startsWith(lab + " "))?.click();
+    document.querySelector(".plantillas .chip")?.click();
+    return true;
+  })()`,
+  aserciones2: `(() => {
+    const f = [];
+    const P = window.PSICO.personalidad, lab = P.labs[0];
+    const n = P.modelos.filter(m => m.lab === lab).length;
+    if (document.querySelectorAll("table.mapa-p tbody tr").length !== n) f.push("el selector no filtra el mapa (" + lab + ")");
+    if (document.querySelectorAll("#ranking-host ol.rk li").length !== n) f.push("el ranking a medida no se calculó con la plantilla");
+    if (!/[?&]m=/.test(location.search) || !/[?&]w=/.test(location.search)) f.push("la selección o los pesos no quedan en la URL");
+    return f;
+  })()`,
+});
+
+const ORDEN = ["/", "/social", "/completo", "/personalidad", "/personalidad/datos", "/benchmark", "/viewer"];
 RUTAS.sort((a, b) => ORDEN.indexOf(a.ruta) - ORDEN.indexOf(b.ruta));
 
 /* ── arranque de Chrome con puerto de depuración ─────────────────────────── */
@@ -456,6 +502,15 @@ for (const spec of RUTAS) {
   console.log(`${ok ? "  ok " : "FALLA"} ${spec.ruta}`);
   fallos.forEach((f) => console.log(`        · ${f}`));
   total += fallos.length;
+}
+
+// la ruta antigua de SocialBench redirige (308) a la nueva, sin perder enlaces
+{
+  const r = await fetch(BASE + "/psicobench", { redirect: "manual" }).catch(() => null);
+  const destino = r && (r.headers.get("location") || "").replace(BASE, "");
+  const ok = r && [301, 308].includes(r.status) && destino === "/social";
+  console.log(`${ok ? "  ok " : "FALLA"} /psicobench → /social`);
+  if (!ok) { console.log(`        · respondió ${r ? r.status + " " + destino : "sin respuesta"}`); total++; }
 }
 
 chrome.kill();

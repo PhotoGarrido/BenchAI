@@ -1,16 +1,35 @@
-# 🌐 `web/` — sitio divulgativo (prototipo v0.2)
+# 🌐 `web/` — sitio divulgativo (registro «Verloop», 01-11-2026)
 
-Cuatro páginas, cuatro lecturas, los mismos datos, y un conmutador «Resumen ·
-Completa · PsicoBench · Personalidad» en la barra de las cuatro para pasar de
-una a otra (visible también en móvil, donde el menú de secciones se esconde;
-por debajo de 400 px ocupa la barra entera):
+**Dos benchmarks, cada uno con su resumen y su detalle**, bajo una portada que
+abre las dos puertas. La barra lleva dos mandos: el benchmark (Inicio ·
+SocialBench · Personalidad) y, en cada benchmark, el nivel (Resumen ·
+Detalle). En el móvil solo cabe el primero; el nivel se cambia desde los
+botones de la portada de cada página y desde el pie.
 
-| Página | Para quién | Qué cuenta |
+| Fichero | Ruta | Qué cuenta |
 |---|---|---|
-| **`home.html`** | público interesado en IA | La pregunta, los tres experimentos con su versión disfrazada, un test para ponerse en la silla, el perfil de cada modelo y la escala del corpus. Enlaza a la versión larga en cada bloque. |
-| **`index.html`** | quien quiere el detalle | Las once secciones completas: método, los cuatro paradigmas, la disonancia, el portador, el benchmark con intervalos, la identidad, las grabaciones y los recursos. |
-| **`psicobench.html`** | quien viene por el benchmark | Solo PsicoBench, con lectura guiada: una pestaña por forma de presión con todas las mediciones nombradas y su IC, el mapa mediciones × ejes (ordenable, filtrable por lab, con intervalos y n por fila), el cara a cara de dos mediciones (radar superpuesto, deltas por eje, preajustes y sesiones reales lado a lado), cuatro mapas con nombre, la ficha por medición con dirección propia (`#m=id`), la escalera de versiones, la descarga CSV y la doctrina. Convive con el panel del instrumento de `/benchmark`, que es lo que regenera el banco. Plan y fases en `PLAN_WEB_BENCHMARK.md`. |
-| **`personalidad.html`** | quien quiere el carácter de cada modelo | El test de personalidad de cada IA (Big Five + Honestidad-Humildad, `PERSONALIDAD.md` §28), en cinco tramos: una portada con el polígono de cada modelo, animado uno tras otro sobre el panel entero; **una ficha por modelo** (`#p=id`) con su radar propio (radio = 0,5 + diferencia frente a la media de los demás / 2·máx\|dif\| del cuadro, así que la media es un hexágono regular y solo los vértices con marca robusta van resaltados), una línea por rasgo y una descripción general hecha por plantilla —firme solo con marcas robustas; sin marca, como mucho «se inclina hacia…» cuando el intervalo excluye el cero; sin ninguna, «perfil equilibrado»—, su laboratorio, su ISS enlazado y el ⚠ en llano; búsqueda, orden y filtro por laboratorio sin recargar, y la tabla de todos plegada; qué es el test y cómo se lee una ficha; curiosidades calculadas en el navegador (extremos por rasgo, que dicen si el primero no tiene marca o gana por menos de un punto; el laboratorio más parecido entre sí, el modelo más equilibrado y el más extremo; el rasgo con más dispersión); y una metodología breve (las cinco comprobaciones, validez, limitaciones y los que quedan fuera), que remite a `PERSONALIDAD.md` para la versión extendida. Sale de `spike/resultados/personalidad_fc/cuadro_publico.json` (bloque `personalidad` de `datos.js`); la edición y su fecha, de la sección de `PERSONALIDAD.md` que la deja así (`SECCION_CUADRO`). La ficha de `/psicobench` enlaza aquí cuando su medición está en el cuadro. Sus llamadas no cuentan en el corpus de PsicoBench. |
+| **`home.html`** | `/` | La portada (`verloop/inicio.js`): qué es BenchAI, las dos tarjetas de benchmark con su gráfica viva y sus botones de resumen y detalle, el puente rasgos × ISS, cómo se mide, «Ponte en la silla», hallazgos, por qué importa y para profundizar. |
+| **`psicobench.html`** | `/social` | **SocialBench** (antes PsicoBench, que redirige): la lámina con chasquido, el ISS y sus componentes, una pestaña por forma de ceder con IC, el mapa mediciones × ejes, el cara a cara, los cruces, la ficha por medición (`#m=id`), la escalera de versiones y el CSV (`verloop/psicobench.js`). |
+| **`index.html`** | `/completo` | **SocialBench en detalle**: el estudio completo (método, paradigmas, disonancia, portador, benchmark, identidad, grabaciones y recursos; `js/pagina.js`). |
+| **`personalidad.html`** | `/personalidad` | El test de personalidad (Big Five + Honestidad-Humildad, `PERSONALIDAD.md` §28): un modelo cada vez con chasquido, las fichas (`#p=id`), qué es, curiosidades y metodología (`verloop/personalidad.js`). Se publica como `personalidad/index.html`, junto a su detalle. |
+| **`personalidad-datos.html`** | `/personalidad/datos` | **Personalidad en detalle**: mapa de rasgos (diferencia, puntuación o percentil), clasificación por rasgo con IC, comparador A/B, huellas en σ, familias, **situaciones reales** con lo que eligió cada modelo, ranking a medida, personalidad × ISS, validez y tabla con CSV. Un selector de modelos manda sobre todas las gráficas y el estado vive en la URL (`js/personalidad-datos.js`, `css/datos.css`). |
+
+**Nombres.** Lo que se lee es el nombre comercial con su variante
+(«Claude Opus 5.5 (low)», «Qwen3.6 35B-A3B · 23-07», «gateway NaN» como vía);
+el id técnico sigue siendo la clave (selectores, `#m=`, `data-id`). Salen de
+**`modelos.json`**: `generar_datos.py` se para si un id no tiene nombre o si dos
+mediciones quedan con la misma etiqueta. Los modelos distintos se cuentan por
+ese nombre, igual en el banco y en el corpus.
+
+**Datos por página.** `generar_datos.py` escribe cuatro módulos compactos:
+`datos.js` (banco, personalidad, portada, corpus), `datos-estudio.js`,
+`datos-sesiones.js` y `datos-episodios.js`; cada página carga los suyos.
+
+**Tarjetas para compartir.** `og.png`, `og-social.png` y `og-personalidad.png`,
+en el registro Verloop y **sin cifras** (`python3 web/generar_og.py`).
+
+**Situaciones de ejemplo.** `spike/ejemplos_personalidad.py` elige, por rasgo,
+las dos que más separan al panel → `spike/resultados/personalidad_fc/ejemplos.json`.
 
 La home sigue el planteamiento divulgativo; el sitio largo sigue el hilo del
 guion del pódcast. Los dos leen **las cifras vigentes del repositorio**, no las

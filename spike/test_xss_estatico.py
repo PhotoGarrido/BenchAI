@@ -25,15 +25,15 @@ import pathlib
 import re
 
 RAIZ = pathlib.Path(__file__).resolve().parent.parent
-# `web/datos.js` es dato generado, no código: entra por su propio canario.
+# `web/datos*.js` es dato generado, no código: entra por su propio canario.
 WEB_JS = sorted(
     str(p.relative_to(RAIZ)) for p in (RAIZ / "web").rglob("*.js")
-    if p.name != "datos.js"
+    if not p.name.startswith("datos")
 )
 JS = ["panel/app.js", "viewer/app.js"] + WEB_JS
 HTML = ["panel/index.html", "viewer/index.html", "benchmark/index.html",
         "web/home.html", "web/index.html", "web/psicobench.html",
-        "web/personalidad.html", "web/visor-embebido.html"]
+        "web/personalidad.html", "web/personalidad-datos.html", "web/visor-embebido.html"]
 # La única puerta a innerHTML de `web/`, con su nombre por escrito.
 PUERTA_MARCADO = "web/js/marcado.js"
 
@@ -158,9 +158,9 @@ def _puerta_de_marcado() -> bool:
 
     # e.3 · canario: el dato generado no trae marcado. Si algún día una cita
     #       de un informe trae `<b>`, esto salta y obliga a decidir a mano.
-    datos = (RAIZ / "web/datos.js").read_text(encoding="utf-8")
+    datos = "".join(f.read_text(encoding="utf-8") for f in sorted((RAIZ / "web").glob("datos*.js")))
     etiquetas = _ETIQUETA.findall(datos)
-    ok &= _c(not etiquetas, "web/datos.js: los datos generados no traen marcado"
+    ok &= _c(not etiquetas, "web/datos*.js: los datos generados no traen marcado"
              + (f" — VISTAS: {sorted(set(etiquetas))[:3]}" if etiquetas else ""))
     return ok
 

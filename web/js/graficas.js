@@ -168,9 +168,18 @@
 
   function adaptable(fig, dibujar) {
     const lienzo = fig._lienzo;
-    let ultimo = 0, pendiente = 0;
+    let ultimo = 0, pendiente = 0, ro = null;
+    const alResize = () => pinta(false);
     function pinta(forzar) {
       pendiente = 0;
+      // una figura sustituida (otra pestaña, otra ficha) suelta sus oyentes:
+      // antes se acumulaban uno por clic y las figuras viejas seguían vivas.
+      // Se mira el lienzo (hay quien pasa un objeto con `_lienzo`, no un nodo)
+      // y solo si ya se dibujó: uno aún sin colgar sigue esperando
+      if (!lienzo.isConnected) {
+        if (ultimo) { removeEventListener("resize", alResize); if (ro) ro.disconnect(); }
+        return;
+      }
       const W = Math.floor(lienzo.clientWidth);
       if (!W || (!forzar && Math.abs(W - ultimo) < 6)) return;
       ultimo = W;
@@ -183,11 +192,12 @@
     // (lo hace en la misma tarea): ResizeObserver solo avisa dentro del ciclo
     // de pintado, que no corre en una pestaña en segundo plano
     setTimeout(() => pinta(false), 0);
-    addEventListener("resize", () => pinta(false));
+    addEventListener("resize", alResize);
     if (typeof ResizeObserver === "function") {
       // setTimeout y no requestAnimationFrame: rAF no corre en pestañas en
       // segundo plano y la gráfica se quedaba sin dibujar hasta volver a ella
-      new ResizeObserver(() => { if (!pendiente) pendiente = setTimeout(() => pinta(false), 0); }).observe(lienzo);
+      ro = new ResizeObserver(() => { if (!pendiente) pendiente = setTimeout(() => pinta(false), 0); });
+      ro.observe(lienzo);
     }
   }
 

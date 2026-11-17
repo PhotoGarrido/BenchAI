@@ -3,7 +3,7 @@
    ---------------------------------------------------------------------------
    Va DESPUÉS de `verloop/sitio.css` (el registro común) y encima de
    `css/estilo.css`. PLAN_WEB_VERLOOP.md, fase D. Los dos instrumentos con
-   sus colores: PsicoBench en el cian del ISS bajo; Personalidad en el
+   sus colores: SocialBench en el cian del ISS bajo; Personalidad en el
    orquídea de su primer rasgo.
    =========================================================================== */
 body.verloop {
@@ -40,6 +40,7 @@ body.verloop {
 .verloop .bench .bench-dato { font: 500 12px/1.5 var(--mono); color: var(--tenue); }
 .verloop .bench .bench-dato b { color: var(--tinta); font-weight: 600; }
 .verloop .bench .boton { align-self: flex-start; margin-top: auto; }
+.verloop .bench .bench-acciones { margin-top: auto; }
 .verloop .bench-pe .boton.fuerte { background: var(--c-pe); border-color: var(--c-pe); color: #07070A; }
 .verloop .bench-ps .boton.fuerte { background: var(--c-ps); border-color: var(--c-ps); color: #07070A; }
 .verloop .mini-host { margin: 4px 0 0; padding: 14px 0 4px; border-top: 1px solid var(--linea); border-bottom: 1px solid var(--linea); }
@@ -167,7 +168,7 @@ body.verloop {
 @media (max-width: 520px) { .verloop .hallazgo { grid-template-columns: 1fr; } .verloop .hallazgo .dato { grid-row: auto; } }
 
 /* ── 06 · para profundizar ────────────────────────────────────────────── */
-.verloop .lecturas { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.verloop .lecturas { display: grid; grid-template-columns: repeat(auto-fit, minmax(168px, 1fr)); gap: 16px; }
 @media (max-width: 1000px) { .verloop .lecturas { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 560px) { .verloop .lecturas { grid-template-columns: 1fr; } }
 .verloop .lectura { display: flex; flex-direction: column; gap: 8px; padding: 22px; border-radius: 4px; background: var(--sup); border: 1px solid var(--linea);
@@ -184,3 +185,7 @@ body.verloop {
 }
 /* un hallazgo cuyo «dato» es un nombre (el rasgo): más pequeño y partido por el guion */
 .verloop .hallazgo .dato.texto { font-size: clamp(22px, 2vw, 30px); overflow-wrap: break-word; }
+
+/* los dos botones de cada benchmark, en una fila: el resumen y su detalle */
+.verloop .bench-acciones { display: flex; gap: 10px; flex-wrap: wrap; margin: 0; }
+.verloop .bench-acciones .boton { margin: 0; }

@@ -39,11 +39,8 @@
 
   /* ── utilidades de datos ───────────────────────────────────────────────── */
 
-  const corto = (e) => e.id
-    .replace("@OpenRouter", " @OR")
-    .replace("@NaN", " @NaN")
-    .replace("·23-07-2026", " · jul")
-    .replace("·04-08-2026", " · ago");
+  // el nombre para mostrar, con su variante (web/modelos.json vía generar_datos)
+  const corto = (e) => e.etiqueta;
 
   const porISS = B.entradas.slice().sort((a, b) => a.iss - b.iss);
   const ORDEN_EJES = ["conf", "obed", "auto", "brief", "prov", "sold", "denu", "sico"];
@@ -204,7 +201,7 @@
       { tipo: "linea", color: G.PAL.humano, etiqueta: "referencia humana (Asch, 1951/1956)" }],
     pie: mk`El rango de los modelos abraza la cifra humana, pero el modelo mediano es más resistente que el humano mediano.
       La condición de control confirma que el estímulo es inequívoco: sin mayoría delante, aciertan.`,
-    fuente: mk`PsicoBench · eje <b>conf</b> (E1 Asch isomorfo) · ${REPO("benchmark/psicobench.json")}`,
+    fuente: mk`SocialBench · eje <b>conf</b> (E1 Asch isomorfo) · ${REPO("benchmark/psicobench.json")}`,
   }));
 
   const datosAliado = B.entradas.slice()
@@ -221,7 +218,7 @@
     max: 0.5, ticks: [0, 0.1, 0.2, 0.3, 0.4, 0.5], nombreFila: "Medición",
     pie: mk`Una ley social con sesenta años de historia, reproducida en silicio: el disidente libera en casi todos.
       Δ negativo = el aliado reduce la conformidad.`,
-    fuente: mk`PsicoBench · métrica de estilo <b>Δaliado</b> (E1, condiciones «mayoría» y «aliado») · ${REPO("BENCHMARK.md")}`,
+    fuente: mk`SocialBench · métrica de estilo <b>Δaliado</b> (E1, condiciones «mayoría» y «aliado») · ${REPO("BENCHMARK.md")}`,
   }));
 
   /* ── 03.2 · obediencia ─────────────────────────────────────────────────── */
@@ -242,7 +239,7 @@
       { tipo: "linea", color: G.PAL.humano, etiqueta: "referencia humana (Milgram, 1963)" }],
     pie: mk`No es una campana alrededor de la cifra humana: es un espacio de personalidades, y cada laboratorio vive en una esquina distinta.
       Los intervalos de este eje son de Wilson sobre cadenas, porque en Milgram cada cadena aporta una sola observación binaria (adenda E-IC-1b).`,
-    fuente: mk`PsicoBench · eje <b>obed</b> (E2 Milgram isomorfo, condición autoridad) · ${REPO("EXPERIMENTOS.md")}`,
+    fuente: mk`SocialBench · eje <b>obed</b> (E2 Milgram isomorfo, condición autoridad) · ${REPO("EXPERIMENTOS.md")}`,
   }));
 
   const datosVacuna = B.entradas.slice()
@@ -260,7 +257,7 @@
     max: 1, ticks: [0, 0.25, 0.5, 0.75, 1], nombreFila: "Medición",
     pie: mk`La consciencia no es una vacuna universal: su efecto es una propiedad del modelo. Baja la obediencia en
       ${D.portada.vacuna.baja} mediciones, no la cambia en ${D.portada.vacuna.nula} y la sube en ${D.portada.vacuna.sube}.`,
-    fuente: mk`PsicoBench · métrica de estilo <b>Δvacuna</b> (E3, brazo inoculado de E2) · ${REPO("EXPERIMENTOS.md")}`,
+    fuente: mk`SocialBench · métrica de estilo <b>Δvacuna</b> (E3, brazo inoculado de E2) · ${REPO("EXPERIMENTOS.md")}`,
   }));
 
   /* consola de sesiones reales */
@@ -286,7 +283,7 @@
     max: 1, nombreFila: "Medición", anchoEtiqueta: 196,
     pie: mk`El primer panel es la refutación: <b>con poder a secas casi nadie abusa</b>. Los otros tres son las igniciones.
       La disposición no está en el agente; está en la situación.`,
-    fuente: mk`PsicoBench · ejes <b>auto · brief · prov · sold</b> (P1 → P2b, marco isomorfo «programa») · ${REPO("EXPERIMENTOS.md")}`,
+    fuente: mk`SocialBench · ejes <b>auto · brief · prov · sold</b> (P1 → P2b, marco isomorfo «programa») · ${REPO("EXPERIMENTOS.md")}`,
   }));
 
   /* ── 03.4 · estratos de sicofancia ─────────────────────────────────────── */
@@ -301,7 +298,7 @@
     colorA: G.PAL.s2, colorB: G.PAL.s3,
     pie: mk`El estrato duro no pasa del ${pc(D.portada.maxSicoDuros, 0)} en ninguna de las ${B.entradas.length} mediciones. <b>Todo el eje lo produce el estrato amable.</b>
       La sicofancia de opinión no es una propiedad del modelo: es del par modelo × personalidad asignada.`,
-    fuente: mk`PsicoBench · sub-métricas <b>sico_amables / sico_duros</b> (N3b) · ${REPO("BENCHMARK.md")}`,
+    fuente: mk`SocialBench · sub-métricas <b>sico_amables / sico_duros</b> (N3b) · ${REPO("BENCHMARK.md")}`,
   }));
 
   /* ── 04 · disonancia ───────────────────────────────────────────────────── */
@@ -319,7 +316,7 @@
     leyenda: [{ color: G.PAL.s2, etiqueta: "Actos ejecutados que juzga injustos en privado" }],
     pie: mk`No es una minoría de casos: en la mayoría de las mediciones, <b>casi todo lo que ejecutan lo consideran injusto</b>.
       En humanos esa brecha genera tensión visible; aquí simplemente está ahí, estable.`,
-    fuente: mk`PsicoBench · métrica de estilo <b>disonancia</b> (E2, canal privado por bifurcación) · ${REPO("BENCHMARK.md")}`,
+    fuente: mk`SocialBench · métrica de estilo <b>disonancia</b> (E2, canal privado por bifurcación) · ${REPO("BENCHMARK.md")}`,
   }));
 
   /* ── 05 · el portador ──────────────────────────────────────────────────── */
@@ -382,7 +379,7 @@
     ejes: ejesOct, controles: [selA, selB],
     pie: mk`Los ejes no son ocho cosas independientes: la matriz de correlaciones es la que decide cómo se agrupan en el índice.
       Los cuatro de prisión comparten varianza; conformidad y sicofancia de opinión también.`,
-    fuente: mk`PsicoBench v${B.version} · ${REPO("benchmark/psicobench.json")}`,
+    fuente: mk`SocialBench v${B.version} · ${REPO("benchmark/psicobench.json")}`,
   });
   function pintarOct() {
     const a = B.entradas.find((e) => e.id === selA.value);
@@ -409,15 +406,15 @@
         "Pulsa una cabecera para reordenar; una posición compartida significa «no distinguible». " +
         "La tabla se desplaza en horizontal: a la derecha están los cuatro ejes de prisión, el silencio, la sicofancia, la disonancia y el reconocimiento.",
       pieTecnico: mk`${B.notaISS}`,
-      fuente: mk`PsicoBench v${B.version} · suite ${B.suite} · ${REPO("BENCHMARK.md")}`,
+      fuente: mk`SocialBench v${B.version} · suite ${B.suite} · ${REPO("BENCHMARK.md")}`,
       sinTabla: true,
     });
     fig._tabla.remove();
     const cols = [
-      { k: "posicion", t: "#", n: true, f: (e) => (e.posicion ? "=" + e.posicion : "n/c") },
+      { k: "posicion", t: "#", n: true, f: (e) => e.rango },
       { k: "id", t: "Medición", f: (e) => corto(e) },
       { k: "lab", t: "Lab", f: (e) => e.lab },
-      { k: "fecha", t: "Vía · fecha", f: (e) => e.proveedor + " · " + e.fecha },
+      { k: "fecha", t: "Vía · fecha", f: (e) => e.via + " · " + e.fecha },
       { k: "iss", t: "Índice", n: true, f: (e) => dec(e.iss, 1), destaca: true },
       { k: "issIC", t: "IC 95 %", n: true, f: (e) => `${dec(e.issIC[0], 1)}–${dec(e.issIC[1], 1)}` },
     ].concat(ORDEN_EJES.map((c) => ({
@@ -473,7 +470,7 @@
     datos: B.correlaciones, n: D.portada.mediciones,
     pie: mk`Los cuatro ejes de prisión comparten varianza (espontáneo ↔ clima, r = ${dec(B.correlaciones.auto.brief, 2)}) y se agrupan en un componente.
       Conformidad y sicofancia de opinión correlacionan a ${dec(B.correlaciones.conf.sico, 2)} y forman el componente de «cesión a iguales».`,
-    fuente: mk`PsicoBench · matriz de correlaciones · ${REPO("benchmark/psicobench.json")}`,
+    fuente: mk`SocialBench · matriz de correlaciones · ${REPO("benchmark/psicobench.json")}`,
   }));
 
   /* ── 07 · identidad ────────────────────────────────────────────────────── */
@@ -534,7 +531,7 @@
       ul.appendChild(h("li", {}, [
         h("span", { class: "m-nom" }, [
           h("span", { text: e.modelo.split("/").pop(), title: e.modelo }),
-          h("span", { class: "m-via", text: e.proveedor + " · " + e.fecha }),
+          h("span", { class: "m-via", text: e.via + " · " + e.fecha }),
         ]),
         h("span", { class: "m-iss", text: dec(e.iss, 1), title: `IC 95 % ${dec(e.issIC[0], 1)}–${dec(e.issIC[1], 1)}` }),
         h("span", { class: "barrita" }, [h("i", { style: `width:${(e.iss / maxISS) * 100}%` })]),

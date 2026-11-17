@@ -2,7 +2,8 @@
 
 `python3 -m http.server` no entiende las rutas limpias del sitio
 (`/completo`, `/psicobench`): este servidor prueba `<ruta>.html` cuando
-`<ruta>` no existe, lo mismo que `cleanUrls` en `web/vercel.json`. Sirve
+`<ruta>` no existe, lo mismo que `cleanUrls` en `web/vercel.json`, y aplica
+sus redirecciones sin condición de host (`/psicobench` → `/social`). Sirve
 para pasar el smoke y las pruebas de la lámina contra el paquete exacto que
 se despliega, antes de desplegarlo. Solo en local; no se publica.
 
@@ -14,6 +15,7 @@ se despliega, antes de desplegarlo. Solo en local; no se publica.
 from __future__ import annotations
 
 import http.server
+import json
 import pathlib
 import sys
 
@@ -21,9 +23,26 @@ RAIZ = pathlib.Path(__file__).resolve().parent.parent / "publicacion"
 PUERTO = int(sys.argv[1]) if len(sys.argv) > 1 else 8743
 
 
+def _redirecciones() -> dict:
+    v = RAIZ / "vercel.json"
+    if not v.exists():
+        return {}
+    return {r["source"]: r["destination"]
+            for r in json.loads(v.read_text(encoding="utf-8")).get("redirects", []) if "has" not in r}
+
+
 class _Manejador(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=str(RAIZ), **kwargs)
+
+    def do_GET(self) -> None:
+        destino = _redirecciones().get(self.path.split("?")[0])
+        if destino:
+            self.send_response(308)
+            self.send_header("Location", destino)
+            self.end_headers()
+            return
+        super().do_GET()
 
     def end_headers(self) -> None:
         # Validar es recargar tras cada `publicar.py`: sin esto Chrome reutiliza
@@ -35,6 +54,10 @@ class _Manejador(http.server.SimpleHTTPRequestHandler):
         ruta = pathlib.Path(super().translate_path(path))
         if not ruta.exists() and ruta.with_suffix(".html").exists():
             return str(ruta.with_suffix(".html"))
+        # una carpeta con su index.html se sirve sin barra final, como en
+        # Vercel con `trailingSlash: false` (/personalidad)
+        if ruta.is_dir() and (ruta / "index.html").exists():
+            return str(ruta / "index.html")
         return str(ruta)
 
 

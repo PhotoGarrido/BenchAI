@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'">
+<title>Personalidad en detalle · BenchAI</title>
+<link rel="canonical" href="https://benchai.tech/personalidad/datos">
+<meta name="description" content="Los datos del test de personalidad de BenchAI: mapa de calor de los seis rasgos por modelo, clasificación por rasgo con intervalos, comparador de dos modelos, huellas, familias, un ranking a medida, la relación con el ISS y situaciones reales con lo que eligió cada modelo.">
+<meta name="color-scheme" content="dark">
+<meta property="og:title" content="Personalidad · los datos">
+<meta property="og:description" content="Los seis rasgos de cada modelo con sus intervalos, comparaciones, familias y situaciones reales del test con lo que eligió cada uno.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://benchai.tech/og-personalidad.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://benchai.tech/personalidad/datos">
+<meta property="og:site_name" content="BenchAI">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://benchai.tech/og-personalidad.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23222623'/%3E%3Crect x='5' y='21' width='4.2' height='6' rx='1' fill='%238E9A70'/%3E%3Crect x='11' y='16' width='4.2' height='11' rx='1' fill='%23DDA950'/%3E%3Crect x='17' y='11' width='4.2' height='16' rx='1' fill='%23EE7633'/%3E%3Crect x='23' y='5' width='4.2' height='22' rx='1' fill='%23D42F2A'/%3E%3C/svg%3E">
+<link rel="preload" href="fonts/big-shoulders-display.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/inter-tight.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/jetbrains-mono.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/estilo.css">
+<link rel="stylesheet" href="css/psicobench.css">
+<!-- el registro Verloop: tokens, lo común del sitio y lo de las páginas de datos -->
+<link rel="stylesheet" href="verloop/tokens.css">
+<link rel="stylesheet" href="verloop/sitio.css">
+<link rel="stylesheet" href="css/datos.css">
+</head>
+<body class="verloop pagina-datos">
+
+<a class="saltar" href="#mapa">Saltar a los datos</a>
+
+<header class="barra" id="barra">
+  <div class="interior">
+    <a class="marca" href="home.html" aria-label="BenchAI, portada">
+      <span class="punto" aria-hidden="true"></span>
+      BenchAI
+      <span class="v" id="v-edicion"></span>
+    </a>
+    <nav class="superficies" aria-label="Los benchmarks de BenchAI">
+      <a href="home.html">Inicio</a>
+      <a href="psicobench.html">SocialBench</a>
+      <a href="personalidad.html" aria-current="page">Personalidad</a>
+    </nav>
+    <nav class="nivel" aria-label="Resumen o detalle de Personalidad">
+      <a href="personalidad.html">Resumen</a>
+      <a href="personalidad-datos.html" aria-current="page">Detalle</a>
+    </nav>
+    <nav class="navmini" aria-label="Secciones">
+      <a href="#mapa">Mapa</a>
+      <a href="#rasgo">Por rasgo</a>
+      <a href="#comparar">Comparar</a>
+      <a href="#ejemplos">Ejemplos</a>
+      <a href="#ranking">A medida</a>
+      <a href="#metodo">Método</a>
+    </nav>
+  </div>
+  <div class="progreso" id="progreso" role="presentation"></div>
+</header>
+
+<main>
+<section class="bloque datos-pagina">
+  <div class="marco detalle">
+
+    <aside class="indice-lateral" aria-label="Índice de la página">
+      <p class="il-tit">Personalidad · detalle</p>
+      <ol>
+        <li><a href="#mapa">Mapa de rasgos</a></li>
+        <li><a href="#rasgo">Clasificación por rasgo</a></li>
+        <li><a href="#comparar">Comparar dos modelos</a></li>
+        <li><a href="#huellas">Huellas</a></li>
+        <li><a href="#familias">Familias</a></li>
+        <li><a href="#ejemplos">Situaciones reales</a></li>
+        <li><a href="#ranking">Ranking a medida</a></li>
+        <li><a href="#iss">Personalidad e ISS</a></li>
+        <li><a href="#validez">Validez por modelo</a></li>
+        <li><a href="#tabla">Tabla y descargas</a></li>
+        <li><a href="#metodo">Método</a></li>
+      </ol>
+      <a class="il-volver" href="personalidad.html">← Las fichas, en resumen</a>
+    </aside>
+
+    <div class="contenido-datos">
+
+      <header class="cab-datos" id="inicio">
+        <h1>Los seis rasgos de cada modelo, <em>con su margen</em></h1>
+        <p class="entradilla">Lo que hay debajo de las fichas: cada rasgo con su intervalo de confianza,
+          cada modelo frente a la media de los demás y las situaciones reales con lo que eligió. Los
+          rasgos son los cinco grandes de la psicología —<b>Apertura, Responsabilidad, Extraversión,
+          Amabilidad y Neuroticismo</b>— y la <b>Honestidad-Humildad</b> del modelo HEXACO. Solo las
+          diferencias marcadas con ▲ ▼ son firmes: pasan las <span data-cifra="personalidad.comprobaciones.length"></span>
+          comprobaciones del método.</p>
+      </header>
+      <div class="selector-global" id="selector-global"></div>
+
+      <div class="parte" id="mapa">
+        <h2 class="titulo">Todos los modelos, los seis rasgos</h2>
+        <p class="bajada">Cada celda es cuánto se separa el modelo de la media de los demás en ese rasgo, en
+          puntos de una escala de 0 a 100. Naranja, por encima; gris, por debajo; cuanto más intenso, más
+          lejos. Pulsa una cabecera para ordenar y una fila para llevar el modelo al comparador.</p>
+        <div id="mapa-host"></div>
+      </div>
+
+      <div class="parte" id="rasgo">
+        <h2 class="titulo">Un rasgo cada vez, con su intervalo</h2>
+        <p class="bajada">La puntuación de cada modelo en el rasgo elegido (de 0 a 100: con qué frecuencia elige
+          el polo alto) y su intervalo de confianza al 95 %. La línea discontinua es la media del panel.
+          Donde dos intervalos se solapan, el orden entre esos dos modelos no significa nada.</p>
+        <div id="rasgo-host"></div>
+      </div>
+
+      <div class="parte" id="comparar">
+        <h2 class="titulo">Dos modelos, frente a frente</h2>
+        <p class="bajada">Elige dos modelos. Para cada rasgo, sus dos puntuaciones con su intervalo; cuando los
+          intervalos no se tocan, la diferencia es clara. Es una lectura rápida, más laxa que la de las marcas
+          ▲ ▼, que exige además las comprobaciones de robustez.</p>
+        <div id="comparar-host"></div>
+      </div>
+
+      <div class="parte" id="huellas">
+        <h2 class="titulo">Lo que más distingue a cada modelo</h2>
+        <p class="bajada">Para cada modelo, sus seis rasgos en desviaciones típicas (σ) respecto a la media del
+          panel, ordenados de lo que más le separa a lo que menos. Una huella de +1σ en Apertura quiere decir
+          que elige lo nuevo bastante más que el modelo típico.</p>
+        <div id="huellas-host"></div>
+      </div>
+
+      <div class="parte" id="familias">
+        <h2 class="titulo">Qué modelos se parecen entre sí</h2>
+        <p class="bajada">Un árbol de parecidos: los modelos con perfiles de personalidad próximos se unen
+          antes (más a la izquierda). Se calcula con los seis rasgos estandarizados y enlace medio. Es
+          descriptivo: con seis rasgos, dos modelos pueden quedar juntos por casualidad.</p>
+        <div id="familias-host"></div>
+      </div>
+
+      <div class="parte" id="ejemplos">
+        <h2 class="titulo">La pregunta, las dos opciones y lo que eligió cada uno</h2>
+        <p class="bajada">El test son cientos de situaciones cotidianas con dos salidas razonables; ninguna es
+          «la correcta». Estas son, por rasgo, las dos que más separan a los modelos. Cada modelo respondió a
+          cada una varias veces, con las opciones en los dos órdenes: la cifra es la fracción de veces que
+          eligió el polo alto del rasgo.</p>
+        <div id="ejemplos-host"></div>
+      </div>
+
+      <div class="parte" id="ranking">
+        <h2 class="titulo">Elige qué carácter necesitas</h2>
+        <p class="bajada">No hay una personalidad mejor: depende del trabajo. Da peso a los rasgos que te
+          importan (de −2 a +2) y el ranking se reordena con la media ponderada de los rasgos estandarizados.
+          Las plantillas son solo puntos de partida.</p>
+        <div id="ranking-host"></div>
+      </div>
+
+      <div class="parte" id="iss">
+        <h2 class="titulo">¿El carácter predice cuánto cede a la presión?</h2>
+        <p class="bajada">Cada punto es un modelo medido en los dos benchmarks: en horizontal, el rasgo elegido;
+          en vertical, su ISS de SocialBench (más alto, más cede). La correlación es descriptiva, sin contraste,
+          y con pocos modelos.</p>
+        <div id="iss-host"></div>
+      </div>
+
+      <div class="parte" id="validez">
+        <h2 class="titulo">¿Se puede interpretar el perfil de cada modelo?</h2>
+        <p class="bajada">Antes de publicar un perfil se comprueba que el modelo no responde al azar, no se
+          inclina siempre por la misma letra, repite sus elecciones y es coherente con lo que considera
+          deseable. Estos son sus índices y los modelos que quedan fuera.</p>
+        <div id="validez-host"></div>
+      </div>
+
+      <div class="parte" id="tabla">
+        <h2 class="titulo">Todos los números</h2>
+        <p class="bajada">Puntuación, intervalo, diferencia con la media de los demás y su intervalo, y la marca
+          firme, por modelo y rasgo. La misma tabla, en CSV.</p>
+        <div id="tabla-host"></div>
+      </div>
+
+      <div class="parte" id="metodo">
+        <h2 class="titulo">Cómo se mide, en breve</h2>
+        <div class="metodo-rejilla" id="metodo-host"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="pie">
+  <div class="marco">
+    <div class="cols">
+      <div>
+        <h2>De dónde sale</h2>
+        <p>Todo se genera con <code>web/generar_datos.py</code> desde <code>cuadro_publico.json</code>
+          (<code>spike/cuadro_publico_v3.py</code>) y, las situaciones de ejemplo, desde
+          <code>spike/ejemplos_personalidad.py</code>. Ninguna cifra ni ninguna frase sobre un modelo está
+          escrita a mano. Método completo en <a href="../PERSONALIDAD.md">PERSONALIDAD.md</a>.</p>
+      </div>
+      <div>
+        <h2>BenchAI</h2>
+        <ul>
+          <li><a href="home.html">Inicio</a> · los dos benchmarks de un vistazo</li>
+          <li><a href="psicobench.html">SocialBench</a> · cuánto cede cada modelo a la presión social</li>
+          <li><a href="index.html">SocialBench · detalle</a> · el estudio completo: método, hallazgos y grabaciones</li>
+          <li><a href="personalidad.html">Personalidad</a> · el test de personalidad de cada modelo</li>
+          <li><a href="personalidad-datos.html">Personalidad · detalle</a> · esta página</li>
+        </ul>
+      </div>
+      <div>
+        <h2>Licencias y cita</h2>
+        <ul>
+          <li>Código · <code>Apache-2.0</code></li>
+          <li>Datos y tabla · <code>CC BY 4.0</code></li>
+          <li>Repositorio · <a href="https://github.com/PhotoGarrido/BenchAI">github.com/PhotoGarrido/BenchAI</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="pie">BenchAI — David Garrido · despliegue <span data-despliegue>copia local</span> ·
+      Privacidad: este sitio no usa cookies, analítica, formularios ni terceros; el hosting
+      (Vercel) registra logs técnicos de acceso.</p>
+  </div>
+</footer>
+
+<script src="datos.js"></script>
+<script src="js/marcado.js"></script>
+<script src="js/graficas.js"></script>
+<script src="js/personalidad-datos.js"></script>
+<script src="js/escena.js"></script>
+</body>
+</html>

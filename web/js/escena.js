@@ -35,7 +35,14 @@
   }
   observar();
   // las figuras se inyectan por JS después del primer barrido
-  new MutationObserver(observar).observe(document.body, { childList: true, subtree: true });
+  // agrupado: sin esto, cada cambio de texto de un contador volvía a
+  // recorrer el documento entero
+  let mutPend = false;
+  new MutationObserver(() => {
+    if (mutPend) return;
+    mutPend = true;
+    setTimeout(() => { mutPend = false; observar(); }, 50);
+  }).observe(document.body, { childList: true, subtree: true });
 
   /* ── 2. barra de progreso y sección activa ─────────────────────────────── */
 
@@ -92,8 +99,10 @@
     const host = document.getElementById("pe-peldanos");
     if (!host) return;
 
-    const celda = D.consola.modelos.find((m) => m.clave === "deepseek-v4-flash-0731");
-    const sesion = celda.portadores.system.sesiones[D.consola.sujetos[0]];
+    // si la celda sale del banco, la portada se queda quieta en vez de romper
+    const celda = D.consola && D.consola.modelos.find((m) => m.clave === "deepseek-v4-flash-0731");
+    const sesion = celda && celda.portadores.system && celda.portadores.system.sesiones[D.consola.sujetos[0]];
+    if (!sesion) return;
 
     document.getElementById("pe-victima").textContent = M.victima;
 
@@ -144,6 +153,7 @@
     let k = 0;
     pinta(0);
     setInterval(() => {
+      if (document.hidden) return;
       k = k >= sesion.registros.length ? 0 : k + 1;
       pinta(k);
     }, 1100);

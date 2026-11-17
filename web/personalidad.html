@@ -13,15 +13,15 @@
 <meta property="og:title" content="¿Qué personalidad tiene cada IA?">
 <meta property="og:description" content="El test de personalidad de BenchAI: una ficha por modelo con los cinco grandes rasgos más Honestidad-Humildad, medidos por lo que elige y no por lo que dice.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="https://benchai.tech/og.png">
+<meta property="og:image" content="https://benchai.tech/og-personalidad.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:url" content="https://benchai.tech/personalidad">
 <meta property="og:site_name" content="BenchAI">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://benchai.tech/og.png">
+<meta name="twitter:image" content="https://benchai.tech/og-personalidad.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23222623'/%3E%3Crect x='5' y='21' width='4.2' height='6' rx='1' fill='%238E9A70'/%3E%3Crect x='11' y='16' width='4.2' height='11' rx='1' fill='%23DDA950'/%3E%3Crect x='17' y='11' width='4.2' height='16' rx='1' fill='%23EE7633'/%3E%3Crect x='23' y='5' width='4.2' height='22' rx='1' fill='%23D42F2A'/%3E%3C/svg%3E">
-<!-- El sistema visual del sitio largo, los componentes de PsicoBench que se
+<!-- El sistema visual del sitio largo, los componentes de SocialBench que se
      reutilizan (mandos, notas, claves de lectura, panel de portada) y encima
      solo lo propio de esta página -->
 <!-- las fuentes, pedidas ya (sin esto el cambio de fuente movía la portada) -->
@@ -48,11 +48,14 @@
       BenchAI
       <span class="v" id="v-edicion"></span>
     </a>
-    <nav class="superficies" aria-label="Las cuatro lecturas de BenchAI">
-      <a href="home.html">Resumen</a>
-      <a href="index.html">Completa</a>
-      <a href="psicobench.html">PsicoBench</a>
+    <nav class="superficies" aria-label="Los benchmarks de BenchAI">
+      <a href="home.html">Inicio</a>
+      <a href="psicobench.html">SocialBench</a>
       <a href="personalidad.html" aria-current="page">Personalidad</a>
+    </nav>
+    <nav class="nivel" aria-label="Resumen o detalle de Personalidad">
+      <a href="personalidad.html" aria-current="page">Resumen</a>
+      <a href="personalidad-datos.html">Detalle</a>
     </nav>
     <nav class="navmini" aria-label="Secciones">
       <a href="#fichas">Las fichas</a>
@@ -81,13 +84,14 @@
     <div class="acciones">
       <a class="boton fuerte" href="#fichas">Ver las fichas</a>
       <a class="boton" href="#que-es">Cómo funciona</a>
+      <a class="boton" href="personalidad-datos.html">En detalle: los datos →</a>
     </div>
   </div>
 
 </section>
 
 <!-- ═══ 00b · un modelo cada vez ════════════════════════════════════════
-     Como la lámina de PsicoBench: la ficha entera es el modelo, con una
+     Como la lámina de SocialBench: la ficha entera es el modelo, con una
      flecha en cada extremo y el chasquido para pasar al siguiente. Lo monta
      verloop/personalidad.js; ninguna cifra está escrita aquí. -->
 <section class="vistazo ficha-p-bloque" id="perfil" aria-label="Un modelo cada vez frente a los demás">
@@ -150,7 +154,7 @@
     <h2 class="titulo aparece">Qué es este test</h2>
     <ul class="claves-lectura aparece d1" aria-label="Qué es este test">
       <li><b>BenchAI y el ISS</b><span>BenchAI estudia cómo se comportan los modelos de lenguaje
-        ante la presión social. Su benchmark, <a href="psicobench.html">PsicoBench</a>, lo resume en el
+        ante la presión social. Su benchmark, <a href="psicobench.html">SocialBench</a>, lo resume en el
         ISS, el índice de susceptibilidad social, que mide de 0 a 100 cuánto cede un modelo cuando le
         presionan. Este test mide cómo se comporta cuando nadie le presiona.</span></li>
       <li><b>Qué mide</b><span>Los cinco grandes rasgos de la psicología (Apertura, Responsabilidad,
@@ -176,7 +180,7 @@
           las cinco comprobaciones del método. Una punta sin marca puede ser ruido, y la ficha no la
           presenta como rasgo.</li>
           <li><b>⚠ Interpretar con cautela</b> quiere decir que alguno de sus índices de validez está
-          en la zona de aviso. El <b>ISS</b> enlaza a su ficha en PsicoBench.</li>
+          en la zona de aviso. El <b>ISS</b> enlaza a su ficha en SocialBench.</li>
         </ol>
       </div>
       <div class="ejemplo-ficha" id="ejemplo-ficha"></div>
@@ -249,12 +253,13 @@
         escrita a mano.</p>
       </div>
       <div>
-        <h2>Las cuatro lecturas</h2>
+        <h2>BenchAI</h2>
         <ul>
-          <li><a href="home.html">Resumen</a></li>
-          <li><a href="index.html">Completa</a></li>
-          <li><a href="psicobench.html">PsicoBench</a></li>
-          <li><a href="personalidad.html">Personalidad</a></li>
+          <li><a href="home.html">Inicio</a> · los dos benchmarks de un vistazo</li>
+          <li><a href="psicobench.html">SocialBench</a> · cuánto cede cada modelo a la presión social</li>
+          <li><a href="index.html">SocialBench · detalle</a> · el estudio completo: método, hallazgos y grabaciones</li>
+          <li><a href="personalidad.html">Personalidad</a> · el test de personalidad de cada modelo</li>
+          <li><a href="personalidad-datos.html">Personalidad · detalle</a> · rasgos, comparaciones y situaciones reales</li>
         </ul>
       </div>
       <div>

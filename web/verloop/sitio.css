@@ -133,7 +133,7 @@ body.verloop,
 @media (max-width: 767px) { .verloop .radar .halo { display: none; } }
 
 /* ── el banco de un vistazo: el bloque bajo el titular, con las cifras en
-   una franja grande (PsicoBench: la lámina; la lectura completa: la
+   una franja grande (SocialBench: la lámina; la lectura completa: la
    escalera de Milgram) ─────────────────────────────────────────────────── */
 .verloop .vistazo { padding: 72px 0 120px; overflow-x: clip; }
 .verloop .vistazo .cifras {
@@ -158,7 +158,7 @@ body.verloop,
 }
 @media (max-width: 640px) { .verloop .vistazo { padding: 40px 0 72px; } .verloop .vistazo .cifras { margin-bottom: 48px; } .verloop .vistazo .cifras li { padding: 16px 14px 18px; } }
 
-/* ── la ficha con flechas (PsicoBench, Personalidad): la escena que se
+/* ── la ficha con flechas (SocialBench, Personalidad): la escena que se
    borra, las flechas en los extremos y el lienzo del chasquido encima
    (verloop/chasquido.js). La caja de la ficha la pone cada página. ───── */
 .verloop .lamina-escena {
@@ -228,7 +228,7 @@ body.verloop,
 .verloop .paso-c::before { font: 900 44px/.85 var(--display); color: var(--c-seccion, var(--s1)); }
 .verloop .paso-c h3, .verloop .paso-c h4 { font: 900 clamp(26px, 2.4vw, 34px)/.95 var(--display); text-transform: uppercase; letter-spacing: .01em; }
 
-/* ── cajas numeradas (el método de PsicoBench y de las demás páginas) ──── */
+/* ── cajas numeradas (el método de SocialBench y de las demás páginas) ──── */
 .verloop .metodo-cajas { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; counter-reset: caja; }
 .verloop .caja-metodo { counter-increment: caja; background: var(--sup); border: 1px solid var(--linea); border-radius: 4px; padding: 22px 22px 20px; min-width: 0; }
 .verloop .caja-metodo::before { content: counter(caja, decimal-leading-zero); display: block; font: 500 12px/1 var(--mono); letter-spacing: .1em; color: var(--tenue); margin-bottom: 14px; }

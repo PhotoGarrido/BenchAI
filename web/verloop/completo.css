@@ -6,7 +6,7 @@
    =========================================================================== */
 
 /* ── el número de cada sección, en su color (el mismo orden de tonos que
-   PsicoBench: cian para el índice, magenta para la obediencia…) ───────── */
+   SocialBench: cian para el índice, magenta para la obediencia…) ───────── */
 .verloop #pregunta { --c-seccion: #4AF2FF; }
 .verloop #metodo { --c-seccion: #B46CFF; }
 .verloop #experimentos { --c-seccion: #FF3D8A; }

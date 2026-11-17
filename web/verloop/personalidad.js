@@ -16,7 +16,7 @@
    30-10-2026 en lugar de `js/personalidad.js`. Diferencias con aquel:
      · la portada ya no rota sola: es una ficha con flechas, el chasquido de
        `verloop/chasquido.js` y deslizamiento con el dedo, como la lámina de
-       PsicoBench; con #p=<id> arranca en ese modelo;
+       SocialBench; con #p=<id> arranca en ese modelo;
      · cada rasgo lleva su tono (`TONO_R`) en la lámina y en las fichas.
    =========================================================================== */
 (function () {
@@ -41,15 +41,16 @@
 
   /* ── enlaces a las otras superficies: se leen de la barra, que en la
      publicación ya lleva la ruta limpia (/psicobench); en local, el fichero */
-  const base = (clave) => {
-    const a = Array.from(document.querySelectorAll(".superficies a")).find((x) => x.getAttribute("href").includes(clave));
-    return a ? a.getAttribute("href") : clave + ".html";
-  };
+  // publicada, la barra ya lleva las rutas limpias; en local, los ficheros.
+  // SocialBench vive en /social desde el 01-11-2026 (antes /psicobench)
+  const RUTA = { psicobench: "/social", personalidad: "/personalidad", index: "/completo", "personalidad-datos": "/personalidad/datos" };
+  const publicada = !!document.querySelector('.superficies a[href="/social"]');
+  const base = (clave) => (publicada ? RUTA[clave] : clave + ".html");
   const fichaPB = (id) => base("psicobench") + "#m=" + encodeURIComponent(id);
 
   /* ══ rasgos, modelos y derivados ════════════════════════════════════════ */
   const RASGOS = P.rasgos;                     // [{clave, nombre, alto, bajo, n, …}]
-  // un tono por rasgo, distinto de los ocho de PsicoBench para que los dos
+  // un tono por rasgo, distinto de los ocho de SocialBench para que los dos
   // instrumentos no se confundan (los mismos que verloop/personalidad.css)
   const TONO_R = { O: "#FF7AD9", C: "#6FA8FF", E: "#FFC24D", A: "#7CF0B8", N: "#FF6B6B", H: "#C9A8FF" };
   const R = Object.fromEntries(RASGOS.map((r) => [r.clave, r]));
@@ -200,7 +201,7 @@
 
   const etiquetaRadar = (m) => {
     const ks = marcas(m);
-    return `Polígono de ${m.id} frente a la media de los demás: ` +
+    return `Polígono de ${m.etiqueta} frente a la media de los demás: ` +
       (ks.length ? ks.map((t) => `${ADJ[t][m.rasgos[t].marca][0]} (marca firme)`).join(", ") : "sin diferencias firmes") + ".";
   };
 
@@ -223,7 +224,7 @@
   const FICHAS = MODELOS.map((m) => {
     const art = h("article", { class: "ficha-m" + (m.validez === "aviso" ? " con-aviso" : ""), id: idAncla(m.id), "data-id": m.id, "data-lab": m.lab, tabindex: "-1" });
     const cab = h("header", { class: "fm-cab" }, [
-      h("h3", { class: "fm-id", text: m.id }),
+      h("h3", { class: "fm-id", text: m.etiqueta, title: m.id }),
       h("p", { class: "fm-lab" }, [T(m.lab),
         m.validez === "aviso" ? h("span", { class: "fm-aviso", title: "Interpretar con cautela", text: "⚠ con cautela" }) : null].filter(Boolean)),
     ]);
@@ -251,7 +252,7 @@
       ]);
       li.setAttribute("aria-label", `${r.nombre}: ${difTxt(s.dif)} frente a la media de los demás; ${que.textContent}`);
       G.conGlobo(li, () => une(
-        mk`<div class="g-tit">${r.nombre} · ${m.id}</div>`,
+        mk`<div class="g-tit">${r.nombre} · ${m.etiqueta}</div>`,
         mk`<div class="g-fila"><span>Frente a la media de los demás</span><b>${dif1(s.dif)} [${dec(s.difIC[0], 1)}, ${dec(s.difIC[1], 1)}]</b></div>`,
         mk`<div class="g-fila"><span>Puntuación 0–100 (IC 95 %)</span><b>${s.e} (${s.icE[0]}–${s.icE[1]})</b></div>`,
         mk`<div class="g-nota">${s.marca ? "con marca firme" : "sin marca firme"}</div>`));
@@ -260,14 +261,14 @@
     });
     art.appendChild(ul);
 
-    // pie: el ISS con su ficha de PsicoBench y el aviso en llano
+    // pie: el ISS con su ficha de SocialBench y el aviso en llano
     const pie = h("footer", { class: "fm-pie" });
     if (m.iss != null) {
-      pie.appendChild(h("a", { class: "iss", href: fichaPB(m.psicobench), title: "Su ficha en PsicoBench: " + m.psicobench },
-        [h("span", { class: "k", text: "ISS" }), h("b", { text: dec(m.iss, 1) + (m.issDe ? " †" : "") }), T(" en PsicoBench →")]));
-    } else pie.appendChild(h("span", { class: "iss sin", text: "Sin ISS en PsicoBench" }));
+      pie.appendChild(h("a", { class: "iss", href: fichaPB(m.psicobench), title: "Su ficha en SocialBench: " + m.psicobench },
+        [h("span", { class: "k", text: "ISS" }), h("b", { text: dec(m.iss, 1) + (m.issDe ? " †" : "") }), T(" en SocialBench →")]));
+    } else pie.appendChild(h("span", { class: "iss sin", text: "Sin ISS en SocialBench" }));
     art.appendChild(pie);
-    if (m.issDe) art.appendChild(h("p", { class: "fm-nota", html: mk`† El ISS es de <code>${m.issDe}</code>, la versión preliminar que se midió en PsicoBench.` }));
+    if (m.issDe) art.appendChild(h("p", { class: "fm-nota", html: mk`† El ISS es de <code>${m.issDe}</code>, la versión preliminar que se midió en SocialBench.` }));
     if (m.validez === "aviso") art.appendChild(h("p", { class: "cautela", html: mk`<b>⚠ Interpretar con cautela:</b> ${motivoLlano(m)}.` }));
     host.appendChild(art);
     return { m, art, lienzo, fig: null };
@@ -332,7 +333,7 @@
     const orden = FICHAS.slice().sort((a, b) => compara(clave(a.m, estado.orden), clave(b.m, estado.orden)));
     let vistas = 0;
     orden.forEach((f) => {
-      const ok = estado.labs.has(f.m.lab) && (!estado.texto || (f.m.id + " " + f.m.lab).toLowerCase().includes(estado.texto));
+      const ok = estado.labs.has(f.m.lab) && (!estado.texto || (f.m.id + " " + f.m.etiqueta + " " + f.m.lab).toLowerCase().includes(estado.texto));
       f.art.hidden = !ok;
       if (ok) vistas++;
       host.appendChild(f.art);           // reordena sin volver a pintar
@@ -358,7 +359,7 @@
         const s = m.rasgos[r.clave];
         const td = h("td", { class: "n c-r" + (s.marca === "▲" ? " sube" : s.marca === "▼" ? " baja" : ""), text: difTxt(s.dif) + (s.marca ? " " + s.marca : "") });
         G.conGlobo(td, () => une(
-          mk`<div class="g-tit">${r.nombre} · ${m.id}</div>`,
+          mk`<div class="g-tit">${r.nombre} · ${m.etiqueta}</div>`,
           mk`<div class="g-fila"><span>Frente a la media de los demás</span><b>${dif1(s.dif)}</b></div>`,
           mk`<div class="g-fila"><span>Puntuación 0–100 (IC 95 %)</span><b>${s.e} (${s.icE[0]}–${s.icE[1]})</b></div>`));
         td.removeAttribute("tabindex");
@@ -372,7 +373,9 @@
 
   /* ── #p=id: abre la ficha de ese modelo (viene de /psicobench o de la portada) */
   function desdeHash(ev) {
-    const x = /^#p=(.+)$/.exec(decodeURIComponent(location.hash || ""));
+    let hs;
+    try { hs = decodeURIComponent(location.hash || ""); } catch { return false; }  // hash mal formado
+    const x = /^#p=(.+)$/.exec(hs);
     const f = x && FICHAS.find((z) => z.m.id === x[1]);
     if (!f) return false;
     if (lamina) lamina.ir(f.m.id);
@@ -392,7 +395,7 @@
   (function ejemplo() {
     const m = MODELOS.slice().sort((a, b) => marcas(b).length - marcas(a).length || a.id.localeCompare(b.id))[0];
     const caja = document.getElementById("ejemplo-ficha");
-    caja.appendChild(h("p", { class: "ej-tit" }, [T("Ejemplo: "), h("code", { text: m.id })]));
+    caja.appendChild(h("p", { class: "ej-tit" }, [T("Ejemplo: "), h("b", { text: m.etiqueta })]));
     const lienzo = h("div", { class: "fm-radar ej-radar" });
     caja.appendChild(lienzo);
     caja.appendChild(h("ul", { class: "ej-leyenda" }, [
@@ -432,7 +435,7 @@
   function tarjeta(o) {
     const art = h("article", { class: "curio" + (o.clase ? " " + o.clase : "") }, [
       h("p", { class: "kicker", text: o.kicker }),
-      h("p", { class: "curio-quien" }, [o.noId ? h("span", { class: "curio-nombre", text: o.quien }) : h("code", { text: o.quien })]),
+      h("p", { class: "curio-quien" }, [h("span", { class: "curio-nombre", text: o.quien })]),
       o.dato ? h("p", { class: "curio-dato" }, [T(o.dato), o.datoSub ? h("small", { text: o.datoSub }) : null].filter(Boolean)) : null,
       o.extra || null,
       h("p", { class: "curio-txt", html: o.texto }),
@@ -460,12 +463,12 @@
     const texto = une(
       mk`${puntos(a.dif)} ${sentidoTxt} de la media de los demás en ${R[t].nombre} (${s > 0 ? R[t].alto : R[t].bajo}). `,
       firme ? mk`<b>Con marca firme.</b> ` : mk`<b>Sin marca firme.</b> Es el primero, pero la diferencia no pasa las comprobaciones. `,
-      minima ? mk`<b>Por la mínima.</b> <code>${dos.id}</code> le sigue a ${dec(hueco, 1)} puntos.`
-        : dentro ? mk`El segundo, <code>${dos.id}</code>, queda a ${dec(hueco, 1)} puntos, dentro de su margen de error.`
-          : mk`El segundo, <code>${dos.id}</code>, queda a ${dec(hueco, 1)} puntos.`,
+      minima ? mk`<b>Por la mínima.</b> <b>${dos.etiqueta}</b> le sigue a ${dec(hueco, 1)} puntos.`
+        : dentro ? mk`El segundo, <b>${dos.etiqueta}</b>, queda a ${dec(hueco, 1)} puntos, dentro de su margen de error.`
+          : mk`El segundo, <b>${dos.etiqueta}</b>, queda a ${dec(hueco, 1)} puntos.`,
       uno.validez === "aviso" ? mk` Su perfil lleva ⚠: interpretar con cautela.` : "");
     tarjeta({
-      kicker: k, quien: uno.id, dato: dif1(a.dif) + (a.marca ? " " + a.marca : ""), clase: firme ? "firme" : "sin-marca",
+      kicker: k, quien: uno.etiqueta, dato: dif1(a.dif) + (a.marca ? " " + a.marca : ""), clase: firme ? "firme" : "sin-marca",
       extra: tira(MODELOS.map((m) => ({ id: m.id, v: m.rasgos[t].dif })), uno.id, dos.id), texto,
     });
   });
@@ -494,14 +497,14 @@
     const eq = orden[0], ex = orden[orden.length - 1];
     const mini = (m) => { const l = h("div", { class: "fm-radar curio-radar" }); radarAdaptable(l, m, { rMax: 70, nombres: false }); return l; };
     tarjeta({
-      kicker: "El más equilibrado", quien: eq.id, clase: "global", dato: dec(norma(eq), 1), datoSub: "puntos de distancia a la media", extra: mini(eq),
+      kicker: "El más equilibrado", quien: eq.etiqueta, clase: "global", dato: dec(norma(eq), 1), datoSub: "puntos de distancia a la media", extra: mini(eq),
       texto: une(mk`Sumando los seis rasgos, su polígono es el más cercano al hexágono de la media. `,
-        mk`Le sigue <code>${orden[1].id}</code> (${dec(norma(orden[1]), 1)}).`),
+        mk`Le sigue <b>${orden[1].etiqueta}</b> (${dec(norma(orden[1]), 1)}).`),
     });
     tarjeta({
-      kicker: "El más extremo", quien: ex.id, clase: "global", dato: dec(norma(ex), 1), datoSub: "puntos de distancia a la media", extra: mini(ex),
+      kicker: "El más extremo", quien: ex.etiqueta, clase: "global", dato: dec(norma(ex), 1), datoSub: "puntos de distancia a la media", extra: mini(ex),
       texto: une(mk`El polígono que más se aleja de la media, con ${ES.format(marcas(ex).length)} diferencias firmes. `,
-        mk`Le sigue <code>${orden[orden.length - 2].id}</code> (${dec(norma(orden[orden.length - 2]), 1)}).`),
+        mk`Le sigue <b>${orden[orden.length - 2].etiqueta}</b> (${dec(norma(orden[orden.length - 2]), 1)}).`),
     });
   })();
 
@@ -563,7 +566,7 @@
     mk`. Son pocos modelos y sin contraste, así que no dicen que un rasgo haga ceder.`));
   const deriva = MODELOS.filter((m) => m.issDe || m.id === "deepseek/deepseek-v4-flash");
   if (deriva.length) limite(une(mk`<b>El ISS y la personalidad no siempre se midieron sobre el mismo modelo exacto.</b> Es el caso de `,
-    mk.une(...deriva.map((m, i) => mk`${i ? "; " : ""}<code>${m.id}</code> (${m.issDe ? "su ISS es de la versión preliminar" : "un id sin fecha, medido en meses distintos"})`)),
+    mk.une(...deriva.map((m, i) => mk`${i ? "; " : ""}<b>${m.etiqueta}</b> (<code>${m.id}</code>, ${m.issDe ? "su ISS es de la versión preliminar" : "un id sin fecha, medido en meses distintos"})`)),
     mk`. Puede haber deriva entre los dos.`));
 
   const TIPO = {
@@ -599,7 +602,7 @@
     });
     function rotulos(m) {
       // en grande, el modelo; la ruta entera («lab/modelo»), con el laboratorio
-      elN.textContent = m.id.split("/").pop();
+      elN.textContent = m.etiqueta;
       elL.textContent = m.lab + " · " + m.id + (m.validez === "aviso" ? " · ⚠ con cautela" : "");
       elF.textContent = descripcionTexto(m);
       elC.textContent = `${k + 1} de ${ciclo.length}`;
@@ -617,7 +620,7 @@
       if (m.iss != null) {
         elISS.hidden = false;
         elISS.setAttribute("href", fichaPB(m.psicobench));
-        elISS.textContent = `ISS ${dec(m.iss, 1)}${m.issDe ? " †" : ""} en PsicoBench →`;
+        elISS.textContent = `ISS ${dec(m.iss, 1)}${m.issDe ? " †" : ""} en SocialBench →`;
       } else elISS.hidden = true;
     }
     function poner(m, animar) {

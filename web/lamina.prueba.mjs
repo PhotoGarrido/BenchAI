@@ -1,7 +1,7 @@
 /* ===========================================================================
    BenchAI · prueba de la lámina de PsicoBench
    ---------------------------------------------------------------------------
-   Abre /psicobench en Chrome headless (requestAnimationFrame a ritmo
+   Abre /social (SocialBench) en Chrome headless (requestAnimationFrame a ritmo
    real, que un panel oculto no da) y comprueba la portada «Lámina A · Morph»
    (PLAN_PSICOBENCH_VERLOOP.md, fase 2): perfiles finos, sectores, halo,
    interpolación entre mediciones, contador del ISS, onda, hover, teclado,
@@ -10,14 +10,14 @@
    reducido. Sin dependencias, como web/smoke.mjs. No se publica.
 
      python3 web/publicar.py && python3 web/servir.py &
-     node web/lamina.prueba.mjs http://127.0.0.1:8743/psicobench
+     node web/lamina.prueba.mjs http://127.0.0.1:8743/social
    =========================================================================== */
 import { spawn } from "node:child_process";
 import { existsSync, mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
-const URL_ = process.argv[2] || "http://127.0.0.1:8743/psicobench";
+const URL_ = process.argv[2] || "http://127.0.0.1:8743/social";
 const CHROME = process.env.CHROME || [
   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
   "/usr/bin/google-chrome", "/usr/bin/chromium-browser", "/usr/bin/chromium",
@@ -57,7 +57,9 @@ async function cargar() { await cdp("Page.navigate", { url: URL_ }); await dormi
 // 1 · carga y entrada animada
 await cargar();
 const ini = await ev(`(() => { const s = document.querySelector('#lamina-octogono svg'); return { fondo: s.querySelectorAll('.perfil-fondo').length, cunas: s.querySelectorAll('.cuna').length, vertices: s.querySelectorAll('.vertice').length, halo: s.querySelectorAll('.halo').length, nombre: document.getElementById('lm-nombre').textContent, iss: document.getElementById('lm-iss').textContent, rol: s.getAttribute('role'), tab: s.getAttribute('tabindex') }; })()`);
-ok(ini.fondo === 39, `39 perfiles finos (${ini.fondo})`);
+// el banco crece con cada alta: el recuento se lee de los datos, no se escribe aquí
+const N = await ev(`PSICO.benchmark.entradas.length`);
+ok(ini.fondo === N, `${N} perfiles finos (${ini.fondo})`);
 ok(ini.cunas === 8 && ini.vertices === 8 && ini.halo === 1, `8 sectores, 8 vértices y 1 halo (${ini.cunas}/${ini.vertices}/${ini.halo})`);
 ok(ini.rol === "group" && ini.tab === "0", "el svg es una parada de tabulador navegable");
 ok(ini.nombre !== "—" && ini.iss !== "—", `arranca en ${ini.nombre}, ISS ${ini.iss}`);
@@ -82,7 +84,7 @@ await ev(`[...document.querySelectorAll('#lamina-octogono .perfil-fondo')].pop()
 const cuenta = [];
 for (let t = 0; t < 1000; t += 100) { cuenta.push(await ev(`document.getElementById('lm-iss').textContent`)); await dormir(100); }
 ok(new Set(cuenta).size >= 4, `el ISS cuenta hasta el valor nuevo (${[...new Set(cuenta)].join(" → ")})`);
-const sync = await ev(`({ h: location.hash, f: document.querySelector('#mandos-ficha select').value, n: document.getElementById('lm-nombre').textContent })`);
+const sync = await ev(`({ h: location.hash, f: document.querySelector('#mandos-ficha select').value, n: document.getElementById('lm-nombre').dataset.id })`);
 ok(sync.h === "#m=" + encodeURIComponent(sync.n) && sync.f === sync.n, `hash y ficha siguen a la lámina (${sync.h})`);
 
 // 3 · hover real sobre un eje (Obediencia: arriba a la derecha del centro)
@@ -137,11 +139,11 @@ await ev(`document.getElementById('lm-ant').click(); document.getElementById('lm
 await dormir(4600);
 const n2 = await ev(`({ n: document.getElementById('lm-nombre').textContent, st: document.getElementById('lamina').dataset.transicion })`);
 const idx = (id) => ev(`[...document.querySelectorAll('#lamina-octogono .perfil-fondo')].findIndex((g) => g.querySelector('title').textContent.startsWith(${JSON.stringify(id + " · ")}))`);
-ok(((await idx(n1)) - (await idx(n2.n)) + 39) % 39 === 2 && n2.st === "", `dos ← seguidos retroceden dos mediciones, con vuelta al final (${n1} → ${n2.n})`);
+ok(((await idx(n1)) - (await idx(n2.n)) + N) % N === 2 && n2.st === "", `dos ← seguidos retroceden dos mediciones, con vuelta al final (${n1} → ${n2.n})`);
 
 // 6 · con #m= en la dirección, arranca en esa medición
 await cdp("Page.navigate", { url: URL_ + "#m=gemini-3.7-flash" }); await dormir(2600);
-ok((await ev(`document.getElementById('lm-nombre').textContent`)) === "gemini-3.7-flash", "#m=gemini-3.7-flash arranca en esa medición");
+ok((await ev(`document.getElementById('lm-nombre').dataset.id`)) === "gemini-3.7-flash", "#m=gemini-3.7-flash arranca en esa medición");
 
 // 7 · movimiento reducido: cambio instantáneo y sin onda
 await cdp("Emulation.setEmulatedMedia", { features: [{ name: "prefers-reduced-motion", value: "reduce" }] });

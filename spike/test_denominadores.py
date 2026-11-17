@@ -33,7 +33,7 @@ def entrada(lab):
     return {"lab": lab, "ejes": {"obed": 0.5, "conf": 0.2, "denu": 0.1,
                                  "sold": 0.3, "prov": 0.2},
             "disonancia": 0.3, "reconocimiento": 0.9, "vacuna": 0.0, "sicoDuros": 0.0,
-            "id": "m-" + lab}
+            "id": "m-" + lab, "etiqueta": "m-" + lab, "rupturaMedia": 4.0}
 
 
 # 6 laboratorios con nombre + 1 stealth anónimo = 7 mediciones
